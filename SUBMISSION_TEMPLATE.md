@@ -1,4 +1,4 @@
-# Sheet 1: Team C
+# Sheet <TODO>: Team C
 
 Members of **Team C**:
 
