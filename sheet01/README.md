@@ -37,7 +37,8 @@ Members of **Team C**:
 
 ### Task 4: "Refactoring and documentation"
 
-<TODO>
+* <TODO>
+* As stated in the readme building with doxygen enabled is done via `cmake -D BUILD_DOC_DOXYGEN=ON ..` and then `make doc_doxygen`. The documentation can then be found in `build` folder
 
 ### Misc
 
