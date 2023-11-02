@@ -38,5 +38,5 @@ jobs:
               echo "There are $TODO_COUNT <TODO> markers left in the sheetXX folders."
               echo "Please remove them before submitting."
               echo -n "$(grep -r "<TODO>" sheet*)"
-              exit 0
+              exit 1
           fi
