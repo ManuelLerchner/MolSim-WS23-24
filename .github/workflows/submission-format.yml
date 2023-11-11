@@ -2,8 +2,7 @@ name: Check Submissions
 
 on:
   push:
-    branches:
-      - presentations
+    branches: [presentations]
 
   workflow_dispatch:
 
