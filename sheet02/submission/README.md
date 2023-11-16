@@ -33,16 +33,23 @@ Members of **Team C**:
     in branches and only merge them into master if they are tested and working.
 
 
-### Task 3: "Logging" <TODO>
-1. We already had a lot of output during the execution of our code, so we just had to organise it into different
-    log-levels.
-2. We agreed on the following log-levels:
-    * DEBUG
-    * INFO
-    * ERROR
-3. In addition to that we will give the user the option to write the output to a file instead of the console
+### Task 3: "Logging"
+
+1. We already had a lot of output during the execution of our code, but were still using the standard output to log it in the console. Also there was no clear distinction between error messages or simple information printing. With the addition of the spdlog library, we organised the output into different log-levels and could make use of the available formatting options for a clear output.
+2. We currently use the following log-levels:
+   * DEBUG: Information not needed for normal program usage. It is currently only used to log con-/destruction of particle objects.
+   * INFO: Most of our general ouput uses this output, such as the recap of the used simulation parameters or the current progress.
+   * ERROR: General errors that result in a stop of the program execution, such as errors in input files or mistakes in the CLI.
+   * CRITICAL: Only used once, to report the termination of the program because of errors in the input file.
+3. The user can select the log-level via the command line option `-l` or `--log_level`. Possible values are in general the names of the log-level in lowercase or simple no output with `off`:
+   * `off`, `critical`, `error`, `info`, `debug`, `trace`
+   * The option `off` results in no output at all.
+   * All other options yield more and more output, as each level includes the output of the preceding one, with `critical` logging the least and `trace` the most amount of information.
+4. In the future we could give the user the option to write the output to a file instead of the console.
+
 
 ### Task 4: "Collision of two bodies"
+
 1. Due to our work from last week, it was quite straight forward to add the Lennard-Jones potential to our Force-Calculation
 2. Next, to implement the cuboid spawner, we created a new file format `.cub` that describes these objects and is also able to 
    contain comments. The description can be found in `input/InputFileFormats.md`. Our Particle-Spawner, then takes those
