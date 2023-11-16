@@ -10,7 +10,7 @@ Members of **Team C**:
 
 * Link:     <https://github.com/ManuelLerchner/MolSim-WS23-24>
 * Branch:   master
-* Revision: <TODO>
+* Revision: 3131eaeb9ff97b7d783fcd234a06f4e799db8985   (or checkout tag: "Submission-2")
 * Compiler: gcc 13.1.0 (But should work for most up to date compilers)
 
 ## Report
@@ -71,4 +71,5 @@ Members of **Team C**:
 
 * This week we added another command line option. Because our program is primarily used to create a subsequent video, we added the
   `--fps` and `--video_length` options to specify the number of frames per second and length in seconds this video should have.
-
+* We added a cmake-target to automatically format all the code in the repo. Together with a github action this should automatically fix and then commit formatting issues.
+* We changed the cmake-structure to use the cmake-modules folder instead of putting everything into one big file
