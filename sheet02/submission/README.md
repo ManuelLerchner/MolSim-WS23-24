@@ -63,6 +63,12 @@ Members of **Team C**:
       even before colliding. We think this is due to the nature of the Lennard-Jones potential, which is attractive at larger
      distances and repulsive at smaller distances. So the particles oscillate around the equilibrium distance and this way
       leads the particles around the vertices of the cuboid to collapse into a sphere or cylinder.(see the video `cuboid3d.mp4`or `cuboid3dcamera.mp4`)
+5. Time Measurement: The simulation took 113.058 seconds to run on one of our machines. This measurement was taken after commenting out the code for file and logging output and only around the main simulation loop. The measurement was done using the `std::chrono` library. The hardware specifications were: 
+   * Processor	12th Gen Intel(R) Core(TM) i5-12600   3.30 GHz
+   * RAM	16,0 GB (15,7 GB usable)
+   * System type:	Windows 11, 64-bit operating system, x64-based processor
+   * Measurement executed in WSL2 Ubuntu 22.04 LTS
+
 
 ### Misc
 
