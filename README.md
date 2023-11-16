@@ -1,7 +1,5 @@
 # Presentation Branch
 
-[![Check Submission Format](https://github.com/ManuelLerchner/MolSim-WS23-24/actions/workflows/submission-format.yml/badge.svg)](https://github.com/ManuelLerchner/MolSim-WS23-24/actions/workflows/submission-format.yml)
-
 ## Presentation
 
 This branch contains the presentations for the project. Every week has a folder with all the required files.
