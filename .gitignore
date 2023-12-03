@@ -4,3 +4,5 @@ build/
 debug/
 .vscode/
 index.html
+/output
+/tests
