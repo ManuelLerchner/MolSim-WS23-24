@@ -14,9 +14,7 @@ def render_content():
     if len(sheets) == 0:
         raise Exception("No sheets found")
 
-    sorted_sheets = sorted(sheets)
-
-    for sheet in sorted_sheets:
+    for sheet in sorted(sheets):
 
         media_wall = ""
         reference_list = ""
@@ -24,7 +22,7 @@ def render_content():
         toc_items += "<li><a href='#" + sheet + "'>" + sheet + "</a></li>" + "\n"
 
         # scan files in submission folder and render them
-        for file in os.listdir(sheet + "/submission"):
+        for file in sorted(os.listdir(sheet + "/submission")):
             full_path = sheet + "/submission/" + file
 
             if file.endswith(".png"):
@@ -40,7 +38,7 @@ def render_content():
                 media = content_template
 
                 media = media.replace(
-                    "###MEDIA###", "<video controls autoplay><source src='" + full_path + "' type='video/mp4'></video>")
+                    "###MEDIA###", "<video controls autoplay muted><source src='" + full_path + "' type='video/mp4'></video>")
 
                 media = media.replace("###SUBTITLE###", file)
 
@@ -55,7 +53,9 @@ def render_content():
         reference = reference.replace(
             "###TOC_ITEMS###", reference_list)
 
-        section_title = "<h2 id='" + sheet + "'>" + sheet + "</h2>"
+        sheet_number = str(int(sheet.split("sheet")[1]))
+        section_title = "<h2 id='" + sheet + "'>" + sheet + "</h2>" + "<p><a href='https://github.com/ManuelLerchner/MolSim-WS23-24/releases/tag/Submission-" + \
+            sheet_number + "'>Go to GitHub Release " + sheet_number + "</a></p>"
 
         html_content += section_title + reference + content + "<hr>"
 
