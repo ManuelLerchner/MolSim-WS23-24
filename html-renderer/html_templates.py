@@ -33,11 +33,11 @@ css_template = """
         font-weight: 550;
     }
     img {
-        max-width: 640px;
+        width: min(100%, 640px);
         filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.5));
     }
     video {
-        max-width: 640px;
+        width: min(100%, 640px);
         filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.5));
     }
 </style>
