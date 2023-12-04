@@ -84,7 +84,6 @@ SimulationOverview Simulation::runSimulation() const {
 SimulationOverview Simulation::runSimulationNoOutput() const {
     double simulation_time = 0;
 
-    const size_t expected_iterations = simulation_end_time / delta_t;
     size_t total_iterations = 0;
 
     // Calculate initial forces
