@@ -21,7 +21,6 @@ void print_simulation_input(const SimulationParams& simulation_params, size_t nu
                             const std::vector<std::unique_ptr<ForceSource>>& forces);
 
 void print_simulation_overview(const SimulationOverview& overview, size_t num_particles);
-void save_performanceTest(const SimulationOverview overview, const SimulationParams params, size_t size);
 
 int main(int argc, char* argsv[]) {
     // Create pointer for particle container
@@ -49,8 +48,8 @@ int main(int argc, char* argsv[]) {
 
     // Run simulation
     if (simulation_params.performance_test) {
-        SimulationOverview overview = simulation.runSimulationNoOutput();
-        save_performanceTest(overview, simulation_params, num_particles_start);
+        SimulationOverview overview = simulation.runSimulationPerfTest();
+
         // Print simulation overview
         print_simulation_overview(overview, initial_particles->size());
     } else {
@@ -75,8 +74,8 @@ void print_simulation_input(const SimulationParams& simulation_params, size_t nu
     Logger::logger->info(ansi_yellow_bold + "Simulation arguments:" + ansi_end);
     Logger::logger->info("  Input file path: {}", simulation_params.input_file_path);
     Logger::logger->info("  Output directory path: {}", simulation_params.output_dir_path);
-    Logger::logger->info("  Delta t: {}", simulation_params.delta_t);
-    Logger::logger->info("  End time: {}", simulation_params.end_time);
+    Logger::logger->info("  Delta_t: {}", simulation_params.delta_t);
+    Logger::logger->info("  End_time: {}", simulation_params.end_time);
 
     Logger::logger->info(ansi_yellow_bold + "Rendering arguments:" + ansi_end);
     Logger::logger->info("  Frames per second: {}", simulation_params.fps);
@@ -97,29 +96,17 @@ void print_simulation_input(const SimulationParams& simulation_params, size_t nu
     if (std::holds_alternative<SimulationParams::LinkedCellsType>(simulation_params.container_type)) {
         auto lc_container = std::get<SimulationParams::LinkedCellsType>(simulation_params.container_type);
 
-        // lambda function convert boundary condition to string
-        auto boundary_condition_to_string = [](const LinkedCellsContainer::BoundaryCondition& bc) {
-            switch (bc) {
-                case LinkedCellsContainer::BoundaryCondition::OUTFLOW:
-                    return "Outflow";
-                case LinkedCellsContainer::BoundaryCondition::REFLECTIVE:
-                    return "Reflective";
-                default:
-                    return "Unknown";
-            }
-        };
-
         auto domain_size = lc_container.domain_size;
         Logger::logger->info("  Linked Cells");
         Logger::logger->info("  Domain size: {} x {} x {}", domain_size[0], domain_size[1], domain_size[2]);
         Logger::logger->info("  Cutoff radius: {}", lc_container.cutoff_radius);
         Logger::logger->info("  Boundary conditions: ");
-        Logger::logger->info("    Left: {}", boundary_condition_to_string(lc_container.boundary_conditions[0]));
-        Logger::logger->info("    Right: {}", boundary_condition_to_string(lc_container.boundary_conditions[1]));
-        Logger::logger->info("    Bottom: {}", boundary_condition_to_string(lc_container.boundary_conditions[2]));
-        Logger::logger->info("    Top: {}", boundary_condition_to_string(lc_container.boundary_conditions[3]));
-        Logger::logger->info("    Back: {}", boundary_condition_to_string(lc_container.boundary_conditions[4]));
-        Logger::logger->info("    Front: {}", boundary_condition_to_string(lc_container.boundary_conditions[5]));
+        Logger::logger->info("    Left: {}", LinkedCellsContainer::boundaryConditionToString(lc_container.boundary_conditions[0]));
+        Logger::logger->info("    Right: {}", LinkedCellsContainer::boundaryConditionToString(lc_container.boundary_conditions[1]));
+        Logger::logger->info("    Bottom: {}", LinkedCellsContainer::boundaryConditionToString(lc_container.boundary_conditions[2]));
+        Logger::logger->info("    Top: {}", LinkedCellsContainer::boundaryConditionToString(lc_container.boundary_conditions[3]));
+        Logger::logger->info("    Back: {}", LinkedCellsContainer::boundaryConditionToString(lc_container.boundary_conditions[4]));
+        Logger::logger->info("    Front: {}", LinkedCellsContainer::boundaryConditionToString(lc_container.boundary_conditions[5]));
     } else if (std::holds_alternative<SimulationParams::DirectSumType>(simulation_params.container_type)) {
         Logger::logger->info("  Direct Sum");
     } else {
@@ -141,18 +128,4 @@ void print_simulation_overview(const SimulationOverview& overview, size_t num_pa
     Logger::logger->info("  Number of particles left: {}", num_particles);
 
     Logger::logger->info(ansi_bright_white_bold + "════════════════════════════════════════" + ansi_end);
-}
-void save_performanceTest(const SimulationOverview overview, const SimulationParams params, size_t size) {
-    // Open the CSV file for writing
-    std::ofstream csvFile("performance_measurements.csv");
-
-    // Write the Headers to the file
-    csvFile << "Size,Delta_t(sec),End_Time(sec),Total_Time(sec),Time_Per_Iteration(milli sec),Total_Iterations\n";
-
-    // write the results to the file
-    csvFile << size << "," << params.delta_t << "," << params.end_time << "," << overview.total_time_seconds << ","
-            << overview.average_time_per_iteration_millis << "," << overview.total_iterations << "\n";
-
-    // close the file
-    csvFile.close();
 }
