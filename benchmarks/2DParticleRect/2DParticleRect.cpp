@@ -1,3 +1,4 @@
+#include <array>
 #include <memory>
 
 #include "io/logger/Logger.h"
@@ -50,19 +51,12 @@ void execute2DRectBenchmark(int x, int y) {
     Simulation simulation_lc(particle_container_lc, forces, params_lc);
 
     // Simulating with Linked Cells Container
-    Logger::logger->info(
-        "Starting simulation using Linked Cells "
-        "container...");
+    Logger::logger->info("Starting simulation using Linked Cells container...");
     SimulationOverview linked_cells_data = simulation_lc.runSimulationPerfTest();
-    Logger::logger->info(
-        "Finished simulation using Linked Cells "
-        "container\n");
+    Logger::logger->info("Finished simulation using Linked Cells container\n");
 
     // Final Logging
-    Logger::logger->info(
-        "Simulation of {} particles in a {}x{} "
-        "grid\n",
-        x * y, x, y);
+    Logger::logger->info("Simulation of {} particles in a {}x{} grid\n", x * y, x, y);
 
     Logger::logger->info("Direct sum container:");
     Logger::logger->info("  Simulation took {:.3f}s", direct_sum_data.total_time_seconds);
@@ -74,10 +68,8 @@ void execute2DRectBenchmark(int x, int y) {
     Logger::logger->info("  Total iterations: {}", linked_cells_data.total_iterations);
     Logger::logger->info("  Average time per iteration: {:.3f}ms\n", linked_cells_data.average_time_per_iteration_millis);
 
-    Logger::logger->info(
-        "Ratio Linked Cells / Direct Sum: "
-        "{:.3f}%\n",
-        linked_cells_data.total_time_seconds / direct_sum_data.total_time_seconds * 100);
+    Logger::logger->info("Ratio Linked Cells / Direct Sum: {:.3f}%\n",
+                         linked_cells_data.total_time_seconds / direct_sum_data.total_time_seconds * 100);
 }
 
 /*
@@ -85,9 +77,11 @@ void execute2DRectBenchmark(int x, int y) {
  * Can be used to compare the performance of the different particle containers.
  */
 int main() {
-    execute2DRectBenchmark(25, 40);
-    execute2DRectBenchmark(50, 40);
-    execute2DRectBenchmark(50, 80);
-    execute2DRectBenchmark(100, 80);
+    std::vector<std::pair<int, int>> sizes = {{25, 40}, {50, 40}, {50, 80}, {100, 80}};
+
+    for (auto [size_x, size_y] : sizes) {
+        execute2DRectBenchmark(size_x, size_y);
+    }
+
     return 0;
 }
