@@ -50,6 +50,14 @@ and just skip a cell if it is inside or already influenced list
 4. **Observations of the simulation**
    - We reran the simulation from last week and the results at least on a macro scale did not change much 
 
+4. **Benchmarks**
+   - We automized the benchmarking process
+   - You now only have to make the binary in /benchmarks and the script will genrate a csv file that you can then
+analyze
+   - The exact measurements are in the data folder but you can see how the time of the direct sum container
+grows quadratically and the time of the linked cells container grows linearly
+
+[//]: # (     ![plot]&#40;&#41;)
 
 ### Task 3: Boundary conditions
 
