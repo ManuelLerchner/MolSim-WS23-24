@@ -43,7 +43,6 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
     // add -p flag that stand for performance test
     options_desc.add_options()("performance_test,p", "Run the simulation in performance test mode");
 
-
     boost::program_options::positional_options_description positional_options_desc;
     positional_options_desc.add("input_file_path", -1);
 
@@ -85,12 +84,12 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
         Logger::logger->info(help_message.str());
         exit(-1);
     }
-    if(variables_map.count("performance_test")){
+    if (variables_map.count("performance_test")) {
         performance_test = true;
     }
 
     return SimulationParams{input_file_path, output_dir_path, delta_t, end_time, fps, video_length, SimulationParams::DirectSumType{},
-                            output_format, performance_test};
+                            output_format,   performance_test};
 }
 
 SimulationParams merge_parameters(const SimulationParams& params_cli, const SimulationParams& params_xml) {

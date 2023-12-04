@@ -81,12 +81,11 @@ SimulationOverview Simulation::runSimulation() const {
     return SimulationOverview{total_simulation_time / 1000.0, total_simulation_time / static_cast<double>(iteration),
                               static_cast<size_t>(iteration), expected_iterations / save_every_nth_iteration};
 }
-SimulationOverview Simulation::runSimulationNoOutput() const{
+SimulationOverview Simulation::runSimulationNoOutput() const {
     double simulation_time = 0;
 
     const size_t expected_iterations = simulation_end_time / delta_t;
     size_t total_iterations = 0;
-
 
     // Calculate initial forces
     particles->applyPairwiseForces(forces);
@@ -95,7 +94,6 @@ SimulationOverview Simulation::runSimulationNoOutput() const{
     auto start_time = std::chrono::high_resolution_clock::now();
 
     while (simulation_time < simulation_end_time) {
-
         integration_functor->step(particles, forces, delta_t);
 
         simulation_time += delta_t;
@@ -103,9 +101,8 @@ SimulationOverview Simulation::runSimulationNoOutput() const{
     }
 
     auto total_simulation_time =
-            std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_time).count();
+        std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_time).count();
     SimulationOverview overview{total_simulation_time / 1000.0, total_simulation_time / static_cast<double>(total_iterations),
                                 static_cast<size_t>(total_iterations), 0};
     return overview;
 }
-

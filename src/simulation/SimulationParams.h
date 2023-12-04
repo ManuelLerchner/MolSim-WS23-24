@@ -94,8 +94,8 @@ class SimulationParams {
      *
      */
     SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
-                     int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
-                     const std::string& output_format, bool performanceTest = false);
+                     int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type, const std::string& output_format,
+                     bool performanceTest = false);
 
     /**
      * @brief Dissallow default construction of a SimulationParams object (would have invalid values for a simulation)
