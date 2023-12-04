@@ -10,7 +10,7 @@ Members of **Team C**:
 
 * Link:     <https://github.com/ManuelLerchner/MolSim-WS23-24>
 * Branch:   master
-* Revision: <TODO>
+* Revision: fa19de9fd1de4384a8bedf192d6852e0c304ad7a
 * Compiler: gcc 13.1.0 (But should work for most up to date compilers)
 
 ## Report
