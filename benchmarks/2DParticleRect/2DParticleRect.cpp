@@ -11,7 +11,7 @@
 #include "simulation/Simulation.h"
 #include "utils/ArrayUtils.h"
 
-void execute2DRectBenchmark(int x, int y) {
+std::array<SimulationOverview, 2> execute2DRectBenchmark(int x, int y) {
     Logger::logger->set_level(spdlog::level::info);
     Logger::logger->info("Starting 2DRect-benchmark. Dimensions {}x{}...", x, y);
 
@@ -62,6 +62,8 @@ void execute2DRectBenchmark(int x, int y) {
 
     Logger::logger->info("Ratio Linked Cells / Direct Sum: {:.3f}%\n",
                          linked_cells_data.total_time_seconds / direct_sum_data.total_time_seconds * 100);
+
+    return std::array<SimulationOverview, 2>{direct_sum_data, linked_cells_data};
 }
 
 /*
@@ -69,9 +71,22 @@ void execute2DRectBenchmark(int x, int y) {
  * Can be used to compare the performance of the different particle containers.
  */
 int main() {
-    execute2DRectBenchmark(25, 40);
-    execute2DRectBenchmark(50, 40);
-    execute2DRectBenchmark(50, 80);
-    execute2DRectBenchmark(100, 80);
+    int sizes[4][2] = {{25, 40}, {50, 40}, {50, 80}, {100, 80}};
+    // int sizes[2][2] = {{25, 40},{50, 40}};
+
+    // open csv file
+    std::ofstream csvFile("performance_measurements.csv");
+
+    // write header
+    csvFile << "particles,linked cells time,direct sum time" << std::endl;
+
+    for (auto size : sizes) {
+        auto data = execute2DRectBenchmark(size[0], size[1]);
+
+        csvFile << size[0] * size[1] << "," << data[1].total_time_seconds << "," << data[0].total_time_seconds << std::endl;
+    }
+    // close csv file
+    csvFile.close();
+
     return 0;
 }
