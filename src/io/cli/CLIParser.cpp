@@ -40,8 +40,9 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
                                "The log level. Possible values: trace, debug, info, warning, error, critical, off");
     options_desc.add_options()("output_format", boost::program_options::value<std::string>(&output_format)->default_value("vtk"),
                                "The output format. Possible values: vtk, xyz, none");
-    options_desc.add_options()("log_output", boost::program_options::value<std::string>(&log_output)->default_value("std"),
-                               "You can only choose between the output options std(only cl output) and file (only file output). Default: no file output");
+    options_desc.add_options()(
+        "log_output", boost::program_options::value<std::string>(&log_output)->default_value("std"),
+        "You can only choose between the output options std(only cl output) and file (only file output). Default: no file output");
 
     boost::program_options::positional_options_description positional_options_desc;
     positional_options_desc.add("input_file_path", -1);
@@ -52,9 +53,9 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
         variables_map);
     boost::program_options::notify(variables_map);
 
-    if(log_output == "std" || log_output == "STD"){
+    if (log_output == "std" || log_output == "STD") {
         Logger::logger->info("Log output: std");
-    } else if(log_output == "file" || log_output == "FILE"){
+    } else if (log_output == "file" || log_output == "FILE") {
         Logger::logger = Logger::init_logger(LogType::FILE);
         Logger::logger->info("Log output: file");
     } else {

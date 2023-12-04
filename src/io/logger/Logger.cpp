@@ -1,10 +1,11 @@
-#include <filesystem>
-#include <iostream>
 #include "Logger.h"
 
+#include <filesystem>
+#include <iostream>
+
 #include "spdlog/async.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/sinks/rotating_file_sink.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
 
 std::shared_ptr<spdlog::logger> Logger::logger = init_logger();
 
@@ -30,12 +31,12 @@ std::shared_ptr<spdlog::logger> Logger::init_logger(LogType log_type) {
 
     spdlog::init_thread_pool(8192, 1);
     std::shared_ptr<spdlog::logger> logger;
-    if (log_type == LogType::FILE){
+    if (log_type == LogType::FILE) {
         createDirectory("logs");
-        logger = spdlog::rotating_logger_st("file_logger","logs/log", 1048576 * 5, 3);
-    }
-    else{
-        logger = std::make_shared<spdlog::async_logger>("std_logger", standard_out, spdlog::thread_pool(), spdlog::async_overflow_policy::block);
+        logger = spdlog::rotating_logger_st("file_logger", "logs/log", 1048576 * 5, 3);
+    } else {
+        logger =
+            std::make_shared<spdlog::async_logger>("std_logger", standard_out, spdlog::thread_pool(), spdlog::async_overflow_policy::block);
     }
 
     logger->set_level(spdlog::level::off);

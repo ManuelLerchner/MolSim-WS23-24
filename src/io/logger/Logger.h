@@ -4,18 +4,13 @@
 
 #include <memory>
 
-enum class LogType{
-    FILE,
-    STD
-};
+enum class LogType { FILE, STD };
 
 /**
  * @brief Class as wrapper and initializer for a globally usable logger
  */
 class Logger {
-
-
-public:
+   public:
     /**
      * @brief Initializes the logger
      */
@@ -27,5 +22,4 @@ public:
      * @return Logger
      */
     static std::shared_ptr<spdlog::logger> logger;
-
 };
