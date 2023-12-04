@@ -62,7 +62,10 @@ grows nearly quadratically and while the time of the linked cells container grow
    - The reason for the linked cells container to still show a slight touch of quadratic growth is that within a single cell, the force calculation still follows the direct sum approach
    - This means, that if the cutoff radius is big enough, the full domain becomes a single cell and the linked cells container will behave like the direct sum container (quadratic running time)
 
-[//]: # (     ![plot]&#40;&#41;)
+![Benchmark: AMD (WSL)](BenchmarkAMDWSL.png)
+![Benchmark: Intel (Ubuntu)](BenchmarkIntelUbuntu.png)
+![Benchmark: Intel (WSL)](BenchmarkIntelWSL.png)
+![Benchmark: Intel (WSL, BigCutoff)](BenchmarkIntelWSLBigCutoff.png)
 
 ### Task 3: Boundary conditions
 
