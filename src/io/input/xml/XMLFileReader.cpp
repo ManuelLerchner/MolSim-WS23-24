@@ -16,7 +16,7 @@ SimulationParams XMLFileReader::readFile(const std::string& filepath, std::uniqu
         auto particles = config->particles();
 
         // Create particle container
-        auto container_type = XSDTypeAdapter::convertToParticleContainer(settings.particle_container());
+        auto container_type = XSDToInternalTypeAdapter::convertToParticleContainer(settings.particle_container());
         if (std::holds_alternative<SimulationParams::LinkedCellsType>(container_type)) {
             auto linked_cells = std::get<SimulationParams::LinkedCellsType>(container_type);
             particle_container = std::make_unique<LinkedCellsContainer>(linked_cells.domain_size, linked_cells.cutoff_radius,
@@ -29,19 +29,19 @@ SimulationParams XMLFileReader::readFile(const std::string& filepath, std::uniqu
 
         // Spawn particles specified in the XML file
         for (auto xsd_cuboid : particles.cuboid_spawner()) {
-            auto spawner = XSDTypeAdapter::convertToCuboidSpawner(xsd_cuboid, settings.third_dimension());
+            auto spawner = XSDToInternalTypeAdapter::convertToCuboidSpawner(xsd_cuboid, settings.third_dimension());
             particle_container->reserve(particle_container->size() + spawner.getEstimatedNumberOfParticles());
             spawner.spawnParticles(particle_container);
         }
 
         for (auto xsd_sphere : particles.sphere_spawner()) {
-            auto spawner = XSDTypeAdapter::convertToSphereSpawner(xsd_sphere, settings.third_dimension());
+            auto spawner = XSDToInternalTypeAdapter::convertToSphereSpawner(xsd_sphere, settings.third_dimension());
             particle_container->reserve(particle_container->size() + spawner.getEstimatedNumberOfParticles());
             spawner.spawnParticles(particle_container);
         }
 
         for (auto xsd_particle : particles.single_particle()) {
-            auto particle = XSDTypeAdapter::convertToParticle(xsd_particle, settings.third_dimension());
+            auto particle = XSDToInternalTypeAdapter::convertToParticle(xsd_particle, settings.third_dimension());
             particle_container->addParticle(particle);
         }
 

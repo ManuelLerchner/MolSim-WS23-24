@@ -11,7 +11,7 @@
 /**
  * @brief Class to convert XSD types to internal types
  */
-class XSDTypeAdapter {
+class XSDToInternalTypeAdapter {
    public:
     /**
      * @brief Converts a cuboid from the XSD format to the internal format

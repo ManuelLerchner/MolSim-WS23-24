@@ -335,42 +335,42 @@ SphereSpawnerType::type_type& SphereSpawnerType::type() { return this->type_.get
 
 void SphereSpawnerType::type(const type_type& x) { this->type_.set(x); }
 
-// ParticleType
+// SingleParticleSpawnerType
 //
 
-const ParticleType::position_type& ParticleType::position() const { return this->position_.get(); }
+const SingleParticleSpawnerType::position_type& SingleParticleSpawnerType::position() const { return this->position_.get(); }
 
-ParticleType::position_type& ParticleType::position() { return this->position_.get(); }
+SingleParticleSpawnerType::position_type& SingleParticleSpawnerType::position() { return this->position_.get(); }
 
-void ParticleType::position(const position_type& x) { this->position_.set(x); }
+void SingleParticleSpawnerType::position(const position_type& x) { this->position_.set(x); }
 
-void ParticleType::position(::std::unique_ptr<position_type> x) { this->position_.set(std::move(x)); }
+void SingleParticleSpawnerType::position(::std::unique_ptr<position_type> x) { this->position_.set(std::move(x)); }
 
-const ParticleType::temperature_type& ParticleType::temperature() const { return this->temperature_.get(); }
+const SingleParticleSpawnerType::temperature_type& SingleParticleSpawnerType::temperature() const { return this->temperature_.get(); }
 
-ParticleType::temperature_type& ParticleType::temperature() { return this->temperature_.get(); }
+SingleParticleSpawnerType::temperature_type& SingleParticleSpawnerType::temperature() { return this->temperature_.get(); }
 
-void ParticleType::temperature(const temperature_type& x) { this->temperature_.set(x); }
+void SingleParticleSpawnerType::temperature(const temperature_type& x) { this->temperature_.set(x); }
 
-const ParticleType::mass_type& ParticleType::mass() const { return this->mass_.get(); }
+const SingleParticleSpawnerType::mass_type& SingleParticleSpawnerType::mass() const { return this->mass_.get(); }
 
-ParticleType::mass_type& ParticleType::mass() { return this->mass_.get(); }
+SingleParticleSpawnerType::mass_type& SingleParticleSpawnerType::mass() { return this->mass_.get(); }
 
-void ParticleType::mass(const mass_type& x) { this->mass_.set(x); }
+void SingleParticleSpawnerType::mass(const mass_type& x) { this->mass_.set(x); }
 
-const ParticleType::velocity_type& ParticleType::velocity() const { return this->velocity_.get(); }
+const SingleParticleSpawnerType::velocity_type& SingleParticleSpawnerType::velocity() const { return this->velocity_.get(); }
 
-ParticleType::velocity_type& ParticleType::velocity() { return this->velocity_.get(); }
+SingleParticleSpawnerType::velocity_type& SingleParticleSpawnerType::velocity() { return this->velocity_.get(); }
 
-void ParticleType::velocity(const velocity_type& x) { this->velocity_.set(x); }
+void SingleParticleSpawnerType::velocity(const velocity_type& x) { this->velocity_.set(x); }
 
-void ParticleType::velocity(::std::unique_ptr<velocity_type> x) { this->velocity_.set(std::move(x)); }
+void SingleParticleSpawnerType::velocity(::std::unique_ptr<velocity_type> x) { this->velocity_.set(std::move(x)); }
 
-const ParticleType::type_type& ParticleType::type() const { return this->type_.get(); }
+const SingleParticleSpawnerType::type_type& SingleParticleSpawnerType::type() const { return this->type_.get(); }
 
-ParticleType::type_type& ParticleType::type() { return this->type_.get(); }
+SingleParticleSpawnerType::type_type& SingleParticleSpawnerType::type() { return this->type_.get(); }
 
-void ParticleType::type(const type_type& x) { this->type_.set(x); }
+void SingleParticleSpawnerType::type(const type_type& x) { this->type_.set(x); }
 
 // configuration
 //
@@ -1437,11 +1437,11 @@ SphereSpawnerType& SphereSpawnerType::operator=(const SphereSpawnerType& x) {
 
 SphereSpawnerType::~SphereSpawnerType() {}
 
-// ParticleType
+// SingleParticleSpawnerType
 //
 
-ParticleType::ParticleType(const position_type& position, const temperature_type& temperature, const mass_type& mass,
-                           const velocity_type& velocity, const type_type& type)
+SingleParticleSpawnerType::SingleParticleSpawnerType(const position_type& position, const temperature_type& temperature,
+                                                     const mass_type& mass, const velocity_type& velocity, const type_type& type)
     : ::xml_schema::type(),
       position_(position, this),
       temperature_(temperature, this),
@@ -1449,8 +1449,9 @@ ParticleType::ParticleType(const position_type& position, const temperature_type
       velocity_(velocity, this),
       type_(type, this) {}
 
-ParticleType::ParticleType(::std::unique_ptr<position_type> position, const temperature_type& temperature, const mass_type& mass,
-                           ::std::unique_ptr<velocity_type> velocity, const type_type& type)
+SingleParticleSpawnerType::SingleParticleSpawnerType(::std::unique_ptr<position_type> position, const temperature_type& temperature,
+                                                     const mass_type& mass, ::std::unique_ptr<velocity_type> velocity,
+                                                     const type_type& type)
     : ::xml_schema::type(),
       position_(std::move(position), this),
       temperature_(temperature, this),
@@ -1458,7 +1459,7 @@ ParticleType::ParticleType(::std::unique_ptr<position_type> position, const temp
       velocity_(std::move(velocity), this),
       type_(type, this) {}
 
-ParticleType::ParticleType(const ParticleType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+SingleParticleSpawnerType::SingleParticleSpawnerType(const SingleParticleSpawnerType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
       position_(x.position_, f, this),
       temperature_(x.temperature_, f, this),
@@ -1466,7 +1467,7 @@ ParticleType::ParticleType(const ParticleType& x, ::xml_schema::flags f, ::xml_s
       velocity_(x.velocity_, f, this),
       type_(x.type_, f, this) {}
 
-ParticleType::ParticleType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+SingleParticleSpawnerType::SingleParticleSpawnerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
       position_(this),
       temperature_(this),
@@ -1479,7 +1480,7 @@ ParticleType::ParticleType(const ::xercesc::DOMElement& e, ::xml_schema::flags f
     }
 }
 
-void ParticleType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+void SingleParticleSpawnerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
     for (; p.more_content(); p.next_content(false)) {
         const ::xercesc::DOMElement& i(p.cur_element());
         const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
@@ -1557,9 +1558,11 @@ void ParticleType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::fl
     }
 }
 
-ParticleType* ParticleType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const { return new class ParticleType(*this, f, c); }
+SingleParticleSpawnerType* SingleParticleSpawnerType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class SingleParticleSpawnerType(*this, f, c);
+}
 
-ParticleType& ParticleType::operator=(const ParticleType& x) {
+SingleParticleSpawnerType& SingleParticleSpawnerType::operator=(const SingleParticleSpawnerType& x) {
     if (this != &x) {
         static_cast< ::xml_schema::type&>(*this) = x;
         this->position_ = x.position_;
@@ -1572,7 +1575,7 @@ ParticleType& ParticleType::operator=(const ParticleType& x) {
     return *this;
 }
 
-ParticleType::~ParticleType() {}
+SingleParticleSpawnerType::~SingleParticleSpawnerType() {}
 
 // configuration
 //
@@ -2417,7 +2420,7 @@ void operator<<(::xercesc::DOMElement& e, const SphereSpawnerType& i) {
     }
 }
 
-void operator<<(::xercesc::DOMElement& e, const ParticleType& i) {
+void operator<<(::xercesc::DOMElement& e, const SingleParticleSpawnerType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
 
     // position

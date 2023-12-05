@@ -603,7 +603,7 @@ class OutflowBoundaryType;
 class ReflectiveBoundaryType;
 class CuboidSpawnerType;
 class SphereSpawnerType;
-class ParticleType;
+class SingleParticleSpawnerType;
 class configuration;
 class settings;
 class particles;
@@ -3301,11 +3301,11 @@ class SphereSpawnerType : public ::xml_schema::type {
 };
 
 /**
- * @brief Class corresponding to the %ParticleType schema type.
+ * @brief Class corresponding to the %SingleParticleSpawnerType schema type.
  *
  * @nosubgrouping
  */
-class ParticleType : public ::xml_schema::type {
+class SingleParticleSpawnerType : public ::xml_schema::type {
    public:
     /**
      * @name position
@@ -3556,7 +3556,7 @@ class ParticleType : public ::xml_schema::type {
      * @brief Create an instance from the ultimate base and
      * initializers for required elements and attributes.
      */
-    ParticleType(const position_type&, const temperature_type&, const mass_type&, const velocity_type&, const type_type&);
+    SingleParticleSpawnerType(const position_type&, const temperature_type&, const mass_type&, const velocity_type&, const type_type&);
 
     /**
      * @brief Create an instance from the ultimate base and
@@ -3566,8 +3566,8 @@ class ParticleType : public ::xml_schema::type {
      * This constructor will try to use the passed values directly
      * instead of making copies.
      */
-    ParticleType(::std::unique_ptr<position_type>, const temperature_type&, const mass_type&, ::std::unique_ptr<velocity_type>,
-                 const type_type&);
+    SingleParticleSpawnerType(::std::unique_ptr<position_type>, const temperature_type&, const mass_type&, ::std::unique_ptr<velocity_type>,
+                              const type_type&);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -3577,7 +3577,7 @@ class ParticleType : public ::xml_schema::type {
      * @param c A pointer to the object that will contain the new
      * instance.
      */
-    ParticleType(const ::xercesc::DOMElement& e, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+    SingleParticleSpawnerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
 
     /**
      * @brief Copy constructor.
@@ -3588,7 +3588,7 @@ class ParticleType : public ::xml_schema::type {
      *
      * For polymorphic object models use the @c _clone function instead.
      */
-    ParticleType(const ParticleType& x, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+    SingleParticleSpawnerType(const SingleParticleSpawnerType& x, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
 
     /**
      * @brief Copy the instance polymorphically.
@@ -3601,7 +3601,7 @@ class ParticleType : public ::xml_schema::type {
      * used for copying and should be used for polymorphic object
      * models instead of the copy constructor.
      */
-    virtual ParticleType* _clone(::xml_schema::flags f = 0, ::xml_schema::container* c = 0) const;
+    virtual SingleParticleSpawnerType* _clone(::xml_schema::flags f = 0, ::xml_schema::container* c = 0) const;
 
     /**
      * @brief Copy assignment operator.
@@ -3611,14 +3611,14 @@ class ParticleType : public ::xml_schema::type {
      *
      * For polymorphic object models use the @c _clone function instead.
      */
-    ParticleType& operator=(const ParticleType& x);
+    SingleParticleSpawnerType& operator=(const SingleParticleSpawnerType& x);
 
     //@}
 
     /**
      * @brief Destructor.
      */
-    virtual ~ParticleType();
+    virtual ~SingleParticleSpawnerType();
 
     // Implementation.
     //
@@ -4354,7 +4354,7 @@ class particles : public ::xml_schema::type {
     /**
      * @brief Element type.
      */
-    typedef ::ParticleType single_particle_type;
+    typedef ::SingleParticleSpawnerType single_particle_type;
 
     /**
      * @brief Element sequence container type.
@@ -4875,7 +4875,7 @@ void operator<<(::xercesc::DOMElement&, const CuboidSpawnerType&);
 
 void operator<<(::xercesc::DOMElement&, const SphereSpawnerType&);
 
-void operator<<(::xercesc::DOMElement&, const ParticleType&);
+void operator<<(::xercesc::DOMElement&, const SingleParticleSpawnerType&);
 
 void operator<<(::xercesc::DOMElement&, const configuration&);
 

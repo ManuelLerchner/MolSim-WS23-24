@@ -29,7 +29,7 @@
                         <xs:choice minOccurs="0" maxOccurs="unbounded">
                             <xs:element name="cuboid_spawner" type="CuboidSpawnerType" />
                             <xs:element name="sphere_spawner" type="SphereSpawnerType" />
-                            <xs:element name="single_particle" type="ParticleType" />
+                            <xs:element name="single_particle" type="SingleParticleSpawnerType" />
                         </xs:choice>
                     </xs:complexType>
                 </xs:element>
@@ -131,7 +131,7 @@
     </xs:complexType>
 
     <!-- Particle -->
-    <xs:complexType name="ParticleType">
+    <xs:complexType name="SingleParticleSpawnerType">
         <xs:sequence>
             <xs:element name="position" type="DoubleVec3Type" />
             <xs:element name="temperature" type="xs:double" />

@@ -1,4 +1,4 @@
-#include "XSDTypeAdapter.h"
+#include "XSDToInternalTypeAdapter.h"
 
 #include <array>
 
@@ -6,7 +6,7 @@
 #include "utils/ArrayUtils.h"
 #include "utils/MaxwellBoltzmannDistribution.h"
 
-CuboidSpawner XSDTypeAdapter::convertToCuboidSpawner(const particles::cuboid_spawner_type& cuboid, bool third_dimension) {
+CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const particles::cuboid_spawner_type& cuboid, bool third_dimension) {
     auto lower_left_front_corner = convertToVector(cuboid.lower_left_front_corner());
     auto grid_dimensions = convertToVector(cuboid.grid_dim());
     auto initial_velocity = convertToVector(cuboid.velocity());
@@ -45,7 +45,7 @@ CuboidSpawner XSDTypeAdapter::convertToCuboidSpawner(const particles::cuboid_spa
                          initial_velocity,        static_cast<int>(type), third_dimension, temperature};
 }
 
-SphereSpawner XSDTypeAdapter::convertToSphereSpawner(const particles::sphere_spawner_type& sphere, bool third_dimension) {
+SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const particles::sphere_spawner_type& sphere, bool third_dimension) {
     auto center = convertToVector(sphere.center());
     auto initial_velocity = convertToVector(sphere.velocity());
 
@@ -79,7 +79,7 @@ SphereSpawner XSDTypeAdapter::convertToSphereSpawner(const particles::sphere_spa
                          initial_velocity, static_cast<int>(type),   third_dimension, temperature};
 }
 
-Particle XSDTypeAdapter::convertToParticle(const particles::single_particle_type& particle, bool third_dimension) {
+Particle XSDToInternalTypeAdapter::convertToParticle(const particles::single_particle_type& particle, bool third_dimension) {
     auto position = convertToVector(particle.position());
     auto initial_velocity =
         convertToVector(particle.velocity()) + maxwellBoltzmannDistributedVelocity(particle.temperature(), third_dimension ? 3 : 2);
@@ -90,16 +90,16 @@ Particle XSDTypeAdapter::convertToParticle(const particles::single_particle_type
     return Particle{position, initial_velocity, mass, static_cast<int>(type)};
 }
 
-std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType> XSDTypeAdapter::convertToParticleContainer(
+std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType> XSDToInternalTypeAdapter::convertToParticleContainer(
     const settings::particle_container_type& particle_container) {
     std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType> container;
 
     if (particle_container.linkedcells_container().present()) {
         auto container_data = *particle_container.linkedcells_container();
 
-        auto domain_size = XSDTypeAdapter::convertToVector(container_data.domain_size());
+        auto domain_size = XSDToInternalTypeAdapter::convertToVector(container_data.domain_size());
         auto cutoff_radius = container_data.cutoff_radius();
-        auto boundary_conditions = XSDTypeAdapter::convertToBoundaryConditionsArray(container_data.boundary_conditions());
+        auto boundary_conditions = XSDToInternalTypeAdapter::convertToBoundaryConditionsArray(container_data.boundary_conditions());
 
         container = SimulationParams::LinkedCellsType(domain_size, cutoff_radius, boundary_conditions);
     } else if (particle_container.directsum_container().present()) {
@@ -112,7 +112,7 @@ std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType>
     return container;
 }
 
-std::array<LinkedCellsContainer::BoundaryCondition, 6> XSDTypeAdapter::convertToBoundaryConditionsArray(
+std::array<LinkedCellsContainer::BoundaryCondition, 6> XSDToInternalTypeAdapter::convertToBoundaryConditionsArray(
     const BoundaryConditionsType& boundary) {
     std::array<LinkedCellsContainer::BoundaryCondition, 6> boundary_conditions;
 
@@ -126,7 +126,7 @@ std::array<LinkedCellsContainer::BoundaryCondition, 6> XSDTypeAdapter::convertTo
     return boundary_conditions;
 }
 
-LinkedCellsContainer::BoundaryCondition XSDTypeAdapter::convertToBoundaryCondition(const BoundaryType& boundary) {
+LinkedCellsContainer::BoundaryCondition XSDToInternalTypeAdapter::convertToBoundaryCondition(const BoundaryType& boundary) {
     if (boundary.outflow().present()) {
         return LinkedCellsContainer::BoundaryCondition::OUTFLOW;
     } else if (boundary.reflective().present()) {
@@ -137,6 +137,8 @@ LinkedCellsContainer::BoundaryCondition XSDTypeAdapter::convertToBoundaryConditi
     }
 }
 
-std::array<double, 3> XSDTypeAdapter::convertToVector(const DoubleVec3Type& vector) { return {vector.x(), vector.y(), vector.z()}; }
+std::array<double, 3> XSDToInternalTypeAdapter::convertToVector(const DoubleVec3Type& vector) {
+    return {vector.x(), vector.y(), vector.z()};
+}
 
-std::array<int, 3> XSDTypeAdapter::convertToVector(const IntVec3Type& vector) { return {vector.x(), vector.y(), vector.z()}; }
+std::array<int, 3> XSDToInternalTypeAdapter::convertToVector(const IntVec3Type& vector) { return {vector.x(), vector.y(), vector.z()}; }
