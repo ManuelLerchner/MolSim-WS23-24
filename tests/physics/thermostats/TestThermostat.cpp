@@ -32,9 +32,9 @@ void generateParticles(size_t x, size_t y, size_t z, std::unique_ptr<ParticleCon
     std::mt19937 gen(rd());
     std::uniform_real_distribution<double> dist(1, 5);
 
-    for (int cx = 1; cx <= x; ++cx) {
-        for (int cy = 1; cy <= y; ++cy) {
-            for (int cz = 1; cz <= z; ++cz) {
+    for (size_t cx = 1; cx <= x; ++cx) {
+        for (size_t cy = 1; cy <= y; ++cy) {
+            for (size_t cz = 1; cz <= z; ++cz) {
                 std::array<double, 3> x = {2.0 * cx, 2.0 * cy, 2.0 * cz};
                 double m = dist(gen);
                 particle_container->addParticle(Particle(x, {0, 0, 0}, m, 0));

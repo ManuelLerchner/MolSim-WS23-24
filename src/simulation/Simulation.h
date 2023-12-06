@@ -72,12 +72,12 @@ class Simulation {
      * @param integration_method The integration method to use for the simulation (Default: `IntegrationMethod::VERLET`)
      */
     Simulation(std::unique_ptr<ParticleContainer>& particles, const std::vector<std::unique_ptr<ForceSource>>& forces,
-               SimulationParams& simulation_params, IntegrationMethod integration_method = IntegrationMethod::VERLET);
+               const SimulationParams& simulation_params, IntegrationMethod integration_method = IntegrationMethod::VERLET);
 
     /**
      * @brief Runs the simulation, using the parameters given at construction and returns a `SimulationOverview` object containing some data
      *
      * @return SimulationOverview object containing some data about the simulation performed
      */
-    SimulationOverview runSimulation() const;
+    SimulationOverview runSimulation();
 };

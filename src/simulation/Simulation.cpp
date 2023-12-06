@@ -8,7 +8,7 @@
 #include "utils/FormatTime.h"
 
 Simulation::Simulation(std::unique_ptr<ParticleContainer>& particles, const std::vector<std::unique_ptr<ForceSource>>& forces,
-                       SimulationParams& simulation_params, IntegrationMethod integration_method)
+                       const SimulationParams& simulation_params, IntegrationMethod integration_method)
     : particles(particles),
       delta_t(simulation_params.delta_t),
       simulation_end_time(simulation_params.end_time),
@@ -16,7 +16,7 @@ Simulation::Simulation(std::unique_ptr<ParticleContainer>& particles, const std:
       fps(simulation_params.fps),
       video_length(simulation_params.video_length),
       forces(forces),
-      thermostat(simulation_params.thermostat) {
+      thermostat(std::move(simulation_params.thermostat)) {
     switch (integration_method) {
         case IntegrationMethod::VERLET:
             integration_functor = std::make_unique<VerletFunctor>();
@@ -27,7 +27,7 @@ Simulation::Simulation(std::unique_ptr<ParticleContainer>& particles, const std:
     }
 }
 
-SimulationOverview Simulation::runSimulation() const {
+SimulationOverview Simulation::runSimulation() {
     int iteration = 0;
     double simulation_time = 0;
 
