@@ -89,7 +89,7 @@ SimulationOverview Simulation::runSimulation() {
         std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_time).count();
 
     return SimulationOverview{total_simulation_time / 1000.0, total_simulation_time / static_cast<double>(iteration - 1),
-                              static_cast<size_t>(iteration - 1), expected_iterations / save_every_nth_iteration};
+                              static_cast<size_t>(iteration), expected_iterations / save_every_nth_iteration};
 }
 
 SimulationOverview Simulation::runSimulationPerfTest() {
@@ -119,7 +119,7 @@ SimulationOverview Simulation::runSimulationPerfTest() {
         std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_time).count();
 
     SimulationOverview overview{total_simulation_time / 1000.0, total_simulation_time / static_cast<double>(iteration),
-                                static_cast<size_t>(iteration - 1), 0};
+                                static_cast<size_t>(iteration), 0};
 
     savePerformanceTest(overview, simulation_params, initial_particle_count);
 
