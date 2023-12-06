@@ -1,6 +1,9 @@
 #include "Simulation.h"
 
+#include <spdlog/fmt/chrono.h>
+
 #include <chrono>
+#include <filesystem>
 #include <iostream>
 
 #include "integration/VerletFunctor.h"
@@ -15,6 +18,7 @@ Simulation::Simulation(std::unique_ptr<ParticleContainer>& particles, const std:
       file_output_handler(FileOutputHandler(simulation_params.output_format, simulation_params.output_dir_path)),
       fps(simulation_params.fps),
       video_length(simulation_params.video_length),
+      simulation_params(simulation_params),
       forces(forces) {
     switch (integration_method) {
         case IntegrationMethod::VERLET:
@@ -78,6 +82,73 @@ SimulationOverview Simulation::runSimulation() const {
 
     auto total_simulation_time =
         std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_time).count();
-    return SimulationOverview{total_simulation_time / 1000.0, total_simulation_time / static_cast<double>(iteration),
-                              static_cast<size_t>(iteration), expected_iterations / save_every_nth_iteration};
+
+    return SimulationOverview{total_simulation_time / 1000.0, total_simulation_time / static_cast<double>(iteration - 1),
+                              static_cast<size_t>(iteration - 1), expected_iterations / save_every_nth_iteration};
+}
+
+SimulationOverview Simulation::runSimulationPerfTest() const {
+    const size_t initial_particle_count = particles->size();
+
+    double simulation_time = 0;
+    size_t iteration = 0;
+
+    // Calculate initial forces
+    particles->applyPairwiseForces(forces);
+
+    // keep track of time for progress high precision
+    auto start_time = std::chrono::high_resolution_clock::now();
+
+    while (simulation_time < simulation_end_time) {
+        integration_functor->step(particles, forces, delta_t);
+
+        simulation_time += delta_t;
+        iteration++;
+    }
+
+    auto total_simulation_time =
+        std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_time).count();
+
+    SimulationOverview overview{total_simulation_time / 1000.0, total_simulation_time / static_cast<double>(iteration),
+                                static_cast<size_t>(iteration - 1), 0};
+
+    savePerformanceTest(overview, simulation_params, initial_particle_count);
+
+    return overview;
+}
+
+void Simulation::savePerformanceTest(const SimulationOverview& overview, const SimulationParams& params, size_t num_particles) const {
+    if (!std::filesystem::exists(params.output_dir_path)) {
+        std::filesystem::create_directories(params.output_dir_path);
+    }
+
+    std::ofstream csv_file;
+
+    if (!std::filesystem::exists(params.output_dir_path + "/performance_test.csv")) {
+        csv_file.open(params.output_dir_path + "/performance_test.csv");
+        // Write the Headers to the file
+        csv_file << "datetime,num_particles,particle_container,delta_t,total_time[s],time_per_iteration[ms],total_iterations\n";
+    } else {
+        csv_file.open(params.output_dir_path + "/performance_test.csv", std::ios_base::app);
+    }
+
+    std::string container_type_string;
+    if (std::holds_alternative<SimulationParams::DirectSumType>(params.container_type)) {
+        container_type_string = std::get<SimulationParams::DirectSumType>(params.container_type);
+    } else if (std::holds_alternative<SimulationParams::LinkedCellsType>(params.container_type)) {
+        container_type_string = std::get<SimulationParams::LinkedCellsType>(params.container_type);
+    } else {
+        Logger::logger->error("Invalid container type when saving performance test");
+        exit(-1);
+    }
+
+    // write the results to the file
+    std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    auto formatted_time = fmt::format("{:%d.%m.%Y-%H:%M:%S}", fmt::localtime(now));
+    csv_file << formatted_time << "," << num_particles << "," << container_type_string << "," << params.delta_t << ","
+             << overview.total_time_seconds << "," << overview.average_time_per_iteration_millis << "," << overview.total_iterations
+             << "\n";
+
+    // close the file
+    csv_file.close();
 }

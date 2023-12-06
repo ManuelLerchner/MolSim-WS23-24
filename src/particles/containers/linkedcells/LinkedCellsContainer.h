@@ -344,6 +344,11 @@ class LinkedCellsContainer : public ParticleContainer {
      */
     Cell* particlePosToCell(double x, double y, double z);
 
+    /**
+     * @brief Returns a string description of a boundary condition
+     */
+    static std::string boundaryConditionToString(const BoundaryCondition& bc);
+
    private:
     /**
      * @brief Populates the cell vector and sets the cells types
