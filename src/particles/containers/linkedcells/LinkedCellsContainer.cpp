@@ -4,7 +4,7 @@
 
 #include "cells/Cell.h"
 #include "io/logger/Logger.h"
-#include "physics/LennardJonesForce.h"
+#include "physics/forces/LennardJonesForce.h"
 #include "utils/ArrayUtils.h"
 
 /*

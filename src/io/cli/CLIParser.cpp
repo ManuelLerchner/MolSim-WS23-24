@@ -81,7 +81,14 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
         exit(-1);
     }
 
-    return SimulationParams{input_file_path, output_dir_path, delta_t, end_time, fps, video_length, SimulationParams::DirectSumType{},
+    return SimulationParams{input_file_path,
+                            output_dir_path,
+                            delta_t,
+                            end_time,
+                            fps,
+                            video_length,
+                            SimulationParams::DirectSumType{},
+                            Thermostat{1, 1, 10000000},
                             output_format};
 }
 

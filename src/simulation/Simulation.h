@@ -45,8 +45,20 @@ class Simulation {
      */
     const int video_length;
 
+    /**
+     * @brief Vector of forces which are applied in the simulation
+     */
     const std::vector<std::unique_ptr<ForceSource>>& forces;
+
+    /**
+     * @brief Integration functor used to integrate the particles
+     */
     std::unique_ptr<IntegrationFunctor> integration_functor;
+
+    /**
+     * @brief Thermostat used to control the temperature of the simulation
+    */
+    Thermostat& thermostat;
 
    public:
     enum class IntegrationMethod { VERLET };
@@ -60,7 +72,7 @@ class Simulation {
      * @param integration_method The integration method to use for the simulation (Default: `IntegrationMethod::VERLET`)
      */
     Simulation(std::unique_ptr<ParticleContainer>& particles, const std::vector<std::unique_ptr<ForceSource>>& forces,
-               const SimulationParams& simulation_params, IntegrationMethod integration_method = IntegrationMethod::VERLET);
+               SimulationParams& simulation_params, IntegrationMethod integration_method = IntegrationMethod::VERLET);
 
     /**
      * @brief Runs the simulation, using the parameters given at construction and returns a `SimulationOverview` object containing some data

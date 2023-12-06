@@ -6,8 +6,8 @@
 #include "particles/containers/directsum/DirectSumContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "particles/spawners/cuboid/CuboidSpawner.h"
-#include "physics/GravitationalForce.h"
-#include "physics/LennardJonesForce.h"
+#include "physics/forces/GravitationalForce.h"
+#include "physics/forces/LennardJonesForce.h"
 #include "simulation/Simulation.h"
 #include "utils/ArrayUtils.h"
 
@@ -28,7 +28,8 @@ void execute2DRectBenchmark(int x, int y) {
     std::unique_ptr<ParticleContainer> particle_container_ds = std::make_unique<DirectSumContainer>();
     spawner.spawnParticles(particle_container_ds);
 
-    SimulationParams params = SimulationParams("test_only", "", 0.01, 5, 0, 30, SimulationParams::DirectSumType{}, "none");
+    SimulationParams params =
+        SimulationParams("test_only", "", 0.01, 5, 0, 30, SimulationParams::DirectSumType{}, Thermostat{0, 0, 100000000}, "none");
 
     Simulation simulation_ds(particle_container_ds, forces, params);
 

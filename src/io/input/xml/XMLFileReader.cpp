@@ -27,6 +27,9 @@ SimulationParams XMLFileReader::readFile(const std::string& filepath, std::uniqu
             throw std::runtime_error("Unknown container type");
         }
 
+        // Create thermostat
+        auto thermostat = XSDTypeAdapter::convertToThermostat(settings.thermostat(), settings.third_dimension());
+
         // Spawn particles specified in the XML file
         for (auto xsd_cuboid : particles.cuboid_spawner()) {
             auto spawner = XSDTypeAdapter::convertToCuboidSpawner(xsd_cuboid, settings.third_dimension());
@@ -52,6 +55,7 @@ SimulationParams XMLFileReader::readFile(const std::string& filepath, std::uniqu
                                 static_cast<int>(settings.fps()),
                                 static_cast<int>(settings.video_length()),
                                 container_type,
+                                thermostat,
                                 "vtk"};
     } catch (const xml_schema::exception& e) {
         std::stringstream error_message;

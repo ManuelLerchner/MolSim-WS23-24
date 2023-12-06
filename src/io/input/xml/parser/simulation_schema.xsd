@@ -16,9 +16,11 @@
                             <xs:element name="end_time" type="xs:double" />
                             <xs:element name="third_dimension" type="xs:boolean" />
 
-                            <!-- Particle Container Type-->
+                            <!-- Particle Container Type -->
                             <xs:element name="particle_container" type="ParticleContainerType" />
 
+                            <!-- Thermostat Settings -->
+                            <xs:element name="thermostat" type="ThermostatType" />
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
@@ -104,6 +106,15 @@
     <xs:complexType name="OutflowBoundaryType"></xs:complexType>
 
     <xs:complexType name="ReflectiveBoundaryType"></xs:complexType>
+
+    <!-- Thermostat -->
+    <xs:complexType name="ThermostatType">
+        <xs:sequence>
+            <xs:element name="target_temperature" type="xs:double" />
+            <xs:element name="max_temperature_change" type="xs:double" />
+            <xs:element name="application_interval" type="xs:integer" />
+        </xs:sequence>
+    </xs:complexType>
 
     <!-- Spawners -->
     <xs:complexType name="CuboidSpawnerType">

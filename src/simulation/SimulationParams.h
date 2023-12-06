@@ -6,6 +6,7 @@
 
 #include "io/output/FileOutputHandler.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
+#include "physics/thermostats/Thermostat.h"
 
 /**
  * @brief Contains all parameters needed to run a simulation.
@@ -69,6 +70,11 @@ class SimulationParams {
     std::variant<DirectSumType, LinkedCellsType> container_type;
 
     /**
+     * @brief Thermostat used in the simulation
+     */
+    Thermostat thermostat;
+
+    /**
      * @brief Output file format of the simulation
      */
     FileOutputHandler::OutputFormat output_format;
@@ -87,7 +93,7 @@ class SimulationParams {
      * @param output_format Output file format of the simulation
      */
     SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
-                     int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
+                     int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type, const Thermostat& thermostat,
                      const std::string& output_format);
 
     /**

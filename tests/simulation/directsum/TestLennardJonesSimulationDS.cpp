@@ -2,7 +2,7 @@
 
 #include "particles/containers/ParticleContainer.h"
 #include "particles/containers/directsum/DirectSumContainer.h"
-#include "physics/LennardJonesForce.h"
+#include "physics/forces/LennardJonesForce.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"

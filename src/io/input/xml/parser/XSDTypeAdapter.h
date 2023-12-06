@@ -66,6 +66,15 @@ class XSDTypeAdapter {
     static LinkedCellsContainer::BoundaryCondition convertToBoundaryCondition(const BoundaryType& boundary);
 
     /**
+     * @brief Converts a thermostat type from the XSD format to the internal format
+     *
+     * @param thermostat Thermostat in the XSD format
+     * @param third_dimension Whether the third dimension is enabled (true = 3D, false = 2D)
+     * @return Thermostat parsed from the given thermostat in the XSD format
+     */
+    static Thermostat convertToThermostat(const ThermostatType& thermostat, bool third_dimension);
+
+    /**
      * @brief Converts a double vector from the XSD format to the internal format
      *
      * @param vector double Vector in the XSD format

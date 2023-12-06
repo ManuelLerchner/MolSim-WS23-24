@@ -65,7 +65,7 @@ SimulationParams CubFileReader::readFile(const std::string& filepath, std::uniqu
         spawner.spawnParticles(particle_container);
     }
 
-    return SimulationParams{filepath, "", 0.0002, 5, 24, 30, SimulationParams::DirectSumType(), "vtk"};
+    return SimulationParams{filepath, "", 0.0002, 5, 24, 30, SimulationParams::DirectSumType(), Thermostat{0, 0}, "vtk"};
 }
 
 void CubFileReader::checkAndReportInvalidEntry(FileLineReader& input_file, const std::string& expected_format) {
