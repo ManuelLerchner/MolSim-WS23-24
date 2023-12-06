@@ -90,6 +90,7 @@ class SimulationParams {
      * @param video_length Expected length of the simulation video in seconds. This is used to calculate how often to save the simulation
      * data
      * @param container_type Type of the particle container
+     * @param thermostat Thermostat used in the simulation
      * @param output_format Output file format of the simulation
      */
     SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,

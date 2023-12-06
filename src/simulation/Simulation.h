@@ -58,7 +58,7 @@ class Simulation {
     /**
      * @brief Thermostat used to control the temperature of the simulation
      */
-    Thermostat& thermostat;
+    Thermostat thermostat;
 
    public:
     enum class IntegrationMethod { VERLET };
