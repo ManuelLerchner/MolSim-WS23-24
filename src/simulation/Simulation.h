@@ -46,6 +46,11 @@ class Simulation {
     const int video_length;
 
     /**
+     * @brief Reference to the simulation parameters object
+     */
+    const SimulationParams& simulation_params;
+
+    /**
      * @brief Vector of forces which are applied in the simulation
      */
     const std::vector<std::unique_ptr<ForceSource>>& forces;
@@ -80,4 +85,15 @@ class Simulation {
      * @return SimulationOverview object containing some data about the simulation performed
      */
     SimulationOverview runSimulation();
+
+    /**
+     * @brief Runs the simulation without any output for logging- or vtk/xyz-files, using the parameters given at construction and returns a
+     * `SimulationOverview` object containing some data
+     *
+     * @return SimulationOverview object containing some data about the simulation performed
+     */
+    SimulationOverview runSimulationPerfTest();
+
+   private:
+    void savePerformanceTest(const SimulationOverview& overview, const SimulationParams& params, size_t num_particles) const;
 };

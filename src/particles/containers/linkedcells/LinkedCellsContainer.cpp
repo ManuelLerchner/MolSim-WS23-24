@@ -257,6 +257,17 @@ Cell* LinkedCellsContainer::particlePosToCell(double x, double y, double z) {
     return &cells[cell_index];
 }
 
+std::string LinkedCellsContainer::boundaryConditionToString(const BoundaryCondition& bc) {
+    switch (bc) {
+        case BoundaryCondition::OUTFLOW:
+            return "Outflow";
+        case BoundaryCondition::REFLECTIVE:
+            return "Reflective";
+        default:
+            return "Unknown";
+    }
+};
+
 /*
     Private methods of the LinkedCellsContainer
 */

@@ -18,7 +18,9 @@ class SimulationParams {
     /**
      * @brief Struct to specify the type of the particle container as DirectSumType
      */
-    struct DirectSumType {};
+    struct DirectSumType {
+        operator std::string() const { return "DirectSum"; }
+    };
 
     /**
      * @brief Struct to specify the type of the particle container as LinkedCellsType (needs domain_size and cutoff_radius)
@@ -32,6 +34,17 @@ class SimulationParams {
         LinkedCellsType(const std::array<double, 3>& domain_size, double cutoff_radius,
                         const std::array<LinkedCellsContainer::BoundaryCondition, 6>& boundary_conditions)
             : domain_size(domain_size), cutoff_radius(cutoff_radius), boundary_conditions(boundary_conditions) {}
+
+        operator std::string() const {
+            return "LinkedCells ([" + std::to_string(domain_size[0]) + "x" + std::to_string(domain_size[1]) + "x" +
+                   std::to_string(domain_size[2]) + "];" + std::to_string(cutoff_radius) + ";[" +
+                   LinkedCellsContainer::boundaryConditionToString(boundary_conditions[0]) + "|" +
+                   LinkedCellsContainer::boundaryConditionToString(boundary_conditions[1]) + "|" +
+                   LinkedCellsContainer::boundaryConditionToString(boundary_conditions[2]) + "|" +
+                   LinkedCellsContainer::boundaryConditionToString(boundary_conditions[3]) + "|" +
+                   LinkedCellsContainer::boundaryConditionToString(boundary_conditions[4]) + "|" +
+                   LinkedCellsContainer::boundaryConditionToString(boundary_conditions[5]) + "])";
+        }
     };
 
     /**
@@ -80,6 +93,11 @@ class SimulationParams {
     FileOutputHandler::OutputFormat output_format;
 
     /**
+     * @brief Whether to run the simulation in performance test mode
+     */
+    bool performance_test;
+
+    /**
      * @brief Construct a new SimulationParams object
      *
      * @param input_file_path Path to the input file of the simulation
@@ -87,15 +105,17 @@ class SimulationParams {
      * @param delta_t Time step of a single simulation iteration
      * @param end_time End time of the simulation
      * @param fps Frames per second at which to save the simulation. This is used to calculate how often to save the simulation data
-     * @param video_length Expected length of the simulation video in seconds. This is used to calculate how often to save the simulation
-     * data
+     * @param video_length Expected length of the simulation video in seconds. This is used to calculate how often to save the
+     * simulation data
      * @param container_type Type of the particle container
      * @param thermostat Thermostat used in the simulation
      * @param output_format Output file format of the simulation
+     * @param performanceTest Whether to run the simulation in performance test mode
+     *
      */
     SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
                      int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type, const Thermostat& thermostat,
-                     const std::string& output_format);
+                     const std::string& output_format, bool performanceTest = false);
 
     /**
      * @brief Dissallow default construction of a SimulationParams object (would have invalid values for a simulation)
