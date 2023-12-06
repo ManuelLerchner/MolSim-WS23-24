@@ -9,6 +9,8 @@
 #include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"
 
+using BC = LinkedCellsContainer::BoundaryCondition;
+
 #define EXPECT_ARRAY_NEAR(a, b, tol)  \
     for (int i = 0; i < 3; i++) {     \
         EXPECT_NEAR(a[i], b[i], tol); \
@@ -55,11 +57,8 @@ TEST(SimulationRunnerLinkedCells, ParticlesReturnToInitialPositionPeriodicSoluti
     params.end_time = period;
     params.delta_t = 0.001;
 
-    params.container_type = SimulationParams::LinkedCellsType(
-        {10, 10, 10}, 10,
-        {LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW,
-         LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW,
-         LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW});
+    params.container_type =
+        SimulationParams::LinkedCellsType({10, 10, 10}, 10, {BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW});
 
     Simulation simulation = Simulation(particles, forces, params);
 

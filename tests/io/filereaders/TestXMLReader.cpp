@@ -1,11 +1,7 @@
 #include <gtest/gtest.h>
 
-#include <optional>
-
 #include "data/FileLoader.h"
 #include "io/input/xml/XMLFileReader.h"
-#include "particles/containers/directsum/DirectSumContainer.h"
-#include "utils/ArrayUtils.h"
 
 #define EXPECT_CONTAINS_POS_NEAR(list, point, tol) \
     EXPECT_TRUE(std::find_if(list.begin(), list.end(), [&](auto& x) { return ArrayUtils::L2Norm(x - point) < tol; }) != list.end());

@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
 
-#include "particles/containers/directsum/DirectSumContainer.h"
 #include "particles/spawners/sphere/SphereSpawner.h"
 #include "utils/ArrayUtils.h"
 

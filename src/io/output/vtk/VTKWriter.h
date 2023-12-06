@@ -1,8 +1,4 @@
-
-
 #pragma once
-
-#include <list>
 
 #include "io/output/FileWriter.h"
 #include "io/output/vtk/parser/vtk-unstructured.h"

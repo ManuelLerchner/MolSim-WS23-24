@@ -1,11 +1,5 @@
 #include "InternalToXSDTypeAdapter.h"
 
-#include <array>
-
-#include "io/logger/Logger.h"
-#include "utils/ArrayUtils.h"
-#include "utils/MaxwellBoltzmannDistribution.h"
-
 ParticleType InternalToXSDTypeAdapter::convertToParticle(const Particle& particle) {
     auto position = convertToVector(particle.getX());
     auto velocity = convertToVector(particle.getV());

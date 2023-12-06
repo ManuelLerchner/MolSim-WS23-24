@@ -1,10 +1,7 @@
 #pragma once
 
-#include <memory>
-
 #include "io/input/FileReader.h"
 #include "io/input/xml/parser/simulation_schema.h"
-#include "particles/containers/ParticleContainer.h"
 #include "simulation/SimulationParams.h"
 
 /**
@@ -20,5 +17,5 @@ class XMLFileReader : public FileReader {
      * @return optional SimulationParams object containing the simulation parameters given in the file. Unspecified parameters are set to
      * default values.
      */
-    std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(const std::string& filepath) const override;
+    [[nodiscard]] std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(const std::string& filepath) const override;
 };

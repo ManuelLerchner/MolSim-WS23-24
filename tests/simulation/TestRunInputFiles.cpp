@@ -2,7 +2,6 @@
 
 #include <filesystem>
 #include <iostream>
-#include <memory>
 
 #include "data/FileLoader.h"
 #include "io/input/FileInputHandler.h"

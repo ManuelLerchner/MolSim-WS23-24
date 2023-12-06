@@ -10,6 +10,8 @@
 #include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"
 
+using BC = LinkedCellsContainer::BoundaryCondition;
+
 /*
  * Test if the particles of a gravity simulation attract each other.
  */
@@ -43,11 +45,8 @@ TEST(SimulationRunnerLinkedCells, ParticlesAttractEachother_Gravity) {
     params.end_time = 0.1;
     params.delta_t = 0.01;
 
-    params.container_type = SimulationParams::LinkedCellsType(
-        {10, 10, 10}, 10,
-        {LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW,
-         LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW,
-         LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW});
+    params.container_type =
+        SimulationParams::LinkedCellsType({10, 10, 10}, 10, {BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW});
 
     Simulation simulation(particles, forces, params);
 

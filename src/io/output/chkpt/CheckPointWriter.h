@@ -1,8 +1,5 @@
-
-
 #pragma once
 
-#include "io/input/xsd_type_adaptors/InternalToXSDTypeAdapter.h"
 #include "io/output/FileWriter.h"
 #include "io/output/chkpt/parser/checkpoint_schema.h"
 #include "particles/Particle.h"

@@ -1,14 +1,9 @@
-
-
 #include "VTKWriter.h"
 
-#include <cstdlib>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <string>
-
-#include "io/logger/Logger.h"
 
 VTKFile_t VTKWriter::initializeOutput(int numParticles) {
     VTKFile_t vtkFile("UnstructuredGrid");
@@ -44,11 +39,6 @@ VTKFile_t VTKWriter::initializeOutput(int numParticles) {
 }
 
 void VTKWriter::plotParticle(VTKFile_t& vtkFile, const Particle& p) {
-    if (!vtkFile.UnstructuredGrid().present()) {
-        Logger::logger->error("VTKWriter: No UnstructuredGrid present");
-        exit(-1);
-    }
-
     PointData::DataArray_sequence& pointDataSequence = vtkFile.UnstructuredGrid()->Piece().PointData().DataArray();
     PointData::DataArray_iterator dataIterator = pointDataSequence.begin();
 

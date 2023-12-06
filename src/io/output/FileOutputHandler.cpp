@@ -1,7 +1,6 @@
 #include "FileOutputHandler.h"
 
 #include <filesystem>
-#include <iostream>
 
 #include "io/logger/Logger.h"
 

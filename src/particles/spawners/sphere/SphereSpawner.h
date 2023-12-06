@@ -1,7 +1,5 @@
 #pragma once
 
-#include <array>
-
 #include "particles/spawners/ParticleSpawner.h"
 
 /**

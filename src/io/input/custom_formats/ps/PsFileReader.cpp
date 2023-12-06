@@ -1,12 +1,9 @@
 #include "PsFileReader.h"
 
-#include <cstdlib>
-#include <fstream>
-#include <iostream>
-#include <sstream>
+#include <spdlog/fmt/bundled/core.h>
 
-#include "io/logger/Logger.h"
-#include "particles/containers/directsum/DirectSumContainer.h"
+#include <fstream>
+#include <sstream>
 
 std::tuple<std::vector<Particle>, std::optional<SimulationParams>> PsFileReader::readFile(const std::string& filepath) const {
     std::array<double, 3> x{};

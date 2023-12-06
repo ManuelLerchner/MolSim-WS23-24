@@ -3,9 +3,7 @@
 #include <memory>
 #include <vector>
 
-#include "particles/Particle.h"
 #include "particles/containers/ParticleContainer.h"
-#include "physics/ForceSource.h"
 
 /**
  * @brief Wrapper class for a set of particles

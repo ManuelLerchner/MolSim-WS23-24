@@ -1,7 +1,5 @@
 #pragma once
 
-#include <list>
-
 #include "io/input/FileReader.h"
 
 /**
@@ -19,5 +17,5 @@ class PsFileReader : public FileReader {
      * FileReader interface.
      */
 
-    std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(const std::string& filepath) const override;
+    [[nodiscard]] std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(const std::string& filepath) const override;
 };

@@ -23,7 +23,8 @@ class FileReader {
      * @param filepath Path to the file to be read
      * @param particle_container ParticleContainer to be filled
      */
-    virtual std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(const std::string& filepath) const = 0;
+    [[nodiscard]] virtual std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(
+        const std::string& filepath) const = 0;
 
     /**
      * @brief Exception to be thrown when the file format is invalid

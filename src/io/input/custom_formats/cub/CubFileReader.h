@@ -17,7 +17,7 @@ class CubFileReader : public FileReader {
      * @return Default SimulationParams object (.cub only contains particle data, but no simulation parameters). Necessary for the
      * FileReader interface.
      */
-    std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(const std::string& filepath) const override;
+    [[nodiscard]] std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(const std::string& filepath) const override;
 
    private:
     /**

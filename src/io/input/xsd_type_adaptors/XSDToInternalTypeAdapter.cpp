@@ -1,7 +1,5 @@
 #include "XSDToInternalTypeAdapter.h"
 
-#include <array>
-
 #include "io/logger/Logger.h"
 
 CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const particles::cuboid_spawner_type& cuboid, bool third_dimension) {

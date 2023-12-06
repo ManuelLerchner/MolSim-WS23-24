@@ -2,13 +2,11 @@
 
 #include <memory>
 
-#include "io/output/FileOutputHandler.h"
 #include "particles/containers/ParticleContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "physics/LennardJonesForce.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationUtils.h"
-#include "utils/ArrayUtils.h"
 
 using BC = LinkedCellsContainer::BoundaryCondition;
 

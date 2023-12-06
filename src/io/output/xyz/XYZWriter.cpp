@@ -1,4 +1,3 @@
-
 #include "XYZWriter.h"
 
 #include <iomanip>

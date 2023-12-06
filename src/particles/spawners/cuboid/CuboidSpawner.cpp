@@ -1,6 +1,5 @@
 #include "CuboidSpawner.h"
 
-#include "particles/Particle.h"
 #include "utils/ArrayUtils.h"
 #include "utils/MaxwellBoltzmannDistribution.h"
 

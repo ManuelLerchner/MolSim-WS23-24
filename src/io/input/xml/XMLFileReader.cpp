@@ -1,13 +1,11 @@
 #include "XMLFileReader.h"
 
+#include <spdlog/fmt/bundled/core.h>
+
 #include <optional>
 #include <sstream>
 
 #include "io/input/xsd_type_adaptors/XSDToInternalTypeAdapter.h"
-#include "io/logger/Logger.h"
-#include "particles/containers/directsum/DirectSumContainer.h"
-#include "particles/containers/linkedcells/LinkedCellsContainer.h"
-#include "particles/spawners/cuboid/CuboidSpawner.h"
 
 std::tuple<std::vector<Particle>, std::optional<SimulationParams>> XMLFileReader::readFile(const std::string& filepath) const {
     try {

@@ -1,14 +1,11 @@
-
-
 #include "CheckPointWriter.h"
 
-#include <cstdlib>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <string>
 
-#include "io/logger/Logger.h"
+#include "io/input/xsd_type_adaptors/InternalToXSDTypeAdapter.h"
 
 void CheckPointWriter::writeFile(const std::string& output_dir_path, int iteration,
                                  const std::unique_ptr<ParticleContainer>& particle_container) const {

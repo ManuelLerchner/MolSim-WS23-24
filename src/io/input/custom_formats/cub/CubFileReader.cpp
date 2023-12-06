@@ -1,9 +1,7 @@
 #include "CubFileReader.h"
 
-#include <iostream>
+#include <spdlog/fmt/bundled/core.h>
 
-#include "io/logger/Logger.h"
-#include "particles/containers/directsum/DirectSumContainer.h"
 #include "particles/spawners/cuboid/CuboidSpawner.h"
 
 std::tuple<std::vector<Particle>, std::optional<SimulationParams>> CubFileReader::readFile(const std::string& filepath) const {

@@ -3,13 +3,14 @@
 #include "io/logger/Logger.h"
 #include "io/output/FileOutputHandler.h"
 #include "particles/containers/ParticleContainer.h"
-#include "particles/containers/directsum/DirectSumContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "physics/GravitationalForce.h"
 #include "physics/LennardJonesForce.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"
+
+using BC = LinkedCellsContainer::BoundaryCondition;
 
 #define EXPECT_ARRAY_NEAR(a, b, tol)  \
     for (int i = 0; i < 3; i++) {     \
@@ -61,11 +62,8 @@ TEST(SimulationRunnerDirectSumLinkedCellsComparison, RandomSimulation1) {
 
     std::unique_ptr<ParticleContainer> particle_container_lc = std::make_unique<LinkedCellsContainer>(domain_size, cutoff_radius);
 
-    params_lc.container_type = SimulationParams::LinkedCellsType(
-        {10, 10, 10}, 10,
-        {LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW,
-         LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW,
-         LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW});
+    params_lc.container_type =
+        SimulationParams::LinkedCellsType({10, 10, 10}, 10, {BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW});
 
     Simulation simulation_ds(particles, forces, params_ds);
     Simulation simulation_lc(particles, forces, params_lc);
@@ -86,7 +84,7 @@ std::vector<Particle> createCollidingCubesParticles(std::array<double, 3> offset
             for (double k = -5; k <= 5; k += 5) {
                 std::array<double, 3> x = {i, j, k};
                 std::array<double, 3> v = {0, 0, 0};
-                particles.push_back(Particle(x + offset_center, v, 1, 0));
+                particles.emplace_back(x + offset_center, v, 1, 0);
             }
         }
     }
@@ -122,10 +120,7 @@ TEST(SimulationRunnerDirectSumLinkedCellsComparison, Collision) {
     params_lc.output_format = FileOutputHandler::OutputFormat::NONE;
 
     params_lc.container_type = SimulationParams::LinkedCellsType(
-        {30, 30, 30}, 7.5,
-        {LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW,
-         LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW,
-         LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW});
+        {30, 30, 30}, 7.5, {BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW});
 
     Simulation simulation_ds(particles, forces, params_ds);
     Simulation simulation_lc(particles, forces, params_lc);
