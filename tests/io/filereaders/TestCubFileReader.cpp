@@ -15,7 +15,7 @@
 TEST(CubFileReader, CorrectReadingOfParticles) {
     std::unique_ptr<ParticleContainer> particle_container = std::make_unique<DirectSumContainer>();
     CubFileReader cub_file_reader;
-    cub_file_reader.readFile(FileLoader::get_test_file_path("CubExample.cub"), particle_container);
+    cub_file_reader.readFile(FileLoader::get_input_file_path("CubExample.cub"), particle_container);
 
     EXPECT_EQ(particle_container->size(), 11 * 12 * 13 + 8 * 4 * 1);
 

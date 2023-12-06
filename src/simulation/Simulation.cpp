@@ -74,6 +74,9 @@ SimulationOverview Simulation::runSimulation() const {
         simulation_time += delta_t;
     }
 
+    // write final output
+    file_output_handler.writeFile(iteration, particles);
+
     Logger::logger->info("Simulation finished.");
 
     auto total_simulation_time =

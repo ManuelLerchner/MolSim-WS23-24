@@ -8,14 +8,17 @@
 FileOutputHandler::FileOutputHandler(const OutputFormat output_format, const std::string& output_dir_path)
     : output_format(output_format), output_dir_path(output_dir_path) {
     switch (output_format) {
+        case OutputFormat::NONE:
+            return;
         case OutputFormat::VTK:
             file_writer = std::make_unique<VTKWriter>();
             break;
         case OutputFormat::XYZ:
             file_writer = std::make_unique<XYZWriter>();
             break;
-        case OutputFormat::NONE:
-            return;
+        case OutputFormat::CHKPT:
+            file_writer = std::make_unique<CheckPointWriter>();
+            break;
         default:
             Logger::logger->error("Output format not implemented.");
             exit(1);

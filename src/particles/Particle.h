@@ -55,10 +55,10 @@ class Particle {
 
     Particle(const Particle& other);
 
-    Particle(
-        // for visualization, we need always 3 coordinates
-        // -> in case of 2d, we use only the first and the second
-        std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type = 0);
+    Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type = 0);
+
+    Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std::array<double, 3> f_arg, std::array<double, 3> old_f_arg,
+             double m_arg, int type = 0);
 
     virtual ~Particle();
 

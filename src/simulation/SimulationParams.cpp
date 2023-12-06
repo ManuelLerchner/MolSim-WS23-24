@@ -44,6 +44,8 @@ SimulationParams::SimulationParams(const std::string& input_file_path, const std
         this->output_format = FileOutputHandler::OutputFormat::VTK;
     } else if (output_format == "xyz") {
         this->output_format = FileOutputHandler::OutputFormat::XYZ;
+    } else if (output_format == "chkpt") {
+        this->output_format = FileOutputHandler::OutputFormat::CHKPT;
     } else if (output_format == "none") {
         this->output_format = FileOutputHandler::OutputFormat::NONE;
     } else {

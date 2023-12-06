@@ -3,6 +3,7 @@
 #include <optional>
 #include <sstream>
 
+#include "io/input/xsd_type_adaptors/XSDToInternalTypeAdapter.h"
 #include "io/logger/Logger.h"
 #include "particles/containers/directsum/DirectSumContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
@@ -40,9 +41,10 @@ SimulationParams XMLFileReader::readFile(const std::string& filepath, std::uniqu
             spawner.spawnParticles(particle_container);
         }
 
-        for (auto xsd_particle : particles.single_particle()) {
-            auto particle = XSDToInternalTypeAdapter::convertToParticle(xsd_particle, settings.third_dimension());
-            particle_container->addParticle(particle);
+        for (auto xsd_single_particle_spawner : particles.single_particle_spawner()) {
+            auto spawner =
+                XSDToInternalTypeAdapter::convertToSingleParticleSpawner(xsd_single_particle_spawner, settings.third_dimension());
+            spawner.spawnParticles(particle_container);
         }
 
         return SimulationParams{filepath,

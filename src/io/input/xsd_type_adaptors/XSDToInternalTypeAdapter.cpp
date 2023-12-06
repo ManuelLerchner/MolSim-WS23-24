@@ -3,8 +3,6 @@
 #include <array>
 
 #include "io/logger/Logger.h"
-#include "utils/ArrayUtils.h"
-#include "utils/MaxwellBoltzmannDistribution.h"
 
 CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const particles::cuboid_spawner_type& cuboid, bool third_dimension) {
     auto lower_left_front_corner = convertToVector(cuboid.lower_left_front_corner());
@@ -79,15 +77,15 @@ SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const particles::
                          initial_velocity, static_cast<int>(type),   third_dimension, temperature};
 }
 
-Particle XSDToInternalTypeAdapter::convertToParticle(const particles::single_particle_type& particle, bool third_dimension) {
+CuboidSpawner XSDToInternalTypeAdapter::convertToSingleParticleSpawner(const particles::single_particle_spawner_type& particle,
+                                                                       bool third_dimension) {
     auto position = convertToVector(particle.position());
-    auto initial_velocity =
-        convertToVector(particle.velocity()) + maxwellBoltzmannDistributedVelocity(particle.temperature(), third_dimension ? 3 : 2);
+    auto initial_velocity = convertToVector(particle.velocity());
 
     auto mass = particle.mass();
     auto type = particle.type();
 
-    return Particle{position, initial_velocity, mass, static_cast<int>(type)};
+    return CuboidSpawner{position, {1, 1, 1}, 0, mass, initial_velocity, static_cast<int>(type), third_dimension, particle.temperature()};
 }
 
 std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType> XSDToInternalTypeAdapter::convertToParticleContainer(
@@ -135,6 +133,22 @@ LinkedCellsContainer::BoundaryCondition XSDToInternalTypeAdapter::convertToBound
         Logger::logger->error("Invalid boundary condition");
         exit(-1);
     }
+}
+
+Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particle) {
+    auto position = XSDToInternalTypeAdapter::convertToVector(particle.position());
+    auto velocity = XSDToInternalTypeAdapter::convertToVector(particle.velocity());
+    auto force = XSDToInternalTypeAdapter::convertToVector(particle.force());
+    auto old_force = XSDToInternalTypeAdapter::convertToVector(particle.old_force());
+    auto type = particle.type();
+    auto mass = particle.mass();
+
+    if (mass <= 0) {
+        Logger::logger->error("Particle mass must be positive");
+        exit(-1);
+    }
+
+    return Particle{position, velocity, force, old_force, mass, static_cast<int>(type)};
 }
 
 std::array<double, 3> XSDToInternalTypeAdapter::convertToVector(const DoubleVec3Type& vector) {

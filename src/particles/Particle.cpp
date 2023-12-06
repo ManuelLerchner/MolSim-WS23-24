@@ -39,6 +39,17 @@ Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, dou
     Logger::logger->debug("Particle created");
 }
 
+Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std::array<double, 3> f_arg, std::array<double, 3> old_f_arg,
+                   double m_arg, int type_arg) {
+    x = x_arg;
+    v = v_arg;
+    f = f_arg;
+    old_f = old_f_arg;
+    m = m_arg;
+    type = type_arg;
+    Logger::logger->debug("Particle created");
+}
+
 Particle::~Particle() { Logger::logger->debug("Particle destroyed"); }
 
 void Particle::setX(const std::array<double, 3>& x_arg) { x = x_arg; }

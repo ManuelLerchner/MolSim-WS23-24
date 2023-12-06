@@ -20,7 +20,7 @@ TEST(VTKWriter, CorrectWritingOfParticles) {
         particle_container->addParticle(Particle(pos, vel, i, i));
     }
 
-    auto output_folder = FileLoader::get_test_file_path("temp/VTKWriterTest");
+    auto output_folder = FileLoader::get_output_file_path("VTKWriterTest");
     FileOutputHandler file_output_handler{FileOutputHandler::OutputFormat::VTK, output_folder};
 
     file_output_handler.writeFile(0, particle_container);

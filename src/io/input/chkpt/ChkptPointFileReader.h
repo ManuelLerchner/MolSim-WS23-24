@@ -3,14 +3,14 @@
 #include <memory>
 
 #include "io/input/FileReader.h"
-#include "io/input/xml/parser/simulation_schema.h"
+#include "io/output/chkpt/parser/checkpoint_schema.h"
 #include "particles/containers/ParticleContainer.h"
 #include "simulation/SimulationParams.h"
 
 /**
  * @brief Class to read particle and simulation data from a '.xml' file
  */
-class XMLFileReader : public FileReader {
+class ChkptPointFileReader : public FileReader {
    public:
     /**
      * @brief Reads particle data from a '.xml' file and fills the given particle container. Other simulation parameters are returned.

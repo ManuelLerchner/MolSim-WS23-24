@@ -2,11 +2,9 @@
 
 #pragma once
 
-#include <list>
-
+#include "io/input/xsd_type_adaptors/InternalToXSDTypeAdapter.h"
 #include "io/output/FileWriter.h"
-#include "io/output/checkpoint/parser/InternalToXSDTypeAdapter.h"
-#include "io/output/checkpoint/parser/checkpoint_schema.h"
+#include "io/output/chkpt/parser/checkpoint_schema.h"
 #include "particles/Particle.h"
 
 /**

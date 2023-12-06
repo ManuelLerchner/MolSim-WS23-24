@@ -3,6 +3,7 @@
 #include <optional>
 #include <set>
 
+#include "io/input/chkpt/ChkptPointFileReader.h"
 #include "io/input/custom_formats/cub/CubFileReader.h"
 #include "io/input/custom_formats/ps/PsFileReader.h"
 #include "io/input/xml/XMLFileReader.h"

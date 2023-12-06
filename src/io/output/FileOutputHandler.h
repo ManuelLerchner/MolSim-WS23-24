@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 
+#include "io/output/chkpt/CheckPointWriter.h"
 #include "io/output/vtk/VTKWriter.h"
 #include "io/output/xyz/XYZWriter.h"
 #include "particles/containers/ParticleContainer.h"
@@ -18,7 +19,7 @@ class FileOutputHandler {
     /**
      * @brief Enum class to specify the output format
      */
-    enum class OutputFormat { VTK, XYZ, NONE };
+    enum class OutputFormat { VTK, XYZ, CHKPT, NONE };
 
    private:
     /**

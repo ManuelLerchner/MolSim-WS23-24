@@ -4344,9 +4344,9 @@ class particles : public ::xml_schema::type {
     //@}
 
     /**
-     * @name single_particle
+     * @name single_particle_spawner
      *
-     * @brief Accessor and modifier functions for the %single_particle
+     * @brief Accessor and modifier functions for the %single_particle_spawner
      * sequence element.
      */
     //@{
@@ -4354,27 +4354,27 @@ class particles : public ::xml_schema::type {
     /**
      * @brief Element type.
      */
-    typedef ::SingleParticleSpawnerType single_particle_type;
+    typedef ::SingleParticleSpawnerType single_particle_spawner_type;
 
     /**
      * @brief Element sequence container type.
      */
-    typedef ::xsd::cxx::tree::sequence<single_particle_type> single_particle_sequence;
+    typedef ::xsd::cxx::tree::sequence<single_particle_spawner_type> single_particle_spawner_sequence;
 
     /**
      * @brief Element iterator type.
      */
-    typedef single_particle_sequence::iterator single_particle_iterator;
+    typedef single_particle_spawner_sequence::iterator single_particle_spawner_iterator;
 
     /**
      * @brief Element constant iterator type.
      */
-    typedef single_particle_sequence::const_iterator single_particle_const_iterator;
+    typedef single_particle_spawner_sequence::const_iterator single_particle_spawner_const_iterator;
 
     /**
      * @brief Element traits type.
      */
-    typedef ::xsd::cxx::tree::traits<single_particle_type, char> single_particle_traits;
+    typedef ::xsd::cxx::tree::traits<single_particle_spawner_type, char> single_particle_spawner_traits;
 
     /**
      * @brief Return a read-only (constant) reference to the element
@@ -4382,14 +4382,14 @@ class particles : public ::xml_schema::type {
      *
      * @return A constant reference to the sequence container.
      */
-    const single_particle_sequence& single_particle() const;
+    const single_particle_spawner_sequence& single_particle_spawner() const;
 
     /**
      * @brief Return a read-write reference to the element sequence.
      *
      * @return A reference to the sequence container.
      */
-    single_particle_sequence& single_particle();
+    single_particle_spawner_sequence& single_particle_spawner();
 
     /**
      * @brief Copy elements from a given sequence.
@@ -4400,7 +4400,7 @@ class particles : public ::xml_schema::type {
      * to the sequence. Note that this operation completely changes the
      * sequence and all old elements will be lost.
      */
-    void single_particle(const single_particle_sequence& s);
+    void single_particle_spawner(const single_particle_spawner_sequence& s);
 
     //@}
 
@@ -4477,7 +4477,7 @@ class particles : public ::xml_schema::type {
    protected:
     cuboid_spawner_sequence cuboid_spawner_;
     sphere_spawner_sequence sphere_spawner_;
-    single_particle_sequence single_particle_;
+    single_particle_spawner_sequence single_particle_spawner_;
 
     //@endcond
 };

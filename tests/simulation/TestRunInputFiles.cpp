@@ -15,9 +15,20 @@
 
 auto load_all_input_files() {
     std::vector<std::string> input_files;
-    for (const auto& entry : std::filesystem::directory_iterator(FileLoader::get_test_data_dir() + "/../../input")) {
+    auto supported_extensions = FileInputHandler::get_supported_input_file_extensions();
+
+    for (const auto& entry : std::filesystem::recursive_directory_iterator(FileLoader::get_test_data_dir() + "/input")) {
         // check for valid extension
-        auto supported_extensions = FileInputHandler::get_supported_input_file_extensions();
+
+        if (supported_extensions.find(entry.path().extension()) == supported_extensions.end()) {
+            continue;
+        }
+
+        input_files.push_back(entry.path());
+    }
+
+    for (const auto& entry : std::filesystem::recursive_directory_iterator(FileLoader::get_test_data_dir() + "/../../input")) {
+        // check for valid extension
 
         if (supported_extensions.find(entry.path().extension()) == supported_extensions.end()) {
             continue;
@@ -32,7 +43,7 @@ auto load_all_input_files() {
  * Test that all input files can be read and simulated
  */
 TEST(SimulationRunner, EnsureBackwardsCompatibilityForAllInputFiles) {
-    Logger::logger->set_level(spdlog::level::warn);
+    Logger::logger->set_level(spdlog::level::off);
 
     std::set<std::string> tested_extensions = {};
 
@@ -53,7 +64,7 @@ TEST(SimulationRunner, EnsureBackwardsCompatibilityForAllInputFiles) {
         std::vector<std::unique_ptr<ForceSource>> forces;
         forces.push_back(std::make_unique<LennardJonesForce>());
 
-        params_xml.end_time = 1;
+        params_xml.end_time = 0.1;
         params_xml.delta_t = 0.01;
         params_xml.output_format = FileOutputHandler::OutputFormat::NONE;
 

@@ -20,7 +20,7 @@ TEST(XYZWriter, CorrectWritingOfParticles) {
         particle_container->addParticle(Particle(pos, vel, i, i));
     }
 
-    auto output_folder = FileLoader::get_test_file_path("temp/XYZWriterTest");
+    auto output_folder = FileLoader::get_output_file_path("XYZWriterTest");
     FileOutputHandler file_output_handler{FileOutputHandler::OutputFormat::XYZ, output_folder};
 
     file_output_handler.writeFile(0, particle_container);

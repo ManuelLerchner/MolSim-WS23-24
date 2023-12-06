@@ -447,11 +447,11 @@ particles::sphere_spawner_sequence& particles::sphere_spawner() { return this->s
 
 void particles::sphere_spawner(const sphere_spawner_sequence& s) { this->sphere_spawner_ = s; }
 
-const particles::single_particle_sequence& particles::single_particle() const { return this->single_particle_; }
+const particles::single_particle_spawner_sequence& particles::single_particle_spawner() const { return this->single_particle_spawner_; }
 
-particles::single_particle_sequence& particles::single_particle() { return this->single_particle_; }
+particles::single_particle_spawner_sequence& particles::single_particle_spawner() { return this->single_particle_spawner_; }
 
-void particles::single_particle(const single_particle_sequence& s) { this->single_particle_ = s; }
+void particles::single_particle_spawner(const single_particle_spawner_sequence& s) { this->single_particle_spawner_ = s; }
 
 #include <xsd/cxx/xml/dom/parsing-source.hxx>
 
@@ -1808,16 +1808,19 @@ settings::~settings() {}
 // particles
 //
 
-particles::particles() : ::xml_schema::type(), cuboid_spawner_(this), sphere_spawner_(this), single_particle_(this) {}
+particles::particles() : ::xml_schema::type(), cuboid_spawner_(this), sphere_spawner_(this), single_particle_spawner_(this) {}
 
 particles::particles(const particles& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
       cuboid_spawner_(x.cuboid_spawner_, f, this),
       sphere_spawner_(x.sphere_spawner_, f, this),
-      single_particle_(x.single_particle_, f, this) {}
+      single_particle_spawner_(x.single_particle_spawner_, f, this) {}
 
 particles::particles(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), cuboid_spawner_(this), sphere_spawner_(this), single_particle_(this) {
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
+      cuboid_spawner_(this),
+      sphere_spawner_(this),
+      single_particle_spawner_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
         this->parse(p, f);
@@ -1847,12 +1850,12 @@ void particles::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags
             continue;
         }
 
-        // single_particle
+        // single_particle_spawner
         //
-        if (n.name() == "single_particle" && n.namespace_().empty()) {
-            ::std::unique_ptr<single_particle_type> r(single_particle_traits::create(i, f, this));
+        if (n.name() == "single_particle_spawner" && n.namespace_().empty()) {
+            ::std::unique_ptr<single_particle_spawner_type> r(single_particle_spawner_traits::create(i, f, this));
 
-            this->single_particle_.push_back(::std::move(r));
+            this->single_particle_spawner_.push_back(::std::move(r));
             continue;
         }
 
@@ -1867,7 +1870,7 @@ particles& particles::operator=(const particles& x) {
         static_cast< ::xml_schema::type&>(*this) = x;
         this->cuboid_spawner_ = x.cuboid_spawner_;
         this->sphere_spawner_ = x.sphere_spawner_;
-        this->single_particle_ = x.single_particle_;
+        this->single_particle_spawner_ = x.single_particle_spawner_;
     }
 
     return *this;
@@ -2559,12 +2562,13 @@ void operator<<(::xercesc::DOMElement& e, const particles& i) {
         s << x;
     }
 
-    // single_particle
+    // single_particle_spawner
     //
-    for (particles::single_particle_const_iterator b(i.single_particle().begin()), n(i.single_particle().end()); b != n; ++b) {
-        const particles::single_particle_type& x(*b);
+    for (particles::single_particle_spawner_const_iterator b(i.single_particle_spawner().begin()), n(i.single_particle_spawner().end());
+         b != n; ++b) {
+        const particles::single_particle_spawner_type& x(*b);
 
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("single_particle", e));
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("single_particle_spawner", e));
 
         s << x;
     }

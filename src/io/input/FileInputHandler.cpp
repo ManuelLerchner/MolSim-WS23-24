@@ -33,6 +33,11 @@ SimulationParams FileInputHandler::readFile(const std::string& input_file_path, 
         file_reader = std::make_unique<CubFileReader>();
     } else if (file_extension == ".xml") {
         file_reader = std::make_unique<XMLFileReader>();
+    } else if (file_extension == ".chkpt") {
+        file_reader = std::make_unique<ChkptPointFileReader>();
+    } else {
+        Logger::logger->error("Error: file extension '{}' is not supported.", file_extension);
+        exit(-1);
     }
 
     try {
@@ -44,4 +49,4 @@ SimulationParams FileInputHandler::readFile(const std::string& input_file_path, 
     }
 }
 
-std::set<std::string> FileInputHandler::get_supported_input_file_extensions() { return {".ps", ".cub", ".xml"}; }
+std::set<std::string> FileInputHandler::get_supported_input_file_extensions() { return {".ps", ".cub", ".xml", ".chkpt"}; }

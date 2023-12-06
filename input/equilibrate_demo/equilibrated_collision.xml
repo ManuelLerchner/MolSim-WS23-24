@@ -1,40 +1,40 @@
 <?xml version="1.0"?>
 <!-- just a sanity check: body collision rewritten to xml -->
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="simulation_schema.xsd">
+    xsi:noNamespaceSchemaLocation="../simulation_schema.xsd">
 
     <settings>
-        <fps>24</fps>
-        <video_length>30</video_length>
-        <delta_t>0.0005</delta_t>
-        <end_time>20.0</end_time>
-        <third_dimension>false</third_dimension>
+        <fps>0</fps>
+        <video_length>0</video_length>
+        <delta_t>0.001</delta_t>
+        <end_time>5.0</end_time>
+        <third_dimension>true</third_dimension>
         <particle_container>
             <linkedcells_container>
                 <domain_size>
-                    <x>180</x>
-                    <y>90</y>
-                    <z>3</z>
+                    <x>30</x>
+                    <y>30</y>
+                    <z>30</z>
                 </domain_size>
-                <cutoff_radius>3.0</cutoff_radius>
+                <cutoff_radius>10</cutoff_radius>
                 <boundary_conditions>
                     <left>
-                        <outflow />
+                        <reflective />
                     </left>
                     <right>
-                        <outflow />
+                        <reflective />
                     </right>
                     <bottom>
-                        <outflow />
+                        <reflective />
                     </bottom>
                     <top>
-                        <outflow />
+                        <reflective />
                     </top>
                     <back>
-                        <outflow />
+                        <reflective />
                     </back>
                     <front>
-                        <outflow />
+                        <reflective />
                     </front>
                 </boundary_conditions>
             </linkedcells_container>
@@ -44,35 +44,35 @@
     <particles>
         <cuboid_spawner>
             <lower_left_front_corner>
-                <x>20.0</x>
-                <y>20.0</y>
-                <z>1.5</z>
+                <x>15.0</x>
+                <y>15.0</y>
+                <z>15.0</z>
             </lower_left_front_corner>
             <grid_dim>
-                <x>100</x>
-                <y>20</y>
-                <z>1</z>
+                <x>3</x>
+                <y>3</y>
+                <z>3</z>
             </grid_dim>
             <grid_spacing>1.1225</grid_spacing>
-            <temperature>0.1</temperature>
+            <temperature>0.1</temperature>          <!-- aka mean brownian motion -->
             <mass>1</mass>
             <velocity>
-                <x>0.0</x>
+                <x>10.0</x>
                 <y>0.0</y>
                 <z>0.0</z>
             </velocity>
             <type>0</type>
         </cuboid_spawner>
 
-        <cuboid_spawner>
+        <!-- <cuboid_spawner>
             <lower_left_front_corner>
-                <x>70.0</x>
-                <y>60.0</y>
-                <z>1.5</z>
+                <x>115.0</x>
+                <y>25.0</y>
+                <z>100.0</z>
             </lower_left_front_corner>
             <grid_dim>
-                <x>20</x>
-                <y>20</y>
+                <x>8</x>
+                <y>8</y>
                 <z>1</z>
             </grid_dim>
             <grid_spacing>1.1225</grid_spacing>
@@ -80,11 +80,11 @@
             <mass>1</mass>
             <velocity>
                 <x>0.0</x>
-                <y>-10.0</y>
+                <y>-100.0</y>
                 <z>0.0</z>
             </velocity>
             <type>1</type>
-        </cuboid_spawner>
+        </cuboid_spawner> -->
 
     </particles>
 
