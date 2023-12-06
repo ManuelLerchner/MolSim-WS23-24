@@ -15,7 +15,7 @@ SphereSpawner::SphereSpawner(const std::array<double, 3>& center, const int sphe
       avg_velocity(avg_velocity),
       third_dimension(third_dimension) {}
 
-void SphereSpawner::spawnParticles(std::unique_ptr<ParticleContainer>& particle_container) const {
+void SphereSpawner::spawnParticles(std::vector<Particle>& particle_container) const {
     for (int x = -sphere_radius; x <= sphere_radius; x++) {
         for (int y = -sphere_radius; y <= sphere_radius; y++) {
             for (int z = -sphere_radius; z <= sphere_radius; z++) {
@@ -30,7 +30,7 @@ void SphereSpawner::spawnParticles(std::unique_ptr<ParticleContainer>& particle_
                     const auto position = center + displacement;
                     const auto velocity = initial_velocity + maxwellBoltzmannDistributedVelocity(avg_velocity, third_dimension ? 3 : 2);
 
-                    particle_container->addParticle(Particle(position, velocity, mass, type));
+                    particle_container.emplace_back(position, velocity, mass, type);
                 }
             }
         }

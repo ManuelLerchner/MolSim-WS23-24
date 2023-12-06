@@ -21,9 +21,7 @@
 TEST(SimulationRunnerLinkedCells, ParticlesReturnToInitialPositionPeriodicSolution_Gravity) {
     Logger::logger->set_level(spdlog::level::off);
 
-    std::array<double, 3> domain_size = {10, 10, 10};
-    double cutoff_radius = 10;
-    std::unique_ptr<ParticleContainer> particle_container = std::make_unique<LinkedCellsContainer>(domain_size, cutoff_radius);
+    std::vector<Particle> particles;
 
     auto p1 = 0.347113;
     auto p2 = 0.532727;
@@ -44,9 +42,9 @@ TEST(SimulationRunnerLinkedCells, ParticlesReturnToInitialPositionPeriodicSoluti
     auto pa2 = Particle(x2 + center_offset, v2, 1, 0);
     auto pa3 = Particle(x3 + center_offset, v3, 1, 0);
 
-    particle_container->addParticle(pa1);
-    particle_container->addParticle(pa2);
-    particle_container->addParticle(pa3);
+    particles.push_back(pa1);
+    particles.push_back(pa2);
+    particles.push_back(pa3);
 
     FileOutputHandler file_output_handler(FileOutputHandler::OutputFormat::NONE);
 
@@ -56,11 +54,18 @@ TEST(SimulationRunnerLinkedCells, ParticlesReturnToInitialPositionPeriodicSoluti
     SimulationParams params = TEST_DEFAULT_PARAMS;
     params.end_time = period;
     params.delta_t = 0.001;
-    Simulation simulation = Simulation(particle_container, forces, params);
 
-    simulation.runSimulation();
+    params.container_type = SimulationParams::LinkedCellsType(
+        {10, 10, 10}, 10,
+        {LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW,
+         LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW,
+         LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW});
 
-    EXPECT_ARRAY_NEAR((*particle_container)[0].getX(), pa1.getX(), 0.01);
-    EXPECT_ARRAY_NEAR((*particle_container)[1].getX(), pa2.getX(), 0.01);
-    EXPECT_ARRAY_NEAR((*particle_container)[2].getX(), pa3.getX(), 0.01);
+    Simulation simulation = Simulation(particles, forces, params);
+
+    auto res = simulation.runSimulation();
+
+    EXPECT_ARRAY_NEAR((*res.resulting_particles)[0].getX(), pa1.getX(), 0.01);
+    EXPECT_ARRAY_NEAR((*res.resulting_particles)[1].getX(), pa2.getX(), 0.01);
+    EXPECT_ARRAY_NEAR((*res.resulting_particles)[2].getX(), pa3.getX(), 0.01);
 }

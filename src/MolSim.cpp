@@ -4,7 +4,6 @@
 #include "io/input/FileInputHandler.h"
 #include "io/logger/Logger.h"
 #include "particles/containers/ParticleContainer.h"
-#include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "physics/LennardJonesForce.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationOverview.h"
@@ -20,20 +19,19 @@ const std::string ansi_end = "\e[0m";
 void print_simulation_input(const SimulationParams& simulation_params, size_t num_particles,
                             const std::vector<std::unique_ptr<ForceSource>>& forces);
 
-void print_simulation_overview(const SimulationOverview& overview, size_t num_particles);
+void print_simulation_overview(const SimulationOverview& overview);
 
 int main(int argc, char* argsv[]) {
     // Create pointer for particle container
-    std::unique_ptr<ParticleContainer> initial_particles;
 
     // Parse CLI arguments
     SimulationParams params_cli = parse_arguments(argc, argsv);
 
     // Parse input file
-    SimulationParams params_xml = FileInputHandler::readFile(params_cli.input_file_path, initial_particles);
+    auto [initial_particles, simulation_arguments] = FileInputHandler::readFile(params_cli.input_file_path);
 
     // Combine parameters from CLI and input file
-    SimulationParams simulation_params = merge_parameters(params_cli, params_xml);
+    SimulationParams simulation_params = merge_parameters(params_cli, simulation_arguments);
 
     // Create all force sources acting on the particles
     std::vector<std::unique_ptr<ForceSource>> forces;
@@ -43,17 +41,16 @@ int main(int argc, char* argsv[]) {
     Simulation simulation{initial_particles, forces, simulation_params};
 
     // Print simulation info
-    size_t num_particles_start = initial_particles->size();
-    print_simulation_input(simulation_params, num_particles_start, forces);
+    print_simulation_input(simulation_params, initial_particles.size(), forces);
 
     // Run simulation
     SimulationOverview overview = simulation.runSimulation();
 
     // Print simulation info again (for convenience)
-    print_simulation_input(simulation_params, num_particles_start, forces);
+    print_simulation_input(simulation_params, initial_particles.size(), forces);
 
     // Print simulation overview
-    print_simulation_overview(overview, initial_particles->size());
+    print_simulation_overview(overview);
 
     return 0;
 }
@@ -123,7 +120,7 @@ void print_simulation_input(const SimulationParams& simulation_params, size_t nu
     Logger::logger->info(ansi_bright_white_bold + "════════════════════════════════════════" + ansi_end);
 }
 
-void print_simulation_overview(const SimulationOverview& overview, size_t num_particles) {
+void print_simulation_overview(const SimulationOverview& overview) {
     Logger::logger->info(ansi_bright_white_bold + "════════════════════════════════════════" + ansi_end);
 
     Logger::logger->info(ansi_yellow_bold + "Simulation overview:" + ansi_end);
@@ -131,7 +128,7 @@ void print_simulation_overview(const SimulationOverview& overview, size_t num_pa
     Logger::logger->info("  Number of iterations: {}", overview.total_iterations);
     Logger::logger->info("  Average iteration time: {:.3f}ms", overview.average_time_per_iteration_millis);
     Logger::logger->info("  Number of files written: {}", overview.files_written);
-    Logger::logger->info("  Number of particles left: {}", num_particles);
+    Logger::logger->info("  Number of particles left: {}", overview.resulting_particles->size());
 
     Logger::logger->info(ansi_bright_white_bold + "════════════════════════════════════════" + ansi_end);
 }

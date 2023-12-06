@@ -17,8 +17,8 @@ class XMLFileReader : public FileReader {
      *
      * @param filepath Path to the file to read
      * @param particle_container Particle container to store the particles in
-     * @return SimulationParams object containing the simulation parameters given in the file. Unspecified parameters are set to default
-     * values.
+     * @return optional SimulationParams object containing the simulation parameters given in the file. Unspecified parameters are set to
+     * default values.
      */
-    SimulationParams readFile(const std::string& filepath, std::unique_ptr<ParticleContainer>& particle_container) const override;
+    std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(const std::string& filepath) const override;
 };

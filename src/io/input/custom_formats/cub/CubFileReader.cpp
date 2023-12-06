@@ -6,15 +6,14 @@
 #include "particles/containers/directsum/DirectSumContainer.h"
 #include "particles/spawners/cuboid/CuboidSpawner.h"
 
-SimulationParams CubFileReader::readFile(const std::string& filepath, std::unique_ptr<ParticleContainer>& particle_container) const {
+std::tuple<std::vector<Particle>, std::optional<SimulationParams>> CubFileReader::readFile(const std::string& filepath) const {
     FileLineReader input_file(filepath);
 
     if (!input_file.is_open()) {
         throw FileFormatException(fmt::format("Error: could not open file '{}'.", filepath));
     }
 
-    // Initialize particle container
-    particle_container = std::make_unique<DirectSumContainer>();
+    std::vector<Particle> particles;
 
     while (!input_file.eof()) {
         while (input_file.peek() == '#' || input_file.peek() == '\n') {
@@ -61,11 +60,10 @@ SimulationParams CubFileReader::readFile(const std::string& filepath, std::uniqu
 
         auto spawner = CuboidSpawner(lower_left_front_corner, grid_dimensions, grid_spacing, mass, initial_velocity, type);
 
-        particle_container->reserve(particle_container->size() + static_cast<long>(nx) * ny * nz);
-        spawner.spawnParticles(particle_container);
+        spawner.spawnParticles(particles);
     }
 
-    return SimulationParams{filepath, "", 0.0002, 5, 24, 30, SimulationParams::DirectSumType(), "vtk"};
+    return std::make_tuple(particles, std::nullopt);
 }
 
 void CubFileReader::checkAndReportInvalidEntry(FileLineReader& input_file, const std::string& expected_format) {

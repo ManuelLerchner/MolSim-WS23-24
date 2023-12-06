@@ -2,6 +2,9 @@
 
 #include <chrono>
 #include <cstddef>
+#include <memory>
+
+#include "particles/containers/ParticleContainer.h"
 
 /**
  * @brief Class to store some overview data of an executed simulation
@@ -27,4 +30,9 @@ class SimulationOverview {
      * @brief Number of output files written
      */
     const size_t files_written;
+
+    /**
+     * @brief Resulting particles after the simulation
+     */
+    const std::unique_ptr<ParticleContainer>& resulting_particles;
 };

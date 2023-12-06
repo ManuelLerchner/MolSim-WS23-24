@@ -5,6 +5,7 @@
 
 #include "integration/IntegrationFunctor.h"
 #include "io/output/FileOutputHandler.h"
+#include "particles/Particle.h"
 #include "particles/containers/ParticleContainer.h"
 #include "simulation/SimulationOverview.h"
 #include "simulation/SimulationParams.h"
@@ -15,11 +16,6 @@
  * This class collects all the components needed to run a simulation, and provides a method to run it.
  */
 class Simulation {
-    /**
-     * @brief Reference to the `ParticleContainer` on whose content the simulation is performed
-     */
-    std::unique_ptr<ParticleContainer>& particles;
-
     /**
      * @brief Time step per iteration. This specifies the accuracy of the simulation
      */
@@ -46,6 +42,12 @@ class Simulation {
     const int video_length;
 
     const std::vector<std::unique_ptr<ForceSource>>& forces;
+
+    /**
+     * @brief Reference to the `ParticleContainer` on whose content the simulation is performed
+     */
+    std::unique_ptr<ParticleContainer> particles;
+
     std::unique_ptr<IntegrationFunctor> integration_functor;
 
    public:
@@ -59,7 +61,7 @@ class Simulation {
      * @param simulation_params Parameters for the simulation. See the class `SimulationParams` for more information
      * @param integration_method The integration method to use for the simulation (Default: `IntegrationMethod::VERLET`)
      */
-    Simulation(std::unique_ptr<ParticleContainer>& particles, const std::vector<std::unique_ptr<ForceSource>>& forces,
+    Simulation(const std::vector<Particle>& particles, const std::vector<std::unique_ptr<ForceSource>>& forces,
                const SimulationParams& simulation_params, IntegrationMethod integration_method = IntegrationMethod::VERLET);
 
     /**
@@ -67,5 +69,5 @@ class Simulation {
      *
      * @return SimulationOverview object containing some data about the simulation performed
      */
-    SimulationOverview runSimulation() const;
+    SimulationOverview runSimulation();
 };

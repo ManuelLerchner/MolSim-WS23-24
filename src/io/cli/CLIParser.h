@@ -26,4 +26,4 @@ SimulationParams parse_arguments(int argc, char* argsv[]);
  *
  * Merges the command line arguments with the XML file and returns a tuple containing all the arguments.
  */
-SimulationParams merge_parameters(const SimulationParams& params_cli, const SimulationParams& params_xml);
+SimulationParams merge_parameters(const SimulationParams& params_cli, const std::optional<SimulationParams>& file_params);

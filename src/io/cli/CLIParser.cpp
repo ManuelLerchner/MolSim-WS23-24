@@ -85,8 +85,12 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
                             output_format};
 }
 
-SimulationParams merge_parameters(const SimulationParams& params_cli, const SimulationParams& params_xml) {
-    SimulationParams params = params_xml;
+SimulationParams merge_parameters(const SimulationParams& params_cli, const std::optional<SimulationParams>& file_params) {
+    if (!file_params) {
+        return params_cli;
+    }
+
+    SimulationParams params = *file_params;
 
     // Overwrite parameters from XML file with parameters from CLI
     if (params_cli.delta_t != 0) {

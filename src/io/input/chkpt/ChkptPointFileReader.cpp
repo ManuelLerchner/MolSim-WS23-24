@@ -6,7 +6,7 @@
 #include "io/logger/Logger.h"
 #include "particles/containers/directsum/DirectSumContainer.h"
 
-SimulationParams ChkptPointFileReader::readFile(const std::string& filepath, std::unique_ptr<ParticleContainer>& particle_container) const {
+std::tuple<std::vector<Particle>, std::optional<SimulationParams>> ChkptPointFileReader::readFile(const std::string& filepath) const {
     try {
         auto checkpoint = CheckPoint(filepath, xml_schema::flags::dont_validate);
 
@@ -16,20 +16,10 @@ SimulationParams ChkptPointFileReader::readFile(const std::string& filepath, std
 
         for (auto xsd_particle : particleData.particle()) {
             auto particle = XSDToInternalTypeAdapter::convertToParticle(xsd_particle);
-            particles.push_back(particle);
+            particles.push_back(std::move(particle));
         }
 
-        // Create particle container
-        particle_container = std::make_unique<DirectSumContainer>();
-
-        particle_container->reserve(particle_container->size() + particles.size());
-
-        for (auto& particle : particles) {
-            particle_container->addParticle(particle);
-        }
-
-        return SimulationParams{filepath, "", 0.0002, 5, 24, 30, SimulationParams::DirectSumType(), "vtk"};
-
+        return std::make_tuple(particles, std::nullopt);
     } catch (const xml_schema::exception& e) {
         std::stringstream error_message;
         error_message << "Error: could not parse file '" << filepath << "'.\n";

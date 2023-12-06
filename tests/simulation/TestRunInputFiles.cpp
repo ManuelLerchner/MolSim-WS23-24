@@ -53,23 +53,24 @@ TEST(SimulationRunner, EnsureBackwardsCompatibilityForAllInputFiles) {
         tested_extensions.insert(input_file.substr(input_file.find_last_of('.')));
 
         // Create pointer for particle container
-        std::unique_ptr<ParticleContainer> initial_particles;
 
         // Parse input file
-        SimulationParams params_xml = FileInputHandler::readFile(input_file, initial_particles);
+        auto [particles, _] = FileInputHandler::readFile(input_file);
 
-        EXPECT_GT(initial_particles->size(), 0);
+        EXPECT_GT(particles.size(), 0);
 
         // Create all force sources acting on the particles
         std::vector<std::unique_ptr<ForceSource>> forces;
         forces.push_back(std::make_unique<LennardJonesForce>());
 
-        params_xml.end_time = 0.1;
-        params_xml.delta_t = 0.01;
-        params_xml.output_format = FileOutputHandler::OutputFormat::NONE;
+        SimulationParams params = TEST_DEFAULT_PARAMS;
+
+        params.end_time = 0.1;
+        params.delta_t = 0.01;
+        params.output_format = FileOutputHandler::OutputFormat::NONE;
 
         // Initialize simulation
-        Simulation simulation{initial_particles, forces, params_xml};
+        Simulation simulation{particles, forces, params};
 
         // Run simulation
         auto res = simulation.runSimulation();

@@ -38,21 +38,10 @@ std::vector<Particle> createParticles() {
 TEST(SimulationRunnerDirectSumLinkedCellsComparison, RandomSimulation1) {
     Logger::logger->set_level(spdlog::level::off);
 
-    std::array<double, 3> domain_size = {10, 10, 10};
-    double cutoff_radius = 8;
-
-    std::unique_ptr<ParticleContainer> particle_container_ds = std::make_unique<DirectSumContainer>();
-    std::unique_ptr<ParticleContainer> particle_container_lc = std::make_unique<LinkedCellsContainer>(domain_size, cutoff_radius);
-
     double delta_t = 0.001;
     double end_t = 1;
 
     auto particles = createParticles();
-
-    for (auto& particle : particles) {
-        particle_container_ds->addParticle(particle);
-        particle_container_lc->addParticle(particle);
-    }
 
     std::vector<std::unique_ptr<ForceSource>> forces;
     forces.push_back(std::make_unique<LennardJonesForce>());
@@ -67,14 +56,25 @@ TEST(SimulationRunnerDirectSumLinkedCellsComparison, RandomSimulation1) {
     params_lc.delta_t = delta_t;
     params_lc.output_format = FileOutputHandler::OutputFormat::NONE;
 
-    Simulation simulation_ds(particle_container_ds, forces, params_ds);
-    Simulation simulation_lc(particle_container_lc, forces, params_lc);
+    std::array<double, 3> domain_size = {10, 10, 10};
+    double cutoff_radius = 8;
 
-    simulation_ds.runSimulation();
-    simulation_lc.runSimulation();
+    std::unique_ptr<ParticleContainer> particle_container_lc = std::make_unique<LinkedCellsContainer>(domain_size, cutoff_radius);
+
+    params_lc.container_type = SimulationParams::LinkedCellsType(
+        {10, 10, 10}, 10,
+        {LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW,
+         LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW,
+         LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW});
+
+    Simulation simulation_ds(particles, forces, params_ds);
+    Simulation simulation_lc(particles, forces, params_lc);
+
+    auto res_ds = simulation_ds.runSimulation();
+    auto res_lc = simulation_lc.runSimulation();
 
     for (int i = 0; i < 4; i++) {
-        EXPECT_ARRAY_NEAR((*particle_container_ds)[i].getX(), (*particle_container_lc)[i].getX(), 1e-7);
+        EXPECT_ARRAY_NEAR((*res_ds.resulting_particles)[i].getX(), (*res_lc.resulting_particles)[i].getX(), 1e-7);
     }
 }
 
@@ -105,16 +105,8 @@ TEST(SimulationRunnerDirectSumLinkedCellsComparison, Collision) {
     std::array<double, 3> offset_center = {15, 15, 15};
     auto particles = createCollidingCubesParticles(offset_center);
 
-    std::unique_ptr<ParticleContainer> particle_container_ds = std::make_unique<DirectSumContainer>();
-    std::unique_ptr<ParticleContainer> particle_container_lc = std::make_unique<LinkedCellsContainer>(domain_size, cutoff_radius);
-
     double delta_t = 0.0005;
     double end_t = 1;
-
-    for (auto& particle : particles) {
-        particle_container_ds->addParticle(particle);
-        particle_container_lc->addParticle(particle);
-    }
 
     std::vector<std::unique_ptr<ForceSource>> forces;
     forces.push_back(std::make_unique<LennardJonesForce>());
@@ -129,13 +121,19 @@ TEST(SimulationRunnerDirectSumLinkedCellsComparison, Collision) {
     params_lc.delta_t = delta_t;
     params_lc.output_format = FileOutputHandler::OutputFormat::NONE;
 
-    Simulation simulation_ds(particle_container_ds, forces, params_ds);
-    Simulation simulation_lc(particle_container_lc, forces, params_lc);
+    params_lc.container_type = SimulationParams::LinkedCellsType(
+        {30, 30, 30}, 7.5,
+        {LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW,
+         LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW,
+         LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW});
 
-    simulation_ds.runSimulation();
-    simulation_lc.runSimulation();
+    Simulation simulation_ds(particles, forces, params_ds);
+    Simulation simulation_lc(particles, forces, params_lc);
+
+    auto res_ds = simulation_ds.runSimulation();
+    auto res_lc = simulation_lc.runSimulation();
 
     for (int i = 0; i < 4; i++) {
-        EXPECT_ARRAY_NEAR((*particle_container_ds)[i].getX(), (*particle_container_lc)[i].getX(), 1e-4);
+        EXPECT_ARRAY_NEAR((*res_ds.resulting_particles)[i].getX(), (*res_lc.resulting_particles)[i].getX(), 1e-4);
     }
 }

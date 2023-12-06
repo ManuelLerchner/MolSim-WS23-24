@@ -14,9 +14,7 @@
  * Test if the particles of a gravity simulation attract each other.
  */
 TEST(SimulationRunnerLinkedCells, ParticlesAttractEachother_Gravity) {
-    std::array<double, 3> domain_size = {10, 10, 10};
-    double cutoff_radius = 10;
-    std::unique_ptr<ParticleContainer> particle_container = std::make_unique<LinkedCellsContainer>(domain_size, cutoff_radius);
+    std::vector<Particle> particles;
 
     std::array<double, 3> center_offset = {5, 5, 5};
 
@@ -33,8 +31,8 @@ TEST(SimulationRunnerLinkedCells, ParticlesAttractEachother_Gravity) {
     auto p1 = Particle(x1 + center_offset, v1, mass, 0);
     auto p2 = Particle(x2 + center_offset, v2, mass, 0);
 
-    particle_container->addParticle(p1);
-    particle_container->addParticle(p2);
+    particles.push_back(p1);
+    particles.push_back(p2);
 
     FileOutputHandler file_output_handler(FileOutputHandler::OutputFormat::NONE);
 
@@ -44,11 +42,18 @@ TEST(SimulationRunnerLinkedCells, ParticlesAttractEachother_Gravity) {
     SimulationParams params = TEST_DEFAULT_PARAMS;
     params.end_time = 0.1;
     params.delta_t = 0.01;
-    Simulation simulation(particle_container, forces, params);
 
-    simulation.runSimulation();
+    params.container_type = SimulationParams::LinkedCellsType(
+        {10, 10, 10}, 10,
+        {LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW,
+         LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW,
+         LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW});
 
-    auto new_dist = ArrayUtils::L2Norm((*particle_container)[0].getX() - (*particle_container)[1].getX());
+    Simulation simulation(particles, forces, params);
+
+    auto res = simulation.runSimulation();
+
+    auto new_dist = ArrayUtils::L2Norm((*res.resulting_particles)[0].getX() - (*res.resulting_particles)[1].getX());
 
     EXPECT_LT(new_dist, initial_distance);
 }

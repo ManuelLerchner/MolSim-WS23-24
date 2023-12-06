@@ -5,17 +5,35 @@
 
 #include "integration/VerletFunctor.h"
 #include "io/logger/Logger.h"
+#include "particles/containers/directsum/DirectSumContainer.h"
+#include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "utils/FormatTime.h"
 
-Simulation::Simulation(std::unique_ptr<ParticleContainer>& particles, const std::vector<std::unique_ptr<ForceSource>>& forces,
+Simulation::Simulation(const std::vector<Particle>& initial_particles, const std::vector<std::unique_ptr<ForceSource>>& forces,
                        const SimulationParams& simulation_params, IntegrationMethod integration_method)
-    : particles(particles),
-      delta_t(simulation_params.delta_t),
+    : delta_t(simulation_params.delta_t),
       simulation_end_time(simulation_params.end_time),
       file_output_handler(FileOutputHandler(simulation_params.output_format, simulation_params.output_dir_path)),
       fps(simulation_params.fps),
       video_length(simulation_params.video_length),
       forces(forces) {
+    // Create particle container
+    if (std::holds_alternative<SimulationParams::LinkedCellsType>(simulation_params.container_type)) {
+        auto linked_cells = std::get<SimulationParams::LinkedCellsType>(simulation_params.container_type);
+        particles =
+            std::make_unique<LinkedCellsContainer>(linked_cells.domain_size, linked_cells.cutoff_radius, linked_cells.boundary_conditions);
+    } else if (std::holds_alternative<SimulationParams::DirectSumType>(simulation_params.container_type)) {
+        particles = std::make_unique<DirectSumContainer>();
+    } else {
+        throw std::runtime_error("Unknown container type");
+    }
+
+    // Add particles to container
+    particles->reserve(initial_particles.size());
+    for (auto& particle : initial_particles) {
+        particles->addParticle(particle);
+    }
+
     switch (integration_method) {
         case IntegrationMethod::VERLET:
             integration_functor = std::make_unique<VerletFunctor>();
@@ -26,7 +44,7 @@ Simulation::Simulation(std::unique_ptr<ParticleContainer>& particles, const std:
     }
 }
 
-SimulationOverview Simulation::runSimulation() const {
+SimulationOverview Simulation::runSimulation() {
     int iteration = 0;
     double simulation_time = 0;
 
@@ -82,5 +100,5 @@ SimulationOverview Simulation::runSimulation() const {
     auto total_simulation_time =
         std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_time).count();
     return SimulationOverview{total_simulation_time / 1000.0, total_simulation_time / static_cast<double>(iteration),
-                              static_cast<size_t>(iteration), expected_iterations / save_every_nth_iteration};
+                              static_cast<size_t>(iteration), expected_iterations / save_every_nth_iteration, particles};
 }

@@ -17,7 +17,7 @@
  * This test relies on the periodic solution presented in: http://three-body.ipb.ac.rs/sV_sol.php?id=0
  */
 TEST(SimulationRunnerDirectSum, ParticlesReturnToInitialPositionPeriodicSolution_Gravity) {
-    std::unique_ptr<ParticleContainer> particle_container = std::make_unique<DirectSumContainer>();
+    std::vector<Particle> particles;
 
     auto p1 = 0.347113;
     auto p2 = 0.532727;
@@ -36,9 +36,9 @@ TEST(SimulationRunnerDirectSum, ParticlesReturnToInitialPositionPeriodicSolution
     auto pa2 = Particle(x2, v2, 1, 0);
     auto pa3 = Particle(x3, v3, 1, 0);
 
-    particle_container->addParticle(pa1);
-    particle_container->addParticle(pa2);
-    particle_container->addParticle(pa3);
+    particles.push_back(pa1);
+    particles.push_back(pa2);
+    particles.push_back(pa3);
 
     FileOutputHandler file_output_handler(FileOutputHandler::OutputFormat::NONE);
 
@@ -48,11 +48,11 @@ TEST(SimulationRunnerDirectSum, ParticlesReturnToInitialPositionPeriodicSolution
     SimulationParams params = TEST_DEFAULT_PARAMS;
     params.end_time = period;
     params.delta_t = 0.001;
-    Simulation simulation(particle_container, forces, params);
+    Simulation simulation(particles, forces, params);
 
-    simulation.runSimulation();
+    auto result = simulation.runSimulation();
 
-    EXPECT_ARRAY_NEAR((*particle_container)[0].getX(), x1, 0.01);
-    EXPECT_ARRAY_NEAR((*particle_container)[1].getX(), x2, 0.01);
-    EXPECT_ARRAY_NEAR((*particle_container)[2].getX(), x3, 0.01);
+    EXPECT_ARRAY_NEAR((*result.resulting_particles)[0].getX(), x1, 0.01);
+    EXPECT_ARRAY_NEAR((*result.resulting_particles)[1].getX(), x2, 0.01);
+    EXPECT_ARRAY_NEAR((*result.resulting_particles)[2].getX(), x3, 0.01);
 }

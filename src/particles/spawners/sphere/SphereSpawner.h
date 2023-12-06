@@ -50,7 +50,7 @@ class SphereSpawner : public ParticleSpawner {
      *
      * Spawns particles in the given container.
      */
-    void spawnParticles(std::unique_ptr<ParticleContainer>& particle_container) const override;
+    void spawnParticles(std::vector<Particle>& particle_container) const override;
 
     /**
      * @brief Returns the number of particles to be spawned

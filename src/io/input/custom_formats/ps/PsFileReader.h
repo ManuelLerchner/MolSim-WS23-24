@@ -3,8 +3,6 @@
 #include <list>
 
 #include "io/input/FileReader.h"
-#include "particles/Particle.h"
-#include "particles/containers/ParticleContainer.h"
 
 /**
  * @brief Class to read particle data from a '.ps' file
@@ -20,5 +18,6 @@ class PsFileReader : public FileReader {
      * @return Default SimulationParams object (.ps only contains particle data, but no simulation parameters). Necessary for the
      * FileReader interface.
      */
-    SimulationParams readFile(const std::string& filepath, std::unique_ptr<ParticleContainer>& particle_container) const override;
+
+    std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(const std::string& filepath) const override;
 };

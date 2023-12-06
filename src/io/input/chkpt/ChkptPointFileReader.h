@@ -20,5 +20,5 @@ class ChkptPointFileReader : public FileReader {
      * @return SimulationParams object containing the simulation parameters given in the file. Unspecified parameters are set to default
      * values.
      */
-    SimulationParams readFile(const std::string& filepath, std::unique_ptr<ParticleContainer>& particle_container) const override;
+    std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(const std::string& filepath) const override;
 };

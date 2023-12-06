@@ -8,7 +8,7 @@
 #include "io/logger/Logger.h"
 #include "particles/containers/directsum/DirectSumContainer.h"
 
-SimulationParams PsFileReader::readFile(const std::string& filepath, std::unique_ptr<ParticleContainer>& particle_container) const {
+std::tuple<std::vector<Particle>, std::optional<SimulationParams>> PsFileReader::readFile(const std::string& filepath) const {
     std::array<double, 3> x{};
     std::array<double, 3> v{};
     double m;
@@ -28,11 +28,10 @@ SimulationParams PsFileReader::readFile(const std::string& filepath, std::unique
     }
 
     // Initialize particle container
-    particle_container = std::make_unique<DirectSumContainer>();
+    std::vector<Particle> particles;
 
     std::istringstream numstream(curr_line);
     numstream >> num_particles;
-    particle_container->reserve(num_particles);
     getline(input_file, curr_line);
 
     for (int i = 0; i < num_particles; i++) {
@@ -49,10 +48,10 @@ SimulationParams PsFileReader::readFile(const std::string& filepath, std::unique
         }
         datastream >> m;
 
-        particle_container->addParticle(Particle{x, v, m, i});
+        particles.emplace_back(x, v, m, i);
 
         getline(input_file, curr_line);
     }
 
-    return SimulationParams{filepath, "", 0.0002, 5, 24, 30, SimulationParams::DirectSumType(), "vtk"};
+    return std::make_tuple(particles, std::nullopt);
 }
