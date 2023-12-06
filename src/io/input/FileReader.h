@@ -19,9 +19,8 @@ class FileReader {
     virtual ~FileReader() = default;
 
     /**
-     * @brief Reads the file with the given path and fills the given ParticleContainer with the particle data stored in the file
+     * @brief Reads the file with the given path and returns a vector of particles
      * @param filepath Path to the file to be read
-     * @param particle_container ParticleContainer to be filled
      */
     [[nodiscard]] virtual std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(
         const std::string& filepath) const = 0;

@@ -9,13 +9,10 @@
 class CubFileReader : public FileReader {
    public:
     /**
-     * @brief Reads the '.cub' file with the given path and fills the given ParticleContainer with a cuboid of particles
-     * using the arguments stored in the file (see \ref InputFileFormats "Input File Formats" for details on the .cub file format)
+     * @brief Reads the '.cub' file with the given path and returns a vector of particles
+     * (see \ref InputFileFormats "Input File Formats" for details on the .cub file format)
      *
      * @param filepath Path to the file to be read
-     * @param particle_container ParticleContainer to be filled
-     * @return Default SimulationParams object (.cub only contains particle data, but no simulation parameters). Necessary for the
-     * FileReader interface.
      */
     [[nodiscard]] std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(const std::string& filepath) const override;
 

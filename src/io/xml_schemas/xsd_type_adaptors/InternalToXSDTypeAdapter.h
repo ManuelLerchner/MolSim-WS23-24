@@ -1,6 +1,6 @@
 #pragma once
 
-#include "io/output/chkpt/parser/checkpoint_schema.h"
+#include "io/xml_schemas/checkpoint/checkpoint_schema.h"
 #include "particles/Particle.h"
 
 class InternalToXSDTypeAdapter {

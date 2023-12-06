@@ -1,7 +1,7 @@
 #pragma once
 
 #include "io/output/FileWriter.h"
-#include "io/output/chkpt/parser/checkpoint_schema.h"
+#include "io/xml_schemas/checkpoint/checkpoint_schema.h"
 #include "particles/Particle.h"
 
 /**

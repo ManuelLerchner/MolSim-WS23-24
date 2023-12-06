@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:include schemaLocation="../../../input/xml/parser/simulation_schema.xsd"/>
+  <xs:include schemaLocation="../simulation_input/simulation_input_schema.xsd" />
 
   <xs:element name="CheckPoint" type="CheckPointFileType">
     <xs:annotation>
@@ -12,7 +12,7 @@
   <!-- Checkpoint File -->
   <xs:complexType name="CheckPointFileType">
     <xs:sequence>
-      <xs:element name="ParticleData" type="ParticleDataType"/>
+      <xs:element name="ParticleData" type="ParticleDataType" />
     </xs:sequence>
   </xs:complexType>
 
@@ -20,7 +20,7 @@
   <!-- Particle Data -->
   <xs:complexType name="ParticleDataType">
     <xs:sequence>
-      <xs:element name="particle" type="ParticleType" maxOccurs="unbounded"/>
+      <xs:element name="particle" type="ParticleType" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
 
@@ -28,12 +28,12 @@
   <!-- Particle -->
   <xs:complexType name="ParticleType">
     <xs:sequence>
-      <xs:element name="position" type="DoubleVec3Type"/>
-      <xs:element name="velocity" type="DoubleVec3Type"/>
-      <xs:element name="force" type="DoubleVec3Type"/>
-      <xs:element name="old_force" type="DoubleVec3Type"/>
-      <xs:element name="mass" type="xs:double"/>
-      <xs:element name="type" type="xs:integer"/>
+      <xs:element name="position" type="DoubleVec3Type" />
+      <xs:element name="velocity" type="DoubleVec3Type" />
+      <xs:element name="force" type="DoubleVec3Type" />
+      <xs:element name="old_force" type="DoubleVec3Type" />
+      <xs:element name="mass" type="xs:double" />
+      <xs:element name="type" type="xs:integer" />
     </xs:sequence>
   </xs:complexType>
 

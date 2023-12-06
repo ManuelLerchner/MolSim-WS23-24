@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 
-#include "io/input/xsd_type_adaptors/InternalToXSDTypeAdapter.h"
+#include "io/xml_schemas/xsd_type_adaptors/InternalToXSDTypeAdapter.h"
 
 void CheckPointWriter::writeFile(const std::string& output_dir_path, int iteration,
                                  const std::unique_ptr<ParticleContainer>& particle_container) const {

@@ -22,11 +22,11 @@ class FileInputHandler {
      * SimulationParams object.
      *
      * @param input_file_path The path to the input file
-     * @param particle_container The ParticleContainer to store the particles in#
-     * @return SimulationParams containing the simulation parameters
+     * @return std::tuple<std::vector<Particle>, std::optional<SimulationParams>> Tuple containing the particles and the parameters of the
+     * file
      *
-     * Reads the input file and generate and stores particles in the given `ParticleContainer`.
-     * Other parameters are stored in a `SimulationParams` object and returned.
+     * Reads the input file and generate and stores particles a vector.
+     * Parameters are stored in a `SimulationParams` object and returned.
      * For more information about the output file formats, see \ref InputFileFormats "Input File Formats"
      */
     static std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(const std::string& input_file_path);

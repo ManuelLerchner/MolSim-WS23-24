@@ -2,7 +2,7 @@
 
 #include <variant>
 
-#include "io/input/xml/parser/simulation_schema.h"
+#include "io/xml_schemas/simulation_input/simulation_input_schema.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "particles/spawners/cuboid/CuboidSpawner.h"
 #include "particles/spawners/sphere/SphereSpawner.h"

@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-#include "io/input/xsd_type_adaptors/XSDToInternalTypeAdapter.h"
+#include "io/xml_schemas/xsd_type_adaptors/XSDToInternalTypeAdapter.h"
 
 std::tuple<std::vector<Particle>, std::optional<SimulationParams>> ChkptPointFileReader::readFile(const std::string& filepath) const {
     try {

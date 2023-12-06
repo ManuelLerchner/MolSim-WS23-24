@@ -36,7 +36,7 @@
 //
 // End prologue.
 
-#include "vtk-unstructured.h"
+#include "vtk_file_schema.h"
 
 #include <xsd/cxx/pre.hxx>
 

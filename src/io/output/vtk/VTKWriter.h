@@ -1,7 +1,7 @@
 #pragma once
 
 #include "io/output/FileWriter.h"
-#include "io/output/vtk/parser/vtk-unstructured.h"
+#include "io/xml_schemas/vtk_file/vtk_file_schema.h"
 #include "particles/Particle.h"
 
 /**
