@@ -56,7 +56,7 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
     if (log_output == "std" || log_output == "STD") {
         Logger::logger->info("Log output: std");
     } else if (log_output == "file" || log_output == "FILE") {
-        Logger::logger = Logger::init_logger(LogType::FILE);
+        Logger::logger = Logger::init_logger(Logger::LogType::FILE);
         Logger::logger->info("Log output: file");
     } else {
         std::cout << "Error: Invalid log output given. Options: no file output: 'std' and file output: 'file'" << std::endl;
