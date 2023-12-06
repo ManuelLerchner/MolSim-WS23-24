@@ -34,9 +34,9 @@ class Thermostat {
     /**
      * @brief Construct a new Thermostat object.
      *
-     * @param initial_temperature The initial temperature used to set the initial velocity of the particles.
      * @param target_temperature The target temperature for thermostat applications.
      * @param max_temperature_change The maximum temperature change allowed per thermostat application.
+     * @param application_interval The number of iterations between thermostat applications.
      * @param third_dimension True if the thermostat applies to a 3-dimensional domain, false for 2 dimensions.
      */
     Thermostat(double target_temperature, double max_temperature_change = std::numeric_limits<double>::max(),
@@ -70,6 +70,7 @@ class Thermostat {
      * random value according to the Maxwell-Boltzmann distribution (all previous velocities are discarded).
      * Use this function for systems with no initial velocity.
      *
+     * @param new_temperature The new temperature of the particle container.
      * @param particle_container The particle container to set the initial temperature of.
      */
     void setTemperature(double new_temperature, std::unique_ptr<ParticleContainer>& particle_container);
@@ -78,7 +79,9 @@ class Thermostat {
      * @brief Set the temperature of a particle. This method adds a random velocity to the particle according to the Maxwell-Boltzmann
      * distribution. This function can be used for particle generators since previous velocities are not discarded.
      *
+     * @param new_temperature The new temperature of the particle.
      * @param particle The particle to set the initial temperature of.
+     * @param dimensions The number of dimensions of the particle container.
      */
     static void setParticleTemperature(double new_temperature, Particle& particle, size_t dimensions);
 
