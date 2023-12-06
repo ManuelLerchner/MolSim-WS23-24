@@ -1,28 +1,24 @@
 #include "SimulationParams.h"
 
+#include <filesystem>
+
 #include "io/logger/Logger.h"
 
 std::string construct_output_path(const std::string& input_file_path) {
-    auto last_slash_pos = input_file_path.find_last_of('/');
-    auto last_dot_pos = input_file_path.find_last_of('.');
-    if (last_slash_pos == std::string::npos) {
-        last_slash_pos = 0;
-    }
-    if (last_dot_pos == std::string::npos) {
-        last_dot_pos = input_file_path.size();
-    }
-    return "./output/" + input_file_path.substr(last_slash_pos + 1, last_dot_pos - last_slash_pos - 1) + "/";
+    std::filesystem::path input_path{input_file_path};
+    return "./output/" + std::string(input_path.stem()) + "/";
 };
 
 SimulationParams::SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time,
                                    int fps, int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
-                                   const std::string& output_format)
+                                   const std::string& output_format, bool performance_test)
     : input_file_path(input_file_path),
       delta_t(delta_t),
       end_time(end_time),
       fps(fps),
       video_length(video_length),
-      container_type(container_type) {
+      container_type(container_type),
+      performance_test(performance_test) {
     if (fps < 0) {
         Logger::logger->error("FPS must be positive");
         exit(-1);

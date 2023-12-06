@@ -5,7 +5,6 @@
 
 #include "data/FileLoader.h"
 #include "io/input/FileInputHandler.h"
-#include "particles/containers/ParticleContainer.h"
 #include "physics/ForceSource.h"
 #include "physics/LennardJonesForce.h"
 #include "simulation/Simulation.h"

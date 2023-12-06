@@ -2,7 +2,6 @@
 
 #include "io/logger/Logger.h"
 #include "io/output/FileOutputHandler.h"
-#include "particles/containers/ParticleContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "physics/GravitationalForce.h"
 #include "simulation/Simulation.h"
@@ -64,7 +63,7 @@ TEST(SimulationRunnerLinkedCells, ParticlesReturnToInitialPositionPeriodicSoluti
 
     auto res = simulation.runSimulation();
 
-    EXPECT_ARRAY_NEAR((*res.resulting_particles)[0].getX(), pa1.getX(), 0.01);
-    EXPECT_ARRAY_NEAR((*res.resulting_particles)[1].getX(), pa2.getX(), 0.01);
-    EXPECT_ARRAY_NEAR((*res.resulting_particles)[2].getX(), pa3.getX(), 0.01);
+    EXPECT_ARRAY_NEAR((res.resulting_particles)[0].getX(), pa1.getX(), 0.01);
+    EXPECT_ARRAY_NEAR((res.resulting_particles)[1].getX(), pa2.getX(), 0.01);
+    EXPECT_ARRAY_NEAR((res.resulting_particles)[2].getX(), pa3.getX(), 0.01);
 }

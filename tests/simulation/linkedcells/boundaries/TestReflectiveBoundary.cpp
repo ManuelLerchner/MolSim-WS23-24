@@ -37,8 +37,8 @@ TEST(ReflectiveBoundaryLC, BouncesAtLeftBoundary) {
 
     auto res = simulation.runSimulation();
 
-    EXPECT_GE((*res.resulting_particles)[0].getV()[0], 0);
-    EXPECT_NEAR((*res.resulting_particles)[0].getV()[0], -v1[0], 1e-3);
+    EXPECT_GE((res.resulting_particles)[0].getV()[0], 0);
+    EXPECT_NEAR((res.resulting_particles)[0].getV()[0], -v1[0], 1e-3);
 }
 
 /*
@@ -68,8 +68,8 @@ TEST(ReflectiveBoundaryLC, BouncesAtRightBoundary) {
 
     auto res = simulation.runSimulation();
 
-    EXPECT_LE((*res.resulting_particles)[0].getV()[0], 0);
-    EXPECT_NEAR((*res.resulting_particles)[0].getV()[0], -v1[0], 1e-3);
+    EXPECT_LE((res.resulting_particles)[0].getV()[0], 0);
+    EXPECT_NEAR((res.resulting_particles)[0].getV()[0], -v1[0], 1e-3);
 }
 
 /*
@@ -99,8 +99,8 @@ TEST(ReflectiveBoundaryLC, BouncesAtBottomBoundary) {
 
     auto res = simulation.runSimulation();
 
-    EXPECT_GE((*res.resulting_particles)[0].getV()[1], 0);
-    EXPECT_NEAR((*res.resulting_particles)[0].getV()[1], -v1[1], 1e-3);
+    EXPECT_GE((res.resulting_particles)[0].getV()[1], 0);
+    EXPECT_NEAR((res.resulting_particles)[0].getV()[1], -v1[1], 1e-3);
 }
 
 /*
@@ -130,8 +130,8 @@ TEST(ReflectiveBoundaryLC, BouncesAtTopBoundary) {
 
     auto res = simulation.runSimulation();
 
-    EXPECT_LE((*res.resulting_particles)[0].getV()[1], 0);
-    EXPECT_NEAR((*res.resulting_particles)[0].getV()[1], -v1[1], 1e-3);
+    EXPECT_LE((res.resulting_particles)[0].getV()[1], 0);
+    EXPECT_NEAR((res.resulting_particles)[0].getV()[1], -v1[1], 1e-3);
 }
 
 /*
@@ -161,8 +161,8 @@ TEST(ReflectiveBoundaryLC, BouncesAtBackBoundary) {
 
     auto res = simulation.runSimulation();
 
-    EXPECT_GE((*res.resulting_particles)[0].getV()[2], 0);
-    EXPECT_NEAR((*res.resulting_particles)[0].getV()[2], -v1[2], 1e-3);
+    EXPECT_GE((res.resulting_particles)[0].getV()[2], 0);
+    EXPECT_NEAR((res.resulting_particles)[0].getV()[2], -v1[2], 1e-3);
 }
 
 /*
@@ -192,6 +192,6 @@ TEST(ReflectiveBoundaryLC, BouncesAtFrontBoundary) {
 
     auto res = simulation.runSimulation();
 
-    EXPECT_LE((*res.resulting_particles)[0].getV()[2], 0);
-    EXPECT_NEAR((*res.resulting_particles)[0].getV()[2], -v1[2], 1e-3);
+    EXPECT_LE((res.resulting_particles)[0].getV()[2], 0);
+    EXPECT_NEAR((res.resulting_particles)[0].getV()[2], -v1[2], 1e-3);
 }

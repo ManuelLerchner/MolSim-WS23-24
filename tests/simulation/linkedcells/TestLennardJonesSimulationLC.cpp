@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
 
-#include "particles/containers/ParticleContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "physics/LennardJonesForce.h"
 #include "simulation/Simulation.h"
@@ -49,7 +48,7 @@ TEST(SimulationRunnerLinkedCells, ParticlesAttractEachother_LennardJones) {
 
     auto res = simulation.runSimulation();
 
-    auto new_dist = ArrayUtils::L2Norm((*res.resulting_particles)[0].getX() - (*res.resulting_particles)[1].getX());
+    auto new_dist = ArrayUtils::L2Norm((res.resulting_particles)[0].getX() - (res.resulting_particles)[1].getX());
 
     EXPECT_LT(new_dist, initial_distance);
 }

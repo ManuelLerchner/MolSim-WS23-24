@@ -37,7 +37,7 @@ TEST(OutflowBoundaryLC, DeletedAtLeftBoundary) {
 
     auto res = simulation.runSimulation();
 
-    EXPECT_EQ((res.resulting_particles)->size(), 0);
+    EXPECT_EQ(res.resulting_particles.size(), 0);
 }
 
 /*
@@ -67,7 +67,7 @@ TEST(OutflowBoundaryLC, DeletedAtRightBoundary) {
 
     auto res = simulation.runSimulation();
 
-    EXPECT_EQ((res.resulting_particles)->size(), 0);
+    EXPECT_EQ(res.resulting_particles.size(), 0);
 }
 
 /*
@@ -97,7 +97,7 @@ TEST(OutflowBoundaryLC, DeletedAtBottomBoundary) {
 
     auto res = simulation.runSimulation();
 
-    EXPECT_EQ((res.resulting_particles)->size(), 0);
+    EXPECT_EQ(res.resulting_particles.size(), 0);
 }
 
 /*
@@ -127,7 +127,7 @@ TEST(OutflowBoundaryLC, DeletedAtTopBoundary) {
 
     auto res = simulation.runSimulation();
 
-    EXPECT_EQ((res.resulting_particles)->size(), 0);
+    EXPECT_EQ(res.resulting_particles.size(), 0);
 }
 
 /*
@@ -157,7 +157,7 @@ TEST(OutflowBoundaryLC, DeletedAtFrontBoundary) {
 
     auto res = simulation.runSimulation();
 
-    EXPECT_EQ((res.resulting_particles)->size(), 0);
+    EXPECT_EQ(res.resulting_particles.size(), 0);
 }
 
 /*
@@ -187,5 +187,5 @@ TEST(OutflowBoundaryLC, DeletedAtBackBoundary) {
 
     auto res = simulation.runSimulation();
 
-    EXPECT_EQ((res.resulting_particles)->size(), 0);
+    EXPECT_EQ(res.resulting_particles.size(), 0);
 }

@@ -2,7 +2,6 @@
 
 #include "io/logger/Logger.h"
 #include "io/output/FileOutputHandler.h"
-#include "particles/containers/ParticleContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "physics/GravitationalForce.h"
 #include "physics/LennardJonesForce.h"
@@ -72,7 +71,7 @@ TEST(SimulationRunnerDirectSumLinkedCellsComparison, RandomSimulation1) {
     auto res_lc = simulation_lc.runSimulation();
 
     for (int i = 0; i < 4; i++) {
-        EXPECT_ARRAY_NEAR((*res_ds.resulting_particles)[i].getX(), (*res_lc.resulting_particles)[i].getX(), 1e-7);
+        EXPECT_ARRAY_NEAR((res_ds.resulting_particles)[i].getX(), (res_lc.resulting_particles)[i].getX(), 1e-7);
     }
 }
 
@@ -129,6 +128,6 @@ TEST(SimulationRunnerDirectSumLinkedCellsComparison, Collision) {
     auto res_lc = simulation_lc.runSimulation();
 
     for (int i = 0; i < 4; i++) {
-        EXPECT_ARRAY_NEAR((*res_ds.resulting_particles)[i].getX(), (*res_lc.resulting_particles)[i].getX(), 1e-4);
+        EXPECT_ARRAY_NEAR((res_ds.resulting_particles)[i].getX(), (res_lc.resulting_particles)[i].getX(), 1e-4);
     }
 }

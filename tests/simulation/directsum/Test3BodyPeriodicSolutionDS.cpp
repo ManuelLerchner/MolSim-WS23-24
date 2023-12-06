@@ -51,7 +51,7 @@ TEST(SimulationRunnerDirectSum, ParticlesReturnToInitialPositionPeriodicSolution
 
     auto result = simulation.runSimulation();
 
-    EXPECT_ARRAY_NEAR((*result.resulting_particles)[0].getX(), x1, 0.01);
-    EXPECT_ARRAY_NEAR((*result.resulting_particles)[1].getX(), x2, 0.01);
-    EXPECT_ARRAY_NEAR((*result.resulting_particles)[2].getX(), x3, 0.01);
+    EXPECT_ARRAY_NEAR((result.resulting_particles)[0].getX(), x1, 0.01);
+    EXPECT_ARRAY_NEAR((result.resulting_particles)[1].getX(), x2, 0.01);
+    EXPECT_ARRAY_NEAR((result.resulting_particles)[2].getX(), x3, 0.01);
 }

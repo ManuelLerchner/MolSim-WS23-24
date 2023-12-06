@@ -4,18 +4,22 @@
 
 #include "io/logger/Logger.h"
 #include "io/output/FileOutputHandler.h"
+#include "spdlog/sinks/rotating_file_sink.h"
 
 SimulationParams parse_arguments(int argc, char* argsv[]) {
     std::string input_file_path;
     std::string output_dir_path;
     std::string log_level;
     std::string output_format;
+    std::string log_output;
 
     double end_time = 0;
     double delta_t = 0;
 
     int fps = 0;
     int video_length = 0;
+
+    bool performance_test = false;
 
     // choosing 0 as one of the parameters (end_time, delta_t, fps, video_length) is equivalent to choosing the default value
     boost::program_options::options_description options_desc("Allowed options");
@@ -38,6 +42,10 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
                                "The log level. Possible values: trace, debug, info, warning, error, critical, off");
     options_desc.add_options()("output_format", boost::program_options::value<std::string>(&output_format)->default_value("vtk"),
                                "The output format. Possible values: vtk, xyz, none");
+    options_desc.add_options()("performance_test,p", "Run the simulation in performance test mode");
+    options_desc.add_options()(
+        "log_output", boost::program_options::value<std::string>(&log_output)->default_value("std"),
+        "You can only choose between the output options std(only cl output) and file (only file output). Default: no file output");
 
     boost::program_options::positional_options_description positional_options_desc;
     positional_options_desc.add("input_file_path", -1);
@@ -47,6 +55,16 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
         boost::program_options::command_line_parser(argc, argsv).options(options_desc).positional(positional_options_desc).run(),
         variables_map);
     boost::program_options::notify(variables_map);
+
+    if (log_output == "std" || log_output == "STD") {
+        Logger::logger->info("Log output: std");
+    } else if (log_output == "file" || log_output == "FILE") {
+        Logger::logger = Logger::init_logger(Logger::LogType::FILE);
+        Logger::logger->info("Log output: file");
+    } else {
+        std::cout << "Error: Invalid log output given. Options: no file output: 'std' and file output: 'file'" << std::endl;
+        exit(-1);
+    }
 
     if (log_level == "trace") {
         Logger::logger->set_level(spdlog::level::trace);
@@ -80,9 +98,12 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
         Logger::logger->info(help_message.str());
         exit(-1);
     }
+    if (variables_map.count("performance_test")) {
+        performance_test = true;
+    }
 
     return SimulationParams{input_file_path, output_dir_path, delta_t, end_time, fps, video_length, SimulationParams::DirectSumType{},
-                            output_format};
+                            output_format,   performance_test};
 }
 
 SimulationParams merge_parameters(const SimulationParams& params_cli, const std::optional<SimulationParams>& file_params) {
@@ -111,6 +132,8 @@ SimulationParams merge_parameters(const SimulationParams& params_cli, const std:
 
     // Must be given in the CLI
     params.output_format = params_cli.output_format;
+
+    params.performance_test = params_cli.performance_test;
 
     return params;
 }
