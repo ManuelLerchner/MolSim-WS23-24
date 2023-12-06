@@ -96,9 +96,6 @@ std::vector<Particle> createCollidingCubesParticles(std::array<double, 3> offset
 TEST(SimulationRunnerDirectSumLinkedCellsComparison, Collision) {
     Logger::logger->set_level(spdlog::level::off);
 
-    std::array<double, 3> domain_size = {30, 30, 30};
-    double cutoff_radius = 7.5;
-
     std::array<double, 3> offset_center = {15, 15, 15};
     auto particles = createCollidingCubesParticles(offset_center);
 

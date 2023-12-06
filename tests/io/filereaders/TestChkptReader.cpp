@@ -21,7 +21,7 @@ TEST(ChkptPointFileReader, CorrectReadingOfParticles) {
 
     std::vector<Particle> expected_particles = {expected_particle1, expected_particle2};
 
-    for (int i = 0; i < particles.size(); i++) {
+    for (size_t i = 0; i < particles.size(); i++) {
         auto& particle = particles[i];
         auto& expected_particle = expected_particles[i];
 
