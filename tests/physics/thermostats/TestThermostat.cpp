@@ -341,7 +341,6 @@ TEST(Thermostat, TemperatureKeeping) {
         // most 1.1025, ~10% which from the initial temperature is around 0.5 < 0.75). The maximum temperature change is 0.75 so the
         // temperature should stay about the same.
         double factor = dist(gen);
-        std::cout << factor << std::endl;
         for (auto it = particle_container_ds->begin(); it != particle_container_ds->end(); ++it) {
             it->setV(factor * it->getV());
         }
