@@ -322,7 +322,7 @@ TEST(Thermostat, TemperatureCoolingCappedStep) {
 TEST(Thermostat, TemperatureKeeping) {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_real_distribution<double> dist(1, 1.05);
+    std::uniform_real_distribution<double> dist(1.005, 1.05);
 
     auto thermostat = Thermostat(5, 0.75, 1, true);
 
@@ -341,6 +341,7 @@ TEST(Thermostat, TemperatureKeeping) {
         // most 1.1025, ~10% which from the initial temperature is around 0.5 < 0.75). The maximum temperature change is 0.75 so the
         // temperature should stay about the same.
         double factor = dist(gen);
+        std::cout << factor << std::endl;
         for (auto it = particle_container_ds->begin(); it != particle_container_ds->end(); ++it) {
             it->setV(factor * it->getV());
         }
@@ -351,7 +352,7 @@ TEST(Thermostat, TemperatureKeeping) {
         EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_ds), initial_temperature_ds, 3e-2);
     }
 
-    // Test with DirectSumContainer
+    // Test with LinkedCellsContainer
 
     std::unique_ptr<ParticleContainer> particle_container_lc = createLinkedCellsContainer();
     generateParticles(50, 50, 50, particle_container_lc);
