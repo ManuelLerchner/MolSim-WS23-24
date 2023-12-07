@@ -3,8 +3,6 @@
 #include "io/logger/Logger.h"
 #include "io/output/FileOutputHandler.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
-#include "physics/GravitationalForce.h"
-#include "physics/LennardJonesForce.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"
@@ -43,15 +41,12 @@ TEST(SimulationRunnerDirectSumLinkedCellsComparison, RandomSimulation1) {
 
     auto particles = createParticles();
 
-    std::vector<std::unique_ptr<ForceSource>> forces;
-    forces.push_back(std::make_unique<LennardJonesForce>());
-
-    SimulationParams params_ds = TEST_DEFAULT_PARAMS;
+    SimulationParams params_ds = TEST_DEFAULT_PARAMS_LENNARD_JONES;
     params_ds.end_time = end_t;
     params_ds.delta_t = delta_t;
     params_ds.output_format = FileOutputHandler::OutputFormat::NONE;
 
-    SimulationParams params_lc = TEST_DEFAULT_PARAMS;
+    SimulationParams params_lc = TEST_DEFAULT_PARAMS_LENNARD_JONES;
     params_lc.end_time = end_t;
     params_lc.delta_t = delta_t;
     params_lc.output_format = FileOutputHandler::OutputFormat::NONE;
@@ -64,8 +59,8 @@ TEST(SimulationRunnerDirectSumLinkedCellsComparison, RandomSimulation1) {
     params_lc.container_type =
         SimulationParams::LinkedCellsType({10, 10, 10}, 10, {BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW});
 
-    Simulation simulation_ds(particles, forces, params_ds);
-    Simulation simulation_lc(particles, forces, params_lc);
+    Simulation simulation_ds(particles, params_ds);
+    Simulation simulation_lc(particles, params_lc);
 
     auto res_ds = simulation_ds.runSimulation();
     auto res_lc = simulation_lc.runSimulation();
@@ -102,15 +97,12 @@ TEST(SimulationRunnerDirectSumLinkedCellsComparison, Collision) {
     double delta_t = 0.0005;
     double end_t = 1;
 
-    std::vector<std::unique_ptr<ForceSource>> forces;
-    forces.push_back(std::make_unique<LennardJonesForce>());
-
-    SimulationParams params_ds = TEST_DEFAULT_PARAMS;
+    SimulationParams params_ds = TEST_DEFAULT_PARAMS_LENNARD_JONES;
     params_ds.end_time = end_t;
     params_ds.delta_t = delta_t;
     params_ds.output_format = FileOutputHandler::OutputFormat::NONE;
 
-    SimulationParams params_lc = TEST_DEFAULT_PARAMS;
+    SimulationParams params_lc = TEST_DEFAULT_PARAMS_LENNARD_JONES;
     params_lc.end_time = end_t;
     params_lc.delta_t = delta_t;
     params_lc.output_format = FileOutputHandler::OutputFormat::NONE;
@@ -118,8 +110,8 @@ TEST(SimulationRunnerDirectSumLinkedCellsComparison, Collision) {
     params_lc.container_type = SimulationParams::LinkedCellsType(
         {30, 30, 30}, 7.5, {BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW});
 
-    Simulation simulation_ds(particles, forces, params_ds);
-    Simulation simulation_lc(particles, forces, params_lc);
+    Simulation simulation_ds(particles, params_ds);
+    Simulation simulation_lc(particles, params_lc);
 
     auto res_ds = simulation_ds.runSimulation();
     auto res_lc = simulation_lc.runSimulation();

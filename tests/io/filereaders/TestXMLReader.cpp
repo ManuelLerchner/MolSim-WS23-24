@@ -1,10 +1,13 @@
 #include <gtest/gtest.h>
 
 #include "data/FileLoader.h"
+#include "io/input/chkpt/ChkptPointFileReader.h"
 #include "io/input/xml/XMLFileReader.h"
+#include "particles/spawners/sphere/SphereSpawner.h"
+#include "utils/ArrayUtils.h"
 
-#define EXPECT_CONTAINS_POS_NEAR(list, point, tol) \
-    EXPECT_TRUE(std::find_if(list.begin(), list.end(), [&](auto& x) { return ArrayUtils::L2Norm(x - point) < tol; }) != list.end());
+#define EXPECT_NOT_CONTAINS_POS_NEAR(list, point, tol) \
+    EXPECT_FALSE(std::find_if(list.begin(), list.end(), [&](auto& x) { return ArrayUtils::L2Norm(x.getX() - point) < tol; }) != list.end());
 
 TEST(XMLFileReader, CorrectParticleContainer) {
     XMLFileReader file_reader;
@@ -45,4 +48,39 @@ TEST(XMLFileReader, CorrectParticleContainer) {
     EXPECT_NEAR((particles)[107].getX()[0], 20, err);
     EXPECT_NEAR((particles)[107].getX()[1], 100, err);
     EXPECT_NEAR((particles)[107].getX()[2], 100, err);
+}
+
+TEST(XMLFileReader, LoadCheckPoint) {
+    XMLFileReader file_reader;
+    ChkptPointFileReader chkpt_reader;
+
+    auto [particles_xml, params_xml] = file_reader.readFile(FileLoader::get_input_file_path("CheckpointLoad.xml"));
+    auto [particles_chkpt, params_chkpt] = chkpt_reader.readFile(FileLoader::get_input_file_path("ChktpExample.chkpt"));
+
+    EXPECT_EQ(particles_xml.size(), particles_chkpt.size());
+
+    for (size_t i = 0; i < particles_xml.size(); i++) {
+        auto& particle_xml = particles_xml[i];
+        auto& particle_chkpt = particles_chkpt[i];
+
+        EXPECT_EQ(particle_xml, particle_chkpt);
+    }
+}
+
+TEST(XMLFileReader, RecursiveSubSimulation) {
+    XMLFileReader file_reader;
+
+    auto [particles_xml, params_xml] = file_reader.readFile(FileLoader::get_input_file_path("RecursiveExample.xml"));
+
+    std::vector<Particle> equilibrated_particles;
+
+    SphereSpawner spawner{{0, 0, 0}, 2, 1, 5, {0, 0, 0}, 1, true};
+
+    spawner.spawnParticles(equilibrated_particles);
+
+    EXPECT_EQ(particles_xml.size(), 33 + 8);
+
+    for (const auto& particle : equilibrated_particles) {
+        EXPECT_NOT_CONTAINS_POS_NEAR(particles_xml, particle.getX(), 1);
+    }
 }

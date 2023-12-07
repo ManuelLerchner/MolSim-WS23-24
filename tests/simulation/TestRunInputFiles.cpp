@@ -5,8 +5,6 @@
 
 #include "data/FileLoader.h"
 #include "io/input/FileInputHandler.h"
-#include "physics/ForceSource.h"
-#include "physics/LennardJonesForce.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"
@@ -58,17 +56,15 @@ TEST(SimulationRunner, EnsureBackwardsCompatibilityForAllInputFiles) {
         EXPECT_GT(particles.size(), 0);
 
         // Create all force sources acting on the particles
-        std::vector<std::unique_ptr<ForceSource>> forces;
-        forces.push_back(std::make_unique<LennardJonesForce>());
 
-        SimulationParams params = TEST_DEFAULT_PARAMS;
+        SimulationParams params = TEST_DEFAULT_PARAMS_LENNARD_JONES;
 
         params.end_time = 0.1;
         params.delta_t = 0.01;
         params.output_format = FileOutputHandler::OutputFormat::NONE;
 
         // Initialize simulation
-        Simulation simulation{particles, forces, params};
+        Simulation simulation{particles, params};
 
         // Run simulation
         auto res = simulation.runSimulation();

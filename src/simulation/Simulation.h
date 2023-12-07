@@ -45,7 +45,10 @@ class Simulation {
      */
     const SimulationParams& simulation_params;
 
-    const std::vector<std::unique_ptr<ForceSource>>& forces;
+    /**
+     * @brief Vector of force sources which are used to calculate the new forces
+     */
+    const std::vector<std::shared_ptr<ForceSource>> forces;
 
     /**
      * @brief Reference to the `ParticleContainer` on whose content the simulation is performed
@@ -61,12 +64,11 @@ class Simulation {
      * @brief Construct a new Simulation object and initialize all the necessary components
      *
      * @param particles Reference to the `ParticleContainer` on whose content the simulation is performed
-     * @param forces Vector of forces which are applied in the simulation
      * @param simulation_params Parameters for the simulation. See the class `SimulationParams` for more information
      * @param integration_method The integration method to use for the simulation (Default: `IntegrationMethod::VERLET`)
      */
-    Simulation(const std::vector<Particle>& particles, const std::vector<std::unique_ptr<ForceSource>>& forces,
-               const SimulationParams& simulation_params, IntegrationMethod integration_method = IntegrationMethod::VERLET);
+    Simulation(const std::vector<Particle>& particles, const SimulationParams& simulation_params,
+               IntegrationMethod integration_method = IntegrationMethod::VERLET);
 
     /**
      * @brief Runs the simulation, using the parameters given at construction and returns a `SimulationOverview` object containing some data

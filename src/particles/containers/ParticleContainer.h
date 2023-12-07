@@ -45,7 +45,7 @@ class ParticleContainer {
      * Applies the given force sources to the particles in the container.
      * Uses newton's third law to calculate the forces between the particles in an optimized way.
      */
-    virtual void applyPairwiseForces(const std::vector<std::unique_ptr<ForceSource>>& force_sources) = 0;
+    virtual void applyPairwiseForces(const std::vector<std::shared_ptr<ForceSource>>& force_sources) = 0;
 
     /**
      * @brief Reserves space for n particles

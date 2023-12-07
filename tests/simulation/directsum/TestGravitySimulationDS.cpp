@@ -3,7 +3,6 @@
 #include <memory>
 
 #include "io/output/FileOutputHandler.h"
-#include "physics/GravitationalForce.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"
@@ -32,13 +31,10 @@ TEST(SimulationRunnerDirectSum, ParticlesAttractEachother_Gravity) {
 
     FileOutputHandler file_output_handler(FileOutputHandler::OutputFormat::NONE);
 
-    std::vector<std::unique_ptr<ForceSource>> forces;
-    forces.push_back(std::make_unique<GravitationalForce>());
-
-    SimulationParams params = TEST_DEFAULT_PARAMS;
+    SimulationParams params = TEST_DEFAULT_PARAMS_GRAVITY;
     params.end_time = 0.1;
     params.delta_t = 0.001;
-    Simulation simulation(particles, forces, params);
+    Simulation simulation(particles, params);
 
     auto res = simulation.runSimulation();
 

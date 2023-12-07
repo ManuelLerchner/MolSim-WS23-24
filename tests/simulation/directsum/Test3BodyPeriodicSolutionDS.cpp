@@ -2,7 +2,6 @@
 
 #include "io/output/FileOutputHandler.h"
 #include "particles/containers/ParticleContainer.h"
-#include "physics/GravitationalForce.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationUtils.h"
 
@@ -41,13 +40,11 @@ TEST(SimulationRunnerDirectSum, ParticlesReturnToInitialPositionPeriodicSolution
 
     FileOutputHandler file_output_handler(FileOutputHandler::OutputFormat::NONE);
 
-    std::vector<std::unique_ptr<ForceSource>> forces;
-    forces.push_back(std::make_unique<GravitationalForce>());
-
-    SimulationParams params = TEST_DEFAULT_PARAMS;
+    SimulationParams params = TEST_DEFAULT_PARAMS_GRAVITY;
     params.end_time = period;
     params.delta_t = 0.001;
-    Simulation simulation(particles, forces, params);
+
+    Simulation simulation(particles, params);
 
     auto result = simulation.runSimulation();
 

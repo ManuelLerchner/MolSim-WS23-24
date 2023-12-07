@@ -4,7 +4,6 @@
 
 #include "particles/containers/ParticleContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
-#include "physics/LennardJonesForce.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationUtils.h"
 
@@ -23,17 +22,14 @@ TEST(ReflectiveBoundaryLC, BouncesAtLeftBoundary) {
 
     particles.push_back(particle);
 
-    std::vector<std::unique_ptr<ForceSource>> forces;
-    forces.push_back(std::make_unique<LennardJonesForce>());
-
-    SimulationParams params = TEST_DEFAULT_PARAMS;
+    SimulationParams params = TEST_DEFAULT_PARAMS_LENNARD_JONES;
     params.end_time = 0.5;
     params.delta_t = 0.005;
 
     params.container_type = SimulationParams::LinkedCellsType(
         {10, 10, 10}, 5, {BC::REFLECTIVE, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW});
 
-    Simulation simulation(particles, forces, params);
+    Simulation simulation(particles, params);
 
     auto res = simulation.runSimulation();
 
@@ -54,17 +50,14 @@ TEST(ReflectiveBoundaryLC, BouncesAtRightBoundary) {
 
     particles.push_back(particle);
 
-    std::vector<std::unique_ptr<ForceSource>> forces;
-    forces.push_back(std::make_unique<LennardJonesForce>());
-
-    SimulationParams params = TEST_DEFAULT_PARAMS;
+    SimulationParams params = TEST_DEFAULT_PARAMS_LENNARD_JONES;
     params.end_time = 0.5;
     params.delta_t = 0.005;
 
     params.container_type = SimulationParams::LinkedCellsType(
         {10, 10, 10}, 5, {BC::OUTFLOW, BC::REFLECTIVE, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW});
 
-    Simulation simulation(particles, forces, params);
+    Simulation simulation(particles, params);
 
     auto res = simulation.runSimulation();
 
@@ -85,17 +78,14 @@ TEST(ReflectiveBoundaryLC, BouncesAtBottomBoundary) {
 
     particles.push_back(particle);
 
-    std::vector<std::unique_ptr<ForceSource>> forces;
-    forces.push_back(std::make_unique<LennardJonesForce>());
-
-    SimulationParams params = TEST_DEFAULT_PARAMS;
+    SimulationParams params = TEST_DEFAULT_PARAMS_LENNARD_JONES;
     params.end_time = 0.5;
     params.delta_t = 0.005;
 
     params.container_type = SimulationParams::LinkedCellsType(
         {10, 10, 10}, 5, {BC::OUTFLOW, BC::OUTFLOW, BC::REFLECTIVE, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW});
 
-    Simulation simulation(particles, forces, params);
+    Simulation simulation(particles, params);
 
     auto res = simulation.runSimulation();
 
@@ -116,17 +106,14 @@ TEST(ReflectiveBoundaryLC, BouncesAtTopBoundary) {
 
     particles.push_back(particle);
 
-    std::vector<std::unique_ptr<ForceSource>> forces;
-    forces.push_back(std::make_unique<LennardJonesForce>());
-
-    SimulationParams params = TEST_DEFAULT_PARAMS;
+    SimulationParams params = TEST_DEFAULT_PARAMS_LENNARD_JONES;
     params.end_time = 0.5;
     params.delta_t = 0.005;
 
     params.container_type = SimulationParams::LinkedCellsType(
         {10, 10, 10}, 5, {BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::REFLECTIVE, BC::OUTFLOW, BC::OUTFLOW});
 
-    Simulation simulation(particles, forces, params);
+    Simulation simulation(particles, params);
 
     auto res = simulation.runSimulation();
 
@@ -147,17 +134,14 @@ TEST(ReflectiveBoundaryLC, BouncesAtBackBoundary) {
 
     particles.push_back(particle);
 
-    std::vector<std::unique_ptr<ForceSource>> forces;
-    forces.push_back(std::make_unique<LennardJonesForce>());
-
-    SimulationParams params = TEST_DEFAULT_PARAMS;
+    SimulationParams params = TEST_DEFAULT_PARAMS_LENNARD_JONES;
     params.end_time = 0.5;
     params.delta_t = 0.005;
 
     params.container_type = SimulationParams::LinkedCellsType(
         {10, 10, 10}, 5, {BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::REFLECTIVE, BC::OUTFLOW});
 
-    Simulation simulation(particles, forces, params);
+    Simulation simulation(particles, params);
 
     auto res = simulation.runSimulation();
 
@@ -178,17 +162,14 @@ TEST(ReflectiveBoundaryLC, BouncesAtFrontBoundary) {
 
     particles.push_back(particle);
 
-    std::vector<std::unique_ptr<ForceSource>> forces;
-    forces.push_back(std::make_unique<LennardJonesForce>());
-
-    SimulationParams params = TEST_DEFAULT_PARAMS;
+    SimulationParams params = TEST_DEFAULT_PARAMS_LENNARD_JONES;
     params.end_time = 0.5;
     params.delta_t = 0.005;
 
     params.container_type = SimulationParams::LinkedCellsType(
         {10, 10, 10}, 5, {BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::REFLECTIVE});
 
-    Simulation simulation(particles, forces, params);
+    Simulation simulation(particles, params);
 
     auto res = simulation.runSimulation();
 

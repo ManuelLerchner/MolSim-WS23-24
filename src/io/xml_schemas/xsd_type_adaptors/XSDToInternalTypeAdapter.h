@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <variant>
 
 #include "io/xml_schemas/simulation_input/simulation_input_schema.h"
@@ -20,7 +21,7 @@ class XSDToInternalTypeAdapter {
      * @param third_dimension Whether the third dimension is enabled
      * @return CuboidSpawner parsed from the given cuboid in the XSD format
      */
-    static CuboidSpawner convertToCuboidSpawner(const particles::cuboid_spawner_type& cuboid, bool third_dimension);
+    static CuboidSpawner convertToCuboidSpawner(const CuboidSpawnerType& cuboid, bool third_dimension);
 
     /**
      * @brief Converts a sphere from the XSD format to the internal format
@@ -29,7 +30,7 @@ class XSDToInternalTypeAdapter {
      * @param third_dimension Whether the third dimension is enabled
      * @return SphereSpawner parsed from the given sphere in the XSD format
      */
-    static SphereSpawner convertToSphereSpawner(const particles::sphere_spawner_type& sphere, bool third_dimension);
+    static SphereSpawner convertToSphereSpawner(const SphereSpawnerType& sphere, bool third_dimension);
 
     /**
      * @brief Converts a particle from the XSD format to the internal format
@@ -38,7 +39,7 @@ class XSDToInternalTypeAdapter {
      * @param third_dimension Whether the third dimension is enabled
      * @return Particle parsed from the given particle in the XSD format
      */
-    static CuboidSpawner convertToSingleParticleSpawner(const particles::single_particle_spawner_type& particle, bool third_dimension);
+    static CuboidSpawner convertToSingleParticleSpawner(const SingleParticleSpawnerType& particle, bool third_dimension);
 
     /**
      * @brief Converts a container type from the XSD format to the internal format
@@ -47,7 +48,7 @@ class XSDToInternalTypeAdapter {
      * @return ContainerType parsed from the given container type in the XSD format
      */
     static std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType> convertToParticleContainer(
-        const settings::particle_container_type& container_type);
+        const ParticleContainerType& container_type);
 
     /**
      * @brief Converts a boundary conditions type from the XSD format to the internal format
@@ -65,7 +66,21 @@ class XSDToInternalTypeAdapter {
      */
     static LinkedCellsContainer::BoundaryCondition convertToBoundaryCondition(const BoundaryType& boundary);
 
+    /**
+     * @brief Converts a particle type from the XSD format to the internal format
+     *
+     * @param particle Particle in the XSD format
+     * @return Particle parsed from the given particle in the XSD format
+     */
     static Particle convertToParticle(const ::ParticleType& particle);
+
+    /**
+     * @brief Converts a force type from the XSD format to the internal format
+     *
+     * @param forces List of forces in the XSD format
+     * @return ForceSource in string format parsed from the given force type in the XSD format
+     */
+    static std::vector<std::string> convertToForces(const SettingsType::force_sequence& forces);
 
     /**
      * @brief Converts a double vector from the XSD format to the internal format

@@ -18,30 +18,19 @@
                 </domain_size>
                 <cutoff_radius>10</cutoff_radius>
                 <boundary_conditions>
-                    <left>
-                        <reflective />
-                    </left>
-                    <right>
-                        <reflective />
-                    </right>
-                    <bottom>
-                        <reflective />
-                    </bottom>
-                    <top>
-                        <reflective />
-                    </top>
-                    <back>
-                        <reflective />
-                    </back>
-                    <front>
-                        <reflective />
-                    </front>
+                    <left>Reflective</left>
+                    <right>Reflective</right>
+                    <bottom>Reflective</bottom>
+                    <top>Reflective</top>
+                    <back>Reflective</back>
+                    <front>Reflective</front>
                 </boundary_conditions>
             </linkedcells_container>
         </particle_container>
+        <force>LennardJones</force>
     </settings>
 
-    <particles>
+    <particle_source>
         <cuboid_spawner>
             <lower_left_front_corner>
                 <x>15.0</x>
@@ -64,28 +53,6 @@
             <type>0</type>
         </cuboid_spawner>
 
-        <!-- <cuboid_spawner>
-            <lower_left_front_corner>
-                <x>115.0</x>
-                <y>25.0</y>
-                <z>100.0</z>
-            </lower_left_front_corner>
-            <grid_dim>
-                <x>8</x>
-                <y>8</y>
-                <z>1</z>
-            </grid_dim>
-            <grid_spacing>1.1225</grid_spacing>
-            <temperature>0.1</temperature>
-            <mass>1</mass>
-            <velocity>
-                <x>0.0</x>
-                <y>-100.0</y>
-                <z>0.0</z>
-            </velocity>
-            <type>1</type>
-        </cuboid_spawner> -->
-
-    </particles>
+    </particle_source>
 
 </configuration>

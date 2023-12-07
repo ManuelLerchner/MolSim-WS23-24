@@ -4,7 +4,6 @@
 
 #include "io/output/FileOutputHandler.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
-#include "physics/GravitationalForce.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"
@@ -37,17 +36,14 @@ TEST(SimulationRunnerLinkedCells, ParticlesAttractEachother_Gravity) {
 
     FileOutputHandler file_output_handler(FileOutputHandler::OutputFormat::NONE);
 
-    std::vector<std::unique_ptr<ForceSource>> forces;
-    forces.push_back(std::make_unique<GravitationalForce>());
-
-    SimulationParams params = TEST_DEFAULT_PARAMS;
+    SimulationParams params = TEST_DEFAULT_PARAMS_GRAVITY;
     params.end_time = 0.1;
     params.delta_t = 0.01;
 
     params.container_type =
         SimulationParams::LinkedCellsType({10, 10, 10}, 10, {BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW});
 
-    Simulation simulation(particles, forces, params);
+    Simulation simulation(particles, params);
 
     auto res = simulation.runSimulation();
 

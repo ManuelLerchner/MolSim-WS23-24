@@ -19,6 +19,8 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
     int fps = 0;
     int video_length = 0;
 
+    std::vector<std::string> forces;
+
     bool performance_test = false;
 
     // choosing 0 as one of the parameters (end_time, delta_t, fps, video_length) is equivalent to choosing the default value
@@ -38,6 +40,8 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
                                "The number of frames per second at which the simulation will be saved");
     options_desc.add_options()("video_length", boost::program_options::value<int>(&video_length),
                                "The total length of the simulation video in seconds");
+    options_desc.add_options()("force", boost::program_options::value<std::vector<std::string>>(&forces)->multitoken(),
+                               "The forces to be applied to the particles. Possible values: gravity, electrostatic, none");
     options_desc.add_options()("log_level,l", boost::program_options::value<std::string>(&log_level)->default_value("info"),
                                "The log level. Possible values: trace, debug, info, warning, error, critical, off");
     options_desc.add_options()("output_format", boost::program_options::value<std::string>(&output_format)->default_value("vtk"),
@@ -102,8 +106,9 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
         performance_test = true;
     }
 
-    return SimulationParams{input_file_path, output_dir_path, delta_t, end_time, fps, video_length, SimulationParams::DirectSumType{},
-                            output_format,   performance_test};
+    return SimulationParams{
+        input_file_path, output_dir_path, delta_t,         end_time, fps, video_length, SimulationParams::DirectSumType{},
+        output_format,   forces,          performance_test};
 }
 
 SimulationParams merge_parameters(const SimulationParams& params_cli, const std::optional<SimulationParams>& file_params) {
@@ -125,6 +130,9 @@ SimulationParams merge_parameters(const SimulationParams& params_cli, const std:
     }
     if (params_cli.video_length != 0) {
         params.video_length = params_cli.video_length;
+    }
+    if (!params_cli.forces.empty()) {
+        params.forces = params_cli.forces;
     }
 
     // Always takes value from CLI

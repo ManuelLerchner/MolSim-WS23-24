@@ -18,30 +18,20 @@
                 </domain_size>
                 <cutoff_radius>3.0</cutoff_radius>
                 <boundary_conditions>
-                    <left>
-                        <outflow />
-                    </left>
-                    <right>
-                        <outflow />
-                    </right>
-                    <bottom>
-                        <outflow />
-                    </bottom>
-                    <top>
-                        <outflow />
-                    </top>
-                    <back>
-                        <outflow />
-                    </back>
-                    <front>
-                        <outflow />
-                    </front>
+                    <left>Outflow</left>
+                    <right>Outflow</right>
+                    <bottom>Outflow</bottom>
+                    <top>Outflow</top>
+                    <back>Outflow</back>
+                    <front>Outflow</front>
                 </boundary_conditions>
             </linkedcells_container>
         </particle_container>
+        <force>LennardJones</force>
     </settings>
 
-    <particles>
+
+    <particle_source>
         <cuboid_spawner>
             <lower_left_front_corner>
                 <x>20.0</x>
@@ -86,6 +76,6 @@
             <type>1</type>
         </cuboid_spawner>
 
-    </particles>
+    </particle_source>
 
 </configuration>

@@ -12,15 +12,15 @@
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "utils/FormatTime.h"
 
-Simulation::Simulation(const std::vector<Particle>& initial_particles, const std::vector<std::unique_ptr<ForceSource>>& forces,
-                       const SimulationParams& simulation_params, IntegrationMethod integration_method)
+Simulation::Simulation(const std::vector<Particle>& initial_particles, const SimulationParams& simulation_params,
+                       IntegrationMethod integration_method)
     : delta_t(simulation_params.delta_t),
       simulation_end_time(simulation_params.end_time),
       file_output_handler(FileOutputHandler(simulation_params.output_format, simulation_params.output_dir_path)),
       fps(simulation_params.fps),
       video_length(simulation_params.video_length),
       simulation_params(simulation_params),
-      forces(forces) {
+      forces(simulation_params.forces) {
     // Create particle container
     if (std::holds_alternative<SimulationParams::LinkedCellsType>(simulation_params.container_type)) {
         auto linked_cells = std::get<SimulationParams::LinkedCellsType>(simulation_params.container_type);

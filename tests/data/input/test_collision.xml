@@ -11,9 +11,10 @@
         <particle_container>
             <directsum_container />
         </particle_container>
+        <force>LennardJones</force>
     </settings>
 
-    <particles>
+    <particle_source>
         <cuboid_spawner>
             <lower_left_front_corner>
                 <x>0.0</x>
@@ -81,6 +82,6 @@
             <type>10</type>
         </cuboid_spawner>
 
-    </particles>
+    </particle_source>
 
 </configuration>

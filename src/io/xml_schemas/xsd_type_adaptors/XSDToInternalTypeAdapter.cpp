@@ -2,7 +2,7 @@
 
 #include "io/logger/Logger.h"
 
-CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const particles::cuboid_spawner_type& cuboid, bool third_dimension) {
+CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawnerType& cuboid, bool third_dimension) {
     auto lower_left_front_corner = convertToVector(cuboid.lower_left_front_corner());
     auto grid_dimensions = convertToVector(cuboid.grid_dim());
     auto initial_velocity = convertToVector(cuboid.velocity());
@@ -41,7 +41,7 @@ CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const particles::
                          initial_velocity,        static_cast<int>(type), third_dimension, temperature};
 }
 
-SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const particles::sphere_spawner_type& sphere, bool third_dimension) {
+SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const SphereSpawnerType& sphere, bool third_dimension) {
     auto center = convertToVector(sphere.center());
     auto initial_velocity = convertToVector(sphere.velocity());
 
@@ -75,8 +75,7 @@ SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const particles::
                          initial_velocity, static_cast<int>(type),   third_dimension, temperature};
 }
 
-CuboidSpawner XSDToInternalTypeAdapter::convertToSingleParticleSpawner(const particles::single_particle_spawner_type& particle,
-                                                                       bool third_dimension) {
+CuboidSpawner XSDToInternalTypeAdapter::convertToSingleParticleSpawner(const SingleParticleSpawnerType& particle, bool third_dimension) {
     auto position = convertToVector(particle.position());
     auto initial_velocity = convertToVector(particle.velocity());
 
@@ -87,7 +86,7 @@ CuboidSpawner XSDToInternalTypeAdapter::convertToSingleParticleSpawner(const par
 }
 
 std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType> XSDToInternalTypeAdapter::convertToParticleContainer(
-    const settings::particle_container_type& particle_container) {
+    const ParticleContainerType& particle_container) {
     std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType> container;
 
     if (particle_container.linkedcells_container().present()) {
@@ -123,13 +122,14 @@ std::array<LinkedCellsContainer::BoundaryCondition, 6> XSDToInternalTypeAdapter:
 }
 
 LinkedCellsContainer::BoundaryCondition XSDToInternalTypeAdapter::convertToBoundaryCondition(const BoundaryType& boundary) {
-    if (boundary.outflow().present()) {
-        return LinkedCellsContainer::BoundaryCondition::OUTFLOW;
-    } else if (boundary.reflective().present()) {
-        return LinkedCellsContainer::BoundaryCondition::REFLECTIVE;
-    } else {
-        Logger::logger->error("Invalid boundary condition");
-        exit(-1);
+    switch (boundary) {
+        case BoundaryType::value::Outflow:
+            return LinkedCellsContainer::BoundaryCondition::OUTFLOW;
+        case BoundaryType::value::Reflective:
+            return LinkedCellsContainer::BoundaryCondition::REFLECTIVE;
+        default:
+            Logger::logger->error("Boundary condition not implemented");
+            exit(-1);
     }
 }
 
@@ -147,6 +147,18 @@ Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particl
     }
 
     return Particle{position, velocity, force, old_force, mass, static_cast<int>(type)};
+}
+
+std::vector<std::string> XSDToInternalTypeAdapter::convertToForces(const SettingsType::force_sequence& forces) {
+    std::vector<std::string> force_sources;
+
+    for (ForcesType force : forces) {
+        std::string force_name = ForcesType::_xsd_ForcesType_literals_[force];
+
+        force_sources.push_back(force_name);
+    }
+
+    return force_sources;
 }
 
 std::array<double, 3> XSDToInternalTypeAdapter::convertToVector(const DoubleVec3Type& vector) {

@@ -36,7 +36,7 @@ int main(int argc, char* argsv[]) {
     forces.push_back(std::make_unique<LennardJonesForce>());
 
     // Initialize simulation
-    Simulation simulation{initial_particles, forces, simulation_params};
+    Simulation simulation{initial_particles, simulation_params};
 
     // Print simulation info
     print_simulation_input(simulation_params, initial_particles.size(), forces);

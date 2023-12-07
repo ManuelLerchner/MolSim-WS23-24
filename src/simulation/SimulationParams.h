@@ -1,11 +1,14 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <tuple>
 #include <variant>
+#include <vector>
 
 #include "io/output/FileOutputHandler.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
+#include "physics/ForceSource.h"
 
 /**
  * @brief Contains all parameters needed to run a simulation.
@@ -82,14 +85,19 @@ class SimulationParams {
     std::variant<DirectSumType, LinkedCellsType> container_type;
 
     /**
-     * @brief Output file format of the simulation
+     * @brief Forces to be applied to the particles
      */
-    FileOutputHandler::OutputFormat output_format;
+    std::vector<std::shared_ptr<ForceSource>> forces;
 
     /**
      * @brief Whether to run the simulation in performance test mode
      */
     bool performance_test;
+
+    /**
+     * @brief Output file format of the simulation
+     */
+    FileOutputHandler::OutputFormat output_format;
 
     /**
      * @brief Construct a new SimulationParams object
@@ -103,12 +111,12 @@ class SimulationParams {
      * simulation data
      * @param container_type Type of the particle container
      * @param output_format Output file format of the simulation
-     * @param performanceTest Whether to run the simulation in performance test mode
-     *
+     * @param force_strings Forces to be applied to the particles
+     * @param performance_test Whether to run the simulation in performance test mode
      */
     SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
                      int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type, const std::string& output_format,
-                     bool performanceTest = false);
+                     const std::vector<std::string>& force_strings, bool performance_test);
 
     /**
      * @brief Dissallow default construction of a SimulationParams object (would have invalid values for a simulation)

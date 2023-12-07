@@ -144,7 +144,7 @@ void LinkedCellsContainer::addParticle(Particle&& p) {
     }
 }
 
-void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::unique_ptr<ForceSource>>& force_sources) {
+void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr<ForceSource>>& force_sources) {
     // remove all particles in the halo cells from the particles vector
     deleteHaloParticles();
 
@@ -186,7 +186,7 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::unique_ptr
                 for (Particle* neighbour_particle : neighbour->getParticleReferences()) {
                     if (ArrayUtils::L2Norm(p->getX() - neighbour_particle->getX()) > cutoff_radius) continue;
 
-                    for (const std::unique_ptr<ForceSource>& force_source : force_sources) {
+                    for (const auto& force_source : force_sources) {
                         std::array<double, 3> force = force_source->calculateForce(*p, *neighbour_particle);
                         p->setF(p->getF() + force);
                         neighbour_particle->setF(neighbour_particle->getF() - force);
