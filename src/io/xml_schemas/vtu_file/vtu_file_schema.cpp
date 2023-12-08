@@ -36,7 +36,7 @@
 //
 // End prologue.
 
-#include "vtk_file_schema.h"
+#include "vtu_file_schema.h"
 
 #include <xsd/cxx/pre.hxx>
 
@@ -158,44 +158,44 @@ void PolyData_t::greeting(const greeting_type& x) { this->greeting_.set(x); }
 
 void PolyData_t::greeting(::std::unique_ptr<greeting_type> x) { this->greeting_.set(std::move(x)); }
 
-// VTKFile_t
+// VTUFile_t
 //
 
-const VTKFile_t::UnstructuredGrid_optional& VTKFile_t::UnstructuredGrid() const { return this->UnstructuredGrid_; }
+const VTUFile_t::UnstructuredGrid_optional& VTUFile_t::UnstructuredGrid() const { return this->UnstructuredGrid_; }
 
-VTKFile_t::UnstructuredGrid_optional& VTKFile_t::UnstructuredGrid() { return this->UnstructuredGrid_; }
+VTUFile_t::UnstructuredGrid_optional& VTUFile_t::UnstructuredGrid() { return this->UnstructuredGrid_; }
 
-void VTKFile_t::UnstructuredGrid(const UnstructuredGrid_type& x) { this->UnstructuredGrid_.set(x); }
+void VTUFile_t::UnstructuredGrid(const UnstructuredGrid_type& x) { this->UnstructuredGrid_.set(x); }
 
-void VTKFile_t::UnstructuredGrid(const UnstructuredGrid_optional& x) { this->UnstructuredGrid_ = x; }
+void VTUFile_t::UnstructuredGrid(const UnstructuredGrid_optional& x) { this->UnstructuredGrid_ = x; }
 
-void VTKFile_t::UnstructuredGrid(::std::unique_ptr<UnstructuredGrid_type> x) { this->UnstructuredGrid_.set(std::move(x)); }
+void VTUFile_t::UnstructuredGrid(::std::unique_ptr<UnstructuredGrid_type> x) { this->UnstructuredGrid_.set(std::move(x)); }
 
-const VTKFile_t::PolyData_optional& VTKFile_t::PolyData() const { return this->PolyData_; }
+const VTUFile_t::PolyData_optional& VTUFile_t::PolyData() const { return this->PolyData_; }
 
-VTKFile_t::PolyData_optional& VTKFile_t::PolyData() { return this->PolyData_; }
+VTUFile_t::PolyData_optional& VTUFile_t::PolyData() { return this->PolyData_; }
 
-void VTKFile_t::PolyData(const PolyData_type& x) { this->PolyData_.set(x); }
+void VTUFile_t::PolyData(const PolyData_type& x) { this->PolyData_.set(x); }
 
-void VTKFile_t::PolyData(const PolyData_optional& x) { this->PolyData_ = x; }
+void VTUFile_t::PolyData(const PolyData_optional& x) { this->PolyData_ = x; }
 
-void VTKFile_t::PolyData(::std::unique_ptr<PolyData_type> x) { this->PolyData_.set(std::move(x)); }
+void VTUFile_t::PolyData(::std::unique_ptr<PolyData_type> x) { this->PolyData_.set(std::move(x)); }
 
-const VTKFile_t::type_type& VTKFile_t::type() const { return this->type_.get(); }
+const VTUFile_t::type_type& VTUFile_t::type() const { return this->type_.get(); }
 
-VTKFile_t::type_type& VTKFile_t::type() { return this->type_.get(); }
+VTUFile_t::type_type& VTUFile_t::type() { return this->type_.get(); }
 
-void VTKFile_t::type(const type_type& x) { this->type_.set(x); }
+void VTUFile_t::type(const type_type& x) { this->type_.set(x); }
 
-void VTKFile_t::type(::std::unique_ptr<type_type> x) { this->type_.set(std::move(x)); }
+void VTUFile_t::type(::std::unique_ptr<type_type> x) { this->type_.set(std::move(x)); }
 
-const VTKFile_t::version_type& VTKFile_t::version() const { return this->version_.get(); }
+const VTUFile_t::version_type& VTUFile_t::version() const { return this->version_.get(); }
 
-const VTKFile_t::version_type& VTKFile_t::version_default_value() { return version_default_value_; }
+const VTUFile_t::version_type& VTUFile_t::version_default_value() { return version_default_value_; }
 
-const VTKFile_t::byte_order_type& VTKFile_t::byte_order() const { return this->byte_order_.get(); }
+const VTUFile_t::byte_order_type& VTUFile_t::byte_order() const { return this->byte_order_.get(); }
 
-const VTKFile_t::byte_order_type& VTKFile_t::byte_order_default_value() { return byte_order_default_value_; }
+const VTUFile_t::byte_order_type& VTUFile_t::byte_order_default_value() { return byte_order_default_value_; }
 
 // type
 //
@@ -653,14 +653,14 @@ PolyData_t& PolyData_t::operator=(const PolyData_t& x) {
 
 PolyData_t::~PolyData_t() {}
 
-// VTKFile_t
+// VTUFile_t
 //
 
-const VTKFile_t::version_type VTKFile_t::version_default_value_("0.1");
+const VTUFile_t::version_type VTUFile_t::version_default_value_("0.1");
 
-const VTKFile_t::byte_order_type VTKFile_t::byte_order_default_value_("LittleEndian");
+const VTUFile_t::byte_order_type VTUFile_t::byte_order_default_value_("LittleEndian");
 
-VTKFile_t::VTKFile_t(const type_type& type)
+VTUFile_t::VTUFile_t(const type_type& type)
     : ::xml_schema::type(),
       UnstructuredGrid_(this),
       PolyData_(this),
@@ -668,7 +668,7 @@ VTKFile_t::VTKFile_t(const type_type& type)
       version_(version_default_value(), this),
       byte_order_(byte_order_default_value(), this) {}
 
-VTKFile_t::VTKFile_t(const VTKFile_t& x, ::xml_schema::flags f, ::xml_schema::container* c)
+VTUFile_t::VTUFile_t(const VTUFile_t& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
       UnstructuredGrid_(x.UnstructuredGrid_, f, this),
       PolyData_(x.PolyData_, f, this),
@@ -676,7 +676,7 @@ VTKFile_t::VTKFile_t(const VTKFile_t& x, ::xml_schema::flags f, ::xml_schema::co
       version_(x.version_, f, this),
       byte_order_(x.byte_order_, f, this) {}
 
-VTKFile_t::VTKFile_t(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+VTUFile_t::VTUFile_t(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
       UnstructuredGrid_(this),
       PolyData_(this),
@@ -689,7 +689,7 @@ VTKFile_t::VTKFile_t(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xm
     }
 }
 
-void VTKFile_t::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+void VTUFile_t::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
     for (; p.more_content(); p.next_content(false)) {
         const ::xercesc::DOMElement& i(p.cur_element());
         const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
@@ -752,9 +752,9 @@ void VTKFile_t::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags
     }
 }
 
-VTKFile_t* VTKFile_t::_clone(::xml_schema::flags f, ::xml_schema::container* c) const { return new class VTKFile_t(*this, f, c); }
+VTUFile_t* VTUFile_t::_clone(::xml_schema::flags f, ::xml_schema::container* c) const { return new class VTUFile_t(*this, f, c); }
 
-VTKFile_t& VTKFile_t::operator=(const VTKFile_t& x) {
+VTUFile_t& VTUFile_t::operator=(const VTUFile_t& x) {
     if (this != &x) {
         static_cast< ::xml_schema::type&>(*this) = x;
         this->UnstructuredGrid_ = x.UnstructuredGrid_;
@@ -767,7 +767,7 @@ VTKFile_t& VTKFile_t::operator=(const VTKFile_t& x) {
     return *this;
 }
 
-VTKFile_t::~VTKFile_t() {}
+VTUFile_t::~VTUFile_t() {}
 
 // type
 //
@@ -996,7 +996,7 @@ Cells::~Cells() {}
 #include <xsd/cxx/tree/error-handler.hxx>
 #include <xsd/cxx/xml/sax/std-input-source.hxx>
 
-::std::unique_ptr< ::VTKFile_t> VTKFile(const ::std::string& u, ::xml_schema::flags f, const ::xml_schema::properties& p) {
+::std::unique_ptr< ::VTUFile_t> VTUFile(const ::std::string& u, ::xml_schema::flags f, const ::xml_schema::properties& p) {
     ::xsd::cxx::xml::auto_initializer i((f & ::xml_schema::flags::dont_initialize) == 0, (f & ::xml_schema::flags::keep_dom) == 0);
 
     ::xsd::cxx::tree::error_handler<char> h;
@@ -1005,10 +1005,10 @@ Cells::~Cells() {}
 
     h.throw_if_failed< ::xsd::cxx::tree::parsing<char> >();
 
-    return ::std::unique_ptr< ::VTKFile_t>(::VTKFile(std::move(d), f | ::xml_schema::flags::own_dom, p));
+    return ::std::unique_ptr< ::VTUFile_t>(::VTUFile(std::move(d), f | ::xml_schema::flags::own_dom, p));
 }
 
-::std::unique_ptr< ::VTKFile_t> VTKFile(const ::std::string& u, ::xml_schema::error_handler& h, ::xml_schema::flags f,
+::std::unique_ptr< ::VTUFile_t> VTUFile(const ::std::string& u, ::xml_schema::error_handler& h, ::xml_schema::flags f,
                                         const ::xml_schema::properties& p) {
     ::xsd::cxx::xml::auto_initializer i((f & ::xml_schema::flags::dont_initialize) == 0, (f & ::xml_schema::flags::keep_dom) == 0);
 
@@ -1016,108 +1016,108 @@ Cells::~Cells() {}
 
     if (!d.get()) throw ::xsd::cxx::tree::parsing<char>();
 
-    return ::std::unique_ptr< ::VTKFile_t>(::VTKFile(std::move(d), f | ::xml_schema::flags::own_dom, p));
+    return ::std::unique_ptr< ::VTUFile_t>(::VTUFile(std::move(d), f | ::xml_schema::flags::own_dom, p));
 }
 
-::std::unique_ptr< ::VTKFile_t> VTKFile(const ::std::string& u, ::xercesc::DOMErrorHandler& h, ::xml_schema::flags f,
+::std::unique_ptr< ::VTUFile_t> VTUFile(const ::std::string& u, ::xercesc::DOMErrorHandler& h, ::xml_schema::flags f,
                                         const ::xml_schema::properties& p) {
     ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::xsd::cxx::xml::dom::parse<char>(u, h, p, f));
 
     if (!d.get()) throw ::xsd::cxx::tree::parsing<char>();
 
-    return ::std::unique_ptr< ::VTKFile_t>(::VTKFile(std::move(d), f | ::xml_schema::flags::own_dom, p));
+    return ::std::unique_ptr< ::VTUFile_t>(::VTUFile(std::move(d), f | ::xml_schema::flags::own_dom, p));
 }
 
-::std::unique_ptr< ::VTKFile_t> VTKFile(::std::istream& is, ::xml_schema::flags f, const ::xml_schema::properties& p) {
+::std::unique_ptr< ::VTUFile_t> VTUFile(::std::istream& is, ::xml_schema::flags f, const ::xml_schema::properties& p) {
     ::xsd::cxx::xml::auto_initializer i((f & ::xml_schema::flags::dont_initialize) == 0, (f & ::xml_schema::flags::keep_dom) == 0);
 
     ::xsd::cxx::xml::sax::std_input_source isrc(is);
-    return ::VTKFile(isrc, f, p);
+    return ::VTUFile(isrc, f, p);
 }
 
-::std::unique_ptr< ::VTKFile_t> VTKFile(::std::istream& is, ::xml_schema::error_handler& h, ::xml_schema::flags f,
+::std::unique_ptr< ::VTUFile_t> VTUFile(::std::istream& is, ::xml_schema::error_handler& h, ::xml_schema::flags f,
                                         const ::xml_schema::properties& p) {
     ::xsd::cxx::xml::auto_initializer i((f & ::xml_schema::flags::dont_initialize) == 0, (f & ::xml_schema::flags::keep_dom) == 0);
 
     ::xsd::cxx::xml::sax::std_input_source isrc(is);
-    return ::VTKFile(isrc, h, f, p);
+    return ::VTUFile(isrc, h, f, p);
 }
 
-::std::unique_ptr< ::VTKFile_t> VTKFile(::std::istream& is, ::xercesc::DOMErrorHandler& h, ::xml_schema::flags f,
+::std::unique_ptr< ::VTUFile_t> VTUFile(::std::istream& is, ::xercesc::DOMErrorHandler& h, ::xml_schema::flags f,
                                         const ::xml_schema::properties& p) {
     ::xsd::cxx::xml::sax::std_input_source isrc(is);
-    return ::VTKFile(isrc, h, f, p);
+    return ::VTUFile(isrc, h, f, p);
 }
 
-::std::unique_ptr< ::VTKFile_t> VTKFile(::std::istream& is, const ::std::string& sid, ::xml_schema::flags f,
+::std::unique_ptr< ::VTUFile_t> VTUFile(::std::istream& is, const ::std::string& sid, ::xml_schema::flags f,
                                         const ::xml_schema::properties& p) {
     ::xsd::cxx::xml::auto_initializer i((f & ::xml_schema::flags::dont_initialize) == 0, (f & ::xml_schema::flags::keep_dom) == 0);
 
     ::xsd::cxx::xml::sax::std_input_source isrc(is, sid);
-    return ::VTKFile(isrc, f, p);
+    return ::VTUFile(isrc, f, p);
 }
 
-::std::unique_ptr< ::VTKFile_t> VTKFile(::std::istream& is, const ::std::string& sid, ::xml_schema::error_handler& h, ::xml_schema::flags f,
+::std::unique_ptr< ::VTUFile_t> VTUFile(::std::istream& is, const ::std::string& sid, ::xml_schema::error_handler& h, ::xml_schema::flags f,
                                         const ::xml_schema::properties& p) {
     ::xsd::cxx::xml::auto_initializer i((f & ::xml_schema::flags::dont_initialize) == 0, (f & ::xml_schema::flags::keep_dom) == 0);
 
     ::xsd::cxx::xml::sax::std_input_source isrc(is, sid);
-    return ::VTKFile(isrc, h, f, p);
+    return ::VTUFile(isrc, h, f, p);
 }
 
-::std::unique_ptr< ::VTKFile_t> VTKFile(::std::istream& is, const ::std::string& sid, ::xercesc::DOMErrorHandler& h, ::xml_schema::flags f,
+::std::unique_ptr< ::VTUFile_t> VTUFile(::std::istream& is, const ::std::string& sid, ::xercesc::DOMErrorHandler& h, ::xml_schema::flags f,
                                         const ::xml_schema::properties& p) {
     ::xsd::cxx::xml::sax::std_input_source isrc(is, sid);
-    return ::VTKFile(isrc, h, f, p);
+    return ::VTUFile(isrc, h, f, p);
 }
 
-::std::unique_ptr< ::VTKFile_t> VTKFile(::xercesc::InputSource& i, ::xml_schema::flags f, const ::xml_schema::properties& p) {
+::std::unique_ptr< ::VTUFile_t> VTUFile(::xercesc::InputSource& i, ::xml_schema::flags f, const ::xml_schema::properties& p) {
     ::xsd::cxx::tree::error_handler<char> h;
 
     ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::xsd::cxx::xml::dom::parse<char>(i, h, p, f));
 
     h.throw_if_failed< ::xsd::cxx::tree::parsing<char> >();
 
-    return ::std::unique_ptr< ::VTKFile_t>(::VTKFile(std::move(d), f | ::xml_schema::flags::own_dom, p));
+    return ::std::unique_ptr< ::VTUFile_t>(::VTUFile(std::move(d), f | ::xml_schema::flags::own_dom, p));
 }
 
-::std::unique_ptr< ::VTKFile_t> VTKFile(::xercesc::InputSource& i, ::xml_schema::error_handler& h, ::xml_schema::flags f,
+::std::unique_ptr< ::VTUFile_t> VTUFile(::xercesc::InputSource& i, ::xml_schema::error_handler& h, ::xml_schema::flags f,
                                         const ::xml_schema::properties& p) {
     ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::xsd::cxx::xml::dom::parse<char>(i, h, p, f));
 
     if (!d.get()) throw ::xsd::cxx::tree::parsing<char>();
 
-    return ::std::unique_ptr< ::VTKFile_t>(::VTKFile(std::move(d), f | ::xml_schema::flags::own_dom, p));
+    return ::std::unique_ptr< ::VTUFile_t>(::VTUFile(std::move(d), f | ::xml_schema::flags::own_dom, p));
 }
 
-::std::unique_ptr< ::VTKFile_t> VTKFile(::xercesc::InputSource& i, ::xercesc::DOMErrorHandler& h, ::xml_schema::flags f,
+::std::unique_ptr< ::VTUFile_t> VTUFile(::xercesc::InputSource& i, ::xercesc::DOMErrorHandler& h, ::xml_schema::flags f,
                                         const ::xml_schema::properties& p) {
     ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::xsd::cxx::xml::dom::parse<char>(i, h, p, f));
 
     if (!d.get()) throw ::xsd::cxx::tree::parsing<char>();
 
-    return ::std::unique_ptr< ::VTKFile_t>(::VTKFile(std::move(d), f | ::xml_schema::flags::own_dom, p));
+    return ::std::unique_ptr< ::VTUFile_t>(::VTUFile(std::move(d), f | ::xml_schema::flags::own_dom, p));
 }
 
-::std::unique_ptr< ::VTKFile_t> VTKFile(const ::xercesc::DOMDocument& doc, ::xml_schema::flags f, const ::xml_schema::properties& p) {
+::std::unique_ptr< ::VTUFile_t> VTUFile(const ::xercesc::DOMDocument& doc, ::xml_schema::flags f, const ::xml_schema::properties& p) {
     if (f & ::xml_schema::flags::keep_dom) {
         ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(static_cast< ::xercesc::DOMDocument*>(doc.cloneNode(true)));
 
-        return ::std::unique_ptr< ::VTKFile_t>(::VTKFile(std::move(d), f | ::xml_schema::flags::own_dom, p));
+        return ::std::unique_ptr< ::VTUFile_t>(::VTUFile(std::move(d), f | ::xml_schema::flags::own_dom, p));
     }
 
     const ::xercesc::DOMElement& e(*doc.getDocumentElement());
     const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(e));
 
-    if (n.name() == "VTKFile" && n.namespace_() == "") {
-        ::std::unique_ptr< ::VTKFile_t> r(::xsd::cxx::tree::traits< ::VTKFile_t, char>::create(e, f, 0));
+    if (n.name() == "VTUFile" && n.namespace_() == "") {
+        ::std::unique_ptr< ::VTUFile_t> r(::xsd::cxx::tree::traits< ::VTUFile_t, char>::create(e, f, 0));
         return r;
     }
 
-    throw ::xsd::cxx::tree::unexpected_element<char>(n.name(), n.namespace_(), "VTKFile", "");
+    throw ::xsd::cxx::tree::unexpected_element<char>(n.name(), n.namespace_(), "VTUFile", "");
 }
 
-::std::unique_ptr< ::VTKFile_t> VTKFile(::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d, ::xml_schema::flags f,
+::std::unique_ptr< ::VTUFile_t> VTUFile(::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d, ::xml_schema::flags f,
                                         const ::xml_schema::properties&) {
     ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> c(((f & ::xml_schema::flags::keep_dom) && !(f & ::xml_schema::flags::own_dom))
                                                                  ? static_cast< ::xercesc::DOMDocument*>(d->cloneNode(true))
@@ -1130,12 +1130,12 @@ Cells::~Cells() {}
 
     if (f & ::xml_schema::flags::keep_dom) doc.setUserData(::xml_schema::dom::tree_node_key, (c.get() ? &c : &d), 0);
 
-    if (n.name() == "VTKFile" && n.namespace_() == "") {
-        ::std::unique_ptr< ::VTKFile_t> r(::xsd::cxx::tree::traits< ::VTKFile_t, char>::create(e, f, 0));
+    if (n.name() == "VTUFile" && n.namespace_() == "") {
+        ::std::unique_ptr< ::VTUFile_t> r(::xsd::cxx::tree::traits< ::VTUFile_t, char>::create(e, f, 0));
         return r;
     }
 
-    throw ::xsd::cxx::tree::unexpected_element<char>(n.name(), n.namespace_(), "VTKFile", "");
+    throw ::xsd::cxx::tree::unexpected_element<char>(n.name(), n.namespace_(), "VTUFile", "");
 }
 
 #include <ostream>
@@ -1274,7 +1274,7 @@ void operator<<(::xercesc::DOMElement& e, const PolyData_t& i) {
     }
 }
 
-void operator<<(::xercesc::DOMElement& e, const VTKFile_t& i) {
+void operator<<(::xercesc::DOMElement& e, const VTUFile_t& i) {
     e << static_cast<const ::xml_schema::type&>(i);
 
     // UnstructuredGrid
@@ -1318,11 +1318,11 @@ void operator<<(::xercesc::DOMElement& e, const VTKFile_t& i) {
     }
 }
 
-void VTKFile(::std::ostream& o, const ::VTKFile_t& s, const ::xml_schema::namespace_infomap& m, const ::std::string& e,
+void VTUFile(::std::ostream& o, const ::VTUFile_t& s, const ::xml_schema::namespace_infomap& m, const ::std::string& e,
              ::xml_schema::flags f) {
     ::xsd::cxx::xml::auto_initializer i((f & ::xml_schema::flags::dont_initialize) == 0);
 
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::VTKFile(s, m, f));
+    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::VTUFile(s, m, f));
 
     ::xsd::cxx::tree::error_handler<char> h;
 
@@ -1332,29 +1332,29 @@ void VTKFile(::std::ostream& o, const ::VTKFile_t& s, const ::xml_schema::namesp
     }
 }
 
-void VTKFile(::std::ostream& o, const ::VTKFile_t& s, ::xml_schema::error_handler& h, const ::xml_schema::namespace_infomap& m,
+void VTUFile(::std::ostream& o, const ::VTUFile_t& s, ::xml_schema::error_handler& h, const ::xml_schema::namespace_infomap& m,
              const ::std::string& e, ::xml_schema::flags f) {
     ::xsd::cxx::xml::auto_initializer i((f & ::xml_schema::flags::dont_initialize) == 0);
 
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::VTKFile(s, m, f));
+    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::VTUFile(s, m, f));
     ::xsd::cxx::xml::dom::ostream_format_target t(o);
     if (!::xsd::cxx::xml::dom::serialize(t, *d, e, h, f)) {
         throw ::xsd::cxx::tree::serialization<char>();
     }
 }
 
-void VTKFile(::std::ostream& o, const ::VTKFile_t& s, ::xercesc::DOMErrorHandler& h, const ::xml_schema::namespace_infomap& m,
+void VTUFile(::std::ostream& o, const ::VTUFile_t& s, ::xercesc::DOMErrorHandler& h, const ::xml_schema::namespace_infomap& m,
              const ::std::string& e, ::xml_schema::flags f) {
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::VTKFile(s, m, f));
+    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::VTUFile(s, m, f));
     ::xsd::cxx::xml::dom::ostream_format_target t(o);
     if (!::xsd::cxx::xml::dom::serialize(t, *d, e, h, f)) {
         throw ::xsd::cxx::tree::serialization<char>();
     }
 }
 
-void VTKFile(::xercesc::XMLFormatTarget& t, const ::VTKFile_t& s, const ::xml_schema::namespace_infomap& m, const ::std::string& e,
+void VTUFile(::xercesc::XMLFormatTarget& t, const ::VTUFile_t& s, const ::xml_schema::namespace_infomap& m, const ::std::string& e,
              ::xml_schema::flags f) {
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::VTKFile(s, m, f));
+    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::VTUFile(s, m, f));
 
     ::xsd::cxx::tree::error_handler<char> h;
 
@@ -1363,38 +1363,38 @@ void VTKFile(::xercesc::XMLFormatTarget& t, const ::VTKFile_t& s, const ::xml_sc
     }
 }
 
-void VTKFile(::xercesc::XMLFormatTarget& t, const ::VTKFile_t& s, ::xml_schema::error_handler& h, const ::xml_schema::namespace_infomap& m,
+void VTUFile(::xercesc::XMLFormatTarget& t, const ::VTUFile_t& s, ::xml_schema::error_handler& h, const ::xml_schema::namespace_infomap& m,
              const ::std::string& e, ::xml_schema::flags f) {
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::VTKFile(s, m, f));
+    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::VTUFile(s, m, f));
     if (!::xsd::cxx::xml::dom::serialize(t, *d, e, h, f)) {
         throw ::xsd::cxx::tree::serialization<char>();
     }
 }
 
-void VTKFile(::xercesc::XMLFormatTarget& t, const ::VTKFile_t& s, ::xercesc::DOMErrorHandler& h, const ::xml_schema::namespace_infomap& m,
+void VTUFile(::xercesc::XMLFormatTarget& t, const ::VTUFile_t& s, ::xercesc::DOMErrorHandler& h, const ::xml_schema::namespace_infomap& m,
              const ::std::string& e, ::xml_schema::flags f) {
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::VTKFile(s, m, f));
+    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::VTUFile(s, m, f));
     if (!::xsd::cxx::xml::dom::serialize(t, *d, e, h, f)) {
         throw ::xsd::cxx::tree::serialization<char>();
     }
 }
 
-void VTKFile(::xercesc::DOMDocument& d, const ::VTKFile_t& s, ::xml_schema::flags) {
+void VTUFile(::xercesc::DOMDocument& d, const ::VTUFile_t& s, ::xml_schema::flags) {
     ::xercesc::DOMElement& e(*d.getDocumentElement());
     const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(e));
 
-    if (n.name() == "VTKFile" && n.namespace_() == "") {
+    if (n.name() == "VTUFile" && n.namespace_() == "") {
         e << s;
     } else {
-        throw ::xsd::cxx::tree::unexpected_element<char>(n.name(), n.namespace_(), "VTKFile", "");
+        throw ::xsd::cxx::tree::unexpected_element<char>(n.name(), n.namespace_(), "VTUFile", "");
     }
 }
 
-::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> VTKFile(const ::VTKFile_t& s, const ::xml_schema::namespace_infomap& m,
+::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> VTUFile(const ::VTUFile_t& s, const ::xml_schema::namespace_infomap& m,
                                                                ::xml_schema::flags f) {
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::xsd::cxx::xml::dom::serialize<char>("VTKFile", "", m, f));
+    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::xsd::cxx::xml::dom::serialize<char>("VTUFile", "", m, f));
 
-    ::VTKFile(*d, s, f);
+    ::VTUFile(*d, s, f);
     return d;
 }
 

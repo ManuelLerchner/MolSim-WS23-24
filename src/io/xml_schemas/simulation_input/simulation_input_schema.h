@@ -604,6 +604,7 @@ class CuboidSpawnerType;
 class SphereSpawnerType;
 class SingleParticleSpawnerType;
 class CheckPointLoaderType;
+class SubSimulationType;
 class SettingsType;
 class ForcesType;
 class particle_source;
@@ -3696,6 +3697,232 @@ class CheckPointLoaderType : public ::xml_schema::type {
 };
 
 /**
+ * @brief Class corresponding to the %SubSimulationType schema type.
+ *
+ * @nosubgrouping
+ */
+class SubSimulationType : public ::xml_schema::type {
+   public:
+    /**
+     * @name configuration
+     *
+     * @brief Accessor and modifier functions for the %configuration
+     * optional element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::ConfigurationType configuration_type;
+
+    /**
+     * @brief Element optional container type.
+     */
+    typedef ::xsd::cxx::tree::optional<configuration_type> configuration_optional;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<configuration_type, char> configuration_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element
+     * container.
+     *
+     * @return A constant reference to the optional container.
+     */
+    const configuration_optional& configuration() const;
+
+    /**
+     * @brief Return a read-write reference to the element container.
+     *
+     * @return A reference to the optional container.
+     */
+    configuration_optional& configuration();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void configuration(const configuration_type& x);
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x An optional container with the new value to set.
+     *
+     * If the value is present in @a x then this function makes a copy
+     * of this value and sets it as the new value of the element.
+     * Otherwise the element container is set the 'not present' state.
+     */
+    void configuration(const configuration_optional& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly instead
+     * of making a copy.
+     */
+    void configuration(::std::unique_ptr<configuration_type> p);
+
+    //@}
+
+    /**
+     * @name file_name
+     *
+     * @brief Accessor and modifier functions for the %file_name
+     * optional element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::uri file_name_type;
+
+    /**
+     * @brief Element optional container type.
+     */
+    typedef ::xsd::cxx::tree::optional<file_name_type> file_name_optional;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<file_name_type, char> file_name_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element
+     * container.
+     *
+     * @return A constant reference to the optional container.
+     */
+    const file_name_optional& file_name() const;
+
+    /**
+     * @brief Return a read-write reference to the element container.
+     *
+     * @return A reference to the optional container.
+     */
+    file_name_optional& file_name();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void file_name(const file_name_type& x);
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x An optional container with the new value to set.
+     *
+     * If the value is present in @a x then this function makes a copy
+     * of this value and sets it as the new value of the element.
+     * Otherwise the element container is set the 'not present' state.
+     */
+    void file_name(const file_name_optional& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly instead
+     * of making a copy.
+     */
+    void file_name(::std::unique_ptr<file_name_type> p);
+
+    //@}
+
+    /**
+     * @name Constructors
+     */
+    //@{
+
+    /**
+     * @brief Create an instance from the ultimate base and
+     * initializers for required elements and attributes.
+     */
+    SubSimulationType();
+
+    /**
+     * @brief Create an instance from a DOM element.
+     *
+     * @param e A DOM element to extract the data from.
+     * @param f Flags to create the new instance with.
+     * @param c A pointer to the object that will contain the new
+     * instance.
+     */
+    SubSimulationType(const ::xercesc::DOMElement& e, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy constructor.
+     *
+     * @param x An instance to make a copy of.
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     *
+     * For polymorphic object models use the @c _clone function instead.
+     */
+    SubSimulationType(const SubSimulationType& x, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy the instance polymorphically.
+     *
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     * @return A pointer to the dynamically allocated copy.
+     *
+     * This function ensures that the dynamic type of the instance is
+     * used for copying and should be used for polymorphic object
+     * models instead of the copy constructor.
+     */
+    virtual SubSimulationType* _clone(::xml_schema::flags f = 0, ::xml_schema::container* c = 0) const;
+
+    /**
+     * @brief Copy assignment operator.
+     *
+     * @param x An instance to make a copy of.
+     * @return A reference to itself.
+     *
+     * For polymorphic object models use the @c _clone function instead.
+     */
+    SubSimulationType& operator=(const SubSimulationType& x);
+
+    //@}
+
+    /**
+     * @brief Destructor.
+     */
+    virtual ~SubSimulationType();
+
+    // Implementation.
+    //
+
+    //@cond
+
+   protected:
+    void parse(::xsd::cxx::xml::dom::parser<char>&, ::xml_schema::flags);
+
+   protected:
+    configuration_optional configuration_;
+    file_name_optional file_name_;
+
+    //@endcond
+};
+
+/**
  * @brief Class corresponding to the %SettingsType schema type.
  *
  * @nosubgrouping
@@ -4519,7 +4746,7 @@ class particle_source : public ::xml_schema::type {
     /**
      * @brief Element type.
      */
-    typedef ::ConfigurationType sub_simulation_type;
+    typedef ::SubSimulationType sub_simulation_type;
 
     /**
      * @brief Element sequence container type.
@@ -5040,6 +5267,8 @@ void operator<<(::xercesc::DOMElement&, const SphereSpawnerType&);
 void operator<<(::xercesc::DOMElement&, const SingleParticleSpawnerType&);
 
 void operator<<(::xercesc::DOMElement&, const CheckPointLoaderType&);
+
+void operator<<(::xercesc::DOMElement&, const SubSimulationType&);
 
 void operator<<(::xercesc::DOMElement&, const SettingsType&);
 

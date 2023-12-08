@@ -4,6 +4,7 @@
 
 #include <filesystem>
 #include <optional>
+#include <regex>
 #include <sstream>
 
 #include "io/input/chkpt/ChkptPointFileReader.h"
@@ -11,7 +12,22 @@
 #include "io/xml_schemas/xsd_type_adaptors/XSDToInternalTypeAdapter.h"
 #include "simulation/Simulation.h"
 
-std::tuple<std::vector<Particle>, SimulationParams> construct_configuration(std::string curr_file_path, ConfigurationType& config) {
+std::string convertToPath(const std::string& base_path, const std::string& path) {
+    if (path.empty()) {
+        return "";
+    }
+
+    auto is_relative_path = path[0] != '/';
+
+    if (is_relative_path) {
+        return std::filesystem::path(base_path).parent_path().string() + "/" + path;
+    } else {
+        return path;
+    }
+}
+
+std::tuple<std::vector<Particle>, SimulationParams> construct_configuration(std::string curr_file_path, ConfigurationType& config,
+                                                                            int depth = 0) {
     auto settings = config.settings();
     auto particle_sources = config.particle_source();
 
@@ -28,11 +44,9 @@ std::tuple<std::vector<Particle>, SimulationParams> construct_configuration(std:
                                    static_cast<int>(settings.fps()),
                                    static_cast<int>(settings.video_length()),
                                    container_type,
-                                   "vtk",
+                                   "vtu",
                                    forces,
                                    false};
-
-    int sub_simulation_counter = 0;
 
     // Spawn particles specified in the XML file
     for (auto cuboid_spawner : particle_sources.cuboid_spawner()) {
@@ -51,18 +65,12 @@ std::tuple<std::vector<Particle>, SimulationParams> construct_configuration(std:
     }
 
     for (auto checkPointLoader : particle_sources.check_point_loader()) {
-        auto path = checkPointLoader.file_name();
-
-        auto is_relative_path = path[0] != '/';
-
-        if (is_relative_path) {
-            path = std::filesystem::path(curr_file_path).parent_path().string() + "/" + path;
-        }
+        auto path = convertToPath(curr_file_path, checkPointLoader.file_name());
 
         std::string file_extension = path.substr(path.find_last_of('.'));
-
         if (file_extension != ".chkpt") {
-            Logger::logger->error("Error: file extension '{}' is not supported.", file_extension);
+            Logger::logger->error("Error: file extension '{}' is not supported. Only .chkpt files can be used as checkpoints.",
+                                  file_extension);
             exit(-1);
         }
 
@@ -72,20 +80,96 @@ std::tuple<std::vector<Particle>, SimulationParams> construct_configuration(std:
         particles.insert(particles.end(), loaded_particles.begin(), loaded_particles.end());
     }
 
+    int sub_simulation_counter = 0;
+
     for (auto sub_simulation : particle_sources.sub_simulation()) {
-        std::string sub_file_path = params.output_dir_path + "sub/" + std::to_string(sub_simulation_counter++);
+        depth++;
+        Logger::logger->info("Found sub simulation source {} at depth {}", sub_simulation_counter, depth);
 
-        auto [sub_particles, sub_config] = construct_configuration(sub_file_path, sub_simulation);
+        std::string cache_dir_path = params.output_dir_path + "sub/" + std::to_string(sub_simulation_counter);
+        std::optional<std::string> cached_file_path = std::nullopt;
 
-        sub_config.fps = 0;
-        sub_config.video_length = 0;
-        sub_config.output_format = FileOutputHandler::OutputFormat::CHKPT;
+        // Try to find a checkpoint file in the cache directory
+        if (std::filesystem::exists(cache_dir_path)) {
+            auto last_checkpoint = -1;
+            for (const auto& entry : std::filesystem::directory_iterator(cache_dir_path)) {
+                if (entry.path().extension() == ".chkpt") {
+                    std::string current_file_path = entry.path().string();
+                    auto current_file_number =
+                        std::stoi(std::regex_replace(current_file_path, std::regex("[^0-9]*([0-9]+).*"), std::string("$1")));
 
-        Simulation simulation{sub_particles, sub_config};
+                    if (cached_file_path.has_value()) {
+                        if (current_file_number > last_checkpoint) {
+                            cached_file_path = current_file_path;
+                            last_checkpoint = current_file_number;
+                        }
+                    } else {
+                        cached_file_path = current_file_path;
+                        last_checkpoint = current_file_number;
+                    }
+                }
+            }
+        }
 
-        auto result = simulation.runSimulation();
+        // If a checkpoint file was found, load it. Otherwise, run a sub simulation
+        if (cached_file_path.has_value()) {
+            Logger::logger->warn(
+                "Using cached result for sub simulation {} at depth {}. To force a rerun, delete the checkpoint file at {}",
+                sub_simulation_counter, depth, *cached_file_path);
 
-        particles.insert(particles.end(), result.resulting_particles.begin(), result.resulting_particles.end());
+            ChkptPointFileReader reader;
+            auto [loaded_particles, _] = reader.readFile(*cached_file_path);
+
+            particles.insert(particles.end(), loaded_particles.begin(), loaded_particles.end());
+
+            Logger::logger->info("Loaded {} particles from checkpoint file {}", loaded_particles.size(), *cached_file_path);
+        } else {
+            Logger::logger->info("Starting sub simulation {} at depth {}", sub_simulation_counter, depth);
+
+            auto [loaded_config, file_name] = [curr_file_path, sub_simulation, params, depth, sub_simulation_counter]() {
+                if (sub_simulation.configuration()) {
+                    return std::make_tuple(*sub_simulation.configuration(), params.input_file_path + " sub{depth:" + std::to_string(depth) +
+                                                                                ", num:" + std::to_string(sub_simulation_counter) + "}");
+                } else if (sub_simulation.file_name()) {
+                    auto path = convertToPath(curr_file_path, sub_simulation.file_name().get());
+
+                    std::string file_extension = path.substr(path.find_last_of('.'));
+                    if (file_extension != ".xml") {
+                        Logger::logger->error(
+                            "Error: file extension '{}' is not supported. Only .xml files can be used as sub simulations.", file_extension);
+                        exit(-1);
+                    }
+
+                    return std::make_tuple(*configuration(path), path);
+                } else {
+                    Logger::logger->error("Error: sub simulation source must contain either a configuration or a file name.");
+                    exit(-1);
+                }
+            }();
+
+            auto [sub_particles, sub_config] = construct_configuration(file_name, loaded_config, depth);
+
+            sub_config.fps = 0;
+            sub_config.video_length = 0;
+            sub_config.output_dir_path = cache_dir_path;
+            sub_config.output_format = FileOutputHandler::OutputFormat::CHKPT;
+
+            sub_config.logSummary(depth);
+
+            Simulation simulation{sub_particles, sub_config};
+
+            auto result = simulation.runSimulation();
+
+            result.logSummary(depth);
+
+            particles.insert(particles.end(), result.resulting_particles.begin(), result.resulting_particles.end());
+
+            Logger::logger->info("Finished sub simulation {} at depth {}", sub_simulation_counter, depth);
+            Logger::logger->info("Writing checkpoint file to {}", cache_dir_path);
+            Logger::logger->info("Wrote {} particles to checkpoint file", result.resulting_particles.size());
+        }
+
+        sub_simulation_counter++;
     }
 
     return std::make_tuple(particles, std::move(params));

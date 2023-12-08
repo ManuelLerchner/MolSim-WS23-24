@@ -24,7 +24,7 @@ TEST(XMLFileReader, CorrectParticleContainer) {
 
     EXPECT_EQ(particles.size(), 10 * 2 * 4 + 3 * 3 * 3 + 1);
 
-    EXPECT_EQ(conf.output_format, FileOutputHandler::OutputFormat::VTK);
+    EXPECT_EQ(conf.output_format, FileOutputHandler::OutputFormat::VTU);
     EXPECT_EQ(conf.container_type.index(), 0);
 
     for (int i = 0; i < 80; i++) {
@@ -83,4 +83,14 @@ TEST(XMLFileReader, RecursiveSubSimulation) {
     for (const auto& particle : equilibrated_particles) {
         EXPECT_NOT_CONTAINS_POS_NEAR(particles_xml, particle.getX(), 1);
     }
+}
+
+TEST(XMLFileReader, DoubleRecursiveSubSimulation) {
+    XMLFileReader file_reader;
+
+    auto [particles_xml, params_xml] = file_reader.readFile(FileLoader::get_input_file_path("RecursiveExample2.xml"));
+
+    std::vector<Particle> equilibrated_particles;
+
+    EXPECT_EQ(particles_xml.size(), 33 + 8 + 64);
 }

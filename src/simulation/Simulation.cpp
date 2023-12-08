@@ -12,6 +12,14 @@
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "utils/FormatTime.h"
 
+void printProgress(int percentage, int iteration, int expected_iterations, int estimated_remaining_seconds, bool finished = false) {
+    std::string progress = fmt::format("[{}{}] Iteration {}/{} {:>3}% (ETA: {})", ansi_blue_bold + std::string(percentage, '#'),
+                                       std::string(100 - percentage, ' ') + ansi_end, iteration, expected_iterations, percentage,
+                                       format_seconds_eta(estimated_remaining_seconds));
+
+    std::cout << progress << "\r" << (finished ? "\n" : "") << std::flush;
+}
+
 Simulation::Simulation(const std::vector<Particle>& initial_particles, const SimulationParams& simulation_params,
                        IntegrationMethod integration_method)
     : delta_t(simulation_params.delta_t),
@@ -53,12 +61,11 @@ SimulationOverview Simulation::runSimulation() {
     double simulation_time = 0;
 
     const size_t expected_iterations = simulation_end_time / delta_t;
-    const size_t fill_width = log10(expected_iterations) + 1;
 
     bool no_output = fps == 0 || video_length == 0;
 
     const size_t save_every_nth_iteration =
-        no_output ? std::numeric_limits<size_t>::max() : std::max(expected_iterations / (fps * video_length), 1ul);
+        no_output ? expected_iterations / 100 : std::max(expected_iterations / (fps * video_length), 1ul);
 
     Logger::logger->info("Simulation started...");
 
@@ -71,7 +78,7 @@ SimulationOverview Simulation::runSimulation() {
     auto t_prev = start_time;
 
     while (simulation_time < simulation_end_time) {
-        if (!no_output && iteration % save_every_nth_iteration == 0) {
+        if (iteration % save_every_nth_iteration == 0) {
             // calculate time since last write
             t_now = std::chrono::high_resolution_clock::now();
             const double seconds_since_last_write = std::chrono::duration<double>(t_now - t_prev).count();
@@ -83,11 +90,11 @@ SimulationOverview Simulation::runSimulation() {
 
             const size_t percentage = 100 * iteration / expected_iterations;
 
-            Logger::logger->info("Iteration {:>{}}/{} finished   {:>3}% (ETA: {})", iteration, fill_width, expected_iterations, percentage,
-                                 format_seconds_eta(estimated_remaining_seconds));
+            printProgress(percentage, iteration, expected_iterations, estimated_remaining_seconds);
 
-            // write output
-            file_output_handler.writeFile(iteration, particles);
+            if (!no_output) {
+                file_output_handler.writeFile(iteration, particles);
+            }
         }
 
         integration_functor->step(particles, forces, delta_t);
@@ -95,6 +102,8 @@ SimulationOverview Simulation::runSimulation() {
         iteration++;
         simulation_time += delta_t;
     }
+
+    printProgress(100, expected_iterations, expected_iterations, 0, true);
 
     // write final output
     file_output_handler.writeFile(iteration, particles);
@@ -104,8 +113,11 @@ SimulationOverview Simulation::runSimulation() {
     auto total_simulation_time =
         std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_time).count();
 
-    return SimulationOverview{total_simulation_time / 1000.0, total_simulation_time / static_cast<double>(iteration - 1),
-                              static_cast<size_t>(iteration - 1), expected_iterations / save_every_nth_iteration,
+    return SimulationOverview{simulation_params,
+                              total_simulation_time / 1000.0,
+                              total_simulation_time / static_cast<double>(iteration - 1),
+                              static_cast<size_t>(iteration),
+                              expected_iterations / save_every_nth_iteration + 1,
                               std::vector<Particle>(particles->begin(), particles->end())};
 }
 
@@ -131,8 +143,12 @@ SimulationOverview Simulation::runSimulationPerfTest() {
     auto total_simulation_time =
         std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_time).count();
 
-    SimulationOverview overview{total_simulation_time / 1000.0, total_simulation_time / static_cast<double>(iteration),
-                                static_cast<size_t>(iteration - 1), 0, std::vector<Particle>(particles->begin(), particles->end())};
+    SimulationOverview overview{simulation_params,
+                                total_simulation_time / 1000.0,
+                                total_simulation_time / static_cast<double>(iteration),
+                                static_cast<size_t>(iteration),
+                                0,
+                                std::vector<Particle>(particles->begin(), particles->end())};
 
     savePerformanceTest(overview, simulation_params, initial_particle_count);
 

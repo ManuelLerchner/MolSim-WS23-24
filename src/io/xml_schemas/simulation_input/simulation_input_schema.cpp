@@ -392,6 +392,29 @@ void CheckPointLoaderType::file_name(const file_name_type& x) { this->file_name_
 
 void CheckPointLoaderType::file_name(::std::unique_ptr<file_name_type> x) { this->file_name_.set(std::move(x)); }
 
+// SubSimulationType
+//
+
+const SubSimulationType::configuration_optional& SubSimulationType::configuration() const { return this->configuration_; }
+
+SubSimulationType::configuration_optional& SubSimulationType::configuration() { return this->configuration_; }
+
+void SubSimulationType::configuration(const configuration_type& x) { this->configuration_.set(x); }
+
+void SubSimulationType::configuration(const configuration_optional& x) { this->configuration_ = x; }
+
+void SubSimulationType::configuration(::std::unique_ptr<configuration_type> x) { this->configuration_.set(std::move(x)); }
+
+const SubSimulationType::file_name_optional& SubSimulationType::file_name() const { return this->file_name_; }
+
+SubSimulationType::file_name_optional& SubSimulationType::file_name() { return this->file_name_; }
+
+void SubSimulationType::file_name(const file_name_type& x) { this->file_name_.set(x); }
+
+void SubSimulationType::file_name(const file_name_optional& x) { this->file_name_ = x; }
+
+void SubSimulationType::file_name(::std::unique_ptr<file_name_type> x) { this->file_name_.set(std::move(x)); }
+
 // SettingsType
 //
 
@@ -1661,6 +1684,69 @@ CheckPointLoaderType& CheckPointLoaderType::operator=(const CheckPointLoaderType
 
 CheckPointLoaderType::~CheckPointLoaderType() {}
 
+// SubSimulationType
+//
+
+SubSimulationType::SubSimulationType() : ::xml_schema::type(), configuration_(this), file_name_(this) {}
+
+SubSimulationType::SubSimulationType(const SubSimulationType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c), configuration_(x.configuration_, f, this), file_name_(x.file_name_, f, this) {}
+
+SubSimulationType::SubSimulationType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), configuration_(this), file_name_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
+        this->parse(p, f);
+    }
+}
+
+void SubSimulationType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    for (; p.more_content(); p.next_content(false)) {
+        const ::xercesc::DOMElement& i(p.cur_element());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        // configuration
+        //
+        if (n.name() == "configuration" && n.namespace_().empty()) {
+            ::std::unique_ptr<configuration_type> r(configuration_traits::create(i, f, this));
+
+            if (!this->configuration_) {
+                this->configuration_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // file_name
+        //
+        if (n.name() == "file_name" && n.namespace_().empty()) {
+            ::std::unique_ptr<file_name_type> r(file_name_traits::create(i, f, this));
+
+            if (!this->file_name_) {
+                this->file_name_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        break;
+    }
+}
+
+SubSimulationType* SubSimulationType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class SubSimulationType(*this, f, c);
+}
+
+SubSimulationType& SubSimulationType::operator=(const SubSimulationType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->configuration_ = x.configuration_;
+        this->file_name_ = x.file_name_;
+    }
+
+    return *this;
+}
+
+SubSimulationType::~SubSimulationType() {}
+
 // SettingsType
 //
 
@@ -2560,6 +2646,26 @@ void operator<<(::xercesc::DOMElement& e, const CheckPointLoaderType& i) {
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("file_name", e));
 
         s << i.file_name();
+    }
+}
+
+void operator<<(::xercesc::DOMElement& e, const SubSimulationType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // configuration
+    //
+    if (i.configuration()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("configuration", e));
+
+        s << *i.configuration();
+    }
+
+    // file_name
+    //
+    if (i.file_name()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("file_name", e));
+
+        s << *i.file_name();
     }
 }
 

@@ -12,4 +12,4 @@ std::array<double, 3UL> LennardJonesForce::calculateForce(Particle& p, Particle&
     return f_lennard_jones;
 };
 
-LennardJonesForce::operator std::string() const { return "Lennard-Jones"; };
+LennardJonesForce::operator std::string() const { return "LennardJones"; };

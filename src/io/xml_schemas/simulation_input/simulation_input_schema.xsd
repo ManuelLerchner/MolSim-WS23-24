@@ -16,7 +16,7 @@
             <xs:element name="sphere_spawner" type="SphereSpawnerType" />
             <xs:element name="single_particle_spawner" type="SingleParticleSpawnerType" />
             <xs:element name="check_point_loader" type="CheckPointLoaderType" />
-            <xs:element name="sub_simulation" type="ConfigurationType" />
+            <xs:element name="sub_simulation" type="SubSimulationType" />
           </xs:choice>
         </xs:complexType>
       </xs:element>
@@ -126,6 +126,13 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="SubSimulationType">
+    <xs:choice>
+      <xs:element name="configuration" type="ConfigurationType" />
+      <xs:element name="file_name" type="xs:anyURI" />
+    </xs:choice>
+  </xs:complexType>
+
   <!-- Settings -->
   <xs:complexType name="SettingsType">
     <xs:sequence>
@@ -138,7 +145,6 @@
       <xs:element name="force" type="ForcesType" minOccurs="1" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
-
 
   <!-- Forces -->
   <xs:simpleType name="ForcesType">

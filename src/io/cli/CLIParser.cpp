@@ -44,8 +44,8 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
                                "The forces to be applied to the particles. Possible values: gravity, electrostatic, none");
     options_desc.add_options()("log_level,l", boost::program_options::value<std::string>(&log_level)->default_value("info"),
                                "The log level. Possible values: trace, debug, info, warning, error, critical, off");
-    options_desc.add_options()("output_format", boost::program_options::value<std::string>(&output_format)->default_value("vtk"),
-                               "The output format. Possible values: vtk, xyz, none");
+    options_desc.add_options()("output_format", boost::program_options::value<std::string>(&output_format)->default_value("vtu"),
+                               "The output format. Possible values: vtu, xyz, none");
     options_desc.add_options()("performance_test,p", "Run the simulation in performance test mode");
     options_desc.add_options()(
         "log_output", boost::program_options::value<std::string>(&log_output)->default_value("std"),

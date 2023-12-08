@@ -38,9 +38,6 @@ class FileInputHandler {
      *
      * Returns a list of supported input file extensions.
      * Supported file formats are:
-     * - .ps
-     * - .cub
-     * - .xml
      * For more information about the output file formats, see \ref InputFileFormats "Input File Formats"
      */
     static std::set<std::string> get_supported_input_file_extensions();

@@ -4,14 +4,14 @@
 #include <string>
 
 #include "io/output/chkpt/CheckPointWriter.h"
-#include "io/output/vtk/VTKWriter.h"
+#include "io/output/vtu/VTUWriter.h"
 #include "io/output/xyz/XYZWriter.h"
 #include "particles/containers/ParticleContainer.h"
 
 /**
  * @brief Wrapper class to abstract the writing of output files
  *
- * Currently there are two supported output formats: VTK and XYZ. Additionally a 'NONE' format is available, which does not write any
+ * Currently there are two supported output formats: VTU and XYZ. Additionally a 'NONE' format is available, which does not write any
  * output.
  */
 class FileOutputHandler {
@@ -19,7 +19,7 @@ class FileOutputHandler {
     /**
      * @brief Enum class to specify the output format
      */
-    enum class OutputFormat { VTK, XYZ, CHKPT, NONE };
+    enum class OutputFormat { VTU, XYZ, CHKPT, NONE };
 
    private:
     /**
@@ -53,4 +53,11 @@ class FileOutputHandler {
      * @param particle_container The ParticleContainer to write to the file
      */
     void writeFile(int iteration, const std::unique_ptr<ParticleContainer>& particle_container) const;
+
+    /**
+     * @brief Returns a mappping of supported output formats
+     *
+     * @return std::map<std::string,OutputFormat> Mapping of supported output formats
+     */
+    static std::map<std::string, OutputFormat> get_supported_output_formats();
 };

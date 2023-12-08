@@ -100,6 +100,11 @@ class SimulationParams {
     FileOutputHandler::OutputFormat output_format;
 
     /**
+     * @brief Number of particles in the simulation
+     */
+    size_t num_particles;
+
+    /**
      * @brief Construct a new SimulationParams object
      *
      * @param input_file_path Path to the input file of the simulation
@@ -119,7 +124,8 @@ class SimulationParams {
                      const std::vector<std::string>& force_strings, bool performance_test);
 
     /**
-     * @brief Dissallow default construction of a SimulationParams object (would have invalid values for a simulation)
+     * @brief Prints a summary of the simulation parameters to the console
+     * @param depth determines the indentation of the log message
      */
-    SimulationParams() = delete;
+    void logSummary(int depth = 0) const;
 };

@@ -5,12 +5,12 @@
 #include "particles/Particle.h"
 
 /**
- * @brief Class to write particle data to a .vtk file
+ * @brief Class to write particle data to a .vtu file
  */
 class CheckPointWriter : public FileWriter {
    public:
     /**
-     * @brief Writes the data of the given ParticleContainer to a .vtk file
+     * @brief Writes the data of the given ParticleContainer to a .vtu file
      *
      * @param output_dir_path Path to the directory in which to save the output file
      * @param iteration The current iteration number

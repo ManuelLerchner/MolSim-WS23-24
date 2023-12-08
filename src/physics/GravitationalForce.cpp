@@ -11,4 +11,4 @@ std::array<double, 3UL> GravitationalForce::calculateForce(Particle& p, Particle
     return f_gravity;
 };
 
-GravitationalForce::operator std::string() const { return "Gravity"; };
+GravitationalForce::operator std::string() const { return "Gravitational"; };

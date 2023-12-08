@@ -9,9 +9,9 @@
 #include "utils/ArrayUtils.h"
 
 /*
- * Test if the VTKWriter writes the correct data into the file.
+ * Test if the UWriter writes the correct data into the file.
  */
-TEST(VTKWriter, CorrectWritingOfParticles) {
+TEST(VTUWriter, CorrectWritingOfParticles) {
     std::unique_ptr<ParticleContainer> particle_container = std::make_unique<DirectSumContainer>();
 
     for (double i = 0; i < 5; i++) {
@@ -20,13 +20,13 @@ TEST(VTKWriter, CorrectWritingOfParticles) {
         particle_container->addParticle(Particle(pos, vel, i, i));
     }
 
-    auto output_folder = FileLoader::get_output_file_path("VTKWriterTest");
-    FileOutputHandler file_output_handler{FileOutputHandler::OutputFormat::VTK, output_folder};
+    auto output_folder = FileLoader::get_output_file_path("VTUWriterTest");
+    FileOutputHandler file_output_handler{FileOutputHandler::OutputFormat::VTU, output_folder};
 
     file_output_handler.writeFile(0, particle_container);
 
     // load the file
-    std::ifstream file(output_folder + "/MD_VTK_0000.vtu");
+    std::ifstream file(output_folder + "/MD_VTU_0000.vtu");
     std::stringstream buffer;
     buffer << file.rdbuf();
 
@@ -35,7 +35,7 @@ TEST(VTKWriter, CorrectWritingOfParticles) {
     // clang-format off
     std::string expected =  MULTILINE(
     <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-    <VTKFile byte_order="LittleEndian" type="UnstructuredGrid" version="0.1">
+    <VTUFile byte_order="LittleEndian" type="UnstructuredGrid" version="0.1">
     <UnstructuredGrid>
         <Piece NumberOfCells="0" NumberOfPoints="5">
         <PointData>
@@ -53,7 +53,7 @@ TEST(VTKWriter, CorrectWritingOfParticles) {
         </Cells>
         </Piece>
     </UnstructuredGrid>
-    </VTKFile>
+    </VTUFile>
     );
     // clang-format on
 
