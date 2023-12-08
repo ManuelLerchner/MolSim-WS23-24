@@ -41,7 +41,9 @@ std::tuple<std::vector<Particle>, std::optional<SimulationParams>> FileInputHand
     }
 
     try {
-        return file_reader->readFile(input_file_path);
+        auto [particles, config] = file_reader->readFile(input_file_path);
+        Logger::logger->info("Loaded {} particles from file {}", particles.size(), input_file_path);
+        return std::make_tuple(particles, config);
     } catch (const FileReader::FileFormatException& e) {
         Logger::logger->error("Error: file '{}' is not a valid {} file.", input_file_path, file_extension);
         Logger::logger->error("FileFormatException:\n{}", std::string(e.what()));

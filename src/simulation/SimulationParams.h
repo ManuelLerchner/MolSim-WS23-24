@@ -118,10 +118,12 @@ class SimulationParams {
      * @param output_format Output file format of the simulation
      * @param force_strings Forces to be applied to the particles
      * @param performance_test Whether to run the simulation in performance test mode
+     * @param base_path Base path to the output directory. This is used to construct the output directory path if none is given
+     * explicitly. Defaults to "./output/"
      */
     SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
                      int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type, const std::string& output_format,
-                     const std::vector<std::string>& force_strings, bool performance_test);
+                     const std::vector<std::string>& force_strings, bool performance_test, const std::string& base_path = "./output/");
 
     /**
      * @brief Prints a summary of the simulation parameters to the console

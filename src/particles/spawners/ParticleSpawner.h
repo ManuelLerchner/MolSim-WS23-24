@@ -15,10 +15,10 @@ class ParticleSpawner {
     /**
      * @brief Spawns particles in the given container
      * @param particle_container Container to spawn particles in
-     *
+     * @return Number of particles spawned
      * Spawns particles in the given container.
      */
-    virtual void spawnParticles(std::vector<Particle>& particle_container) const = 0;
+    virtual int spawnParticles(std::vector<Particle>& particle_container) const = 0;
 
     /**
      * @brief Estimate the number of particles to be spawned

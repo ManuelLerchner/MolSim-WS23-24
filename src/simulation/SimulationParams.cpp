@@ -6,9 +6,14 @@
 #include "io/logger/Logger.h"
 #include "physics/ForcePicker.h"
 
-std::string construct_output_path(const std::string& input_file_path) {
+std::string construct_output_path(const std::string& base_path, const std::string& input_file_path) {
+    auto base = base_path;
+    if (base_path.empty()) {
+        base = "./output/";
+    }
+
     std::filesystem::path input_path{input_file_path};
-    return "./output/" + std::string(input_path.stem()) + "/";
+    return base + std::string(input_path.stem()) + "/";
 };
 
 auto convertToForces(const std::vector<std::string>& force_strings) {
@@ -48,7 +53,8 @@ auto convertToOutputFormat(const std::string& output_format) {
 
 SimulationParams::SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time,
                                    int fps, int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
-                                   const std::string& output_format, const std::vector<std::string>& force_strings, bool performance_test)
+                                   const std::string& output_format, const std::vector<std::string>& force_strings, bool performance_test,
+                                   const std::string& base_path)
     : input_file_path(input_file_path),
       delta_t(delta_t),
       end_time(end_time),
@@ -77,7 +83,7 @@ SimulationParams::SimulationParams(const std::string& input_file_path, const std
     this->output_format = convertToOutputFormat(output_format);
 
     if (output_dir_path.empty()) {
-        this->output_dir_path = construct_output_path(input_file_path);
+        this->output_dir_path = construct_output_path(base_path, input_file_path);
     } else {
         this->output_dir_path = output_dir_path;
     }
