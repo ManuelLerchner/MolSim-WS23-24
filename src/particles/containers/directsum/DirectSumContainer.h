@@ -5,7 +5,7 @@
 
 #include "particles/Particle.h"
 #include "particles/containers/ParticleContainer.h"
-#include "physics/ForceSource.h"
+#include "physics/forces/ForceSource.h"
 
 /**
  * @brief Wrapper class for a set of particles

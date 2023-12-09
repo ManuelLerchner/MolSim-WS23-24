@@ -5,7 +5,7 @@
 #include "io/output/FileOutputHandler.h"
 #include "particles/containers/ParticleContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
-#include "physics/GravitationalForce.h"
+#include "physics/forces/GravitationalForce.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"

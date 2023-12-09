@@ -50,7 +50,7 @@ The `.cub` file format contains arguments for the internal cuboid generator. The
   - Distance of the particles (mesh width): '`double`'
   - Mass of a single particle: '`double`'
   - Initial velocity of the particles: '`double` `double` `double`'
-  - Mean-value of the velocity of Brownian Motion (for temperature dependent wobbling) '`double`'
+  - Initial temperature of the particles (for temperature dependent wobbling, excludes temperature created by full cuboid velocity) '`double`'
   - Type of the cuboid: '`int` used for labeling particles in the cuboid'
 - Outside the cuboid definitions an arbitrary amount of comment lines, which start with `#` and empty lines are allowed, furthermore comments are allowed at the end of a line after the last argument
 
@@ -65,7 +65,7 @@ An example file could look like this:
 0.1               # Distance of the particles (mesh width)
 1.0               # Mass of a single particle
 0.4 0.0 0.0       # Initial velocity of the particles
-0.0               # Mean-value of the velocity of Brownian Motion
+0.0               # Initial temperature
 0                 # Type of the cuboid
 
 # Definition of Cuboid 2
@@ -74,7 +74,7 @@ An example file could look like this:
 0.1               # Distance of the particles (mesh width)
 1.0               # Mass of a single particle
 0.0 0.4 0.0       # Initial velocity of the particles
-0.0               # Mean-value of the velocity of Brownian Motion
+0.0               # Initial temperature
 1                 # Type of the cuboid
 ```
 
@@ -126,7 +126,7 @@ An example file could look like this:
                 <z>1</z>
             </grid_dim>
             <grid_spacing>1.1225</grid_spacing>
-            <temperature>0.1</temperature>          <!-- aka mean brownian motion -->
+            <temperature>0.1</temperature>
             <mass>1</mass>
             <velocity>
                 <x>0.0</x>

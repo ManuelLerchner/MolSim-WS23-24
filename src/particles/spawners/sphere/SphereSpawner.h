@@ -23,7 +23,7 @@ class SphereSpawner : public ParticleSpawner {
     const int type;
 
     const std::array<double, 3> initial_velocity;
-    const double avg_velocity;
+    const double initial_temperature;
 
     const bool third_dimension;
 
@@ -37,12 +37,12 @@ class SphereSpawner : public ParticleSpawner {
      * @param initial_velocity Initial velocity of the particles, the velocity is then jittered by a Maxwell-Boltzmann distribution
      * @param type Type of the particles in the cuboid
      * @param third_dimension Number of dimensions of the sphere
-     * @param avg_velocity Average brownian motion velocity of the particles
+     * @param initial_temperature Inital temperature of the particles
      *
      * Constructor to initialize the cuboid spawner. The velocity of the particles is jittered by a Maxwell-Boltzmann distribution.
      */
     SphereSpawner(const std::array<double, 3>& center, int sphere_radius, double grid_spacing, double mass,
-                  const std::array<double, 3>& initial_velocity, int type, bool third_dimension = true, double avg_velocity = 0.1);
+                  const std::array<double, 3>& initial_velocity, int type, bool third_dimension = true, double initial_temperature = 0.1);
 
     /**
      * @brief Spawns particles in the given container

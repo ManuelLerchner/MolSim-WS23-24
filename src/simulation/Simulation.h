@@ -50,8 +50,20 @@ class Simulation {
      */
     const SimulationParams& simulation_params;
 
+    /**
+     * @brief Vector of forces which are applied in the simulation
+     */
     const std::vector<std::unique_ptr<ForceSource>>& forces;
+
+    /**
+     * @brief Integration functor used to integrate the particles
+     */
     std::unique_ptr<IntegrationFunctor> integration_functor;
+
+    /**
+     * @brief Thermostat used to control the temperature of the simulation
+     */
+    Thermostat thermostat;
 
    public:
     enum class IntegrationMethod { VERLET };
@@ -72,7 +84,7 @@ class Simulation {
      *
      * @return SimulationOverview object containing some data about the simulation performed
      */
-    SimulationOverview runSimulation() const;
+    SimulationOverview runSimulation();
 
     /**
      * @brief Runs the simulation without any output for logging- or vtk/xyz-files, using the parameters given at construction and returns a
@@ -80,7 +92,7 @@ class Simulation {
      *
      * @return SimulationOverview object containing some data about the simulation performed
      */
-    SimulationOverview runSimulationPerfTest() const;
+    SimulationOverview runSimulationPerfTest();
 
    private:
     void savePerformanceTest(const SimulationOverview& overview, const SimulationParams& params, size_t num_particles) const;

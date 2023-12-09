@@ -1,6 +1,6 @@
 #pragma once
 
-#include "physics/ForceSource.h"
+#include "physics/forces/ForceSource.h"
 
 /**
  *  @brief Class to calculate the Lennard-Jones force between particles. Implements the interface ForceSource.

@@ -19,7 +19,8 @@ Simulation::Simulation(std::unique_ptr<ParticleContainer>& particles, const std:
       fps(simulation_params.fps),
       video_length(simulation_params.video_length),
       simulation_params(simulation_params),
-      forces(forces) {
+      forces(forces),
+      thermostat(std::move(simulation_params.thermostat)) {
     switch (integration_method) {
         case IntegrationMethod::VERLET:
             integration_functor = std::make_unique<VerletFunctor>();
@@ -30,7 +31,7 @@ Simulation::Simulation(std::unique_ptr<ParticleContainer>& particles, const std:
     }
 }
 
-SimulationOverview Simulation::runSimulation() const {
+SimulationOverview Simulation::runSimulation() {
     int iteration = 0;
     double simulation_time = 0;
 
@@ -74,6 +75,10 @@ SimulationOverview Simulation::runSimulation() const {
 
         integration_functor->step(particles, forces, delta_t);
 
+        if (iteration != 0 && iteration % thermostat.getApplicationInterval() == 0) {
+            thermostat.scaleTemperature(particles);
+        }
+
         iteration++;
         simulation_time += delta_t;
     }
@@ -84,10 +89,10 @@ SimulationOverview Simulation::runSimulation() const {
         std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_time).count();
 
     return SimulationOverview{total_simulation_time / 1000.0, total_simulation_time / static_cast<double>(iteration - 1),
-                              static_cast<size_t>(iteration - 1), expected_iterations / save_every_nth_iteration};
+                              static_cast<size_t>(iteration), expected_iterations / save_every_nth_iteration};
 }
 
-SimulationOverview Simulation::runSimulationPerfTest() const {
+SimulationOverview Simulation::runSimulationPerfTest() {
     const size_t initial_particle_count = particles->size();
 
     double simulation_time = 0;
@@ -102,6 +107,10 @@ SimulationOverview Simulation::runSimulationPerfTest() const {
     while (simulation_time < simulation_end_time) {
         integration_functor->step(particles, forces, delta_t);
 
+        if (iteration != 0 && iteration % thermostat.getApplicationInterval() == 0) {
+            thermostat.scaleTemperature(particles);
+        }
+
         simulation_time += delta_t;
         iteration++;
     }
@@ -110,7 +119,7 @@ SimulationOverview Simulation::runSimulationPerfTest() const {
         std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_time).count();
 
     SimulationOverview overview{total_simulation_time / 1000.0, total_simulation_time / static_cast<double>(iteration),
-                                static_cast<size_t>(iteration - 1), 0};
+                                static_cast<size_t>(iteration), 0};
 
     savePerformanceTest(overview, simulation_params, initial_particle_count);
 

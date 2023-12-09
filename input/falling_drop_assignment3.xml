@@ -38,6 +38,11 @@
                 </boundary_conditions>
             </linkedcells_container>
         </particle_container>
+        <thermostat>
+            <target_temperature>0</target_temperature>
+            <max_temperature_change>0</max_temperature_change>
+            <application_interval>10000000</application_interval>
+        </thermostat>
     </settings>
 
     <particles>

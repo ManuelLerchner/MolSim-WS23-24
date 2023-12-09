@@ -1,12 +1,13 @@
 #include "CuboidSpawner.h"
 
 #include "particles/Particle.h"
+#include "physics/thermostats/Thermostat.h"
 #include "utils/ArrayUtils.h"
 #include "utils/MaxwellBoltzmannDistribution.h"
 
 CuboidSpawner::CuboidSpawner(const std::array<double, 3>& lower_left_corner, const std::array<int, 3>& grid_dimensions, double grid_spacing,
                              double mass, const std::array<double, 3>& initial_velocity, int type, bool third_dimension,
-                             double avg_velocity)
+                             double initial_temperature)
     : lower_left_corner(lower_left_corner),
       grid_dimensions(grid_dimensions),
       grid_spacing(grid_spacing),
@@ -14,7 +15,7 @@ CuboidSpawner::CuboidSpawner(const std::array<double, 3>& lower_left_corner, con
       type(type),
       initial_velocity(initial_velocity),
       third_dimension(third_dimension),
-      avg_velocity(avg_velocity) {}
+      initial_temperature(initial_temperature) {}
 
 void CuboidSpawner::spawnParticles(std::unique_ptr<ParticleContainer>& particle_container) const {
     for (int i = 0; i < grid_dimensions[0]; i++) {
@@ -23,9 +24,9 @@ void CuboidSpawner::spawnParticles(std::unique_ptr<ParticleContainer>& particle_
                 const auto grid_pos = std::array<double, 3>{static_cast<double>(i), static_cast<double>(j), static_cast<double>(k)};
 
                 const auto x = lower_left_corner + grid_spacing * grid_pos;
-                const auto v = initial_velocity + maxwellBoltzmannDistributedVelocity(avg_velocity, third_dimension ? 3 : 2);
 
-                Particle particle(x, v, mass, type);
+                Particle particle(x, initial_velocity, mass, type);
+                Thermostat::setParticleTemperature(initial_temperature, particle, third_dimension ? 3 : 2);
                 particle_container->addParticle(std::move(particle));
             }
         }

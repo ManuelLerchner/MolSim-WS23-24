@@ -6,6 +6,7 @@
 
 #include "io/output/FileOutputHandler.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
+#include "physics/thermostats/Thermostat.h"
 
 /**
  * @brief Contains all parameters needed to run a simulation.
@@ -82,6 +83,11 @@ class SimulationParams {
     std::variant<DirectSumType, LinkedCellsType> container_type;
 
     /**
+     * @brief Thermostat used in the simulation
+     */
+    Thermostat thermostat;
+
+    /**
      * @brief Output file format of the simulation
      */
     FileOutputHandler::OutputFormat output_format;
@@ -102,13 +108,14 @@ class SimulationParams {
      * @param video_length Expected length of the simulation video in seconds. This is used to calculate how often to save the
      * simulation data
      * @param container_type Type of the particle container
+     * @param thermostat Thermostat used in the simulation
      * @param output_format Output file format of the simulation
      * @param performanceTest Whether to run the simulation in performance test mode
      *
      */
     SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
-                     int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type, const std::string& output_format,
-                     bool performanceTest = false);
+                     int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type, const Thermostat& thermostat,
+                     const std::string& output_format, bool performanceTest = false);
 
     /**
      * @brief Dissallow default construction of a SimulationParams object (would have invalid values for a simulation)

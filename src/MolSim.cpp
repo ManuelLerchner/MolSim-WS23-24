@@ -5,7 +5,7 @@
 #include "io/logger/Logger.h"
 #include "particles/containers/ParticleContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
-#include "physics/LennardJonesForce.h"
+#include "physics/forces/LennardJonesForce.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationOverview.h"
 #include "simulation/SimulationParams.h"
@@ -92,6 +92,13 @@ void print_simulation_input(const SimulationParams& simulation_params, size_t nu
 
     Logger::logger->info("  Forces: {}", force_names);
 
+    // Print Thermostat
+    Logger::logger->info(ansi_yellow_bold + "Thermostat:" + ansi_end);
+    Logger::logger->info("  Target temperature: {}", simulation_params.thermostat.getTargetTemperature());
+    Logger::logger->info("  Max temperature change: {}", simulation_params.thermostat.getMaxTemperatureChange());
+    Logger::logger->info("  Applied every {} iterations", simulation_params.thermostat.getApplicationInterval());
+
+    // Print Container Information
     Logger::logger->info(ansi_yellow_bold + "Container:" + ansi_end);
     if (std::holds_alternative<SimulationParams::LinkedCellsType>(simulation_params.container_type)) {
         auto lc_container = std::get<SimulationParams::LinkedCellsType>(simulation_params.container_type);

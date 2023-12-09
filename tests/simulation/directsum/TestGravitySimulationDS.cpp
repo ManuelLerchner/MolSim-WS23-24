@@ -4,7 +4,7 @@
 
 #include "io/output/FileOutputHandler.h"
 #include "particles/containers/directsum/DirectSumContainer.h"
-#include "physics/GravitationalForce.h"
+#include "physics/forces/GravitationalForce.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"
