@@ -29,8 +29,6 @@ TEST(SimulationRunnerDirectSum, ParticlesAttractEachother_Gravity) {
     particles.push_back(p1);
     particles.push_back(p2);
 
-    FileOutputHandler file_output_handler(FileOutputHandler::OutputFormat::NONE);
-
     SimulationParams params = TEST_DEFAULT_PARAMS_GRAVITY;
     params.end_time = 0.1;
     params.delta_t = 0.001;

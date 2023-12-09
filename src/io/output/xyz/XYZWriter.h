@@ -15,10 +15,10 @@ class XYZWriter : public FileWriter {
     /**
      * @brief Writes the data of the given ParticleContainer to a .xyz file
      *
-     * @param output_dir_path Path to the directory in which to save the output
+     * @param params SimulationParams object which provides the output directory path
      * @param iteration The current iteration
      * @param particle_container ParticleContainer to be used
      */
-    void writeFile(const std::string& output_dir_path, int iteration,
-                   const std::unique_ptr<ParticleContainer>& particle_container) const override;
+    virtual void writeFile(const SimulationParams& params, int iteration,
+                           const std::unique_ptr<ParticleContainer>& particle_container) const override;
 };

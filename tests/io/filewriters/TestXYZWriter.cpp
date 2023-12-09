@@ -21,7 +21,9 @@ TEST(XYZWriter, CorrectWritingOfParticles) {
     }
 
     auto output_folder = FileLoader::get_output_file_path("XYZWriterTest");
-    FileOutputHandler file_output_handler{FileOutputHandler::OutputFormat::XYZ, output_folder};
+
+    FileOutputHandler file_output_handler{
+        SimulationParams("", output_folder, 0, 0, 0, 0, SimulationParams::DirectSumType{}, "xyz", {"LennardJones"}, false)};
 
     file_output_handler.writeFile(0, particle_container);
 

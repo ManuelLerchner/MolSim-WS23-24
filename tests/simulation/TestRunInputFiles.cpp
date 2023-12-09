@@ -5,13 +5,14 @@
 
 #include "data/FileLoader.h"
 #include "io/input/FileInputHandler.h"
+#include "io/input/InputFormats.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"
 
 auto load_all_input_files() {
     std::vector<std::string> input_files;
-    auto supported_extensions = FileInputHandler::get_supported_input_file_extensions();
+    auto supported_extensions = get_supported_input_file_extensions();
 
     for (const auto& entry : std::filesystem::recursive_directory_iterator(FileLoader::get_test_data_dir() + "/input")) {
         // check for valid extension
@@ -61,7 +62,6 @@ TEST(SimulationRunner, EnsureBackwardsCompatibilityForAllInputFiles) {
 
         params.end_time = 0.1;
         params.delta_t = 0.01;
-        params.output_format = FileOutputHandler::OutputFormat::NONE;
 
         // Initialize simulation
         Simulation simulation{particles, params};
@@ -73,7 +73,7 @@ TEST(SimulationRunner, EnsureBackwardsCompatibilityForAllInputFiles) {
     }
 
     // Check that all supported extensions have actually been tested
-    for (const auto& extension : FileInputHandler::get_supported_input_file_extensions()) {
+    for (const auto& extension : get_supported_input_file_extensions()) {
         EXPECT_TRUE(tested_extensions.find(extension) != tested_extensions.end());
     }
 }

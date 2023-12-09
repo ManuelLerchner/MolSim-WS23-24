@@ -6,7 +6,8 @@
 #include <variant>
 #include <vector>
 
-#include "io/output/FileOutputHandler.h"
+#include "io/input/InputFormats.h"
+#include "io/output/OutputFormats.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "physics/ForceSource.h"
 
@@ -55,6 +56,11 @@ class SimulationParams {
     std::string input_file_path;
 
     /**
+     * @brief Hash of the input file of the simulation
+     */
+    std::size_t input_file_hash;
+
+    /**
      * @brief Path to the directory in which to save the simulation output
      */
     std::string output_dir_path;
@@ -97,12 +103,17 @@ class SimulationParams {
     /**
      * @brief Output file format of the simulation
      */
-    FileOutputHandler::OutputFormat output_format;
+    OutputFormat output_format;
 
     /**
      * @brief Number of particles in the simulation
      */
     size_t num_particles;
+
+    /**
+     * @brief Flag to indicate whether the simulation should be run from scratch, or whether cached data should be used
+     */
+    bool fresh;
 
     /**
      * @brief Construct a new SimulationParams object
@@ -123,7 +134,8 @@ class SimulationParams {
      */
     SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
                      int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type, const std::string& output_format,
-                     const std::vector<std::string>& force_strings, bool performance_test, const std::string& base_path = "./output/");
+                     const std::vector<std::string>& force_strings, bool performance_test, bool fresh = false,
+                     const std::string& base_path = "./output/");
 
     /**
      * @brief Prints a summary of the simulation parameters to the console

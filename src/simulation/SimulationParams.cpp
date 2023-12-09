@@ -1,9 +1,11 @@
 #include "SimulationParams.h"
 
 #include <filesystem>
+#include <fstream>
 #include <numeric>
 
 #include "io/logger/Logger.h"
+#include "io/output/OutputFormats.h"
 #include "physics/ForcePicker.h"
 
 std::string construct_output_path(const std::string& base_path, const std::string& input_file_path) {
@@ -36,7 +38,7 @@ auto convertToForces(const std::vector<std::string>& force_strings) {
 }
 
 auto convertToOutputFormat(const std::string& output_format) {
-    auto supported = FileOutputHandler::get_supported_output_formats();
+    auto supported = get_supported_output_formats();
 
     if (!supported.contains(output_format)) {
         auto supported_formats = std::string();
@@ -54,7 +56,7 @@ auto convertToOutputFormat(const std::string& output_format) {
 SimulationParams::SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time,
                                    int fps, int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
                                    const std::string& output_format, const std::vector<std::string>& force_strings, bool performance_test,
-                                   const std::string& base_path)
+                                   bool fresh, const std::string& base_path)
     : input_file_path(input_file_path),
       delta_t(delta_t),
       end_time(end_time),
@@ -62,7 +64,8 @@ SimulationParams::SimulationParams(const std::string& input_file_path, const std
       video_length(video_length),
       container_type(container_type),
       forces(convertToForces(force_strings)),
-      performance_test(performance_test) {
+      performance_test(performance_test),
+      fresh(fresh) {
     if (fps < 0) {
         Logger::logger->error("FPS must be positive");
         exit(-1);
@@ -87,6 +90,29 @@ SimulationParams::SimulationParams(const std::string& input_file_path, const std
     } else {
         this->output_dir_path = output_dir_path;
     }
+
+    // calculate hash
+    auto first_space = input_file_path.find(' ');
+    if (first_space == std::string::npos) {
+        first_space = input_file_path.size();
+    }
+
+    std::string real_input_file_path = input_file_path.substr(0, first_space);
+
+    std::ifstream input_file(real_input_file_path);
+    if (!input_file.is_open()) {
+        Logger::logger->error("Could not open input file: {}", real_input_file_path);
+        exit(-1);
+    }
+
+    auto buffer = std::stringstream();
+    buffer << input_file.rdbuf();
+
+    // hash
+    std::hash<std::string> hasher;
+    auto hash = hasher(buffer.str());
+
+    this->input_file_hash = hash;
 }
 
 void SimulationParams::logSummary(int depth) const {
@@ -102,6 +128,7 @@ void SimulationParams::logSummary(int depth) const {
     Logger::logger->info("{}║  Output directory path: {}", indent, output_dir_path);
     Logger::logger->info("{}║  Delta_t: {}", indent, delta_t);
     Logger::logger->info("{}║  End_time: {}", indent, end_time);
+    Logger::logger->info("{}║  Reuse cached data: {}", indent, !fresh);
 
     Logger::logger->info("{}╟┤{}Rendering arguments: {}", indent, ansi_yellow_bold, ansi_end);
     Logger::logger->info("{}║  Frames per second: {}", indent, fps);

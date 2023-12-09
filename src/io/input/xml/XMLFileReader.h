@@ -8,7 +8,12 @@
  * @brief Class to read particle and simulation data from a '.xml' file
  */
 class XMLFileReader : public FileReader {
+   private:
+    bool fresh;
+
    public:
+    XMLFileReader(bool fresh = false) : fresh(fresh) {}
+
     /**
      * @brief Reads particle data from a '.xml' file and returns a vector of particles
      * Other simulation parameters are returned as an optional SimulationParams object.

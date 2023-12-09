@@ -7,12 +7,14 @@
 
 #include "io/xml_schemas/xsd_type_adaptors/InternalToXSDTypeAdapter.h"
 
-void CheckPointWriter::writeFile(const std::string& output_dir_path, int iteration,
+void CheckPointWriter::writeFile(const SimulationParams& params, int iteration,
                                  const std::unique_ptr<ParticleContainer>& particle_container) const {
-    auto filename = output_dir_path + "/" + "MD_CHKPT";
+    auto filename = params.output_dir_path + "/" + "MD_CHKPT";
 
     std::stringstream strstr;
     strstr << filename << "_" << std::setfill('0') << std::setw(4) << iteration << ".chkpt";
+
+    MetaDataDataType meta_data{params.input_file_path, params.input_file_hash, params.end_time, params.delta_t};
 
     CheckPointFileType::ParticleData_type particles{};
 
@@ -22,7 +24,7 @@ void CheckPointWriter::writeFile(const std::string& output_dir_path, int iterati
         particles.particle().push_back(InternalToXSDTypeAdapter::convertToParticle(particle));
     }
 
-    CheckPointFileType checkpointfile(particles);
+    CheckPointFileType checkpointfile(meta_data, particles);
 
     std::ofstream file(strstr.str().c_str());
     CheckPoint(file, checkpointfile);

@@ -12,10 +12,10 @@ class CheckPointWriter : public FileWriter {
     /**
      * @brief Writes the data of the given ParticleContainer to a .vtu file
      *
-     * @param output_dir_path Path to the directory in which to save the output file
+     * @param params SimulationParams object which provides the output directory path
      * @param iteration The current iteration number
      * @param particle_container ParticleContainer whose particles are to be written
      */
-    void writeFile(const std::string& output_dir_path, int iteration,
-                   const std::unique_ptr<ParticleContainer>& particle_container) const override;
+    virtual void writeFile(const SimulationParams& params, int iteration,
+                           const std::unique_ptr<ParticleContainer>& particle_container) const override;
 };

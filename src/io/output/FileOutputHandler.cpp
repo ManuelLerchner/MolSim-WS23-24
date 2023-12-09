@@ -4,9 +4,8 @@
 
 #include "io/logger/Logger.h"
 
-FileOutputHandler::FileOutputHandler(const OutputFormat output_format, const std::string& output_dir_path)
-    : output_format(output_format), output_dir_path(output_dir_path) {
-    switch (output_format) {
+FileOutputHandler::FileOutputHandler(const SimulationParams& params) : params(params) {
+    switch (params.output_format) {
         case OutputFormat::NONE:
             return;
         case OutputFormat::VTU:
@@ -23,18 +22,18 @@ FileOutputHandler::FileOutputHandler(const OutputFormat output_format, const std
             exit(1);
     }
 
-    if (std::filesystem::exists(output_dir_path)) {
-        Logger::logger->warn("Output directory '{}' already exists.", output_dir_path);
+    if (std::filesystem::exists(params.output_dir_path)) {
+        Logger::logger->warn("Output directory '{}' already exists.", params.output_dir_path);
 
-        auto supported = FileOutputHandler::get_supported_output_formats();
-        auto file_extension = std::find_if(supported.begin(), supported.end(), [output_format](const auto& pair) {
-                                  return pair.second == output_format;
+        auto supported = get_supported_output_formats();
+        auto file_extension = std::find_if(supported.begin(), supported.end(), [params](const auto& pair) {
+                                  return pair.second == params.output_format;
                               })->first;
 
         Logger::logger->warn("Deleting all files in directory with file extension '{}'", file_extension);
 
         auto count = 0;
-        for (const auto& entry : std::filesystem::directory_iterator(output_dir_path)) {
+        for (const auto& entry : std::filesystem::directory_iterator(params.output_dir_path)) {
             if (entry.path().extension() == "." + file_extension) {
                 std::filesystem::remove(entry.path());
                 count++;
@@ -43,21 +42,14 @@ FileOutputHandler::FileOutputHandler(const OutputFormat output_format, const std
 
         Logger::logger->warn("Deleted {} files.", count);
     } else {
-        Logger::logger->info("Creating output directory '{}'.", output_dir_path);
-        std::filesystem::create_directories(output_dir_path);
+        Logger::logger->info("Creating output directory '{}'.", params.output_dir_path);
+        std::filesystem::create_directories(params.output_dir_path);
     }
 }
 
 void FileOutputHandler::writeFile(int iteration, const std::unique_ptr<ParticleContainer>& particle_container) const {
-    if (output_format == OutputFormat::NONE) {
+    if (params.output_format == OutputFormat::NONE) {
         return;
     }
-    file_writer->writeFile(output_dir_path, iteration, particle_container);
-}
-
-std::map<std::string, FileOutputHandler::OutputFormat> FileOutputHandler::get_supported_output_formats() {
-    return {{"vtu", FileOutputHandler::OutputFormat::VTU},
-            {"xyz", FileOutputHandler::OutputFormat::XYZ},
-            {"chkpt", FileOutputHandler::OutputFormat::CHKPT},
-            {"none", FileOutputHandler::OutputFormat::NONE}};
+    file_writer->writeFile(params, iteration, particle_container);
 }

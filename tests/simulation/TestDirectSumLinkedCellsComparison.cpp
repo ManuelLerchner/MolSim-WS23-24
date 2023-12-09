@@ -44,12 +44,10 @@ TEST(SimulationRunnerDirectSumLinkedCellsComparison, RandomSimulation1) {
     SimulationParams params_ds = TEST_DEFAULT_PARAMS_LENNARD_JONES;
     params_ds.end_time = end_t;
     params_ds.delta_t = delta_t;
-    params_ds.output_format = FileOutputHandler::OutputFormat::NONE;
 
     SimulationParams params_lc = TEST_DEFAULT_PARAMS_LENNARD_JONES;
     params_lc.end_time = end_t;
     params_lc.delta_t = delta_t;
-    params_lc.output_format = FileOutputHandler::OutputFormat::NONE;
 
     std::array<double, 3> domain_size = {10, 10, 10};
     double cutoff_radius = 8;
@@ -100,12 +98,10 @@ TEST(SimulationRunnerDirectSumLinkedCellsComparison, Collision) {
     SimulationParams params_ds = TEST_DEFAULT_PARAMS_LENNARD_JONES;
     params_ds.end_time = end_t;
     params_ds.delta_t = delta_t;
-    params_ds.output_format = FileOutputHandler::OutputFormat::NONE;
 
     SimulationParams params_lc = TEST_DEFAULT_PARAMS_LENNARD_JONES;
     params_lc.end_time = end_t;
     params_lc.delta_t = delta_t;
-    params_lc.output_format = FileOutputHandler::OutputFormat::NONE;
 
     params_lc.container_type = SimulationParams::LinkedCellsType(
         {30, 30, 30}, 7.5, {BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW});

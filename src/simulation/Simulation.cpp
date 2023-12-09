@@ -24,7 +24,7 @@ Simulation::Simulation(const std::vector<Particle>& initial_particles, const Sim
                        IntegrationMethod integration_method)
     : delta_t(simulation_params.delta_t),
       simulation_end_time(simulation_params.end_time),
-      file_output_handler(FileOutputHandler(simulation_params.output_format, simulation_params.output_dir_path)),
+      file_output_handler(FileOutputHandler(simulation_params)),
       fps(simulation_params.fps),
       video_length(simulation_params.video_length),
       simulation_params(simulation_params),

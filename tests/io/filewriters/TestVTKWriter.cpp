@@ -21,7 +21,8 @@ TEST(VTUWriter, CorrectWritingOfParticles) {
     }
 
     auto output_folder = FileLoader::get_output_file_path("VTUWriterTest");
-    FileOutputHandler file_output_handler{FileOutputHandler::OutputFormat::VTU, output_folder};
+    FileOutputHandler file_output_handler{
+        SimulationParams("", output_folder, 0, 0, 0, 0, SimulationParams::DirectSumType{}, "vtu", {"LennardJones"}, false)};
 
     file_output_handler.writeFile(0, particle_container);
 
@@ -35,7 +36,7 @@ TEST(VTUWriter, CorrectWritingOfParticles) {
     // clang-format off
     std::string expected =  MULTILINE(
     <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-    <VTUFile byte_order="LittleEndian" type="UnstructuredGrid" version="0.1">
+    <VTKFile byte_order="LittleEndian" type="UnstructuredGrid" version="0.1">
     <UnstructuredGrid>
         <Piece NumberOfCells="0" NumberOfPoints="5">
         <PointData>
@@ -53,7 +54,7 @@ TEST(VTUWriter, CorrectWritingOfParticles) {
         </Cells>
         </Piece>
     </UnstructuredGrid>
-    </VTUFile>
+    </VTKFile>
     );
     // clang-format on
 

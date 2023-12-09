@@ -2,7 +2,6 @@
 
 #include <memory>
 
-#include "io/output/FileOutputHandler.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationUtils.h"
@@ -33,8 +32,6 @@ TEST(SimulationRunnerLinkedCells, ParticlesAttractEachother_Gravity) {
 
     particles.push_back(p1);
     particles.push_back(p2);
-
-    FileOutputHandler file_output_handler(FileOutputHandler::OutputFormat::NONE);
 
     SimulationParams params = TEST_DEFAULT_PARAMS_GRAVITY;
     params.end_time = 0.1;

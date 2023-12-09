@@ -9,7 +9,7 @@ int main(int argc, char* argsv[]) {
     SimulationParams params_cli = parse_arguments(argc, argsv);
 
     // Parse input file
-    auto [initial_particles, simulation_arguments] = FileInputHandler::readFile(params_cli.input_file_path);
+    auto [initial_particles, simulation_arguments] = FileInputHandler::readFile(params_cli.input_file_path, params_cli.fresh);
 
     // Combine parameters from CLI and input file
     SimulationParams simulation_params = merge_parameters(params_cli, simulation_arguments);

@@ -12,7 +12,18 @@
   <!-- Checkpoint File -->
   <xs:complexType name="CheckPointFileType">
     <xs:sequence>
+      <xs:element name="MetaData" type="MetaDataDataType" />
       <xs:element name="ParticleData" type="ParticleDataType" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Meta Data -->
+  <xs:complexType name="MetaDataDataType">
+    <xs:sequence>
+      <xs:element name="input_file" type="xs:anyURI" />
+      <xs:element name="input_file_hash" type="xs:unsignedLong" />
+      <xs:element name="end_time" type="xs:double" />
+      <xs:element name="delta_t" type="xs:double" />
     </xs:sequence>
   </xs:complexType>
 

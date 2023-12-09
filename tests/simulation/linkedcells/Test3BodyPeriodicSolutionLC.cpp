@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 
 #include "io/logger/Logger.h"
-#include "io/output/FileOutputHandler.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationUtils.h"
@@ -45,8 +44,6 @@ TEST(SimulationRunnerLinkedCells, ParticlesReturnToInitialPositionPeriodicSoluti
     particles.push_back(pa1);
     particles.push_back(pa2);
     particles.push_back(pa3);
-
-    FileOutputHandler file_output_handler(FileOutputHandler::OutputFormat::NONE);
 
     SimulationParams params = TEST_DEFAULT_PARAMS_GRAVITY;
     params.end_time = period;

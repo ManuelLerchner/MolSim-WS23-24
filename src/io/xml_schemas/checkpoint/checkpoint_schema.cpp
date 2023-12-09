@@ -43,6 +43,14 @@
 // CheckPointFileType
 //
 
+const CheckPointFileType::MetaData_type& CheckPointFileType::MetaData() const { return this->MetaData_.get(); }
+
+CheckPointFileType::MetaData_type& CheckPointFileType::MetaData() { return this->MetaData_.get(); }
+
+void CheckPointFileType::MetaData(const MetaData_type& x) { this->MetaData_.set(x); }
+
+void CheckPointFileType::MetaData(::std::unique_ptr<MetaData_type> x) { this->MetaData_.set(std::move(x)); }
+
 const CheckPointFileType::ParticleData_type& CheckPointFileType::ParticleData() const { return this->ParticleData_.get(); }
 
 CheckPointFileType::ParticleData_type& CheckPointFileType::ParticleData() { return this->ParticleData_.get(); }
@@ -50,6 +58,35 @@ CheckPointFileType::ParticleData_type& CheckPointFileType::ParticleData() { retu
 void CheckPointFileType::ParticleData(const ParticleData_type& x) { this->ParticleData_.set(x); }
 
 void CheckPointFileType::ParticleData(::std::unique_ptr<ParticleData_type> x) { this->ParticleData_.set(std::move(x)); }
+
+// MetaDataDataType
+//
+
+const MetaDataDataType::input_file_type& MetaDataDataType::input_file() const { return this->input_file_.get(); }
+
+MetaDataDataType::input_file_type& MetaDataDataType::input_file() { return this->input_file_.get(); }
+
+void MetaDataDataType::input_file(const input_file_type& x) { this->input_file_.set(x); }
+
+void MetaDataDataType::input_file(::std::unique_ptr<input_file_type> x) { this->input_file_.set(std::move(x)); }
+
+const MetaDataDataType::input_file_hash_type& MetaDataDataType::input_file_hash() const { return this->input_file_hash_.get(); }
+
+MetaDataDataType::input_file_hash_type& MetaDataDataType::input_file_hash() { return this->input_file_hash_.get(); }
+
+void MetaDataDataType::input_file_hash(const input_file_hash_type& x) { this->input_file_hash_.set(x); }
+
+const MetaDataDataType::end_time_type& MetaDataDataType::end_time() const { return this->end_time_.get(); }
+
+MetaDataDataType::end_time_type& MetaDataDataType::end_time() { return this->end_time_.get(); }
+
+void MetaDataDataType::end_time(const end_time_type& x) { this->end_time_.set(x); }
+
+const MetaDataDataType::delta_t_type& MetaDataDataType::delta_t() const { return this->delta_t_.get(); }
+
+MetaDataDataType::delta_t_type& MetaDataDataType::delta_t() { return this->delta_t_.get(); }
+
+void MetaDataDataType::delta_t(const delta_t_type& x) { this->delta_t_.set(x); }
 
 // ParticleDataType
 //
@@ -112,16 +149,17 @@ void ParticleType::type(const type_type& x) { this->type_.set(x); }
 // CheckPointFileType
 //
 
-CheckPointFileType::CheckPointFileType(const ParticleData_type& ParticleData) : ::xml_schema::type(), ParticleData_(ParticleData, this) {}
+CheckPointFileType::CheckPointFileType(const MetaData_type& MetaData, const ParticleData_type& ParticleData)
+    : ::xml_schema::type(), MetaData_(MetaData, this), ParticleData_(ParticleData, this) {}
 
-CheckPointFileType::CheckPointFileType(::std::unique_ptr<ParticleData_type> ParticleData)
-    : ::xml_schema::type(), ParticleData_(std::move(ParticleData), this) {}
+CheckPointFileType::CheckPointFileType(::std::unique_ptr<MetaData_type> MetaData, ::std::unique_ptr<ParticleData_type> ParticleData)
+    : ::xml_schema::type(), MetaData_(std::move(MetaData), this), ParticleData_(std::move(ParticleData), this) {}
 
 CheckPointFileType::CheckPointFileType(const CheckPointFileType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c), ParticleData_(x.ParticleData_, f, this) {}
+    : ::xml_schema::type(x, f, c), MetaData_(x.MetaData_, f, this), ParticleData_(x.ParticleData_, f, this) {}
 
 CheckPointFileType::CheckPointFileType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), ParticleData_(this) {
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), MetaData_(this), ParticleData_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
         this->parse(p, f);
@@ -132,6 +170,17 @@ void CheckPointFileType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_sche
     for (; p.more_content(); p.next_content(false)) {
         const ::xercesc::DOMElement& i(p.cur_element());
         const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        // MetaData
+        //
+        if (n.name() == "MetaData" && n.namespace_().empty()) {
+            ::std::unique_ptr<MetaData_type> r(MetaData_traits::create(i, f, this));
+
+            if (!MetaData_.present()) {
+                this->MetaData_.set(::std::move(r));
+                continue;
+            }
+        }
 
         // ParticleData
         //
@@ -147,6 +196,10 @@ void CheckPointFileType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_sche
         break;
     }
 
+    if (!MetaData_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("MetaData", "");
+    }
+
     if (!ParticleData_.present()) {
         throw ::xsd::cxx::tree::expected_element<char>("ParticleData", "");
     }
@@ -159,6 +212,7 @@ CheckPointFileType* CheckPointFileType::_clone(::xml_schema::flags f, ::xml_sche
 CheckPointFileType& CheckPointFileType::operator=(const CheckPointFileType& x) {
     if (this != &x) {
         static_cast< ::xml_schema::type&>(*this) = x;
+        this->MetaData_ = x.MetaData_;
         this->ParticleData_ = x.ParticleData_;
     }
 
@@ -166,6 +220,113 @@ CheckPointFileType& CheckPointFileType::operator=(const CheckPointFileType& x) {
 }
 
 CheckPointFileType::~CheckPointFileType() {}
+
+// MetaDataDataType
+//
+
+MetaDataDataType::MetaDataDataType(const input_file_type& input_file, const input_file_hash_type& input_file_hash,
+                                   const end_time_type& end_time, const delta_t_type& delta_t)
+    : ::xml_schema::type(),
+      input_file_(input_file, this),
+      input_file_hash_(input_file_hash, this),
+      end_time_(end_time, this),
+      delta_t_(delta_t, this) {}
+
+MetaDataDataType::MetaDataDataType(const MetaDataDataType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c),
+      input_file_(x.input_file_, f, this),
+      input_file_hash_(x.input_file_hash_, f, this),
+      end_time_(x.end_time_, f, this),
+      delta_t_(x.delta_t_, f, this) {}
+
+MetaDataDataType::MetaDataDataType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), input_file_(this), input_file_hash_(this), end_time_(this), delta_t_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
+        this->parse(p, f);
+    }
+}
+
+void MetaDataDataType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    for (; p.more_content(); p.next_content(false)) {
+        const ::xercesc::DOMElement& i(p.cur_element());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        // input_file
+        //
+        if (n.name() == "input_file" && n.namespace_().empty()) {
+            ::std::unique_ptr<input_file_type> r(input_file_traits::create(i, f, this));
+
+            if (!input_file_.present()) {
+                this->input_file_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // input_file_hash
+        //
+        if (n.name() == "input_file_hash" && n.namespace_().empty()) {
+            if (!input_file_hash_.present()) {
+                this->input_file_hash_.set(input_file_hash_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // end_time
+        //
+        if (n.name() == "end_time" && n.namespace_().empty()) {
+            if (!end_time_.present()) {
+                this->end_time_.set(end_time_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // delta_t
+        //
+        if (n.name() == "delta_t" && n.namespace_().empty()) {
+            if (!delta_t_.present()) {
+                this->delta_t_.set(delta_t_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        break;
+    }
+
+    if (!input_file_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("input_file", "");
+    }
+
+    if (!input_file_hash_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("input_file_hash", "");
+    }
+
+    if (!end_time_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("end_time", "");
+    }
+
+    if (!delta_t_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("delta_t", "");
+    }
+}
+
+MetaDataDataType* MetaDataDataType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class MetaDataDataType(*this, f, c);
+}
+
+MetaDataDataType& MetaDataDataType::operator=(const MetaDataDataType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->input_file_ = x.input_file_;
+        this->input_file_hash_ = x.input_file_hash_;
+        this->end_time_ = x.end_time_;
+        this->delta_t_ = x.delta_t_;
+    }
+
+    return *this;
+}
+
+MetaDataDataType::~MetaDataDataType() {}
 
 // ParticleDataType
 //
@@ -610,12 +771,56 @@ void CheckPoint(::xercesc::DOMDocument& d, const ::CheckPointFileType& s, ::xml_
 void operator<<(::xercesc::DOMElement& e, const CheckPointFileType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
 
+    // MetaData
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("MetaData", e));
+
+        s << i.MetaData();
+    }
+
     // ParticleData
     //
     {
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("ParticleData", e));
 
         s << i.ParticleData();
+    }
+}
+
+void operator<<(::xercesc::DOMElement& e, const MetaDataDataType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // input_file
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("input_file", e));
+
+        s << i.input_file();
+    }
+
+    // input_file_hash
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("input_file_hash", e));
+
+        s << i.input_file_hash();
+    }
+
+    // end_time
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("end_time", e));
+
+        s << ::xml_schema::as_double(i.end_time());
+    }
+
+    // delta_t
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("delta_t", e));
+
+        s << ::xml_schema::as_double(i.delta_t());
     }
 }
 

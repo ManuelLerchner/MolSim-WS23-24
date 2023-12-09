@@ -3,6 +3,7 @@
 #include <string>
 #include <variant>
 
+#include "io/xml_schemas/checkpoint/checkpoint_schema.h"
 #include "io/xml_schemas/simulation_input/simulation_input_schema.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "particles/spawners/cuboid/CuboidSpawner.h"
@@ -72,7 +73,7 @@ class XSDToInternalTypeAdapter {
      * @param particle Particle in the XSD format
      * @return Particle parsed from the given particle in the XSD format
      */
-    static Particle convertToParticle(const ::ParticleType& particle);
+    static Particle convertToParticle(const ParticleType& particle);
 
     /**
      * @brief Converts a force type from the XSD format to the internal format

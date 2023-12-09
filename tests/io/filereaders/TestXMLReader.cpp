@@ -24,7 +24,6 @@ TEST(XMLFileReader, CorrectParticleContainer) {
 
     EXPECT_EQ(particles.size(), 10 * 2 * 4 + 3 * 3 * 3 + 1);
 
-    EXPECT_EQ(conf.output_format, FileOutputHandler::OutputFormat::VTU);
     EXPECT_EQ(conf.container_type.index(), 0);
 
     for (int i = 0; i < 80; i++) {

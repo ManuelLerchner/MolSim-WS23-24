@@ -3,7 +3,6 @@
 #include <boost/program_options.hpp>
 
 #include "io/logger/Logger.h"
-#include "io/output/FileOutputHandler.h"
 #include "spdlog/sinks/rotating_file_sink.h"
 
 SimulationParams parse_arguments(int argc, char* argsv[]) {
@@ -22,6 +21,7 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
     std::vector<std::string> forces;
 
     bool performance_test = false;
+    bool fresh = false;
 
     // choosing 0 as one of the parameters (end_time, delta_t, fps, video_length) is equivalent to choosing the default value
     boost::program_options::options_description options_desc("Allowed options");
@@ -50,6 +50,9 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
     options_desc.add_options()(
         "log_output", boost::program_options::value<std::string>(&log_output)->default_value("std"),
         "You can only choose between the output options std(only cl output) and file (only file output). Default: no file output");
+    options_desc.add_options()(
+        "fresh", boost::program_options::bool_switch(&fresh)->default_value(false),
+        "Rerun the simulation from scratch without using any cached data. This will delete the whole output directory.");
 
     boost::program_options::positional_options_description positional_options_desc;
     positional_options_desc.add("input_file_path", -1);
@@ -107,8 +110,8 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
     }
 
     return SimulationParams{
-        input_file_path, output_dir_path, delta_t,         end_time, fps, video_length, SimulationParams::DirectSumType{},
-        output_format,   forces,          performance_test};
+        input_file_path, output_dir_path, delta_t,          end_time, fps, video_length, SimulationParams::DirectSumType{},
+        output_format,   forces,          performance_test, fresh};
 }
 
 SimulationParams merge_parameters(const SimulationParams& params_cli, const std::optional<SimulationParams>& file_params) {
@@ -137,6 +140,8 @@ SimulationParams merge_parameters(const SimulationParams& params_cli, const std:
 
     // Always takes value from CLI
     params.output_dir_path = params_cli.output_dir_path;
+
+    params.fresh = params_cli.fresh;
 
     // Must be given in the CLI
     params.output_format = params_cli.output_format;

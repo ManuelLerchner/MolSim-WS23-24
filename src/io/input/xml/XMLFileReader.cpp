@@ -27,7 +27,7 @@ std::string convertToPath(const std::string& base_path, const std::string& path)
 }
 
 std::tuple<std::vector<Particle>, SimulationParams> construct_configuration(std::string curr_file_path, ConfigurationType& config,
-                                                                            int depth = 0, std::string base_path = "") {
+                                                                            bool fresh, int depth = 0, std::string base_path = "") {
     Logger::logger->info("Constructing configuration for file {} at depth {}", curr_file_path, depth);
 
     auto settings = config.settings();
@@ -49,6 +49,7 @@ std::tuple<std::vector<Particle>, SimulationParams> construct_configuration(std:
                                    "vtu",
                                    forces,
                                    false,
+                                   fresh,
                                    base_path};
 
     // Spawn particles specified in the XML file
@@ -98,7 +99,7 @@ std::tuple<std::vector<Particle>, SimulationParams> construct_configuration(std:
         std::optional<std::string> cached_file_path = std::nullopt;
 
         // Try to find a checkpoint file in the cache directory
-        if (std::filesystem::exists(cache_dir_path)) {
+        if (std::filesystem::exists(cache_dir_path) && !fresh) {
             auto last_checkpoint = -1;
             for (const auto& entry : std::filesystem::directory_iterator(cache_dir_path)) {
                 if (entry.path().extension() == ".chkpt") {
@@ -132,7 +133,7 @@ std::tuple<std::vector<Particle>, SimulationParams> construct_configuration(std:
 
             Logger::logger->warn("Loaded {} particles from checkpoint file {}", loaded_particles.size(), *cached_file_path);
         } else {
-            Logger::logger->info("Running sub simulation {} at depth {}", sub_simulation_counter, depth);
+            Logger::logger->info("Starting sub simulation {} at depth {}", sub_simulation_counter, depth);
 
             auto [loaded_config, file_name] = [curr_file_path, sub_simulation, params, depth, sub_simulation_counter]() {
                 if (sub_simulation.configuration()) {
@@ -155,12 +156,10 @@ std::tuple<std::vector<Particle>, SimulationParams> construct_configuration(std:
                 }
             }();
 
-            auto [sub_particles, sub_config] = construct_configuration(file_name, loaded_config, depth, cache_dir_path);
+            auto [sub_particles, sub_config] = construct_configuration(file_name, loaded_config, fresh, depth, cache_dir_path);
 
-            sub_config.fps = 0;
-            sub_config.video_length = 0;
             sub_config.output_dir_path = cache_dir_path;
-            sub_config.output_format = FileOutputHandler::OutputFormat::CHKPT;
+            sub_config.output_format = OutputFormat::VTU;
 
             Simulation simulation{sub_particles, sub_config};
 
@@ -180,6 +179,8 @@ std::tuple<std::vector<Particle>, SimulationParams> construct_configuration(std:
         sub_simulation_counter++;
     }
 
+    params.num_particles = particles.size();
+
     return std::make_tuple(particles, std::move(params));
 }
 
@@ -187,7 +188,7 @@ std::tuple<std::vector<Particle>, std::optional<SimulationParams>> XMLFileReader
     try {
         auto config = configuration(filepath);
 
-        return construct_configuration(filepath, *config);
+        return construct_configuration(filepath, *config, fresh);
     } catch (const xml_schema::exception& e) {
         std::stringstream error_message;
         error_message << "Error: could not parse file '" << filepath << "'.\n";

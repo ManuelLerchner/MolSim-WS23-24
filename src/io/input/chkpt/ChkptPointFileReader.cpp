@@ -2,13 +2,25 @@
 
 #include <sstream>
 
+#include "io/logger/Logger.h"
 #include "io/xml_schemas/xsd_type_adaptors/XSDToInternalTypeAdapter.h"
+
+void summarizeMetadata(MetaDataDataType m) {
+    Logger::logger->info("Loaded checkpoint file with following metadata:");
+    Logger::logger->info("  - Input file: {}", m.input_file());
+    Logger::logger->info("  - Input file hash: {}", m.input_file_hash());
+    Logger::logger->info("  - End time: {}", m.end_time());
+    Logger::logger->info("  - Delta t: {}", m.delta_t());
+}
 
 std::tuple<std::vector<Particle>, std::optional<SimulationParams>> ChkptPointFileReader::readFile(const std::string& filepath) const {
     try {
         auto checkpoint = CheckPoint(filepath, xml_schema::flags::dont_validate);
 
         auto particleData = checkpoint->ParticleData();
+        auto metaData = checkpoint->MetaData();
+
+        summarizeMetadata(metaData);
 
         std::vector<Particle> particles;
 

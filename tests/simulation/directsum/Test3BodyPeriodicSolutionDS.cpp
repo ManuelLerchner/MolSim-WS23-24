@@ -38,8 +38,6 @@ TEST(SimulationRunnerDirectSum, ParticlesReturnToInitialPositionPeriodicSolution
     particles.push_back(pa2);
     particles.push_back(pa3);
 
-    FileOutputHandler file_output_handler(FileOutputHandler::OutputFormat::NONE);
-
     SimulationParams params = TEST_DEFAULT_PARAMS_GRAVITY;
     params.end_time = period;
     params.delta_t = 0.001;

@@ -3,9 +3,9 @@
 #include <iomanip>
 #include <sstream>
 
-void XYZWriter::writeFile(const std::string& output_dir_path, int iteration,
+void XYZWriter::writeFile(const SimulationParams& params, int iteration,
                           const std::unique_ptr<ParticleContainer>& particle_container) const {
-    auto filename = output_dir_path + "/" + "MD_XYZ";
+    auto filename = params.output_dir_path + "/" + "MD_XYZ";
 
     std::stringstream strstr;
     strstr << filename << "_" << std::setfill('0') << std::setw(4) << iteration << ".xyz";

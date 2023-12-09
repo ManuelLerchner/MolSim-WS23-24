@@ -20,7 +20,7 @@ class LennardJonesForce : public ForceSource {
     const double sigma;
 
    public:
-    explicit LennardJonesForce(double epsilon = 5.0, double sigma = 1.0) : epsilon(epsilon), sigma(sigma) {}
+    explicit LennardJonesForce(double epsilon = 1.0, double sigma = 1.2) : epsilon(epsilon), sigma(sigma) {}
 
     /**
      * @brief Calculates the Lennard-Jones forces between two particles

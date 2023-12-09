@@ -593,6 +593,7 @@ const XMLCh* const tree_node_key = ::xsd::cxx::tree::user_data_keys::node;
 // Forward declarations.
 //
 class CheckPointFileType;
+class MetaDataDataType;
 class ParticleDataType;
 class ParticleType;
 
@@ -616,6 +617,60 @@ class ParticleType;
  */
 class CheckPointFileType : public ::xml_schema::type {
    public:
+    /**
+     * @name MetaData
+     *
+     * @brief Accessor and modifier functions for the %MetaData
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::MetaDataDataType MetaData_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<MetaData_type, char> MetaData_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const MetaData_type& MetaData() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    MetaData_type& MetaData();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void MetaData(const MetaData_type& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly
+     * instead of making a copy.
+     */
+    void MetaData(::std::unique_ptr<MetaData_type> p);
+
+    //@}
+
     /**
      * @name ParticleData
      *
@@ -679,7 +734,7 @@ class CheckPointFileType : public ::xml_schema::type {
      * @brief Create an instance from the ultimate base and
      * initializers for required elements and attributes.
      */
-    CheckPointFileType(const ParticleData_type&);
+    CheckPointFileType(const MetaData_type&, const ParticleData_type&);
 
     /**
      * @brief Create an instance from the ultimate base and
@@ -689,7 +744,7 @@ class CheckPointFileType : public ::xml_schema::type {
      * This constructor will try to use the passed values directly
      * instead of making copies.
      */
-    CheckPointFileType(::std::unique_ptr<ParticleData_type>);
+    CheckPointFileType(::std::unique_ptr<MetaData_type>, ::std::unique_ptr<ParticleData_type>);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -751,7 +806,280 @@ class CheckPointFileType : public ::xml_schema::type {
     void parse(::xsd::cxx::xml::dom::parser<char>&, ::xml_schema::flags);
 
    protected:
+    ::xsd::cxx::tree::one<MetaData_type> MetaData_;
     ::xsd::cxx::tree::one<ParticleData_type> ParticleData_;
+
+    //@endcond
+};
+
+/**
+ * @brief Class corresponding to the %MetaDataDataType schema type.
+ *
+ * @nosubgrouping
+ */
+class MetaDataDataType : public ::xml_schema::type {
+   public:
+    /**
+     * @name input_file
+     *
+     * @brief Accessor and modifier functions for the %input_file
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::uri input_file_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<input_file_type, char> input_file_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const input_file_type& input_file() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    input_file_type& input_file();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void input_file(const input_file_type& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly
+     * instead of making a copy.
+     */
+    void input_file(::std::unique_ptr<input_file_type> p);
+
+    //@}
+
+    /**
+     * @name input_file_hash
+     *
+     * @brief Accessor and modifier functions for the %input_file_hash
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::unsigned_long input_file_hash_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<input_file_hash_type, char> input_file_hash_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const input_file_hash_type& input_file_hash() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    input_file_hash_type& input_file_hash();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void input_file_hash(const input_file_hash_type& x);
+
+    //@}
+
+    /**
+     * @name end_time
+     *
+     * @brief Accessor and modifier functions for the %end_time
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::double_ end_time_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<end_time_type, char, ::xsd::cxx::tree::schema_type::double_> end_time_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const end_time_type& end_time() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    end_time_type& end_time();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void end_time(const end_time_type& x);
+
+    //@}
+
+    /**
+     * @name delta_t
+     *
+     * @brief Accessor and modifier functions for the %delta_t
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::double_ delta_t_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<delta_t_type, char, ::xsd::cxx::tree::schema_type::double_> delta_t_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const delta_t_type& delta_t() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    delta_t_type& delta_t();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void delta_t(const delta_t_type& x);
+
+    //@}
+
+    /**
+     * @name Constructors
+     */
+    //@{
+
+    /**
+     * @brief Create an instance from the ultimate base and
+     * initializers for required elements and attributes.
+     */
+    MetaDataDataType(const input_file_type&, const input_file_hash_type&, const end_time_type&, const delta_t_type&);
+
+    /**
+     * @brief Create an instance from a DOM element.
+     *
+     * @param e A DOM element to extract the data from.
+     * @param f Flags to create the new instance with.
+     * @param c A pointer to the object that will contain the new
+     * instance.
+     */
+    MetaDataDataType(const ::xercesc::DOMElement& e, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy constructor.
+     *
+     * @param x An instance to make a copy of.
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     *
+     * For polymorphic object models use the @c _clone function instead.
+     */
+    MetaDataDataType(const MetaDataDataType& x, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy the instance polymorphically.
+     *
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     * @return A pointer to the dynamically allocated copy.
+     *
+     * This function ensures that the dynamic type of the instance is
+     * used for copying and should be used for polymorphic object
+     * models instead of the copy constructor.
+     */
+    virtual MetaDataDataType* _clone(::xml_schema::flags f = 0, ::xml_schema::container* c = 0) const;
+
+    /**
+     * @brief Copy assignment operator.
+     *
+     * @param x An instance to make a copy of.
+     * @return A reference to itself.
+     *
+     * For polymorphic object models use the @c _clone function instead.
+     */
+    MetaDataDataType& operator=(const MetaDataDataType& x);
+
+    //@}
+
+    /**
+     * @brief Destructor.
+     */
+    virtual ~MetaDataDataType();
+
+    // Implementation.
+    //
+
+    //@cond
+
+   protected:
+    void parse(::xsd::cxx::xml::dom::parser<char>&, ::xml_schema::flags);
+
+   protected:
+    ::xsd::cxx::tree::one<input_file_type> input_file_;
+    ::xsd::cxx::tree::one<input_file_hash_type> input_file_hash_;
+    ::xsd::cxx::tree::one<end_time_type> end_time_;
+    ::xsd::cxx::tree::one<delta_t_type> delta_t_;
 
     //@endcond
 };
@@ -1667,6 +1995,8 @@ void CheckPoint(::xercesc::DOMDocument& d, const ::CheckPointFileType& x, ::xml_
 //@}
 
 void operator<<(::xercesc::DOMElement&, const CheckPointFileType&);
+
+void operator<<(::xercesc::DOMElement&, const MetaDataDataType&);
 
 void operator<<(::xercesc::DOMElement&, const ParticleDataType&);
 

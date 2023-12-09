@@ -5,8 +5,8 @@
 #include <iostream>
 #include <string>
 
-VTUFile_t VTUWriter::initializeOutput(int numParticles) {
-    VTUFile_t vtuFile("UnstructuredGrid");
+VTKFile_t VTUWriter::initializeOutput(int numParticles) {
+    VTKFile_t vtuFile("UnstructuredGrid");
 
     // per point, we add type, position, velocity and force
     PointData pointData;
@@ -38,7 +38,7 @@ VTUFile_t VTUWriter::initializeOutput(int numParticles) {
     return vtuFile;
 }
 
-void VTUWriter::plotParticle(VTUFile_t& vtuFile, const Particle& p) {
+void VTUWriter::plotParticle(VTKFile_t& vtuFile, const Particle& p) {
     PointData::DataArray_sequence& pointDataSequence = vtuFile.UnstructuredGrid()->Piece().PointData().DataArray();
     PointData::DataArray_iterator dataIterator = pointDataSequence.begin();
 
@@ -64,9 +64,9 @@ void VTUWriter::plotParticle(VTUFile_t& vtuFile, const Particle& p) {
     pointsIterator->push_back(p.getX()[2]);
 }
 
-void VTUWriter::writeFile(const std::string& output_dir_path, int iteration,
+void VTUWriter::writeFile(const SimulationParams& params, int iteration,
                           const std::unique_ptr<ParticleContainer>& particle_container) const {
-    auto filename = output_dir_path + "/" + "MD_VTU";
+    auto filename = params.output_dir_path + "/" + "MD_VTU";
 
     std::stringstream strstr;
     strstr << filename << "_" << std::setfill('0') << std::setw(4) << iteration << ".vtu";
@@ -78,6 +78,6 @@ void VTUWriter::writeFile(const std::string& output_dir_path, int iteration,
     }
 
     std::ofstream file(strstr.str().c_str());
-    VTUFile(file, vtuFile);
+    VTKFile(file, vtuFile);
     file.close();
 }
