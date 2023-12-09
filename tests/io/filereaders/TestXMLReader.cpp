@@ -70,8 +70,6 @@ TEST(XMLFileReader, LoadCheckPoint) {
 TEST(XMLFileReader, RecursiveSubSimulation) {
     XMLFileReader file_reader(true);
 
-    Logger::logger->set_level(spdlog::level::info);
-
     auto [particles_xml, params_xml] = file_reader.readFile(FileLoader::get_input_file_path("RecursiveExample.xml"));
 
     std::vector<Particle> equilibrated_particles;
