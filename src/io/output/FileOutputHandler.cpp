@@ -7,7 +7,7 @@
 FileOutputHandler::FileOutputHandler(const SimulationParams& params) : params(params) {
     switch (params.output_format) {
         case OutputFormat::NONE:
-            return;
+            break;
         case OutputFormat::VTU:
             file_writer = std::make_unique<VTUWriter>();
             break;

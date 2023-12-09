@@ -2,6 +2,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <numeric>
 
 #include "io/logger/Logger.h"
@@ -10,12 +11,13 @@
 
 std::string construct_output_path(const std::string& base_path, const std::string& input_file_path) {
     auto base = base_path;
-    if (base_path.empty()) {
-        base = "./output/";
+
+    if (base.empty()) {
+        base = "./output";
     }
 
     std::filesystem::path input_path{input_file_path};
-    return base + std::string(input_path.stem()) + "/";
+    return base + "/" + input_path.stem().string();
 };
 
 auto convertToForces(const std::vector<std::string>& force_strings) {
@@ -92,27 +94,24 @@ SimulationParams::SimulationParams(const std::string& input_file_path, const std
     }
 
     // calculate hash
-    auto first_space = input_file_path.find(' ');
-    if (first_space == std::string::npos) {
-        first_space = input_file_path.size();
+    if (input_file_path.empty()) {
+        this->input_file_hash = 0;
+    } else {
+        auto first_space = input_file_path.find(' ');
+        if (first_space == std::string::npos) {
+            first_space = input_file_path.size();
+        }
+
+        std::string real_input_file_path = input_file_path.substr(0, first_space);
+        std::ifstream input_file(real_input_file_path);
+
+        auto buffer = std::stringstream();
+        buffer << input_file.rdbuf();
+
+        std::hash<std::string> hasher;
+        auto hash = hasher(buffer.str());
+        this->input_file_hash = hash;
     }
-
-    std::string real_input_file_path = input_file_path.substr(0, first_space);
-
-    std::ifstream input_file(real_input_file_path);
-    if (!input_file.is_open()) {
-        Logger::logger->error("Could not open input file: {}", real_input_file_path);
-        exit(-1);
-    }
-
-    auto buffer = std::stringstream();
-    buffer << input_file.rdbuf();
-
-    // hash
-    std::hash<std::string> hasher;
-    auto hash = hasher(buffer.str());
-
-    this->input_file_hash = hash;
 }
 
 void SimulationParams::logSummary(int depth) const {

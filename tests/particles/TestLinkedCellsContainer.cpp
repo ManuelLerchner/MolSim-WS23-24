@@ -84,13 +84,13 @@ TEST(LinkedCellsContainer, ParticlePosToCell) {
     LinkedCellsContainer container(domain_size, cutoff_radius);
     EXPECT_EQ(container.getCells().size(), 27);
 
-    EXPECT_EQ(container.particlePosToCell(-1.1, 0, 0), nullptr);
-    EXPECT_EQ(container.particlePosToCell(0, -1.1, 0), nullptr);
-    EXPECT_EQ(container.particlePosToCell(0, 0, -1.1), nullptr);
+    EXPECT_THROW(container.particlePosToCell(-1.1, 0, 0), std::runtime_error);
+    EXPECT_THROW(container.particlePosToCell(0, -1.1, 0), std::runtime_error);
+    EXPECT_THROW(container.particlePosToCell(0, 0, -1.1), std::runtime_error);
 
-    EXPECT_EQ(container.particlePosToCell(2.1, 0, 0), nullptr);
-    EXPECT_EQ(container.particlePosToCell(0, 2.1, 0), nullptr);
-    EXPECT_EQ(container.particlePosToCell(0, 0, 2.1), nullptr);
+    EXPECT_THROW(container.particlePosToCell(2.1, 0, 0), std::runtime_error);
+    EXPECT_THROW(container.particlePosToCell(0, 2.1, 0), std::runtime_error);
+    EXPECT_THROW(container.particlePosToCell(0, 0, 2.1), std::runtime_error);
 
     EXPECT_EQ(container.particlePosToCell(-1.0, -1.0, -1.0), &container.getCells()[0]);
     EXPECT_EQ(container.particlePosToCell(1.0, 1.0, 1.0), &container.getCells()[26]);
@@ -198,12 +198,10 @@ TEST(LinkedCellsContainer, AddParticle) {
     EXPECT_EQ(container.size(), 2);
 
     Particle h({-0.1, -0.1, -0.1}, {0, 0, 0}, 0.0, 0.0);
-    container.addParticle(h);
-    EXPECT_EQ(container.size(), 2);
+    EXPECT_THROW(container.addParticle(h), std::runtime_error);
 
     Particle out_of_bounds({5, 5, 5}, {0, 0, 0}, 0.0, 0.0);
-    container.addParticle(out_of_bounds);
-    EXPECT_EQ(container.size(), 2);
+    EXPECT_THROW(container.addParticle(out_of_bounds), std::runtime_error);
 }
 
 TEST(LinkedCellsContainer, BoundaryIterator) {
@@ -219,8 +217,8 @@ TEST(LinkedCellsContainer, BoundaryIterator) {
 
     container.addParticle(p1);
     container.addParticle(p2);
-    container.addParticle(h);
-    container.addParticle(out_of_bounds);
+    EXPECT_THROW(container.addParticle(h), std::runtime_error);
+    EXPECT_THROW(container.addParticle(out_of_bounds), std::runtime_error);
 
     LinkedCellsContainer::BoundaryIterator it = container.boundaryBegin();
 

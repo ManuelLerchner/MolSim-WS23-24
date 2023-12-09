@@ -52,7 +52,7 @@ Simulation::Simulation(const std::vector<Particle>& initial_particles, const Sim
             break;
         default:
             Logger::logger->error("Integration method not implemented.");
-            exit(1);
+            exit(-1);
     }
 }
 
@@ -104,9 +104,6 @@ SimulationOverview Simulation::runSimulation() {
     }
 
     printProgress(100, expected_iterations, expected_iterations, 0, true);
-
-    // write final output
-    file_output_handler.writeFile(iteration, particles);
 
     Logger::logger->info("Simulation finished.");
 

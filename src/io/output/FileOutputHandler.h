@@ -35,6 +35,7 @@ class FileOutputHandler {
      * @param output_dir_path The path to the directory in which to save the output;
      */
     explicit FileOutputHandler(const SimulationParams& params);
+
     /**
      * @brief Writes the given ParticleContainers particle data to a file
      *

@@ -135,7 +135,7 @@ class SimulationParams {
     SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
                      int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type, const std::string& output_format,
                      const std::vector<std::string>& force_strings, bool performance_test, bool fresh = false,
-                     const std::string& base_path = "./output/");
+                     const std::string& base_path = "./output");
 
     /**
      * @brief Prints a summary of the simulation parameters to the console

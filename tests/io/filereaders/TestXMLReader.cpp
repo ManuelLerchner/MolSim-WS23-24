@@ -3,6 +3,7 @@
 #include "data/FileLoader.h"
 #include "io/input/chkpt/ChkptPointFileReader.h"
 #include "io/input/xml/XMLFileReader.h"
+#include "io/logger/Logger.h"
 #include "particles/spawners/sphere/SphereSpawner.h"
 #include "utils/ArrayUtils.h"
 
@@ -67,7 +68,9 @@ TEST(XMLFileReader, LoadCheckPoint) {
 }
 
 TEST(XMLFileReader, RecursiveSubSimulation) {
-    XMLFileReader file_reader;
+    XMLFileReader file_reader(true);
+
+    Logger::logger->set_level(spdlog::level::info);
 
     auto [particles_xml, params_xml] = file_reader.readFile(FileLoader::get_input_file_path("RecursiveExample.xml"));
 
@@ -85,7 +88,17 @@ TEST(XMLFileReader, RecursiveSubSimulation) {
 }
 
 TEST(XMLFileReader, DoubleRecursiveSubSimulation) {
-    XMLFileReader file_reader;
+    XMLFileReader file_reader(true);
+
+    auto [particles_xml, params_xml] = file_reader.readFile(FileLoader::get_input_file_path("RecursiveExample2.xml"));
+
+    std::vector<Particle> equilibrated_particles;
+
+    EXPECT_EQ(particles_xml.size(), 33 + 8 + 64);
+}
+
+TEST(XMLFileReader, DoubleRecursiveLoadCachedResults) {
+    XMLFileReader file_reader(false);
 
     auto [particles_xml, params_xml] = file_reader.readFile(FileLoader::get_input_file_path("RecursiveExample2.xml"));
 

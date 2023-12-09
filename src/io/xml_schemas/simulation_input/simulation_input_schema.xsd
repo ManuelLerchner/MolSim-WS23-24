@@ -127,10 +127,13 @@
   </xs:complexType>
 
   <xs:complexType name="SubSimulationType">
-    <xs:choice>
-      <xs:element name="configuration" type="ConfigurationType" />
-      <xs:element name="file_name" type="xs:anyURI" />
-    </xs:choice>
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" />
+      <xs:choice>
+        <xs:element name="configuration" type="ConfigurationType" />
+        <xs:element name="file_name" type="xs:anyURI" />
+      </xs:choice>
+    </xs:sequence>
   </xs:complexType>
 
   <!-- Settings -->
@@ -140,7 +143,7 @@
       <xs:element name="video_length" type="xs:integer" />
       <xs:element name="delta_t" type="xs:double" />
       <xs:element name="end_time" type="xs:double" />
-      <xs:element name="third_dimension" type="xs:boolean" />
+      <xs:element name="third_dimension" type="xs:boolean" default="true" />
       <xs:element name="particle_container" type="ParticleContainerType" />
       <xs:element name="force" type="ForcesType" minOccurs="1" maxOccurs="unbounded" />
     </xs:sequence>

@@ -6,7 +6,7 @@
         <fps>24</fps>
         <video_length>10</video_length>
         <delta_t>0.0014</delta_t>
-        <end_time>100.0</end_time>
+        <end_time>16.0</end_time>
         <third_dimension>true</third_dimension>
         <particle_container>
             <directsum_container />
@@ -16,6 +16,7 @@
 
     <particle_source>
         <sub_simulation>
+            <name>Demo 1</name>
             <configuration>
                 <settings>
                     <fps>0</fps>

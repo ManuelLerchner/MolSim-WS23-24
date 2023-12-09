@@ -12,7 +12,7 @@ class XMLFileReader : public FileReader {
     bool fresh;
 
    public:
-    XMLFileReader(bool fresh = false) : fresh(fresh) {}
+    explicit XMLFileReader(bool fresh = false) : fresh(fresh) {}
 
     /**
      * @brief Reads particle data from a '.xml' file and returns a vector of particles

@@ -5,7 +5,7 @@
 #include "particles/Particle.h"
 
 /**
- * @brief Class to write particle data to a .vtu file
+ * @brief Class to write particle data to a .chkpt file
  */
 class CheckPointWriter : public FileWriter {
    public:
@@ -18,4 +18,14 @@ class CheckPointWriter : public FileWriter {
      */
     virtual void writeFile(const SimulationParams& params, int iteration,
                            const std::unique_ptr<ParticleContainer>& particle_container) const override;
+
+    /**
+     * @brief Writes the data of the given vector to a .chkpt file
+     *
+     * @param params SimulationParams object which provides the output directory path
+     * @param iteration The current iteration number
+     * @param particles Vector of particles to be written
+     */
+    virtual std::string writeFile(const SimulationParams& params, int iteration,
+                           const std::vector<Particle>& particles) const;
 };

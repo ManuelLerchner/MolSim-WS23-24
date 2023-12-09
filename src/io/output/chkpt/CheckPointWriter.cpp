@@ -9,6 +9,11 @@
 
 void CheckPointWriter::writeFile(const SimulationParams& params, int iteration,
                                  const std::unique_ptr<ParticleContainer>& particle_container) const {
+    std::vector<Particle> particles{particle_container->begin(), particle_container->end()};
+    writeFile(params, iteration, particles);
+}
+
+std::string CheckPointWriter::writeFile(const SimulationParams& params, int iteration, const std::vector<Particle>& particles) const {
     auto filename = params.output_dir_path + "/" + "MD_CHKPT";
 
     std::stringstream strstr;
@@ -16,17 +21,19 @@ void CheckPointWriter::writeFile(const SimulationParams& params, int iteration,
 
     MetaDataDataType meta_data{params.input_file_path, params.input_file_hash, params.end_time, params.delta_t};
 
-    CheckPointFileType::ParticleData_type particles{};
+    CheckPointFileType::ParticleData_type xsd_particles{};
 
-    particles.particle().reserve(particle_container->size());
+    xsd_particles.particle().reserve(particles.size());
 
-    for (const Particle& particle : *particle_container) {
-        particles.particle().push_back(InternalToXSDTypeAdapter::convertToParticle(particle));
+    for (const Particle& particle : particles) {
+        xsd_particles.particle().push_back(InternalToXSDTypeAdapter::convertToParticle(particle));
     }
 
-    CheckPointFileType checkpointfile(meta_data, particles);
+    CheckPointFileType checkpointfile(meta_data, xsd_particles);
 
     std::ofstream file(strstr.str().c_str());
     CheckPoint(file, checkpointfile);
     file.close();
+
+    return strstr.str();
 }

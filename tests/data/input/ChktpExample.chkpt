@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <CheckPoint>
+  <MetaData>
+    <input_file>input.xml</input_file>
+    <input_file_hash>1234567890</input_file_hash>
+    <end_time>1.2345</end_time>
+    <delta_t>0.0001</delta_t>
+  </MetaData>
+
   <ParticleData>
     <particle>
       <position>

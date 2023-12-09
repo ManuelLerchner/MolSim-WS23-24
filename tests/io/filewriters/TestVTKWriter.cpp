@@ -21,8 +21,9 @@ TEST(VTUWriter, CorrectWritingOfParticles) {
     }
 
     auto output_folder = FileLoader::get_output_file_path("VTUWriterTest");
-    FileOutputHandler file_output_handler{
-        SimulationParams("", output_folder, 0, 0, 0, 0, SimulationParams::DirectSumType{}, "vtu", {"LennardJones"}, false)};
+
+    auto params = SimulationParams("", output_folder, 0, 0, 0, 0, SimulationParams::DirectSumType{}, "vtu", {"LennardJones"}, false);
+    FileOutputHandler file_output_handler{params};
 
     file_output_handler.writeFile(0, particle_container);
 
