@@ -30,8 +30,7 @@ void SphereSpawner::spawnParticles(std::unique_ptr<ParticleContainer>& particle_
                 if (dist <= sphere_radius * grid_spacing) {
                     const auto position = center + displacement;
                     Particle particle(position, initial_velocity, mass, type);
-                    Thermostat::setParticleTemperature(
-                        initial_temperature, particle, third_dimension ? 3 : 2);
+                    Thermostat::setParticleTemperature(initial_temperature, particle, third_dimension ? 3 : 2);
 
                     particle_container->addParticle(std::move(particle));
                 }

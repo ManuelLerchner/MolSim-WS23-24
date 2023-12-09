@@ -1,9 +1,9 @@
 #include "CuboidSpawner.h"
 
 #include "particles/Particle.h"
+#include "physics/thermostats/Thermostat.h"
 #include "utils/ArrayUtils.h"
 #include "utils/MaxwellBoltzmannDistribution.h"
-#include "physics/thermostats/Thermostat.h"
 
 CuboidSpawner::CuboidSpawner(const std::array<double, 3>& lower_left_corner, const std::array<int, 3>& grid_dimensions, double grid_spacing,
                              double mass, const std::array<double, 3>& initial_velocity, int type, bool third_dimension,
