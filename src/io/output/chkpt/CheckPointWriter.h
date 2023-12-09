@@ -26,6 +26,5 @@ class CheckPointWriter : public FileWriter {
      * @param iteration The current iteration number
      * @param particles Vector of particles to be written
      */
-    virtual std::string writeFile(const SimulationParams& params, int iteration,
-                           const std::vector<Particle>& particles) const;
+    virtual std::string writeFile(const SimulationParams& params, int iteration, const std::vector<Particle>& particles) const;
 };

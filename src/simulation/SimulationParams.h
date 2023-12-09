@@ -129,6 +129,7 @@ class SimulationParams {
      * @param output_format Output file format of the simulation
      * @param force_strings Forces to be applied to the particles
      * @param performance_test Whether to run the simulation in performance test mode
+     * @param fresh Flag to indicate whether the simulation should be run from scratch, or whether cached data should be used
      * @param base_path Base path to the output directory. This is used to construct the output directory path if none is given
      * explicitly. Defaults to "./output/"
      */

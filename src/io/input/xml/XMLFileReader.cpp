@@ -13,6 +13,18 @@
 #include "io/xml_schemas/xsd_type_adaptors/XSDToInternalTypeAdapter.h"
 #include "simulation/Simulation.h"
 
+std::string trim(const std::string& str) {
+    // skip whitespace and newlines
+    auto start = str.find_first_not_of(" \t\n\r\f\v");
+    auto end = str.find_last_not_of(" \t\n\r\f\v");
+
+    if (start == std::string::npos) {
+        return "";
+    } else {
+        return str.substr(start, end - start + 1);
+    }
+}
+
 std::string sanitizePath(const std::string& text) {
     std::string sanitized = text;
 
@@ -148,6 +160,10 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
                                    fresh,
                                    output_base_path};
 
+    if (output_base_path.empty()) {
+        output_base_path = params.output_dir_path;
+    }
+
     auto curr_folder = std::filesystem::path(curr_file_path).parent_path().string();
 
     // Spawn particles specified in the XML file
@@ -175,12 +191,12 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
     }
 
     for (auto sub_simulation : particle_sources.sub_simulation()) {
-        auto name = sub_simulation.name();
+        auto name = trim(sub_simulation.name());
 
         depth++;
         Logger::logger->info("Found sub simulation {} at depth {}", name, depth);
 
-        std::string new_output_base_path = params.output_dir_path + "/" + sanitizePath(name);
+        std::string new_output_base_path = output_base_path + "/" + sanitizePath(name);
 
         // Try to find a checkpoint file in the base directory
         auto checkpoint_path = fresh ? std::nullopt : getCheckPointFilePath(new_output_base_path);

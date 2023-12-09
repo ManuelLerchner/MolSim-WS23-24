@@ -31,8 +31,7 @@ class FileOutputHandler {
     /**
      * @brief Construct a new FileOutputHandler object
      *
-     * @param output_format The format of the output files
-     * @param output_dir_path The path to the directory in which to save the output;
+     * @param params SimulationParams object which provides the output directory path
      */
     explicit FileOutputHandler(const SimulationParams& params);
 
