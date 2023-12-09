@@ -13,24 +13,24 @@
 #include "io/xml_schemas/xsd_type_adaptors/XSDToInternalTypeAdapter.h"
 #include "simulation/Simulation.h"
 
-std::string formatToPath(const std::string& path) {
-    std::string formatted_path = path;
+std::string sanitizePath(const std::string& text) {
+    std::string sanitized = text;
 
     // Replace all backslashes with forward slashes
-    std::replace(formatted_path.begin(), formatted_path.end(), '\\', '/');
+    std::replace(sanitized.begin(), sanitized.end(), '\\', '/');
 
     // Remove trailing slashes
-    if (formatted_path.back() == '/') {
-        formatted_path.pop_back();
+    if (sanitized.back() == '/') {
+        sanitized.pop_back();
     }
 
     // replace spaces with underscores
-    std::replace(formatted_path.begin(), formatted_path.end(), ' ', '_');
+    std::replace(sanitized.begin(), sanitized.end(), ' ', '_');
 
     // to lower case
-    std::transform(formatted_path.begin(), formatted_path.end(), formatted_path.begin(), [](unsigned char c) { return std::tolower(c); });
+    std::transform(sanitized.begin(), sanitized.end(), sanitized.begin(), [](unsigned char c) { return std::tolower(c); });
 
-    return formatted_path;
+    return sanitized;
 }
 
 std::string convertToPath(const std::string& base_path, const std::string& path) {
@@ -107,8 +107,23 @@ auto load_config(const SubSimulationType& sub_simulation, const std::string& cur
     }
 }
 
-std::tuple<std::vector<Particle>, SimulationParams> construct_configuration(std::string curr_file_path, ConfigurationType& config,
-                                                                            bool fresh, std::string output_base_path, int depth = 0) {
+auto checkCheckPointHashIsValid(const std::string& path) {
+    auto checkpoint = CheckPoint(path, xml_schema::flags::dont_validate);
+    auto metaData = checkpoint->MetaData();
+
+    std::ifstream input_file(metaData.input_file());
+
+    auto buffer = std::stringstream();
+    buffer << input_file.rdbuf();
+
+    std::hash<std::string> hasher;
+    auto curr_hash = hasher(buffer.str());
+
+    return curr_hash == metaData.input_file_hash();
+}
+
+std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::string curr_file_path, ConfigurationType& config, bool fresh,
+                                                                      std::string output_base_path, int depth = 0) {
     Logger::logger->info("Constructing configuration for file {} at depth {}", curr_file_path, depth);
 
     auto settings = config.settings();
@@ -165,24 +180,39 @@ std::tuple<std::vector<Particle>, SimulationParams> construct_configuration(std:
         depth++;
         Logger::logger->info("Found sub simulation {} at depth {}", name, depth);
 
-        std::string new_output_base_path = params.output_dir_path + "/" + formatToPath(name);
+        std::string new_output_base_path = params.output_dir_path + "/" + sanitizePath(name);
 
         // Try to find a checkpoint file in the base directory
         auto checkpoint_path = fresh ? std::nullopt : getCheckPointFilePath(new_output_base_path);
 
         // If no checkpoint file was found, run the sub simulation
         if (checkpoint_path.has_value()) {
-            Logger::logger->warn(
-                "Using cached result for sub simulation {} at depth {}. To force a rerun, delete the checkpoint file at {}", name, depth,
-                *checkpoint_path);
-        } else {
+            Logger::logger->info("Found checkpoint file for sub simulation {} at depth {}", name, depth);
+
+            // checking if the hash of the input file is the same as the one in the checkpoint file
+            auto hash_valid = checkCheckPointHashIsValid(*checkpoint_path);
+
+            if (!hash_valid) {
+                Logger::logger->warn(
+                    "The input file for sub simulation {} at depth {} has changed since the checkpoint file was created. The simulation is "
+                    "going to be repeated.",
+                    name, depth);
+                checkpoint_path = std::nullopt;
+            } else {
+                Logger::logger->warn(
+                    "Using cached result for sub simulation {} at depth {}. To force a rerun, delete the checkpoint file at {}", name,
+                    depth, *checkpoint_path);
+            }
+        }
+
+        if (!checkpoint_path.has_value()) {
             Logger::logger->info("Starting sub simulation {} at depth {}", name, depth);
 
             // Load the configuration from the sub simulation
             auto [loaded_config, file_name] = load_config(sub_simulation, curr_file_path, curr_folder);
 
             // Create the initial conditions for the sub simulation
-            auto [sub_particles, sub_config] = construct_configuration(file_name, loaded_config, fresh, new_output_base_path, depth);
+            auto [sub_particles, sub_config] = prepare_particles(file_name, loaded_config, fresh, new_output_base_path, depth);
             sub_config.output_dir_path = new_output_base_path;
             sub_config.output_format = OutputFormat::NONE;
 
@@ -214,7 +244,7 @@ std::tuple<std::vector<Particle>, std::optional<SimulationParams>> XMLFileReader
     try {
         auto config = configuration(filepath);
 
-        return construct_configuration(filepath, *config, fresh, "");
+        return prepare_particles(filepath, *config, fresh, "");
     } catch (const xml_schema::exception& e) {
         std::stringstream error_message;
         error_message << "Error: could not parse file '" << filepath << "'.\n";

@@ -7,10 +7,10 @@
 
 void summarizeMetadata(MetaDataDataType m) {
     Logger::logger->info("Loaded checkpoint file with following metadata:");
-    Logger::logger->info("  - Input file: {}", m.input_file());
-    Logger::logger->info("  - Input file hash: {}", m.input_file_hash());
-    Logger::logger->info("  - End time: {}", m.end_time());
-    Logger::logger->info("  - Delta t: {}", m.delta_t());
+    Logger::logger->info("  - Original file: {}", m.input_file());
+    Logger::logger->info("  - Original file hash: {}", m.input_file_hash());
+    Logger::logger->info("  - Original End time: {}", m.end_time());
+    Logger::logger->info("  - Original Delta t: {}", m.delta_t());
 }
 
 std::tuple<std::vector<Particle>, std::optional<SimulationParams>> ChkptPointFileReader::readFile(const std::string& filepath) const {

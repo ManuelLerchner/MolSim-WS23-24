@@ -23,14 +23,10 @@ FileOutputHandler::FileOutputHandler(const SimulationParams& params) : params(pa
     }
 
     if (std::filesystem::exists(params.output_dir_path)) {
-        Logger::logger->warn("Output directory '{}' already exists.", params.output_dir_path);
-
         auto supported = get_supported_output_formats();
         auto file_extension = std::find_if(supported.begin(), supported.end(), [params](const auto& pair) {
                                   return pair.second == params.output_format;
                               })->first;
-
-        Logger::logger->warn("Deleting all files in directory with file extension '{}'", file_extension);
 
         auto count = 0;
         for (const auto& entry : std::filesystem::directory_iterator(params.output_dir_path)) {
@@ -40,7 +36,6 @@ FileOutputHandler::FileOutputHandler(const SimulationParams& params) : params(pa
             }
         }
 
-        Logger::logger->warn("Deleted {} files.", count);
     } else {
         Logger::logger->info("Creating output directory '{}'.", params.output_dir_path);
         std::filesystem::create_directories(params.output_dir_path);
