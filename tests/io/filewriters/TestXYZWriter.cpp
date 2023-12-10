@@ -26,10 +26,10 @@ TEST(XYZWriter, CorrectWritingOfParticles) {
                                    {"LennardJones"}, false);
     FileOutputHandler file_output_handler{params};
 
-    file_output_handler.writeFile(0, particle_container);
+    auto path = file_output_handler.writeFile(0, particle_container);
 
     // load the file
-    std::ifstream file(output_folder + "/MD_XYZ_0000.xyz");
+    std::ifstream file(*path);
     std::stringstream buffer;
     buffer << file.rdbuf();
 
