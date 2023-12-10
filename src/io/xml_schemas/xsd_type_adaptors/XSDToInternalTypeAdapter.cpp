@@ -133,6 +133,29 @@ LinkedCellsContainer::BoundaryCondition XSDToInternalTypeAdapter::convertToBound
     }
 }
 
+Thermostat XSDToInternalTypeAdapter::convertToThermostat(const ThermostatType& thermostat, bool third_dimension) {
+    auto target_temperature = thermostat.target_temperature();
+    auto max_temperature_change = thermostat.max_temperature_change();
+    auto application_interval = thermostat.application_interval();
+
+    if (target_temperature < 0) {
+        Logger::logger->error("Target temperature must be positive");
+        exit(-1);
+    }
+
+    if (max_temperature_change < 0) {
+        Logger::logger->error("Max temperature change must be an absolute value (positive)");
+        exit(-1);
+    }
+
+    if (application_interval <= 0) {
+        Logger::logger->error("Application interval must be a positive integer > 0");
+        exit(-1);
+    }
+
+    return Thermostat{target_temperature, max_temperature_change, static_cast<size_t>(application_interval), third_dimension};
+}
+
 Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particle) {
     auto position = XSDToInternalTypeAdapter::convertToVector(particle.position());
     auto velocity = XSDToInternalTypeAdapter::convertToVector(particle.velocity());

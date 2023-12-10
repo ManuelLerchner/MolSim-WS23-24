@@ -9,7 +9,8 @@
 #include "io/input/InputFormats.h"
 #include "io/output/OutputFormats.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
-#include "physics/ForceSource.h"
+#include "physics/forces/ForceSource.h"
+#include "physics/thermostats/Thermostat.h"
 
 /**
  * @brief Contains all parameters needed to run a simulation.
@@ -91,6 +92,11 @@ class SimulationParams {
     std::variant<DirectSumType, LinkedCellsType> container_type;
 
     /**
+     * @brief Thermostat used in the simulation
+     */
+    Thermostat thermostat;
+
+    /**
      * @brief Forces to be applied to the particles
      */
     std::vector<std::shared_ptr<ForceSource>> forces;
@@ -126,6 +132,7 @@ class SimulationParams {
      * @param video_length Expected length of the simulation video in seconds. This is used to calculate how often to save the
      * simulation data
      * @param container_type Type of the particle container
+     * @param thermostat Thermostat used in the simulation
      * @param output_format Output file format of the simulation
      * @param force_strings Forces to be applied to the particles
      * @param performance_test Whether to run the simulation in performance test mode
@@ -134,9 +141,9 @@ class SimulationParams {
      * explicitly. Defaults to "./output/"
      */
     SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
-                     int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type, const std::string& output_format,
-                     const std::vector<std::string>& force_strings, bool performance_test, bool fresh = false,
-                     const std::string& base_path = "./output");
+                     int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type, const Thermostat& thermostat,
+                     const std::string& output_format, const std::vector<std::string>& force_strings, bool performance_test,
+                     bool fresh = false, const std::string& base_path = "./output");
 
     /**
      * @brief Prints a summary of the simulation parameters to the console

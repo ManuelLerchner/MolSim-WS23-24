@@ -598,6 +598,7 @@ class IntVec3Type;
 class ParticleContainerType;
 class DirectSumContainerType;
 class LinkedCellsContainerType;
+class ThermostatType;
 class BoundaryConditionsType;
 class BoundaryType;
 class CuboidSpawnerType;
@@ -1811,6 +1812,224 @@ class LinkedCellsContainerType : public ::xml_schema::type {
     ::xsd::cxx::tree::one<domain_size_type> domain_size_;
     ::xsd::cxx::tree::one<cutoff_radius_type> cutoff_radius_;
     ::xsd::cxx::tree::one<boundary_conditions_type> boundary_conditions_;
+
+    //@endcond
+};
+
+/**
+ * @brief Class corresponding to the %ThermostatType schema type.
+ *
+ * @nosubgrouping
+ */
+class ThermostatType : public ::xml_schema::type {
+   public:
+    /**
+     * @name target_temperature
+     *
+     * @brief Accessor and modifier functions for the %target_temperature
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::double_ target_temperature_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<target_temperature_type, char, ::xsd::cxx::tree::schema_type::double_> target_temperature_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const target_temperature_type& target_temperature() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    target_temperature_type& target_temperature();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void target_temperature(const target_temperature_type& x);
+
+    //@}
+
+    /**
+     * @name max_temperature_change
+     *
+     * @brief Accessor and modifier functions for the %max_temperature_change
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::double_ max_temperature_change_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<max_temperature_change_type, char, ::xsd::cxx::tree::schema_type::double_>
+        max_temperature_change_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const max_temperature_change_type& max_temperature_change() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    max_temperature_change_type& max_temperature_change();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void max_temperature_change(const max_temperature_change_type& x);
+
+    //@}
+
+    /**
+     * @name application_interval
+     *
+     * @brief Accessor and modifier functions for the %application_interval
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::integer application_interval_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<application_interval_type, char> application_interval_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const application_interval_type& application_interval() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    application_interval_type& application_interval();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void application_interval(const application_interval_type& x);
+
+    //@}
+
+    /**
+     * @name Constructors
+     */
+    //@{
+
+    /**
+     * @brief Create an instance from the ultimate base and
+     * initializers for required elements and attributes.
+     */
+    ThermostatType(const target_temperature_type&, const max_temperature_change_type&, const application_interval_type&);
+
+    /**
+     * @brief Create an instance from a DOM element.
+     *
+     * @param e A DOM element to extract the data from.
+     * @param f Flags to create the new instance with.
+     * @param c A pointer to the object that will contain the new
+     * instance.
+     */
+    ThermostatType(const ::xercesc::DOMElement& e, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy constructor.
+     *
+     * @param x An instance to make a copy of.
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     *
+     * For polymorphic object models use the @c _clone function instead.
+     */
+    ThermostatType(const ThermostatType& x, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy the instance polymorphically.
+     *
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     * @return A pointer to the dynamically allocated copy.
+     *
+     * This function ensures that the dynamic type of the instance is
+     * used for copying and should be used for polymorphic object
+     * models instead of the copy constructor.
+     */
+    virtual ThermostatType* _clone(::xml_schema::flags f = 0, ::xml_schema::container* c = 0) const;
+
+    /**
+     * @brief Copy assignment operator.
+     *
+     * @param x An instance to make a copy of.
+     * @return A reference to itself.
+     *
+     * For polymorphic object models use the @c _clone function instead.
+     */
+    ThermostatType& operator=(const ThermostatType& x);
+
+    //@}
+
+    /**
+     * @brief Destructor.
+     */
+    virtual ~ThermostatType();
+
+    // Implementation.
+    //
+
+    //@cond
+
+   protected:
+    void parse(::xsd::cxx::xml::dom::parser<char>&, ::xml_schema::flags);
+
+   protected:
+    ::xsd::cxx::tree::one<target_temperature_type> target_temperature_;
+    ::xsd::cxx::tree::one<max_temperature_change_type> max_temperature_change_;
+    ::xsd::cxx::tree::one<application_interval_type> application_interval_;
 
     //@endcond
 };
@@ -4266,6 +4485,60 @@ class SettingsType : public ::xml_schema::type {
     //@}
 
     /**
+     * @name thermostat
+     *
+     * @brief Accessor and modifier functions for the %thermostat
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::ThermostatType thermostat_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<thermostat_type, char> thermostat_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const thermostat_type& thermostat() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    thermostat_type& thermostat();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void thermostat(const thermostat_type& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly
+     * instead of making a copy.
+     */
+    void thermostat(::std::unique_ptr<thermostat_type> p);
+
+    //@}
+
+    /**
      * @name force
      *
      * @brief Accessor and modifier functions for the %force
@@ -4336,7 +4609,7 @@ class SettingsType : public ::xml_schema::type {
      * initializers for required elements and attributes.
      */
     SettingsType(const fps_type&, const video_length_type&, const delta_t_type&, const end_time_type&, const third_dimension_type&,
-                 const particle_container_type&);
+                 const particle_container_type&, const thermostat_type&);
 
     /**
      * @brief Create an instance from the ultimate base and
@@ -4347,7 +4620,7 @@ class SettingsType : public ::xml_schema::type {
      * instead of making copies.
      */
     SettingsType(const fps_type&, const video_length_type&, const delta_t_type&, const end_time_type&, const third_dimension_type&,
-                 ::std::unique_ptr<particle_container_type>);
+                 ::std::unique_ptr<particle_container_type>, ::std::unique_ptr<thermostat_type>);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -4415,6 +4688,7 @@ class SettingsType : public ::xml_schema::type {
     ::xsd::cxx::tree::one<end_time_type> end_time_;
     ::xsd::cxx::tree::one<third_dimension_type> third_dimension_;
     ::xsd::cxx::tree::one<particle_container_type> particle_container_;
+    ::xsd::cxx::tree::one<thermostat_type> thermostat_;
     force_sequence force_;
 
     //@endcond
@@ -5313,6 +5587,8 @@ void operator<<(::xercesc::DOMAttr&, const DirectSumContainerType&);
 void operator<<(::xml_schema::list_stream&, const DirectSumContainerType&);
 
 void operator<<(::xercesc::DOMElement&, const LinkedCellsContainerType&);
+
+void operator<<(::xercesc::DOMElement&, const ThermostatType&);
 
 void operator<<(::xercesc::DOMElement&, const BoundaryConditionsType&);
 

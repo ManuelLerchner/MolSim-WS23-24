@@ -14,7 +14,7 @@ TEST(CubFileReader, CorrectReadingOfParticles) {
 
     auto [particles, params] = cub_file_reader.readFile(FileLoader::get_input_file_path("CubExample.cub"));
 
-    EXPECT_EQ(particles.size(), 11 * 12 * 13 + 8 * 4 * 1);
+    EXPECT_EQ(particles.size(), 4 * 7 * 3 + 2 * 2 * 1);
 
     EXPECT_NEAR((particles)[0].getM(), 3.14, 1e-13);
     EXPECT_EQ((particles)[0].getType(), 42);

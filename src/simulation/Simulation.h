@@ -55,7 +55,15 @@ class Simulation {
      */
     std::unique_ptr<ParticleContainer> particles;
 
+    /**
+     * @brief Functor used to integrate the particles
+     */
     std::unique_ptr<IntegrationFunctor> integration_functor;
+
+    /**
+     * @brief Thermostat used to control the temperature of the simulation
+     */
+    Thermostat thermostat;
 
    public:
     enum class IntegrationMethod { VERLET };

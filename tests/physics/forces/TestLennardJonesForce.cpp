@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "physics/LennardJonesForce.h"
+#include "physics/forces/LennardJonesForce.h"
 #include "utils/ArrayUtils.h"
 
 #define EXPECT_ARRAY_NEAR(a, b, tol)  \

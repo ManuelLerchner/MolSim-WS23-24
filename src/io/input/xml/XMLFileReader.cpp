@@ -135,7 +135,8 @@ auto checkCheckPointHashIsValid(const std::string& path) {
 }
 
 std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::string curr_file_path, ConfigurationType& config, bool fresh,
-                                                                      std::string output_base_path, int depth = 0) {
+                                                                      bool allow_recursion, std::string output_base_path = "",
+                                                                      int depth = 0) {
     Logger::logger->info("Constructing configuration for file {} at depth {}", curr_file_path, depth);
 
     auto settings = config.settings();
@@ -144,6 +145,8 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
     std::vector<Particle> particles;
 
     auto container_type = XSDToInternalTypeAdapter::convertToParticleContainer(settings.particle_container());
+
+    auto thermostat = XSDToInternalTypeAdapter::convertToThermostat(settings.thermostat(), settings.third_dimension());
 
     auto forces = XSDToInternalTypeAdapter::convertToForces(settings.force());
 
@@ -154,6 +157,7 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
                                    static_cast<int>(settings.fps()),
                                    static_cast<int>(settings.video_length()),
                                    container_type,
+                                   thermostat,
                                    "vtu",
                                    forces,
                                    false,
@@ -191,6 +195,11 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
     }
 
     for (auto sub_simulation : particle_sources.sub_simulation()) {
+        if (!allow_recursion) {
+            Logger::logger->warn("Error: Recursion is disabled. Skipping sub simulation at depth {}", depth);
+            continue;
+        }
+
         auto name = trim(sub_simulation.name());
 
         depth++;
@@ -228,7 +237,8 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
             auto [loaded_config, file_name] = load_config(sub_simulation, curr_file_path, curr_folder);
 
             // Create the initial conditions for the sub simulation
-            auto [sub_particles, sub_config] = prepare_particles(file_name, loaded_config, fresh, new_output_base_path, depth);
+            auto [sub_particles, sub_config] =
+                prepare_particles(file_name, loaded_config, fresh, allow_recursion, new_output_base_path, depth);
             sub_config.output_dir_path = new_output_base_path;
             sub_config.output_format = OutputFormat::NONE;
 
@@ -260,7 +270,7 @@ std::tuple<std::vector<Particle>, std::optional<SimulationParams>> XMLFileReader
     try {
         auto config = configuration(filepath);
 
-        return prepare_particles(filepath, *config, fresh, "");
+        return prepare_particles(filepath, *config, fresh, allow_recursion);
     } catch (const xml_schema::exception& e) {
         std::stringstream error_message;
         error_message << "Error: could not parse file '" << filepath << "'.\n";

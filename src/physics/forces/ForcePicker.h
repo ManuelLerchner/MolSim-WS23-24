@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-#include "physics/ForceSource.h"
+#include "physics/forces/ForceSource.h"
 
 class ForcePicker {
    public:

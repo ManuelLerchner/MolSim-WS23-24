@@ -3,8 +3,8 @@
 #include <numeric>
 
 #include "io/logger/Logger.h"
-#include "physics/GravitationalForce.h"
-#include "physics/LennardJonesForce.h"
+#include "physics/forces/GravitationalForce.h"
+#include "physics/forces/LennardJonesForce.h"
 
 std::map<std::string, std::shared_ptr<ForceSource>> ForcePicker::get_supported_forces() {
     std::map<std::string, std::shared_ptr<ForceSource>> force_names;

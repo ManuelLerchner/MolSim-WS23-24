@@ -10,9 +10,10 @@
 class XMLFileReader : public FileReader {
    private:
     bool fresh;
+    bool allow_recursion;
 
    public:
-    explicit XMLFileReader(bool fresh = false) : fresh(fresh) {}
+    explicit XMLFileReader(bool fresh, bool allow_recursion = true) : fresh(fresh), allow_recursion(allow_recursion) {}
 
     /**
      * @brief Reads particle data from a '.xml' file and returns a vector of particles

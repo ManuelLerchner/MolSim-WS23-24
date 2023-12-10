@@ -63,6 +63,16 @@
   </xs:complexType>
 
 
+  <!-- Thermostat -->
+  <xs:complexType name="ThermostatType">
+    <xs:sequence>
+      <xs:element name="target_temperature" type="xs:double" />
+      <xs:element name="max_temperature_change" type="xs:double" />
+      <xs:element name="application_interval" type="xs:integer" />
+    </xs:sequence>
+  </xs:complexType>
+
+
   <!-- Boundaries -->
   <xs:complexType name="BoundaryConditionsType">
     <xs:sequence>
@@ -146,6 +156,7 @@
       <xs:element name="third_dimension" type="xs:boolean" default="true" />
       <xs:element name="particle_container" type="ParticleContainerType" />
       <xs:element name="force" type="ForcesType" minOccurs="1" maxOccurs="unbounded" />
+      <xs:element name="thermostat" type="ThermostatType" />
     </xs:sequence>
   </xs:complexType>
 

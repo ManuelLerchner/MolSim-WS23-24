@@ -168,6 +168,29 @@ void LinkedCellsContainerType::boundary_conditions(::std::unique_ptr<boundary_co
     this->boundary_conditions_.set(std::move(x));
 }
 
+// ThermostatType
+//
+
+const ThermostatType::target_temperature_type& ThermostatType::target_temperature() const { return this->target_temperature_.get(); }
+
+ThermostatType::target_temperature_type& ThermostatType::target_temperature() { return this->target_temperature_.get(); }
+
+void ThermostatType::target_temperature(const target_temperature_type& x) { this->target_temperature_.set(x); }
+
+const ThermostatType::max_temperature_change_type& ThermostatType::max_temperature_change() const {
+    return this->max_temperature_change_.get();
+}
+
+ThermostatType::max_temperature_change_type& ThermostatType::max_temperature_change() { return this->max_temperature_change_.get(); }
+
+void ThermostatType::max_temperature_change(const max_temperature_change_type& x) { this->max_temperature_change_.set(x); }
+
+const ThermostatType::application_interval_type& ThermostatType::application_interval() const { return this->application_interval_.get(); }
+
+ThermostatType::application_interval_type& ThermostatType::application_interval() { return this->application_interval_.get(); }
+
+void ThermostatType::application_interval(const application_interval_type& x) { this->application_interval_.set(x); }
+
 // BoundaryConditionsType
 //
 
@@ -465,6 +488,14 @@ SettingsType::particle_container_type& SettingsType::particle_container() { retu
 void SettingsType::particle_container(const particle_container_type& x) { this->particle_container_.set(x); }
 
 void SettingsType::particle_container(::std::unique_ptr<particle_container_type> x) { this->particle_container_.set(std::move(x)); }
+
+const SettingsType::thermostat_type& SettingsType::thermostat() const { return this->thermostat_.get(); }
+
+SettingsType::thermostat_type& SettingsType::thermostat() { return this->thermostat_.get(); }
+
+void SettingsType::thermostat(const thermostat_type& x) { this->thermostat_.set(x); }
+
+void SettingsType::thermostat(::std::unique_ptr<thermostat_type> x) { this->thermostat_.set(std::move(x)); }
 
 const SettingsType::force_sequence& SettingsType::force() const { return this->force_; }
 
@@ -952,6 +983,98 @@ LinkedCellsContainerType& LinkedCellsContainerType::operator=(const LinkedCellsC
 }
 
 LinkedCellsContainerType::~LinkedCellsContainerType() {}
+
+// ThermostatType
+//
+
+ThermostatType::ThermostatType(const target_temperature_type& target_temperature, const max_temperature_change_type& max_temperature_change,
+                               const application_interval_type& application_interval)
+    : ::xml_schema::type(),
+      target_temperature_(target_temperature, this),
+      max_temperature_change_(max_temperature_change, this),
+      application_interval_(application_interval, this) {}
+
+ThermostatType::ThermostatType(const ThermostatType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c),
+      target_temperature_(x.target_temperature_, f, this),
+      max_temperature_change_(x.max_temperature_change_, f, this),
+      application_interval_(x.application_interval_, f, this) {}
+
+ThermostatType::ThermostatType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
+      target_temperature_(this),
+      max_temperature_change_(this),
+      application_interval_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
+        this->parse(p, f);
+    }
+}
+
+void ThermostatType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    for (; p.more_content(); p.next_content(false)) {
+        const ::xercesc::DOMElement& i(p.cur_element());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        // target_temperature
+        //
+        if (n.name() == "target_temperature" && n.namespace_().empty()) {
+            if (!target_temperature_.present()) {
+                this->target_temperature_.set(target_temperature_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // max_temperature_change
+        //
+        if (n.name() == "max_temperature_change" && n.namespace_().empty()) {
+            if (!max_temperature_change_.present()) {
+                this->max_temperature_change_.set(max_temperature_change_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // application_interval
+        //
+        if (n.name() == "application_interval" && n.namespace_().empty()) {
+            if (!application_interval_.present()) {
+                this->application_interval_.set(application_interval_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        break;
+    }
+
+    if (!target_temperature_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("target_temperature", "");
+    }
+
+    if (!max_temperature_change_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("max_temperature_change", "");
+    }
+
+    if (!application_interval_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("application_interval", "");
+    }
+}
+
+ThermostatType* ThermostatType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class ThermostatType(*this, f, c);
+}
+
+ThermostatType& ThermostatType::operator=(const ThermostatType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->target_temperature_ = x.target_temperature_;
+        this->max_temperature_change_ = x.max_temperature_change_;
+        this->application_interval_ = x.application_interval_;
+    }
+
+    return *this;
+}
+
+ThermostatType::~ThermostatType() {}
 
 // BoundaryConditionsType
 //
@@ -1779,7 +1902,7 @@ SubSimulationType::~SubSimulationType() {}
 
 SettingsType::SettingsType(const fps_type& fps, const video_length_type& video_length, const delta_t_type& delta_t,
                            const end_time_type& end_time, const third_dimension_type& third_dimension,
-                           const particle_container_type& particle_container)
+                           const particle_container_type& particle_container, const thermostat_type& thermostat)
     : ::xml_schema::type(),
       fps_(fps, this),
       video_length_(video_length, this),
@@ -1787,11 +1910,12 @@ SettingsType::SettingsType(const fps_type& fps, const video_length_type& video_l
       end_time_(end_time, this),
       third_dimension_(third_dimension, this),
       particle_container_(particle_container, this),
+      thermostat_(thermostat, this),
       force_(this) {}
 
 SettingsType::SettingsType(const fps_type& fps, const video_length_type& video_length, const delta_t_type& delta_t,
                            const end_time_type& end_time, const third_dimension_type& third_dimension,
-                           ::std::unique_ptr<particle_container_type> particle_container)
+                           ::std::unique_ptr<particle_container_type> particle_container, ::std::unique_ptr<thermostat_type> thermostat)
     : ::xml_schema::type(),
       fps_(fps, this),
       video_length_(video_length, this),
@@ -1799,6 +1923,7 @@ SettingsType::SettingsType(const fps_type& fps, const video_length_type& video_l
       end_time_(end_time, this),
       third_dimension_(third_dimension, this),
       particle_container_(std::move(particle_container), this),
+      thermostat_(std::move(thermostat), this),
       force_(this) {}
 
 SettingsType::SettingsType(const SettingsType& x, ::xml_schema::flags f, ::xml_schema::container* c)
@@ -1809,6 +1934,7 @@ SettingsType::SettingsType(const SettingsType& x, ::xml_schema::flags f, ::xml_s
       end_time_(x.end_time_, f, this),
       third_dimension_(x.third_dimension_, f, this),
       particle_container_(x.particle_container_, f, this),
+      thermostat_(x.thermostat_, f, this),
       force_(x.force_, f, this) {}
 
 SettingsType::SettingsType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
@@ -1819,6 +1945,7 @@ SettingsType::SettingsType(const ::xercesc::DOMElement& e, ::xml_schema::flags f
       end_time_(this),
       third_dimension_(this),
       particle_container_(this),
+      thermostat_(this),
       force_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
@@ -1887,6 +2014,17 @@ void SettingsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::fl
             }
         }
 
+        // thermostat
+        //
+        if (n.name() == "thermostat" && n.namespace_().empty()) {
+            ::std::unique_ptr<thermostat_type> r(thermostat_traits::create(i, f, this));
+
+            if (!thermostat_.present()) {
+                this->thermostat_.set(::std::move(r));
+                continue;
+            }
+        }
+
         // force
         //
         if (n.name() == "force" && n.namespace_().empty()) {
@@ -1922,6 +2060,10 @@ void SettingsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::fl
     if (!particle_container_.present()) {
         throw ::xsd::cxx::tree::expected_element<char>("particle_container", "");
     }
+
+    if (!thermostat_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("thermostat", "");
+    }
 }
 
 SettingsType* SettingsType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const { return new class SettingsType(*this, f, c); }
@@ -1935,6 +2077,7 @@ SettingsType& SettingsType::operator=(const SettingsType& x) {
         this->end_time_ = x.end_time_;
         this->third_dimension_ = x.third_dimension_;
         this->particle_container_ = x.particle_container_;
+        this->thermostat_ = x.thermostat_;
         this->force_ = x.force_;
     }
 
@@ -2442,6 +2585,34 @@ void operator<<(::xercesc::DOMElement& e, const LinkedCellsContainerType& i) {
     }
 }
 
+void operator<<(::xercesc::DOMElement& e, const ThermostatType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // target_temperature
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("target_temperature", e));
+
+        s << ::xml_schema::as_double(i.target_temperature());
+    }
+
+    // max_temperature_change
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("max_temperature_change", e));
+
+        s << ::xml_schema::as_double(i.max_temperature_change());
+    }
+
+    // application_interval
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("application_interval", e));
+
+        s << i.application_interval();
+    }
+}
+
 void operator<<(::xercesc::DOMElement& e, const BoundaryConditionsType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
 
@@ -2753,6 +2924,14 @@ void operator<<(::xercesc::DOMElement& e, const SettingsType& i) {
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("particle_container", e));
 
         s << i.particle_container();
+    }
+
+    // thermostat
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("thermostat", e));
+
+        s << i.thermostat();
     }
 
     // force

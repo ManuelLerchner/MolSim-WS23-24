@@ -1,6 +1,7 @@
 #include "CLIParser.h"
 
 #include <boost/program_options.hpp>
+#include <limits>
 
 #include "io/logger/Logger.h"
 #include "spdlog/sinks/rotating_file_sink.h"
@@ -109,9 +110,18 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
         performance_test = true;
     }
 
-    return SimulationParams{
-        input_file_path, output_dir_path, delta_t,          end_time, fps, video_length, SimulationParams::DirectSumType{},
-        output_format,   forces,          performance_test, fresh};
+    return SimulationParams{input_file_path,
+                            output_dir_path,
+                            delta_t,
+                            end_time,
+                            fps,
+                            video_length,
+                            SimulationParams::DirectSumType{},
+                            Thermostat{1, 1, std::numeric_limits<size_t>::max()},
+                            output_format,
+                            forces,
+                            performance_test,
+                            fresh};
 }
 
 SimulationParams merge_parameters(const SimulationParams& params_cli, const std::optional<SimulationParams>& file_params) {

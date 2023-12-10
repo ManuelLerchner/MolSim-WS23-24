@@ -7,7 +7,7 @@
 
 #include "io/logger/Logger.h"
 #include "io/output/OutputFormats.h"
-#include "physics/ForcePicker.h"
+#include "physics/forces/ForcePicker.h"
 
 std::string construct_output_path(const std::string& base_path, const std::string& input_file_path) {
     auto base = base_path;
@@ -57,8 +57,9 @@ auto convertToOutputFormat(const std::string& output_format) {
 
 SimulationParams::SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time,
                                    int fps, int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
-                                   const std::string& output_format, const std::vector<std::string>& force_strings, bool performance_test,
-                                   bool fresh, const std::string& base_path)
+                                   const Thermostat& thermostat, const std::string& output_format,
+                                   const std::vector<std::string>& force_strings, bool performance_test, bool fresh,
+                                   const std::string& base_path)
     : input_file_path(input_file_path),
       delta_t(delta_t),
       end_time(end_time),
@@ -66,6 +67,7 @@ SimulationParams::SimulationParams(const std::string& input_file_path, const std
       video_length(video_length),
       container_type(container_type),
       forces(convertToForces(force_strings)),
+      thermostat(thermostat),
       performance_test(performance_test),
       fresh(fresh) {
     if (fps < 0) {

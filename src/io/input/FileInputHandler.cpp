@@ -6,7 +6,7 @@
 #include "io/logger/Logger.h"
 
 std::tuple<std::vector<Particle>, std::optional<SimulationParams>> FileInputHandler::readFile(const std::string& input_file_path,
-                                                                                              bool fresh) {
+                                                                                              bool fresh, bool allow_recursion) {
     if (!std::filesystem::exists(input_file_path)) {
         Logger::logger->error("Error: file '{}' does not exist.", input_file_path);
         exit(-1);
@@ -33,7 +33,7 @@ std::tuple<std::vector<Particle>, std::optional<SimulationParams>> FileInputHand
     } else if (file_extension == ".cub") {
         file_reader = std::make_unique<CubFileReader>();
     } else if (file_extension == ".xml") {
-        file_reader = std::make_unique<XMLFileReader>(fresh);
+        file_reader = std::make_unique<XMLFileReader>(fresh, allow_recursion);
     } else if (file_extension == ".chkpt") {
         file_reader = std::make_unique<ChkptPointFileReader>();
     } else {

@@ -12,10 +12,13 @@
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "utils/FormatTime.h"
 
-void printProgress(int percentage, int iteration, int expected_iterations, int estimated_remaining_seconds, bool finished = false) {
-    std::string progress = fmt::format("[{}{}] Iteration {}/{} {:>3}% (ETA: {})", ansi_blue_bold + std::string(percentage, '#'),
+void printProgress(std::string input_file_path, int percentage, int iteration, int expected_iterations, int estimated_remaining_seconds,
+                   bool finished = false) {
+    auto file_name = std::filesystem::path(input_file_path).stem().string();
+
+    std::string progress = fmt::format("[{}{}] Iteration: {}/{}, {:>3}%, ETA: {} - [{}]", ansi_blue_bold + std::string(percentage, '#'),
                                        std::string(100 - percentage, ' ') + ansi_end, iteration, expected_iterations, percentage,
-                                       format_seconds_eta(estimated_remaining_seconds));
+                                       format_seconds_eta(estimated_remaining_seconds), file_name);
 
     std::cout << progress << "\r" << (finished ? "\n" : "") << std::flush;
 }
@@ -28,7 +31,8 @@ Simulation::Simulation(const std::vector<Particle>& initial_particles, const Sim
       fps(simulation_params.fps),
       video_length(simulation_params.video_length),
       simulation_params(simulation_params),
-      forces(simulation_params.forces) {
+      forces(simulation_params.forces),
+      thermostat(std::move(simulation_params.thermostat)) {
     // Create particle container
     if (std::holds_alternative<SimulationParams::LinkedCellsType>(simulation_params.container_type)) {
         auto linked_cells = std::get<SimulationParams::LinkedCellsType>(simulation_params.container_type);
@@ -90,7 +94,7 @@ SimulationOverview Simulation::runSimulation() {
 
             const size_t percentage = 100 * iteration / expected_iterations;
 
-            printProgress(percentage, iteration, expected_iterations, estimated_remaining_seconds);
+            printProgress(simulation_params.input_file_path, percentage, iteration, expected_iterations, estimated_remaining_seconds);
 
             if (!no_output) {
                 file_output_handler.writeFile(iteration, particles);
@@ -99,11 +103,15 @@ SimulationOverview Simulation::runSimulation() {
 
         integration_functor->step(particles, forces, delta_t);
 
+        if (iteration != 0 && iteration % thermostat.getApplicationInterval() == 0) {
+            thermostat.scaleTemperature(particles);
+        }
+
         iteration++;
         simulation_time += delta_t;
     }
 
-    printProgress(100, expected_iterations, expected_iterations, 0, true);
+    printProgress(simulation_params.input_file_path, 100, expected_iterations, expected_iterations, 0, true);
 
     Logger::logger->info("Simulation finished.");
 
@@ -132,6 +140,10 @@ SimulationOverview Simulation::runSimulationPerfTest() {
 
     while (simulation_time < simulation_end_time) {
         integration_functor->step(particles, forces, delta_t);
+
+        if (iteration != 0 && iteration % thermostat.getApplicationInterval() == 0) {
+            thermostat.scaleTemperature(particles);
+        }
 
         simulation_time += delta_t;
         iteration++;

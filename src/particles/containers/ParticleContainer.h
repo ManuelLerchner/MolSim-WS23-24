@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "particles/Particle.h"
-#include "physics/ForceSource.h"
+#include "physics/forces/ForceSource.h"
 
 /**
  * @brief Interface for particle containers

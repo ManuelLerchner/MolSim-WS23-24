@@ -11,7 +11,7 @@
     EXPECT_FALSE(std::find_if(list.begin(), list.end(), [&](auto& x) { return ArrayUtils::L2Norm(x.getX() - point) < tol; }) != list.end());
 
 TEST(XMLFileReader, CorrectParticleContainer) {
-    XMLFileReader file_reader;
+    XMLFileReader file_reader(true);
 
     auto [particles, params] = file_reader.readFile(FileLoader::get_input_file_path("test_collision.xml"));
 
@@ -51,7 +51,7 @@ TEST(XMLFileReader, CorrectParticleContainer) {
 }
 
 TEST(XMLFileReader, LoadCheckPoint) {
-    XMLFileReader file_reader;
+    XMLFileReader file_reader(true);
     ChkptPointFileReader chkpt_reader;
 
     auto [particles_xml, params_xml] = file_reader.readFile(FileLoader::get_input_file_path("CheckpointLoad.xml"));

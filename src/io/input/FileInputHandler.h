@@ -24,6 +24,7 @@ class FileInputHandler {
      *
      * @param input_file_path The path to the input file
      * @param fresh Whether to start a fresh simulation or reuse cached data
+     * @param allow_recursion Whether to allow subsimulations to be started
      * @return std::tuple<std::vector<Particle>, std::optional<SimulationParams>> Tuple containing the particles and the parameters of the
      * file
      *
@@ -32,5 +33,5 @@ class FileInputHandler {
      * For more information about the output file formats, see \ref InputFileFormats "Input File Formats"
      */
     static std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(const std::string& input_file_path,
-                                                                                       bool fresh = false);
+                                                                                       bool fresh = false, bool allow_recursion = true);
 };
