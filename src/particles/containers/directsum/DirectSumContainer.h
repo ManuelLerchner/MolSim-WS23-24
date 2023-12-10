@@ -126,6 +126,12 @@ class DirectSumContainer : public ParticleContainer {
     [[nodiscard]] std::vector<Particle>::const_iterator end() const override;
 
     /**
+     * @brief Returns a vector of all particles in the container
+     * @return Vector of all particles in the container
+     */
+    [[nodiscard]] const std::vector<Particle>& getParticles() const override;
+
+    /**
      * @brief Applies the given force sources to the particles
      *
      * @param force_sources Vector of force sources to be applied

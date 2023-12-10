@@ -3,7 +3,6 @@
 #include "particles/Particle.h"
 #include "physics/thermostats/Thermostat.h"
 #include "utils/ArrayUtils.h"
-#include "utils/MaxwellBoltzmannDistribution.h"
 
 SphereSpawner::SphereSpawner(const std::array<double, 3>& center, const int sphere_radius, double grid_spacing, double mass,
                              const std::array<double, 3>& initial_velocity, int type, bool third_dimension, double initial_temperature)
@@ -16,8 +15,8 @@ SphereSpawner::SphereSpawner(const std::array<double, 3>& center, const int sphe
       initial_temperature(initial_temperature),
       third_dimension(third_dimension) {}
 
-int SphereSpawner::spawnParticles(std::vector<Particle>& particle_container) const {
-    particle_container.reserve(particle_container.size() + getEstimatedNumberOfParticles());
+int SphereSpawner::spawnParticles(std::vector<Particle>& particles) const {
+    particles.reserve(particles.size() + getEstimatedNumberOfParticles());
     int num_particles_spawned = 0;
     for (int x = -sphere_radius; x <= sphere_radius; x++) {
         for (int y = -sphere_radius; y <= sphere_radius; y++) {
@@ -34,7 +33,7 @@ int SphereSpawner::spawnParticles(std::vector<Particle>& particle_container) con
                     Particle particle(position, initial_velocity, mass, type);
                     Thermostat::setParticleTemperature(initial_temperature, particle, third_dimension ? 3 : 2);
 
-                    particle_container.push_back(std::move(particle));
+                    particles.push_back(std::move(particle));
                     num_particles_spawned++;
                 }
             }

@@ -17,8 +17,9 @@ class XYZWriter : public FileWriter {
      *
      * @param params SimulationParams object which provides the output directory path
      * @param iteration The current iteration
-     * @param particle_container ParticleContainer to be used
+     * @param particles A vector of particles to write to the file
+     *
+     * @return The path to the written file
      */
-    void writeFile(const SimulationParams& params, size_t iteration,
-                   const std::unique_ptr<ParticleContainer>& particle_container) const override;
+    const std::string writeFile(const SimulationParams& params, size_t iteration, const std::vector<Particle>& particles) const override;
 };

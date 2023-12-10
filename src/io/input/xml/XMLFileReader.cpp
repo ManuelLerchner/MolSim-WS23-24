@@ -8,7 +8,7 @@
 
 #include "io/input/chkpt/ChkptPointFileReader.h"
 #include "io/logger/Logger.h"
-#include "io/output/chkpt/CheckPointWriter.h"
+#include "io/output/FileOutputHandler.h"
 #include "io/xml_schemas/xsd_type_adaptors/XSDToInternalTypeAdapter.h"
 #include "simulation/Simulation.h"
 
@@ -252,9 +252,13 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
             auto result = simulation.runSimulation();
             result.logSummary(depth);
 
-            // Write final checkpoint file
-            CheckPointWriter writer;
-            checkpoint_path = writer.writeFile(sub_config, result.total_iterations, result.resulting_particles);
+            // Write the checkpoint file
+            auto checkpoint_config = sub_config;
+            checkpoint_config.output_format = OutputFormat::CHKPT;
+
+            FileOutputHandler file_output_handler{checkpoint_config};
+
+            checkpoint_path = file_output_handler.writeFile(result.total_iterations, result.resulting_particles);
 
             Logger::logger->info("Wrote {} particles to checkpoint file in: {}", result.resulting_particles.size(),
                                  result.simulation_params.output_dir_path);

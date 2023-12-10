@@ -73,11 +73,11 @@ class CuboidSpawner : public ParticleSpawner {
 
     /**
      * @brief Spawns particles in the given container
-     * @param particle_container Container to spawn particles in
+     * @param particles A vector of particles to spawn
      * @return Number of particles spawned
      * Spawns particles in the given container.
      */
-    int spawnParticles(std::vector<Particle>& particle_container) const override;
+    int spawnParticles(std::vector<Particle>& particles) const override;
 
     /**
      * @brief Estimate the number of particles to be spawned

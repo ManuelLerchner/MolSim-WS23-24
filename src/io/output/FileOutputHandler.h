@@ -40,6 +40,18 @@ class FileOutputHandler {
      *
      * @param iteration The current iteration number of the simulation
      * @param particle_container The ParticleContainer to write to the file
+     *
+     * @return The path to the written file
      */
-    void writeFile(size_t iteration, const std::unique_ptr<ParticleContainer>& particle_container) const;
+    std::optional<const std::string> writeFile(size_t iteration, const std::unique_ptr<ParticleContainer>& particle_container) const;
+
+    /**
+     * @brief Writes the given ParticleContainers particle data to a file
+     *
+     * @param iteration The current iteration number of the simulation
+     * @param particles A vector of particles to write to the file
+     *
+     * @return The path to the written file
+     */
+    std::optional<const std::string> writeFile(size_t iteration, const std::vector<Particle>& particles) const;
 };

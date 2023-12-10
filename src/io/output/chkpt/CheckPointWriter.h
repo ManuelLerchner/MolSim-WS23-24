@@ -14,18 +14,9 @@ class CheckPointWriter : public FileWriter {
      *
      * @param params SimulationParams object which provides the output directory path
      * @param iteration The current iteration number
-     * @param particle_container ParticleContainer whose particles are to be written
-     */
-    void writeFile(const SimulationParams& params, size_t iteration,
-                   const std::unique_ptr<ParticleContainer>& particle_container) const override;
-
-    /**
-     * @brief Writes the data of the given vector to a .chkpt file
+     * @param particles A vector of particles to write to the file
      *
-     * @param params SimulationParams object which provides the output directory path
-     * @param iteration The current iteration number
-     * @param particles Vector of particles to be written
+     * @return The path to the written file
      */
-    [[nodiscard]] virtual std::string writeFile(const SimulationParams& params, size_t iteration,
-                                                const std::vector<Particle>& particles) const;
+    const std::string writeFile(const SimulationParams& params, size_t iteration, const std::vector<Particle>& particles) const override;
 };

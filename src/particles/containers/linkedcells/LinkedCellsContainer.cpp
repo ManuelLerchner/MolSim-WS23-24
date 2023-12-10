@@ -224,6 +224,8 @@ std::vector<Particle>::const_iterator LinkedCellsContainer::begin() const { retu
 
 std::vector<Particle>::const_iterator LinkedCellsContainer::end() const { return particles.end(); }
 
+const std::vector<Particle>& LinkedCellsContainer::getParticles() const { return particles; }
+
 const std::array<double, 3>& LinkedCellsContainer::getDomainSize() const { return domain_size; }
 
 double LinkedCellsContainer::getCutoffRadius() const { return cutoff_radius; }

@@ -263,6 +263,12 @@ class LinkedCellsContainer : public ParticleContainer {
     std::vector<Particle>::const_iterator end() const override;
 
     /**
+     * @brief Returns a vector of all particles in the container
+     * @return Vector of all particles in the container
+     */
+    [[nodiscard]] const std::vector<Particle>& getParticles() const override;
+
+    /**
      * @brief Returns the domain size
      *
      * @return Domain size

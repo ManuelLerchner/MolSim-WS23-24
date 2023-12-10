@@ -64,20 +64,23 @@ void VTUWriter::plotParticle(VTKFile_t& vtuFile, const Particle& p) {
     pointsIterator->push_back(p.getX()[2]);
 }
 
-void VTUWriter::writeFile(const SimulationParams& params, size_t iteration,
-                          const std::unique_ptr<ParticleContainer>& particle_container) const {
-    auto filename = params.output_dir_path + "/" + "MD_VTU";
+const std::string VTUWriter::writeFile(const SimulationParams& params, size_t iteration, const std::vector<Particle>& particles) const {
+    auto file_base = params.output_dir_path + "/" + "MD_VTU";
 
     std::stringstream strstr;
-    strstr << filename << "_" << std::setfill('0') << std::setw(4) << iteration << ".vtu";
+    strstr << file_base << "_" << std::setfill('0') << std::setw(4) << iteration << ".vtu";
 
-    auto vtuFile = initializeOutput(static_cast<int>(particle_container->size()));
+    auto vtuFile = initializeOutput(static_cast<int>(particles.size()));
 
-    for (const Particle& particle : *particle_container) {
+    for (const Particle& particle : particles) {
         plotParticle(vtuFile, particle);
     }
 
-    std::ofstream file(strstr.str().c_str());
+    auto file_name = strstr.str();
+
+    std::ofstream file(file_name.c_str());
     VTKFile(file, vtuFile);
     file.close();
+
+    return file_name;
 }

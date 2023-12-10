@@ -35,16 +35,22 @@ FileOutputHandler::FileOutputHandler(const SimulationParams& params) : params(pa
                 count++;
             }
         }
-Logger::logger->warn("Removed {} files with targetted file extension {} from target directory {}", count, file_extension, params.output_dir_path); 
+        Logger::logger->warn("Removed {} files with targetted file extension {} from target directory {}", count, file_extension,
+                             params.output_dir_path);
     } else {
         Logger::logger->info("Creating output directory '{}'.", params.output_dir_path);
         std::filesystem::create_directories(params.output_dir_path);
     }
 }
 
-void FileOutputHandler::writeFile(size_t iteration, const std::unique_ptr<ParticleContainer>& particle_container) const {
+std::optional<const std::string> FileOutputHandler::writeFile(size_t iteration, const std::vector<Particle>& particles) const {
     if (params.output_format == OutputFormat::NONE) {
-        return;
+        return std::nullopt;
     }
-    file_writer->writeFile(params, iteration, particle_container);
+    return file_writer->writeFile(params, iteration, particles);
+}
+
+std::optional<const std::string> FileOutputHandler::writeFile(size_t iteration,
+                                                              const std::unique_ptr<ParticleContainer>& particle_container) const {
+    return writeFile(iteration, particle_container->getParticles());
 }

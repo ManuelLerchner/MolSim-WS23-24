@@ -24,6 +24,8 @@ std::vector<Particle>::const_iterator DirectSumContainer::begin() const { return
 
 std::vector<Particle>::const_iterator DirectSumContainer::end() const { return particles.end(); }
 
+const std::vector<Particle>& DirectSumContainer::getParticles() const { return particles; }
+
 void DirectSumContainer::applyPairwiseForces(const std::vector<std::shared_ptr<ForceSource>>& force_sources) {
     for (auto it1 = particles.begin(); it1 != particles.end(); ++it1) {
         for (auto it2 = (it1 + 1); it2 != particles.end(); ++it2) {
