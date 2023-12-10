@@ -9,7 +9,7 @@
 #include "utils/ArrayUtils.h"
 
 /*
- * Test if the UWriter writes the correct data into the file.
+ * Test if the VTUWriter writes the correct data into the file.
  */
 TEST(VTUWriter, CorrectWritingOfParticles) {
     std::unique_ptr<ParticleContainer> particle_container = std::make_unique<DirectSumContainer>();
