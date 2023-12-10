@@ -64,7 +64,7 @@ void VTUWriter::plotParticle(VTKFile_t& vtuFile, const Particle& p) {
     pointsIterator->push_back(p.getX()[2]);
 }
 
-void VTUWriter::writeFile(const SimulationParams& params, int iteration,
+void VTUWriter::writeFile(const SimulationParams& params, size_t iteration,
                           const std::unique_ptr<ParticleContainer>& particle_container) const {
     auto filename = params.output_dir_path + "/" + "MD_VTU";
 

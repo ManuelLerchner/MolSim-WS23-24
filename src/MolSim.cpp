@@ -1,7 +1,6 @@
 #include "io/cli/CLIParser.h"
 #include "io/input/FileInputHandler.h"
 #include "simulation/Simulation.h"
-#include "simulation/SimulationOverview.h"
 #include "simulation/SimulationParams.h"
 
 int main(int argc, char* argsv[]) {

@@ -8,9 +8,9 @@
 
 using BC = LinkedCellsContainer::BoundaryCondition;
 
-#define EXPECT_ARRAY_NEAR(a, b, tol)  \
-    for (int i = 0; i < 3; i++) {     \
-        EXPECT_NEAR(a[i], b[i], tol); \
+#define EXPECT_ARRAY_NEAR(a, b, tol)      \
+    for (int i = 0; i < 3; i++) {         \
+        EXPECT_NEAR((a)[i], (b)[i], tol); \
     };
 
 /*
@@ -56,7 +56,7 @@ TEST(SimulationRunnerLinkedCells, ParticlesReturnToInitialPositionPeriodicSoluti
 
     auto res = simulation.runSimulation();
 
-    EXPECT_ARRAY_NEAR((res.resulting_particles)[0].getX(), pa1.getX(), 0.01);
-    EXPECT_ARRAY_NEAR((res.resulting_particles)[1].getX(), pa2.getX(), 0.01);
-    EXPECT_ARRAY_NEAR((res.resulting_particles)[2].getX(), pa3.getX(), 0.01);
+    EXPECT_ARRAY_NEAR((res.resulting_particles)[0].getX(), pa1.getX(), 0.01)
+    EXPECT_ARRAY_NEAR((res.resulting_particles)[1].getX(), pa2.getX(), 0.01)
+    EXPECT_ARRAY_NEAR((res.resulting_particles)[2].getX(), pa3.getX(), 0.01)
 }

@@ -106,7 +106,7 @@ class LinkedCellsContainer : public ParticleContainer {
      */
     std::unordered_set<Cell*> occupied_cells_references;
 
-    // Boundary cell references with respect to x axis pointing to the right, y axis pointing up and z axis pointing out of the screen
+    // Boundary cell references with respect to x-axis pointing to the right, y-axis pointing up and z axis pointing out of the screen
 
     /**
      * @brief References to the boundary cells on the left (x = 0)

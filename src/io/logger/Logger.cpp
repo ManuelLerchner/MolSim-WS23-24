@@ -30,17 +30,17 @@ std::shared_ptr<spdlog::logger> Logger::init_logger(LogType log_type) {
     standard_out->set_color(spdlog::level::trace, standard_out->magenta);
 
     spdlog::init_thread_pool(8192, 1);
-    std::shared_ptr<spdlog::logger> logger;
+    std::shared_ptr<spdlog::logger> new_logger;
     if (log_type == LogType::FILE) {
         createDirectory("logs");
-        logger = spdlog::rotating_logger_st("file_logger", "logs/log", 1048576 * 5, 3);
+        new_logger = spdlog::rotating_logger_st("file_logger", "logs/log", 1048576 * 5, 3);
     } else {
-        logger =
+        new_logger =
             std::make_shared<spdlog::async_logger>("std_logger", standard_out, spdlog::thread_pool(), spdlog::async_overflow_policy::block);
     }
 
-    logger->set_level(spdlog::level::off);
-    logger->set_pattern("[%H:%M:%S] %^[%l]%$ %v");
+    new_logger->set_level(spdlog::level::off);
+    new_logger->set_pattern("[%H:%M:%S] %^[%l]%$ %v");
 
-    return logger;
+    return new_logger;
 }

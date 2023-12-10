@@ -19,6 +19,6 @@ class XYZWriter : public FileWriter {
      * @param iteration The current iteration
      * @param particle_container ParticleContainer to be used
      */
-    virtual void writeFile(const SimulationParams& params, int iteration,
-                           const std::unique_ptr<ParticleContainer>& particle_container) const override;
+    void writeFile(const SimulationParams& params, size_t iteration,
+                   const std::unique_ptr<ParticleContainer>& particle_container) const override;
 };

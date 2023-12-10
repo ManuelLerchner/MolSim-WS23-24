@@ -3,7 +3,7 @@
 
 ## Overview
 
-Currently there exist two different particle container implementations:
+Currently, there exist two different particle container implementations:
 
 - DirectSumContainer: A naive implementation, which calculates the forces between all particles
 - LinkedCellsContainer: A more efficient implementation, which uses the linked cells algorithm to calculate the forces between particles
@@ -26,7 +26,7 @@ The following graphs show the runtime of the two implementations for different n
 
 It is interesting to note, that it can be seen quite clearly, that the runtime of the DirectSumContainer increases quadratically with the number of particles, while the runtime of the LinkedCellsContainer increases linearly.
 
-Additionally the benchmark was about twice as fast on an Intel Core i5-12600 CPU than on an AMD Ryzen 5 3600 CPU.
+Additionally, the benchmark was about twice as fast on an Intel Core i5-12600 CPU than on an AMD Ryzen 5 3600 CPU.
 
 ### AMD Ryzen 5 3600
 

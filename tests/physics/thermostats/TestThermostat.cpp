@@ -341,8 +341,8 @@ TEST(Thermostat, TemperatureKeeping) {
         // most 1.1025, ~10% which from the initial temperature is around 0.5 < 0.75). The maximum temperature change is 0.75 so the
         // temperature should stay about the same.
         double factor = dist(gen);
-        for (auto it = particle_container_ds->begin(); it != particle_container_ds->end(); ++it) {
-            it->setV(factor * it->getV());
+        for (auto& it : *particle_container_ds) {
+            it.setV(factor * it.getV());
         }
 
         EXPECT_GE(thermostat.getCurrentTemperature(particle_container_ds), initial_temperature_ds);
@@ -366,8 +366,8 @@ TEST(Thermostat, TemperatureKeeping) {
         // most 1.1025, ~10% which from the initial temperature is around 0.5 < 0.75). The maximum temperature change is 0.75 so the
         // temperature should stay about the same.
         double factor = dist(gen);
-        for (auto it = particle_container_lc->begin(); it != particle_container_lc->end(); ++it) {
-            it->setV(factor * it->getV());
+        for (auto& it : *particle_container_lc) {
+            it.setV(factor * it.getV());
         }
 
         EXPECT_GE(thermostat.getCurrentTemperature(particle_container_lc), initial_temperature_lc);

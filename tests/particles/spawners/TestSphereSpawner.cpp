@@ -6,8 +6,9 @@
 /*
  * Macro to check if a point is in a list of points.
  */
-#define EXPECT_CONTAINS_POS_NEAR(list, point, tol) \
-    EXPECT_TRUE(std::find_if(list.begin(), list.end(), [&](auto& x) { return ArrayUtils::L2Norm(x - point) < tol; }) != list.end());
+#define EXPECT_CONTAINS_POS_NEAR(list, point, tol)                                                                              \
+    EXPECT_TRUE(std::find_if((list).begin(), (list).end(), [&](auto& x) { return ArrayUtils::L2Norm(x - (point)) < (tol); }) != \
+                (list).end());
 
 /*
  * Test if a SphereSpawner spawns the correct number of particles.
@@ -56,9 +57,9 @@ TEST(SphereParticleSpawner, SpawnParticlesAtCorrectPositions) {
     auto expected_positions =
         std::vector<std::array<double, 3>>({{0, 0, 0}, {1, 0, 0}, {0, 1, 0}, {0, 0, 1}, {-1, 0, 0}, {0, -1, 0}, {0, 0, -1}});
 
-    for (size_t i = 0; i < particle_container.size(); i++) {
+    for (const auto& i : particle_container) {
         // check if the position of the particle is inside the expected positions
-        EXPECT_CONTAINS_POS_NEAR(expected_positions, particle_container[i].getX(), 1e-10);
+        EXPECT_CONTAINS_POS_NEAR(expected_positions, i.getX(), 1e-10)
     }
 }
 

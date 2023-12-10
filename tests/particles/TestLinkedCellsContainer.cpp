@@ -6,9 +6,9 @@
 #include "particles/containers/ParticleContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 
-#define EXPECT_ARRAY_NEAR(a, b, tol)  \
-    for (int i = 0; i < 3; i++) {     \
-        EXPECT_NEAR(a[i], b[i], tol); \
+#define EXPECT_ARRAY_NEAR(a, b, tol)      \
+    for (int i = 0; i < 3; i++) {         \
+        EXPECT_NEAR((a)[i], (b)[i], tol); \
     };
 
 /**
@@ -229,9 +229,9 @@ TEST(LinkedCellsContainer, BoundaryIterator) {
     Particle& it_p2 = *it;
     EXPECT_EQ(it_p2.getX(), p2.getX());
 
-    for (auto it = container.boundaryBegin(); it != container.boundaryEnd(); ++it) {
-        EXPECT_TRUE(it->getX()[0] >= 0.0 && it->getX()[0] < 1.0);
-        EXPECT_TRUE(it->getX()[1] >= 0.0 && it->getX()[1] < 1.0);
-        EXPECT_TRUE(it->getX()[2] >= 0.0 && it->getX()[2] < 1.0);
+    for (auto bit = container.boundaryBegin(); bit != container.boundaryEnd(); ++bit) {
+        EXPECT_TRUE(bit->getX()[0] >= 0.0 && bit->getX()[0] < 1.0);
+        EXPECT_TRUE(bit->getX()[1] >= 0.0 && bit->getX()[1] < 1.0);
+        EXPECT_TRUE(bit->getX()[2] >= 0.0 && bit->getX()[2] < 1.0);
     }
 }

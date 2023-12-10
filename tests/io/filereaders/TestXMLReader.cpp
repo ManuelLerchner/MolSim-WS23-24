@@ -3,12 +3,12 @@
 #include "data/FileLoader.h"
 #include "io/input/chkpt/ChkptPointFileReader.h"
 #include "io/input/xml/XMLFileReader.h"
-#include "io/logger/Logger.h"
 #include "particles/spawners/sphere/SphereSpawner.h"
 #include "utils/ArrayUtils.h"
 
-#define EXPECT_NOT_CONTAINS_POS_NEAR(list, point, tol) \
-    EXPECT_FALSE(std::find_if(list.begin(), list.end(), [&](auto& x) { return ArrayUtils::L2Norm(x.getX() - point) < tol; }) != list.end());
+#define EXPECT_NOT_CONTAINS_POS_NEAR(list, point, tol)                                                                                  \
+    EXPECT_FALSE(std::find_if((list).begin(), (list).end(), [&](auto& x) { return ArrayUtils::L2Norm(x.getX() - (point)) < (tol); }) != \
+                 (list).end());
 
 TEST(XMLFileReader, CorrectParticleContainer) {
     XMLFileReader file_reader(true);
@@ -81,7 +81,7 @@ TEST(XMLFileReader, RecursiveSubSimulation) {
     EXPECT_EQ(particles_xml.size(), 33 + 8);
 
     for (const auto& particle : equilibrated_particles) {
-        EXPECT_NOT_CONTAINS_POS_NEAR(particles_xml, particle.getX(), 1);
+        EXPECT_NOT_CONTAINS_POS_NEAR(particles_xml, particle.getX(), 1)
     }
 }
 

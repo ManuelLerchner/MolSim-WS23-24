@@ -2,7 +2,6 @@
 
 #include <filesystem>
 #include <fstream>
-#include <iostream>
 #include <numeric>
 
 #include "io/logger/Logger.h"
@@ -18,7 +17,7 @@ std::string construct_output_path(const std::string& base_path, const std::strin
 
     std::filesystem::path input_path{input_file_path};
     return base + "/" + input_path.stem().string();
-};
+}
 
 auto convertToForces(const std::vector<std::string>& force_strings) {
     auto supported = ForcePicker::get_supported_forces();
@@ -66,8 +65,8 @@ SimulationParams::SimulationParams(const std::string& input_file_path, const std
       fps(fps),
       video_length(video_length),
       container_type(container_type),
-      forces(convertToForces(force_strings)),
       thermostat(thermostat),
+      forces(convertToForces(force_strings)),
       performance_test(performance_test),
       fresh(fresh) {
     if (fps < 0) {
@@ -114,6 +113,8 @@ SimulationParams::SimulationParams(const std::string& input_file_path, const std
         auto hash = hasher(buffer.str());
         this->input_file_hash = hash;
     }
+
+    this->num_particles = 0;
 }
 
 void SimulationParams::logSummary(int depth) const {

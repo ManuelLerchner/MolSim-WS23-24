@@ -4,7 +4,6 @@
 
 #include <filesystem>
 #include <optional>
-#include <regex>
 #include <sstream>
 
 #include "io/input/chkpt/ChkptPointFileReader.h"
@@ -73,7 +72,7 @@ void loadCheckpointFile(std::vector<Particle>& particles, const std::string& pat
     Logger::logger->info("Loaded {} particles from checkpoint file {}", loaded_particles.size(), path);
 }
 
-std::optional<std::string> getCheckPointFilePath(std::string base_path) {
+std::optional<std::string> getCheckPointFilePath(const std::string& base_path) {
     if (!std::filesystem::exists(base_path)) {
         return std::nullopt;
     }
@@ -83,7 +82,11 @@ std::optional<std::string> getCheckPointFilePath(std::string base_path) {
     for (const auto& entry : std::filesystem::directory_iterator(base_path)) {
         if (entry.path().extension() == ".chkpt") {
             std::string current_file_path = entry.path().string();
-            auto current_file_number = std::stoi(std::regex_replace(current_file_path, std::regex("[^0-9]*([0-9]+).*"), std::string("$1")));
+
+            auto num_start = current_file_path.find_first_of("0123456789");
+            auto num_end = current_file_path.find_last_of("0123456789");
+
+            auto current_file_number = std::stoi(current_file_path.substr(num_start, num_end - num_start + 1));
 
             if (current_file_number > best_iteration) {
                 best_iteration = current_file_number;
@@ -95,7 +98,7 @@ std::optional<std::string> getCheckPointFilePath(std::string base_path) {
     return checkPointPath;
 }
 
-auto load_config(const SubSimulationType& sub_simulation, const std::string& curr_file_path, std::string base_path) {
+auto load_config(const SubSimulationType& sub_simulation, const std::string& curr_file_path, const std::string& base_path) {
     if (sub_simulation.configuration()) {
         // Configuration is diretly in the XML file
         auto loaded_config = *sub_simulation.configuration();

@@ -155,7 +155,7 @@
       <xs:element name="end_time" type="xs:double" />
       <xs:element name="third_dimension" type="xs:boolean" default="true" />
       <xs:element name="particle_container" type="ParticleContainerType" />
-      <xs:element name="force" type="ForcesType" minOccurs="1" maxOccurs="unbounded" />
+      <xs:element name="force" type="ForcesType"  maxOccurs="unbounded" />
       <xs:element name="thermostat" type="ThermostatType" />
     </xs:sequence>
   </xs:complexType>

@@ -94,5 +94,5 @@ class Simulation {
     SimulationOverview runSimulationPerfTest();
 
    private:
-    void savePerformanceTest(const SimulationOverview& overview, const SimulationParams& params, size_t num_particles) const;
+    static void savePerformanceTest(const SimulationOverview& overview, const SimulationParams& params, size_t num_particles);
 };

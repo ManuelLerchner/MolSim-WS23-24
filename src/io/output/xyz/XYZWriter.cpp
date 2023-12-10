@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <sstream>
 
-void XYZWriter::writeFile(const SimulationParams& params, int iteration,
+void XYZWriter::writeFile(const SimulationParams& params, size_t iteration,
                           const std::unique_ptr<ParticleContainer>& particle_container) const {
     auto filename = params.output_dir_path + "/" + "MD_XYZ";
 

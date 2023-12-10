@@ -23,7 +23,7 @@ class SimulationParams {
      * @brief Struct to specify the type of the particle container as DirectSumType
      */
     struct DirectSumType {
-        operator std::string() const { return "DirectSum"; }
+        explicit operator std::string() const { return "DirectSum"; }
     };
 
     /**
@@ -39,7 +39,7 @@ class SimulationParams {
                         const std::array<LinkedCellsContainer::BoundaryCondition, 6>& boundary_conditions)
             : domain_size(domain_size), cutoff_radius(cutoff_radius), boundary_conditions(boundary_conditions) {}
 
-        operator std::string() const {
+        explicit operator std::string() const {
             return "LinkedCells ([" + std::to_string(domain_size[0]) + "x" + std::to_string(domain_size[1]) + "x" +
                    std::to_string(domain_size[2]) + "];" + std::to_string(cutoff_radius) + ";[" +
                    LinkedCellsContainer::boundaryConditionToString(boundary_conditions[0]) + "|" +

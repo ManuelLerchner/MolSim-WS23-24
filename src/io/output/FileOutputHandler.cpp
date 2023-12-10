@@ -42,7 +42,7 @@ FileOutputHandler::FileOutputHandler(const SimulationParams& params) : params(pa
     }
 }
 
-void FileOutputHandler::writeFile(int iteration, const std::unique_ptr<ParticleContainer>& particle_container) const {
+void FileOutputHandler::writeFile(size_t iteration, const std::unique_ptr<ParticleContainer>& particle_container) const {
     if (params.output_format == OutputFormat::NONE) {
         return;
     }

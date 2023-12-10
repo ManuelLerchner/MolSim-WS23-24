@@ -9,6 +9,6 @@ std::array<double, 3UL> GravitationalForce::calculateForce(Particle& p, Particle
     const auto f_gravity = (p.getM() * q.getM() / (std::pow(dist, 3))) * displacement;
 
     return f_gravity;
-};
+}
 
-GravitationalForce::operator std::string() const { return "Gravitational"; };
+GravitationalForce::operator std::string() const { return "Gravitational"; }

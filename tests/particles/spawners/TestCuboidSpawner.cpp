@@ -6,8 +6,9 @@
 /*
  * Macro to check if a point is in a list of points.
  */
-#define EXPECT_CONTAINS_POS_NEAR(list, point, tol) \
-    EXPECT_TRUE(std::find_if(list.begin(), list.end(), [&](auto& x) { return ArrayUtils::L2Norm(x - point) < tol; }) != list.end());
+#define EXPECT_CONTAINS_POS_NEAR(list, point, tol)                                                                              \
+    EXPECT_TRUE(std::find_if((list).begin(), (list).end(), [&](auto& x) { return ArrayUtils::L2Norm(x - (point)) < (tol); }) != \
+                (list).end());
 
 /*
  * Test if a CuboidSpawner spawns the correct number of particles.
@@ -47,9 +48,9 @@ TEST(CuboidParticleSpawner, SpawnParticlesAtCorrectPositions) {
                                             {0, 1, 1}, {1, 1, 1}, {0, 2, 1}, {1, 2, 1}, {0, 0, 2}, {1, 0, 2}, {0, 1, 2}, {1, 1, 2},
                                             {0, 2, 2}, {1, 2, 2}, {0, 0, 3}, {1, 0, 3}, {0, 1, 3}, {1, 1, 3}, {0, 2, 3}, {1, 2, 3}});
 
-    for (size_t i = 0; i < particle_container.size(); i++) {
+    for (const auto& i : particle_container) {
         // check if the position of the particle is inside the expected positions
-        EXPECT_CONTAINS_POS_NEAR(expected_positions, particle_container[i].getX(), 1e-10);
+        EXPECT_CONTAINS_POS_NEAR(expected_positions, i.getX(), 1e-10)
     }
 }
 

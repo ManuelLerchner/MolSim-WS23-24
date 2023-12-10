@@ -14,7 +14,3 @@ ParticleType InternalToXSDTypeAdapter::convertToParticle(const Particle& particl
 DoubleVec3Type InternalToXSDTypeAdapter::convertToVector(const std::array<double, 3>& vector) {
     return DoubleVec3Type{vector[0], vector[1], vector[2]};
 }
-
-IntVec3Type InternalToXSDTypeAdapter::convertToVector(const std::array<int, 3>& vector) {
-    return IntVec3Type{vector[0], vector[1], vector[2]};
-}
