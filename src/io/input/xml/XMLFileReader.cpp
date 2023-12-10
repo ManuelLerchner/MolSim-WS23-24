@@ -248,18 +248,17 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
             sub_config.output_dir_path = new_output_base_path;
             sub_config.output_format = OutputFormat::NONE;
 
-            // Run the sub simulation
+            // // Run the sub simulation
             Simulation simulation{sub_particles, sub_config};
 
             sub_config.logSummary(depth);
             auto result = simulation.runSimulation();
             result.logSummary(depth);
 
-            // Write the checkpoint file
-            auto checkpoint_config = sub_config;
-            checkpoint_config.output_format = OutputFormat::CHKPT;
+            // // Write the checkpoint file
+            sub_config.output_format = OutputFormat::CHKPT;
 
-            FileOutputHandler file_output_handler{checkpoint_config};
+            FileOutputHandler file_output_handler{sub_config};
 
             checkpoint_path = file_output_handler.writeFile(result.total_iterations, result.resulting_particles);
 

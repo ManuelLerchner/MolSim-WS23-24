@@ -10,7 +10,6 @@
 #include "physics/forces/ForceSource.h"
 #include "physics/forces/LennardJonesForce.h"
 #include "simulation/Simulation.h"
-#include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"
 
 auto load_all_input_files() {
@@ -65,7 +64,14 @@ TEST(SimulationRunner, EnsureBackwardsCompatibilityForAllInputFiles) {
         // Parse input file
         auto [particles, file_config] = FileInputHandler::readFile(input_file, true, false);
 
-        auto config = file_config.value_or(TEST_DEFAULT_PARAMS_LENNARD_JONES);
+        SimulationParams config = [&file_config]() {
+            if (file_config) {
+                return std::move(*file_config);
+            } else {
+                return std::move(SimulationParams("test_only.xml", "", 0.01, 0.1, 24, 30, SimulationParams::DirectSumType{}, std::nullopt,
+                                                  "none", {"LennardJones"}, false, true));
+            }
+        }();
 
         config.end_time = 0.1;
         config.delta_t = 0.001;

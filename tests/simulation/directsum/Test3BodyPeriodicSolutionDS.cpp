@@ -3,7 +3,6 @@
 #include "io/output/FileOutputHandler.h"
 #include "particles/containers/ParticleContainer.h"
 #include "simulation/Simulation.h"
-#include "simulation/SimulationUtils.h"
 
 #define EXPECT_ARRAY_NEAR(a, b, tol)  \
     for (int i = 0; i < 3; i++) {     \
@@ -38,9 +37,8 @@ TEST(SimulationRunnerDirectSum, ParticlesReturnToInitialPositionPeriodicSolution
     particles.push_back(pa2);
     particles.push_back(pa3);
 
-    SimulationParams params = TEST_DEFAULT_PARAMS_GRAVITY;
-    params.end_time = period;
-    params.delta_t = 0.001;
+    SimulationParams params("test_only.xml", "", 0.001, period, 24, 30, SimulationParams::DirectSumType{}, std::nullopt, "none",
+                            {"Gravitational"}, false, true);
 
     Simulation simulation(particles, params);
 

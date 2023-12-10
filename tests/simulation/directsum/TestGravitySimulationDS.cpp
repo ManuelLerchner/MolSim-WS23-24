@@ -4,7 +4,6 @@
 
 #include "io/output/FileOutputHandler.h"
 #include "simulation/Simulation.h"
-#include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"
 
 /*
@@ -29,9 +28,9 @@ TEST(SimulationRunnerDirectSum, ParticlesAttractEachother_Gravity) {
     particles.push_back(p1);
     particles.push_back(p2);
 
-    SimulationParams params = TEST_DEFAULT_PARAMS_GRAVITY;
-    params.end_time = 0.1;
-    params.delta_t = 0.001;
+    SimulationParams params("test_only.xml", "", 0.001, 0.1, 24, 30, SimulationParams::DirectSumType{}, std::nullopt, "none",
+                            {"Gravitational"}, false, true);
+
     Simulation simulation(particles, params);
 
     auto res = simulation.runSimulation();

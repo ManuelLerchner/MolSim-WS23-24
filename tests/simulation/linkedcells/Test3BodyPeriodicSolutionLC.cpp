@@ -3,7 +3,6 @@
 #include "io/logger/Logger.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "simulation/Simulation.h"
-#include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"
 
 using BC = LinkedCellsContainer::BoundaryCondition;
@@ -45,9 +44,8 @@ TEST(SimulationRunnerLinkedCells, ParticlesReturnToInitialPositionPeriodicSoluti
     particles.push_back(pa2);
     particles.push_back(pa3);
 
-    SimulationParams params = TEST_DEFAULT_PARAMS_GRAVITY;
-    params.end_time = period;
-    params.delta_t = 0.001;
+    SimulationParams params("test_only.xml", "", 0.001, period, 24, 30, SimulationParams::DirectSumType{}, std::nullopt, "none",
+                            {"Gravitational"}, false, true);
 
     params.container_type =
         SimulationParams::LinkedCellsType({10, 10, 10}, 10, {BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW});

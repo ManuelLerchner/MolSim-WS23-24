@@ -110,26 +110,17 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
         performance_test = true;
     }
 
-    return SimulationParams{input_file_path,
-                            output_dir_path,
-                            delta_t,
-                            end_time,
-                            fps,
-                            video_length,
-                            SimulationParams::DirectSumType{},
-                            Thermostat{1, 1, std::numeric_limits<size_t>::max()},
-                            output_format,
-                            force_strings,
-                            performance_test,
-                            fresh};
+    return SimulationParams{
+        input_file_path, output_dir_path, delta_t,       end_time,         fps,  video_length, SimulationParams::DirectSumType{},
+        std::nullopt,    output_format,   force_strings, performance_test, fresh};
 }
 
-SimulationParams merge_parameters(const SimulationParams& params_cli, const std::optional<SimulationParams>& file_params) {
+SimulationParams merge_parameters(SimulationParams&& params_cli, std::optional<SimulationParams>&& file_params) {
     if (!file_params) {
         return params_cli;
     }
 
-    SimulationParams params = *file_params;
+    SimulationParams params = std::move(*file_params);
 
     // Overwrite parameters from XML file with parameters from CLI
     if (params_cli.delta_t != 0) {
@@ -145,7 +136,7 @@ SimulationParams merge_parameters(const SimulationParams& params_cli, const std:
         params.video_length = params_cli.video_length;
     }
     if (!params_cli.forces.empty()) {
-        params.forces = params_cli.forces;
+        params.forces = std::move(params_cli.forces);
     }
 
     // Always takes value from CLI

@@ -4,7 +4,6 @@
 #include "io/output/FileOutputHandler.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "simulation/Simulation.h"
-#include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"
 
 using BC = LinkedCellsContainer::BoundaryCondition;
@@ -41,11 +40,14 @@ TEST(SimulationRunnerDirectSumLinkedCellsComparison, RandomSimulation1) {
 
     auto particles = createParticles();
 
-    SimulationParams params_ds = TEST_DEFAULT_PARAMS_LENNARD_JONES;
+    SimulationParams params_ds("test_only.xml", "", 0.002, 5, 24, 30, SimulationParams::DirectSumType{}, std::nullopt, "none",
+                               {"LennardJones"}, false, true);
     params_ds.end_time = end_t;
     params_ds.delta_t = delta_t;
 
-    SimulationParams params_lc = TEST_DEFAULT_PARAMS_LENNARD_JONES;
+    SimulationParams params_lc("test_only.xml", "", 0.002, 5, 24, 30, SimulationParams::DirectSumType{}, std::nullopt, "none",
+                               {"LennardJones"}, false, true);
+    ;
     params_lc.end_time = end_t;
     params_lc.delta_t = delta_t;
 
@@ -95,13 +97,11 @@ TEST(SimulationRunnerDirectSumLinkedCellsComparison, Collision) {
     double delta_t = 0.0005;
     double end_t = 1;
 
-    SimulationParams params_ds = TEST_DEFAULT_PARAMS_LENNARD_JONES;
-    params_ds.end_time = end_t;
-    params_ds.delta_t = delta_t;
+    SimulationParams params_ds("test_only.xml", "", 0.0005, 1, 24, 30, SimulationParams::DirectSumType{}, std::nullopt, "none",
+                               {"LennardJones"}, false, true);
 
-    SimulationParams params_lc = TEST_DEFAULT_PARAMS_LENNARD_JONES;
-    params_lc.end_time = end_t;
-    params_lc.delta_t = delta_t;
+    SimulationParams params_lc("test_only.xml", "", 0.0005, 1, 24, 30, SimulationParams::DirectSumType{}, std::nullopt, "none",
+                               {"LennardJones"}, false, true);
 
     params_lc.container_type = SimulationParams::LinkedCellsType(
         {30, 30, 30}, 7.5, {BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW});

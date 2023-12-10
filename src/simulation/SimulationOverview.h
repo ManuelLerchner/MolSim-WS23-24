@@ -14,7 +14,7 @@ class SimulationOverview {
     /**
      * @brief Original simulation parameters bevore the simulation
      */
-    SimulationParams params;
+    const SimulationParams& params;
 
     /**
      * @brief Total time the simulation took to execute in seconds (includes time for writing output files and logging)

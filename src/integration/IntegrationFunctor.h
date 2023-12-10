@@ -26,5 +26,5 @@ class IntegrationFunctor {
      * @param delta_t Time step
      */
     virtual void step(std::unique_ptr<ParticleContainer>& particle_container,
-                      const std::vector<std::shared_ptr<ForceSource>>& force_sources, double delta_t) const = 0;
+                      const std::vector<std::unique_ptr<ForceSource>>& force_sources, double delta_t) const = 0;
 };

@@ -15,7 +15,7 @@ TEST(XMLFileReader, CorrectParticleContainer) {
 
     auto [particles, params] = file_reader.readFile(FileLoader::get_input_file_path("test_collision.xml"));
 
-    auto conf = *params;
+    auto conf = std::move(*params);
 
     double err = 1e-13;
     EXPECT_EQ(conf.video_length, 10);

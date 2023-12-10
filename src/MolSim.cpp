@@ -11,7 +11,7 @@ int main(int argc, char* argsv[]) {
     auto [initial_particles, simulation_arguments] = FileInputHandler::readFile(params_cli.input_file_path, params_cli.fresh);
 
     // Combine parameters from CLI and input file
-    SimulationParams params = merge_parameters(params_cli, simulation_arguments);
+    SimulationParams params = merge_parameters(std::move(params_cli), std::move(simulation_arguments));
     params.num_particles = initial_particles.size();
 
     // Initialize simulation
@@ -21,7 +21,7 @@ int main(int argc, char* argsv[]) {
     params.logSummary();
 
     // Run simulation
-    auto overview = [params](Simulation& simulation) {
+    auto overview = [&params](Simulation& simulation) {
         if (params.performance_test) {
             return simulation.runSimulationPerfTest();
         } else {

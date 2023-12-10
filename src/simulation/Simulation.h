@@ -28,7 +28,7 @@ class Simulation {
     /**
      * @brief Reference to the `ParticleContainer` on whose content the simulation is performed
      */
-    std::unique_ptr<ParticleContainer> particles;
+    std::unique_ptr<ParticleContainer> particles_container;
 
     /**
      * @brief Functor used to integrate the particles

@@ -28,18 +28,18 @@ Simulation::Simulation(const std::vector<Particle>& initial_particles, const Sim
     // Create particle container
     if (std::holds_alternative<SimulationParams::LinkedCellsType>(params.container_type)) {
         auto linked_cells = std::get<SimulationParams::LinkedCellsType>(params.container_type);
-        particles =
+        particles_container =
             std::make_unique<LinkedCellsContainer>(linked_cells.domain_size, linked_cells.cutoff_radius, linked_cells.boundary_conditions);
     } else if (std::holds_alternative<SimulationParams::DirectSumType>(params.container_type)) {
-        particles = std::make_unique<DirectSumContainer>();
+        particles_container = std::make_unique<DirectSumContainer>();
     } else {
         throw std::runtime_error("Unknown container type");
     }
 
     // Add particles to container
-    particles->reserve(initial_particles.size());
+    particles_container->reserve(initial_particles.size());
     for (auto& particle : initial_particles) {
-        particles->addParticle(particle);
+        particles_container->addParticle(particle);
     }
 
     switch (integration_method) {
@@ -66,7 +66,7 @@ SimulationOverview Simulation::runSimulation() {
     Logger::logger->info("Simulation started...");
 
     // Calculate initial forces
-    particles->applyPairwiseForces(params.forces);
+    particles_container->applyPairwiseForces(params.forces);
 
     // keep track of time for progress high precision
     auto start_time = std::chrono::high_resolution_clock::now();
@@ -90,14 +90,14 @@ SimulationOverview Simulation::runSimulation() {
             printProgress(params.input_file_path, percentage, iteration, expected_iterations, estimated_remaining_seconds);
 
             if (!no_output) {
-                file_output_handler.writeFile(iteration, particles);
+                file_output_handler.writeFile(iteration, particles_container);
             }
         }
 
-        integration_functor->step(particles, params.forces, params.delta_t);
+        integration_functor->step(particles_container, params.forces, params.delta_t);
 
         if (params.thermostat.has_value() && iteration != 0 && iteration % params.thermostat->getApplicationInterval() == 0) {
-            params.thermostat.value().scaleTemperature(particles);
+            params.thermostat.value().scaleTemperature(particles_container);
         }
 
         iteration++;
@@ -116,26 +116,26 @@ SimulationOverview Simulation::runSimulation() {
                               static_cast<double>(total_simulation_time_ms) / static_cast<double>(iteration),
                               static_cast<size_t>(iteration),
                               expected_iterations / save_every_nth_iteration + 1,
-                              std::vector<Particle>(particles->begin(), particles->end())};
+                              std::vector<Particle>(particles_container->begin(), particles_container->end())};
 }
 
 SimulationOverview Simulation::runSimulationPerfTest() {
-    const size_t initial_particle_count = particles->size();
+    const size_t initial_particle_count = particles_container->size();
 
     double simulation_time = 0;
     size_t iteration = 0;
 
     // Calculate initial forces
-    particles->applyPairwiseForces(params.forces);
+    particles_container->applyPairwiseForces(params.forces);
 
     // keep track of time for progress high precision
     auto start_time = std::chrono::high_resolution_clock::now();
 
     while (simulation_time < params.end_time) {
-        integration_functor->step(particles, params.forces, params.delta_t);
+        integration_functor->step(particles_container, params.forces, params.delta_t);
 
         if (params.thermostat && iteration != 0 && iteration % params.thermostat->getApplicationInterval() == 0) {
-            (*params.thermostat).scaleTemperature(particles);
+            (*params.thermostat).scaleTemperature(particles_container);
         }
 
         simulation_time += params.delta_t;
@@ -150,7 +150,7 @@ SimulationOverview Simulation::runSimulationPerfTest() {
                                 static_cast<double>(total_simulation_time) / static_cast<double>(iteration),
                                 static_cast<size_t>(iteration),
                                 0,
-                                std::vector<Particle>(particles->begin(), particles->end())};
+                                std::vector<Particle>(particles_container->begin(), particles_container->end())};
 
     savePerformanceTest(overview, params, initial_particle_count);
 

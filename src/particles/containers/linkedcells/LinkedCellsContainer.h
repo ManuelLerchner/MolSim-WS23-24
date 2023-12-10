@@ -209,7 +209,7 @@ class LinkedCellsContainer : public ParticleContainer {
      * Additionally to the functionality of the `ParticleContainer` class, this method uses the internal cell structure to
      * reduce the number of force calculations necessary, depending on the cutoff radius.
      */
-    void applyPairwiseForces(const std::vector<std::shared_ptr<ForceSource>>& force_sources) override;
+    void applyPairwiseForces(const std::vector<std::unique_ptr<ForceSource>>& force_sources) override;
 
     /**
      * @brief Reserves space for n particles. This is useful if the number of particles is known in advance

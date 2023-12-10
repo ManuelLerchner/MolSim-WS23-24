@@ -49,17 +49,17 @@ auto convertToOutputFormat(const std::string& output_format) {
     return supported[output_format];
 }
 
-auto convertToForces(const std::vector<std::string>& force_strings) {
+std::vector<std::unique_ptr<ForceSource>> convertToForces(const std::vector<std::string>& force_strings) {
     auto supported = ForcePicker::get_supported_forces();
 
-    std::vector<std::shared_ptr<ForceSource>> forces;
+    std::vector<std::unique_ptr<ForceSource>> forces;
     for (auto& force_s : force_strings) {
         // split on spaces
         auto parts = splitString(force_s, " ");
 
         if (!supported.contains(parts[0])) {
             auto supported_forces = std::string();
-            for (auto& [name, force] : supported) {
+            for (auto& name : supported) {
                 supported_forces += name + ", ";
             }
 
@@ -67,7 +67,7 @@ auto convertToForces(const std::vector<std::string>& force_strings) {
             exit(-1);
         }
 
-        auto force = supported[parts[0]];
+        auto force = ForcePicker::pick_force(parts[0]);
         if (typeid(*force) == typeid(GlobalDownwardsGravity)) {
             if (parts.size() != 2) {
                 Logger::logger->error("Invalid force given: {}. GlobalDownwardsGravity needs one parameter: g", force_s);
@@ -77,7 +77,7 @@ auto convertToForces(const std::vector<std::string>& force_strings) {
             dynamic_cast<GlobalDownwardsGravity&>(*force).setGravitationalAcceleration(g);
         }
 
-        forces.push_back(supported[force_s]);
+        forces.push_back(std::move(force));
     }
     return forces;
 }
@@ -85,7 +85,7 @@ auto convertToForces(const std::vector<std::string>& force_strings) {
 SimulationParams::SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time,
                                    int fps, int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
                                    const std::optional<Thermostat>& thermostat, const std::string& output_format,
-                                   const std::vector<std::shared_ptr<ForceSource>>& forces, bool performance_test, bool fresh,
+                                   std::vector<std::unique_ptr<ForceSource>>&& forces, bool performance_test, bool fresh,
                                    const std::string& base_path)
     : input_file_path(input_file_path),
       delta_t(delta_t),
@@ -94,7 +94,7 @@ SimulationParams::SimulationParams(const std::string& input_file_path, const std
       video_length(video_length),
       container_type(container_type),
       thermostat(thermostat),
-      forces(forces),
+      forces(std::move(forces)),
       performance_test(performance_test),
       fresh(fresh) {
     if (fps < 0) {
@@ -148,7 +148,14 @@ SimulationParams::SimulationParams(const std::string& input_file_path, const std
 SimulationParams::SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time,
                                    int fps, int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
                                    const std::optional<Thermostat>& thermostat, const std::string& output_format,
-                                   const std::vector<std::string>& force_strings, bool performance_test, bool fresh,
+                                   std::vector<std::string>& force_strings, bool performance_test, bool fresh, const std::string& base_path)
+    : SimulationParams(input_file_path, output_dir_path, delta_t, end_time, fps, video_length, container_type, thermostat, output_format,
+                       convertToForces(force_strings), performance_test, fresh, base_path) {}
+
+SimulationParams::SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time,
+                                   int fps, int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
+                                   const std::optional<Thermostat>& thermostat, const std::string& output_format,
+                                   std::vector<std::string>&& force_strings, bool performance_test, bool fresh,
                                    const std::string& base_path)
     : SimulationParams(input_file_path, output_dir_path, delta_t, end_time, fps, video_length, container_type, thermostat, output_format,
                        convertToForces(force_strings), performance_test, fresh, base_path) {}
@@ -158,7 +165,7 @@ void SimulationParams::logSummary(int depth) const {
 
     std::string force_names =
         std::accumulate(forces.begin(), forces.end(), std::string{},
-                        [](const std::string& acc, const std::shared_ptr<ForceSource>& force) { return acc + std::string(*force) + ", "; });
+                        [](const std::string& acc, const std::unique_ptr<ForceSource>& force) { return acc + std::string(*force) + ", "; });
 
     Logger::logger->info("{}╔════════════════════════════════════════", indent);
     Logger::logger->info("{}╟┤{}Simulation arguments: {}", indent, ansi_yellow_bold, ansi_end);

@@ -5,7 +5,6 @@
 #include "particles/containers/ParticleContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "simulation/Simulation.h"
-#include "simulation/SimulationUtils.h"
 
 using BC = LinkedCellsContainer::BoundaryCondition;
 
@@ -22,9 +21,9 @@ TEST(OutflowBoundaryLC, DeletedAtLeftBoundary) {
 
     particles.push_back(particle);
 
-    SimulationParams params = TEST_DEFAULT_PARAMS_LENNARD_JONES;
-    params.end_time = 1;
-    params.delta_t = 0.005;
+    SimulationParams params("test_only.xml", "", 0.005, 1, 24, 30, SimulationParams::DirectSumType{}, std::nullopt, "none",
+                            {"LennardJones"}, false, true);
+    ;
 
     params.container_type = SimulationParams::LinkedCellsType(
         {10, 10, 10}, 5, {BC::OUTFLOW, BC::REFLECTIVE, BC::REFLECTIVE, BC::REFLECTIVE, BC::REFLECTIVE, BC::REFLECTIVE});
@@ -49,9 +48,8 @@ TEST(OutflowBoundaryLC, DeletedAtRightBoundary) {
 
     particles.push_back(particle);
 
-    SimulationParams params = TEST_DEFAULT_PARAMS_LENNARD_JONES;
-    params.end_time = 1;
-    params.delta_t = 0.005;
+    SimulationParams params("test_only.xml", "", 0.005, 1, 24, 30, SimulationParams::DirectSumType{}, std::nullopt, "none",
+                            {"LennardJones"}, false, true);
 
     params.container_type = SimulationParams::LinkedCellsType(
         {10, 10, 10}, 5, {BC::REFLECTIVE, BC::OUTFLOW, BC::REFLECTIVE, BC::REFLECTIVE, BC::REFLECTIVE, BC::REFLECTIVE});
@@ -76,9 +74,8 @@ TEST(OutflowBoundaryLC, DeletedAtBottomBoundary) {
 
     particles.push_back(particle);
 
-    SimulationParams params = TEST_DEFAULT_PARAMS_LENNARD_JONES;
-    params.end_time = 1;
-    params.delta_t = 0.005;
+    SimulationParams params("test_only.xml", "", 0.005, 1, 24, 30, SimulationParams::DirectSumType{}, std::nullopt, "none",
+                            {"LennardJones"}, false, true);
 
     params.container_type = SimulationParams::LinkedCellsType(
         {10, 10, 10}, 5, {BC::REFLECTIVE, BC::REFLECTIVE, BC::OUTFLOW, BC::REFLECTIVE, BC::REFLECTIVE, BC::REFLECTIVE});
@@ -103,9 +100,8 @@ TEST(OutflowBoundaryLC, DeletedAtTopBoundary) {
 
     particles.push_back(particle);
 
-    SimulationParams params = TEST_DEFAULT_PARAMS_LENNARD_JONES;
-    params.end_time = 1;
-    params.delta_t = 0.005;
+    SimulationParams params("test_only.xml", "", 0.005, 1, 24, 30, SimulationParams::DirectSumType{}, std::nullopt, "none",
+                            {"LennardJones"}, false, true);
 
     params.container_type = SimulationParams::LinkedCellsType(
         {10, 10, 10}, 5, {BC::REFLECTIVE, BC::REFLECTIVE, BC::REFLECTIVE, BC::OUTFLOW, BC::REFLECTIVE, BC::REFLECTIVE});
@@ -130,9 +126,8 @@ TEST(OutflowBoundaryLC, DeletedAtFrontBoundary) {
 
     particles.push_back(particle);
 
-    SimulationParams params = TEST_DEFAULT_PARAMS_LENNARD_JONES;
-    params.end_time = 1;
-    params.delta_t = 0.005;
+    SimulationParams params("test_only.xml", "", 0.005, 1, 24, 30, SimulationParams::DirectSumType{}, std::nullopt, "none",
+                            {"LennardJones"}, false, true);
 
     params.container_type = SimulationParams::LinkedCellsType(
         {10, 10, 10}, 5, {BC::REFLECTIVE, BC::REFLECTIVE, BC::REFLECTIVE, BC::REFLECTIVE, BC::OUTFLOW, BC::REFLECTIVE});
@@ -157,9 +152,8 @@ TEST(OutflowBoundaryLC, DeletedAtBackBoundary) {
 
     particles.push_back(particle);
 
-    SimulationParams params = TEST_DEFAULT_PARAMS_LENNARD_JONES;
-    params.end_time = 1;
-    params.delta_t = 0.005;
+    SimulationParams params("test_only.xml", "", 0.005, 1, 24, 30, SimulationParams::DirectSumType{}, std::nullopt, "none",
+                            {"LennardJones"}, false, true);
 
     params.container_type = SimulationParams::LinkedCellsType(
         {10, 10, 10}, 5, {BC::REFLECTIVE, BC::REFLECTIVE, BC::REFLECTIVE, BC::REFLECTIVE, BC::REFLECTIVE, BC::OUTFLOW});

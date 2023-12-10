@@ -2,7 +2,6 @@
 
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "simulation/Simulation.h"
-#include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"
 
 using BC = LinkedCellsContainer::BoundaryCondition;
@@ -31,9 +30,8 @@ TEST(SimulationRunnerLinkedCells, ParticlesAttractEachother_LennardJones) {
     particles.push_back(p1);
     particles.push_back(p2);
 
-    SimulationParams params = TEST_DEFAULT_PARAMS_LENNARD_JONES;
-    params.end_time = 0.1;
-    params.delta_t = 0.01;
+    SimulationParams params("test_only.xml", "", 0.01, 0.1, 24, 30, SimulationParams::DirectSumType{}, std::nullopt, "none",
+                            {"LennardJones"}, false, true);
 
     params.container_type =
         SimulationParams::LinkedCellsType({10, 10, 10}, 10, {BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW, BC::OUTFLOW});

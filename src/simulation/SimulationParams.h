@@ -100,7 +100,7 @@ class SimulationParams {
     /**
      * @brief Forces to be applied to the particles
      */
-    std::vector<std::shared_ptr<ForceSource>> forces;
+    std::vector<std::unique_ptr<ForceSource>> forces;
 
     /**
      * @brief Whether to run the simulation in performance test mode
@@ -135,31 +135,6 @@ class SimulationParams {
      * @param container_type Type of the particle container
      * @param thermostat Thermostat used in the simulation
      * @param output_format Output file format of the simulation
-     * @param force_strings Strings describing the forces to be applied to the particles
-     * @param performance_test Whether to run the simulation in performance test mode
-     * @param fresh Flag to indicate whether the simulation should be run from scratch, or whether cached data should be used
-     * @param base_path Base path to the output directory. This is used to construct the output directory path if none is given
-     * explicitly. Defaults to "./output/"
-     */
-    SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
-                     int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
-                     const std::optional<Thermostat>& thermostat, const std::string& output_format,
-                     const std::vector<std::string>& force_strings, bool performance_test, bool fresh = false,
-                     const std::string& base_path = "./output");
-
-    /**
-     * @brief Construct a new SimulationParams object
-     *
-     * @param input_file_path Path to the input file of the simulation
-     * @param output_dir_path Path to the directory in which to save the simulation output
-     * @param delta_t Time step of a single simulation iteration
-     * @param end_time End time of the simulation
-     * @param fps Frames per second at which to save the simulation. This is used to calculate how often to save the simulation data
-     * @param video_length Expected length of the simulation video in seconds. This is used to calculate how often to save the
-     * simulation data
-     * @param container_type Type of the particle container
-     * @param thermostat Thermostat used in the simulation
-     * @param output_format Output file format of the simulation
      * @param forces Forces to be applied to the particles
      * @param performance_test Whether to run the simulation in performance test mode
      * @param fresh Flag to indicate whether the simulation should be run from scratch, or whether cached data should be used
@@ -169,8 +144,19 @@ class SimulationParams {
     SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
                      int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
                      const std::optional<Thermostat>& thermostat, const std::string& output_format,
-                     const std::vector<std::shared_ptr<ForceSource>>& forces, bool performance_test, bool fresh = false,
-                     const std::string& base_path = "./output");
+                     std::vector<std::unique_ptr<ForceSource>>&& forces, bool performance_test, bool fresh,
+                     const std::string& base_path = "./output/");
+
+    SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
+                     int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
+                     const std::optional<Thermostat>& thermostat, const std::string& output_format, std::vector<std::string>& force_strings,
+                     bool performance_test, bool fresh, const std::string& base_path = "./output/");
+
+    SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
+                     int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
+                     const std::optional<Thermostat>& thermostat, const std::string& output_format,
+                     std::vector<std::string>&& force_strings, bool performance_test, bool fresh,
+                     const std::string& base_path = "./output/");
 
     /**
      * @brief Prints a summary of the simulation parameters to the console

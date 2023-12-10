@@ -26,4 +26,4 @@ SimulationParams parse_arguments(int argc, char* argsv[]);
  *
  * Merges the command line arguments with the parameters retrieved from the file. Command line arguments have priority.
  */
-SimulationParams merge_parameters(const SimulationParams& params_cli, const std::optional<SimulationParams>& file_params);
+SimulationParams merge_parameters(SimulationParams&& params_cli, std::optional<SimulationParams>&& file_params);

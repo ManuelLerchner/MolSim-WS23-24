@@ -146,7 +146,7 @@ void LinkedCellsContainer::addParticle(Particle&& p) {
     }
 }
 
-void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr<ForceSource>>& force_sources) {
+void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::unique_ptr<ForceSource>>& force_sources) {
     // remove all particles in the halo cells from the particles vector
     deleteHaloParticles();
 

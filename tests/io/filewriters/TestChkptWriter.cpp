@@ -19,8 +19,9 @@ TEST(CHKPTWriter, CorrectWritingAndReadingOfParticles) {
 
     auto output_folder = FileLoader::get_output_file_path("CHKPTWriterTest");
 
-    auto params = SimulationParams("", output_folder, 0, 0, 0, 0, SimulationParams::DirectSumType{}, Thermostat{0, 0, 100000}, "chkpt",
-                                   {"LennardJones"}, false);
+    std::vector<std::string> forces = {"LennardJones"};
+    auto params =
+        SimulationParams("", output_folder, 0, 0, 0, 0, SimulationParams::DirectSumType{}, std::nullopt, "chkpt", forces, false, false);
 
     FileOutputHandler file_output_handler{params};
 
