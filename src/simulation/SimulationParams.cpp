@@ -3,18 +3,23 @@
 #include <filesystem>
 #include <fstream>
 #include <numeric>
-#include <ranges>
-#include <string_view>
 
 #include "io/logger/Logger.h"
 #include "io/output/OutputFormats.h"
 #include "physics/forces/ForcePicker.h"
 #include "physics/forces/GlobalDownwardsGravity.h"
 
-auto splitString(std::string_view sv, std::string_view sep) {
-    auto parts = std::views::split(sv, sep);
-    auto vec = std::views::transform(parts, [](auto&& part) { return std::string(part.begin(), part.end()); });
-    return std::vector(vec.begin(), vec.end());
+auto splitString(const std::string& sv, const std::string& sep) {
+    std::vector<std::string> parts;
+    std::size_t start = 0;
+    std::size_t end = sv.find(sep);
+    while (end != std::string::npos) {
+        parts.push_back(sv.substr(start, end - start));
+        start = end + sep.length();
+        end = sv.find(sep, start);
+    }
+    parts.push_back(sv.substr(start, end - start));
+    return parts;
 }
 
 std::string construct_output_path(const std::string& base_path, const std::string& input_file_path) {
