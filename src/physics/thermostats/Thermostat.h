@@ -63,7 +63,7 @@ class Thermostat {
      *
      * @param particle_container The particle container to scale the temperature of.
      */
-    void scaleTemperature(std::unique_ptr<ParticleContainer>& particle_container);
+    void scaleTemperature(std::unique_ptr<ParticleContainer>& particle_container) const;
 
     /**
      * @brief Set the initial temperature of a particle container. This function sets the velocity of all particles in the container to a

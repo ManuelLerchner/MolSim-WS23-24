@@ -149,9 +149,12 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
 
     auto container_type = XSDToInternalTypeAdapter::convertToParticleContainer(settings.particle_container());
 
-    auto thermostat = XSDToInternalTypeAdapter::convertToThermostat(settings.thermostat(), settings.third_dimension());
+    auto xsd_thermostat = settings.thermostat();
+    auto thermostat = (xsd_thermostat)
+                          ? std::make_optional(XSDToInternalTypeAdapter::convertToThermostat(*xsd_thermostat, settings.third_dimension()))
+                          : std::nullopt;
 
-    auto forces = XSDToInternalTypeAdapter::convertToForces(settings.force());
+    auto forces = XSDToInternalTypeAdapter::convertToForces(settings.forces());
 
     auto params = SimulationParams{curr_file_path,
                                    "",
@@ -162,7 +165,7 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
                                    container_type,
                                    thermostat,
                                    "vtu",
-                                   forces,
+                                   std::move(forces),
                                    false,
                                    fresh,
                                    output_base_path};
@@ -261,7 +264,7 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
             checkpoint_path = file_output_handler.writeFile(result.total_iterations, result.resulting_particles);
 
             Logger::logger->info("Wrote {} particles to checkpoint file in: {}", result.resulting_particles.size(),
-                                 result.simulation_params.output_dir_path);
+                                 result.params.output_dir_path);
         }
 
         // Load the checkpoint file

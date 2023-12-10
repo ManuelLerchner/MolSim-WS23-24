@@ -11,18 +11,18 @@ int main(int argc, char* argsv[]) {
     auto [initial_particles, simulation_arguments] = FileInputHandler::readFile(params_cli.input_file_path, params_cli.fresh);
 
     // Combine parameters from CLI and input file
-    SimulationParams simulation_params = merge_parameters(params_cli, simulation_arguments);
-    simulation_params.num_particles = initial_particles.size();
+    SimulationParams params = merge_parameters(params_cli, simulation_arguments);
+    params.num_particles = initial_particles.size();
 
     // Initialize simulation
-    Simulation simulation{initial_particles, simulation_params};
+    Simulation simulation{initial_particles, params};
 
     // Print simulation info
-    simulation_params.logSummary();
+    params.logSummary();
 
     // Run simulation
-    auto overview = [simulation_params](Simulation& simulation) {
-        if (simulation_params.performance_test) {
+    auto overview = [params](Simulation& simulation) {
+        if (params.performance_test) {
             return simulation.runSimulationPerfTest();
         } else {
             return simulation.runSimulation();

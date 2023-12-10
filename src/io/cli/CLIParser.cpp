@@ -19,7 +19,7 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
     int fps = 0;
     int video_length = 0;
 
-    std::vector<std::string> forces;
+    std::vector<std::string> force_strings;
 
     bool performance_test = false;
     bool fresh = false;
@@ -41,7 +41,7 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
                                "The number of frames per second at which the simulation will be saved");
     options_desc.add_options()("video_length", boost::program_options::value<int>(&video_length),
                                "The total length of the simulation video in seconds");
-    options_desc.add_options()("force", boost::program_options::value<std::vector<std::string>>(&forces)->multitoken(),
+    options_desc.add_options()("force", boost::program_options::value<std::vector<std::string>>(&force_strings)->multitoken(),
                                "The forces to be applied to the particles. Possible values: gravity, electrostatic, none");
     options_desc.add_options()("log_level,l", boost::program_options::value<std::string>(&log_level)->default_value("info"),
                                "The log level. Possible values: trace, debug, info, warning, error, critical, off");
@@ -119,7 +119,7 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
                             SimulationParams::DirectSumType{},
                             Thermostat{1, 1, std::numeric_limits<size_t>::max()},
                             output_format,
-                            forces,
+                            force_strings,
                             performance_test,
                             fresh};
 }

@@ -1,6 +1,9 @@
 #include "XSDToInternalTypeAdapter.h"
 
 #include "io/logger/Logger.h"
+#include "physics/forces/GlobalDownwardsGravity.h"
+#include "physics/forces/GravitationalForce.h"
+#include "physics/forces/LennardJonesForce.h"
 
 CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawnerType& cuboid, bool third_dimension) {
     auto lower_left_front_corner = convertToVector(cuboid.lower_left_front_corner());
@@ -172,13 +175,21 @@ Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particl
     return Particle{position, velocity, force, old_force, mass, static_cast<int>(type)};
 }
 
-std::vector<std::string> XSDToInternalTypeAdapter::convertToForces(const SettingsType::force_sequence& forces) {
-    std::vector<std::string> force_sources;
+std::vector<std::shared_ptr<ForceSource>> XSDToInternalTypeAdapter::convertToForces(const SettingsType::forces_sequence& forces) {
+    std::vector<std::shared_ptr<ForceSource>> force_sources;
 
-    for (ForcesType force : forces) {
-        std::string force_name = ForcesType::_xsd_ForcesType_literals_[force];
-
-        force_sources.push_back(force_name);
+    for (auto xsd_force : forces) {
+        if (xsd_force.LennardJones()) {
+            force_sources.push_back(std::make_shared<LennardJonesForce>());
+        } else if (xsd_force.Gravitational()) {
+            force_sources.push_back(std::make_shared<GravitationalForce>());
+        } else if (xsd_force.GlobalDownwardsGravity()) {
+            auto g = (*xsd_force.GlobalDownwardsGravity()).g();
+            force_sources.push_back(std::make_shared<GlobalDownwardsGravity>(g));
+        } else {
+            Logger::logger->error("Force type not implemented");
+            exit(-1);
+        }
     }
 
     return force_sources;

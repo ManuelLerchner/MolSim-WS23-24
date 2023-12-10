@@ -11,12 +11,9 @@
         <particle_container>
             <directsum_container />
         </particle_container>
-        <force>LennardJones</force>
-        <thermostat>
-            <target_temperature>1</target_temperature>
-            <max_temperature_change>1</max_temperature_change>
-            <application_interval>10000</application_interval>
-        </thermostat>
+        <forces>
+            <LennardJones />
+        </forces>
     </settings>
 
     <particle_source>
@@ -32,7 +29,9 @@
                     <particle_container>
                         <directsum_container />
                     </particle_container>
-                    <force>LennardJones</force>
+                    <forces>
+                        <LennardJones />
+                    </forces>
                     <thermostat>
                         <target_temperature>1</target_temperature>
                         <max_temperature_change>1</max_temperature_change>

@@ -3,10 +3,19 @@
 #include <filesystem>
 #include <fstream>
 #include <numeric>
+#include <ranges>
+#include <string_view>
 
 #include "io/logger/Logger.h"
 #include "io/output/OutputFormats.h"
 #include "physics/forces/ForcePicker.h"
+#include "physics/forces/GlobalDownwardsGravity.h"
+
+auto splitString(std::string_view sv, std::string_view sep) {
+    auto parts = std::views::split(sv, sep);
+    auto vec = std::views::transform(parts, [](auto&& part) { return std::string(part.begin(), part.end()); });
+    return std::vector(vec.begin(), vec.end());
+}
 
 std::string construct_output_path(const std::string& base_path, const std::string& input_file_path) {
     auto base = base_path;
@@ -17,25 +26,6 @@ std::string construct_output_path(const std::string& base_path, const std::strin
 
     std::filesystem::path input_path{input_file_path};
     return base + "/" + input_path.stem().string();
-}
-
-auto convertToForces(const std::vector<std::string>& force_strings) {
-    auto supported = ForcePicker::get_supported_forces();
-
-    std::vector<std::shared_ptr<ForceSource>> forces;
-    for (auto& force_s : force_strings) {
-        if (!supported.contains(force_s)) {
-            auto supported_forces = std::string();
-            for (auto& [name, force] : supported) {
-                supported_forces += name + ", ";
-            }
-
-            Logger::logger->error("Invalid force given: {}. Supported forces are: {}", force_s, supported_forces);
-            exit(-1);
-        }
-        forces.push_back(supported[force_s]);
-    }
-    return forces;
 }
 
 auto convertToOutputFormat(const std::string& output_format) {
@@ -54,10 +44,43 @@ auto convertToOutputFormat(const std::string& output_format) {
     return supported[output_format];
 }
 
+auto convertToForces(const std::vector<std::string>& force_strings) {
+    auto supported = ForcePicker::get_supported_forces();
+
+    std::vector<std::shared_ptr<ForceSource>> forces;
+    for (auto& force_s : force_strings) {
+        // split on spaces
+        auto parts = splitString(force_s, " ");
+
+        if (!supported.contains(parts[0])) {
+            auto supported_forces = std::string();
+            for (auto& [name, force] : supported) {
+                supported_forces += name + ", ";
+            }
+
+            Logger::logger->error("Invalid force given: {}. Supported forces are: {}", force_s, supported_forces);
+            exit(-1);
+        }
+
+        auto force = supported[parts[0]];
+        if (typeid(*force) == typeid(GlobalDownwardsGravity)) {
+            if (parts.size() != 2) {
+                Logger::logger->error("Invalid force given: {}. GlobalDownwardsGravity needs one parameter: g", force_s);
+                exit(-1);
+            }
+            auto g = std::stod(parts[1]);
+            dynamic_cast<GlobalDownwardsGravity&>(*force).setGravitationalAcceleration(g);
+        }
+
+        forces.push_back(supported[force_s]);
+    }
+    return forces;
+}
+
 SimulationParams::SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time,
                                    int fps, int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
-                                   const Thermostat& thermostat, const std::string& output_format,
-                                   const std::vector<std::string>& force_strings, bool performance_test, bool fresh,
+                                   const std::optional<Thermostat>& thermostat, const std::string& output_format,
+                                   const std::vector<std::shared_ptr<ForceSource>>& forces, bool performance_test, bool fresh,
                                    const std::string& base_path)
     : input_file_path(input_file_path),
       delta_t(delta_t),
@@ -66,7 +89,7 @@ SimulationParams::SimulationParams(const std::string& input_file_path, const std
       video_length(video_length),
       container_type(container_type),
       thermostat(thermostat),
-      forces(convertToForces(force_strings)),
+      forces(forces),
       performance_test(performance_test),
       fresh(fresh) {
     if (fps < 0) {
@@ -116,6 +139,14 @@ SimulationParams::SimulationParams(const std::string& input_file_path, const std
 
     this->num_particles = 0;
 }
+
+SimulationParams::SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time,
+                                   int fps, int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
+                                   const std::optional<Thermostat>& thermostat, const std::string& output_format,
+                                   const std::vector<std::string>& force_strings, bool performance_test, bool fresh,
+                                   const std::string& base_path)
+    : SimulationParams(input_file_path, output_dir_path, delta_t, end_time, fps, video_length, container_type, thermostat, output_format,
+                       convertToForces(force_strings), performance_test, fresh, base_path) {}
 
 void SimulationParams::logSummary(int depth) const {
     std::string indent = std::string(depth * 2, ' ');

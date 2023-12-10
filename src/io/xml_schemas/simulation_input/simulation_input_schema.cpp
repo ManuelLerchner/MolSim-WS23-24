@@ -489,37 +489,70 @@ void SettingsType::particle_container(const particle_container_type& x) { this->
 
 void SettingsType::particle_container(::std::unique_ptr<particle_container_type> x) { this->particle_container_.set(std::move(x)); }
 
-const SettingsType::thermostat_type& SettingsType::thermostat() const { return this->thermostat_.get(); }
+const SettingsType::forces_sequence& SettingsType::forces() const { return this->forces_; }
 
-SettingsType::thermostat_type& SettingsType::thermostat() { return this->thermostat_.get(); }
+SettingsType::forces_sequence& SettingsType::forces() { return this->forces_; }
+
+void SettingsType::forces(const forces_sequence& s) { this->forces_ = s; }
+
+const SettingsType::thermostat_optional& SettingsType::thermostat() const { return this->thermostat_; }
+
+SettingsType::thermostat_optional& SettingsType::thermostat() { return this->thermostat_; }
 
 void SettingsType::thermostat(const thermostat_type& x) { this->thermostat_.set(x); }
 
+void SettingsType::thermostat(const thermostat_optional& x) { this->thermostat_ = x; }
+
 void SettingsType::thermostat(::std::unique_ptr<thermostat_type> x) { this->thermostat_.set(std::move(x)); }
 
-const SettingsType::force_sequence& SettingsType::force() const { return this->force_; }
+// LennardJonesType
+//
 
-SettingsType::force_sequence& SettingsType::force() { return this->force_; }
+// GravitationalType
+//
 
-void SettingsType::force(const force_sequence& s) { this->force_ = s; }
+// GlobalGravityType
+//
+
+const GlobalGravityType::g_type& GlobalGravityType::g() const { return this->g_.get(); }
+
+GlobalGravityType::g_type& GlobalGravityType::g() { return this->g_.get(); }
+
+void GlobalGravityType::g(const g_type& x) { this->g_.set(x); }
 
 // ForcesType
 //
 
-ForcesType::ForcesType(value v) : ::xml_schema::string(_xsd_ForcesType_literals_[v]) {}
+const ForcesType::LennardJones_optional& ForcesType::LennardJones() const { return this->LennardJones_; }
 
-ForcesType::ForcesType(const char* v) : ::xml_schema::string(v) {}
+ForcesType::LennardJones_optional& ForcesType::LennardJones() { return this->LennardJones_; }
 
-ForcesType::ForcesType(const ::std::string& v) : ::xml_schema::string(v) {}
+void ForcesType::LennardJones(const LennardJones_type& x) { this->LennardJones_.set(x); }
 
-ForcesType::ForcesType(const ::xml_schema::string& v) : ::xml_schema::string(v) {}
+void ForcesType::LennardJones(const LennardJones_optional& x) { this->LennardJones_ = x; }
 
-ForcesType::ForcesType(const ForcesType& v, ::xml_schema::flags f, ::xml_schema::container* c) : ::xml_schema::string(v, f, c) {}
+void ForcesType::LennardJones(::std::unique_ptr<LennardJones_type> x) { this->LennardJones_.set(std::move(x)); }
 
-ForcesType& ForcesType::operator=(value v) {
-    static_cast< ::xml_schema::string&>(*this) = ::xml_schema::string(_xsd_ForcesType_literals_[v]);
+const ForcesType::Gravitational_optional& ForcesType::Gravitational() const { return this->Gravitational_; }
 
-    return *this;
+ForcesType::Gravitational_optional& ForcesType::Gravitational() { return this->Gravitational_; }
+
+void ForcesType::Gravitational(const Gravitational_type& x) { this->Gravitational_.set(x); }
+
+void ForcesType::Gravitational(const Gravitational_optional& x) { this->Gravitational_ = x; }
+
+void ForcesType::Gravitational(::std::unique_ptr<Gravitational_type> x) { this->Gravitational_.set(std::move(x)); }
+
+const ForcesType::GlobalDownwardsGravity_optional& ForcesType::GlobalDownwardsGravity() const { return this->GlobalDownwardsGravity_; }
+
+ForcesType::GlobalDownwardsGravity_optional& ForcesType::GlobalDownwardsGravity() { return this->GlobalDownwardsGravity_; }
+
+void ForcesType::GlobalDownwardsGravity(const GlobalDownwardsGravity_type& x) { this->GlobalDownwardsGravity_.set(x); }
+
+void ForcesType::GlobalDownwardsGravity(const GlobalDownwardsGravity_optional& x) { this->GlobalDownwardsGravity_ = x; }
+
+void ForcesType::GlobalDownwardsGravity(::std::unique_ptr<GlobalDownwardsGravity_type> x) {
+    this->GlobalDownwardsGravity_.set(std::move(x));
 }
 
 // particle_source
@@ -1902,7 +1935,7 @@ SubSimulationType::~SubSimulationType() {}
 
 SettingsType::SettingsType(const fps_type& fps, const video_length_type& video_length, const delta_t_type& delta_t,
                            const end_time_type& end_time, const third_dimension_type& third_dimension,
-                           const particle_container_type& particle_container, const thermostat_type& thermostat)
+                           const particle_container_type& particle_container)
     : ::xml_schema::type(),
       fps_(fps, this),
       video_length_(video_length, this),
@@ -1910,12 +1943,12 @@ SettingsType::SettingsType(const fps_type& fps, const video_length_type& video_l
       end_time_(end_time, this),
       third_dimension_(third_dimension, this),
       particle_container_(particle_container, this),
-      thermostat_(thermostat, this),
-      force_(this) {}
+      forces_(this),
+      thermostat_(this) {}
 
 SettingsType::SettingsType(const fps_type& fps, const video_length_type& video_length, const delta_t_type& delta_t,
                            const end_time_type& end_time, const third_dimension_type& third_dimension,
-                           ::std::unique_ptr<particle_container_type> particle_container, ::std::unique_ptr<thermostat_type> thermostat)
+                           ::std::unique_ptr<particle_container_type> particle_container)
     : ::xml_schema::type(),
       fps_(fps, this),
       video_length_(video_length, this),
@@ -1923,8 +1956,8 @@ SettingsType::SettingsType(const fps_type& fps, const video_length_type& video_l
       end_time_(end_time, this),
       third_dimension_(third_dimension, this),
       particle_container_(std::move(particle_container), this),
-      thermostat_(std::move(thermostat), this),
-      force_(this) {}
+      forces_(this),
+      thermostat_(this) {}
 
 SettingsType::SettingsType(const SettingsType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
@@ -1934,8 +1967,8 @@ SettingsType::SettingsType(const SettingsType& x, ::xml_schema::flags f, ::xml_s
       end_time_(x.end_time_, f, this),
       third_dimension_(x.third_dimension_, f, this),
       particle_container_(x.particle_container_, f, this),
-      thermostat_(x.thermostat_, f, this),
-      force_(x.force_, f, this) {}
+      forces_(x.forces_, f, this),
+      thermostat_(x.thermostat_, f, this) {}
 
 SettingsType::SettingsType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
@@ -1945,8 +1978,8 @@ SettingsType::SettingsType(const ::xercesc::DOMElement& e, ::xml_schema::flags f
       end_time_(this),
       third_dimension_(this),
       particle_container_(this),
-      thermostat_(this),
-      force_(this) {
+      forces_(this),
+      thermostat_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
         this->parse(p, f);
@@ -2014,24 +2047,24 @@ void SettingsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::fl
             }
         }
 
+        // forces
+        //
+        if (n.name() == "forces" && n.namespace_().empty()) {
+            ::std::unique_ptr<forces_type> r(forces_traits::create(i, f, this));
+
+            this->forces_.push_back(::std::move(r));
+            continue;
+        }
+
         // thermostat
         //
         if (n.name() == "thermostat" && n.namespace_().empty()) {
             ::std::unique_ptr<thermostat_type> r(thermostat_traits::create(i, f, this));
 
-            if (!thermostat_.present()) {
+            if (!this->thermostat_) {
                 this->thermostat_.set(::std::move(r));
                 continue;
             }
-        }
-
-        // force
-        //
-        if (n.name() == "force" && n.namespace_().empty()) {
-            ::std::unique_ptr<force_type> r(force_traits::create(i, f, this));
-
-            this->force_.push_back(::std::move(r));
-            continue;
         }
 
         break;
@@ -2060,10 +2093,6 @@ void SettingsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::fl
     if (!particle_container_.present()) {
         throw ::xsd::cxx::tree::expected_element<char>("particle_container", "");
     }
-
-    if (!thermostat_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("thermostat", "");
-    }
 }
 
 SettingsType* SettingsType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const { return new class SettingsType(*this, f, c); }
@@ -2077,8 +2106,8 @@ SettingsType& SettingsType::operator=(const SettingsType& x) {
         this->end_time_ = x.end_time_;
         this->third_dimension_ = x.third_dimension_;
         this->particle_container_ = x.particle_container_;
+        this->forces_ = x.forces_;
         this->thermostat_ = x.thermostat_;
-        this->force_ = x.force_;
     }
 
     return *this;
@@ -2086,38 +2115,176 @@ SettingsType& SettingsType::operator=(const SettingsType& x) {
 
 SettingsType::~SettingsType() {}
 
+// LennardJonesType
+//
+
+LennardJonesType::LennardJonesType() : ::xml_schema::type() {}
+
+LennardJonesType::LennardJonesType(const LennardJonesType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c) {}
+
+LennardJonesType::LennardJonesType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f, c) {}
+
+LennardJonesType::LennardJonesType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(a, f, c) {}
+
+LennardJonesType::LennardJonesType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f,
+                                   ::xml_schema::container* c)
+    : ::xml_schema::type(s, e, f, c) {}
+
+LennardJonesType* LennardJonesType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class LennardJonesType(*this, f, c);
+}
+
+LennardJonesType::~LennardJonesType() {}
+
+// GravitationalType
+//
+
+GravitationalType::GravitationalType() : ::xml_schema::type() {}
+
+GravitationalType::GravitationalType(const GravitationalType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c) {}
+
+GravitationalType::GravitationalType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f, c) {}
+
+GravitationalType::GravitationalType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(a, f, c) {}
+
+GravitationalType::GravitationalType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f,
+                                     ::xml_schema::container* c)
+    : ::xml_schema::type(s, e, f, c) {}
+
+GravitationalType* GravitationalType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class GravitationalType(*this, f, c);
+}
+
+GravitationalType::~GravitationalType() {}
+
+// GlobalGravityType
+//
+
+GlobalGravityType::GlobalGravityType(const g_type& g) : ::xml_schema::type(), g_(g, this) {}
+
+GlobalGravityType::GlobalGravityType(const GlobalGravityType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c), g_(x.g_, f, this) {}
+
+GlobalGravityType::GlobalGravityType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), g_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
+        this->parse(p, f);
+    }
+}
+
+void GlobalGravityType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        if (n.name() == "g" && n.namespace_().empty()) {
+            this->g_.set(g_traits::create(i, f, this));
+            continue;
+        }
+    }
+
+    if (!g_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("g", "");
+    }
+}
+
+GlobalGravityType* GlobalGravityType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class GlobalGravityType(*this, f, c);
+}
+
+GlobalGravityType& GlobalGravityType::operator=(const GlobalGravityType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->g_ = x.g_;
+    }
+
+    return *this;
+}
+
+GlobalGravityType::~GlobalGravityType() {}
+
 // ForcesType
 //
 
-ForcesType::ForcesType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c) : ::xml_schema::string(e, f, c) {
-    _xsd_ForcesType_convert();
+ForcesType::ForcesType() : ::xml_schema::type(), LennardJones_(this), Gravitational_(this), GlobalDownwardsGravity_(this) {}
+
+ForcesType::ForcesType(const ForcesType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c),
+      LennardJones_(x.LennardJones_, f, this),
+      Gravitational_(x.Gravitational_, f, this),
+      GlobalDownwardsGravity_(x.GlobalDownwardsGravity_, f, this) {}
+
+ForcesType::ForcesType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), LennardJones_(this), Gravitational_(this), GlobalDownwardsGravity_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
+        this->parse(p, f);
+    }
 }
 
-ForcesType::ForcesType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c) : ::xml_schema::string(a, f, c) {
-    _xsd_ForcesType_convert();
-}
+void ForcesType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    for (; p.more_content(); p.next_content(false)) {
+        const ::xercesc::DOMElement& i(p.cur_element());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
 
-ForcesType::ForcesType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(s, e, f, c) {
-    _xsd_ForcesType_convert();
+        // LennardJones
+        //
+        if (n.name() == "LennardJones" && n.namespace_().empty()) {
+            ::std::unique_ptr<LennardJones_type> r(LennardJones_traits::create(i, f, this));
+
+            if (!this->LennardJones_) {
+                this->LennardJones_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // Gravitational
+        //
+        if (n.name() == "Gravitational" && n.namespace_().empty()) {
+            ::std::unique_ptr<Gravitational_type> r(Gravitational_traits::create(i, f, this));
+
+            if (!this->Gravitational_) {
+                this->Gravitational_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // GlobalDownwardsGravity
+        //
+        if (n.name() == "GlobalDownwardsGravity" && n.namespace_().empty()) {
+            ::std::unique_ptr<GlobalDownwardsGravity_type> r(GlobalDownwardsGravity_traits::create(i, f, this));
+
+            if (!this->GlobalDownwardsGravity_) {
+                this->GlobalDownwardsGravity_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        break;
+    }
 }
 
 ForcesType* ForcesType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const { return new class ForcesType(*this, f, c); }
 
-ForcesType::value ForcesType::_xsd_ForcesType_convert() const {
-    ::xsd::cxx::tree::enum_comparator<char> c(_xsd_ForcesType_literals_);
-    const value* i(::std::lower_bound(_xsd_ForcesType_indexes_, _xsd_ForcesType_indexes_ + 2, *this, c));
-
-    if (i == _xsd_ForcesType_indexes_ + 2 || _xsd_ForcesType_literals_[*i] != *this) {
-        throw ::xsd::cxx::tree::unexpected_enumerator<char>(*this);
+ForcesType& ForcesType::operator=(const ForcesType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->LennardJones_ = x.LennardJones_;
+        this->Gravitational_ = x.Gravitational_;
+        this->GlobalDownwardsGravity_ = x.GlobalDownwardsGravity_;
     }
 
-    return *i;
+    return *this;
 }
 
-const char* const ForcesType::_xsd_ForcesType_literals_[2] = {"LennardJones", "ParticleGravity"};
-
-const ForcesType::value ForcesType::_xsd_ForcesType_indexes_[2] = {::ForcesType::LennardJones, ::ForcesType::ParticleGravity};
+ForcesType::~ForcesType() {}
 
 // particle_source
 //
@@ -2926,30 +3093,76 @@ void operator<<(::xercesc::DOMElement& e, const SettingsType& i) {
         s << i.particle_container();
     }
 
-    // thermostat
+    // forces
     //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("thermostat", e));
+    for (SettingsType::forces_const_iterator b(i.forces().begin()), n(i.forces().end()); b != n; ++b) {
+        const SettingsType::forces_type& x(*b);
 
-        s << i.thermostat();
-    }
-
-    // force
-    //
-    for (SettingsType::force_const_iterator b(i.force().begin()), n(i.force().end()); b != n; ++b) {
-        const SettingsType::force_type& x(*b);
-
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("force", e));
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("forces", e));
 
         s << x;
     }
+
+    // thermostat
+    //
+    if (i.thermostat()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("thermostat", e));
+
+        s << *i.thermostat();
+    }
 }
 
-void operator<<(::xercesc::DOMElement& e, const ForcesType& i) { e << static_cast<const ::xml_schema::string&>(i); }
+void operator<<(::xercesc::DOMElement& e, const LennardJonesType& i) { e << static_cast<const ::xml_schema::type&>(i); }
 
-void operator<<(::xercesc::DOMAttr& a, const ForcesType& i) { a << static_cast<const ::xml_schema::string&>(i); }
+void operator<<(::xercesc::DOMAttr&, const LennardJonesType&) {}
 
-void operator<<(::xml_schema::list_stream& l, const ForcesType& i) { l << static_cast<const ::xml_schema::string&>(i); }
+void operator<<(::xml_schema::list_stream&, const LennardJonesType&) {}
+
+void operator<<(::xercesc::DOMElement& e, const GravitationalType& i) { e << static_cast<const ::xml_schema::type&>(i); }
+
+void operator<<(::xercesc::DOMAttr&, const GravitationalType&) {}
+
+void operator<<(::xml_schema::list_stream&, const GravitationalType&) {}
+
+void operator<<(::xercesc::DOMElement& e, const GlobalGravityType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // g
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("g", e));
+
+        a << ::xml_schema::as_double(i.g());
+    }
+}
+
+void operator<<(::xercesc::DOMElement& e, const ForcesType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // LennardJones
+    //
+    if (i.LennardJones()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("LennardJones", e));
+
+        s << *i.LennardJones();
+    }
+
+    // Gravitational
+    //
+    if (i.Gravitational()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("Gravitational", e));
+
+        s << *i.Gravitational();
+    }
+
+    // GlobalDownwardsGravity
+    //
+    if (i.GlobalDownwardsGravity()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("GlobalDownwardsGravity", e));
+
+        s << *i.GlobalDownwardsGravity();
+    }
+}
 
 void operator<<(::xercesc::DOMElement& e, const particle_source& i) {
     e << static_cast<const ::xml_schema::type&>(i);
