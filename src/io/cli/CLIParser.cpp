@@ -1,9 +1,9 @@
 #include "CLIParser.h"
 
 #include <boost/program_options.hpp>
+#include <limits>
 
 #include "io/logger/Logger.h"
-#include "io/output/FileOutputHandler.h"
 #include "spdlog/sinks/rotating_file_sink.h"
 
 SimulationParams parse_arguments(int argc, char* argsv[]) {
@@ -19,7 +19,10 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
     int fps = 0;
     int video_length = 0;
 
+    std::vector<std::string> forces;
+
     bool performance_test = false;
+    bool fresh = false;
 
     // choosing 0 as one of the parameters (end_time, delta_t, fps, video_length) is equivalent to choosing the default value
     boost::program_options::options_description options_desc("Allowed options");
@@ -38,14 +41,19 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
                                "The number of frames per second at which the simulation will be saved");
     options_desc.add_options()("video_length", boost::program_options::value<int>(&video_length),
                                "The total length of the simulation video in seconds");
+    options_desc.add_options()("force", boost::program_options::value<std::vector<std::string>>(&forces)->multitoken(),
+                               "The forces to be applied to the particles. Possible values: gravity, electrostatic, none");
     options_desc.add_options()("log_level,l", boost::program_options::value<std::string>(&log_level)->default_value("info"),
                                "The log level. Possible values: trace, debug, info, warning, error, critical, off");
-    options_desc.add_options()("output_format", boost::program_options::value<std::string>(&output_format)->default_value("vtk"),
-                               "The output format. Possible values: vtk, xyz, none");
+    options_desc.add_options()("output_format", boost::program_options::value<std::string>(&output_format)->default_value("vtu"),
+                               "The output format. Possible values: vtu, xyz, none");
     options_desc.add_options()("performance_test,p", "Run the simulation in performance test mode");
     options_desc.add_options()(
         "log_output", boost::program_options::value<std::string>(&log_output)->default_value("std"),
         "You can only choose between the output options std(only cl output) and file (only file output). Default: no file output");
+    options_desc.add_options()(
+        "fresh", boost::program_options::bool_switch(&fresh)->default_value(false),
+        "Rerun the simulation from scratch without using any cached data. This will delete the whole output directory.");
 
     boost::program_options::positional_options_description positional_options_desc;
     positional_options_desc.add("input_file_path", -1);
@@ -109,13 +117,19 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
                             fps,
                             video_length,
                             SimulationParams::DirectSumType{},
-                            Thermostat{1, 1, 10000000},
+                            Thermostat{1, 1, std::numeric_limits<size_t>::max()},
                             output_format,
-                            performance_test};
+                            forces,
+                            performance_test,
+                            fresh};
 }
 
-SimulationParams merge_parameters(const SimulationParams& params_cli, const SimulationParams& params_xml) {
-    SimulationParams params = params_xml;
+SimulationParams merge_parameters(const SimulationParams& params_cli, const std::optional<SimulationParams>& file_params) {
+    if (!file_params) {
+        return params_cli;
+    }
+
+    SimulationParams params = *file_params;
 
     // Overwrite parameters from XML file with parameters from CLI
     if (params_cli.delta_t != 0) {
@@ -130,9 +144,14 @@ SimulationParams merge_parameters(const SimulationParams& params_cli, const Simu
     if (params_cli.video_length != 0) {
         params.video_length = params_cli.video_length;
     }
+    if (!params_cli.forces.empty()) {
+        params.forces = params_cli.forces;
+    }
 
     // Always takes value from CLI
     params.output_dir_path = params_cli.output_dir_path;
+
+    params.fresh = params_cli.fresh;
 
     // Must be given in the CLI
     params.output_format = params_cli.output_format;

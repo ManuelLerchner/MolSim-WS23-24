@@ -5,7 +5,8 @@
 
 #include "io/logger/Logger.h"
 
-SimulationParams FileInputHandler::readFile(const std::string& input_file_path, std::unique_ptr<ParticleContainer>& particle_container) {
+std::tuple<std::vector<Particle>, std::optional<SimulationParams>> FileInputHandler::readFile(const std::string& input_file_path,
+                                                                                              bool fresh, bool allow_recursion) {
     if (!std::filesystem::exists(input_file_path)) {
         Logger::logger->error("Error: file '{}' does not exist.", input_file_path);
         exit(-1);
@@ -32,16 +33,21 @@ SimulationParams FileInputHandler::readFile(const std::string& input_file_path, 
     } else if (file_extension == ".cub") {
         file_reader = std::make_unique<CubFileReader>();
     } else if (file_extension == ".xml") {
-        file_reader = std::make_unique<XMLFileReader>();
+        file_reader = std::make_unique<XMLFileReader>(fresh, allow_recursion);
+    } else if (file_extension == ".chkpt") {
+        file_reader = std::make_unique<ChkptPointFileReader>();
+    } else {
+        Logger::logger->error("Error: file extension '{}' is not supported.", file_extension);
+        exit(-1);
     }
 
     try {
-        return file_reader->readFile(input_file_path, particle_container);
+        auto [particles, config] = file_reader->readFile(input_file_path);
+        Logger::logger->info("Loaded {} particles from file {}", particles.size(), input_file_path);
+        return std::make_tuple(particles, config);
     } catch (const FileReader::FileFormatException& e) {
         Logger::logger->error("Error: file '{}' is not a valid {} file.", input_file_path, file_extension);
         Logger::logger->error("FileFormatException:\n{}", std::string(e.what()));
         exit(-1);
     }
 }
-
-std::set<std::string> FileInputHandler::get_supported_input_file_extensions() { return {".ps", ".cub", ".xml"}; }

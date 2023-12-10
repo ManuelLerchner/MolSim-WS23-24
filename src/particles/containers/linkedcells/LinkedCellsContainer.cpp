@@ -94,6 +94,8 @@ LinkedCellsContainer::LinkedCellsContainer(const std::array<double, 3>& _domain_
     // reserve the memory for the particles to prevent reallocation during insertion
     particles.reserve(_n);
 
+    Logger::logger->info("Created LinkedCellsContainer with boundaries [{}, {}, {}] and cutoff radius {}", domain_size[0], domain_size[1],
+                         domain_size[2], cutoff_radius);
     Logger::logger->info("Created LinkedCellsContainer with {} domain cells (of which {} are at the boundary) and {} halo cells",
                          domain_cell_references.size(), boundary_cell_references.size(), halo_cell_references.size());
     Logger::logger->info("Cells per dimension: [{}, {}, {}]", domain_num_cells[0], domain_num_cells[1], domain_num_cells[2]);
@@ -104,12 +106,12 @@ void LinkedCellsContainer::addParticle(const Particle& p) {
     Cell* cell = particlePosToCell(p.getX());
 
     if (cell == nullptr) {
-        Logger::logger->error("Particle to insert is out of bounds");
-        return;
+        Logger::logger->error("Particle to insert is out of bounds, position: [{}, {}, {}]", p.getX()[0], p.getX()[1], p.getX()[2]);
+        throw std::runtime_error("Attempted to insert particle out of bounds");
     }
     if (cell->getCellType() == Cell::CellType::HALO) {
-        Logger::logger->warn("Particle to insert is in halo cell");
-        return;
+        Logger::logger->warn("Particle to insert is in halo cell. Position: [{}, {}, {}]", p.getX()[0], p.getX()[1], p.getX()[2]);
+        throw std::runtime_error("Attempted to insert particle into halo cell");
     }
 
     size_t old_capacity = particles.capacity();
@@ -126,12 +128,12 @@ void LinkedCellsContainer::addParticle(Particle&& p) {
     Cell* cell = particlePosToCell(p.getX());
 
     if (cell == nullptr) {
-        Logger::logger->warn("Particle to insert is out of bounds");
-        return;
+        Logger::logger->error("Particle to insert is outside of cells. Position: [{}, {}, {}]", p.getX()[0], p.getX()[1], p.getX()[2]);
+        throw std::runtime_error("Attempted to insert particle out of bounds");
     }
     if (cell->getCellType() == Cell::CellType::HALO) {
-        Logger::logger->warn("Particle to insert is in halo cell");
-        return;
+        Logger::logger->warn("Particle to insert is in halo cell. Position: [{}, {}, {}]", p.getX()[0], p.getX()[1], p.getX()[2]);
+        throw std::runtime_error("Attempted to insert particle into halo cell");
     }
 
     size_t old_capacity = particles.capacity();
@@ -144,7 +146,7 @@ void LinkedCellsContainer::addParticle(Particle&& p) {
     }
 }
 
-void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::unique_ptr<ForceSource>>& force_sources) {
+void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr<ForceSource>>& force_sources) {
     // remove all particles in the halo cells from the particles vector
     deleteHaloParticles();
 
@@ -186,7 +188,7 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::unique_ptr
                 for (Particle* neighbour_particle : neighbour->getParticleReferences()) {
                     if (ArrayUtils::L2Norm(p->getX() - neighbour_particle->getX()) > cutoff_radius) continue;
 
-                    for (const std::unique_ptr<ForceSource>& force_source : force_sources) {
+                    for (const auto& force_source : force_sources) {
                         std::array<double, 3> force = force_source->calculateForce(*p, *neighbour_particle);
                         p->setF(p->getF() + force);
                         neighbour_particle->setF(neighbour_particle->getF() - force);
@@ -222,6 +224,8 @@ std::vector<Particle>::const_iterator LinkedCellsContainer::begin() const { retu
 
 std::vector<Particle>::const_iterator LinkedCellsContainer::end() const { return particles.end(); }
 
+const std::vector<Particle>& LinkedCellsContainer::getParticles() const { return particles; }
+
 const std::array<double, 3>& LinkedCellsContainer::getDomainSize() const { return domain_size; }
 
 double LinkedCellsContainer::getCutoffRadius() const { return cutoff_radius; }
@@ -250,8 +254,8 @@ Cell* LinkedCellsContainer::particlePosToCell(double x, double y, double z) {
 
     int cell_index = cellCoordToCellIndex(cx, cy, cz);
     if (cell_index == -1) {
-        Logger::logger->error("Particle not in cells");
-        return nullptr;
+        Logger::logger->error("Particle is outside of cells. Position: [{}, {}, {}]", x, y, z);
+        throw std::runtime_error("A particle is outside of the cells");
     }
 
     return &cells[cell_index];
@@ -358,11 +362,6 @@ void LinkedCellsContainer::updateCellsParticleReferences() {
     // add the particle references to the cells
     for (Particle& p : particles) {
         Cell* cell = particlePosToCell(p.getX());
-
-        if (cell == nullptr) {
-            Logger::logger->error("Particle reference update: Particle is out of bounds");
-            continue;
-        }
 
         occupied_cells_references.insert(cell);
         cell->addParticleReference(&p);

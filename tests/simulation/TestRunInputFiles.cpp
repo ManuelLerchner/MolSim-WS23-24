@@ -15,16 +15,39 @@
 
 auto load_all_input_files() {
     std::vector<std::string> input_files;
-    for (const auto& entry : std::filesystem::directory_iterator(FileLoader::get_test_data_dir() + "/../../input")) {
+
+    std::set<std::string> found_extensions = {};
+
+    for (const auto& entry : std::filesystem::recursive_directory_iterator(FileLoader::get_test_data_dir() + "/../../input")) {
         // check for valid extension
-        auto supported_extensions = FileInputHandler::get_supported_input_file_extensions();
+        auto supported_extensions = get_supported_input_file_extensions();
 
         if (supported_extensions.find(entry.path().extension()) == supported_extensions.end()) {
             continue;
         }
 
         input_files.push_back(entry.path());
+        found_extensions.insert(entry.path().extension());
     }
+
+    for (const auto& entry : std::filesystem::recursive_directory_iterator(FileLoader::get_test_data_dir() + "/input")) {
+        // check for valid extension
+        auto supported_extensions = get_supported_input_file_extensions();
+
+        if (supported_extensions.find(entry.path().extension()) == supported_extensions.end()) {
+            continue;
+        }
+
+        input_files.push_back(entry.path());
+        found_extensions.insert(entry.path().extension());
+    }
+
+    for (const auto& extension : get_supported_input_file_extensions()) {
+        if (found_extensions.find(extension) == found_extensions.end()) {
+            throw std::runtime_error("No input file found for extension " + extension);
+        }
+    }
+
     return input_files;
 }
 
@@ -34,40 +57,26 @@ auto load_all_input_files() {
 TEST(SimulationRunner, EnsureBackwardsCompatibilityForAllInputFiles) {
     Logger::logger->set_level(spdlog::level::warn);
 
-    std::set<std::string> tested_extensions = {};
+    // Check that all supported extensions have actually been tested
 
     for (const auto& input_file : load_all_input_files()) {
         std::cout << "Testing input file: " << input_file << std::endl;
 
-        tested_extensions.insert(input_file.substr(input_file.find_last_of('.')));
-
-        // Create pointer for particle container
-        std::unique_ptr<ParticleContainer> initial_particles;
-
         // Parse input file
-        SimulationParams params_xml = FileInputHandler::readFile(input_file, initial_particles);
+        auto [particles, file_config] = FileInputHandler::readFile(input_file, true, false);
 
-        EXPECT_GT(initial_particles->size(), 0);
+        auto config = file_config.value_or(TEST_DEFAULT_PARAMS_LENNARD_JONES);
 
-        // Create all force sources acting on the particles
-        std::vector<std::unique_ptr<ForceSource>> forces;
-        forces.push_back(std::make_unique<LennardJonesForce>());
-
-        params_xml.end_time = 1;
-        params_xml.delta_t = 0.01;
-        params_xml.output_format = FileOutputHandler::OutputFormat::NONE;
+        config.end_time = 0.1;
+        config.delta_t = 0.001;
+        config.output_format = OutputFormat::NONE;
 
         // Initialize simulation
-        Simulation simulation{initial_particles, forces, params_xml};
+        Simulation simulation{particles, config};
 
         // Run simulation
         auto res = simulation.runSimulation();
 
         EXPECT_GT(res.total_iterations, 0);
-    }
-
-    // Check that all supported extensions have actually been tested
-    for (const auto& extension : FileInputHandler::get_supported_input_file_extensions()) {
-        EXPECT_TRUE(tested_extensions.find(extension) != tested_extensions.end());
     }
 }

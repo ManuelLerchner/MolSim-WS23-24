@@ -1,8 +1,11 @@
 #pragma once
 
+#include <optional>
 #include <string>
+#include <tuple>
+#include <vector>
 
-#include "particles/containers/ParticleContainer.h"
+#include "particles/Particle.h"
 #include "simulation/SimulationParams.h"
 
 /**
@@ -16,13 +19,11 @@ class FileReader {
     virtual ~FileReader() = default;
 
     /**
-     * @brief Reads the file with the given path and fills the given ParticleContainer with the particle data stored in the file
+     * @brief Reads the file with the given path and returns a vector of particles
      * @param filepath Path to the file to be read
-     * @param particle_container ParticleContainer to be filled
-     * @return SimulationParams object containing the simulation parameters given in the file. Unspecified parameters are set to a default
-     * value.
      */
-    virtual SimulationParams readFile(const std::string& filepath, std::unique_ptr<ParticleContainer>& particle_container) const = 0;
+    [[nodiscard]] virtual std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(
+        const std::string& filepath) const = 0;
 
     /**
      * @brief Exception to be thrown when the file format is invalid

@@ -21,9 +21,9 @@ SimulationParams parse_arguments(int argc, char* argsv[]);
  * priority.
  *
  * @param params_cli Simulation parameters retrieved via Command line arguments
- * @param params_xml Simulation parameters retrieved via XML file
+ * @param file_params Simulation parameters retrieved via the parsed input file
  * @return SimulationParams containing the merged parameters. Command line arguments have priority.
  *
- * Merges the command line arguments with the XML file and returns a tuple containing all the arguments.
+ * Merges the command line arguments with the parameters retrieved from the file. Command line arguments have priority.
  */
-SimulationParams merge_parameters(const SimulationParams& params_cli, const SimulationParams& params_xml);
+SimulationParams merge_parameters(const SimulationParams& params_cli, const std::optional<SimulationParams>& file_params);

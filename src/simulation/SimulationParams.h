@@ -1,11 +1,15 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <tuple>
 #include <variant>
+#include <vector>
 
-#include "io/output/FileOutputHandler.h"
+#include "io/input/InputFormats.h"
+#include "io/output/OutputFormats.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
+#include "physics/forces/ForceSource.h"
 #include "physics/thermostats/Thermostat.h"
 
 /**
@@ -19,7 +23,7 @@ class SimulationParams {
      * @brief Struct to specify the type of the particle container as DirectSumType
      */
     struct DirectSumType {
-        operator std::string() const { return "DirectSum"; }
+        explicit operator std::string() const { return "DirectSum"; }
     };
 
     /**
@@ -35,7 +39,7 @@ class SimulationParams {
                         const std::array<LinkedCellsContainer::BoundaryCondition, 6>& boundary_conditions)
             : domain_size(domain_size), cutoff_radius(cutoff_radius), boundary_conditions(boundary_conditions) {}
 
-        operator std::string() const {
+        explicit operator std::string() const {
             return "LinkedCells ([" + std::to_string(domain_size[0]) + "x" + std::to_string(domain_size[1]) + "x" +
                    std::to_string(domain_size[2]) + "];" + std::to_string(cutoff_radius) + ";[" +
                    LinkedCellsContainer::boundaryConditionToString(boundary_conditions[0]) + "|" +
@@ -51,6 +55,11 @@ class SimulationParams {
      * @brief Path to the input file of the simulation
      */
     std::string input_file_path;
+
+    /**
+     * @brief Hash of the input file of the simulation
+     */
+    std::size_t input_file_hash;
 
     /**
      * @brief Path to the directory in which to save the simulation output
@@ -88,14 +97,29 @@ class SimulationParams {
     Thermostat thermostat;
 
     /**
-     * @brief Output file format of the simulation
+     * @brief Forces to be applied to the particles
      */
-    FileOutputHandler::OutputFormat output_format;
+    std::vector<std::shared_ptr<ForceSource>> forces;
 
     /**
      * @brief Whether to run the simulation in performance test mode
      */
     bool performance_test;
+
+    /**
+     * @brief Output file format of the simulation
+     */
+    OutputFormat output_format;
+
+    /**
+     * @brief Number of particles in the simulation
+     */
+    size_t num_particles;
+
+    /**
+     * @brief Flag to indicate whether the simulation should be run from scratch, or whether cached data should be used
+     */
+    bool fresh;
 
     /**
      * @brief Construct a new SimulationParams object
@@ -110,15 +134,20 @@ class SimulationParams {
      * @param container_type Type of the particle container
      * @param thermostat Thermostat used in the simulation
      * @param output_format Output file format of the simulation
-     * @param performanceTest Whether to run the simulation in performance test mode
-     *
+     * @param force_strings Forces to be applied to the particles
+     * @param performance_test Whether to run the simulation in performance test mode
+     * @param fresh Flag to indicate whether the simulation should be run from scratch, or whether cached data should be used
+     * @param base_path Base path to the output directory. This is used to construct the output directory path if none is given
+     * explicitly. Defaults to "./output/"
      */
     SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
                      int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type, const Thermostat& thermostat,
-                     const std::string& output_format, bool performanceTest = false);
+                     const std::string& output_format, const std::vector<std::string>& force_strings, bool performance_test,
+                     bool fresh = false, const std::string& base_path = "./output");
 
     /**
-     * @brief Dissallow default construction of a SimulationParams object (would have invalid values for a simulation)
+     * @brief Prints a summary of the simulation parameters to the console
+     * @param depth determines the indentation of the log message
      */
-    SimulationParams() = delete;
+    void logSummary(int depth = 0) const;
 };

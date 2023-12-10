@@ -3,9 +3,9 @@
 #include "physics/forces/GravitationalForce.h"
 #include "utils/ArrayUtils.h"
 
-#define EXPECT_ARRAY_NEAR(a, b, tol)  \
-    for (int i = 0; i < 3; i++) {     \
-        EXPECT_NEAR(a[i], b[i], tol); \
+#define EXPECT_ARRAY_NEAR(a, b, tol)      \
+    for (int i = 0; i < 3; i++) {         \
+        EXPECT_NEAR((a)[i], (b)[i], tol); \
     };
 
 /*
@@ -54,5 +54,5 @@ TEST(GravityFormula, DirectionCorrect) {
 
     auto normalized_f_gravity = (1 / ArrayUtils::L2Norm(f_gravity)) * f_gravity;
 
-    EXPECT_ARRAY_NEAR(normalized_f_gravity, expected_heading, 0.01);
+    EXPECT_ARRAY_NEAR(normalized_f_gravity, expected_heading, 0.01)
 }

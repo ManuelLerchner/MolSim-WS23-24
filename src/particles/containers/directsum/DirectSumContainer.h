@@ -3,9 +3,7 @@
 #include <memory>
 #include <vector>
 
-#include "particles/Particle.h"
 #include "particles/containers/ParticleContainer.h"
-#include "physics/forces/ForceSource.h"
 
 /**
  * @brief Wrapper class for a set of particles
@@ -128,6 +126,12 @@ class DirectSumContainer : public ParticleContainer {
     [[nodiscard]] std::vector<Particle>::const_iterator end() const override;
 
     /**
+     * @brief Returns a vector of all particles in the container
+     * @return Vector of all particles in the container
+     */
+    [[nodiscard]] const std::vector<Particle>& getParticles() const override;
+
+    /**
      * @brief Applies the given force sources to the particles
      *
      * @param force_sources Vector of force sources to be applied
@@ -135,5 +139,5 @@ class DirectSumContainer : public ParticleContainer {
      * Applies the given force sources to the particles in the container.
      * Uses newton's third law to calculate the forces between the particles in a more optimized way.
      */
-    void applyPairwiseForces(const std::vector<std::unique_ptr<ForceSource>>& force_sources) override;
+    void applyPairwiseForces(const std::vector<std::shared_ptr<ForceSource>>& force_sources) override;
 };

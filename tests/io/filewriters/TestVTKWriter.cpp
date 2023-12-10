@@ -9,9 +9,9 @@
 #include "utils/ArrayUtils.h"
 
 /*
- * Test if the VTKWriter writes the correct data into the file.
+ * Test if the VTUWriter writes the correct data into the file.
  */
-TEST(VTKWriter, CorrectWritingOfParticles) {
+TEST(VTUWriter, CorrectWritingOfParticles) {
     std::unique_ptr<ParticleContainer> particle_container = std::make_unique<DirectSumContainer>();
 
     for (double i = 0; i < 5; i++) {
@@ -20,13 +20,16 @@ TEST(VTKWriter, CorrectWritingOfParticles) {
         particle_container->addParticle(Particle(pos, vel, i, i));
     }
 
-    auto output_folder = FileLoader::get_test_file_path("temp/VTKWriterTest");
-    FileOutputHandler file_output_handler{FileOutputHandler::OutputFormat::VTK, output_folder};
+    auto output_folder = FileLoader::get_output_file_path("VTUWriterTest");
 
-    file_output_handler.writeFile(0, particle_container);
+    auto params = SimulationParams("", output_folder, 0, 0, 0, 0, SimulationParams::DirectSumType{}, Thermostat{0, 0, 100000}, "vtu",
+                                   {"LennardJones"}, false);
+    FileOutputHandler file_output_handler{params};
+
+    auto path = file_output_handler.writeFile(0, particle_container);
 
     // load the file
-    std::ifstream file(output_folder + "/MD_VTK_0000.vtu");
+    std::ifstream file(*path);
     std::stringstream buffer;
     buffer << file.rdbuf();
 

@@ -80,7 +80,7 @@ An example file could look like this:
 
 ### .xml
 
-The `.xml` file format can be used to specify all the input parameters for the simulation at once. Therefore it is preferred over the other file formats.
+The `.xml` file format can be used to specify all the input parameters for the simulation at once. Therefore, it is preferred over the other file formats.
 
 Its definition is based on the [simulation_schema.xsd](simulation_schema.xsd) file, which is used to validate the input file. The file contains a single root element `<configuration>` with the following child elements:
 

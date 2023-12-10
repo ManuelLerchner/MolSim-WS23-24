@@ -20,13 +20,16 @@ TEST(XYZWriter, CorrectWritingOfParticles) {
         particle_container->addParticle(Particle(pos, vel, i, i));
     }
 
-    auto output_folder = FileLoader::get_test_file_path("temp/XYZWriterTest");
-    FileOutputHandler file_output_handler{FileOutputHandler::OutputFormat::XYZ, output_folder};
+    auto output_folder = FileLoader::get_output_file_path("XYZWriterTest");
 
-    file_output_handler.writeFile(0, particle_container);
+    auto params = SimulationParams("", output_folder, 0, 0, 0, 0, SimulationParams::DirectSumType{}, Thermostat{0, 0, 100000}, "xyz",
+                                   {"LennardJones"}, false);
+    FileOutputHandler file_output_handler{params};
+
+    auto path = file_output_handler.writeFile(0, particle_container);
 
     // load the file
-    std::ifstream file(output_folder + "/MD_XYZ_0000.xyz");
+    std::ifstream file(*path);
     std::stringstream buffer;
     buffer << file.rdbuf();
 

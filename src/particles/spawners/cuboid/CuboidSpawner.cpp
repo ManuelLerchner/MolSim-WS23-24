@@ -3,7 +3,6 @@
 #include "particles/Particle.h"
 #include "physics/thermostats/Thermostat.h"
 #include "utils/ArrayUtils.h"
-#include "utils/MaxwellBoltzmannDistribution.h"
 
 CuboidSpawner::CuboidSpawner(const std::array<double, 3>& lower_left_corner, const std::array<int, 3>& grid_dimensions, double grid_spacing,
                              double mass, const std::array<double, 3>& initial_velocity, int type, bool third_dimension,
@@ -17,7 +16,9 @@ CuboidSpawner::CuboidSpawner(const std::array<double, 3>& lower_left_corner, con
       third_dimension(third_dimension),
       initial_temperature(initial_temperature) {}
 
-void CuboidSpawner::spawnParticles(std::unique_ptr<ParticleContainer>& particle_container) const {
+int CuboidSpawner::spawnParticles(std::vector<Particle>& particles) const {
+    particles.reserve(particles.size() + getEstimatedNumberOfParticles());
+    int num_particles_spawned = 0;
     for (int i = 0; i < grid_dimensions[0]; i++) {
         for (int j = 0; j < grid_dimensions[1]; j++) {
             for (int k = 0; k < grid_dimensions[2]; k++) {
@@ -27,10 +28,11 @@ void CuboidSpawner::spawnParticles(std::unique_ptr<ParticleContainer>& particle_
 
                 Particle particle(x, initial_velocity, mass, type);
                 Thermostat::setParticleTemperature(initial_temperature, particle, third_dimension ? 3 : 2);
-                particle_container->addParticle(std::move(particle));
+                particles.push_back(std::move(particle));
             }
         }
     }
+    return num_particles_spawned;
 }
 
 size_t CuboidSpawner::getEstimatedNumberOfParticles() const {

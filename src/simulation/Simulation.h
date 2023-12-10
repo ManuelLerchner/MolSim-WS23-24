@@ -1,10 +1,10 @@
 #pragma once
 
-#include <memory>
 #include <vector>
 
 #include "integration/IntegrationFunctor.h"
 #include "io/output/FileOutputHandler.h"
+#include "particles/Particle.h"
 #include "particles/containers/ParticleContainer.h"
 #include "simulation/SimulationOverview.h"
 #include "simulation/SimulationParams.h"
@@ -15,11 +15,6 @@
  * This class collects all the components needed to run a simulation, and provides a method to run it.
  */
 class Simulation {
-    /**
-     * @brief Reference to the `ParticleContainer` on whose content the simulation is performed
-     */
-    std::unique_ptr<ParticleContainer>& particles;
-
     /**
      * @brief Time step per iteration. This specifies the accuracy of the simulation
      */
@@ -51,12 +46,17 @@ class Simulation {
     const SimulationParams& simulation_params;
 
     /**
-     * @brief Vector of forces which are applied in the simulation
+     * @brief Vector of force sources which are used to calculate the new forces
      */
-    const std::vector<std::unique_ptr<ForceSource>>& forces;
+    const std::vector<std::shared_ptr<ForceSource>> forces;
 
     /**
-     * @brief Integration functor used to integrate the particles
+     * @brief Reference to the `ParticleContainer` on whose content the simulation is performed
+     */
+    std::unique_ptr<ParticleContainer> particles;
+
+    /**
+     * @brief Functor used to integrate the particles
      */
     std::unique_ptr<IntegrationFunctor> integration_functor;
 
@@ -72,12 +72,11 @@ class Simulation {
      * @brief Construct a new Simulation object and initialize all the necessary components
      *
      * @param particles Reference to the `ParticleContainer` on whose content the simulation is performed
-     * @param forces Vector of forces which are applied in the simulation
      * @param simulation_params Parameters for the simulation. See the class `SimulationParams` for more information
      * @param integration_method The integration method to use for the simulation (Default: `IntegrationMethod::VERLET`)
      */
-    Simulation(std::unique_ptr<ParticleContainer>& particles, const std::vector<std::unique_ptr<ForceSource>>& forces,
-               const SimulationParams& simulation_params, IntegrationMethod integration_method = IntegrationMethod::VERLET);
+    Simulation(const std::vector<Particle>& particles, const SimulationParams& simulation_params,
+               IntegrationMethod integration_method = IntegrationMethod::VERLET);
 
     /**
      * @brief Runs the simulation, using the parameters given at construction and returns a `SimulationOverview` object containing some data
@@ -87,7 +86,7 @@ class Simulation {
     SimulationOverview runSimulation();
 
     /**
-     * @brief Runs the simulation without any output for logging- or vtk/xyz-files, using the parameters given at construction and returns a
+     * @brief Runs the simulation without any output for logging- or vtu/xyz-files, using the parameters given at construction and returns a
      * `SimulationOverview` object containing some data
      *
      * @return SimulationOverview object containing some data about the simulation performed
@@ -95,5 +94,5 @@ class Simulation {
     SimulationOverview runSimulationPerfTest();
 
    private:
-    void savePerformanceTest(const SimulationOverview& overview, const SimulationParams& params, size_t num_particles) const;
+    static void savePerformanceTest(const SimulationOverview& overview, const SimulationParams& params, size_t num_particles);
 };

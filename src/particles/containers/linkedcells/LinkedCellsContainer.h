@@ -106,7 +106,7 @@ class LinkedCellsContainer : public ParticleContainer {
      */
     std::unordered_set<Cell*> occupied_cells_references;
 
-    // Boundary cell references with respect to x axis pointing to the right, y axis pointing up and z axis pointing out of the screen
+    // Boundary cell references with respect to x-axis pointing to the right, y-axis pointing up and z axis pointing out of the screen
 
     /**
      * @brief References to the boundary cells on the left (x = 0)
@@ -209,7 +209,7 @@ class LinkedCellsContainer : public ParticleContainer {
      * Additionally to the functionality of the `ParticleContainer` class, this method uses the internal cell structure to
      * reduce the number of force calculations necessary, depending on the cutoff radius.
      */
-    void applyPairwiseForces(const std::vector<std::unique_ptr<ForceSource>>& force_sources) override;
+    void applyPairwiseForces(const std::vector<std::shared_ptr<ForceSource>>& force_sources) override;
 
     /**
      * @brief Reserves space for n particles. This is useful if the number of particles is known in advance
@@ -261,6 +261,12 @@ class LinkedCellsContainer : public ParticleContainer {
      * @return Const end iterator for this container
      */
     std::vector<Particle>::const_iterator end() const override;
+
+    /**
+     * @brief Returns a vector of all particles in the container
+     * @return Vector of all particles in the container
+     */
+    [[nodiscard]] const std::vector<Particle>& getParticles() const override;
 
     /**
      * @brief Returns the domain size
