@@ -246,7 +246,7 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::string
             auto [sub_particles, sub_config] =
                 prepareParticles(file_name, loaded_config, fresh, allow_recursion, new_output_base_path, depth + 1);
             sub_config.output_dir_path = new_output_base_path;
-            sub_config.output_format = OutputFormat::VTU;
+            sub_config.output_format = OutputFormat::NONE;
 
             // Run the sub simulation
             Simulation simulation{sub_particles, sub_config};
