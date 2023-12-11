@@ -22,7 +22,7 @@ auto splitString(const std::string& sv, const std::string& sep) {
     return parts;
 }
 
-std::string construct_output_path(const std::string& base_path, const std::string& input_file_path) {
+std::string constructOutputPath(const std::string& base_path, const std::string& input_file_path) {
     auto base = base_path;
 
     if (base.empty()) {
@@ -117,7 +117,7 @@ SimulationParams::SimulationParams(const std::string& input_file_path, const std
     this->output_format = convertToOutputFormat(output_format);
 
     if (output_dir_path.empty()) {
-        this->output_dir_path = construct_output_path(base_path, input_file_path);
+        this->output_dir_path = constructOutputPath(base_path, input_file_path);
     } else {
         this->output_dir_path = output_dir_path;
     }

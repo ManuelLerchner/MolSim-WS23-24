@@ -281,13 +281,13 @@ void LinkedCellsContainer::initCells() {
         for (int cy = -1; cy < domain_num_cells[1] + 1; ++cy) {
             for (int cz = -1; cz < domain_num_cells[2] + 1; ++cz) {
                 if (cx < 0 || cx >= domain_num_cells[0] || cy < 0 || cy >= domain_num_cells[1] || cz < 0 || cz >= domain_num_cells[2]) {
-                    Cell newCell(Cell::CellType::HALO);
-                    cells.push_back(newCell);
+                    Cell new_cell(Cell::CellType::HALO);
+                    cells.push_back(new_cell);
                     halo_cell_references.push_back(&cells.back());
                 } else if (cx == 0 || cx == domain_num_cells[0] - 1 || cy == 0 || cy == domain_num_cells[1] - 1 || cz == 0 ||
                            cz == domain_num_cells[2] - 1) {
-                    Cell newCell(Cell::CellType::BOUNDARY);
-                    cells.push_back(newCell);
+                    Cell new_cell(Cell::CellType::BOUNDARY);
+                    cells.push_back(new_cell);
                     boundary_cell_references.push_back(&cells.back());
                     domain_cell_references.push_back(&cells.back());
 
@@ -310,8 +310,8 @@ void LinkedCellsContainer::initCells() {
                         front_boundary_cell_references.push_back(&cells.back());
                     }
                 } else {
-                    Cell newCell(Cell::CellType::INNER);
-                    cells.push_back(newCell);
+                    Cell new_cell(Cell::CellType::INNER);
+                    cells.push_back(new_cell);
                     domain_cell_references.push_back(&cells.back());
                 }
             }
