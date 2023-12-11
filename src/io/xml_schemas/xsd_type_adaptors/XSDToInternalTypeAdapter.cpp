@@ -175,21 +175,18 @@ Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particl
     return Particle{position, velocity, force, old_force, mass, static_cast<int>(type)};
 }
 
-std::vector<std::shared_ptr<ForceSource>> XSDToInternalTypeAdapter::convertToForces(const SettingsType::forces_sequence& forces) {
+std::vector<std::shared_ptr<ForceSource>> XSDToInternalTypeAdapter::convertToForces(const ForcesType& forces) {
     std::vector<std::shared_ptr<ForceSource>> force_sources;
 
-    for (auto xsd_force : forces) {
-        if (xsd_force.LennardJones()) {
-            force_sources.push_back(std::make_shared<LennardJonesForce>());
-        } else if (xsd_force.Gravitational()) {
-            force_sources.push_back(std::make_shared<GravitationalForce>());
-        } else if (xsd_force.GlobalDownwardsGravity()) {
-            auto g = (*xsd_force.GlobalDownwardsGravity()).g();
-            force_sources.push_back(std::make_shared<GlobalDownwardsGravity>(g));
-        } else {
-            Logger::logger->error("Force type not implemented");
-            exit(-1);
-        }
+    if (forces.LennardJones()) {
+        force_sources.push_back(std::make_shared<LennardJonesForce>());
+    }
+    if (forces.Gravitational()) {
+        force_sources.push_back(std::make_shared<GravitationalForce>());
+    }
+    if (forces.GlobalDownwardsGravity()) {
+        auto g = (*forces.GlobalDownwardsGravity()).g();
+        force_sources.push_back(std::make_shared<GlobalDownwardsGravity>(g));
     }
 
     return force_sources;

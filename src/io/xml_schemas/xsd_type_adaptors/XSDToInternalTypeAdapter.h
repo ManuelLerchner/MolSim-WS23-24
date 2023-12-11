@@ -92,7 +92,7 @@ class XSDToInternalTypeAdapter {
      * @param forces List of forces in the XSD format
      * @return List of forces parsed from the given list of forces in the XSD format
      */
-    static std::vector<std::shared_ptr<ForceSource>> convertToForces(const SettingsType::forces_sequence& forces);
+    static std::vector<std::shared_ptr<ForceSource>> convertToForces(const ForcesType& forces);
 
     /**
      * @brief Converts a double vector from the XSD format to the internal format

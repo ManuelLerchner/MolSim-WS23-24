@@ -33,21 +33,27 @@
     </settings>
 
     <particle_source>
-        <!-- Basin -->
-        <sub_simulation>
-            <name>Basin</name>
-            <file_name>
-                ./subsimulations/basin.xml
-            </file_name>
-        </sub_simulation>
-
-        <!-- Falling drop -->
-        <sub_simulation>
-            <name>Sphere</name>
-            <file_name>
-                ./subsimulations/sphere.xml
-            </file_name>
-        </sub_simulation>
+        <cuboid_spawner>
+            <lower_left_front_corner>
+                <x>20.0</x>
+                <y>20.0</y>
+                <z>1.5</z>
+            </lower_left_front_corner>
+            <grid_dim>
+                <x>100</x>
+                <y>20</y>
+                <z>1</z>
+            </grid_dim>
+            <grid_spacing>1.1225</grid_spacing>
+            <temperature>0.1</temperature>
+            <mass>1</mass>
+            <velocity>
+                <x>0.0</x>
+                <y>0.0</y>
+                <z>0.0</z>
+            </velocity>
+            <type>0</type>
+        </cuboid_spawner>
     </particle_source>
 
 </configuration>
