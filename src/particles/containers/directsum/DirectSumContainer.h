@@ -132,12 +132,26 @@ class DirectSumContainer : public ParticleContainer {
     [[nodiscard]] const std::vector<Particle>& getParticles() const override;
 
     /**
+     * @brief Prepares everything for the force calculations (must be called before applySimpleForces and applyPairwiseForces)
+     */
+    void prepareForceCalculation() override;
+
+    /**
+     * @brief Applies the given simple force sources to the particles
+     *
+     * @param simple_force_sources List of simple force sources to be applied
+     *
+     * Applies the given simple force sources to the particles in the container.
+     */
+    void applySimpleForces(const std::vector<std::shared_ptr<SimpleForceSource>>& simple_force_sources) override;
+
+    /**
      * @brief Applies the given force sources to the particles
      *
-     * @param force_sources Vector of force sources to be applied
+     * @param pairwise_force_sources Vector of force sources to be applied
      *
      * Applies the given force sources to the particles in the container.
      * Uses newton's third law to calculate the forces between the particles in a more optimized way.
      */
-    void applyPairwiseForces(const std::vector<std::shared_ptr<ForceSource>>& force_sources) override;
+    void applyPairwiseForces(const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_force_sources) override;
 };

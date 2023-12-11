@@ -165,7 +165,8 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::string
                                    container_type,
                                    thermostat,
                                    "vtu",
-                                   std::move(forces),
+                                   std::get<0>(forces),
+                                   std::get<1>(forces),
                                    false,
                                    fresh,
                                    output_base_path};
@@ -208,7 +209,6 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::string
 
         auto name = trim(sub_simulation.name());
 
-        depth++;
         Logger::logger->info("Found sub simulation {} at depth {}", name, depth);
 
         std::string new_output_base_path = output_base_path + "/" + sanitizePath(name);
@@ -244,9 +244,9 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::string
 
             // Create the initial conditions for the sub simulation
             auto [sub_particles, sub_config] =
-                prepareParticles(file_name, loaded_config, fresh, allow_recursion, new_output_base_path, depth);
+                prepareParticles(file_name, loaded_config, fresh, allow_recursion, new_output_base_path, depth + 1);
             sub_config.output_dir_path = new_output_base_path;
-            sub_config.output_format = OutputFormat::NONE;
+            sub_config.output_format = OutputFormat::VTU;
 
             // Run the sub simulation
             Simulation simulation{sub_particles, sub_config};

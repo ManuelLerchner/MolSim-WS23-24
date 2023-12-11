@@ -4,7 +4,8 @@
 #include <vector>
 
 #include "particles/Particle.h"
-#include "physics/forces/ForceSource.h"
+#include "physics/pairwiseforces/PairwiseForceSource.h"
+#include "physics/simpleforces/SimpleForceSource.h"
 
 /**
  * @brief Interface for particle containers
@@ -38,14 +39,28 @@ class ParticleContainer {
     virtual void addParticle(Particle&& p) = 0;
 
     /**
-     * @brief Applies the given force sources to the particles
+     * @brief Prepares everything for the force calculations (must be called before applySimpleForces and applyPairwiseForces)
+     */
+    virtual void prepareForceCalculation() = 0;
+
+    /**
+     * @brief Applies the given simple force sources to the particles
      *
-     * @param force_sources List of force sources to be applied
+     * @param simple_force_sources List of simple force sources to be applied
      *
-     * Applies the given force sources to the particles in the container.
+     * Applies the given simple force sources to the particles in the container.
+     */
+    virtual void applySimpleForces(const std::vector<std::shared_ptr<SimpleForceSource>>& simple_force_sources) = 0;
+
+    /**
+     * @brief Applies the given pairwise force sources to the particles
+     *
+     * @param pairwise_force_sources List of pairwise force sources to be applied
+     *
+     * Applies the given pairwise force sources to the particles in the container.
      * Uses newton's third law to calculate the forces between the particles in an optimized way.
      */
-    virtual void applyPairwiseForces(const std::vector<std::shared_ptr<ForceSource>>& force_sources) = 0;
+    virtual void applyPairwiseForces(const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_force_sources) = 0;
 
     /**
      * @brief Reserves space for n particles

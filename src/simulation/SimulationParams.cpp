@@ -6,8 +6,8 @@
 
 #include "io/logger/Logger.h"
 #include "io/output/OutputFormats.h"
-#include "physics/forces/ForcePicker.h"
-#include "physics/forces/GlobalDownwardsGravity.h"
+#include "physics/ForcePicker.h"
+#include "physics/simpleforces/GlobalDownwardsGravity.h"
 
 auto splitString(const std::string& sv, const std::string& sep) {
     std::vector<std::string> parts;
@@ -49,44 +49,63 @@ auto convertToOutputFormat(const std::string& output_format) {
     return supported[output_format];
 }
 
-auto convertToForces(const std::vector<std::string>& force_strings) {
-    auto supported = ForcePicker::get_supported_forces();
+std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::shared_ptr<PairwiseForceSource>>> convertToForces(
+    const std::vector<std::string>& force_strings) {
+    auto supported_simple_forces = get_supported_simple_forces();
+    auto supported_pairwise_forces = get_supported_pairwise_forces();
 
-    std::vector<std::shared_ptr<ForceSource>> forces;
+    std::vector<std::shared_ptr<SimpleForceSource>> simple_forces;
+    std::vector<std::shared_ptr<PairwiseForceSource>> pairwise_forces;
+
     for (auto& force_s : force_strings) {
-        // split on spaces
-        auto parts = splitString(force_s, " ");
+        // Split force string at spaces: Arg[0] is the force name, all others are parameters (if present)
+        auto force_args = splitString(force_s, " ");
 
-        if (!supported.contains(parts[0])) {
-            auto supported_forces = std::string();
-            for (auto& [name, force] : supported) {
-                supported_forces += name + ", ";
+        auto simple_force_it = std::find_if(supported_simple_forces.begin(), supported_simple_forces.end(),
+                                            [&force_args](const auto& force) { return force.first == force_args[0]; });
+
+        if (simple_force_it != supported_simple_forces.end()) {
+            if (typeid(simple_force_it->second) == typeid(GlobalDownwardsGravity)) {
+                if (force_args.size() != 2) {
+                    Logger::logger->error("Invalid force given: {}. GlobalDownwardsGravity needs one parameter: g", force_s);
+                    exit(-1);
+                }
+                auto g = std::stod(force_args[1]);
+                dynamic_cast<GlobalDownwardsGravity&>(*simple_force_it->second).setGravitationalAcceleration(g);
+
+                simple_forces.push_back(simple_force_it->second);
+                continue;
             }
-
-            Logger::logger->error("Invalid force given: {}. Supported forces are: {}", force_s, supported_forces);
-            exit(-1);
         }
 
-        auto force = supported[parts[0]];
-        if (typeid(*force) == typeid(GlobalDownwardsGravity)) {
-            if (parts.size() != 2) {
-                Logger::logger->error("Invalid force given: {}. GlobalDownwardsGravity needs one parameter: g", force_s);
-                exit(-1);
-            }
-            auto g = std::stod(parts[1]);
-            dynamic_cast<GlobalDownwardsGravity&>(*force).setGravitationalAcceleration(g);
+        auto pairwise_force_it = std::find_if(supported_pairwise_forces.begin(), supported_pairwise_forces.end(),
+                                              [&force_args](const auto& force) { return force.first == force_args[0]; });
+
+        if (pairwise_force_it != supported_pairwise_forces.end()) {
+            pairwise_forces.push_back(pairwise_force_it->second);
+            continue;
         }
 
-        forces.push_back(supported[force_s]);
+        std::string supported_force_names{};
+        for (auto& [name, _] : supported_simple_forces) {
+            supported_force_names += name + ", ";
+        }
+        for (auto& [name, _] : supported_pairwise_forces) {
+            supported_force_names += name + ", ";
+        }
+        Logger::logger->error("Invalid force given: {}. Supported pairwise forces are: {}", force_s, supported_force_names);
+        exit(-1);
     }
-    return forces;
+
+    return {simple_forces, pairwise_forces};
 }
 
 SimulationParams::SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time,
                                    int fps, int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
                                    const std::optional<Thermostat>& thermostat, const std::string& output_format,
-                                   const std::vector<std::shared_ptr<ForceSource>>& forces, bool performance_test, bool fresh,
-                                   const std::string& base_path)
+                                   const std::vector<std::shared_ptr<SimpleForceSource>>& simple_forces,
+                                   const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_forces, bool performance_test,
+                                   bool fresh, const std::string& base_path)
     : input_file_path(input_file_path),
       delta_t(delta_t),
       end_time(end_time),
@@ -94,7 +113,8 @@ SimulationParams::SimulationParams(const std::string& input_file_path, const std
       video_length(video_length),
       container_type(container_type),
       thermostat(thermostat),
-      forces(forces),
+      simple_forces(simple_forces),
+      pairwise_forces(pairwise_forces),
       performance_test(performance_test),
       fresh(fresh) {
     if (fps < 0) {
@@ -151,14 +171,19 @@ SimulationParams::SimulationParams(const std::string& input_file_path, const std
                                    const std::vector<std::string>& force_strings, bool performance_test, bool fresh,
                                    const std::string& base_path)
     : SimulationParams(input_file_path, output_dir_path, delta_t, end_time, fps, video_length, container_type, thermostat, output_format,
-                       convertToForces(force_strings), performance_test, fresh, base_path) {}
+                       std::get<0>(convertToForces(force_strings)), std::get<1>(convertToForces(force_strings)), performance_test, fresh,
+                       base_path) {}
 
 void SimulationParams::logSummary(int depth) const {
     std::string indent = std::string(depth * 2, ' ');
 
     std::string force_names =
-        std::accumulate(forces.begin(), forces.end(), std::string{},
-                        [](const std::string& acc, const std::shared_ptr<ForceSource>& force) { return acc + std::string(*force) + ", "; });
+        std::accumulate(
+            simple_forces.begin(), simple_forces.end(), std::string{},
+            [](const std::string& acc, const std::shared_ptr<SimpleForceSource>& force) { return acc + std::string(*force) + ", "; }) +
+        std::accumulate(
+            pairwise_forces.begin(), pairwise_forces.end(), std::string{},
+            [](const std::string& acc, const std::shared_ptr<PairwiseForceSource>& force) { return acc + std::string(*force) + ", "; });
 
     Logger::logger->info("{}╔════════════════════════════════════════", indent);
     Logger::logger->info("{}╟┤{}Simulation arguments: {}", indent, ansi_yellow_bold, ansi_end);
@@ -175,7 +200,7 @@ void SimulationParams::logSummary(int depth) const {
     // Print Physical setup
     Logger::logger->info("{}╟┤{}Physical setup: {}", indent, ansi_yellow_bold, ansi_end);
     Logger::logger->info("{}║  Number of particles: {}", indent, num_particles);
-    Logger::logger->info("{}║  Number of forces: {}", indent, forces.size());
+    Logger::logger->info("{}║  Number of forces: {}", indent, pairwise_forces.size());
     Logger::logger->info("{}║  Forces: {}", indent, force_names);
 
     Logger::logger->info("{}╟┤{}Container: {}", indent, ansi_yellow_bold, ansi_end);

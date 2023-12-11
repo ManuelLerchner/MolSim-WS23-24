@@ -1,13 +1,13 @@
 #pragma once
 
-#include "physics/forces/ForceSource.h"
+#include "physics/pairwiseforces/PairwiseForceSource.h"
 
 /**
- *  @brief Class to calculate the Lennard-Jones force between particles. Implements the interface ForceSource.
+ *  @brief Class to calculate the Lennard-Jones force between particles. Implements the interface PairwiseForceSource.
  *
  * Implementation of the force calculation to simulate Lennard-Jones forces between particles.
  */
-class LennardJonesForce : public ForceSource {
+class LennardJonesForce : public PairwiseForceSource {
    public:
     /**
      * @brief Lennard-Jones potential parameter epsilon

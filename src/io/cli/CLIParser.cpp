@@ -144,8 +144,8 @@ SimulationParams merge_parameters(const SimulationParams& params_cli, const std:
     if (params_cli.video_length != 0) {
         params.video_length = params_cli.video_length;
     }
-    if (!params_cli.forces.empty()) {
-        params.forces = params_cli.forces;
+    if (!params_cli.pairwise_forces.empty()) {
+        params.pairwise_forces = params_cli.pairwise_forces;
     }
 
     // Always takes value from CLI

@@ -10,7 +10,8 @@
 #include "io/input/InputFormats.h"
 #include "io/output/OutputFormats.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
-#include "physics/forces/ForceSource.h"
+#include "physics/pairwiseforces/PairwiseForceSource.h"
+#include "physics/simpleforces/SimpleForceSource.h"
 #include "physics/thermostats/Thermostat.h"
 
 /**
@@ -98,9 +99,14 @@ class SimulationParams {
     std::optional<Thermostat> thermostat;
 
     /**
-     * @brief Forces to be applied to the particles
+     * @brief Simple Forces to be applied to the particles
      */
-    std::vector<std::shared_ptr<ForceSource>> forces;
+    std::vector<std::shared_ptr<SimpleForceSource>> simple_forces;
+
+    /**
+     * @brief Pairwise Forces to be applied to the particles
+     */
+    std::vector<std::shared_ptr<PairwiseForceSource>> pairwise_forces;
 
     /**
      * @brief Whether to run the simulation in performance test mode
@@ -135,7 +141,7 @@ class SimulationParams {
      * @param container_type Type of the particle container
      * @param thermostat Thermostat used in the simulation
      * @param output_format Output file format of the simulation
-     * @param force_strings Strings describing the forces to be applied to the particles
+     * @param force_strings Strings describing the pairwise_forces to be applied to the particles
      * @param performance_test Whether to run the simulation in performance test mode
      * @param fresh Flag to indicate whether the simulation should be run from scratch, or whether cached data should be used
      * @param base_path Base path to the output directory. This is used to construct the output directory path if none is given
@@ -160,7 +166,8 @@ class SimulationParams {
      * @param container_type Type of the particle container
      * @param thermostat Thermostat used in the simulation
      * @param output_format Output file format of the simulation
-     * @param forces Forces to be applied to the particles
+     * @param simple_forces Simple Forces to be applied to the particles
+     * @param pairwise_forces Forces to be applied to the particles
      * @param performance_test Whether to run the simulation in performance test mode
      * @param fresh Flag to indicate whether the simulation should be run from scratch, or whether cached data should be used
      * @param base_path Base path to the output directory. This is used to construct the output directory path if none is given
@@ -169,7 +176,8 @@ class SimulationParams {
     SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
                      int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
                      const std::optional<Thermostat>& thermostat, const std::string& output_format,
-                     const std::vector<std::shared_ptr<ForceSource>>& forces, bool performance_test, bool fresh = false,
+                     const std::vector<std::shared_ptr<SimpleForceSource>>& simple_forces,
+                     const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_forces, bool performance_test, bool fresh = false,
                      const std::string& base_path = "./output");
 
     /**

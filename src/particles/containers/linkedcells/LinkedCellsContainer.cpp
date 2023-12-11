@@ -4,7 +4,7 @@
 
 #include "cells/Cell.h"
 #include "io/logger/Logger.h"
-#include "physics/forces/LennardJonesForce.h"
+#include "physics/pairwiseforces/LennardJonesForce.h"
 #include "utils/ArrayUtils.h"
 
 /*
@@ -146,13 +146,23 @@ void LinkedCellsContainer::addParticle(Particle&& p) {
     }
 }
 
-void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr<ForceSource>>& force_sources) {
+void LinkedCellsContainer::prepareForceCalculation() {
     // remove all particles in the halo cells from the particles vector
     deleteHaloParticles();
 
     // update the particle references in the cells in case the particles have moved
     updateCellsParticleReferences();
+}
 
+void LinkedCellsContainer::applySimpleForces(const std::vector<std::shared_ptr<SimpleForceSource>>& simple_force_sources) {
+    for (Particle& p : particles) {
+        for (const auto& force_source : simple_force_sources) {
+            p.setF(p.getF() + force_source->calculateForce(p));
+        }
+    }
+}
+
+void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr<PairwiseForceSource>>& force_sources) {
     // apply the boundary conditions
     applyReflectiveBoundaryConditions();
 

@@ -1,9 +1,9 @@
 #include "XSDToInternalTypeAdapter.h"
 
 #include "io/logger/Logger.h"
-#include "physics/forces/GlobalDownwardsGravity.h"
-#include "physics/forces/GravitationalForce.h"
-#include "physics/forces/LennardJonesForce.h"
+#include "physics/pairwiseforces/GravitationalForce.h"
+#include "physics/pairwiseforces/LennardJonesForce.h"
+#include "physics/simpleforces/GlobalDownwardsGravity.h"
 
 CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawnerType& cuboid, bool third_dimension) {
     auto lower_left_front_corner = convertToVector(cuboid.lower_left_front_corner());
@@ -175,21 +175,23 @@ Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particl
     return Particle{position, velocity, force, old_force, mass, static_cast<int>(type)};
 }
 
-std::vector<std::shared_ptr<ForceSource>> XSDToInternalTypeAdapter::convertToForces(const ForcesType& forces) {
-    std::vector<std::shared_ptr<ForceSource>> force_sources;
+std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::shared_ptr<PairwiseForceSource>>>
+XSDToInternalTypeAdapter::convertToForces(const ForcesType& forces) {
+    std::vector<std::shared_ptr<SimpleForceSource>> simple_force_sources;
+    std::vector<std::shared_ptr<PairwiseForceSource>> pairwise_force_sources;
 
     if (forces.LennardJones()) {
-        force_sources.push_back(std::make_shared<LennardJonesForce>());
+        pairwise_force_sources.push_back(std::make_shared<LennardJonesForce>());
     }
     if (forces.Gravitational()) {
-        force_sources.push_back(std::make_shared<GravitationalForce>());
+        pairwise_force_sources.push_back(std::make_shared<GravitationalForce>());
     }
     if (forces.GlobalDownwardsGravity()) {
         auto g = (*forces.GlobalDownwardsGravity()).g();
-        force_sources.push_back(std::make_shared<GlobalDownwardsGravity>(g));
+        simple_force_sources.push_back(std::make_shared<GlobalDownwardsGravity>(g));
     }
 
-    return force_sources;
+    return {simple_force_sources, pairwise_force_sources};
 }
 
 std::array<double, 3> XSDToInternalTypeAdapter::convertToVector(const DoubleVec3Type& vector) {

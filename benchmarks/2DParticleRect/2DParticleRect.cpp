@@ -7,8 +7,8 @@
 #include "particles/containers/directsum/DirectSumContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "particles/spawners/cuboid/CuboidSpawner.h"
-#include "physics/forces/GravitationalForce.h"
-#include "physics/forces/LennardJonesForce.h"
+#include "physics/pairwiseforces/GravitationalForce.h"
+#include "physics/pairwiseforces/LennardJonesForce.h"
 #include "simulation/Simulation.h"
 #include "utils/ArrayUtils.h"
 
@@ -29,7 +29,7 @@ void execute2DRectBenchmark(int x, int y) {
     CuboidSpawner spawner(center_offset - std::array<double, 3>{x * 1.225 / 2, y * 1.225 / 2, 0}, {x, y, 1}, 1.225, 1, {0, 0, 0}, 0);
 
     // Settings for the forces for both simulations
-    std::vector<std::unique_ptr<ForceSource>> forces;
+    std::vector<std::unique_ptr<PairwiseForceSource>> forces;
     forces.push_back(std::make_unique<LennardJonesForce>());
 
     // Instantiation of the Direct Sum Container simulation

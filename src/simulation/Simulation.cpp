@@ -66,7 +66,9 @@ SimulationOverview Simulation::runSimulation() {
     Logger::logger->info("Simulation started...");
 
     // Calculate initial forces
-    particles->applyPairwiseForces(params.forces);
+    particles->prepareForceCalculation();
+    particles->applySimpleForces(params.simple_forces);
+    particles->applyPairwiseForces(params.pairwise_forces);
 
     // keep track of time for progress high precision
     auto start_time = std::chrono::high_resolution_clock::now();
@@ -94,7 +96,7 @@ SimulationOverview Simulation::runSimulation() {
             }
         }
 
-        integration_functor->step(particles, params.forces, params.delta_t);
+        integration_functor->step(particles, params.simple_forces, params.pairwise_forces, params.delta_t);
 
         if (params.thermostat.has_value() && iteration != 0 && iteration % params.thermostat->getApplicationInterval() == 0) {
             params.thermostat.value().scaleTemperature(particles);
@@ -126,13 +128,15 @@ SimulationOverview Simulation::runSimulationPerfTest() {
     size_t iteration = 0;
 
     // Calculate initial forces
-    particles->applyPairwiseForces(params.forces);
+    particles->prepareForceCalculation();
+    particles->applySimpleForces(params.simple_forces);
+    particles->applyPairwiseForces(params.pairwise_forces);
 
     // keep track of time for progress high precision
     auto start_time = std::chrono::high_resolution_clock::now();
 
     while (simulation_time < params.end_time) {
-        integration_functor->step(particles, params.forces, params.delta_t);
+        integration_functor->step(particles, params.simple_forces, params.pairwise_forces, params.delta_t);
 
         if (params.thermostat && iteration != 0 && iteration % params.thermostat->getApplicationInterval() == 0) {
             (*params.thermostat).scaleTemperature(particles);
