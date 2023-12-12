@@ -6,14 +6,14 @@
         <fps>24</fps>
         <video_length>30</video_length>
         <delta_t>0.0005</delta_t>
-        <end_time>40.0</end_time>
+        <end_time>40</end_time>
         <third_dimension>false</third_dimension>
         <particle_container>
             <linkedcells_container>
                 <domain_size>
                     <x>303</x>
                     <y>180</y>
-                    <z>10</z>
+                    <z>1</z>
                 </domain_size>
                 <cutoff_radius>3.0</cutoff_radius>
                 <boundary_conditions>
@@ -21,20 +21,15 @@
                     <right>Reflective</right>
                     <bottom>Reflective</bottom>
                     <top>Reflective</top>
-                    <back>Reflective</back>
-                    <front>Reflective</front>
+                    <back>Outflow</back>
+                    <front>Outflow</front>
                 </boundary_conditions>
             </linkedcells_container>
         </particle_container>
         <forces>
             <LennardJones />
-            <GlobalDownwardsGravity g="9.81" />
+            <GlobalDownwardsGravity g="12.44" />
         </forces>
-        <thermostat>
-            <target_temperature>0.5</target_temperature>
-            <max_temperature_change>1000000</max_temperature_change>
-            <application_interval>1000</application_interval>
-        </thermostat>
     </settings>
 
     <particle_source>

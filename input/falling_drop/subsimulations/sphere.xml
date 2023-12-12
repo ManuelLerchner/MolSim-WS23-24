@@ -13,7 +13,7 @@
                 <domain_size>
                     <x>303</x>
                     <y>180</y>
-                    <z>10</z>
+                    <z>1</z>
                 </domain_size>
                 <cutoff_radius>3.0</cutoff_radius>
                 <boundary_conditions>
@@ -21,8 +21,8 @@
                     <right>Reflective</right>
                     <bottom>Reflective</bottom>
                     <top>Reflective</top>
-                    <back>Reflective</back>
-                    <front>Reflective</front>
+                    <back>Outflow</back>
+                    <front>Outflow</front>
                 </boundary_conditions>
             </linkedcells_container>
         </particle_container>
@@ -36,7 +36,7 @@
             <center>
                 <x>150</x>
                 <y>150</y>
-                <z>5</z>
+                <z>0.5</z>
             </center>
             <radius>20</radius>
             <grid_spacing>1.2</grid_spacing>

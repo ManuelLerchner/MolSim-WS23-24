@@ -7,7 +7,7 @@
  *
  * @param total_seconds Seconds to be formatted
  * @return std::string Formatted string
- * 
+ *
  * If the given seconds are negative, "N/A" is returned.
  */
 std::string format_seconds_eta(int total_seconds);
@@ -17,7 +17,7 @@ std::string format_seconds_eta(int total_seconds);
  *
  * @param total_seconds Seconds to be formatted
  * @return std::string Formatted string
- * 
+ *
  * If the given seconds are negative, "N/A" is returned.
  */
 std::string format_seconds_total(double total_seconds);
