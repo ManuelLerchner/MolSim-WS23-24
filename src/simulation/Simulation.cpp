@@ -84,8 +84,9 @@ SimulationOverview Simulation::runSimulation() {
 
             // calculate estimated remaining time
             const int estimated_remaining_seconds =
-                std::floor(seconds_since_last_write * static_cast<double>(expected_iterations - iteration) /
-                           static_cast<double>(save_every_nth_iteration));
+                (iteration != 0) ? std::floor(seconds_since_last_write * static_cast<double>(expected_iterations - iteration) /
+                                              static_cast<double>(save_every_nth_iteration))
+                                 : -1;
 
             const size_t percentage = 100 * iteration / expected_iterations;
 

@@ -3,6 +3,10 @@
 #include "io/logger/Logger.h"
 
 std::string format_seconds_eta(int total_seconds) {
+    if (total_seconds < 0) {
+        return "N/A";
+    }
+
     int hours = total_seconds / 3600;
     int minutes = (total_seconds % 3600) / 60;
     int seconds = total_seconds % 60;
@@ -11,6 +15,10 @@ std::string format_seconds_eta(int total_seconds) {
 }
 
 std::string format_seconds_total(double total_seconds) {
+    if (total_seconds < 0) {
+        return "N/A";
+    }
+
     int hours = static_cast<int>(total_seconds) / 3600;
     int minutes = (static_cast<int>(total_seconds) % 3600) / 60;
     int seconds = static_cast<int>(total_seconds) % 60;
