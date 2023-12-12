@@ -443,13 +443,14 @@ class LinkedCellsContainer : public ParticleContainer {
      * ATTENTION: A particle reference update must be triggered manually after this operation!
      * ATTENTION: For performance reasons, this method skips halo cells that already contain particles. Therefore it is necessary to call
      * deleteHaloParticles() before this method.
-     *
-     * @return Iterator to the first inserted halo particle
      */
     void addPeriodicHaloParticles();
 
     /**
      * @brief Helper method for addPeriodicHaloParticles() that adds the halo particles for a specific single side of the domain
+     *
+     * @param side_cell_references References to the cells on specified side of the domain
+     * @param offset Offset vector for the periodic boundary
      */
     void addPeriodicHaloParticlesForSide(const std::vector<Cell*>& side_cell_references, const std::array<double, 3>& offset);
 
