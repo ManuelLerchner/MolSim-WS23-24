@@ -42,7 +42,7 @@ class LinkedCellsContainer : public ParticleContainer {
     /**
      * @brief Boundary type enum for labeling the sides of the domain
      */
-    enum class BoundaryCondition { OUTFLOW, REFLECTIVE };
+    enum class BoundaryCondition { OUTFLOW, REFLECTIVE, PERIODIC };
 
     /**
      * @brief Boundary side enum for labeling the sides of the domain
@@ -137,6 +137,38 @@ class LinkedCellsContainer : public ParticleContainer {
      * @brief References to the boundary cells on the front (z = domain_num_cells[2]-1)
      */
     std::vector<Cell*> front_boundary_cell_references;
+
+    // Halo cell references with respect to x-axis pointing to the right, y-axis pointing up and z axis pointing out of the screen
+
+    /**
+     * @brief References to the halo cells on the left (x = -1)
+     */
+    std::vector<Cell*> left_halo_cell_references;
+
+    /**
+     * @brief References to the halo cells on the right (x = domain_num_cells[0])
+     */
+    std::vector<Cell*> right_halo_cell_references;
+
+    /**
+     * @brief References to the halo cells on the bottom (y = -1)
+     */
+    std::vector<Cell*> bottom_halo_cell_references;
+
+    /**
+     * @brief References to the halo cells on the top (y = domain_num_cells[1])
+     */
+    std::vector<Cell*> top_halo_cell_references;
+
+    /**
+     * @brief References to the halo cells on the back (z = -1)
+     */
+    std::vector<Cell*> back_halo_cell_references;
+
+    /**
+     * @brief References to the halo cells on the front (z = domain_num_cells[2])
+     */
+    std::vector<Cell*> front_halo_cell_references;
 
    public:
     /**
@@ -405,4 +437,25 @@ class LinkedCellsContainer : public ParticleContainer {
      * @return Reflective boundary force exerted by the boundary on the particle
      */
     std::array<double, 3> calculateReflectiveBoundaryForce(Particle& p, double distance, BoundarySide side);
+
+    /**
+     * @brief Inserts the halo particles necessary for periodic boundary conditions into the particle vector and cells.
+     * ATTENTION: A particle reference update must be triggered manually after this operation!
+     * ATTENTION: For performance reasons, this method skips halo cells that already contain particles. Therefore it is necessary to call
+     * deleteHaloParticles() before this method.
+     *
+     * @return Iterator to the first inserted halo particle
+     */
+    void addPeriodicHaloParticles();
+
+    /**
+     * @brief Helper method for addPeriodicHaloParticles() that adds the halo particles for a specific single side of the domain
+     */
+    void addPeriodicHaloParticlesForSide(const std::vector<Cell*>& side_cell_references, const std::array<double, 3>& offset);
+
+    /**
+     * @brief Moves the particles in the halo cells to the corresponding periodic boundary cells.
+     * ATTENTION: A particle reference update must be triggered after wards
+     */
+    void moveOverPeriodicBoundaries();
 };

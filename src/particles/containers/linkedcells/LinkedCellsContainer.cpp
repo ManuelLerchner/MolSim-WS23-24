@@ -109,10 +109,10 @@ void LinkedCellsContainer::addParticle(const Particle& p) {
         Logger::logger->error("Particle to insert is out of bounds, position: [{}, {}, {}]", p.getX()[0], p.getX()[1], p.getX()[2]);
         throw std::runtime_error("Attempted to insert particle out of bounds");
     }
-    if (cell->getCellType() == Cell::CellType::HALO) {
-        Logger::logger->warn("Particle to insert is in halo cell. Position: [{}, {}, {}]", p.getX()[0], p.getX()[1], p.getX()[2]);
-        throw std::runtime_error("Attempted to insert particle into halo cell");
-    }
+    // if (cell->getCellType() == Cell::CellType::HALO) {
+    //     Logger::logger->warn("Particle to insert is in halo cell. Position: [{}, {}, {}]", p.getX()[0], p.getX()[1], p.getX()[2]);
+    //     throw std::runtime_error("Attempted to insert particle into halo cell");
+    // }
 
     size_t old_capacity = particles.capacity();
     particles.push_back(p);
@@ -131,10 +131,10 @@ void LinkedCellsContainer::addParticle(Particle&& p) {
         Logger::logger->error("Particle to insert is outside of cells. Position: [{}, {}, {}]", p.getX()[0], p.getX()[1], p.getX()[2]);
         throw std::runtime_error("Attempted to insert particle out of bounds");
     }
-    if (cell->getCellType() == Cell::CellType::HALO) {
-        Logger::logger->warn("Particle to insert is in halo cell. Position: [{}, {}, {}]", p.getX()[0], p.getX()[1], p.getX()[2]);
-        throw std::runtime_error("Attempted to insert particle into halo cell");
-    }
+    // if (cell->getCellType() == Cell::CellType::HALO) {
+    //     Logger::logger->warn("Particle to insert is in halo cell. Position: [{}, {}, {}]", p.getX()[0], p.getX()[1], p.getX()[2]);
+    //     throw std::runtime_error("Attempted to insert particle into halo cell");
+    // }
 
     size_t old_capacity = particles.capacity();
     particles.push_back(std::move(p));
@@ -147,6 +147,15 @@ void LinkedCellsContainer::addParticle(Particle&& p) {
 }
 
 void LinkedCellsContainer::prepareForceCalculation() {
+    // update the particle references in the cells in case the particles have moved
+    updateCellsParticleReferences();
+
+    // handle particle movement over periodic boundaries
+    moveOverPeriodicBoundaries();
+
+    // update the particle references in the cells in case the particles have moved
+    updateCellsParticleReferences();
+
     // remove all particles in the halo cells from the particles vector
     deleteHaloParticles();
 
@@ -166,6 +175,10 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
     // apply the boundary conditions
     applyReflectiveBoundaryConditions();
 
+    // add the periodic halo particles
+    addPeriodicHaloParticles();
+    updateCellsParticleReferences();
+
     // clear the already influenced by vector in the cells
     // this is needed to prevent the two cells from affecting each other twice
     // since newtons third law is used
@@ -175,7 +188,7 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
 
     for (Cell* cell : occupied_cells_references) {
         // skip halo cells
-        if (cell->getCellType() == Cell::CellType::HALO) continue;
+        // if (cell->getCellType() == Cell::CellType::HALO) continue;
 
         for (auto it1 = cell->getParticleReferences().begin(); it1 != cell->getParticleReferences().end(); ++it1) {
             Particle* p = *it1;
@@ -209,6 +222,10 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
             }
         }
     }
+
+    // remove the periodic halo particles
+    deleteHaloParticles();
+    updateCellsParticleReferences();
 }
 
 void LinkedCellsContainer::reserve(size_t n) {
@@ -277,6 +294,8 @@ std::string LinkedCellsContainer::boundaryConditionToString(const BoundaryCondit
             return "Outflow";
         case BoundaryCondition::REFLECTIVE:
             return "Reflective";
+        case BoundaryCondition::PERIODIC:
+            return "Periodic";
         default:
             return "Unknown";
     }
@@ -294,6 +313,25 @@ void LinkedCellsContainer::initCells() {
                     Cell new_cell(Cell::CellType::HALO);
                     cells.push_back(new_cell);
                     halo_cell_references.push_back(&cells.back());
+
+                    if (cx == -1) {
+                        left_halo_cell_references.push_back(&cells.back());
+                    }
+                    if (cx == domain_num_cells[0]) {
+                        right_halo_cell_references.push_back(&cells.back());
+                    }
+                    if (cy == -1) {
+                        bottom_halo_cell_references.push_back(&cells.back());
+                    }
+                    if (cy == domain_num_cells[1]) {
+                        top_halo_cell_references.push_back(&cells.back());
+                    }
+                    if (cz == -1) {
+                        back_halo_cell_references.push_back(&cells.back());
+                    }
+                    if (cz == domain_num_cells[2]) {
+                        front_halo_cell_references.push_back(&cells.back());
+                    }
                 } else if (cx == 0 || cx == domain_num_cells[0] - 1 || cy == 0 || cy == domain_num_cells[1] - 1 || cz == 0 ||
                            cz == domain_num_cells[2] - 1) {
                     Cell new_cell(Cell::CellType::BOUNDARY);
@@ -470,4 +508,305 @@ std::array<double, 3> LinkedCellsContainer::calculateReflectiveBoundaryForce(Par
 
     Logger::logger->error("Faulty reflective boundary condition");
     return {0, 0, 0};
+}
+
+void LinkedCellsContainer::addPeriodicHaloParticles() {
+    if (boundary_types[0] == BoundaryCondition::PERIODIC) {
+        addPeriodicHaloParticlesForSide(left_boundary_cell_references, {domain_size[0], 0, 0});
+    }
+
+    if (boundary_types[1] == BoundaryCondition::PERIODIC) {
+        addPeriodicHaloParticlesForSide(right_boundary_cell_references, {-domain_size[0], 0, 0});
+    }
+
+    if (boundary_types[2] == BoundaryCondition::PERIODIC) {
+        addPeriodicHaloParticlesForSide(bottom_boundary_cell_references, {0, domain_size[1], 0});
+    }
+
+    if (boundary_types[3] == BoundaryCondition::PERIODIC) {
+        addPeriodicHaloParticlesForSide(top_boundary_cell_references, {0, -domain_size[1], 0});
+    }
+
+    if (boundary_types[4] == BoundaryCondition::PERIODIC) {
+        addPeriodicHaloParticlesForSide(back_boundary_cell_references, {0, 0, domain_size[2]});
+    }
+
+    if (boundary_types[5] == BoundaryCondition::PERIODIC) {
+        addPeriodicHaloParticlesForSide(front_boundary_cell_references, {0, 0, -domain_size[2]});
+    }
+
+    // Case with edges of periodic boundaries
+    if (boundary_types[0] == BoundaryCondition::PERIODIC && boundary_types[2] == BoundaryCondition::PERIODIC) {
+        for (int cz = 0; cz < domain_num_cells[2]; ++cz) {
+            Cell* cell = &cells.at(cellCoordToCellIndex(0, 0, cz));
+            for (Particle* p : cell->getParticleReferences()) {
+                Particle ghost_particle =
+                    Particle(p->getX() + std::array<double, 3>{domain_size[0], domain_size[1], 0}, {0, 0, 0}, p->getM());
+                addParticle(ghost_particle);
+            }
+        }
+    }
+
+    if (boundary_types[0] == BoundaryCondition::PERIODIC && boundary_types[3] == BoundaryCondition::PERIODIC) {
+        for (int cz = 0; cz < domain_num_cells[2]; ++cz) {
+            Cell* cell = &cells.at(cellCoordToCellIndex(0, domain_num_cells[1] - 1, cz));
+            for (Particle* p : cell->getParticleReferences()) {
+                Particle ghost_particle =
+                    Particle(p->getX() + std::array<double, 3>{domain_size[0], -domain_size[1], 0}, {0, 0, 0}, p->getM());
+                addParticle(ghost_particle);
+            }
+        }
+    }
+
+    if (boundary_types[1] == BoundaryCondition::PERIODIC && boundary_types[2] == BoundaryCondition::PERIODIC) {
+        for (int cz = 0; cz < domain_num_cells[2]; ++cz) {
+            Cell* cell = &cells.at(cellCoordToCellIndex(domain_num_cells[0] - 1, 0, cz));
+            for (Particle* p : cell->getParticleReferences()) {
+                Particle ghost_particle =
+                    Particle(p->getX() + std::array<double, 3>{-domain_size[0], domain_size[1], 0}, {0, 0, 0}, p->getM());
+                addParticle(ghost_particle);
+            }
+        }
+    }
+
+    if (boundary_types[1] == BoundaryCondition::PERIODIC && boundary_types[3] == BoundaryCondition::PERIODIC) {
+        for (int cz = 0; cz < domain_num_cells[2]; ++cz) {
+            Cell* cell = &cells.at(cellCoordToCellIndex(domain_num_cells[0] - 1, domain_num_cells[1] - 1, cz));
+            for (Particle* p : cell->getParticleReferences()) {
+                Particle ghost_particle =
+                    Particle(p->getX() + std::array<double, 3>{-domain_size[0], -domain_size[1], 0}, {0, 0, 0}, p->getM());
+                addParticle(ghost_particle);
+            }
+        }
+    }
+
+    if (boundary_types[0] == BoundaryCondition::PERIODIC && boundary_types[4] == BoundaryCondition::PERIODIC) {
+        for (int cy = 0; cy < domain_num_cells[1]; ++cy) {
+            Cell* cell = &cells.at(cellCoordToCellIndex(0, cy, 0));
+            for (Particle* p : cell->getParticleReferences()) {
+                Particle ghost_particle =
+                    Particle(p->getX() + std::array<double, 3>{domain_size[0], 0, domain_size[2]}, {0, 0, 0}, p->getM());
+                addParticle(ghost_particle);
+            }
+        }
+    }
+
+    if (boundary_types[0] == BoundaryCondition::PERIODIC && boundary_types[5] == BoundaryCondition::PERIODIC) {
+        for (int cy = 0; cy < domain_num_cells[1]; ++cy) {
+            Cell* cell = &cells.at(cellCoordToCellIndex(0, cy, domain_num_cells[2] - 1));
+            for (Particle* p : cell->getParticleReferences()) {
+                Particle ghost_particle =
+                    Particle(p->getX() + std::array<double, 3>{domain_size[0], 0, -domain_size[2]}, {0, 0, 0}, p->getM());
+                addParticle(ghost_particle);
+            }
+        }
+    }
+
+    if (boundary_types[1] == BoundaryCondition::PERIODIC && boundary_types[4] == BoundaryCondition::PERIODIC) {
+        for (int cy = 0; cy < domain_num_cells[1]; ++cy) {
+            Cell* cell = &cells.at(cellCoordToCellIndex(domain_num_cells[0] - 1, cy, 0));
+            for (Particle* p : cell->getParticleReferences()) {
+                Particle ghost_particle =
+                    Particle(p->getX() + std::array<double, 3>{-domain_size[0], 0, domain_size[2]}, {0, 0, 0}, p->getM());
+                addParticle(ghost_particle);
+            }
+        }
+    }
+
+    if (boundary_types[1] == BoundaryCondition::PERIODIC && boundary_types[5] == BoundaryCondition::PERIODIC) {
+        for (int cy = 0; cy < domain_num_cells[1]; ++cy) {
+            Cell* cell = &cells.at(cellCoordToCellIndex(domain_num_cells[0] - 1, cy, domain_num_cells[2] - 1));
+            for (Particle* p : cell->getParticleReferences()) {
+                Particle ghost_particle =
+                    Particle(p->getX() + std::array<double, 3>{-domain_size[0], 0, -domain_size[2]}, {0, 0, 0}, p->getM());
+                addParticle(ghost_particle);
+            }
+        }
+    }
+
+    if (boundary_types[2] == BoundaryCondition::PERIODIC && boundary_types[4] == BoundaryCondition::PERIODIC) {
+        for (int cx = 0; cx < domain_num_cells[0]; ++cx) {
+            Cell* cell = &cells.at(cellCoordToCellIndex(cx, 0, 0));
+            for (Particle* p : cell->getParticleReferences()) {
+                Particle ghost_particle =
+                    Particle(p->getX() + std::array<double, 3>{0, domain_size[1], domain_size[2]}, {0, 0, 0}, p->getM());
+                addParticle(ghost_particle);
+            }
+        }
+    }
+
+    if (boundary_types[2] == BoundaryCondition::PERIODIC && boundary_types[5] == BoundaryCondition::PERIODIC) {
+        for (int cx = 0; cx < domain_num_cells[0]; ++cx) {
+            Cell* cell = &cells.at(cellCoordToCellIndex(cx, 0, domain_num_cells[2] - 1));
+            for (Particle* p : cell->getParticleReferences()) {
+                Particle ghost_particle =
+                    Particle(p->getX() + std::array<double, 3>{0, domain_size[1], -domain_size[2]}, {0, 0, 0}, p->getM());
+                addParticle(ghost_particle);
+            }
+        }
+    }
+
+    if (boundary_types[3] == BoundaryCondition::PERIODIC && boundary_types[4] == BoundaryCondition::PERIODIC) {
+        for (int cx = 0; cx < domain_num_cells[0]; ++cx) {
+            Cell* cell = &cells.at(cellCoordToCellIndex(cx, domain_num_cells[1] - 1, 0));
+            for (Particle* p : cell->getParticleReferences()) {
+                Particle ghost_particle =
+                    Particle(p->getX() + std::array<double, 3>{0, -domain_size[1], domain_size[2]}, {0, 0, 0}, p->getM());
+                addParticle(ghost_particle);
+            }
+        }
+    }
+
+    if (boundary_types[3] == BoundaryCondition::PERIODIC && boundary_types[5] == BoundaryCondition::PERIODIC) {
+        for (int cx = 0; cx < domain_num_cells[0]; ++cx) {
+            Cell* cell = &cells.at(cellCoordToCellIndex(cx, domain_num_cells[1] - 1, domain_num_cells[2] - 1));
+            for (Particle* p : cell->getParticleReferences()) {
+                Particle ghost_particle =
+                    Particle(p->getX() + std::array<double, 3>{0, -domain_size[1], -domain_size[2]}, {0, 0, 0}, p->getM());
+                addParticle(ghost_particle);
+            }
+        }
+    }
+
+    // Case with corners of periodic boundaries
+
+    if (boundary_types[0] == BoundaryCondition::PERIODIC && boundary_types[2] == BoundaryCondition::PERIODIC &&
+        boundary_types[4] == BoundaryCondition::PERIODIC) {
+        Cell* cell = &cells.at(cellCoordToCellIndex(0, 0, 0));
+        for (Particle* p : cell->getParticleReferences()) {
+            Particle ghost_particle =
+                Particle(p->getX() + std::array<double, 3>{domain_size[0], domain_size[1], domain_size[2]}, {0, 0, 0}, p->getM());
+            addParticle(ghost_particle);
+        }
+    }
+
+    if (boundary_types[0] == BoundaryCondition::PERIODIC && boundary_types[2] == BoundaryCondition::PERIODIC &&
+        boundary_types[5] == BoundaryCondition::PERIODIC) {
+        Cell* cell = &cells.at(cellCoordToCellIndex(0, 0, domain_num_cells[2] - 1));
+        for (Particle* p : cell->getParticleReferences()) {
+            Particle ghost_particle =
+                Particle(p->getX() + std::array<double, 3>{domain_size[0], domain_size[1], -domain_size[2]}, {0, 0, 0}, p->getM());
+            addParticle(ghost_particle);
+        }
+    }
+
+    if (boundary_types[0] == BoundaryCondition::PERIODIC && boundary_types[3] == BoundaryCondition::PERIODIC &&
+        boundary_types[4] == BoundaryCondition::PERIODIC) {
+        Cell* cell = &cells.at(cellCoordToCellIndex(0, domain_num_cells[1] - 1, 0));
+        for (Particle* p : cell->getParticleReferences()) {
+            Particle ghost_particle =
+                Particle(p->getX() + std::array<double, 3>{domain_size[0], -domain_size[1], domain_size[2]}, {0, 0, 0}, p->getM());
+            addParticle(ghost_particle);
+        }
+    }
+
+    if (boundary_types[0] == BoundaryCondition::PERIODIC && boundary_types[3] == BoundaryCondition::PERIODIC &&
+        boundary_types[5] == BoundaryCondition::PERIODIC) {
+        Cell* cell = &cells.at(cellCoordToCellIndex(0, domain_num_cells[1] - 1, domain_num_cells[2] - 1));
+        for (Particle* p : cell->getParticleReferences()) {
+            Particle ghost_particle =
+                Particle(p->getX() + std::array<double, 3>{domain_size[0], -domain_size[1], -domain_size[2]}, {0, 0, 0}, p->getM());
+            addParticle(ghost_particle);
+        }
+    }
+
+    if (boundary_types[1] == BoundaryCondition::PERIODIC && boundary_types[2] == BoundaryCondition::PERIODIC &&
+        boundary_types[4] == BoundaryCondition::PERIODIC) {
+        Cell* cell = &cells.at(cellCoordToCellIndex(domain_num_cells[0] - 1, 0, 0));
+        for (Particle* p : cell->getParticleReferences()) {
+            Particle ghost_particle =
+                Particle(p->getX() + std::array<double, 3>{-domain_size[0], domain_size[1], domain_size[2]}, {0, 0, 0}, p->getM());
+            addParticle(ghost_particle);
+        }
+    }
+
+    if (boundary_types[1] == BoundaryCondition::PERIODIC && boundary_types[2] == BoundaryCondition::PERIODIC &&
+        boundary_types[5] == BoundaryCondition::PERIODIC) {
+        Cell* cell = &cells.at(cellCoordToCellIndex(domain_num_cells[0] - 1, 0, domain_num_cells[2] - 1));
+        for (Particle* p : cell->getParticleReferences()) {
+            Particle ghost_particle =
+                Particle(p->getX() + std::array<double, 3>{-domain_size[0], domain_size[1], -domain_size[2]}, {0, 0, 0}, p->getM());
+            addParticle(ghost_particle);
+        }
+    }
+
+    if (boundary_types[1] == BoundaryCondition::PERIODIC && boundary_types[3] == BoundaryCondition::PERIODIC &&
+        boundary_types[4] == BoundaryCondition::PERIODIC) {
+        Cell* cell = &cells.at(cellCoordToCellIndex(domain_num_cells[0] - 1, domain_num_cells[1] - 1, 0));
+        for (Particle* p : cell->getParticleReferences()) {
+            Particle ghost_particle =
+                Particle(p->getX() + std::array<double, 3>{-domain_size[0], -domain_size[1], domain_size[2]}, {0, 0, 0}, p->getM());
+            addParticle(ghost_particle);
+        }
+    }
+
+    if (boundary_types[1] == BoundaryCondition::PERIODIC && boundary_types[3] == BoundaryCondition::PERIODIC &&
+        boundary_types[5] == BoundaryCondition::PERIODIC) {
+        Cell* cell = &cells.at(cellCoordToCellIndex(domain_num_cells[0] - 1, domain_num_cells[1] - 1, domain_num_cells[2] - 1));
+        for (Particle* p : cell->getParticleReferences()) {
+            Particle ghost_particle =
+                Particle(p->getX() + std::array<double, 3>{-domain_size[0], -domain_size[1], -domain_size[2]}, {0, 0, 0}, p->getM());
+            addParticle(ghost_particle);
+        }
+    }
+}
+
+void LinkedCellsContainer::addPeriodicHaloParticlesForSide(const std::vector<Cell*>& side_cell_references,
+                                                           const std::array<double, 3>& offset) {
+    for (Cell* cell : side_cell_references) {
+        for (Particle* p : cell->getParticleReferences()) {
+            Particle ghost_particle = Particle(p->getX() + offset, {0, 0, 0}, p->getM());
+            addParticle(ghost_particle);
+        }
+    }
+}
+
+void LinkedCellsContainer::moveOverPeriodicBoundaries() {
+    if (boundary_types[0] == BoundaryCondition::PERIODIC) {
+        for (Cell* cell : left_halo_cell_references) {
+            for (Particle* p : cell->getParticleReferences()) {
+                p->setX(p->getX() + std::array<double, 3>{domain_size[0], 0, 0});
+            }
+        }
+    }
+
+    if (boundary_types[1] == BoundaryCondition::PERIODIC) {
+        for (Cell* cell : right_halo_cell_references) {
+            for (Particle* p : cell->getParticleReferences()) {
+                p->setX(p->getX() + std::array<double, 3>{-domain_size[0], 0, 0});
+            }
+        }
+    }
+
+    if (boundary_types[2] == BoundaryCondition::PERIODIC) {
+        for (Cell* cell : bottom_halo_cell_references) {
+            for (Particle* p : cell->getParticleReferences()) {
+                p->setX(p->getX() + std::array<double, 3>{0, domain_size[1], 0});
+            }
+        }
+    }
+
+    if (boundary_types[3] == BoundaryCondition::PERIODIC) {
+        for (Cell* cell : top_halo_cell_references) {
+            for (Particle* p : cell->getParticleReferences()) {
+                p->setX(p->getX() + std::array<double, 3>{0, -domain_size[1], 0});
+            }
+        }
+    }
+
+    if (boundary_types[4] == BoundaryCondition::PERIODIC) {
+        for (Cell* cell : back_halo_cell_references) {
+            for (Particle* p : cell->getParticleReferences()) {
+                p->setX(p->getX() + std::array<double, 3>{0, 0, domain_size[2]});
+            }
+        }
+    }
+
+    if (boundary_types[5] == BoundaryCondition::PERIODIC) {
+        for (Cell* cell : front_halo_cell_references) {
+            for (Particle* p : cell->getParticleReferences()) {
+                p->setX(p->getX() + std::array<double, 3>{0, 0, -domain_size[2]});
+            }
+        }
+    }
 }

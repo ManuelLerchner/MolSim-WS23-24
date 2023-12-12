@@ -130,6 +130,8 @@ LinkedCellsContainer::BoundaryCondition XSDToInternalTypeAdapter::convertToBound
             return LinkedCellsContainer::BoundaryCondition::OUTFLOW;
         case BoundaryType::value::Reflective:
             return LinkedCellsContainer::BoundaryCondition::REFLECTIVE;
+        case BoundaryType::value::Periodic:
+            return LinkedCellsContainer::BoundaryCondition::PERIODIC;
         default:
             Logger::logger->error("Boundary condition not implemented");
             exit(-1);

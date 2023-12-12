@@ -1287,18 +1287,19 @@ BoundaryType* BoundaryType::_clone(::xml_schema::flags f, ::xml_schema::containe
 
 BoundaryType::value BoundaryType::_xsd_BoundaryType_convert() const {
     ::xsd::cxx::tree::enum_comparator<char> c(_xsd_BoundaryType_literals_);
-    const value* i(::std::lower_bound(_xsd_BoundaryType_indexes_, _xsd_BoundaryType_indexes_ + 2, *this, c));
+    const value* i(::std::lower_bound(_xsd_BoundaryType_indexes_, _xsd_BoundaryType_indexes_ + 3, *this, c));
 
-    if (i == _xsd_BoundaryType_indexes_ + 2 || _xsd_BoundaryType_literals_[*i] != *this) {
+    if (i == _xsd_BoundaryType_indexes_ + 3 || _xsd_BoundaryType_literals_[*i] != *this) {
         throw ::xsd::cxx::tree::unexpected_enumerator<char>(*this);
     }
 
     return *i;
 }
 
-const char* const BoundaryType::_xsd_BoundaryType_literals_[2] = {"Outflow", "Reflective"};
+const char* const BoundaryType::_xsd_BoundaryType_literals_[3] = {"Outflow", "Reflective", "Periodic"};
 
-const BoundaryType::value BoundaryType::_xsd_BoundaryType_indexes_[2] = {::BoundaryType::Outflow, ::BoundaryType::Reflective};
+const BoundaryType::value BoundaryType::_xsd_BoundaryType_indexes_[3] = {::BoundaryType::Outflow, ::BoundaryType::Periodic,
+                                                                         ::BoundaryType::Reflective};
 
 // CuboidSpawnerType
 //

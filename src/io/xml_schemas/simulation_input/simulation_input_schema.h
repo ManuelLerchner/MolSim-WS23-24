@@ -2458,7 +2458,7 @@ class BoundaryType : public ::xml_schema::string {
     /**
      * @brief Underlying enum type.
      */
-    enum value { Outflow, Reflective };
+    enum value { Outflow, Reflective, Periodic };
 
     /**
      * @brief Create an instance from the underlying enum value.
@@ -2569,8 +2569,8 @@ class BoundaryType : public ::xml_schema::string {
     value _xsd_BoundaryType_convert() const;
 
    public:
-    static const char* const _xsd_BoundaryType_literals_[2];
-    static const value _xsd_BoundaryType_indexes_[2];
+    static const char* const _xsd_BoundaryType_literals_[3];
+    static const value _xsd_BoundaryType_indexes_[3];
 
     //@endcond
 };
