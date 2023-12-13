@@ -117,7 +117,7 @@ SimulationOverview Simulation::runSimulation() {
     return SimulationOverview{params,
                               static_cast<double>(total_simulation_time_ms) / 1000.0,
                               static_cast<double>(total_simulation_time_ms) / static_cast<double>(iteration),
-                              static_cast<size_t>(iteration),
+                              static_cast<size_t>(iteration - 1),
                               expected_iterations / save_every_nth_iteration + 1,
                               std::vector<Particle>(particles->begin(), particles->end())};
 }
@@ -153,7 +153,7 @@ SimulationOverview Simulation::runSimulationPerfTest() {
     SimulationOverview overview{params,
                                 static_cast<double>(total_simulation_time) / 1000.0,
                                 static_cast<double>(total_simulation_time) / static_cast<double>(iteration),
-                                static_cast<size_t>(iteration),
+                                static_cast<size_t>(iteration - 1),
                                 0,
                                 std::vector<Particle>(particles->begin(), particles->end())};
 

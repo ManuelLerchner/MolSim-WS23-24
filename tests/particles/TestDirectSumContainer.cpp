@@ -62,7 +62,8 @@ TEST(DirectSumContainer, ManyParticlesIteration) {
 
     constexpr size_t n = 10000;
     DirectSumContainer container(n);
-    std::array<Particle, n> particles_expected;
+    std::vector<Particle> particles_expected;
+    particles_expected.reserve(n);
 
     for (size_t i = 0; i < n; i++) {
         std::array<double, 3> v = {dist(gen), dist(gen), dist(gen)};

@@ -40,9 +40,19 @@ class Particle {
     std::array<double, 3> old_f;
 
     /**
+     * @brief Lennard-Jones potential parameter epsilon
+     */
+    double epsilon;
+
+    /**
      * @brief Mass of this particle
      */
     double m;
+
+    /**
+     * @brief Lennard-Jones potential parameter sigma
+     */
+    double sigma;
 
     /**
      * @brief Type of the particle. Use it for whatever you want (e.g. to separate molecules belonging to different bodies, matters, and so
@@ -51,14 +61,13 @@ class Particle {
     int type;
 
    public:
-    explicit Particle(int type = 0);
-
     Particle(const Particle& other);
 
-    Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type = 0);
+    Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type = 0, double epsilon_arg = 1.0,
+             double sigma_arg = 1.2);
 
     Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std::array<double, 3> f_arg, std::array<double, 3> old_f_arg,
-             double m_arg, int type = 0);
+             double m_arg, int type = 0, double epsilon_arg = 1.0, double sigma_arg = 1.2);
 
     virtual ~Particle();
 
@@ -119,6 +128,16 @@ class Particle {
      * @brief Gets the type of the particle
      */
     [[nodiscard]] int getType() const;
+
+    /**
+     * @brief Gets the Lennard-Jones potential parameter epsilon
+     */
+    [[nodiscard]] double getEpsilon() const;
+
+    /**
+     * @brief Gets the Lennard-Jones potential parameter sigma
+     */
+    [[nodiscard]] double getSigma() const;
 
     bool operator==(Particle& other);
 

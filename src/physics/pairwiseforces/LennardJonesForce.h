@@ -10,19 +10,6 @@
 class LennardJonesForce : public PairwiseForceSource {
    public:
     /**
-     * @brief Lennard-Jones potential parameter epsilon
-     */
-    const double epsilon;
-
-    /**
-     * @brief Lennard-Jones potential parameter sigma
-     */
-    const double sigma;
-
-   public:
-    explicit LennardJonesForce(double epsilon = 1.0, double sigma = 1.2) : epsilon(epsilon), sigma(sigma) {}
-
-    /**
      * @brief Calculates the Lennard-Jones forces between two particles
      *
      * @param p Particle

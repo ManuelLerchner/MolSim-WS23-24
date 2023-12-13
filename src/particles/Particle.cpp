@@ -12,13 +12,6 @@
 #include "io/logger/Logger.h"
 #include "utils/ArrayUtils.h"
 
-Particle::Particle(int type_arg) {
-    type = type_arg;
-    f = {0., 0., 0.};
-    old_f = {0., 0., 0.};
-    Logger::logger->debug("Particle created with");
-}
-
 Particle::Particle(const Particle& other) {
     x = other.x;
     v = other.v;
@@ -26,27 +19,34 @@ Particle::Particle(const Particle& other) {
     old_f = other.old_f;
     m = other.m;
     type = other.type;
+    epsilon = other.epsilon;
+    sigma = other.sigma;
     Logger::logger->debug("Particle created");
 }
 
-Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type_arg) {
+Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type_arg, double epsilon_arg,
+                   double sigma_arg) {
     x = x_arg;
     v = v_arg;
     m = m_arg;
-    type = type_arg;
+    epsilon = epsilon_arg;
     f = {0., 0., 0.};
+    sigma = sigma_arg;
+    type = type_arg;
     old_f = {0., 0., 0.};
     Logger::logger->debug("Particle created");
 }
 
 Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std::array<double, 3> f_arg, std::array<double, 3> old_f_arg,
-                   double m_arg, int type_arg) {
+                   double m_arg, int type_arg, double epsilon_arg, double sigma_arg) {
     x = x_arg;
     v = v_arg;
     f = f_arg;
     old_f = old_f_arg;
     m = m_arg;
     type = type_arg;
+    epsilon = epsilon_arg;
+    sigma = sigma_arg;
     Logger::logger->debug("Particle created");
 }
 
@@ -69,6 +69,10 @@ const std::array<double, 3>& Particle::getF() const { return f; }
 const std::array<double, 3>& Particle::getOldF() const { return old_f; }
 
 double Particle::getM() const { return m; }
+
+double Particle::getEpsilon() const { return epsilon; }
+
+double Particle::getSigma() const { return sigma; }
 
 int Particle::getType() const { return type; }
 
