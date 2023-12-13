@@ -17,11 +17,7 @@
     </settings>
 
     <particle_source>
-        <check_point_loader>
-            <file_name>
-                ./ChktpExample.chkpt
-            </file_name>
-        </check_point_loader>
+        <check_point_loader file_name="./ChktpExample.chkpt" />
     </particle_source>
 
 </configuration>

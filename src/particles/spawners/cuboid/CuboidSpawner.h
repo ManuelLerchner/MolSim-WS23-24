@@ -39,6 +39,16 @@ class CuboidSpawner : public ParticleSpawner {
     const int type;
 
     /**
+     * @brief Defines the Lennard-Jones epsilon parameter of the particles in the cuboid
+     */
+    double epsilon;
+
+    /**
+     * @brief Defines the Lennard-Jones sigma parameter of the particles in the cuboid
+     */
+    double sigma;
+
+    /**
      * @brief Defines the initial velocity of the particles in the cuboid
      */
     const std::array<double, 3> initial_velocity;
@@ -62,14 +72,16 @@ class CuboidSpawner : public ParticleSpawner {
      * @param mass Mass of the particles
      * @param initial_velocity Initial velocity of the particles, the velocity is then jittered by a Maxwell-Boltzmann distribution
      * @param type Type of the particles in the cuboid
+     * @param epsilon Lennard-Jones epsilon parameter of the particles in the cuboid
+     * @param sigma Lennard-Jones sigma parameter of the particles in the cuboid
      * @param third_dimension Whether to spawn particles in the third dimension
      * @param initial_temperature Initial temperature of the particles
      *
      * Constructor to initialize the cuboid spawner. The velocity of the particles is jittered by a Maxwell-Boltzmann distribution.
      */
     CuboidSpawner(const std::array<double, 3>& lower_left_corner, const std::array<int, 3>& grid_dimensions, double grid_spacing,
-                  double mass, const std::array<double, 3>& initial_velocity, int type, bool third_dimension = true,
-                  double initial_temperature = 0.1);
+                  double mass, const std::array<double, 3>& initial_velocity, int type, double epsilon = 1.0, double sigma = 1.2,
+                  bool third_dimension = true, double initial_temperature = 0.1);
 
     /**
      * @brief Spawns particles in the given container

@@ -1,78 +1,59 @@
 <?xml version="1.0"?>
 <!-- just a sanity check: body collision rewritten to xml -->
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="simulation_schema.xsd">
+    xsi:noNamespaceSchemaLocation="../simulation_schema.xsd">
 
     <settings>
         <fps>24</fps>
         <video_length>30</video_length>
         <delta_t>0.0005</delta_t>
-        <end_time>20.0</end_time>
-        <third_dimension>true</third_dimension>
+        <end_time>25.0</end_time>
+        <third_dimension>false</third_dimension>
         <particle_container>
             <linkedcells_container>
                 <domain_size>
-                    <x>30.0</x>
-                    <y>30.0</y>
-                    <z>30.0</z>
+                    <x>63</x>
+                    <y>36</y>
+                    <z>1</z>
                 </domain_size>
-                <cutoff_radius>5.0</cutoff_radius>
+                <cutoff_radius>2.5</cutoff_radius>
                 <boundary_conditions>
                     <left>Periodic</left>
                     <right>Periodic</right>
-                    <bottom>Periodic</bottom>
-                    <top>Periodic</top>
-                    <back>Periodic</back>
-                    <front>Periodic</front>
+                    <bottom>Reflective</bottom>
+                    <top>Reflective</top>
+                    <back>Outflow</back>
+                    <front>Outflow</front>
                 </boundary_conditions>
             </linkedcells_container>
         </particle_container>
         <forces>
             <LennardJones />
+            <GlobalDownwardsGravity g="12.44" />
         </forces>
+        <thermostat>
+            <target_temperature>40</target_temperature>
+            <max_temperature_change>1000000</max_temperature_change>
+            <application_interval>1000</application_interval>
+        </thermostat>
     </settings>
 
 
     <particle_source>
         <cuboid_spawner>
             <lower_left_front_corner>
-                <x>16.0</x>
-                <y>15.0</y>
-                <z>15.0</z>
+                <x>0.6</x>
+                <y>2.0</y>
+                <z>0.5</z>
             </lower_left_front_corner>
             <grid_dim>
-                <x>1</x>
-                <y>1</y>
+                <x>50</x>
+                <y>14</y>
                 <z>1</z>
             </grid_dim>
-            <grid_spacing>1.1225</grid_spacing>
-            <temperature>0</temperature>
-            <mass>1</mass>
-            <velocity>
-                <x>10.0</x>
-                <y>0.0</y>
-                <z>0.0</z>
-            </velocity>
-            <type>0</type>
-            <epsilon>1.0</epsilon>
-            <sigma>1.2</sigma>
-        </cuboid_spawner>
-
-        <cuboid_spawner>
-            <lower_left_front_corner>
-                <x>0.05</x>
-                <y>10.0</y>
-                <z>10.0</z>
-            </lower_left_front_corner>
-
-            <grid_dim>
-                <x>1</x>
-                <y>5</y>
-                <z>5</z>
-            </grid_dim>
             <grid_spacing>1.2</grid_spacing>
-            <temperature>0</temperature>
-            <mass>1</mass>
+            <temperature>40</temperature>
+            <mass>1.0</mass>
             <velocity>
                 <x>0.0</x>
                 <y>0.0</y>
@@ -80,8 +61,33 @@
             </velocity>
             <type>0</type>
             <epsilon>1.0</epsilon>
-            <sigma>1.2</sigma>
+            <sigma>1.0</sigma>
         </cuboid_spawner>
+
+        <cuboid_spawner>
+            <lower_left_front_corner>
+                <x>0.6</x>
+                <y>19.0</y>
+                <z>0.5</z>
+            </lower_left_front_corner>
+            <grid_dim>
+                <x>50</x>
+                <y>14</y>
+                <z>1</z>
+            </grid_dim>
+            <grid_spacing>1.2</grid_spacing>
+            <temperature>40</temperature>
+            <mass>2.0</mass>
+            <velocity>
+                <x>0.0</x>
+                <y>0.0</y>
+                <z>0.0</z>
+            </velocity>
+            <type>1</type>
+            <epsilon>1.0</epsilon>
+            <sigma>0.9412</sigma>
+        </cuboid_spawner>
+
     </particle_source>
 
 </configuration>

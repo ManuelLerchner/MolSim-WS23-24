@@ -13,6 +13,8 @@ CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawn
     auto grid_spacing = cuboid.grid_spacing();
     auto mass = cuboid.mass();
     auto type = cuboid.type();
+    auto epsilon = cuboid.epsilon();
+    auto sigma = cuboid.sigma();
     auto temperature = cuboid.temperature();
 
     if (grid_dimensions[0] <= 0 || grid_dimensions[1] <= 0 || grid_dimensions[2] <= 0) {
@@ -40,8 +42,9 @@ CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawn
         exit(-1);
     }
 
-    return CuboidSpawner{lower_left_front_corner, grid_dimensions,        grid_spacing,    mass,
-                         initial_velocity,        static_cast<int>(type), third_dimension, temperature};
+    return CuboidSpawner{
+        lower_left_front_corner, grid_dimensions, grid_spacing, mass, initial_velocity, static_cast<int>(type), epsilon, sigma,
+        third_dimension,         temperature};
 }
 
 SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const SphereSpawnerType& sphere, bool third_dimension) {
@@ -52,6 +55,8 @@ SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const SphereSpawn
     auto grid_spacing = sphere.grid_spacing();
     auto mass = sphere.mass();
     auto type = sphere.type();
+    auto epsilon = sphere.epsilon();
+    auto sigma = sphere.sigma();
     auto temperature = sphere.temperature();
 
     if (radius <= 0) {
@@ -74,8 +79,8 @@ SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const SphereSpawn
         exit(-1);
     }
 
-    return SphereSpawner{center,           static_cast<int>(radius), grid_spacing,    mass,
-                         initial_velocity, static_cast<int>(type),   third_dimension, temperature};
+    return SphereSpawner{center, static_cast<int>(radius), grid_spacing, mass, initial_velocity, static_cast<int>(type), epsilon,
+                         sigma,  third_dimension,          temperature};
 }
 
 CuboidSpawner XSDToInternalTypeAdapter::convertToSingleParticleSpawner(const SingleParticleSpawnerType& particle, bool third_dimension) {
@@ -84,8 +89,11 @@ CuboidSpawner XSDToInternalTypeAdapter::convertToSingleParticleSpawner(const Sin
 
     auto mass = particle.mass();
     auto type = particle.type();
+    auto epsilon = particle.epsilon();
+    auto sigma = particle.sigma();
 
-    return CuboidSpawner{position, {1, 1, 1}, 0, mass, initial_velocity, static_cast<int>(type), third_dimension, particle.temperature()};
+    return CuboidSpawner{
+        position, {1, 1, 1}, 0, mass, initial_velocity, static_cast<int>(type), epsilon, sigma, third_dimension, particle.temperature()};
 }
 
 std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType> XSDToInternalTypeAdapter::convertToParticleContainer(

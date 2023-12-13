@@ -48,7 +48,10 @@
                 <z>0.0</z>
             </velocity>
             <type>0</type>
+            <epsilon>1.0</epsilon>
+            <sigma>1.2</sigma>
         </sphere_spawner>
+        
         <sub_simulation>
             <name>
                 Top Right

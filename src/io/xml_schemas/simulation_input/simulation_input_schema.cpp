@@ -318,6 +318,18 @@ CuboidSpawnerType::type_type& CuboidSpawnerType::type() { return this->type_.get
 
 void CuboidSpawnerType::type(const type_type& x) { this->type_.set(x); }
 
+const CuboidSpawnerType::epsilon_type& CuboidSpawnerType::epsilon() const { return this->epsilon_.get(); }
+
+CuboidSpawnerType::epsilon_type& CuboidSpawnerType::epsilon() { return this->epsilon_.get(); }
+
+void CuboidSpawnerType::epsilon(const epsilon_type& x) { this->epsilon_.set(x); }
+
+const CuboidSpawnerType::sigma_type& CuboidSpawnerType::sigma() const { return this->sigma_.get(); }
+
+CuboidSpawnerType::sigma_type& CuboidSpawnerType::sigma() { return this->sigma_.get(); }
+
+void CuboidSpawnerType::sigma(const sigma_type& x) { this->sigma_.set(x); }
+
 // SphereSpawnerType
 //
 
@@ -367,6 +379,18 @@ SphereSpawnerType::type_type& SphereSpawnerType::type() { return this->type_.get
 
 void SphereSpawnerType::type(const type_type& x) { this->type_.set(x); }
 
+const SphereSpawnerType::epsilon_type& SphereSpawnerType::epsilon() const { return this->epsilon_.get(); }
+
+SphereSpawnerType::epsilon_type& SphereSpawnerType::epsilon() { return this->epsilon_.get(); }
+
+void SphereSpawnerType::epsilon(const epsilon_type& x) { this->epsilon_.set(x); }
+
+const SphereSpawnerType::sigma_type& SphereSpawnerType::sigma() const { return this->sigma_.get(); }
+
+SphereSpawnerType::sigma_type& SphereSpawnerType::sigma() { return this->sigma_.get(); }
+
+void SphereSpawnerType::sigma(const sigma_type& x) { this->sigma_.set(x); }
+
 // SingleParticleSpawnerType
 //
 
@@ -403,6 +427,18 @@ const SingleParticleSpawnerType::type_type& SingleParticleSpawnerType::type() co
 SingleParticleSpawnerType::type_type& SingleParticleSpawnerType::type() { return this->type_.get(); }
 
 void SingleParticleSpawnerType::type(const type_type& x) { this->type_.set(x); }
+
+const SingleParticleSpawnerType::epsilon_type& SingleParticleSpawnerType::epsilon() const { return this->epsilon_.get(); }
+
+SingleParticleSpawnerType::epsilon_type& SingleParticleSpawnerType::epsilon() { return this->epsilon_.get(); }
+
+void SingleParticleSpawnerType::epsilon(const epsilon_type& x) { this->epsilon_.set(x); }
+
+const SingleParticleSpawnerType::sigma_type& SingleParticleSpawnerType::sigma() const { return this->sigma_.get(); }
+
+SingleParticleSpawnerType::sigma_type& SingleParticleSpawnerType::sigma() { return this->sigma_.get(); }
+
+void SingleParticleSpawnerType::sigma(const sigma_type& x) { this->sigma_.set(x); }
 
 // CheckPointLoaderType
 //
@@ -1306,7 +1342,8 @@ const BoundaryType::value BoundaryType::_xsd_BoundaryType_indexes_[3] = {::Bound
 
 CuboidSpawnerType::CuboidSpawnerType(const lower_left_front_corner_type& lower_left_front_corner, const grid_dim_type& grid_dim,
                                      const grid_spacing_type& grid_spacing, const temperature_type& temperature, const mass_type& mass,
-                                     const velocity_type& velocity, const type_type& type)
+                                     const velocity_type& velocity, const type_type& type, const epsilon_type& epsilon,
+                                     const sigma_type& sigma)
     : ::xml_schema::type(),
       lower_left_front_corner_(lower_left_front_corner, this),
       grid_dim_(grid_dim, this),
@@ -1314,12 +1351,14 @@ CuboidSpawnerType::CuboidSpawnerType(const lower_left_front_corner_type& lower_l
       temperature_(temperature, this),
       mass_(mass, this),
       velocity_(velocity, this),
-      type_(type, this) {}
+      type_(type, this),
+      epsilon_(epsilon, this),
+      sigma_(sigma, this) {}
 
 CuboidSpawnerType::CuboidSpawnerType(::std::unique_ptr<lower_left_front_corner_type> lower_left_front_corner,
                                      ::std::unique_ptr<grid_dim_type> grid_dim, const grid_spacing_type& grid_spacing,
                                      const temperature_type& temperature, const mass_type& mass, ::std::unique_ptr<velocity_type> velocity,
-                                     const type_type& type)
+                                     const type_type& type, const epsilon_type& epsilon, const sigma_type& sigma)
     : ::xml_schema::type(),
       lower_left_front_corner_(std::move(lower_left_front_corner), this),
       grid_dim_(std::move(grid_dim), this),
@@ -1327,7 +1366,9 @@ CuboidSpawnerType::CuboidSpawnerType(::std::unique_ptr<lower_left_front_corner_t
       temperature_(temperature, this),
       mass_(mass, this),
       velocity_(std::move(velocity), this),
-      type_(type, this) {}
+      type_(type, this),
+      epsilon_(epsilon, this),
+      sigma_(sigma, this) {}
 
 CuboidSpawnerType::CuboidSpawnerType(const CuboidSpawnerType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
@@ -1337,7 +1378,9 @@ CuboidSpawnerType::CuboidSpawnerType(const CuboidSpawnerType& x, ::xml_schema::f
       temperature_(x.temperature_, f, this),
       mass_(x.mass_, f, this),
       velocity_(x.velocity_, f, this),
-      type_(x.type_, f, this) {}
+      type_(x.type_, f, this),
+      epsilon_(x.epsilon_, f, this),
+      sigma_(x.sigma_, f, this) {}
 
 CuboidSpawnerType::CuboidSpawnerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
@@ -1347,7 +1390,9 @@ CuboidSpawnerType::CuboidSpawnerType(const ::xercesc::DOMElement& e, ::xml_schem
       temperature_(this),
       mass_(this),
       velocity_(this),
-      type_(this) {
+      type_(this),
+      epsilon_(this),
+      sigma_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
         this->parse(p, f);
@@ -1428,6 +1473,24 @@ void CuboidSpawnerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schem
             }
         }
 
+        // epsilon
+        //
+        if (n.name() == "epsilon" && n.namespace_().empty()) {
+            if (!epsilon_.present()) {
+                this->epsilon_.set(epsilon_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // sigma
+        //
+        if (n.name() == "sigma" && n.namespace_().empty()) {
+            if (!sigma_.present()) {
+                this->sigma_.set(sigma_traits::create(i, f, this));
+                continue;
+            }
+        }
+
         break;
     }
 
@@ -1458,6 +1521,14 @@ void CuboidSpawnerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schem
     if (!type_.present()) {
         throw ::xsd::cxx::tree::expected_element<char>("type", "");
     }
+
+    if (!epsilon_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("epsilon", "");
+    }
+
+    if (!sigma_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("sigma", "");
+    }
 }
 
 CuboidSpawnerType* CuboidSpawnerType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
@@ -1474,6 +1545,8 @@ CuboidSpawnerType& CuboidSpawnerType::operator=(const CuboidSpawnerType& x) {
         this->mass_ = x.mass_;
         this->velocity_ = x.velocity_;
         this->type_ = x.type_;
+        this->epsilon_ = x.epsilon_;
+        this->sigma_ = x.sigma_;
     }
 
     return *this;
@@ -1486,7 +1559,7 @@ CuboidSpawnerType::~CuboidSpawnerType() {}
 
 SphereSpawnerType::SphereSpawnerType(const center_type& center, const radius_type& radius, const grid_spacing_type& grid_spacing,
                                      const temperature_type& temperature, const mass_type& mass, const velocity_type& velocity,
-                                     const type_type& type)
+                                     const type_type& type, const epsilon_type& epsilon, const sigma_type& sigma)
     : ::xml_schema::type(),
       center_(center, this),
       radius_(radius, this),
@@ -1494,11 +1567,14 @@ SphereSpawnerType::SphereSpawnerType(const center_type& center, const radius_typ
       temperature_(temperature, this),
       mass_(mass, this),
       velocity_(velocity, this),
-      type_(type, this) {}
+      type_(type, this),
+      epsilon_(epsilon, this),
+      sigma_(sigma, this) {}
 
 SphereSpawnerType::SphereSpawnerType(::std::unique_ptr<center_type> center, const radius_type& radius,
                                      const grid_spacing_type& grid_spacing, const temperature_type& temperature, const mass_type& mass,
-                                     ::std::unique_ptr<velocity_type> velocity, const type_type& type)
+                                     ::std::unique_ptr<velocity_type> velocity, const type_type& type, const epsilon_type& epsilon,
+                                     const sigma_type& sigma)
     : ::xml_schema::type(),
       center_(std::move(center), this),
       radius_(radius, this),
@@ -1506,7 +1582,9 @@ SphereSpawnerType::SphereSpawnerType(::std::unique_ptr<center_type> center, cons
       temperature_(temperature, this),
       mass_(mass, this),
       velocity_(std::move(velocity), this),
-      type_(type, this) {}
+      type_(type, this),
+      epsilon_(epsilon, this),
+      sigma_(sigma, this) {}
 
 SphereSpawnerType::SphereSpawnerType(const SphereSpawnerType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
@@ -1516,7 +1594,9 @@ SphereSpawnerType::SphereSpawnerType(const SphereSpawnerType& x, ::xml_schema::f
       temperature_(x.temperature_, f, this),
       mass_(x.mass_, f, this),
       velocity_(x.velocity_, f, this),
-      type_(x.type_, f, this) {}
+      type_(x.type_, f, this),
+      epsilon_(x.epsilon_, f, this),
+      sigma_(x.sigma_, f, this) {}
 
 SphereSpawnerType::SphereSpawnerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
@@ -1526,7 +1606,9 @@ SphereSpawnerType::SphereSpawnerType(const ::xercesc::DOMElement& e, ::xml_schem
       temperature_(this),
       mass_(this),
       velocity_(this),
-      type_(this) {
+      type_(this),
+      epsilon_(this),
+      sigma_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
         this->parse(p, f);
@@ -1605,6 +1687,24 @@ void SphereSpawnerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schem
             }
         }
 
+        // epsilon
+        //
+        if (n.name() == "epsilon" && n.namespace_().empty()) {
+            if (!epsilon_.present()) {
+                this->epsilon_.set(epsilon_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // sigma
+        //
+        if (n.name() == "sigma" && n.namespace_().empty()) {
+            if (!sigma_.present()) {
+                this->sigma_.set(sigma_traits::create(i, f, this));
+                continue;
+            }
+        }
+
         break;
     }
 
@@ -1635,6 +1735,14 @@ void SphereSpawnerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schem
     if (!type_.present()) {
         throw ::xsd::cxx::tree::expected_element<char>("type", "");
     }
+
+    if (!epsilon_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("epsilon", "");
+    }
+
+    if (!sigma_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("sigma", "");
+    }
 }
 
 SphereSpawnerType* SphereSpawnerType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
@@ -1651,6 +1759,8 @@ SphereSpawnerType& SphereSpawnerType::operator=(const SphereSpawnerType& x) {
         this->mass_ = x.mass_;
         this->velocity_ = x.velocity_;
         this->type_ = x.type_;
+        this->epsilon_ = x.epsilon_;
+        this->sigma_ = x.sigma_;
     }
 
     return *this;
@@ -1662,23 +1772,28 @@ SphereSpawnerType::~SphereSpawnerType() {}
 //
 
 SingleParticleSpawnerType::SingleParticleSpawnerType(const position_type& position, const temperature_type& temperature,
-                                                     const mass_type& mass, const velocity_type& velocity, const type_type& type)
+                                                     const mass_type& mass, const velocity_type& velocity, const type_type& type,
+                                                     const epsilon_type& epsilon, const sigma_type& sigma)
     : ::xml_schema::type(),
       position_(position, this),
       temperature_(temperature, this),
       mass_(mass, this),
       velocity_(velocity, this),
-      type_(type, this) {}
+      type_(type, this),
+      epsilon_(epsilon, this),
+      sigma_(sigma, this) {}
 
 SingleParticleSpawnerType::SingleParticleSpawnerType(::std::unique_ptr<position_type> position, const temperature_type& temperature,
                                                      const mass_type& mass, ::std::unique_ptr<velocity_type> velocity,
-                                                     const type_type& type)
+                                                     const type_type& type, const epsilon_type& epsilon, const sigma_type& sigma)
     : ::xml_schema::type(),
       position_(std::move(position), this),
       temperature_(temperature, this),
       mass_(mass, this),
       velocity_(std::move(velocity), this),
-      type_(type, this) {}
+      type_(type, this),
+      epsilon_(epsilon, this),
+      sigma_(sigma, this) {}
 
 SingleParticleSpawnerType::SingleParticleSpawnerType(const SingleParticleSpawnerType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
@@ -1686,7 +1801,9 @@ SingleParticleSpawnerType::SingleParticleSpawnerType(const SingleParticleSpawner
       temperature_(x.temperature_, f, this),
       mass_(x.mass_, f, this),
       velocity_(x.velocity_, f, this),
-      type_(x.type_, f, this) {}
+      type_(x.type_, f, this),
+      epsilon_(x.epsilon_, f, this),
+      sigma_(x.sigma_, f, this) {}
 
 SingleParticleSpawnerType::SingleParticleSpawnerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
@@ -1694,7 +1811,9 @@ SingleParticleSpawnerType::SingleParticleSpawnerType(const ::xercesc::DOMElement
       temperature_(this),
       mass_(this),
       velocity_(this),
-      type_(this) {
+      type_(this),
+      epsilon_(this),
+      sigma_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
         this->parse(p, f);
@@ -1755,6 +1874,24 @@ void SingleParticleSpawnerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::x
             }
         }
 
+        // epsilon
+        //
+        if (n.name() == "epsilon" && n.namespace_().empty()) {
+            if (!epsilon_.present()) {
+                this->epsilon_.set(epsilon_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // sigma
+        //
+        if (n.name() == "sigma" && n.namespace_().empty()) {
+            if (!sigma_.present()) {
+                this->sigma_.set(sigma_traits::create(i, f, this));
+                continue;
+            }
+        }
+
         break;
     }
 
@@ -1777,6 +1914,14 @@ void SingleParticleSpawnerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::x
     if (!type_.present()) {
         throw ::xsd::cxx::tree::expected_element<char>("type", "");
     }
+
+    if (!epsilon_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("epsilon", "");
+    }
+
+    if (!sigma_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("sigma", "");
+    }
 }
 
 SingleParticleSpawnerType* SingleParticleSpawnerType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
@@ -1791,6 +1936,8 @@ SingleParticleSpawnerType& SingleParticleSpawnerType::operator=(const SinglePart
         this->mass_ = x.mass_;
         this->velocity_ = x.velocity_;
         this->type_ = x.type_;
+        this->epsilon_ = x.epsilon_;
+        this->sigma_ = x.sigma_;
     }
 
     return *this;
@@ -1809,32 +1956,24 @@ CheckPointLoaderType::CheckPointLoaderType(const CheckPointLoaderType& x, ::xml_
 CheckPointLoaderType::CheckPointLoaderType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), file_name_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
+        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
         this->parse(p, f);
     }
 }
 
 void CheckPointLoaderType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
         const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
 
-        // file_name
-        //
         if (n.name() == "file_name" && n.namespace_().empty()) {
-            ::std::unique_ptr<file_name_type> r(file_name_traits::create(i, f, this));
-
-            if (!file_name_.present()) {
-                this->file_name_.set(::std::move(r));
-                continue;
-            }
+            this->file_name_.set(file_name_traits::create(i, f, this));
+            continue;
         }
-
-        break;
     }
 
     if (!file_name_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("file_name", "");
+        throw ::xsd::cxx::tree::expected_attribute<char>("file_name", "");
     }
 }
 
@@ -2905,6 +3044,22 @@ void operator<<(::xercesc::DOMElement& e, const CuboidSpawnerType& i) {
 
         s << i.type();
     }
+
+    // epsilon
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("epsilon", e));
+
+        s << ::xml_schema::as_double(i.epsilon());
+    }
+
+    // sigma
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sigma", e));
+
+        s << ::xml_schema::as_double(i.sigma());
+    }
 }
 
 void operator<<(::xercesc::DOMElement& e, const SphereSpawnerType& i) {
@@ -2965,6 +3120,22 @@ void operator<<(::xercesc::DOMElement& e, const SphereSpawnerType& i) {
 
         s << i.type();
     }
+
+    // epsilon
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("epsilon", e));
+
+        s << ::xml_schema::as_double(i.epsilon());
+    }
+
+    // sigma
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sigma", e));
+
+        s << ::xml_schema::as_double(i.sigma());
+    }
 }
 
 void operator<<(::xercesc::DOMElement& e, const SingleParticleSpawnerType& i) {
@@ -3009,6 +3180,22 @@ void operator<<(::xercesc::DOMElement& e, const SingleParticleSpawnerType& i) {
 
         s << i.type();
     }
+
+    // epsilon
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("epsilon", e));
+
+        s << ::xml_schema::as_double(i.epsilon());
+    }
+
+    // sigma
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sigma", e));
+
+        s << ::xml_schema::as_double(i.sigma());
+    }
 }
 
 void operator<<(::xercesc::DOMElement& e, const CheckPointLoaderType& i) {
@@ -3017,9 +3204,9 @@ void operator<<(::xercesc::DOMElement& e, const CheckPointLoaderType& i) {
     // file_name
     //
     {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("file_name", e));
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("file_name", e));
 
-        s << i.file_name();
+        a << i.file_name();
     }
 }
 

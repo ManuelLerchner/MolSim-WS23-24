@@ -76,9 +76,9 @@ LinkedCellsContainer::BoundaryIterator LinkedCellsContainer::boundaryEnd() {
 LinkedCellsContainer::LinkedCellsContainer(const std::array<double, 3>& _domain_size, double _cutoff_radius,
                                            const std::array<BoundaryCondition, 6>& _boundary_types, int _n)
     : domain_size(_domain_size), cutoff_radius(_cutoff_radius), boundary_types(_boundary_types) {
-    domain_num_cells = {static_cast<int>(std::ceil(_domain_size[0] / cutoff_radius)),
-                        static_cast<int>(std::ceil(_domain_size[1] / cutoff_radius)),
-                        static_cast<int>(std::ceil(_domain_size[2] / cutoff_radius))};
+    domain_num_cells = {std::max(static_cast<int>(std::floor(_domain_size[0] / cutoff_radius)), 1),
+                        std::max(static_cast<int>(std::floor(_domain_size[1] / cutoff_radius)), 1),
+                        std::max(static_cast<int>(std::floor(_domain_size[2] / cutoff_radius)), 1)};
 
     cell_size = {_domain_size[0] / domain_num_cells[0], _domain_size[1] / domain_num_cells[1], _domain_size[2] / domain_num_cells[2]};
 

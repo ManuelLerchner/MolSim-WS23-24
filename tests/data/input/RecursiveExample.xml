@@ -56,6 +56,8 @@
                             <z>0.0</z>
                         </velocity>
                         <type>1</type>
+                        <epsilon>1.0</epsilon>
+                        <sigma>1.2</sigma>
                     </sphere_spawner>
                 </particle_source>
             </configuration>
@@ -81,6 +83,8 @@
                 <z>0.0</z>
             </velocity>
             <type>2</type>
+            <epsilon>1.0</epsilon>
+            <sigma>1.2</sigma>
         </cuboid_spawner>
     </particle_source>
 

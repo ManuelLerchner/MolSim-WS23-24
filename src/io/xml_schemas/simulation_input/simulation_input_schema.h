@@ -2921,6 +2921,94 @@ class CuboidSpawnerType : public ::xml_schema::type {
     //@}
 
     /**
+     * @name epsilon
+     *
+     * @brief Accessor and modifier functions for the %epsilon
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::double_ epsilon_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<epsilon_type, char, ::xsd::cxx::tree::schema_type::double_> epsilon_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const epsilon_type& epsilon() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    epsilon_type& epsilon();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void epsilon(const epsilon_type& x);
+
+    //@}
+
+    /**
+     * @name sigma
+     *
+     * @brief Accessor and modifier functions for the %sigma
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::double_ sigma_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<sigma_type, char, ::xsd::cxx::tree::schema_type::double_> sigma_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const sigma_type& sigma() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    sigma_type& sigma();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void sigma(const sigma_type& x);
+
+    //@}
+
+    /**
      * @name Constructors
      */
     //@{
@@ -2930,7 +3018,7 @@ class CuboidSpawnerType : public ::xml_schema::type {
      * initializers for required elements and attributes.
      */
     CuboidSpawnerType(const lower_left_front_corner_type&, const grid_dim_type&, const grid_spacing_type&, const temperature_type&,
-                      const mass_type&, const velocity_type&, const type_type&);
+                      const mass_type&, const velocity_type&, const type_type&, const epsilon_type&, const sigma_type&);
 
     /**
      * @brief Create an instance from the ultimate base and
@@ -2941,7 +3029,8 @@ class CuboidSpawnerType : public ::xml_schema::type {
      * instead of making copies.
      */
     CuboidSpawnerType(::std::unique_ptr<lower_left_front_corner_type>, ::std::unique_ptr<grid_dim_type>, const grid_spacing_type&,
-                      const temperature_type&, const mass_type&, ::std::unique_ptr<velocity_type>, const type_type&);
+                      const temperature_type&, const mass_type&, ::std::unique_ptr<velocity_type>, const type_type&, const epsilon_type&,
+                      const sigma_type&);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -3010,6 +3099,8 @@ class CuboidSpawnerType : public ::xml_schema::type {
     ::xsd::cxx::tree::one<mass_type> mass_;
     ::xsd::cxx::tree::one<velocity_type> velocity_;
     ::xsd::cxx::tree::one<type_type> type_;
+    ::xsd::cxx::tree::one<epsilon_type> epsilon_;
+    ::xsd::cxx::tree::one<sigma_type> sigma_;
 
     //@endcond
 };
@@ -3350,6 +3441,94 @@ class SphereSpawnerType : public ::xml_schema::type {
     //@}
 
     /**
+     * @name epsilon
+     *
+     * @brief Accessor and modifier functions for the %epsilon
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::double_ epsilon_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<epsilon_type, char, ::xsd::cxx::tree::schema_type::double_> epsilon_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const epsilon_type& epsilon() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    epsilon_type& epsilon();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void epsilon(const epsilon_type& x);
+
+    //@}
+
+    /**
+     * @name sigma
+     *
+     * @brief Accessor and modifier functions for the %sigma
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::double_ sigma_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<sigma_type, char, ::xsd::cxx::tree::schema_type::double_> sigma_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const sigma_type& sigma() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    sigma_type& sigma();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void sigma(const sigma_type& x);
+
+    //@}
+
+    /**
      * @name Constructors
      */
     //@{
@@ -3359,7 +3538,7 @@ class SphereSpawnerType : public ::xml_schema::type {
      * initializers for required elements and attributes.
      */
     SphereSpawnerType(const center_type&, const radius_type&, const grid_spacing_type&, const temperature_type&, const mass_type&,
-                      const velocity_type&, const type_type&);
+                      const velocity_type&, const type_type&, const epsilon_type&, const sigma_type&);
 
     /**
      * @brief Create an instance from the ultimate base and
@@ -3370,7 +3549,7 @@ class SphereSpawnerType : public ::xml_schema::type {
      * instead of making copies.
      */
     SphereSpawnerType(::std::unique_ptr<center_type>, const radius_type&, const grid_spacing_type&, const temperature_type&,
-                      const mass_type&, ::std::unique_ptr<velocity_type>, const type_type&);
+                      const mass_type&, ::std::unique_ptr<velocity_type>, const type_type&, const epsilon_type&, const sigma_type&);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -3439,6 +3618,8 @@ class SphereSpawnerType : public ::xml_schema::type {
     ::xsd::cxx::tree::one<mass_type> mass_;
     ::xsd::cxx::tree::one<velocity_type> velocity_;
     ::xsd::cxx::tree::one<type_type> type_;
+    ::xsd::cxx::tree::one<epsilon_type> epsilon_;
+    ::xsd::cxx::tree::one<sigma_type> sigma_;
 
     //@endcond
 };
@@ -3691,6 +3872,94 @@ class SingleParticleSpawnerType : public ::xml_schema::type {
     //@}
 
     /**
+     * @name epsilon
+     *
+     * @brief Accessor and modifier functions for the %epsilon
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::double_ epsilon_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<epsilon_type, char, ::xsd::cxx::tree::schema_type::double_> epsilon_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const epsilon_type& epsilon() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    epsilon_type& epsilon();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void epsilon(const epsilon_type& x);
+
+    //@}
+
+    /**
+     * @name sigma
+     *
+     * @brief Accessor and modifier functions for the %sigma
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::double_ sigma_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<sigma_type, char, ::xsd::cxx::tree::schema_type::double_> sigma_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const sigma_type& sigma() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    sigma_type& sigma();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void sigma(const sigma_type& x);
+
+    //@}
+
+    /**
      * @name Constructors
      */
     //@{
@@ -3699,7 +3968,8 @@ class SingleParticleSpawnerType : public ::xml_schema::type {
      * @brief Create an instance from the ultimate base and
      * initializers for required elements and attributes.
      */
-    SingleParticleSpawnerType(const position_type&, const temperature_type&, const mass_type&, const velocity_type&, const type_type&);
+    SingleParticleSpawnerType(const position_type&, const temperature_type&, const mass_type&, const velocity_type&, const type_type&,
+                              const epsilon_type&, const sigma_type&);
 
     /**
      * @brief Create an instance from the ultimate base and
@@ -3710,7 +3980,7 @@ class SingleParticleSpawnerType : public ::xml_schema::type {
      * instead of making copies.
      */
     SingleParticleSpawnerType(::std::unique_ptr<position_type>, const temperature_type&, const mass_type&, ::std::unique_ptr<velocity_type>,
-                              const type_type&);
+                              const type_type&, const epsilon_type&, const sigma_type&);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -3777,6 +4047,8 @@ class SingleParticleSpawnerType : public ::xml_schema::type {
     ::xsd::cxx::tree::one<mass_type> mass_;
     ::xsd::cxx::tree::one<velocity_type> velocity_;
     ::xsd::cxx::tree::one<type_type> type_;
+    ::xsd::cxx::tree::one<epsilon_type> epsilon_;
+    ::xsd::cxx::tree::one<sigma_type> sigma_;
 
     //@endcond
 };
@@ -3792,46 +4064,46 @@ class CheckPointLoaderType : public ::xml_schema::type {
      * @name file_name
      *
      * @brief Accessor and modifier functions for the %file_name
-     * required element.
+     * required attribute.
      */
     //@{
 
     /**
-     * @brief Element type.
+     * @brief Attribute type.
      */
     typedef ::xml_schema::uri file_name_type;
 
     /**
-     * @brief Element traits type.
+     * @brief Attribute traits type.
      */
     typedef ::xsd::cxx::tree::traits<file_name_type, char> file_name_traits;
 
     /**
-     * @brief Return a read-only (constant) reference to the element.
+     * @brief Return a read-only (constant) reference to the attribute.
      *
-     * @return A constant reference to the element.
+     * @return A constant reference to the attribute.
      */
     const file_name_type& file_name() const;
 
     /**
-     * @brief Return a read-write reference to the element.
+     * @brief Return a read-write reference to the attribute.
      *
-     * @return A reference to the element.
+     * @return A reference to the attribute.
      */
     file_name_type& file_name();
 
     /**
-     * @brief Set the element value.
+     * @brief Set the attribute value.
      *
      * @param x A new value to set.
      *
      * This function makes a copy of its argument and sets it as
-     * the new value of the element.
+     * the new value of the attribute.
      */
     void file_name(const file_name_type& x);
 
     /**
-     * @brief Set the element value without copying.
+     * @brief Set the attribute value without copying.
      *
      * @param p A new value to use.
      *

@@ -3,7 +3,7 @@
     xsi:noNamespaceSchemaLocation="../simulation_schema.xsd">
 
     <settings>
-        <fps>24</fps>
+        <fps>60</fps>
         <video_length>30</video_length>
         <delta_t>0.0005</delta_t>
         <end_time>40</end_time>
@@ -17,8 +17,8 @@
                 </domain_size>
                 <cutoff_radius>3.0</cutoff_radius>
                 <boundary_conditions>
-                    <left>Reflective</left>
-                    <right>Reflective</right>
+                    <left>Periodic</left>
+                    <right>Periodic</right>
                     <bottom>Reflective</bottom>
                     <top>Reflective</top>
                     <back>Outflow</back>
