@@ -427,3 +427,46 @@ TEST(PeriodicBoundaryLC, PushForceOverDiagonalBoundaryCorner) {
     EXPECT_LT(res.resulting_particles[1].getV()[1], 0);
     EXPECT_LT(res.resulting_particles[1].getV()[2], 0);
 }
+
+/*
+ * Test if particles affect each other at the boundary corners. (close together and pushed apart)
+ */
+TEST(PeriodicBoundaryLC, PushForceOverDiagonalSideCorner) {
+    std::vector<Particle> particles;
+
+    std::array<double, 3> x1 = {0.3, 0.3, 0.3};
+    std::array<double, 3> x2 = {9.7, 9.7, 0.3};
+
+    auto particle_x1 = Particle(x1, {0, 0, 0}, 1, 0);
+    auto particle_x2 = Particle(x2, {0, 0, 0}, 1, 0);
+
+    particles.push_back(particle_x1);
+    particles.push_back(particle_x2);
+
+    SimulationParams params = TEST_DEFAULT_PARAMS_LENNARD_JONES;
+    params.end_time = 0.05;
+    params.delta_t = 0.0005;
+
+    params.container_type = SimulationParams::LinkedCellsType(
+        {10, 10, 10}, 5, {BC::PERIODIC, BC::PERIODIC, BC::PERIODIC, BC::PERIODIC, BC::PERIODIC, BC::PERIODIC});
+
+    Simulation simulation(particles, params);
+
+    auto res = simulation.runSimulation();
+
+    EXPECT_GT(res.resulting_particles[0].getX()[0], 0.3);
+    EXPECT_GT(res.resulting_particles[0].getX()[1], 0.3);
+    EXPECT_NEAR(res.resulting_particles[0].getX()[2], 0.3, 1e-7);
+
+    EXPECT_LT(res.resulting_particles[1].getX()[0], 9.7);
+    EXPECT_LT(res.resulting_particles[1].getX()[1], 9.7);
+    EXPECT_NEAR(res.resulting_particles[1].getX()[2], 0.3, 1e-7);
+
+    EXPECT_GT(res.resulting_particles[0].getV()[0], 0);
+    EXPECT_GT(res.resulting_particles[0].getV()[1], 0);
+    EXPECT_NEAR(res.resulting_particles[0].getV()[2], 0, 1e-7);
+
+    EXPECT_LT(res.resulting_particles[1].getV()[0], 0);
+    EXPECT_LT(res.resulting_particles[1].getV()[1], 0);
+    EXPECT_NEAR(res.resulting_particles[1].getV()[2], 0, 1e-7);
+}

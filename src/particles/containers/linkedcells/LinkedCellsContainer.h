@@ -440,19 +440,34 @@ class LinkedCellsContainer : public ParticleContainer {
 
     /**
      * @brief Inserts the halo particles necessary for periodic boundary conditions into the particle vector and cells.
-     * ATTENTION: A particle reference update must be triggered manually after this operation!
-     * ATTENTION: For performance reasons, this method skips halo cells that already contain particles. Therefore it is necessary to call
-     * deleteHaloParticles() before this method.
      */
     void addPeriodicHaloParticles();
 
     /**
      * @brief Helper method for addPeriodicHaloParticles() that adds the halo particles for a specific single side of the domain
+     * ATTENTION: This method does not perform any checks on the correctness of its parameters!!!
      *
      * @param side_cell_references References to the cells on specified side of the domain
      * @param offset Offset vector for the periodic boundary
      */
     void addPeriodicHaloParticlesForSide(const std::vector<Cell*>& side_cell_references, const std::array<double, 3>& offset);
+
+    /**
+     * @brief Helper method for addPeriodicHaloParticles() that adds the halo particles for a specific edge of the domain (deduced via
+     * offset and free dimension) ATTENTION: This method does not perform any checks on the correctness of its parameters!!!
+     *
+     * @param free_dimension The free dimension of the edge (dimension over witch to iterate) (0 -> x, 1 -> y, 2 -> z)
+     * @param offset Offset vector for the halo particles boundary
+     */
+    void addPeriodicHaloParticlesForEdge(int free_dimension, const std::array<double, 3>& offset);
+
+    /**
+     * @brief Helper method for addPeriodicHaloParticles() that adds the halo particles for a specific corner of the domain (deduced via
+     * offset) ATTENTION: This method does not perform any checks on the correctness of its parameters!!!
+     *
+     * @param offset Offset vector for the halo particles boundary
+     */
+    void addPeriodicHaloParticlesForCorner(const std::array<double, 3>& offset);
 
     /**
      * @brief Moves the particles in the halo cells to the corresponding periodic boundary cells.
