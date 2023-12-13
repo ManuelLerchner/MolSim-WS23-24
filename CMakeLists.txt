@@ -18,7 +18,13 @@ if(NOT CMAKE_BUILD_TYPE)
             STRING
             "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel."
             FORCE)
+
 endif(NOT CMAKE_BUILD_TYPE)
+
+# Add O3 for the Release build type
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    add_compile_options(-O3)
+endif()
 
 # modules
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/)
