@@ -138,17 +138,11 @@
   </xs:complexType>
 
   <xs:complexType name="CheckPointLoaderType">
-    <xs:attribute name="file_name" type="xs:anyURI" use="required" />
+    <xs:attribute name="path" type="xs:anyURI" use="required" />
   </xs:complexType>
 
   <xs:complexType name="SubSimulationType">
-    <xs:sequence>
-      <xs:element name="name" type="xs:string" />
-      <xs:choice>
-        <xs:element name="configuration" type="ConfigurationType" />
-        <xs:element name="file_name" type="xs:anyURI" />
-      </xs:choice>
-    </xs:sequence>
+    <xs:attribute name="path" type="xs:string" use="required" />
   </xs:complexType>
 
   <!-- Settings -->

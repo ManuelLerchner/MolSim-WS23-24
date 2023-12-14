@@ -17,9 +17,7 @@ TEST(CHKPTWriter, CorrectWritingAndReadingOfParticles) {
         particle_container->addParticle(Particle(pos, vel, i, i));
     }
 
-    auto output_folder = FileLoader::get_output_file_path("CHKPTWriterTest");
-
-    auto params = SimulationParams("", output_folder, 0, 0, 0, 0, SimulationParams::DirectSumType{}, Thermostat{0, 0, 100000}, "chkpt",
+    auto params = SimulationParams("test.xml", "", 0, 0, 0, 0, SimulationParams::DirectSumType{}, Thermostat{0, 0, 100000}, "chkpt",
                                    {"LennardJones"}, false);
 
     FileOutputHandler file_output_handler{params};

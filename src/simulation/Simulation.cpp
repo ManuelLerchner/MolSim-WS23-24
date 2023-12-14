@@ -12,7 +12,7 @@
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "utils/FormatTime.h"
 
-void printProgress(const std::string& input_file_path, size_t percentage, size_t iteration, size_t expected_iterations,
+void printProgress(const std::filesystem::path& input_file_path, size_t percentage, size_t iteration, size_t expected_iterations,
                    int estimated_remaining_seconds, bool finished = false) {
     auto file_name = std::filesystem::path(input_file_path).stem().string();
 
@@ -169,12 +169,12 @@ void Simulation::savePerformanceTest(const SimulationOverview& overview, const S
 
     std::ofstream csv_file;
 
-    if (!std::filesystem::exists(params.output_dir_path + "/performance_test.csv")) {
-        csv_file.open(params.output_dir_path + "/performance_test.csv");
+    if (!std::filesystem::exists(params.output_dir_path / "performance_test.csv")) {
+        csv_file.open(params.output_dir_path / "performance_test.csv");
         // Write the Headers to the file
         csv_file << "datetime,num_particles,particle_container,delta_t,total_time[s],time_per_iteration[ms],total_iterations\n";
     } else {
-        csv_file.open(params.output_dir_path + "/performance_test.csv", std::ios_base::app);
+        csv_file.open(params.output_dir_path / "performance_test.csv", std::ios_base::app);
     }
 
     std::string container_type_string;

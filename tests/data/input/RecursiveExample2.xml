@@ -17,12 +17,7 @@
     </settings>
 
     <particle_source>
-        <sub_simulation>
-            <name>Demo 13</name>
-            <file_name>
-                ./RecursiveExample.xml
-            </file_name>
-        </sub_simulation>
+        <sub_simulation path="./RecursiveExample.xml"/>
 
         <cuboid_spawner>
             <lower_left_front_corner>
