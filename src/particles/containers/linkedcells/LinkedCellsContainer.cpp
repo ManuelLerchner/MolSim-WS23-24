@@ -487,6 +487,7 @@ std::array<double, 3> LinkedCellsContainer::calculateReflectiveBoundaryForce(Par
     }
 
     Particle ghost_particle = Particle(p);
+    ghost_particle.setX(p.getX() - std::array<double, 3>{2 * distance, 0, 0});
 
     auto force_vector_left_side = force.calculateForce(p, ghost_particle);
 
@@ -631,6 +632,7 @@ void LinkedCellsContainer::addPeriodicHaloParticlesForSide(const std::vector<Cel
     for (Cell* cell : side_cell_references) {
         for (Particle* p : cell->getParticleReferences()) {
             Particle ghost_particle = Particle(*p);
+            ghost_particle.setX(p->getX() + offset);
             addParticle(ghost_particle);
         }
     }
@@ -646,6 +648,7 @@ void LinkedCellsContainer::addPeriodicHaloParticlesForEdge(int free_dimension, c
         Cell* cell = &cells.at(cellCoordToCellIndex(running_array[0], running_array[1], running_array[2]));
         for (Particle* p : cell->getParticleReferences()) {
             Particle ghost_particle = Particle(*p);
+            ghost_particle.setX(p->getX() + offset);
             addParticle(ghost_particle);
         }
         running_array[free_dimension] += 1;
@@ -661,6 +664,7 @@ void LinkedCellsContainer::addPeriodicHaloParticlesForCorner(const std::array<do
     Cell* cell = &cells.at(cellCoordToCellIndex(cell_coords[0], cell_coords[1], cell_coords[2]));
     for (Particle* p : cell->getParticleReferences()) {
         Particle ghost_particle = Particle(*p);
+        ghost_particle.setX(p->getX() + offset);
         addParticle(ghost_particle);
     }
 }
