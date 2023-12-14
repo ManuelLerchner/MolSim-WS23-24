@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "physics/forces/GravitationalForce.h"
+#include "physics/pairwiseforces/GravitationalForce.h"
 #include "utils/ArrayUtils.h"
 
 #define EXPECT_ARRAY_NEAR(a, b, tol)      \

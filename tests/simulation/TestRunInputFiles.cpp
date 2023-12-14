@@ -7,13 +7,13 @@
 #include "data/FileLoader.h"
 #include "io/input/FileInputHandler.h"
 #include "particles/containers/ParticleContainer.h"
-#include "physics/forces/ForceSource.h"
-#include "physics/forces/LennardJonesForce.h"
+#include "physics/pairwiseforces/LennardJonesForce.h"
+#include "physics/pairwiseforces/PairwiseForceSource.h"
 #include "simulation/Simulation.h"
 #include "simulation/SimulationUtils.h"
 #include "utils/ArrayUtils.h"
 
-auto load_all_input_files() {
+auto loadAllInputFiles() {
     std::vector<std::string> input_files;
 
     std::set<std::string> found_extensions = {};
@@ -59,7 +59,7 @@ TEST(SimulationRunner, EnsureBackwardsCompatibilityForAllInputFiles) {
 
     // Check that all supported extensions have actually been tested
 
-    for (const auto& input_file : load_all_input_files()) {
+    for (const auto& input_file : loadAllInputFiles()) {
         std::cout << "Testing input file: " << input_file << std::endl;
 
         // Parse input file

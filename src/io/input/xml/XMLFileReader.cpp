@@ -77,7 +77,7 @@ std::optional<std::string> getCheckPointFilePath(const std::string& base_path) {
         return std::nullopt;
     }
 
-    std::optional<std::string> checkPointPath = std::nullopt;
+    std::optional<std::string> check_point_path = std::nullopt;
     auto best_iteration = -1;
     for (const auto& entry : std::filesystem::directory_iterator(base_path)) {
         if (entry.path().extension() == ".chkpt") {
@@ -90,15 +90,15 @@ std::optional<std::string> getCheckPointFilePath(const std::string& base_path) {
 
             if (current_file_number > best_iteration) {
                 best_iteration = current_file_number;
-                checkPointPath = current_file_path;
+                check_point_path = current_file_path;
             }
         }
     }
 
-    return checkPointPath;
+    return check_point_path;
 }
 
-auto load_config(const SubSimulationType& sub_simulation, const std::string& curr_file_path, const std::string& base_path) {
+auto loadConfig(const SubSimulationType& sub_simulation, const std::string& curr_file_path, const std::string& base_path) {
     if (sub_simulation.configuration()) {
         // Configuration is diretly in the XML file
         auto loaded_config = *sub_simulation.configuration();
@@ -124,9 +124,9 @@ auto load_config(const SubSimulationType& sub_simulation, const std::string& cur
 
 auto checkCheckPointHashIsValid(const std::string& path) {
     auto checkpoint = CheckPoint(path, xml_schema::flags::dont_validate);
-    auto metaData = checkpoint->MetaData();
+    auto meta_data = checkpoint->MetaData();
 
-    std::ifstream input_file(metaData.input_file());
+    std::ifstream input_file(meta_data.input_file());
 
     auto buffer = std::stringstream();
     buffer << input_file.rdbuf();
@@ -134,12 +134,12 @@ auto checkCheckPointHashIsValid(const std::string& path) {
     std::hash<std::string> hasher;
     auto curr_hash = hasher(buffer.str());
 
-    return curr_hash == metaData.input_file_hash();
+    return curr_hash == meta_data.input_file_hash();
 }
 
-std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::string curr_file_path, ConfigurationType& config, bool fresh,
-                                                                      bool allow_recursion, std::string output_base_path = "",
-                                                                      int depth = 0) {
+std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::string curr_file_path, ConfigurationType& config, bool fresh,
+                                                                     bool allow_recursion, std::string output_base_path = "",
+                                                                     int depth = 0) {
     Logger::logger->info("Constructing configuration for file {} at depth {}", curr_file_path, depth);
 
     auto settings = config.settings();
@@ -149,9 +149,12 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
 
     auto container_type = XSDToInternalTypeAdapter::convertToParticleContainer(settings.particle_container());
 
-    auto thermostat = XSDToInternalTypeAdapter::convertToThermostat(settings.thermostat(), settings.third_dimension());
+    auto xsd_thermostat = settings.thermostat();
+    auto thermostat = (xsd_thermostat)
+                          ? std::make_optional(XSDToInternalTypeAdapter::convertToThermostat(*xsd_thermostat, settings.third_dimension()))
+                          : std::nullopt;
 
-    auto forces = XSDToInternalTypeAdapter::convertToForces(settings.force());
+    auto forces = XSDToInternalTypeAdapter::convertToForces(settings.forces());
 
     auto params = SimulationParams{curr_file_path,
                                    "",
@@ -162,7 +165,8 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
                                    container_type,
                                    thermostat,
                                    "vtu",
-                                   forces,
+                                   std::get<0>(forces),
+                                   std::get<1>(forces),
                                    false,
                                    fresh,
                                    output_base_path};
@@ -192,8 +196,8 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
         Logger::logger->info("Spawned {} particles from single particle spawner", num_spawned);
     }
 
-    for (auto checkPointLoader : particle_sources.check_point_loader()) {
-        auto path = convertToPath(curr_folder, checkPointLoader.file_name());
+    for (auto check_point_loader : particle_sources.check_point_loader()) {
+        auto path = convertToPath(curr_folder, check_point_loader.file_name());
         loadCheckpointFile(particles, path);
     }
 
@@ -205,7 +209,6 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
 
         auto name = trim(sub_simulation.name());
 
-        depth++;
         Logger::logger->info("Found sub simulation {} at depth {}", name, depth);
 
         std::string new_output_base_path = output_base_path + "/" + sanitizePath(name);
@@ -237,11 +240,11 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
             Logger::logger->info("Starting sub simulation {} at depth {}", name, depth);
 
             // Load the configuration from the sub simulation
-            auto [loaded_config, file_name] = load_config(sub_simulation, curr_file_path, curr_folder);
+            auto [loaded_config, file_name] = loadConfig(sub_simulation, curr_file_path, curr_folder);
 
             // Create the initial conditions for the sub simulation
             auto [sub_particles, sub_config] =
-                prepare_particles(file_name, loaded_config, fresh, allow_recursion, new_output_base_path, depth);
+                prepareParticles(file_name, loaded_config, fresh, allow_recursion, new_output_base_path, depth + 1);
             sub_config.output_dir_path = new_output_base_path;
             sub_config.output_format = OutputFormat::NONE;
 
@@ -261,7 +264,7 @@ std::tuple<std::vector<Particle>, SimulationParams> prepare_particles(std::strin
             checkpoint_path = file_output_handler.writeFile(result.total_iterations, result.resulting_particles);
 
             Logger::logger->info("Wrote {} particles to checkpoint file in: {}", result.resulting_particles.size(),
-                                 result.simulation_params.output_dir_path);
+                                 result.params.output_dir_path);
         }
 
         // Load the checkpoint file
@@ -277,7 +280,7 @@ std::tuple<std::vector<Particle>, std::optional<SimulationParams>> XMLFileReader
     try {
         auto config = configuration(filepath);
 
-        return prepare_particles(filepath, *config, fresh, allow_recursion);
+        return prepareParticles(filepath, *config, fresh, allow_recursion);
     } catch (const xml_schema::exception& e) {
         std::stringstream error_message;
         error_message << "Error: could not parse file '" << filepath << "'.\n";

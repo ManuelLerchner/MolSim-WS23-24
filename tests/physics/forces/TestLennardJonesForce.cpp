@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "physics/forces/LennardJonesForce.h"
+#include "physics/pairwiseforces/LennardJonesForce.h"
 #include "utils/ArrayUtils.h"
 
 #define EXPECT_ARRAY_NEAR(a, b, tol)  \
@@ -18,14 +18,23 @@ TEST(LennardJonesFormula, MagnitudeCorrect) {
     std::array<double, 3> x2 = {1, 0, 0};
     std::array<double, 3> v2 = {0, 0, 0};
 
-    auto p1 = Particle(x1, v1, 1, 0);
-    auto p2 = Particle(x2, v2, 1, 1);
+    double p1Sigma = 1.2;
+    double p2Sigma = 1.5;
+
+    double p1Epsilon = 1.0;
+    double p2Epsilon = 0.8;
+
+    auto p1 = Particle(x1, v1, 1, 0, p1Epsilon, p1Sigma);
+    auto p2 = Particle(x2, v2, 1, 1, p2Epsilon, p2Sigma);
+
+    double combinedSigma = (p1Sigma + p2Sigma) / 2;
+    double combinedEpsilon = std::sqrt(p1Epsilon * p2Epsilon);
 
     auto lennardjones = LennardJonesForce();
 
     auto f_lennardjones = lennardjones.calculateForce(p1, p2);
 
-    auto expected_mag = std::abs((24 * lennardjones.epsilon) * (std::pow(lennardjones.sigma, 6) - 2 * std::pow(lennardjones.sigma, 12)));
+    auto expected_mag = std::abs((24 * combinedEpsilon) * (std::pow(combinedSigma, 6) - 2 * std::pow(combinedSigma, 12)));
 
     EXPECT_NEAR(ArrayUtils::L2Norm(f_lennardjones), expected_mag, 0.01);
 }

@@ -22,9 +22,11 @@ class IntegrationFunctor {
      * @brief Performs one step with the respective integration method.
      *
      * @param particle_container Container of particles on which the integration step is applied
-     * @param force_sources Vector of force sources which are used to calculate the new forces
+     * @param simple_force_sources Vector of simple force sources which are used to calculate the new forces
+     * @param pairwise_force_sources Vector of pairwise force sources which are used to calculate the new forces
      * @param delta_t Time step
      */
     virtual void step(std::unique_ptr<ParticleContainer>& particle_container,
-                      const std::vector<std::shared_ptr<ForceSource>>& force_sources, double delta_t) const = 0;
+                      const std::vector<std::shared_ptr<SimpleForceSource>>& simple_force_sources,
+                      const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_force_sources, double delta_t) const = 0;
 };

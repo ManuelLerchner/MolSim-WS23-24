@@ -1,14 +1,14 @@
 #pragma once
 
-#include "physics/forces/ForceSource.h"
+#include "physics/pairwiseforces/PairwiseForceSource.h"
 
 /**
- *  @brief Class to calculate gravitational forces between particles. Implements the interface ForceSource.
+ *  @brief Class to calculate gravitational forces between particles. Implements the interface PairwiseForceSource.
  *
  * Implementation of the force calculation to simulate gravity forces between particles.
- * This class implements the interface ForceSource.
+ * This class implements the interface PairwiseForceSource.
  */
-class GravitationalForce : public ForceSource {
+class GravitationalForce : public PairwiseForceSource {
    public:
     /**
      * @brief Calculates the gravitational forces between two particles

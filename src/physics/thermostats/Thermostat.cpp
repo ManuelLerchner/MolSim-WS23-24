@@ -25,7 +25,7 @@ double Thermostat::getCurrentTemperature(const std::unique_ptr<ParticleContainer
     return 2 * getKineticEnergy(particle_container) / (dimensions * particle_container->size());
 }
 
-void Thermostat::scaleTemperature(std::unique_ptr<ParticleContainer>& particle_container) {
+void Thermostat::scaleTemperature(std::unique_ptr<ParticleContainer>& particle_container) const {
     const double current_temperature = getCurrentTemperature(particle_container);
     const double temperature_change = std::min(std::abs(target_temperature - current_temperature), max_temperature_change);
     const double new_temperature = current_temperature + temperature_change * (target_temperature > current_temperature ? 1 : -1);

@@ -17,14 +17,14 @@ std::tuple<std::vector<Particle>, std::optional<SimulationParams>> ChkptPointFil
     try {
         auto checkpoint = CheckPoint(filepath, xml_schema::flags::dont_validate);
 
-        auto particleData = checkpoint->ParticleData();
-        auto metaData = checkpoint->MetaData();
+        auto particle_data = checkpoint->ParticleData();
+        auto meta_data = checkpoint->MetaData();
 
-        summarizeMetadata(metaData);
+        summarizeMetadata(meta_data);
 
         std::vector<Particle> particles;
 
-        for (auto xsd_particle : particleData.particle()) {
+        for (auto xsd_particle : particle_data.particle()) {
             auto particle = XSDToInternalTypeAdapter::convertToParticle(xsd_particle);
             particles.push_back(std::move(particle));
         }

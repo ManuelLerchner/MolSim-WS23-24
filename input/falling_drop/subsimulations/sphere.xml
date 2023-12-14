@@ -5,15 +5,15 @@
     <settings>
         <fps>0</fps>
         <video_length>0</video_length>
-        <delta_t>0.005</delta_t>
-        <end_time>5</end_time>
+        <delta_t>0</delta_t>
+        <end_time>0</end_time>
         <third_dimension>false</third_dimension>
         <particle_container>
             <linkedcells_container>
                 <domain_size>
                     <x>303</x>
                     <y>180</y>
-                    <z>10</z>
+                    <z>1</z>
                 </domain_size>
                 <cutoff_radius>3.0</cutoff_radius>
                 <boundary_conditions>
@@ -21,17 +21,14 @@
                     <right>Reflective</right>
                     <bottom>Reflective</bottom>
                     <top>Reflective</top>
-                    <back>Reflective</back>
-                    <front>Reflective</front>
+                    <back>Outflow</back>
+                    <front>Outflow</front>
                 </boundary_conditions>
             </linkedcells_container>
         </particle_container>
-        <force>LennardJones</force>
-        <thermostat>
-            <target_temperature>0</target_temperature>
-            <max_temperature_change>0</max_temperature_change>
-            <application_interval>10000000</application_interval>
-        </thermostat>
+        <forces>
+            <LennardJones />
+        </forces>
     </settings>
 
     <particle_source>
@@ -39,7 +36,7 @@
             <center>
                 <x>150</x>
                 <y>150</y>
-                <z>5</z>
+                <z>0.5</z>
             </center>
             <radius>20</radius>
             <grid_spacing>1.2</grid_spacing>
@@ -51,6 +48,8 @@
                 <z>0.0</z>
             </velocity>
             <type>1</type>
+            <epsilon>1.0</epsilon>
+            <sigma>1.2</sigma>
         </sphere_spawner>
     </particle_source>
 

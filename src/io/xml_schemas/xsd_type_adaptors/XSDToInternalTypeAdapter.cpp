@@ -1,6 +1,9 @@
 #include "XSDToInternalTypeAdapter.h"
 
 #include "io/logger/Logger.h"
+#include "physics/pairwiseforces/GravitationalForce.h"
+#include "physics/pairwiseforces/LennardJonesForce.h"
+#include "physics/simpleforces/GlobalDownwardsGravity.h"
 
 CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawnerType& cuboid, bool third_dimension) {
     auto lower_left_front_corner = convertToVector(cuboid.lower_left_front_corner());
@@ -10,6 +13,8 @@ CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawn
     auto grid_spacing = cuboid.grid_spacing();
     auto mass = cuboid.mass();
     auto type = cuboid.type();
+    auto epsilon = cuboid.epsilon();
+    auto sigma = cuboid.sigma();
     auto temperature = cuboid.temperature();
 
     if (grid_dimensions[0] <= 0 || grid_dimensions[1] <= 0 || grid_dimensions[2] <= 0) {
@@ -37,8 +42,9 @@ CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawn
         exit(-1);
     }
 
-    return CuboidSpawner{lower_left_front_corner, grid_dimensions,        grid_spacing,    mass,
-                         initial_velocity,        static_cast<int>(type), third_dimension, temperature};
+    return CuboidSpawner{
+        lower_left_front_corner, grid_dimensions, grid_spacing, mass, initial_velocity, static_cast<int>(type), epsilon, sigma,
+        third_dimension,         temperature};
 }
 
 SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const SphereSpawnerType& sphere, bool third_dimension) {
@@ -49,6 +55,8 @@ SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const SphereSpawn
     auto grid_spacing = sphere.grid_spacing();
     auto mass = sphere.mass();
     auto type = sphere.type();
+    auto epsilon = sphere.epsilon();
+    auto sigma = sphere.sigma();
     auto temperature = sphere.temperature();
 
     if (radius <= 0) {
@@ -71,8 +79,8 @@ SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const SphereSpawn
         exit(-1);
     }
 
-    return SphereSpawner{center,           static_cast<int>(radius), grid_spacing,    mass,
-                         initial_velocity, static_cast<int>(type),   third_dimension, temperature};
+    return SphereSpawner{center, static_cast<int>(radius), grid_spacing, mass, initial_velocity, static_cast<int>(type), epsilon,
+                         sigma,  third_dimension,          temperature};
 }
 
 CuboidSpawner XSDToInternalTypeAdapter::convertToSingleParticleSpawner(const SingleParticleSpawnerType& particle, bool third_dimension) {
@@ -81,8 +89,11 @@ CuboidSpawner XSDToInternalTypeAdapter::convertToSingleParticleSpawner(const Sin
 
     auto mass = particle.mass();
     auto type = particle.type();
+    auto epsilon = particle.epsilon();
+    auto sigma = particle.sigma();
 
-    return CuboidSpawner{position, {1, 1, 1}, 0, mass, initial_velocity, static_cast<int>(type), third_dimension, particle.temperature()};
+    return CuboidSpawner{
+        position, {1, 1, 1}, 0, mass, initial_velocity, static_cast<int>(type), epsilon, sigma, third_dimension, particle.temperature()};
 }
 
 std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType> XSDToInternalTypeAdapter::convertToParticleContainer(
@@ -127,6 +138,8 @@ LinkedCellsContainer::BoundaryCondition XSDToInternalTypeAdapter::convertToBound
             return LinkedCellsContainer::BoundaryCondition::OUTFLOW;
         case BoundaryType::value::Reflective:
             return LinkedCellsContainer::BoundaryCondition::REFLECTIVE;
+        case BoundaryType::value::Periodic:
+            return LinkedCellsContainer::BoundaryCondition::PERIODIC;
         default:
             Logger::logger->error("Boundary condition not implemented");
             exit(-1);
@@ -172,16 +185,23 @@ Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particl
     return Particle{position, velocity, force, old_force, mass, static_cast<int>(type)};
 }
 
-std::vector<std::string> XSDToInternalTypeAdapter::convertToForces(const SettingsType::force_sequence& forces) {
-    std::vector<std::string> force_sources;
+std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::shared_ptr<PairwiseForceSource>>>
+XSDToInternalTypeAdapter::convertToForces(const ForcesType& forces) {
+    std::vector<std::shared_ptr<SimpleForceSource>> simple_force_sources;
+    std::vector<std::shared_ptr<PairwiseForceSource>> pairwise_force_sources;
 
-    for (ForcesType force : forces) {
-        std::string force_name = ForcesType::_xsd_ForcesType_literals_[force];
-
-        force_sources.push_back(force_name);
+    if (forces.LennardJones()) {
+        pairwise_force_sources.push_back(std::make_shared<LennardJonesForce>());
+    }
+    if (forces.Gravitational()) {
+        pairwise_force_sources.push_back(std::make_shared<GravitationalForce>());
+    }
+    if (forces.GlobalDownwardsGravity()) {
+        auto g = (*forces.GlobalDownwardsGravity()).g();
+        simple_force_sources.push_back(std::make_shared<GlobalDownwardsGravity>(g));
     }
 
-    return force_sources;
+    return {simple_force_sources, pairwise_force_sources};
 }
 
 std::array<double, 3> XSDToInternalTypeAdapter::convertToVector(const DoubleVec3Type& vector) {

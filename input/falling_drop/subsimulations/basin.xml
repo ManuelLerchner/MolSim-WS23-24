@@ -5,15 +5,15 @@
     <settings>
         <fps>0</fps>
         <video_length>0</video_length>
-        <delta_t>0.005</delta_t>
-        <end_time>5</end_time>
+        <delta_t>0.0005</delta_t>
+        <end_time>15</end_time>
         <third_dimension>false</third_dimension>
         <particle_container>
             <linkedcells_container>
                 <domain_size>
                     <x>303</x>
                     <y>180</y>
-                    <z>10</z>
+                    <z>1</z>
                 </domain_size>
                 <cutoff_radius>3.0</cutoff_radius>
                 <boundary_conditions>
@@ -21,16 +21,19 @@
                     <right>Reflective</right>
                     <bottom>Reflective</bottom>
                     <top>Reflective</top>
-                    <back>Reflective</back>
-                    <front>Reflective</front>
+                    <back>Outflow</back>
+                    <front>Outflow</front>
                 </boundary_conditions>
             </linkedcells_container>
         </particle_container>
-        <force>LennardJones</force>
+        <forces>
+            <LennardJones />
+            <GlobalDownwardsGravity g="12.44" />
+        </forces>
         <thermostat>
-            <target_temperature>0</target_temperature>
-            <max_temperature_change>0</max_temperature_change>
-            <application_interval>10000000</application_interval>
+            <target_temperature>0.5</target_temperature>
+            <max_temperature_change>1000000</max_temperature_change>
+            <application_interval>1000</application_interval>
         </thermostat>
     </settings>
 
@@ -39,7 +42,7 @@
             <lower_left_front_corner>
                 <x>1.5</x>
                 <y>2</y>
-                <z>5</z>
+                <z>0.5</z>
             </lower_left_front_corner>
             <grid_dim>
                 <x>250</x>
@@ -47,7 +50,7 @@
                 <z>1</z>
             </grid_dim>
             <grid_spacing>1.2</grid_spacing>
-            <temperature>0</temperature>
+            <temperature>0.5</temperature>
             <mass>1</mass>
             <velocity>
                 <x>0</x>
@@ -55,6 +58,8 @@
                 <z>0</z>
             </velocity>
             <type>0</type>
+            <epsilon>1.0</epsilon>
+            <sigma>1.2</sigma>
         </cuboid_spawner>
     </particle_source>
 

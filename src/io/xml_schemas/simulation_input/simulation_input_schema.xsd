@@ -91,6 +91,7 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="Outflow" />
       <xs:enumeration value="Reflective" />
+      <xs:enumeration value="Periodic" />
     </xs:restriction>
   </xs:simpleType>
 
@@ -105,6 +106,8 @@
       <xs:element name="mass" type="xs:double" />
       <xs:element name="velocity" type="DoubleVec3Type" />
       <xs:element name="type" type="xs:integer" />
+      <xs:element name="epsilon" type="xs:double" />
+      <xs:element name="sigma" type="xs:double" />
     </xs:sequence>
   </xs:complexType>
 
@@ -117,6 +120,8 @@
       <xs:element name="mass" type="xs:double" />
       <xs:element name="velocity" type="DoubleVec3Type" />
       <xs:element name="type" type="xs:integer" />
+      <xs:element name="epsilon" type="xs:double" />
+      <xs:element name="sigma" type="xs:double" />
     </xs:sequence>
   </xs:complexType>
 
@@ -127,13 +132,13 @@
       <xs:element name="mass" type="xs:double" />
       <xs:element name="velocity" type="DoubleVec3Type" />
       <xs:element name="type" type="xs:integer" />
+      <xs:element name="epsilon" type="xs:double" />
+      <xs:element name="sigma" type="xs:double" />
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="CheckPointLoaderType">
-    <xs:sequence>
-      <xs:element name="file_name" type="xs:anyURI" />
-    </xs:sequence>
+    <xs:attribute name="file_name" type="xs:anyURI" use="required" />
   </xs:complexType>
 
   <xs:complexType name="SubSimulationType">
@@ -155,18 +160,30 @@
       <xs:element name="end_time" type="xs:double" />
       <xs:element name="third_dimension" type="xs:boolean" default="true" />
       <xs:element name="particle_container" type="ParticleContainerType" />
-      <xs:element name="force" type="ForcesType"  maxOccurs="unbounded" />
-      <xs:element name="thermostat" type="ThermostatType" />
+      <xs:element name="forces" type="ForcesType" />
+      <xs:element name="thermostat" type="ThermostatType" minOccurs="0" />
     </xs:sequence>
   </xs:complexType>
 
-  <!-- Forces -->
-  <xs:simpleType name="ForcesType">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="LennardJones" />
-      <xs:enumeration value="ParticleGravity" />
-    </xs:restriction>
-  </xs:simpleType>
 
+  <!-- Forces -->
+  <xs:complexType name="LennardJonesType">
+  </xs:complexType>
+
+  <xs:complexType name="GravitationalType">
+  </xs:complexType>
+
+  <xs:complexType name="GlobalGravityType">
+    <xs:attribute name="g" type="xs:double" use="required" />
+  </xs:complexType>
+
+
+  <xs:complexType name="ForcesType">
+    <xs:all>
+      <xs:element name="LennardJones" type="LennardJonesType" minOccurs="0" />
+      <xs:element name="Gravitational" type="GravitationalType" minOccurs="0" />
+      <xs:element name="GlobalDownwardsGravity" type="GlobalGravityType" minOccurs="0" />
+    </xs:all>
+  </xs:complexType>
 
 </xs:schema>

@@ -12,4 +12,4 @@
  * Supported file formats are:
  * For more information about the output file formats, see \ref InputFileFormats "Input File Formats"
  */
-std::set<std::string> get_supported_input_file_extensions();
+const std::set<std::string> get_supported_input_file_extensions();
