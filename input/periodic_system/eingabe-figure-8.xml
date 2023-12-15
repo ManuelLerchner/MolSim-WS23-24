@@ -15,6 +15,7 @@
         <forces>
             <Gravitational />
         </forces>
+        <output_format>vtu</output_format>
     </settings>
 
 

@@ -29,6 +29,7 @@
         <forces>
             <LennardJones />
         </forces>
+        <output_format>none</output_format>
     </settings>
 
     <particle_source>
@@ -52,12 +53,8 @@
             <sigma>1.2</sigma>
         </sphere_spawner>
 
-        <sub_simulation>
-            <name>Right Center</name>
-            <file_name>
-                ./right_center.xml
-            </file_name>
-        </sub_simulation>
+        <sub_simulation path="./right_center.xml" />
+
     </particle_source>
 
 </configuration>

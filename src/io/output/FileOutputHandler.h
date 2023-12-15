@@ -43,7 +43,8 @@ class FileOutputHandler {
      *
      * @return The path to the written file
      */
-    std::optional<const std::string> writeFile(size_t iteration, const std::unique_ptr<ParticleContainer>& particle_container) const;
+    std::optional<const std::filesystem::path> writeFile(size_t iteration,
+                                                         const std::unique_ptr<ParticleContainer>& particle_container) const;
 
     /**
      * @brief Writes the given ParticleContainers particle data to a file
@@ -53,5 +54,5 @@ class FileOutputHandler {
      *
      * @return The path to the written file
      */
-    std::optional<const std::string> writeFile(size_t iteration, const std::vector<Particle>& particles) const;
+    std::optional<const std::filesystem::path> writeFile(size_t iteration, const std::vector<Particle>& particles) const;
 };

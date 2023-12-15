@@ -21,5 +21,6 @@ class XYZWriter : public FileWriter {
      *
      * @return The path to the written file
      */
-    const std::string writeFile(const SimulationParams& params, size_t iteration, const std::vector<Particle>& particles) const override;
+    const std::filesystem::path writeFile(const SimulationParams& params, size_t iteration,
+                                          const std::vector<Particle>& particles) const override;
 };

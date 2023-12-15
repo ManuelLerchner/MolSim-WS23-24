@@ -30,24 +30,15 @@
             <LennardJones />
             <GlobalDownwardsGravity g="12.44" />
         </forces>
+        <output_format>vtu</output_format>
     </settings>
 
     <particle_source>
         <!-- Basin -->
-        <sub_simulation>
-            <name>Basin</name>
-            <file_name>
-                ./subsimulations/basin.xml
-            </file_name>
-        </sub_simulation>
+        <sub_simulation path="./subsimulations/basin.xml" />
 
         <!-- Falling drop -->
-        <sub_simulation>
-            <name>Sphere</name>
-            <file_name>
-                ./subsimulations/sphere.xml
-            </file_name>
-        </sub_simulation>
+        <sub_simulation path="./subsimulations/sphere.xml" />
     </particle_source>
 
 </configuration>

@@ -29,6 +29,7 @@
         <forces>
             <LennardJones />
         </forces>
+        <output_format>none</output_format>
     </settings>
 
     <particle_source>
@@ -51,23 +52,9 @@
             <epsilon>1.0</epsilon>
             <sigma>1.2</sigma>
         </sphere_spawner>
-        
-        <sub_simulation>
-            <name>
-                Top Right
-            </name>
-            <file_name>
-                ./top_right.xml
-            </file_name>
-        </sub_simulation>
-        <sub_simulation>
-            <name>
-                Bottom Right
-            </name>
-            <file_name>
-                ./bottom_right.xml
-            </file_name>
-        </sub_simulation>
+
+        <sub_simulation path="./top_right.xml" />
+        <sub_simulation path="./bottom_right.xml" />
     </particle_source>
 
 </configuration>

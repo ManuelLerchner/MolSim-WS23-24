@@ -29,6 +29,7 @@
         <forces>
             <LennardJones />
         </forces>
+        <output_format>vtu</output_format>
     </settings>
 
     <particle_source>

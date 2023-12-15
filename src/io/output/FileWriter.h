@@ -25,5 +25,6 @@ class FileWriter {
      *
      * @return The path to the written file
      */
-    virtual const std::string writeFile(const SimulationParams& params, size_t iteration, const std::vector<Particle>& particles) const = 0;
+    [[nodiscard]] virtual const std::filesystem::path writeFile(const SimulationParams& params, size_t iteration,
+                                                                const std::vector<Particle>& particles) const = 0;
 };

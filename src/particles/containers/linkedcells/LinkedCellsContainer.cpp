@@ -8,69 +8,6 @@
 #include "utils/ArrayUtils.h"
 
 /*
-    Methods of the BoundaryIterator
-*/
-
-LinkedCellsContainer::BoundaryIterator::BoundaryIterator(std::vector<Cell*>& cells, int cell_index, int particle_index)
-    : cells(cells), cell_index(cell_index), particle_index(particle_index) {}
-
-LinkedCellsContainer::BoundaryIterator& LinkedCellsContainer::BoundaryIterator::operator++() {
-    // if the iterator is the end iterator, keep it that way
-    if (cell_index == -1 && particle_index == -1) return *this;
-
-    ++particle_index;
-
-    // search for the next valid particle index in the cells
-    while (cell_index < static_cast<int>(cells.size()) &&
-           particle_index >= static_cast<int>(cells.at(cell_index)->getParticleReferences().size())) {
-        ++cell_index;
-        particle_index = 0;
-    }
-
-    // if the iterator is invalid, set it to the end
-    if (cell_index >= static_cast<int>(cells.size())) {
-        cell_index = -1;
-        particle_index = -1;
-    }
-
-    return *this;
-}
-
-Particle& LinkedCellsContainer::BoundaryIterator::operator*() const {
-    if (cell_index == -1 || particle_index == -1) std::cout << "ERROR" << std::endl;
-    return *(cells.at(cell_index)->getParticleReferences().at(particle_index));
-}
-
-Particle* LinkedCellsContainer::BoundaryIterator::operator->() const {
-    if (cell_index == -1 || particle_index == -1) return nullptr;
-    return cells.at(cell_index)->getParticleReferences().at(particle_index);
-}
-
-bool LinkedCellsContainer::BoundaryIterator::operator==(const BoundaryIterator& other) const {
-    return cell_index == other.cell_index && particle_index == other.particle_index;
-}
-
-bool LinkedCellsContainer::BoundaryIterator::operator!=(const BoundaryIterator& other) const {
-    return cell_index != other.cell_index || particle_index != other.particle_index;
-}
-
-/*
-    Methods of the LinkedCellsContainer regarding the BoundaryIterator
-*/
-
-LinkedCellsContainer::BoundaryIterator LinkedCellsContainer::boundaryBegin() {
-    // initialize the iterator to an invalid state, so that the first call to ++ returns the first valid particle
-    BoundaryIterator tmp = BoundaryIterator(boundary_cell_references, 0, -1);
-    ++tmp;
-    return tmp;
-}
-
-LinkedCellsContainer::BoundaryIterator LinkedCellsContainer::boundaryEnd() {
-    // create an iterator to the end of the boundary particles
-    return BoundaryIterator(boundary_cell_references, -1, -1);
-}
-
-/*
     Methods of the LinkedCellsContainer
 */
 LinkedCellsContainer::LinkedCellsContainer(const std::array<double, 3>& _domain_size, double _cutoff_radius,
@@ -486,7 +423,8 @@ std::array<double, 3> LinkedCellsContainer::calculateReflectiveBoundaryForce(Par
         return {0, 0, 0};
     }
 
-    Particle ghost_particle = Particle(p.getX() - std::array<double, 3>{2 * distance, 0, 0}, {0, 0, 0}, p.getM());
+    Particle ghost_particle = Particle(p);
+    ghost_particle.setX(p.getX() - std::array<double, 3>{2 * distance, 0, 0});
 
     auto force_vector_left_side = force.calculateForce(p, ghost_particle);
 
@@ -630,7 +568,8 @@ void LinkedCellsContainer::addPeriodicHaloParticlesForSide(const std::vector<Cel
                                                            const std::array<double, 3>& offset) {
     for (Cell* cell : side_cell_references) {
         for (Particle* p : cell->getParticleReferences()) {
-            Particle ghost_particle = Particle(p->getX() + offset, {0, 0, 0}, p->getM());
+            Particle ghost_particle = Particle(*p);
+            ghost_particle.setX(p->getX() + offset);
             addParticle(ghost_particle);
         }
     }
@@ -645,7 +584,8 @@ void LinkedCellsContainer::addPeriodicHaloParticlesForEdge(int free_dimension, c
     for (int c = 0; c < domain_num_cells[2]; ++c) {
         Cell* cell = &cells.at(cellCoordToCellIndex(running_array[0], running_array[1], running_array[2]));
         for (Particle* p : cell->getParticleReferences()) {
-            Particle ghost_particle = Particle(p->getX() + offset, {0, 0, 0}, p->getM());
+            Particle ghost_particle = Particle(*p);
+            ghost_particle.setX(p->getX() + offset);
             addParticle(ghost_particle);
         }
         running_array[free_dimension] += 1;
@@ -660,7 +600,8 @@ void LinkedCellsContainer::addPeriodicHaloParticlesForCorner(const std::array<do
 
     Cell* cell = &cells.at(cellCoordToCellIndex(cell_coords[0], cell_coords[1], cell_coords[2]));
     for (Particle* p : cell->getParticleReferences()) {
-        Particle ghost_particle = Particle(p->getX() + offset, {0, 0, 0}, p->getM());
+        Particle ghost_particle = Particle(*p);
+        ghost_particle.setX(p->getX() + offset);
         addParticle(ghost_particle);
     }
 }

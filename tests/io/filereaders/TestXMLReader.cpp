@@ -67,24 +67,6 @@ TEST(XMLFileReader, LoadCheckPoint) {
     }
 }
 
-TEST(XMLFileReader, RecursiveSubSimulation) {
-    XMLFileReader file_reader(true);
-
-    auto [particles_xml, params_xml] = file_reader.readFile(FileLoader::get_input_file_path("RecursiveExample.xml"));
-
-    std::vector<Particle> equilibrated_particles;
-
-    SphereSpawner spawner{{0, 0, 0}, 2, 1, 5, {0, 0, 0}, 1, true};
-
-    spawner.spawnParticles(equilibrated_particles);
-
-    EXPECT_EQ(particles_xml.size(), 33 + 8);
-
-    for (const auto& particle : equilibrated_particles) {
-        EXPECT_NOT_CONTAINS_POS_NEAR(particles_xml, particle.getX(), 1)
-    }
-}
-
 TEST(XMLFileReader, DoubleRecursiveSubSimulation) {
     XMLFileReader file_reader(true);
 

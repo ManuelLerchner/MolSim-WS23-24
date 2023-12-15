@@ -44,3 +44,24 @@ std::shared_ptr<spdlog::logger> Logger::init_logger(LogType log_type) {
 
     return new_logger;
 }
+
+void Logger::update_level(std::string& log_level) {
+    if (log_level == "trace") {
+        Logger::logger->set_level(spdlog::level::trace);
+    } else if (log_level == "debug") {
+        Logger::logger->set_level(spdlog::level::debug);
+    } else if (log_level == "info") {
+        Logger::logger->set_level(spdlog::level::info);
+    } else if (log_level == "warning") {
+        Logger::logger->set_level(spdlog::level::warn);
+    } else if (log_level == "error") {
+        Logger::logger->set_level(spdlog::level::err);
+    } else if (log_level == "critical") {
+        logger->set_level(spdlog::level::critical);
+    } else if (log_level == "off") {
+        Logger::logger->set_level(spdlog::level::off);
+    } else {
+        std::cout << "Error: Invalid log level given." << std::endl;
+        exit(-1);
+    }
+}
