@@ -5,7 +5,7 @@
 #include "utils/ArrayUtils.h"
 
 void ReflectiveBoundaryType::pre(LinkedCellsContainer& container){
-    
+
 };
 
 void ReflectiveBoundaryType::applyBoundaryConditions(LinkedCellsContainer& container) {
