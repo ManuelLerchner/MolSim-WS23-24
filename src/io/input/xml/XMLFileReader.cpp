@@ -4,7 +4,7 @@
 
 #include <filesystem>
 #include <optional>
-#include <sstream>
+
 
 #include "io/input/chkpt/ChkptPointFileReader.h"
 #include "io/logger/Logger.h"
@@ -122,20 +122,7 @@ auto loadConfig(const SubSimulationType& sub_simulation, const std::string& curr
     }
 }
 
-auto checkCheckPointHashIsValid(const std::string& path) {
-    auto checkpoint = CheckPoint(path, xml_schema::flags::dont_validate);
-    auto meta_data = checkpoint->MetaData();
 
-    std::ifstream input_file(meta_data.input_file());
-
-    auto buffer = std::stringstream();
-    buffer << input_file.rdbuf();
-
-    std::hash<std::string> hasher;
-    auto curr_hash = hasher(buffer.str());
-
-    return curr_hash == meta_data.input_file_hash();
-}
 
 std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::string curr_file_path, ConfigurationType& config, bool fresh,
                                                                      bool allow_recursion, std::string output_base_path = "",
@@ -157,14 +144,13 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::string
     auto forces = XSDToInternalTypeAdapter::convertToForces(settings.forces());
 
     auto params = SimulationParams{curr_file_path,
-                                   "",
                                    settings.delta_t(),
                                    settings.end_time(),
                                    static_cast<int>(settings.fps()),
                                    static_cast<int>(settings.video_length()),
                                    container_type,
                                    thermostat,
-                                   "vtu",
+                                   settings.output_format(),
                                    std::get<0>(forces),
                                    std::get<1>(forces),
                                    false,
@@ -221,7 +207,7 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::string
             Logger::logger->info("Found checkpoint file for sub simulation {} at depth {}", name, depth);
 
             // checking if the hash of the input file is the same as the one in the checkpoint file
-            auto hash_valid = checkCheckPointHashIsValid(*checkpoint_path);
+            auto hash_valid = ChkptPointFileReader::detectSourceFileChanges(*checkpoint_path);
 
             if (!hash_valid) {
                 Logger::logger->warn(
@@ -269,6 +255,10 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::string
 
         // Load the checkpoint file
         loadCheckpointFile(particles, *checkpoint_path);
+    }
+
+    if (settings.log_level()) {
+        Logger::update_level(settings.log_level().get());
     }
 
     params.num_particles = particles.size();

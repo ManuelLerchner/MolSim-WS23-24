@@ -132,7 +132,6 @@ class SimulationParams {
      * @brief Construct a new SimulationParams object
      *
      * @param input_file_path Path to the input file of the simulation
-     * @param output_dir_path Path to the directory in which to save the simulation output
      * @param delta_t Time step of a single simulation iteration
      * @param end_time End time of the simulation
      * @param fps Frames per second at which to save the simulation. This is used to calculate how often to save the simulation data
@@ -147,17 +146,15 @@ class SimulationParams {
      * @param base_path Base path to the output directory. This is used to construct the output directory path if none is given
      * explicitly. Defaults to "./output/"
      */
-    SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
-                     int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
-                     const std::optional<Thermostat>& thermostat, const std::string& output_format,
-                     const std::vector<std::string>& force_strings, bool performance_test, bool fresh = false,
-                     const std::string& base_path = "./output");
+    SimulationParams(const std::string& input_file_path, double delta_t, double end_time, int fps, int video_length,
+                     const std::variant<DirectSumType, LinkedCellsType>& container_type, const std::optional<Thermostat>& thermostat,
+                     const std::string& output_format, const std::vector<std::string>& force_strings, bool performance_test,
+                     bool fresh = false, const std::string& base_path = "./output");
 
     /**
      * @brief Construct a new SimulationParams object
      *
      * @param input_file_path Path to the input file of the simulation
-     * @param output_dir_path Path to the directory in which to save the simulation output
      * @param delta_t Time step of a single simulation iteration
      * @param end_time End time of the simulation
      * @param fps Frames per second at which to save the simulation. This is used to calculate how often to save the simulation data
@@ -173,10 +170,9 @@ class SimulationParams {
      * @param base_path Base path to the output directory. This is used to construct the output directory path if none is given
      * explicitly. Defaults to "./output/"
      */
-    SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
-                     int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
-                     const std::optional<Thermostat>& thermostat, const std::string& output_format,
-                     const std::vector<std::shared_ptr<SimpleForceSource>>& simple_forces,
+    SimulationParams(const std::string& input_file_path, double delta_t, double end_time, int fps, int video_length,
+                     const std::variant<DirectSumType, LinkedCellsType>& container_type, const std::optional<Thermostat>& thermostat,
+                     const std::string& output_format, const std::vector<std::shared_ptr<SimpleForceSource>>& simple_forces,
                      const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_forces, bool performance_test, bool fresh = false,
                      const std::string& base_path = "./output");
 
