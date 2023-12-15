@@ -33,6 +33,7 @@ jobs:
         run: |
           cd build
           make -j tests
+          make -j benchmarks
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2

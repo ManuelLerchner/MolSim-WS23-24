@@ -7,8 +7,7 @@
 #include "spdlog/sinks/rotating_file_sink.h"
 
 SimulationParams parse_arguments(int argc, char* argsv[]) {
-    std::string input_file_path;
-    std::string output_dir_path;
+    std::filesystem::path input_file_path;
     std::string log_level;
     std::string output_format;
     std::string log_output;
@@ -19,7 +18,7 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
     int fps = 0;
     int video_length = 0;
 
-    std::vector<std::string> forces;
+    std::vector<std::string> force_strings;
 
     bool performance_test = false;
     bool fresh = false;
@@ -28,12 +27,8 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
     boost::program_options::options_description options_desc("Allowed options");
     options_desc.add_options()("help,h", "produce help message");
     options_desc.add_options()(
-        "input_file_path,f", boost::program_options::value<std::string>(&input_file_path),
+        "input_file_path,f", boost::program_options::value<std::filesystem::path>(&input_file_path),
         "The path to the input file. Must be specified, otherwise the program will terminate. Can be inserted as positional argument.");
-    options_desc.add_options()("output_dir_path,o", boost::program_options::value<std::string>(&output_dir_path)->default_value(""),
-                               "The path to the directory in which to save the simulation output files"
-                               "Default: './output/<input_file_name>/'.\n"
-                               "NOTE: The directory  will be cleared before execution!!!");
     options_desc.add_options()("delta_t,d", boost::program_options::value<double>(&delta_t), "The time step per simulation iteration");
     options_desc.add_options()("end_time,e", boost::program_options::value<double>(&end_time),
                                "The time, at which the simulation will end");
@@ -41,7 +36,7 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
                                "The number of frames per second at which the simulation will be saved");
     options_desc.add_options()("video_length", boost::program_options::value<int>(&video_length),
                                "The total length of the simulation video in seconds");
-    options_desc.add_options()("force", boost::program_options::value<std::vector<std::string>>(&forces)->multitoken(),
+    options_desc.add_options()("force", boost::program_options::value<std::vector<std::string>>(&force_strings)->multitoken(),
                                "The forces to be applied to the particles. Possible values: gravity, electrostatic, none");
     options_desc.add_options()("log_level,l", boost::program_options::value<std::string>(&log_level)->default_value("info"),
                                "The log level. Possible values: trace, debug, info, warning, error, critical, off");
@@ -74,24 +69,7 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
         exit(-1);
     }
 
-    if (log_level == "trace") {
-        Logger::logger->set_level(spdlog::level::trace);
-    } else if (log_level == "debug") {
-        Logger::logger->set_level(spdlog::level::debug);
-    } else if (log_level == "info") {
-        Logger::logger->set_level(spdlog::level::info);
-    } else if (log_level == "warning") {
-        Logger::logger->set_level(spdlog::level::warn);
-    } else if (log_level == "error") {
-        Logger::logger->set_level(spdlog::level::err);
-    } else if (log_level == "critical") {
-        Logger::logger->set_level(spdlog::level::critical);
-    } else if (log_level == "off") {
-        Logger::logger->set_level(spdlog::level::off);
-    } else {
-        std::cout << "Error: Invalid log level given." << std::endl;
-        exit(-1);
-    }
+    Logger::update_level(log_level);
 
     if (argc <= 1 || variables_map.count("help")) {
         std::stringstream help_message;
@@ -110,18 +88,9 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
         performance_test = true;
     }
 
-    return SimulationParams{input_file_path,
-                            output_dir_path,
-                            delta_t,
-                            end_time,
-                            fps,
-                            video_length,
-                            SimulationParams::DirectSumType{},
-                            Thermostat{1, 1, std::numeric_limits<size_t>::max()},
-                            output_format,
-                            forces,
-                            performance_test,
-                            fresh};
+    return SimulationParams{
+        input_file_path, delta_t,       end_time,         fps,  video_length, SimulationParams::DirectSumType{}, std::nullopt,
+        output_format,   force_strings, performance_test, fresh};
 }
 
 SimulationParams merge_parameters(const SimulationParams& params_cli, const std::optional<SimulationParams>& file_params) {
@@ -144,16 +113,13 @@ SimulationParams merge_parameters(const SimulationParams& params_cli, const std:
     if (params_cli.video_length != 0) {
         params.video_length = params_cli.video_length;
     }
-    if (!params_cli.forces.empty()) {
-        params.forces = params_cli.forces;
+    if (!params_cli.pairwise_forces.empty()) {
+        params.pairwise_forces = params_cli.pairwise_forces;
     }
 
     // Always takes value from CLI
-    params.output_dir_path = params_cli.output_dir_path;
-
     params.fresh = params_cli.fresh;
 
-    // Must be given in the CLI
     params.output_format = params_cli.output_format;
 
     params.performance_test = params_cli.performance_test;

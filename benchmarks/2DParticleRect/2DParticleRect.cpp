@@ -7,8 +7,8 @@
 #include "particles/containers/directsum/DirectSumContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "particles/spawners/cuboid/CuboidSpawner.h"
-#include "physics/forces/GravitationalForce.h"
-#include "physics/forces/LennardJonesForce.h"
+#include "physics/pairwiseforces/GravitationalForce.h"
+#include "physics/pairwiseforces/LennardJonesForce.h"
 #include "simulation/Simulation.h"
 #include "utils/ArrayUtils.h"
 
@@ -29,41 +29,56 @@ void execute2DRectBenchmark(int x, int y) {
     CuboidSpawner spawner(center_offset - std::array<double, 3>{x * 1.225 / 2, y * 1.225 / 2, 0}, {x, y, 1}, 1.225, 1, {0, 0, 0}, 0);
 
     // Settings for the forces for both simulations
-    std::vector<std::unique_ptr<ForceSource>> forces;
+    std::vector<std::unique_ptr<PairwiseForceSource>> forces;
     forces.push_back(std::make_unique<LennardJonesForce>());
 
+    // ############################################################
+    // # Direct Sum Container
+    // ############################################################
+
+    std::vector<Particle> particles_ds;
+    spawner.spawnParticles(particles_ds);
+
     // Instantiation of the Direct Sum Container simulation
-    SimulationParams params_ds{
-        "2DParticleRect", "", 0.01, 5, 0, 30, SimulationParams::DirectSumType{}, Thermostat{0, 0, 100000000}, "none"};
-    std::unique_ptr<ParticleContainer> particle_container_ds = std::make_unique<DirectSumContainer>();
-    spawner.spawnParticles(particle_container_ds);
-    Simulation simulation_ds(particle_container_ds, forces, params_ds);
+    SimulationParams params_ds{"2DParticleRect", 0.01, 5,   0, 30, SimulationParams::DirectSumType{}, Thermostat{0, 0}, "none",
+                               {"LennardJones"}, true, true};
+    params_ds.num_particles = particles_ds.size();
+
+    Simulation simulation_ds(particles_ds, params_ds);
 
     // Simulating with Direct Sum Container
-    Logger::logger->info("Starting simulation using Direct Sum container...");
+    params_ds.logSummary();
     SimulationOverview direct_sum_data = simulation_ds.runSimulationPerfTest();
-    Logger::logger->info("Finished simulation using Direct Sum container\n");
+    direct_sum_data.logSummary();
 
+    // ############################################################
+    // # Linked Cells Container
+    // ############################################################
+
+    std::vector<Particle> particles_lc;
+    spawner.spawnParticles(particles_lc);
     // Instantiation of the Linked Cells Container simulation
     SimulationParams params_lc{"2DParticleRect",
-                               "",
                                0.01,
                                5,
                                0,
                                30,
                                SimulationParams::LinkedCellsType{domain_size, cutoff_radius, boundary_conditions},
-                               Thermostat{0, 0, 100000000},
-                               "none"};
-    std::unique_ptr<ParticleContainer> particle_container_lc = std::make_unique<LinkedCellsContainer>(domain_size, cutoff_radius);
-    spawner.spawnParticles(particle_container_lc);
-    Simulation simulation_lc(particle_container_lc, forces, params_lc);
-
+                               Thermostat{0, 0},
+                               "none",
+                               {"LennardJones"},
+                               true,
+                               true};
+    Simulation simulation_lc(particles_lc, params_lc);
     // Simulating with Linked Cells Container
-    Logger::logger->info("Starting simulation using Linked Cells container...");
+    params_lc.logSummary();
     SimulationOverview linked_cells_data = simulation_lc.runSimulationPerfTest();
-    Logger::logger->info("Finished simulation using Linked Cells container\n");
+    linked_cells_data.logSummary();
 
-    // Final Logging
+    // ############################################################
+    // # Comparison Logging
+    // ############################################################
+
     Logger::logger->info("Simulation of {} particles in a {}x{} grid\n", x * y, x, y);
 
     Logger::logger->info("Direct sum container:");

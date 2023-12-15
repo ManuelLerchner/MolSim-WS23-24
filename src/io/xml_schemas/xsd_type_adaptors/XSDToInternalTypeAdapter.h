@@ -1,7 +1,9 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <variant>
+#include <vector>
 
 #include "io/xml_schemas/checkpoint/checkpoint_schema.h"
 #include "io/xml_schemas/simulation_input/simulation_input_schema.h"
@@ -88,9 +90,10 @@ class XSDToInternalTypeAdapter {
      * @brief Converts a force type from the XSD format to the internal format
      *
      * @param forces List of forces in the XSD format
-     * @return ForceSource in string format parsed from the given force type in the XSD format
+     * @return Tuple with lists of simple and pairwise forces parsed from the given list of forces in the XSD format
      */
-    static std::vector<std::string> convertToForces(const SettingsType::force_sequence& forces);
+    static std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::shared_ptr<PairwiseForceSource>>> convertToForces(
+        const ForcesType& forces);
 
     /**
      * @brief Converts a double vector from the XSD format to the internal format

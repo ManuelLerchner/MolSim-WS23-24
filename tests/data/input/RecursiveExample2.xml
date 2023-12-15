@@ -11,21 +11,14 @@
         <particle_container>
             <directsum_container />
         </particle_container>
-        <force>LennardJones</force>
-        <thermostat>
-            <target_temperature>1</target_temperature>
-            <max_temperature_change>1</max_temperature_change>
-            <application_interval>10000</application_interval>
-        </thermostat>
+        <forces>
+            <LennardJones />
+        </forces>
+        <output_format>none</output_format>
     </settings>
 
     <particle_source>
-        <sub_simulation>
-            <name>Demo 13</name>
-            <file_name>
-                ./RecursiveExample.xml
-            </file_name>
-        </sub_simulation>
+        <sub_simulation path="./RecursiveExample.xml"/>
 
         <cuboid_spawner>
             <lower_left_front_corner>
@@ -47,6 +40,8 @@
                 <z>0.0</z>
             </velocity>
             <type>2</type>
+            <epsilon>1.0</epsilon>
+            <sigma>1.2</sigma>
         </cuboid_spawner>
     </particle_source>
 

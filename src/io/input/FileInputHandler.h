@@ -32,6 +32,6 @@ class FileInputHandler {
      * Parameters are stored in a `SimulationParams` object and returned.
      * For more information about the output file formats, see \ref InputFileFormats "Input File Formats"
      */
-    static std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(const std::string& input_file_path,
+    static std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(const std::filesystem::path& input_file_path,
                                                                                        bool fresh = false, bool allow_recursion = true);
 };

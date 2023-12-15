@@ -14,7 +14,8 @@ class CubFileReader : public FileReader {
      *
      * @param filepath Path to the file to be read
      */
-    [[nodiscard]] std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(const std::string& filepath) const override;
+    [[nodiscard]] std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(
+        const std::filesystem::path& filepath) const override;
 
    private:
     /**

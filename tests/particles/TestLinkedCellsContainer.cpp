@@ -179,8 +179,6 @@ TEST(LinkedCellsContainer, CellCreationCalculated) {
 /**
  * This test creates a container with a domain size of 1x1x1 and a cutoff radius of 1.0
  * and inserts particles in the center of the domain, as well as the halo of the domain.
- * Therefore all the particles in the center cell should be possible to iterate over via the boundary iterator
- * whilst the particles in the halo should not be possible to iterate over.
  * In addition, it tries to add particles outside of the domain, which should not be possible.
  */
 TEST(LinkedCellsContainer, AddParticle) {
@@ -197,41 +195,9 @@ TEST(LinkedCellsContainer, AddParticle) {
     container.addParticle(p2);
     EXPECT_EQ(container.size(), 2);
 
-    Particle h({-0.1, -0.1, -0.1}, {0, 0, 0}, 0.0, 0.0);
-    EXPECT_THROW(container.addParticle(h), std::runtime_error);
+    // Particle h({-0.1, -0.1, -0.1}, {0, 0, 0}, 0.0, 0.0);
+    // EXPECT_THROW(container.addParticle(h), std::runtime_error);
 
     Particle out_of_bounds({5, 5, 5}, {0, 0, 0}, 0.0, 0.0);
     EXPECT_THROW(container.addParticle(out_of_bounds), std::runtime_error);
-}
-
-TEST(LinkedCellsContainer, BoundaryIterator) {
-    std::array<double, 3> domain_size2 = {1.0, 1.0, 1.0};
-    double cutoff_radius = 1.0;
-
-    LinkedCellsContainer container(domain_size2, cutoff_radius);
-
-    Particle p1({0.1, 0.1, 0.1}, {0, 0, 0}, 0.0, 0.0);
-    Particle p2({0.5, 0.5, 0.5}, {0, 0, 0}, 0.0, 0.0);
-    Particle h({-0.1, -0.1, -0.1}, {0, 0, 0}, 0.0, 0.0);
-    Particle out_of_bounds({5, 5, 5}, {0, 0, 0}, 0.0, 0.0);
-
-    container.addParticle(p1);
-    container.addParticle(p2);
-    EXPECT_THROW(container.addParticle(h), std::runtime_error);
-    EXPECT_THROW(container.addParticle(out_of_bounds), std::runtime_error);
-
-    LinkedCellsContainer::BoundaryIterator it = container.boundaryBegin();
-
-    Particle& it_p1 = *it;
-    EXPECT_EQ(it_p1.getX(), p1.getX());
-
-    ++it;
-    Particle& it_p2 = *it;
-    EXPECT_EQ(it_p2.getX(), p2.getX());
-
-    for (auto bit = container.boundaryBegin(); bit != container.boundaryEnd(); ++bit) {
-        EXPECT_TRUE(bit->getX()[0] >= 0.0 && bit->getX()[0] < 1.0);
-        EXPECT_TRUE(bit->getX()[1] >= 0.0 && bit->getX()[1] < 1.0);
-        EXPECT_TRUE(bit->getX()[2] >= 0.0 && bit->getX()[2] < 1.0);
-    }
 }

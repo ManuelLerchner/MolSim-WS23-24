@@ -13,4 +13,4 @@ enum class OutputFormat { VTU, XYZ, CHKPT, NONE };
  *
  * @return std::map<std::string,OutputFormat> Mapping of supported output formats
  */
-std::map<std::string, OutputFormat> get_supported_output_formats();
+const std::map<std::string, OutputFormat> get_supported_output_formats();

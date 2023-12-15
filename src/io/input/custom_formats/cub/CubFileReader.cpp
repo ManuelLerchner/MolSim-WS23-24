@@ -4,11 +4,11 @@
 
 #include "particles/spawners/cuboid/CuboidSpawner.h"
 
-std::tuple<std::vector<Particle>, std::optional<SimulationParams>> CubFileReader::readFile(const std::string& filepath) const {
+std::tuple<std::vector<Particle>, std::optional<SimulationParams>> CubFileReader::readFile(const std::filesystem::path& filepath) const {
     FileLineReader input_file(filepath);
 
     if (!input_file.is_open()) {
-        throw FileFormatException(fmt::format("Error: could not open file '{}'.", filepath));
+        throw FileFormatException(fmt::format("Error: could not open file '{}'.", filepath.string()));
     }
 
     std::vector<Particle> particles;
@@ -70,7 +70,7 @@ void CubFileReader::checkAndReportInvalidEntry(FileLineReader& input_file, const
             "Invalid entry in file '{}' on line {}.\n"
             "\t Expected format: '{}'\n"
             "\t Got: '{}'",
-            input_file.getFilePath(), input_file.getLineNumber(), expected_format, input_file.getLine());
+            input_file.getFilePath().string(), input_file.getLineNumber(), expected_format, input_file.getLine());
 
         throw FileFormatException(error_msg);
     }
@@ -80,7 +80,7 @@ void CubFileReader::checkAndReportInvalidEntry(FileLineReader& input_file, const
             "Invalid entry in file '{}' on line {}.\n"
             "\t Comments must start with: '#', but got: '{}'\n"
             "\t Content of line: '{}'",
-            input_file.getFilePath(), input_file.getLineNumber(), static_cast<char>(input_file.getLineStream().peek()),
+            input_file.getFilePath().string(), input_file.getLineNumber(), static_cast<char>(input_file.getLineStream().peek()),
             input_file.getLine());
 
         if (input_file.getLine().find('#') != std::string::npos) {

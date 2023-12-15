@@ -60,11 +60,12 @@ TEST(DirectSumContainer, ManyParticlesIteration) {
     std::mt19937 gen(rd());
     std::uniform_real_distribution<double> dist(-1, 1);
 
-    constexpr size_t N = 10000;
-    DirectSumContainer container(N);
-    std::array<Particle, N> particles_expected;
+    constexpr size_t n = 10000;
+    DirectSumContainer container(n);
+    std::vector<Particle> particles_expected;
+    particles_expected.reserve(n);
 
-    for (size_t i = 0; i < N; i++) {
+    for (size_t i = 0; i < n; i++) {
         std::array<double, 3> v = {dist(gen), dist(gen), dist(gen)};
         std::array<double, 3> x = {dist(gen), dist(gen), dist(gen)};
         double m = dist(gen);
@@ -73,7 +74,7 @@ TEST(DirectSumContainer, ManyParticlesIteration) {
         container.addParticle(particles_expected[i]);
     }
 
-    for (size_t i = 0; i < N; i++) {
+    for (size_t i = 0; i < n; i++) {
         EXPECT_TRUE(container[i] == particles_expected[i]);
     }
 }

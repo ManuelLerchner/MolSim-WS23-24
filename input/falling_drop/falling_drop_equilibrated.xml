@@ -3,53 +3,42 @@
     xsi:noNamespaceSchemaLocation="../simulation_schema.xsd">
 
     <settings>
-        <fps>24</fps>
+        <fps>60</fps>
         <video_length>30</video_length>
-        <delta_t>0.005</delta_t>
-        <end_time>10.0</end_time>
+        <delta_t>0.0005</delta_t>
+        <end_time>40</end_time>
         <third_dimension>false</third_dimension>
         <particle_container>
             <linkedcells_container>
                 <domain_size>
                     <x>303</x>
                     <y>180</y>
-                    <z>10</z>
+                    <z>1</z>
                 </domain_size>
                 <cutoff_radius>3.0</cutoff_radius>
                 <boundary_conditions>
-                    <left>Reflective</left>
-                    <right>Reflective</right>
+                    <left>Periodic</left>
+                    <right>Periodic</right>
                     <bottom>Reflective</bottom>
                     <top>Reflective</top>
-                    <back>Reflective</back>
-                    <front>Reflective</front>
+                    <back>Outflow</back>
+                    <front>Outflow</front>
                 </boundary_conditions>
             </linkedcells_container>
         </particle_container>
-        <force>LennardJones</force>
-        <thermostat>
-            <target_temperature>0</target_temperature>
-            <max_temperature_change>0</max_temperature_change>
-            <application_interval>10000000</application_interval>
-        </thermostat>
+        <forces>
+            <LennardJones />
+            <GlobalDownwardsGravity g="12.44" />
+        </forces>
+        <output_format>vtu</output_format>
     </settings>
 
     <particle_source>
         <!-- Basin -->
-        <sub_simulation>
-            <name>Basin</name>
-            <file_name>
-                ./subsimulations/basin.xml
-            </file_name>
-        </sub_simulation>
+        <sub_simulation path="./subsimulations/basin.xml" />
 
         <!-- Falling drop -->
-        <sub_simulation>
-            <name>Sphere</name>
-            <file_name>
-                ./subsimulations/sphere.xml
-            </file_name>
-        </sub_simulation>
+        <sub_simulation path="./subsimulations/sphere.xml" />
     </particle_source>
 
 </configuration>

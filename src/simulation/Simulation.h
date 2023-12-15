@@ -16,39 +16,14 @@
  */
 class Simulation {
     /**
-     * @brief Time step per iteration. This specifies the accuracy of the simulation
-     */
-    const double delta_t;
-
-    /**
-     * @brief End time of the simulation. Upon reaching this time, the simulation will stop
-     */
-    const double simulation_end_time;
-
-    /**
      * @brief Reference to the output handler used for writing the output files
      */
     const FileOutputHandler file_output_handler;
 
     /**
-     * @brief Frames per second at which to save the simulation. This is used to calculate how often to save the simulation data
-     */
-    const int fps;
-
-    /**
-     * @brief Length of the simulation video in seconds. This is used to calculate how often to save the simulation data
-     */
-    const int video_length;
-
-    /**
      * @brief Reference to the simulation parameters object
      */
-    const SimulationParams& simulation_params;
-
-    /**
-     * @brief Vector of force sources which are used to calculate the new forces
-     */
-    const std::vector<std::shared_ptr<ForceSource>> forces;
+    const SimulationParams& params;
 
     /**
      * @brief Reference to the `ParticleContainer` on whose content the simulation is performed
@@ -60,11 +35,6 @@ class Simulation {
      */
     std::unique_ptr<IntegrationFunctor> integration_functor;
 
-    /**
-     * @brief Thermostat used to control the temperature of the simulation
-     */
-    Thermostat thermostat;
-
    public:
     enum class IntegrationMethod { VERLET };
 
@@ -72,10 +42,10 @@ class Simulation {
      * @brief Construct a new Simulation object and initialize all the necessary components
      *
      * @param particles Reference to the `ParticleContainer` on whose content the simulation is performed
-     * @param simulation_params Parameters for the simulation. See the class `SimulationParams` for more information
+     * @param params Parameters for the simulation. See the class `SimulationParams` for more information
      * @param integration_method The integration method to use for the simulation (Default: `IntegrationMethod::VERLET`)
      */
-    Simulation(const std::vector<Particle>& particles, const SimulationParams& simulation_params,
+    Simulation(const std::vector<Particle>& particles, const SimulationParams& params,
                IntegrationMethod integration_method = IntegrationMethod::VERLET);
 
     /**
