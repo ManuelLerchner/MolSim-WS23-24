@@ -4,6 +4,7 @@
 #include <fstream>
 #include <numeric>
 
+#include "io/input/chkpt/ChkptPointFileReader.h"
 #include "io/logger/Logger.h"
 #include "io/output/OutputFormats.h"
 #include "physics/ForcePicker.h"
@@ -99,8 +100,7 @@ std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::sha
     return {simple_forces, pairwise_forces};
 }
 
-SimulationParams::SimulationParams(const std::filesystem::path& input_file_path, const std::filesystem::path& output_dir_path,
-                                   double delta_t, double end_time, int fps, int video_length,
+SimulationParams::SimulationParams(const std::filesystem::path& input_file_path, double delta_t, double end_time, int fps, int video_length,
                                    const std::variant<DirectSumType, LinkedCellsType>& container_type,
                                    const std::optional<Thermostat>& thermostat, const std::string& output_format,
                                    const std::vector<std::shared_ptr<SimpleForceSource>>& simple_forces,
@@ -135,37 +135,19 @@ SimulationParams::SimulationParams(const std::filesystem::path& input_file_path,
     }
 
     this->output_format = convertToOutputFormat(output_format);
+    this->output_dir_path = constructOutputPath(base_path, input_file_path.stem().string());
 
-    if (output_dir_path.empty()) {
-        this->output_dir_path = constructOutputPath(base_path, input_file_path.stem().string());
-    } else {
-        this->output_dir_path = output_dir_path;
-    }
-
-    // calculate hash
-    if (input_file_path.empty()) {
-        this->input_file_hash = 0;
-    } else {
-        std::ifstream input_file(input_file_path.string());
-
-        auto buffer = std::stringstream();
-        buffer << input_file.rdbuf();
-
-        std::hash<std::string> hasher;
-        auto hash = hasher(buffer.str());
-        this->input_file_hash = hash;
-    }
+    this->input_file_hash = ChkptPointFileReader::calculateHash(input_file_path);
 
     this->num_particles = 0;
 }
 
-SimulationParams::SimulationParams(const std::filesystem::path& input_file_path, const std::filesystem::path& output_dir_path,
-                                   double delta_t, double end_time, int fps, int video_length,
+SimulationParams::SimulationParams(const std::filesystem::path& input_file_path, double delta_t, double end_time, int fps, int video_length,
                                    const std::variant<DirectSumType, LinkedCellsType>& container_type,
                                    const std::optional<Thermostat>& thermostat, const std::string& output_format,
                                    const std::vector<std::string>& force_strings, bool performance_test, bool fresh,
                                    const std::filesystem::path& base_path)
-    : SimulationParams(input_file_path, output_dir_path, delta_t, end_time, fps, video_length, container_type, thermostat, output_format,
+    : SimulationParams(input_file_path, delta_t, end_time, fps, video_length, container_type, thermostat, output_format,
                        std::get<0>(convertToForces(force_strings)), std::get<1>(convertToForces(force_strings)), performance_test, fresh,
                        base_path) {}
 

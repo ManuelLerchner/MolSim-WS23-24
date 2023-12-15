@@ -607,6 +607,8 @@ class SingleParticleSpawnerType;
 class CheckPointLoaderType;
 class SubSimulationType;
 class SettingsType;
+class OutputFormatType;
+class LogLevelType;
 class LennardJonesType;
 class GravitationalType;
 class GlobalGravityType;
@@ -4741,6 +4743,147 @@ class SettingsType : public ::xml_schema::type {
     //@}
 
     /**
+     * @name output_format
+     *
+     * @brief Accessor and modifier functions for the %output_format
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::OutputFormatType output_format_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<output_format_type, char> output_format_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const output_format_type& output_format() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    output_format_type& output_format();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void output_format(const output_format_type& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly
+     * instead of making a copy.
+     */
+    void output_format(::std::unique_ptr<output_format_type> p);
+
+    /**
+     * @brief Return the default value for the element.
+     *
+     * @return A read-only (constant) reference to the element's
+     * default value.
+     */
+    static const output_format_type& output_format_default_value();
+
+    //@}
+
+    /**
+     * @name log_level
+     *
+     * @brief Accessor and modifier functions for the %log_level
+     * optional element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::LogLevelType log_level_type;
+
+    /**
+     * @brief Element optional container type.
+     */
+    typedef ::xsd::cxx::tree::optional<log_level_type> log_level_optional;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<log_level_type, char> log_level_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element
+     * container.
+     *
+     * @return A constant reference to the optional container.
+     */
+    const log_level_optional& log_level() const;
+
+    /**
+     * @brief Return a read-write reference to the element container.
+     *
+     * @return A reference to the optional container.
+     */
+    log_level_optional& log_level();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void log_level(const log_level_type& x);
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x An optional container with the new value to set.
+     *
+     * If the value is present in @a x then this function makes a copy
+     * of this value and sets it as the new value of the element.
+     * Otherwise the element container is set the 'not present' state.
+     */
+    void log_level(const log_level_optional& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly instead
+     * of making a copy.
+     */
+    void log_level(::std::unique_ptr<log_level_type> p);
+
+    /**
+     * @brief Return the default value for the element.
+     *
+     * @return A read-only (constant) reference to the element's
+     * default value.
+     */
+    static const log_level_type& log_level_default_value();
+
+    //@}
+
+    /**
      * @name Constructors
      */
     //@{
@@ -4750,7 +4893,7 @@ class SettingsType : public ::xml_schema::type {
      * initializers for required elements and attributes.
      */
     SettingsType(const fps_type&, const video_length_type&, const delta_t_type&, const end_time_type&, const third_dimension_type&,
-                 const particle_container_type&, const forces_type&);
+                 const particle_container_type&, const forces_type&, const output_format_type&);
 
     /**
      * @brief Create an instance from the ultimate base and
@@ -4761,7 +4904,7 @@ class SettingsType : public ::xml_schema::type {
      * instead of making copies.
      */
     SettingsType(const fps_type&, const video_length_type&, const delta_t_type&, const end_time_type&, const third_dimension_type&,
-                 ::std::unique_ptr<particle_container_type>, ::std::unique_ptr<forces_type>);
+                 ::std::unique_ptr<particle_container_type>, ::std::unique_ptr<forces_type>, const output_format_type&);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -4831,6 +4974,262 @@ class SettingsType : public ::xml_schema::type {
     ::xsd::cxx::tree::one<particle_container_type> particle_container_;
     ::xsd::cxx::tree::one<forces_type> forces_;
     thermostat_optional thermostat_;
+    ::xsd::cxx::tree::one<output_format_type> output_format_;
+    static const output_format_type output_format_default_value_;
+    log_level_optional log_level_;
+    static const log_level_type log_level_default_value_;
+
+    //@endcond
+};
+
+/**
+ * @brief Enumeration class corresponding to the %OutputFormatType
+ * schema type.
+ */
+class OutputFormatType : public ::xml_schema::string {
+   public:
+    /**
+     * @brief Underlying enum type.
+     */
+    enum value { vtu, chkpt, xyz, none };
+
+    /**
+     * @brief Create an instance from the underlying enum value.
+     *
+     * @param v A enum value.
+     */
+    OutputFormatType(value v);
+
+    /**
+     * @brief Create an instance from a C string.
+     *
+     * @param v A string value.
+     */
+    OutputFormatType(const char* v);
+
+    /**
+     * @brief Create an instance from a string.
+     *
+     * @param v A string value.
+     */
+    OutputFormatType(const ::std::string& v);
+
+    /**
+     * @brief Create an instance from the base value.
+     *
+     * @param v A base value.
+     */
+    OutputFormatType(const ::xml_schema::string& v);
+
+    /**
+     * @brief Create an instance from a DOM element.
+     *
+     * @param e A DOM element to extract the data from.
+     * @param f Flags to create the new instance with.
+     * @param c A pointer to the object that will contain the new
+     * instance.
+     */
+    OutputFormatType(const ::xercesc::DOMElement& e, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Create an instance from a DOM attribute.
+     *
+     * @param a A DOM attribute to extract the data from.
+     * @param f Flags to create the new instance with.
+     * @param c A pointer to the object that will contain the new
+     * instance.
+     */
+    OutputFormatType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Create an instance from a string fragment.
+     *
+     * @param s A string fragment to extract the data from.
+     * @param e A pointer to DOM element containing the string fragment.
+     * @param f Flags to create the new instance with.
+     * @param c A pointer to the object that will contain the new
+     * instance.
+     */
+    OutputFormatType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy constructor.
+     *
+     * @param x An instance to make a copy of.
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     *
+     * For polymorphic object models use the @c _clone function instead.
+     */
+    OutputFormatType(const OutputFormatType& x, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+#ifdef XSD_CXX11
+    OutputFormatType& operator=(const OutputFormatType&) = default;
+#endif
+
+    /**
+     * @brief Copy the instance polymorphically.
+     *
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     * @return A pointer to the dynamically allocated copy.
+     *
+     * This function ensures that the dynamic type of the instance is
+     * used for copying and should be used for polymorphic object
+     * models instead of the copy constructor.
+     */
+    virtual OutputFormatType* _clone(::xml_schema::flags f = 0, ::xml_schema::container* c = 0) const;
+
+    /**
+     * @brief Assign the underlying enum value.
+     *
+     * @param v A enum value.
+     * @return A refernce to the instance.
+     */
+    OutputFormatType& operator=(value v);
+
+    /**
+     * @brief Implicit conversion operator to the underlying
+     * enum value.
+     *
+     * @return A enum value.
+     */
+    virtual operator value() const { return _xsd_OutputFormatType_convert(); }
+
+    //@cond
+
+   protected:
+    value _xsd_OutputFormatType_convert() const;
+
+   public:
+    static const char* const _xsd_OutputFormatType_literals_[4];
+    static const value _xsd_OutputFormatType_indexes_[4];
+
+    //@endcond
+};
+
+/**
+ * @brief Enumeration class corresponding to the %LogLevelType
+ * schema type.
+ */
+class LogLevelType : public ::xml_schema::string {
+   public:
+    /**
+     * @brief Underlying enum type.
+     */
+    enum value { off, critical, error, warning, info, debug };
+
+    /**
+     * @brief Create an instance from the underlying enum value.
+     *
+     * @param v A enum value.
+     */
+    LogLevelType(value v);
+
+    /**
+     * @brief Create an instance from a C string.
+     *
+     * @param v A string value.
+     */
+    LogLevelType(const char* v);
+
+    /**
+     * @brief Create an instance from a string.
+     *
+     * @param v A string value.
+     */
+    LogLevelType(const ::std::string& v);
+
+    /**
+     * @brief Create an instance from the base value.
+     *
+     * @param v A base value.
+     */
+    LogLevelType(const ::xml_schema::string& v);
+
+    /**
+     * @brief Create an instance from a DOM element.
+     *
+     * @param e A DOM element to extract the data from.
+     * @param f Flags to create the new instance with.
+     * @param c A pointer to the object that will contain the new
+     * instance.
+     */
+    LogLevelType(const ::xercesc::DOMElement& e, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Create an instance from a DOM attribute.
+     *
+     * @param a A DOM attribute to extract the data from.
+     * @param f Flags to create the new instance with.
+     * @param c A pointer to the object that will contain the new
+     * instance.
+     */
+    LogLevelType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Create an instance from a string fragment.
+     *
+     * @param s A string fragment to extract the data from.
+     * @param e A pointer to DOM element containing the string fragment.
+     * @param f Flags to create the new instance with.
+     * @param c A pointer to the object that will contain the new
+     * instance.
+     */
+    LogLevelType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy constructor.
+     *
+     * @param x An instance to make a copy of.
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     *
+     * For polymorphic object models use the @c _clone function instead.
+     */
+    LogLevelType(const LogLevelType& x, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+#ifdef XSD_CXX11
+    LogLevelType& operator=(const LogLevelType&) = default;
+#endif
+
+    /**
+     * @brief Copy the instance polymorphically.
+     *
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     * @return A pointer to the dynamically allocated copy.
+     *
+     * This function ensures that the dynamic type of the instance is
+     * used for copying and should be used for polymorphic object
+     * models instead of the copy constructor.
+     */
+    virtual LogLevelType* _clone(::xml_schema::flags f = 0, ::xml_schema::container* c = 0) const;
+
+    /**
+     * @brief Assign the underlying enum value.
+     *
+     * @param v A enum value.
+     * @return A refernce to the instance.
+     */
+    LogLevelType& operator=(value v);
+
+    /**
+     * @brief Implicit conversion operator to the underlying
+     * enum value.
+     *
+     * @return A enum value.
+     */
+    virtual operator value() const { return _xsd_LogLevelType_convert(); }
+
+    //@cond
+
+   protected:
+    value _xsd_LogLevelType_convert() const;
+
+   public:
+    static const char* const _xsd_LogLevelType_literals_[6];
+    static const value _xsd_LogLevelType_indexes_[6];
 
     //@endcond
 };
@@ -6219,6 +6618,18 @@ void operator<<(::xercesc::DOMElement&, const CheckPointLoaderType&);
 void operator<<(::xercesc::DOMElement&, const SubSimulationType&);
 
 void operator<<(::xercesc::DOMElement&, const SettingsType&);
+
+void operator<<(::xercesc::DOMElement&, const OutputFormatType&);
+
+void operator<<(::xercesc::DOMAttr&, const OutputFormatType&);
+
+void operator<<(::xml_schema::list_stream&, const OutputFormatType&);
+
+void operator<<(::xercesc::DOMElement&, const LogLevelType&);
+
+void operator<<(::xercesc::DOMAttr&, const LogLevelType&);
+
+void operator<<(::xml_schema::list_stream&, const LogLevelType&);
 
 void operator<<(::xercesc::DOMElement&, const LennardJonesType&);
 

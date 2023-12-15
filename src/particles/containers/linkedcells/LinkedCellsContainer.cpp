@@ -8,69 +8,6 @@
 #include "utils/ArrayUtils.h"
 
 /*
-    Methods of the BoundaryIterator
-*/
-
-LinkedCellsContainer::BoundaryIterator::BoundaryIterator(std::vector<Cell*>& cells, int cell_index, int particle_index)
-    : cells(cells), cell_index(cell_index), particle_index(particle_index) {}
-
-LinkedCellsContainer::BoundaryIterator& LinkedCellsContainer::BoundaryIterator::operator++() {
-    // if the iterator is the end iterator, keep it that way
-    if (cell_index == -1 && particle_index == -1) return *this;
-
-    ++particle_index;
-
-    // search for the next valid particle index in the cells
-    while (cell_index < static_cast<int>(cells.size()) &&
-           particle_index >= static_cast<int>(cells.at(cell_index)->getParticleReferences().size())) {
-        ++cell_index;
-        particle_index = 0;
-    }
-
-    // if the iterator is invalid, set it to the end
-    if (cell_index >= static_cast<int>(cells.size())) {
-        cell_index = -1;
-        particle_index = -1;
-    }
-
-    return *this;
-}
-
-Particle& LinkedCellsContainer::BoundaryIterator::operator*() const {
-    if (cell_index == -1 || particle_index == -1) std::cout << "ERROR" << std::endl;
-    return *(cells.at(cell_index)->getParticleReferences().at(particle_index));
-}
-
-Particle* LinkedCellsContainer::BoundaryIterator::operator->() const {
-    if (cell_index == -1 || particle_index == -1) return nullptr;
-    return cells.at(cell_index)->getParticleReferences().at(particle_index);
-}
-
-bool LinkedCellsContainer::BoundaryIterator::operator==(const BoundaryIterator& other) const {
-    return cell_index == other.cell_index && particle_index == other.particle_index;
-}
-
-bool LinkedCellsContainer::BoundaryIterator::operator!=(const BoundaryIterator& other) const {
-    return cell_index != other.cell_index || particle_index != other.particle_index;
-}
-
-/*
-    Methods of the LinkedCellsContainer regarding the BoundaryIterator
-*/
-
-LinkedCellsContainer::BoundaryIterator LinkedCellsContainer::boundaryBegin() {
-    // initialize the iterator to an invalid state, so that the first call to ++ returns the first valid particle
-    BoundaryIterator tmp = BoundaryIterator(boundary_cell_references, 0, -1);
-    ++tmp;
-    return tmp;
-}
-
-LinkedCellsContainer::BoundaryIterator LinkedCellsContainer::boundaryEnd() {
-    // create an iterator to the end of the boundary particles
-    return BoundaryIterator(boundary_cell_references, -1, -1);
-}
-
-/*
     Methods of the LinkedCellsContainer
 */
 LinkedCellsContainer::LinkedCellsContainer(const std::array<double, 3>& _domain_size, double _cutoff_radius,

@@ -12,13 +12,11 @@
             <directsum_container />
         </particle_container>
         <forces>
-            <LennardJones />
         </forces>
         <output_format>none</output_format>
     </settings>
 
     <particle_source>
-        <check_point_loader path="./ChktpExample.chkpt" />
     </particle_source>
 
 </configuration>

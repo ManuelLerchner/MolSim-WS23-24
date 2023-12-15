@@ -523,6 +523,67 @@ void SettingsType::thermostat(const thermostat_optional& x) { this->thermostat_ 
 
 void SettingsType::thermostat(::std::unique_ptr<thermostat_type> x) { this->thermostat_.set(std::move(x)); }
 
+const SettingsType::output_format_type& SettingsType::output_format() const { return this->output_format_.get(); }
+
+SettingsType::output_format_type& SettingsType::output_format() { return this->output_format_.get(); }
+
+void SettingsType::output_format(const output_format_type& x) { this->output_format_.set(x); }
+
+void SettingsType::output_format(::std::unique_ptr<output_format_type> x) { this->output_format_.set(std::move(x)); }
+
+const SettingsType::output_format_type& SettingsType::output_format_default_value() { return output_format_default_value_; }
+
+const SettingsType::log_level_optional& SettingsType::log_level() const { return this->log_level_; }
+
+SettingsType::log_level_optional& SettingsType::log_level() { return this->log_level_; }
+
+void SettingsType::log_level(const log_level_type& x) { this->log_level_.set(x); }
+
+void SettingsType::log_level(const log_level_optional& x) { this->log_level_ = x; }
+
+void SettingsType::log_level(::std::unique_ptr<log_level_type> x) { this->log_level_.set(std::move(x)); }
+
+const SettingsType::log_level_type& SettingsType::log_level_default_value() { return log_level_default_value_; }
+
+// OutputFormatType
+//
+
+OutputFormatType::OutputFormatType(value v) : ::xml_schema::string(_xsd_OutputFormatType_literals_[v]) {}
+
+OutputFormatType::OutputFormatType(const char* v) : ::xml_schema::string(v) {}
+
+OutputFormatType::OutputFormatType(const ::std::string& v) : ::xml_schema::string(v) {}
+
+OutputFormatType::OutputFormatType(const ::xml_schema::string& v) : ::xml_schema::string(v) {}
+
+OutputFormatType::OutputFormatType(const OutputFormatType& v, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::string(v, f, c) {}
+
+OutputFormatType& OutputFormatType::operator=(value v) {
+    static_cast< ::xml_schema::string&>(*this) = ::xml_schema::string(_xsd_OutputFormatType_literals_[v]);
+
+    return *this;
+}
+
+// LogLevelType
+//
+
+LogLevelType::LogLevelType(value v) : ::xml_schema::string(_xsd_LogLevelType_literals_[v]) {}
+
+LogLevelType::LogLevelType(const char* v) : ::xml_schema::string(v) {}
+
+LogLevelType::LogLevelType(const ::std::string& v) : ::xml_schema::string(v) {}
+
+LogLevelType::LogLevelType(const ::xml_schema::string& v) : ::xml_schema::string(v) {}
+
+LogLevelType::LogLevelType(const LogLevelType& v, ::xml_schema::flags f, ::xml_schema::container* c) : ::xml_schema::string(v, f, c) {}
+
+LogLevelType& LogLevelType::operator=(value v) {
+    static_cast< ::xml_schema::string&>(*this) = ::xml_schema::string(_xsd_LogLevelType_literals_[v]);
+
+    return *this;
+}
+
 // LennardJonesType
 //
 
@@ -2022,9 +2083,14 @@ SubSimulationType::~SubSimulationType() {}
 // SettingsType
 //
 
+const SettingsType::output_format_type SettingsType::output_format_default_value_("vtu");
+
+const SettingsType::log_level_type SettingsType::log_level_default_value_("info");
+
 SettingsType::SettingsType(const fps_type& fps, const video_length_type& video_length, const delta_t_type& delta_t,
                            const end_time_type& end_time, const third_dimension_type& third_dimension,
-                           const particle_container_type& particle_container, const forces_type& forces)
+                           const particle_container_type& particle_container, const forces_type& forces,
+                           const output_format_type& output_format)
     : ::xml_schema::type(),
       fps_(fps, this),
       video_length_(video_length, this),
@@ -2033,11 +2099,14 @@ SettingsType::SettingsType(const fps_type& fps, const video_length_type& video_l
       third_dimension_(third_dimension, this),
       particle_container_(particle_container, this),
       forces_(forces, this),
-      thermostat_(this) {}
+      thermostat_(this),
+      output_format_(output_format, this),
+      log_level_(this) {}
 
 SettingsType::SettingsType(const fps_type& fps, const video_length_type& video_length, const delta_t_type& delta_t,
                            const end_time_type& end_time, const third_dimension_type& third_dimension,
-                           ::std::unique_ptr<particle_container_type> particle_container, ::std::unique_ptr<forces_type> forces)
+                           ::std::unique_ptr<particle_container_type> particle_container, ::std::unique_ptr<forces_type> forces,
+                           const output_format_type& output_format)
     : ::xml_schema::type(),
       fps_(fps, this),
       video_length_(video_length, this),
@@ -2046,7 +2115,9 @@ SettingsType::SettingsType(const fps_type& fps, const video_length_type& video_l
       third_dimension_(third_dimension, this),
       particle_container_(std::move(particle_container), this),
       forces_(std::move(forces), this),
-      thermostat_(this) {}
+      thermostat_(this),
+      output_format_(output_format, this),
+      log_level_(this) {}
 
 SettingsType::SettingsType(const SettingsType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
@@ -2057,7 +2128,9 @@ SettingsType::SettingsType(const SettingsType& x, ::xml_schema::flags f, ::xml_s
       third_dimension_(x.third_dimension_, f, this),
       particle_container_(x.particle_container_, f, this),
       forces_(x.forces_, f, this),
-      thermostat_(x.thermostat_, f, this) {}
+      thermostat_(x.thermostat_, f, this),
+      output_format_(x.output_format_, f, this),
+      log_level_(x.log_level_, f, this) {}
 
 SettingsType::SettingsType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
@@ -2068,7 +2141,9 @@ SettingsType::SettingsType(const ::xercesc::DOMElement& e, ::xml_schema::flags f
       third_dimension_(this),
       particle_container_(this),
       forces_(this),
-      thermostat_(this) {
+      thermostat_(this),
+      output_format_(this),
+      log_level_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
         this->parse(p, f);
@@ -2158,6 +2233,28 @@ void SettingsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::fl
             }
         }
 
+        // output_format
+        //
+        if (n.name() == "output_format" && n.namespace_().empty()) {
+            ::std::unique_ptr<output_format_type> r(output_format_traits::create(i, f, this));
+
+            if (!output_format_.present()) {
+                this->output_format_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // log_level
+        //
+        if (n.name() == "log_level" && n.namespace_().empty()) {
+            ::std::unique_ptr<log_level_type> r(log_level_traits::create(i, f, this));
+
+            if (!this->log_level_) {
+                this->log_level_.set(::std::move(r));
+                continue;
+            }
+        }
+
         break;
     }
 
@@ -2188,6 +2285,10 @@ void SettingsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::fl
     if (!forces_.present()) {
         throw ::xsd::cxx::tree::expected_element<char>("forces", "");
     }
+
+    if (!output_format_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("output_format", "");
+    }
 }
 
 SettingsType* SettingsType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const { return new class SettingsType(*this, f, c); }
@@ -2203,12 +2304,89 @@ SettingsType& SettingsType::operator=(const SettingsType& x) {
         this->particle_container_ = x.particle_container_;
         this->forces_ = x.forces_;
         this->thermostat_ = x.thermostat_;
+        this->output_format_ = x.output_format_;
+        this->log_level_ = x.log_level_;
     }
 
     return *this;
 }
 
 SettingsType::~SettingsType() {}
+
+// OutputFormatType
+//
+
+OutputFormatType::OutputFormatType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::string(e, f, c) {
+    _xsd_OutputFormatType_convert();
+}
+
+OutputFormatType::OutputFormatType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::string(a, f, c) {
+    _xsd_OutputFormatType_convert();
+}
+
+OutputFormatType::OutputFormatType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f,
+                                   ::xml_schema::container* c)
+    : ::xml_schema::string(s, e, f, c) {
+    _xsd_OutputFormatType_convert();
+}
+
+OutputFormatType* OutputFormatType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class OutputFormatType(*this, f, c);
+}
+
+OutputFormatType::value OutputFormatType::_xsd_OutputFormatType_convert() const {
+    ::xsd::cxx::tree::enum_comparator<char> c(_xsd_OutputFormatType_literals_);
+    const value* i(::std::lower_bound(_xsd_OutputFormatType_indexes_, _xsd_OutputFormatType_indexes_ + 4, *this, c));
+
+    if (i == _xsd_OutputFormatType_indexes_ + 4 || _xsd_OutputFormatType_literals_[*i] != *this) {
+        throw ::xsd::cxx::tree::unexpected_enumerator<char>(*this);
+    }
+
+    return *i;
+}
+
+const char* const OutputFormatType::_xsd_OutputFormatType_literals_[4] = {"vtu", "chkpt", "xyz", "none"};
+
+const OutputFormatType::value OutputFormatType::_xsd_OutputFormatType_indexes_[4] = {::OutputFormatType::chkpt, ::OutputFormatType::none,
+                                                                                     ::OutputFormatType::vtu, ::OutputFormatType::xyz};
+
+// LogLevelType
+//
+
+LogLevelType::LogLevelType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::string(e, f, c) {
+    _xsd_LogLevelType_convert();
+}
+
+LogLevelType::LogLevelType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c) : ::xml_schema::string(a, f, c) {
+    _xsd_LogLevelType_convert();
+}
+
+LogLevelType::LogLevelType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::string(s, e, f, c) {
+    _xsd_LogLevelType_convert();
+}
+
+LogLevelType* LogLevelType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const { return new class LogLevelType(*this, f, c); }
+
+LogLevelType::value LogLevelType::_xsd_LogLevelType_convert() const {
+    ::xsd::cxx::tree::enum_comparator<char> c(_xsd_LogLevelType_literals_);
+    const value* i(::std::lower_bound(_xsd_LogLevelType_indexes_, _xsd_LogLevelType_indexes_ + 6, *this, c));
+
+    if (i == _xsd_LogLevelType_indexes_ + 6 || _xsd_LogLevelType_literals_[*i] != *this) {
+        throw ::xsd::cxx::tree::unexpected_enumerator<char>(*this);
+    }
+
+    return *i;
+}
+
+const char* const LogLevelType::_xsd_LogLevelType_literals_[6] = {"off", "critical", "error", "warning", "info", "debug"};
+
+const LogLevelType::value LogLevelType::_xsd_LogLevelType_indexes_[6] = {::LogLevelType::critical, ::LogLevelType::debug,
+                                                                         ::LogLevelType::error,    ::LogLevelType::info,
+                                                                         ::LogLevelType::off,      ::LogLevelType::warning};
 
 // LennardJonesType
 //
@@ -3235,7 +3413,35 @@ void operator<<(::xercesc::DOMElement& e, const SettingsType& i) {
 
         s << *i.thermostat();
     }
+
+    // output_format
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("output_format", e));
+
+        s << i.output_format();
+    }
+
+    // log_level
+    //
+    if (i.log_level()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("log_level", e));
+
+        s << *i.log_level();
+    }
 }
+
+void operator<<(::xercesc::DOMElement& e, const OutputFormatType& i) { e << static_cast<const ::xml_schema::string&>(i); }
+
+void operator<<(::xercesc::DOMAttr& a, const OutputFormatType& i) { a << static_cast<const ::xml_schema::string&>(i); }
+
+void operator<<(::xml_schema::list_stream& l, const OutputFormatType& i) { l << static_cast<const ::xml_schema::string&>(i); }
+
+void operator<<(::xercesc::DOMElement& e, const LogLevelType& i) { e << static_cast<const ::xml_schema::string&>(i); }
+
+void operator<<(::xercesc::DOMAttr& a, const LogLevelType& i) { a << static_cast<const ::xml_schema::string&>(i); }
+
+void operator<<(::xml_schema::list_stream& l, const LogLevelType& i) { l << static_cast<const ::xml_schema::string&>(i); }
 
 void operator<<(::xercesc::DOMElement& e, const LennardJonesType& i) { e << static_cast<const ::xml_schema::type&>(i); }
 

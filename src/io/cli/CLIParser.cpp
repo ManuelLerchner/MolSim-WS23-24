@@ -8,7 +8,6 @@
 
 SimulationParams parse_arguments(int argc, char* argsv[]) {
     std::filesystem::path input_file_path;
-    std::filesystem::path output_dir_path;
     std::string log_level;
     std::string output_format;
     std::string log_output;
@@ -30,11 +29,6 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
     options_desc.add_options()(
         "input_file_path,f", boost::program_options::value<std::filesystem::path>(&input_file_path),
         "The path to the input file. Must be specified, otherwise the program will terminate. Can be inserted as positional argument.");
-    options_desc.add_options()("output_dir_path,o",
-                               boost::program_options::value<std::filesystem::path>(&output_dir_path)->default_value(""),
-                               "The path to the directory in which to save the simulation output files"
-                               "Default: './output/<input_file_name>/'.\n"
-                               "NOTE: The directory  will be cleared before execution!!!");
     options_desc.add_options()("delta_t,d", boost::program_options::value<double>(&delta_t), "The time step per simulation iteration");
     options_desc.add_options()("end_time,e", boost::program_options::value<double>(&end_time),
                                "The time, at which the simulation will end");
@@ -75,24 +69,7 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
         exit(-1);
     }
 
-    if (log_level == "trace") {
-        Logger::logger->set_level(spdlog::level::trace);
-    } else if (log_level == "debug") {
-        Logger::logger->set_level(spdlog::level::debug);
-    } else if (log_level == "info") {
-        Logger::logger->set_level(spdlog::level::info);
-    } else if (log_level == "warning") {
-        Logger::logger->set_level(spdlog::level::warn);
-    } else if (log_level == "error") {
-        Logger::logger->set_level(spdlog::level::err);
-    } else if (log_level == "critical") {
-        Logger::logger->set_level(spdlog::level::critical);
-    } else if (log_level == "off") {
-        Logger::logger->set_level(spdlog::level::off);
-    } else {
-        std::cout << "Error: Invalid log level given." << std::endl;
-        exit(-1);
-    }
+    Logger::update_level(log_level);
 
     if (argc <= 1 || variables_map.count("help")) {
         std::stringstream help_message;
@@ -111,18 +88,9 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
         performance_test = true;
     }
 
-    return SimulationParams{input_file_path,
-                            output_dir_path,
-                            delta_t,
-                            end_time,
-                            fps,
-                            video_length,
-                            SimulationParams::DirectSumType{},
-                            Thermostat{1, 1, std::numeric_limits<size_t>::max()},
-                            output_format,
-                            force_strings,
-                            performance_test,
-                            fresh};
+    return SimulationParams{
+        input_file_path, delta_t,       end_time,         fps,  video_length, SimulationParams::DirectSumType{}, std::nullopt,
+        output_format,   force_strings, performance_test, fresh};
 }
 
 SimulationParams merge_parameters(const SimulationParams& params_cli, const std::optional<SimulationParams>& file_params) {
@@ -150,11 +118,8 @@ SimulationParams merge_parameters(const SimulationParams& params_cli, const std:
     }
 
     // Always takes value from CLI
-    params.output_dir_path = params_cli.output_dir_path;
-
     params.fresh = params_cli.fresh;
 
-    // Must be given in the CLI
     params.output_format = params_cli.output_format;
 
     params.performance_test = params_cli.performance_test;

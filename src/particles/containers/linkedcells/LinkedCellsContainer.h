@@ -14,31 +14,6 @@
  */
 class LinkedCellsContainer : public ParticleContainer {
    public:
-    struct BoundaryIterator {
-       public:
-        using iterator_category = std::forward_iterator_tag;
-        using value_type = Particle;
-        using difference_type = std::ptrdiff_t;
-        using pointer = Particle*;
-        using reference = Particle&;
-
-       private:
-        std::vector<Cell*>& cells;
-        int cell_index = -1;
-        int particle_index = -1;
-
-       public:
-        BoundaryIterator(std::vector<Cell*>& cells, int cell_index, int particle_index);
-
-        BoundaryIterator& operator++();
-
-        Particle& operator*() const;
-        Particle* operator->() const;
-
-        bool operator==(const BoundaryIterator& other) const;
-        bool operator!=(const BoundaryIterator& other) const;
-    };
-
     /**
      * @brief Boundary type enum for labeling the sides of the domain
      */
@@ -171,24 +146,6 @@ class LinkedCellsContainer : public ParticleContainer {
     std::vector<Cell*> front_halo_cell_references;
 
    public:
-    /**
-     * @brief Returns an iterator to the first boundary particle
-     *
-     * @return Iterator to the first boundary particle
-     *
-     * Returns an iterator to the first boundary particle.
-     */
-    BoundaryIterator boundaryBegin();
-
-    /**
-     * @brief Returns an iterator to the last boundary particle
-     *
-     * @return Iterator to the last boundary particle
-     *
-     * Returns an iterator to the last boundary particle.
-     */
-    BoundaryIterator boundaryEnd();
-
     /**
      * @brief Construct a new Linked Cells Particle Container object
      *

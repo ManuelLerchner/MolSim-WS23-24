@@ -20,7 +20,7 @@ TEST(XYZWriter, CorrectWritingOfParticles) {
         particle_container->addParticle(Particle(pos, vel, i, i));
     }
 
-    auto params = SimulationParams("test.xml", "", 0, 0, 0, 0, SimulationParams::DirectSumType{}, Thermostat{0, 0, 100000}, "xyz",
+    auto params = SimulationParams("test.xml", 0, 0, 0, 0, SimulationParams::DirectSumType{}, Thermostat{0, 0, 100000}, "xyz",
                                    {"LennardJones"}, false);
     FileOutputHandler file_output_handler{params};
 

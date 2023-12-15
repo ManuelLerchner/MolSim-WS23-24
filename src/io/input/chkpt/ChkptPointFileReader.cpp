@@ -1,5 +1,6 @@
 #include "ChkptPointFileReader.h"
 
+#include <fstream>
 #include <sstream>
 
 #include "io/logger/Logger.h"
@@ -37,4 +38,39 @@ std::tuple<std::vector<Particle>, std::optional<SimulationParams>> ChkptPointFil
         error_message << e << std::endl;
         throw FileFormatException(error_message.str());
     }
+}
+size_t ChkptPointFileReader::calculateHash(const std::filesystem::path& filepath) {
+    if (!std::filesystem::exists(filepath)) {
+        Logger::logger->warn("File '{}' does not exist. Using hash 0.", filepath.string());
+        return 0;
+    }
+
+    std::ifstream input_file(filepath);
+
+    if (!input_file.is_open()) {
+        Logger::logger->error("Error: could not open file '{}'.", filepath.string());
+        exit(-1);
+    }
+
+    auto buffer = std::stringstream();
+    buffer << input_file.rdbuf();
+
+    std::hash<std::string> hasher;
+    auto hash = hasher(buffer.str());
+    return hash;
+}
+
+bool ChkptPointFileReader::detectSourceFileChanges(const std::string& filepath) {
+    auto checkpoint = CheckPoint(filepath, xml_schema::flags::dont_validate);
+    auto meta_data = checkpoint->MetaData();
+
+    std::ifstream input_file(meta_data.input_file());
+
+    auto buffer = std::stringstream();
+    buffer << input_file.rdbuf();
+
+    std::hash<std::string> hasher;
+    auto curr_hash = hasher(buffer.str());
+
+    return curr_hash == meta_data.input_file_hash();
 }
