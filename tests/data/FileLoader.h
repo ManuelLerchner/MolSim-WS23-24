@@ -1,5 +1,6 @@
 #include <io/logger/Logger.h>
 
+#include <filesystem>
 #include <string>
 
 #pragma once
@@ -23,15 +24,7 @@ class FileLoader {
      * @brief Gets the path to a file in the input directory
      *
      * @param file_name The name of the file
-     * @return std::string The path to the file
+     * @return std::filesystem::path The path to the file
      */
-    static std::string get_input_file_path(const std::string& file_name) { return get_test_data_dir() + "/input/" + file_name; }
-
-    /**
-     * @brief Gets the path to a file in the output directory
-     *
-     * @param file_name The name of the file
-     * @return std::string The path to the file
-     */
-    static std::string get_output_file_path(const std::string& file_name) { return get_test_data_dir() + "/output/" + file_name; }
+    static std::filesystem::path get_input_file_path(const std::string& file_name) { return {get_test_data_dir() + "/input/" + file_name}; }
 };

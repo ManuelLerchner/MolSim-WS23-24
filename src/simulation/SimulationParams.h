@@ -1,5 +1,6 @@
 #pragma once
 
+#include <filesystem>
 #include <memory>
 #include <optional>
 #include <string>
@@ -56,7 +57,7 @@ class SimulationParams {
     /**
      * @brief Path to the input file of the simulation
      */
-    std::string input_file_path;
+    std::filesystem::path input_file_path;
 
     /**
      * @brief Hash of the input file of the simulation
@@ -66,7 +67,7 @@ class SimulationParams {
     /**
      * @brief Path to the directory in which to save the simulation output
      */
-    std::string output_dir_path;
+    std::filesystem::path output_dir_path;
 
     /**
      * @brief Time step of a single simulation iteration
@@ -147,11 +148,11 @@ class SimulationParams {
      * @param base_path Base path to the output directory. This is used to construct the output directory path if none is given
      * explicitly. Defaults to "./output/"
      */
-    SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
-                     int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
+    SimulationParams(const std::filesystem::path& input_file_path, const std::filesystem::path& output_dir_path, double delta_t,
+                     double end_time, int fps, int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
                      const std::optional<Thermostat>& thermostat, const std::string& output_format,
                      const std::vector<std::string>& force_strings, bool performance_test, bool fresh = false,
-                     const std::string& base_path = "./output");
+                     const std::filesystem::path& base_path = "./output");
 
     /**
      * @brief Construct a new SimulationParams object
@@ -173,12 +174,12 @@ class SimulationParams {
      * @param base_path Base path to the output directory. This is used to construct the output directory path if none is given
      * explicitly. Defaults to "./output/"
      */
-    SimulationParams(const std::string& input_file_path, const std::string& output_dir_path, double delta_t, double end_time, int fps,
-                     int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
+    SimulationParams(const std::filesystem::path& input_file_path, const std::filesystem::path& output_dir_path, double delta_t,
+                     double end_time, int fps, int video_length, const std::variant<DirectSumType, LinkedCellsType>& container_type,
                      const std::optional<Thermostat>& thermostat, const std::string& output_format,
                      const std::vector<std::shared_ptr<SimpleForceSource>>& simple_forces,
                      const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_forces, bool performance_test, bool fresh = false,
-                     const std::string& base_path = "./output");
+                     const std::filesystem::path& base_path = "./output");
 
     /**
      * @brief Prints a summary of the simulation parameters to the console

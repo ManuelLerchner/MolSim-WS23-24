@@ -7,8 +7,8 @@
 #include "spdlog/sinks/rotating_file_sink.h"
 
 SimulationParams parse_arguments(int argc, char* argsv[]) {
-    std::string input_file_path;
-    std::string output_dir_path;
+    std::filesystem::path input_file_path;
+    std::filesystem::path output_dir_path;
     std::string log_level;
     std::string output_format;
     std::string log_output;
@@ -28,9 +28,10 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
     boost::program_options::options_description options_desc("Allowed options");
     options_desc.add_options()("help,h", "produce help message");
     options_desc.add_options()(
-        "input_file_path,f", boost::program_options::value<std::string>(&input_file_path),
+        "input_file_path,f", boost::program_options::value<std::filesystem::path>(&input_file_path),
         "The path to the input file. Must be specified, otherwise the program will terminate. Can be inserted as positional argument.");
-    options_desc.add_options()("output_dir_path,o", boost::program_options::value<std::string>(&output_dir_path)->default_value(""),
+    options_desc.add_options()("output_dir_path,o",
+                               boost::program_options::value<std::filesystem::path>(&output_dir_path)->default_value(""),
                                "The path to the directory in which to save the simulation output files"
                                "Default: './output/<input_file_name>/'.\n"
                                "NOTE: The directory  will be cleared before execution!!!");

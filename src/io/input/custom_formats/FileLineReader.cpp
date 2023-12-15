@@ -2,7 +2,7 @@
 
 #include "io/logger/Logger.h"
 
-FileLineReader::FileLineReader(const std::string& filepath) : filepath(filepath), file_stream(filepath) {}
+FileLineReader::FileLineReader(const std::filesystem::path& filepath) : filepath(filepath), file_stream(filepath) {}
 
 void FileLineReader::skipLine() {
     std::string buffer;
@@ -28,4 +28,4 @@ int FileLineReader::peek() { return file_stream.peek(); }
 
 int FileLineReader::getLineNumber() const { return current_line_number; }
 
-const std::string& FileLineReader::getFilePath() const { return filepath; }
+const std::filesystem::path& FileLineReader::getFilePath() const { return filepath; }
