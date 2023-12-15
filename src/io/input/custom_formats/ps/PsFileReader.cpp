@@ -5,7 +5,7 @@
 #include <fstream>
 #include <sstream>
 
-std::tuple<std::vector<Particle>, std::optional<SimulationParams>> PsFileReader::readFile(const std::string& filepath) const {
+std::tuple<std::vector<Particle>, std::optional<SimulationParams>> PsFileReader::readFile(const std::filesystem::path& filepath) const {
     std::array<double, 3> x{};
     std::array<double, 3> v{};
     double m;
@@ -15,7 +15,7 @@ std::tuple<std::vector<Particle>, std::optional<SimulationParams>> PsFileReader:
     std::string curr_line;
 
     if (!input_file.is_open()) {
-        throw FileFormatException(fmt::format("Error: could not open file '{}'.", filepath));
+        throw FileFormatException(fmt::format("Error: could not open file '{}'.", filepath.string()));
     }
 
     getline(input_file, curr_line);

@@ -33,24 +33,8 @@
     </settings>
 
     <particle_source>
-        <sub_simulation>
-            <name>
-            Top Left
-        </name>
-            <file_name>
-                ./subsimulations/top_left.xml
-            </file_name>
-        </sub_simulation>
-
-        <sub_simulation>
-            <name>
-            Bottom Left
-        </name>
-            <file_name>
-                ./subsimulations/bottom_left.xml
-            </file_name>
-        </sub_simulation>
-
+        <sub_simulation path="./subsimulations/top_left.xml" />
+        <sub_simulation path="./subsimulations/bottom_left.xml" />
     </particle_source>
 
 </configuration>

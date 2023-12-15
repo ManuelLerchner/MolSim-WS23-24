@@ -4063,9 +4063,9 @@ class SingleParticleSpawnerType : public ::xml_schema::type {
 class CheckPointLoaderType : public ::xml_schema::type {
    public:
     /**
-     * @name file_name
+     * @name path
      *
-     * @brief Accessor and modifier functions for the %file_name
+     * @brief Accessor and modifier functions for the %path
      * required attribute.
      */
     //@{
@@ -4073,26 +4073,26 @@ class CheckPointLoaderType : public ::xml_schema::type {
     /**
      * @brief Attribute type.
      */
-    typedef ::xml_schema::uri file_name_type;
+    typedef ::xml_schema::uri path_type;
 
     /**
      * @brief Attribute traits type.
      */
-    typedef ::xsd::cxx::tree::traits<file_name_type, char> file_name_traits;
+    typedef ::xsd::cxx::tree::traits<path_type, char> path_traits;
 
     /**
      * @brief Return a read-only (constant) reference to the attribute.
      *
      * @return A constant reference to the attribute.
      */
-    const file_name_type& file_name() const;
+    const path_type& path() const;
 
     /**
      * @brief Return a read-write reference to the attribute.
      *
      * @return A reference to the attribute.
      */
-    file_name_type& file_name();
+    path_type& path();
 
     /**
      * @brief Set the attribute value.
@@ -4102,7 +4102,7 @@ class CheckPointLoaderType : public ::xml_schema::type {
      * This function makes a copy of its argument and sets it as
      * the new value of the attribute.
      */
-    void file_name(const file_name_type& x);
+    void path(const path_type& x);
 
     /**
      * @brief Set the attribute value without copying.
@@ -4112,7 +4112,7 @@ class CheckPointLoaderType : public ::xml_schema::type {
      * This function will try to use the passed value directly
      * instead of making a copy.
      */
-    void file_name(::std::unique_ptr<file_name_type> p);
+    void path(::std::unique_ptr<path_type> p);
 
     //@}
 
@@ -4125,7 +4125,7 @@ class CheckPointLoaderType : public ::xml_schema::type {
      * @brief Create an instance from the ultimate base and
      * initializers for required elements and attributes.
      */
-    CheckPointLoaderType(const file_name_type&);
+    CheckPointLoaderType(const path_type&);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -4187,7 +4187,7 @@ class CheckPointLoaderType : public ::xml_schema::type {
     void parse(::xsd::cxx::xml::dom::parser<char>&, ::xml_schema::flags);
 
    protected:
-    ::xsd::cxx::tree::one<file_name_type> file_name_;
+    ::xsd::cxx::tree::one<path_type> path_;
 
     //@endcond
 };
@@ -4200,198 +4200,56 @@ class CheckPointLoaderType : public ::xml_schema::type {
 class SubSimulationType : public ::xml_schema::type {
    public:
     /**
-     * @name name
+     * @name path
      *
-     * @brief Accessor and modifier functions for the %name
-     * required element.
+     * @brief Accessor and modifier functions for the %path
+     * required attribute.
      */
     //@{
 
     /**
-     * @brief Element type.
+     * @brief Attribute type.
      */
-    typedef ::xml_schema::string name_type;
+    typedef ::xml_schema::string path_type;
 
     /**
-     * @brief Element traits type.
+     * @brief Attribute traits type.
      */
-    typedef ::xsd::cxx::tree::traits<name_type, char> name_traits;
+    typedef ::xsd::cxx::tree::traits<path_type, char> path_traits;
 
     /**
-     * @brief Return a read-only (constant) reference to the element.
+     * @brief Return a read-only (constant) reference to the attribute.
      *
-     * @return A constant reference to the element.
+     * @return A constant reference to the attribute.
      */
-    const name_type& name() const;
+    const path_type& path() const;
 
     /**
-     * @brief Return a read-write reference to the element.
+     * @brief Return a read-write reference to the attribute.
      *
-     * @return A reference to the element.
+     * @return A reference to the attribute.
      */
-    name_type& name();
+    path_type& path();
 
     /**
-     * @brief Set the element value.
+     * @brief Set the attribute value.
      *
      * @param x A new value to set.
      *
      * This function makes a copy of its argument and sets it as
-     * the new value of the element.
+     * the new value of the attribute.
      */
-    void name(const name_type& x);
+    void path(const path_type& x);
 
     /**
-     * @brief Set the element value without copying.
+     * @brief Set the attribute value without copying.
      *
      * @param p A new value to use.
      *
      * This function will try to use the passed value directly
      * instead of making a copy.
      */
-    void name(::std::unique_ptr<name_type> p);
-
-    //@}
-
-    /**
-     * @name configuration
-     *
-     * @brief Accessor and modifier functions for the %configuration
-     * optional element.
-     */
-    //@{
-
-    /**
-     * @brief Element type.
-     */
-    typedef ::ConfigurationType configuration_type;
-
-    /**
-     * @brief Element optional container type.
-     */
-    typedef ::xsd::cxx::tree::optional<configuration_type> configuration_optional;
-
-    /**
-     * @brief Element traits type.
-     */
-    typedef ::xsd::cxx::tree::traits<configuration_type, char> configuration_traits;
-
-    /**
-     * @brief Return a read-only (constant) reference to the element
-     * container.
-     *
-     * @return A constant reference to the optional container.
-     */
-    const configuration_optional& configuration() const;
-
-    /**
-     * @brief Return a read-write reference to the element container.
-     *
-     * @return A reference to the optional container.
-     */
-    configuration_optional& configuration();
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x A new value to set.
-     *
-     * This function makes a copy of its argument and sets it as
-     * the new value of the element.
-     */
-    void configuration(const configuration_type& x);
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x An optional container with the new value to set.
-     *
-     * If the value is present in @a x then this function makes a copy
-     * of this value and sets it as the new value of the element.
-     * Otherwise the element container is set the 'not present' state.
-     */
-    void configuration(const configuration_optional& x);
-
-    /**
-     * @brief Set the element value without copying.
-     *
-     * @param p A new value to use.
-     *
-     * This function will try to use the passed value directly instead
-     * of making a copy.
-     */
-    void configuration(::std::unique_ptr<configuration_type> p);
-
-    //@}
-
-    /**
-     * @name file_name
-     *
-     * @brief Accessor and modifier functions for the %file_name
-     * optional element.
-     */
-    //@{
-
-    /**
-     * @brief Element type.
-     */
-    typedef ::xml_schema::uri file_name_type;
-
-    /**
-     * @brief Element optional container type.
-     */
-    typedef ::xsd::cxx::tree::optional<file_name_type> file_name_optional;
-
-    /**
-     * @brief Element traits type.
-     */
-    typedef ::xsd::cxx::tree::traits<file_name_type, char> file_name_traits;
-
-    /**
-     * @brief Return a read-only (constant) reference to the element
-     * container.
-     *
-     * @return A constant reference to the optional container.
-     */
-    const file_name_optional& file_name() const;
-
-    /**
-     * @brief Return a read-write reference to the element container.
-     *
-     * @return A reference to the optional container.
-     */
-    file_name_optional& file_name();
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x A new value to set.
-     *
-     * This function makes a copy of its argument and sets it as
-     * the new value of the element.
-     */
-    void file_name(const file_name_type& x);
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x An optional container with the new value to set.
-     *
-     * If the value is present in @a x then this function makes a copy
-     * of this value and sets it as the new value of the element.
-     * Otherwise the element container is set the 'not present' state.
-     */
-    void file_name(const file_name_optional& x);
-
-    /**
-     * @brief Set the element value without copying.
-     *
-     * @param p A new value to use.
-     *
-     * This function will try to use the passed value directly instead
-     * of making a copy.
-     */
-    void file_name(::std::unique_ptr<file_name_type> p);
+    void path(::std::unique_ptr<path_type> p);
 
     //@}
 
@@ -4404,7 +4262,7 @@ class SubSimulationType : public ::xml_schema::type {
      * @brief Create an instance from the ultimate base and
      * initializers for required elements and attributes.
      */
-    SubSimulationType(const name_type&);
+    SubSimulationType(const path_type&);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -4466,9 +4324,7 @@ class SubSimulationType : public ::xml_schema::type {
     void parse(::xsd::cxx::xml::dom::parser<char>&, ::xml_schema::flags);
 
    protected:
-    ::xsd::cxx::tree::one<name_type> name_;
-    configuration_optional configuration_;
-    file_name_optional file_name_;
+    ::xsd::cxx::tree::one<path_type> path_;
 
     //@endcond
 };

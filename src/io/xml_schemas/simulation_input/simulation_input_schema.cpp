@@ -443,44 +443,24 @@ void SingleParticleSpawnerType::sigma(const sigma_type& x) { this->sigma_.set(x)
 // CheckPointLoaderType
 //
 
-const CheckPointLoaderType::file_name_type& CheckPointLoaderType::file_name() const { return this->file_name_.get(); }
+const CheckPointLoaderType::path_type& CheckPointLoaderType::path() const { return this->path_.get(); }
 
-CheckPointLoaderType::file_name_type& CheckPointLoaderType::file_name() { return this->file_name_.get(); }
+CheckPointLoaderType::path_type& CheckPointLoaderType::path() { return this->path_.get(); }
 
-void CheckPointLoaderType::file_name(const file_name_type& x) { this->file_name_.set(x); }
+void CheckPointLoaderType::path(const path_type& x) { this->path_.set(x); }
 
-void CheckPointLoaderType::file_name(::std::unique_ptr<file_name_type> x) { this->file_name_.set(std::move(x)); }
+void CheckPointLoaderType::path(::std::unique_ptr<path_type> x) { this->path_.set(std::move(x)); }
 
 // SubSimulationType
 //
 
-const SubSimulationType::name_type& SubSimulationType::name() const { return this->name_.get(); }
+const SubSimulationType::path_type& SubSimulationType::path() const { return this->path_.get(); }
 
-SubSimulationType::name_type& SubSimulationType::name() { return this->name_.get(); }
+SubSimulationType::path_type& SubSimulationType::path() { return this->path_.get(); }
 
-void SubSimulationType::name(const name_type& x) { this->name_.set(x); }
+void SubSimulationType::path(const path_type& x) { this->path_.set(x); }
 
-void SubSimulationType::name(::std::unique_ptr<name_type> x) { this->name_.set(std::move(x)); }
-
-const SubSimulationType::configuration_optional& SubSimulationType::configuration() const { return this->configuration_; }
-
-SubSimulationType::configuration_optional& SubSimulationType::configuration() { return this->configuration_; }
-
-void SubSimulationType::configuration(const configuration_type& x) { this->configuration_.set(x); }
-
-void SubSimulationType::configuration(const configuration_optional& x) { this->configuration_ = x; }
-
-void SubSimulationType::configuration(::std::unique_ptr<configuration_type> x) { this->configuration_.set(std::move(x)); }
-
-const SubSimulationType::file_name_optional& SubSimulationType::file_name() const { return this->file_name_; }
-
-SubSimulationType::file_name_optional& SubSimulationType::file_name() { return this->file_name_; }
-
-void SubSimulationType::file_name(const file_name_type& x) { this->file_name_.set(x); }
-
-void SubSimulationType::file_name(const file_name_optional& x) { this->file_name_ = x; }
-
-void SubSimulationType::file_name(::std::unique_ptr<file_name_type> x) { this->file_name_.set(std::move(x)); }
+void SubSimulationType::path(::std::unique_ptr<path_type> x) { this->path_.set(std::move(x)); }
 
 // SettingsType
 //
@@ -2009,13 +1989,13 @@ SingleParticleSpawnerType::~SingleParticleSpawnerType() {}
 // CheckPointLoaderType
 //
 
-CheckPointLoaderType::CheckPointLoaderType(const file_name_type& file_name) : ::xml_schema::type(), file_name_(file_name, this) {}
+CheckPointLoaderType::CheckPointLoaderType(const path_type& path) : ::xml_schema::type(), path_(path, this) {}
 
 CheckPointLoaderType::CheckPointLoaderType(const CheckPointLoaderType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c), file_name_(x.file_name_, f, this) {}
+    : ::xml_schema::type(x, f, c), path_(x.path_, f, this) {}
 
 CheckPointLoaderType::CheckPointLoaderType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), file_name_(this) {
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), path_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
         this->parse(p, f);
@@ -2027,14 +2007,14 @@ void CheckPointLoaderType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_sc
         const ::xercesc::DOMAttr& i(p.next_attribute());
         const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
 
-        if (n.name() == "file_name" && n.namespace_().empty()) {
-            this->file_name_.set(file_name_traits::create(i, f, this));
+        if (n.name() == "path" && n.namespace_().empty()) {
+            this->path_.set(path_traits::create(i, f, this));
             continue;
         }
     }
 
-    if (!file_name_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("file_name", "");
+    if (!path_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("path", "");
     }
 }
 
@@ -2045,7 +2025,7 @@ CheckPointLoaderType* CheckPointLoaderType::_clone(::xml_schema::flags f, ::xml_
 CheckPointLoaderType& CheckPointLoaderType::operator=(const CheckPointLoaderType& x) {
     if (this != &x) {
         static_cast< ::xml_schema::type&>(*this) = x;
-        this->file_name_ = x.file_name_;
+        this->path_ = x.path_;
     }
 
     return *this;
@@ -2056,63 +2036,32 @@ CheckPointLoaderType::~CheckPointLoaderType() {}
 // SubSimulationType
 //
 
-SubSimulationType::SubSimulationType(const name_type& name)
-    : ::xml_schema::type(), name_(name, this), configuration_(this), file_name_(this) {}
+SubSimulationType::SubSimulationType(const path_type& path) : ::xml_schema::type(), path_(path, this) {}
 
 SubSimulationType::SubSimulationType(const SubSimulationType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c), name_(x.name_, f, this), configuration_(x.configuration_, f, this), file_name_(x.file_name_, f, this) {}
+    : ::xml_schema::type(x, f, c), path_(x.path_, f, this) {}
 
 SubSimulationType::SubSimulationType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), name_(this), configuration_(this), file_name_(this) {
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), path_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
+        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
         this->parse(p, f);
     }
 }
 
 void SubSimulationType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
         const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
 
-        // name
-        //
-        if (n.name() == "name" && n.namespace_().empty()) {
-            ::std::unique_ptr<name_type> r(name_traits::create(i, f, this));
-
-            if (!name_.present()) {
-                this->name_.set(::std::move(r));
-                continue;
-            }
+        if (n.name() == "path" && n.namespace_().empty()) {
+            this->path_.set(path_traits::create(i, f, this));
+            continue;
         }
-
-        // configuration
-        //
-        if (n.name() == "configuration" && n.namespace_().empty()) {
-            ::std::unique_ptr<configuration_type> r(configuration_traits::create(i, f, this));
-
-            if (!this->configuration_) {
-                this->configuration_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // file_name
-        //
-        if (n.name() == "file_name" && n.namespace_().empty()) {
-            ::std::unique_ptr<file_name_type> r(file_name_traits::create(i, f, this));
-
-            if (!this->file_name_) {
-                this->file_name_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        break;
     }
 
-    if (!name_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("name", "");
+    if (!path_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("path", "");
     }
 }
 
@@ -2123,9 +2072,7 @@ SubSimulationType* SubSimulationType::_clone(::xml_schema::flags f, ::xml_schema
 SubSimulationType& SubSimulationType::operator=(const SubSimulationType& x) {
     if (this != &x) {
         static_cast< ::xml_schema::type&>(*this) = x;
-        this->name_ = x.name_;
-        this->configuration_ = x.configuration_;
-        this->file_name_ = x.file_name_;
+        this->path_ = x.path_;
     }
 
     return *this;
@@ -3379,40 +3326,24 @@ void operator<<(::xercesc::DOMElement& e, const SingleParticleSpawnerType& i) {
 void operator<<(::xercesc::DOMElement& e, const CheckPointLoaderType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
 
-    // file_name
+    // path
     //
     {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("file_name", e));
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("path", e));
 
-        a << i.file_name();
+        a << i.path();
     }
 }
 
 void operator<<(::xercesc::DOMElement& e, const SubSimulationType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
 
-    // name
+    // path
     //
     {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("name", e));
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("path", e));
 
-        s << i.name();
-    }
-
-    // configuration
-    //
-    if (i.configuration()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("configuration", e));
-
-        s << *i.configuration();
-    }
-
-    // file_name
-    //
-    if (i.file_name()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("file_name", e));
-
-        s << *i.file_name();
+        a << i.path();
     }
 }
 

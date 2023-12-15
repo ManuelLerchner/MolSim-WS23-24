@@ -1,5 +1,6 @@
 #pragma once
 
+#include <filesystem>
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -13,7 +14,7 @@ class FileLineReader {
     /**
      * @brief Path of the file being read
      */
-    const std::string filepath;
+    const std::filesystem::path filepath;
 
     /**
      * @brief The internal file stream used to read the file
@@ -40,7 +41,7 @@ class FileLineReader {
      * @brief Construct a new FileLineReader object
      * @param filepath Name of the file to read
      */
-    explicit FileLineReader(const std::string& filepath);
+    explicit FileLineReader(const std::filesystem::path& filepath);
 
     /**
      * @brief Skip the next line in the file, does and update the value of `getLineNumber()`, the line content however is not stored
@@ -92,5 +93,5 @@ class FileLineReader {
      * @brief Get the path of the file
      * @return The path of the file
      */
-    const std::string& getFilePath() const;
+    const std::filesystem::path& getFilePath() const;
 };

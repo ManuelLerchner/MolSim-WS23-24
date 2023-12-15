@@ -14,7 +14,8 @@ void summarizeMetadata(MetaDataDataType m) {
     Logger::logger->info("  - Original Delta t: {}", m.delta_t());
 }
 
-std::tuple<std::vector<Particle>, std::optional<SimulationParams>> ChkptPointFileReader::readFile(const std::string& filepath) const {
+std::tuple<std::vector<Particle>, std::optional<SimulationParams>> ChkptPointFileReader::readFile(
+    const std::filesystem::path& filepath) const {
     try {
         auto checkpoint = CheckPoint(filepath, xml_schema::flags::dont_validate);
 

@@ -1,9 +1,8 @@
 #include "VTUWriter.h"
 
+#include <spdlog/fmt/bundled/core.h>
+
 #include <fstream>
-#include <iomanip>
-#include <iostream>
-#include <string>
 
 VTKFile_t VTUWriter::initializeOutput(int numParticles) {
     VTKFile_t vtu_file("UnstructuredGrid");
@@ -64,11 +63,9 @@ void VTUWriter::plotParticle(VTKFile_t& vtuFile, const Particle& p) {
     points_iterator->push_back(p.getX()[2]);
 }
 
-const std::string VTUWriter::writeFile(const SimulationParams& params, size_t iteration, const std::vector<Particle>& particles) const {
-    auto file_base = params.output_dir_path + "/" + "MD_VTU";
-
-    std::stringstream strstr;
-    strstr << file_base << "_" << std::setfill('0') << std::setw(4) << iteration << ".vtu";
+const std::filesystem::path VTUWriter::writeFile(const SimulationParams& params, size_t iteration,
+                                                 const std::vector<Particle>& particles) const {
+    auto file_name = params.output_dir_path / fmt::format("MD_VTU_{:04d}.vtu", iteration);
 
     auto vtu_file = initializeOutput(static_cast<int>(particles.size()));
 
@@ -76,9 +73,7 @@ const std::string VTUWriter::writeFile(const SimulationParams& params, size_t it
         plotParticle(vtu_file, particle);
     }
 
-    auto file_name = strstr.str();
-
-    std::ofstream file(file_name.c_str());
+    std::ofstream file(file_name);
     VTKFile(file, vtu_file);
     file.close();
 

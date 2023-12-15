@@ -53,12 +53,7 @@
             <sigma>1.2</sigma>
         </sphere_spawner>
 
-        <sub_simulation>
-            <name>Center Center</name>
-            <file_name>
-                ./center_center.xml
-            </file_name>
-        </sub_simulation>
+        <sub_simulation path="./center_center.xml" />
     </particle_source>
 
 </configuration>
