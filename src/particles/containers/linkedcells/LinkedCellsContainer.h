@@ -24,127 +24,6 @@ class LinkedCellsContainer : public ParticleContainer {
      */
     enum class BoundarySide { LEFT, RIGHT, BOTTOM, TOP, BACK, FRONT };
 
-   private:
-    /**
-     * @brief Internal data structure for the particles
-     */
-    std::vector<Particle> particles;
-
-    /**
-     * @brief Domain size in each dimension
-     */
-    std::array<double, 3> domain_size;
-
-    /**
-     * @brief Cutoff radius for the force calculation
-     */
-    double cutoff_radius;
-
-    /**
-     * @brief The boundary types for each side of the domain (order in array: left, right, bottom, top, back, front)
-     */
-    std::array<BoundaryCondition, 6> boundary_types;
-
-    /**
-     * @brief Cell size in each dimension
-     */
-    std::array<double, 3> cell_size;
-
-    /**
-     * @brief Number of cells in each dimension
-     */
-    std::array<int, 3> domain_num_cells;
-
-    /**
-     * @brief Internal data structure for the cells
-     */
-    std::vector<Cell> cells;
-
-    /**
-     * @brief References to the domain cells
-     */
-    std::vector<Cell*> domain_cell_references;
-
-    /**
-     * @brief References to the boundary cells
-     */
-    std::vector<Cell*> boundary_cell_references;
-
-    /**
-     * @brief References to the halo cells
-     */
-    std::vector<Cell*> halo_cell_references;
-
-    /**
-     * @brief Temporary storage for references of cells that contain at least one particle to avoid iteration over empty cells. Uses
-     * unordered_set to avoid duplicate inserts.
-     */
-    std::unordered_set<Cell*> occupied_cells_references;
-
-    // Boundary cell references with respect to x-axis pointing to the right, y-axis pointing up and z axis pointing out of the screen
-
-    /**
-     * @brief References to the boundary cells on the left (x = 0)
-     */
-    std::vector<Cell*> left_boundary_cell_references;
-
-    /**
-     * @brief References to the boundary cells on the right (x = domain_num_cells[0]-1)
-     */
-    std::vector<Cell*> right_boundary_cell_references;
-
-    /**
-     * @brief References to the boundary cells on the bottom (y = 0)
-     */
-    std::vector<Cell*> bottom_boundary_cell_references;
-
-    /**
-     * @brief References to the boundary cells on the top (y = domain_num_cells[1]-1)
-     */
-    std::vector<Cell*> top_boundary_cell_references;
-
-    /**
-     * @brief References to the boundary cells on the back (z = 0)
-     */
-    std::vector<Cell*> back_boundary_cell_references;
-
-    /**
-     * @brief References to the boundary cells on the front (z = domain_num_cells[2]-1)
-     */
-    std::vector<Cell*> front_boundary_cell_references;
-
-    // Halo cell references with respect to x-axis pointing to the right, y-axis pointing up and z axis pointing out of the screen
-
-    /**
-     * @brief References to the halo cells on the left (x = -1)
-     */
-    std::vector<Cell*> left_halo_cell_references;
-
-    /**
-     * @brief References to the halo cells on the right (x = domain_num_cells[0])
-     */
-    std::vector<Cell*> right_halo_cell_references;
-
-    /**
-     * @brief References to the halo cells on the bottom (y = -1)
-     */
-    std::vector<Cell*> bottom_halo_cell_references;
-
-    /**
-     * @brief References to the halo cells on the top (y = domain_num_cells[1])
-     */
-    std::vector<Cell*> top_halo_cell_references;
-
-    /**
-     * @brief References to the halo cells on the back (z = -1)
-     */
-    std::vector<Cell*> back_halo_cell_references;
-
-    /**
-     * @brief References to the halo cells on the front (z = domain_num_cells[2])
-     */
-    std::vector<Cell*> front_halo_cell_references;
-
    public:
     /**
      * @brief Construct a new Linked Cells Particle Container object
@@ -381,54 +260,138 @@ class LinkedCellsContainer : public ParticleContainer {
     void deleteHaloParticles();
 
     /**
-     * @brief Applies the reflective boundary conditions to the particles in the cells at a reflective boundary
+     * @brief Friend class to allow access to the internal data structures
      */
-    void applyReflectiveBoundaryConditions();
+    friend class ReflectiveBoundaryType;
 
     /**
-     * @brief Calculates the force exerted by a reflective boundary on a particle in a boundary cell
-     *
-     * @param p Particle
-     * @param distance Distance of the particle to the boundary
-     * @param side Side of the boundary (left, right, bottom, top, back, front)
-     * @return Reflective boundary force exerted by the boundary on the particle
+     * @brief Friend class to allow access to the internal data structures
      */
-    std::array<double, 3> calculateReflectiveBoundaryForce(Particle& p, double distance, BoundarySide side);
+    friend class OutflowBoundaryType;
 
     /**
-     * @brief Inserts the halo particles necessary for periodic boundary conditions into the particle vector and cells.
+     * @brief Friend class to allow access to the internal data structures
      */
-    void addPeriodicHaloParticles();
+    friend class PeriodicBoundaryType;
+
+   private:
+    /**
+     * @brief Internal data structure for the particles
+     */
+    std::vector<Particle> particles;
 
     /**
-     * @brief Helper method for addPeriodicHaloParticles() that adds the halo particles for a specific single side of the domain
-     * ATTENTION: This method does not perform any checks on the correctness of its parameters!!!
-     *
-     * @param side_cell_references References to the cells on specified side of the domain
-     * @param offset Offset vector for the periodic boundary
+     * @brief Domain size in each dimension
      */
-    void addPeriodicHaloParticlesForSide(const std::vector<Cell*>& side_cell_references, const std::array<double, 3>& offset);
+    std::array<double, 3> domain_size;
 
     /**
-     * @brief Helper method for addPeriodicHaloParticles() that adds the halo particles for a specific edge of the domain (deduced via
-     * offset and free dimension) ATTENTION: This method does not perform any checks on the correctness of its parameters!!!
-     *
-     * @param free_dimension The free dimension of the edge (dimension over witch to iterate) (0 -> x, 1 -> y, 2 -> z)
-     * @param offset Offset vector for the halo particles boundary
+     * @brief Cutoff radius for the force calculation
      */
-    void addPeriodicHaloParticlesForEdge(int free_dimension, const std::array<double, 3>& offset);
+    double cutoff_radius;
 
     /**
-     * @brief Helper method for addPeriodicHaloParticles() that adds the halo particles for a specific corner of the domain (deduced via
-     * offset) ATTENTION: This method does not perform any checks on the correctness of its parameters!!!
-     *
-     * @param offset Offset vector for the halo particles boundary
+     * @brief The boundary types for each side of the domain (order in array: left, right, bottom, top, back, front)
      */
-    void addPeriodicHaloParticlesForCorner(const std::array<double, 3>& offset);
+    std::array<BoundaryCondition, 6> boundary_types;
 
     /**
-     * @brief Moves the particles in the halo cells to the corresponding periodic boundary cells.
-     * ATTENTION: A particle reference update must be triggered after wards
+     * @brief Cell size in each dimension
      */
-    void moveOverPeriodicBoundaries();
+    std::array<double, 3> cell_size;
+
+    /**
+     * @brief Number of cells in each dimension
+     */
+    std::array<int, 3> domain_num_cells;
+
+    /**
+     * @brief Internal data structure for the cells
+     */
+    std::vector<Cell> cells;
+
+    /**
+     * @brief References to the domain cells
+     */
+    std::vector<Cell*> domain_cell_references;
+
+    /**
+     * @brief References to the boundary cells
+     */
+    std::vector<Cell*> boundary_cell_references;
+
+    /**
+     * @brief References to the halo cells
+     */
+    std::vector<Cell*> halo_cell_references;
+
+    /**
+     * @brief Temporary storage for references of cells that contain at least one particle to avoid iteration over empty cells. Uses
+     * unordered_set to avoid duplicate inserts.
+     */
+    std::unordered_set<Cell*> occupied_cells_references;
+
+    // Boundary cell references with respect to x-axis pointing to the right, y-axis pointing up and z axis pointing out of the screen
+
+    /**
+     * @brief References to the boundary cells on the left (x = 0)
+     */
+    std::vector<Cell*> left_boundary_cell_references;
+
+    /**
+     * @brief References to the boundary cells on the right (x = domain_num_cells[0]-1)
+     */
+    std::vector<Cell*> right_boundary_cell_references;
+
+    /**
+     * @brief References to the boundary cells on the bottom (y = 0)
+     */
+    std::vector<Cell*> bottom_boundary_cell_references;
+
+    /**
+     * @brief References to the boundary cells on the top (y = domain_num_cells[1]-1)
+     */
+    std::vector<Cell*> top_boundary_cell_references;
+
+    /**
+     * @brief References to the boundary cells on the back (z = 0)
+     */
+    std::vector<Cell*> back_boundary_cell_references;
+
+    /**
+     * @brief References to the boundary cells on the front (z = domain_num_cells[2]-1)
+     */
+    std::vector<Cell*> front_boundary_cell_references;
+
+    // Halo cell references with respect to x-axis pointing to the right, y-axis pointing up and z axis pointing out of the screen
+
+    /**
+     * @brief References to the halo cells on the left (x = -1)
+     */
+    std::vector<Cell*> left_halo_cell_references;
+
+    /**
+     * @brief References to the halo cells on the right (x = domain_num_cells[0])
+     */
+    std::vector<Cell*> right_halo_cell_references;
+
+    /**
+     * @brief References to the halo cells on the bottom (y = -1)
+     */
+    std::vector<Cell*> bottom_halo_cell_references;
+
+    /**
+     * @brief References to the halo cells on the top (y = domain_num_cells[1])
+     */
+    std::vector<Cell*> top_halo_cell_references;
+
+    /**
+     * @brief References to the halo cells on the back (z = -1)
+     */
+    std::vector<Cell*> back_halo_cell_references;
+
+    /**
+     * @brief References to the halo cells on the front (z = domain_num_cells[2])
+     */
+    std::vector<Cell*> front_halo_cell_references;
 };
