@@ -71,11 +71,15 @@ SimulationOverview Simulation::runSimulation() {
     particles->applyPairwiseForces(params.pairwise_forces);
 
     // keep track of time for progress high precision
-    auto start_time = std::chrono::high_resolution_clock::now();
+    int64_t total_simulation_time_ms = 0;
+    int64_t particle_updates = 0;
 
-    auto t_prev = start_time;
+    auto t_prev = std::chrono::high_resolution_clock::now();
 
     while (simulation_time < params.end_time) {
+        auto start_time = std::chrono::high_resolution_clock::now();
+        particle_updates += particles->size();
+
         if (iteration % save_every_nth_iteration == 0) {
             // calculate time since last write
             auto t_now = std::chrono::high_resolution_clock::now();
@@ -105,18 +109,18 @@ SimulationOverview Simulation::runSimulation() {
 
         iteration++;
         simulation_time += params.delta_t;
+
+        total_simulation_time_ms +=
+            std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_time).count();
     }
 
     printProgress(params.input_file_path, 100, expected_iterations, expected_iterations, 0, true);
 
     Logger::logger->info("Simulation finished.");
 
-    auto total_simulation_time_ms =
-        std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_time).count();
-
     return SimulationOverview{params,
                               static_cast<double>(total_simulation_time_ms) / 1000.0,
-                              static_cast<double>(total_simulation_time_ms) / static_cast<double>(iteration),
+                              1000.0 * static_cast<double>(particle_updates) / static_cast<double>(total_simulation_time_ms),
                               static_cast<size_t>(iteration),
                               expected_iterations / save_every_nth_iteration + 1,
                               std::vector<Particle>(particles->begin(), particles->end())};
@@ -134,9 +138,13 @@ SimulationOverview Simulation::runSimulationPerfTest() {
     particles->applyPairwiseForces(params.pairwise_forces);
 
     // keep track of time for progress high precision
-    auto start_time = std::chrono::high_resolution_clock::now();
+    int64_t total_simulation_time_ms = 0;
+    int64_t particle_updates = 0;
 
     while (simulation_time < params.end_time) {
+        auto start_time = std::chrono::high_resolution_clock::now();
+        particle_updates += particles->size();
+
         integration_functor->step(particles, params.simple_forces, params.pairwise_forces, params.delta_t);
 
         if (params.thermostat && iteration != 0 && iteration % params.thermostat->getApplicationInterval() == 0) {
@@ -145,14 +153,14 @@ SimulationOverview Simulation::runSimulationPerfTest() {
 
         simulation_time += params.delta_t;
         iteration++;
+
+        total_simulation_time_ms +=
+            std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_time).count();
     }
 
-    auto total_simulation_time =
-        std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start_time).count();
-
     SimulationOverview overview{params,
-                                static_cast<double>(total_simulation_time) / 1000.0,
-                                static_cast<double>(total_simulation_time) / static_cast<double>(iteration),
+                                static_cast<double>(total_simulation_time_ms) / 1000.0,
+                                1000.0 * static_cast<double>(particle_updates) / static_cast<double>(total_simulation_time_ms),
                                 static_cast<size_t>(iteration),
                                 0,
                                 std::vector<Particle>(particles->begin(), particles->end())};
@@ -191,8 +199,7 @@ void Simulation::savePerformanceTest(const SimulationOverview& overview, const S
     std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     auto formatted_time = fmt::format("{:%d.%m.%Y-%H:%M:%S}", fmt::localtime(now));
     csv_file << formatted_time << "," << num_particles << "," << container_type_string << "," << params.delta_t << ","
-             << overview.total_time_seconds << "," << overview.average_time_per_iteration_millis << "," << overview.total_iterations
-             << "\n";
+             << overview.total_time_seconds << "," << overview.particle_updates_per_second << "," << overview.total_iterations << "\n";
 
     // close the file
     csv_file.close();
