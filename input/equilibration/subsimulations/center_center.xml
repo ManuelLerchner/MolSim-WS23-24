@@ -29,6 +29,7 @@
         <forces>
             <LennardJones />
         </forces>
+        <output_format>none</output_format>
     </settings>
 
     <particle_source>

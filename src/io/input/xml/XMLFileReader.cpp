@@ -5,7 +5,6 @@
 #include <filesystem>
 #include <optional>
 
-
 #include "io/input/chkpt/ChkptPointFileReader.h"
 #include "io/logger/Logger.h"
 #include "io/output/FileOutputHandler.h"
@@ -122,8 +121,6 @@ auto loadConfig(const SubSimulationType& sub_simulation, const std::string& curr
     }
 }
 
-
-
 std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::string curr_file_path, ConfigurationType& config, bool fresh,
                                                                      bool allow_recursion, std::string output_base_path = "",
                                                                      int depth = 0) {
@@ -232,7 +229,6 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::string
             auto [sub_particles, sub_config] =
                 prepareParticles(file_name, loaded_config, fresh, allow_recursion, new_output_base_path, depth + 1);
             sub_config.output_dir_path = new_output_base_path;
-            sub_config.output_format = OutputFormat::NONE;
 
             // Run the sub simulation
             Simulation simulation{sub_particles, sub_config};

@@ -39,6 +39,11 @@ std::tuple<std::vector<Particle>, std::optional<SimulationParams>> ChkptPointFil
     }
 }
 size_t ChkptPointFileReader::calculateHash(const std::filesystem::path& filepath) {
+    if (!std::filesystem::exists(filepath)) {
+        Logger::logger->warn("File '{}' does not exist. Using hash 0.", filepath.string());
+        return 0;
+    }
+
     std::ifstream input_file(filepath);
 
     if (!input_file.is_open()) {

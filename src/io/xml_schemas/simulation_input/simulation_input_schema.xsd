@@ -172,6 +172,7 @@
       <xs:enumeration value="vtu" />
       <xs:enumeration value="chkpt" />
       <xs:enumeration value="xyz" />
+      <xs:enumeration value="none" />
     </xs:restriction>
   </xs:simpleType>
 

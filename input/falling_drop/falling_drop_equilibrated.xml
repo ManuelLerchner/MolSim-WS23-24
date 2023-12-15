@@ -30,6 +30,7 @@
             <LennardJones />
             <GlobalDownwardsGravity g="12.44" />
         </forces>
+        <output_format>vtu</output_format>
     </settings>
 
     <particle_source>

@@ -35,7 +35,6 @@ class Logger {
     /**
      * @brief Sets the log level of the logger
      *
-     * @param logger The logger to set the log level for
      * @param log_level The log level to set
      */
     static void update_level(std::string& log_level);
