@@ -10,6 +10,7 @@ add_library(project_lib ${PROJECT_SRC}
         simulation/SimulationParams.cpp)
 
 target_include_directories(project_lib PUBLIC 
+    ${xercesc_SOURCE_DIR}/include
     ${libxsd_SOURCE_DIR}
     ${spdlog_SOURCE_DIR}/include)
 

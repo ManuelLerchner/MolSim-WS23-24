@@ -26,6 +26,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/)
 # project dependencies
 include(spdlog)
 include(libxsd)
+include(xercesc)
 
 # tests and documentation
 include(gtest) #provides a BUILD_TESTS option
