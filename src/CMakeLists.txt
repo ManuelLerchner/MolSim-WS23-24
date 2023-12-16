@@ -9,7 +9,8 @@ list(REMOVE_ITEM PROJECT_SRC "${CMAKE_CURRENT_SOURCE_DIR}/MolSim.cpp")
 add_library(project_lib ${PROJECT_SRC}
         simulation/SimulationParams.cpp)
 
-target_include_directories(project_lib PUBLIC 
+target_include_directories(project_lib PUBLIC
+    ${program_options_SOURCE_DIR}/include
     ${xercesc_SOURCE_DIR}/include
     ${libxsd_SOURCE_DIR}
     ${spdlog_SOURCE_DIR}/include)

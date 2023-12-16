@@ -11,7 +11,7 @@ FetchContent_Declare(
         # xerces-c-3.2.4.zip
         # https://xerces.apache.org/xerces-c/download.cgi
         ${PROJECT_SOURCE_DIR}/libs/libxerces-c-dev_3.2.4-2.zip
-        URL_HASH MD5=c1128ddfe4c1972bff1ca3ddbe6ed68f
+        URL_HASH MD5=8a8fb15d71cacee4b91d6fea5454a240
 )
 
 FetchContent_MakeAvailable(xercesc)
