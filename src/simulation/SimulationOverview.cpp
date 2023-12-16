@@ -13,7 +13,10 @@ void SimulationOverview::logSummary(int depth) const {
     Logger::logger->info("{}║  Simulation time: {}", indent, format_seconds_total(total_time_seconds));
     Logger::logger->info("{}║  Number of iterations: {}", indent, total_iterations);
     Logger::logger->info("{}║  Average iteration time: {:.3f}ms", indent, average_time_per_iteration_millis);
-    Logger::logger->info("{}║  Number of files written: {}", indent, files_written);
     Logger::logger->info("{}║  Number of particles left: {}", indent, resulting_particles.size());
+    Logger::logger->info("{}║  Interceptor Logs:", indent);
+    for (auto& interceptor_summary : interceptor_summaries) {
+        Logger::logger->info("{}║   ├ {}", indent, interceptor_summary);
+    }
     Logger::logger->info("{}╚════════════════════════════════════════", indent);
 }

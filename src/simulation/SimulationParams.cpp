@@ -181,7 +181,6 @@ void SimulationParams::logSummary(int depth) const {
     Logger::logger->info("{}║  Forces: {}", indent, force_names);
 
     Logger::logger->info("{}╟┤{}Container: {}", indent, ansi_yellow_bold, ansi_end);
-
     if (std::holds_alternative<SimulationParams::LinkedCellsType>(container_type)) {
         auto lc_container = std::get<SimulationParams::LinkedCellsType>(container_type);
 
@@ -202,6 +201,15 @@ void SimulationParams::logSummary(int depth) const {
     } else {
         Logger::logger->error("Invalid container type");
         exit(-1);
+    }
+
+    Logger::logger->info("{}╟┤{}Thermostat: {}", indent, ansi_yellow_bold, ansi_end);
+    if (thermostat.has_value()) {
+        Logger::logger->info("{}║   ┌Target temperature: {}", indent, thermostat->getTargetTemperature());
+        Logger::logger->info("{}║   ├Maximum temperature change: {}", indent, thermostat->getMaxTemperatureChange());
+        Logger::logger->info("{}║   └Application interval: {}", indent, thermostat->getApplicationInterval());
+    } else {
+        Logger::logger->info("{}║  No thermostat", indent);
     }
 
     Logger::logger->info("{}╚════════════════════════════════════════", indent);

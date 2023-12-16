@@ -32,7 +32,6 @@
         </forces>
         <thermostat>
             <target_temperature>0.5</target_temperature>
-            <max_temperature_change>1000000</max_temperature_change>
             <application_interval>1000</application_interval>
         </thermostat>
         <output_format>none</output_format>

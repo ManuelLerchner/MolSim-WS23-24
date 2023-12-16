@@ -32,9 +32,9 @@ class SimulationOverview {
     size_t total_iterations;
 
     /**
-     * @brief Number of output files written
+     * @brief Summary of the interceptors that were used during the simulation
      */
-    size_t files_written;
+    std::vector<std::string> interceptor_summaries;
 
     /**
      * @brief Resulting particles after the simulation

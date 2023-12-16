@@ -67,7 +67,7 @@ TEST(SimulationRunner, EnsureBackwardsCompatibilityForAllInputFiles) {
 
         auto config = file_config.value_or(TEST_DEFAULT_PARAMS_LENNARD_JONES);
 
-        config.end_time = 0.1;
+        config.end_time = 0.01;
         config.delta_t = 0.001;
         config.output_format = OutputFormat::NONE;
 

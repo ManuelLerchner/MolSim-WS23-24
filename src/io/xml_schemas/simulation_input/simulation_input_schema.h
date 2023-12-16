@@ -1876,7 +1876,7 @@ class ThermostatType : public ::xml_schema::type {
      * @name max_temperature_change
      *
      * @brief Accessor and modifier functions for the %max_temperature_change
-     * required element.
+     * optional element.
      */
     //@{
 
@@ -1886,24 +1886,30 @@ class ThermostatType : public ::xml_schema::type {
     typedef ::xml_schema::double_ max_temperature_change_type;
 
     /**
+     * @brief Element optional container type.
+     */
+    typedef ::xsd::cxx::tree::optional<max_temperature_change_type> max_temperature_change_optional;
+
+    /**
      * @brief Element traits type.
      */
     typedef ::xsd::cxx::tree::traits<max_temperature_change_type, char, ::xsd::cxx::tree::schema_type::double_>
         max_temperature_change_traits;
 
     /**
-     * @brief Return a read-only (constant) reference to the element.
+     * @brief Return a read-only (constant) reference to the element
+     * container.
      *
-     * @return A constant reference to the element.
+     * @return A constant reference to the optional container.
      */
-    const max_temperature_change_type& max_temperature_change() const;
+    const max_temperature_change_optional& max_temperature_change() const;
 
     /**
-     * @brief Return a read-write reference to the element.
+     * @brief Return a read-write reference to the element container.
      *
-     * @return A reference to the element.
+     * @return A reference to the optional container.
      */
-    max_temperature_change_type& max_temperature_change();
+    max_temperature_change_optional& max_temperature_change();
 
     /**
      * @brief Set the element value.
@@ -1914,6 +1920,17 @@ class ThermostatType : public ::xml_schema::type {
      * the new value of the element.
      */
     void max_temperature_change(const max_temperature_change_type& x);
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x An optional container with the new value to set.
+     *
+     * If the value is present in @a x then this function makes a copy
+     * of this value and sets it as the new value of the element.
+     * Otherwise the element container is set the 'not present' state.
+     */
+    void max_temperature_change(const max_temperature_change_optional& x);
 
     //@}
 
@@ -1970,7 +1987,7 @@ class ThermostatType : public ::xml_schema::type {
      * @brief Create an instance from the ultimate base and
      * initializers for required elements and attributes.
      */
-    ThermostatType(const target_temperature_type&, const max_temperature_change_type&, const application_interval_type&);
+    ThermostatType(const target_temperature_type&, const application_interval_type&);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -2033,7 +2050,7 @@ class ThermostatType : public ::xml_schema::type {
 
    protected:
     ::xsd::cxx::tree::one<target_temperature_type> target_temperature_;
-    ::xsd::cxx::tree::one<max_temperature_change_type> max_temperature_change_;
+    max_temperature_change_optional max_temperature_change_;
     ::xsd::cxx::tree::one<application_interval_type> application_interval_;
 
     //@endcond

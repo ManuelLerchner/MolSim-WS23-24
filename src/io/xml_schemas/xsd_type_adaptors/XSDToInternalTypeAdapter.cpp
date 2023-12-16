@@ -156,9 +156,13 @@ Thermostat XSDToInternalTypeAdapter::convertToThermostat(const ThermostatType& t
         exit(-1);
     }
 
-    if (max_temperature_change < 0) {
-        Logger::logger->error("Max temperature change must be an absolute value (positive)");
-        exit(-1);
+    double max_temperature_change_value = std::numeric_limits<double>::infinity();
+    if (max_temperature_change.present()) {
+        if (*max_temperature_change < 0) {
+            Logger::logger->error("Max temperature change must be an absolute value (positive)");
+            exit(-1);
+        }
+        max_temperature_change_value = *max_temperature_change;
     }
 
     if (application_interval <= 0) {
@@ -166,7 +170,7 @@ Thermostat XSDToInternalTypeAdapter::convertToThermostat(const ThermostatType& t
         exit(-1);
     }
 
-    return Thermostat{target_temperature, max_temperature_change, static_cast<size_t>(application_interval), third_dimension};
+    return Thermostat{target_temperature, max_temperature_change_value, static_cast<size_t>(application_interval), third_dimension};
 }
 
 Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particle) {

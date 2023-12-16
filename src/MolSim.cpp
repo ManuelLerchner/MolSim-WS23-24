@@ -20,14 +20,7 @@ int main(int argc, char* argsv[]) {
     // Print simulation info
     params.logSummary();
 
-    // Run simulation
-    auto overview = [params](Simulation& simulation) {
-        if (params.performance_test) {
-            return simulation.runSimulationPerfTest();
-        } else {
-            return simulation.runSimulation();
-        }
-    }(simulation);
+    auto overview = simulation.runSimulation();
 
     // Print simulation overview
     overview.logSummary();

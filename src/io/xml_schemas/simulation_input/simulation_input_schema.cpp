@@ -177,13 +177,15 @@ ThermostatType::target_temperature_type& ThermostatType::target_temperature() { 
 
 void ThermostatType::target_temperature(const target_temperature_type& x) { this->target_temperature_.set(x); }
 
-const ThermostatType::max_temperature_change_type& ThermostatType::max_temperature_change() const {
-    return this->max_temperature_change_.get();
+const ThermostatType::max_temperature_change_optional& ThermostatType::max_temperature_change() const {
+    return this->max_temperature_change_;
 }
 
-ThermostatType::max_temperature_change_type& ThermostatType::max_temperature_change() { return this->max_temperature_change_.get(); }
+ThermostatType::max_temperature_change_optional& ThermostatType::max_temperature_change() { return this->max_temperature_change_; }
 
 void ThermostatType::max_temperature_change(const max_temperature_change_type& x) { this->max_temperature_change_.set(x); }
+
+void ThermostatType::max_temperature_change(const max_temperature_change_optional& x) { this->max_temperature_change_ = x; }
 
 const ThermostatType::application_interval_type& ThermostatType::application_interval() const { return this->application_interval_.get(); }
 
@@ -1099,11 +1101,10 @@ LinkedCellsContainerType::~LinkedCellsContainerType() {}
 // ThermostatType
 //
 
-ThermostatType::ThermostatType(const target_temperature_type& target_temperature, const max_temperature_change_type& max_temperature_change,
-                               const application_interval_type& application_interval)
+ThermostatType::ThermostatType(const target_temperature_type& target_temperature, const application_interval_type& application_interval)
     : ::xml_schema::type(),
       target_temperature_(target_temperature, this),
-      max_temperature_change_(max_temperature_change, this),
+      max_temperature_change_(this),
       application_interval_(application_interval, this) {}
 
 ThermostatType::ThermostatType(const ThermostatType& x, ::xml_schema::flags f, ::xml_schema::container* c)
@@ -1140,7 +1141,7 @@ void ThermostatType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::
         // max_temperature_change
         //
         if (n.name() == "max_temperature_change" && n.namespace_().empty()) {
-            if (!max_temperature_change_.present()) {
+            if (!this->max_temperature_change_) {
                 this->max_temperature_change_.set(max_temperature_change_traits::create(i, f, this));
                 continue;
             }
@@ -1160,10 +1161,6 @@ void ThermostatType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::
 
     if (!target_temperature_.present()) {
         throw ::xsd::cxx::tree::expected_element<char>("target_temperature", "");
-    }
-
-    if (!max_temperature_change_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("max_temperature_change", "");
     }
 
     if (!application_interval_.present()) {
@@ -3038,10 +3035,10 @@ void operator<<(::xercesc::DOMElement& e, const ThermostatType& i) {
 
     // max_temperature_change
     //
-    {
+    if (i.max_temperature_change()) {
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("max_temperature_change", e));
 
-        s << ::xml_schema::as_double(i.max_temperature_change());
+        s << ::xml_schema::as_double(*i.max_temperature_change());
     }
 
     // application_interval
