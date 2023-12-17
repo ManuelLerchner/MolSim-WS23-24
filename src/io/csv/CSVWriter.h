@@ -16,9 +16,7 @@
  * @param value The value to write.
  */
 template <typename T>
-void write_csv_element(std::ofstream& file, const T& value) {
-    file << value;
-}
+void write_csv_element(std::ofstream& file, const T& value);
 
 /**
  * @brief Escapes a string value to be written to the CSV file.
@@ -27,62 +25,55 @@ void write_csv_element(std::ofstream& file, const T& value) {
  * @param value The value to write.
  */
 template <>
-void write_csv_element<std::string>(std::ofstream& file, const std::string& value) {
-    file << "\"" << value << "\"";
-}
-
+void write_csv_element<std::string>(std::ofstream& file, const std::string& value);
 class CSVWriter {
    public:
+    /**
+     * @brief The types that can be written to the CSV file.
+     */
+    using serializable_types = std::variant<size_t, int, double, std::string>;
+
     /**
      * @brief Creates a new CSVWriter instance.
      *
      * @param file_path The path to the CSV file to write to.
-     * @param cols The cols of the CSV file.
+     * @param headers The headers of the CSV file.
      * @param separator The separator to use between values.
      */
-    CSVWriter(const std::filesystem::path& file_path, const std::vector<std::string>& cols, std::string separator = ";")
-        : cols(cols), separator(std::move(separator)) {
-        Logger::logger->info("Creating CSVWriter for file {}...", file_path.string());
-        Logger::logger->info("Header: {}", cols.size());
+    CSVWriter(const std::filesystem::path& file_path, const std::vector<std::string>& headers, bool append = false,
+              std::string separator = ";");
 
-        if (std::filesystem::exists(file_path)) {
-            Logger::logger->warn("File {} already exists, appending to it!", file_path.string());
-            file.open(file_path, std::ios_base::app);
-        } else {
-            Logger::logger->info("File {} does not exist, creating it!", file_path.string());
-            std::filesystem::create_directories(file_path.parent_path());
-            file.open(file_path, std::ios_base::out);
+    /**
+     * @brief Creates a new CSVWriter instance.
+     *
+     * @param file_path The path to the CSV file to write to.
+     * @param separator The separator to use between values.
+     */
+    CSVWriter(const std::filesystem::path& file_path, bool append = false, std::string separator = ";");
 
-            writeRow({cols.begin(), cols.end()});
-        }
+    // Delete copy constructor and assignment operator
+    CSVWriter(const CSVWriter&) = delete;
+    CSVWriter& operator=(CSVWriter&) = delete;
 
-        if (!file.is_open()) {
-            Logger::logger->error("Could not open file {} for writing!", file_path.string());
-            throw std::runtime_error("Could not open file for writing!");
-        }
-    }
+    // Move constructor and assignment operator
+    CSVWriter(CSVWriter&&);
+    CSVWriter& operator=(CSVWriter&&);
+
+    ~CSVWriter();
+
+    /**
+     * @brief Initializes the CSV file and writes the header row.
+     *
+     * @param headers The headers of the CSV file.
+     */
+    void initialize(const std::vector<std::string>& headers);
 
     /**
      * @brief Writes a row to the CSV file.
      *
      * @param row The row to write.
      */
-
-    using serializable_types = std::variant<size_t, int, double, std::string>;
-    void writeRow(const std::vector<serializable_types>& row) {
-        if (row.size() != cols.size()) {
-            Logger::logger->error("Row size ({}) does not match cols size ({})!", row.size(), cols.size());
-            throw std::runtime_error("Row size does not match cols size!");
-        }
-
-        for (size_t i = 0; i < row.size(); i++) {
-            if (i > 0) {
-                file << separator;
-            }
-            std::visit([&](auto&& arg) { write_csv_element(file, arg); }, row[i]);
-        }
-        file << std::endl;
-    }
+    void writeRow(const std::vector<serializable_types>& row);
 
    private:
     /**
@@ -91,12 +82,22 @@ class CSVWriter {
     std::ofstream file;
 
     /**
-     * @brief The cols of the CSV file.
+     * @brief The path to the CSV file to write to.
      */
-    const std::vector<std::string> cols;
+    std::filesystem::path file_path;
+
+    /**
+     * @brief Whether to append to the CSV file or overwrite it.
+     */
+    bool append;
+
+    /**
+     * @brief The headers of the CSV file.
+     */
+    std::vector<std::string> headers;
 
     /**
      * @brief The separator to use between values.
      */
-    const std::string separator;
+    std::string separator;
 };

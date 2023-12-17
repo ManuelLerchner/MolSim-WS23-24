@@ -14,6 +14,7 @@
 #include "simulation/interceptors/SimulationInterceptor.h"
 #include "simulation/interceptors/particle_update_counter/ParticleUpdateCounterInterceptor.h"
 #include "simulation/interceptors/progress_bar/ProgressBarInterceptor.h"
+#include "simulation/interceptors/radial_distribution_function/RadialDistributionFunctionInterceptor.h"
 #include "simulation/interceptors/save_file/SaveFileInterceptor.h"
 #include "simulation/interceptors/thermostat/ThermostatInterceptor.h"
 
@@ -50,6 +51,8 @@ Simulation::Simulation(const std::vector<Particle>& initial_particles, const Sim
     if (params.thermostat) {
         interceptors.insert({"thermostat", std::make_unique<ThermostatInterceptor>(*this)});
     }
+
+    interceptors.insert({"radial_distribution_function", std::make_unique<RadialDistributionFunctionInterceptor>(*this)});
 }
 
 Simulation::~Simulation() = default;
@@ -111,16 +114,16 @@ SimulationOverview Simulation::runSimulation() {
 }
 
 void Simulation::savePerformanceTest(const SimulationOverview& overview, const SimulationParams& params) {
-    CSVWriter csv_writer(params.output_dir_path / "performance_test.csv",
-                         {"datetime", "num_particles", "particle_container", "delta_t", "total_time[s]", "particle_updates_per_second[1/s]",
-                          "total_iterations"});
-
     // write the results to the file
     std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     auto formatted_time = fmt::format("{:%d.%m.%Y-%H:%M:%S}", fmt::localtime(now));
 
+    CSVWriter csv_writer(
+        params.output_dir_path / ("performance_test_" + formatted_time + ".csv"),
+        {"num_particles", "particle_container", "delta_t", "total_time[s]", "particle_updates_per_second[1/s]", "total_iterations"});
+
     std::string container_type_string = std::visit([](auto&& arg) { return std::string(arg); }, params.container_type);
 
-    csv_writer.writeRow({formatted_time, params.num_particles, container_type_string, params.delta_t, overview.total_time_seconds,
+    csv_writer.writeRow({params.num_particles, container_type_string, params.delta_t, overview.total_time_seconds,
                          overview.particle_updates_per_second, overview.total_iterations});
 }
