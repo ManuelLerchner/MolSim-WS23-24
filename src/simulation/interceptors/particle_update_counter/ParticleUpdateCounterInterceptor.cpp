@@ -2,6 +2,8 @@
 
 #include <chrono>
 
+#include "io/logger/Logger.h"
+
 void ParticleUpdateCounterInterceptor::onSimulationStart() {
     particle_updates = 0;
     t_start = std::chrono::high_resolution_clock::now();
@@ -26,4 +28,10 @@ std::chrono::milliseconds::rep ParticleUpdateCounterInterceptor::getSimulationDu
 
 ParticleUpdateCounterInterceptor::operator std::string() const {
     return "ParticleUpdateInterceptor: " + std::to_string(particle_updates_per_second) + " particle updates per second";
+}
+
+void ParticleUpdateCounterInterceptor::logSummary(int depth) const {
+    std::string indent = std::string(depth * 2, ' ');
+
+    Logger::logger->info("{}╟┤{}ParticleUpdateCounter: {}", indent, ansi_yellow_bold, ansi_end);
 }

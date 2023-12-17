@@ -4,6 +4,7 @@
 #include <string>
 
 #include "io/logger/Logger.h"
+#include "io/output/OutputFormats.h"
 
 SaveFileInterceptor::SaveFileInterceptor(OutputFormat output_format, int fps, int video_length)
     : output_format(output_format), fps(fps), video_length(video_length) {
@@ -39,3 +40,19 @@ void SaveFileInterceptor::onSimulationEnd(size_t iteration) {
 }
 
 SaveFileInterceptor::operator std::string() const { return "SaveFileInterceptor: " + std::to_string(file_counter) + " files saved"; }
+
+void SaveFileInterceptor::logSummary(int depth) const {
+    std::string indent = std::string(depth * 2, ' ');
+
+    auto supported_output_formats = get_supported_output_formats();
+
+    std::string output_format_s =
+        std::find_if(supported_output_formats.begin(), supported_output_formats.end(), [this](const auto& format) {
+            return format.second == output_format;
+        })->first;
+
+    Logger::logger->info("{}╟┤{}Save Files: {}", indent, ansi_yellow_bold, ansi_end);
+    Logger::logger->info("{}║  ┌Output format: {}", indent, output_format_s);
+    Logger::logger->info("{}║  ├Frames per second: {}", indent, fps);
+    Logger::logger->info("{}║  └Video length: {}", indent, video_length);
+}

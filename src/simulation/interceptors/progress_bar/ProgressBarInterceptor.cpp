@@ -58,4 +58,13 @@ void ProgressBarInterceptor::onSimulationEnd(size_t iteration) {
     Logger::logger->info("End time: {}", fmt::format("{:%A %Y-%m-%d %H:%M:%S}", fmt::localtime(t_end)));
 }
 
+void ProgressBarInterceptor::logSummary(int depth) const {
+    std::string indent = std::string(depth * 2, ' ');
+
+    auto t_end = std::chrono::high_resolution_clock::now();
+    const double seconds = std::chrono::duration<double>(t_end - t_start).count();
+
+    Logger::logger->info("{}╟┤{}ProgressBar: {}", indent, ansi_yellow_bold, ansi_end);
+}
+
 ProgressBarInterceptor::operator std::string() const { return "ProgressBarInterceptor"; }

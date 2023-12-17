@@ -42,6 +42,11 @@ class SaveFileInterceptor : public SimulationInterceptor {
      */
     explicit operator std::string() const override;
 
+    /**
+     * @brief Logs the summary of the thermostat
+     */
+    void logSummary(int depth) const override;
+
    private:
     size_t file_counter = 0;
     std::unique_ptr<FileOutputHandler> file_output_handler;

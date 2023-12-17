@@ -49,6 +49,14 @@ RadialDistributionFunctionInterceptor::operator std::string() const {
     return fmt::format("RadialDistributionFunctionInterceptor: {} samples", samples_count);
 }
 
+void RadialDistributionFunctionInterceptor::logSummary(int depth) const {
+    std::string indent = std::string(depth * 2, ' ');
+
+    Logger::logger->info("{}╟┤{}RadialDistributionFunction: {}", indent, ansi_yellow_bold, ansi_end);
+    Logger::logger->info("{}║   ┌Bin length: {}", indent, bin_width);
+    Logger::logger->info("{}║   └Sample every x percent: {}", indent, sample_every_x_percent);
+}
+
 double RadialDistributionFunctionInterceptor::calculateLocalDensity(size_t N, size_t bin_index) {
     double bin_start = bin_index * bin_width;
     double bin_end = (bin_index + 1) * bin_width;

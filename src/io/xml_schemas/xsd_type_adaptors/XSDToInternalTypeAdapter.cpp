@@ -122,12 +122,10 @@ std::vector<std::shared_ptr<SimulationInterceptor>> XSDToInternalTypeAdapter::co
 
     if (interceptors.SaveFile()) {
         auto fps = interceptors.SaveFile()->fps();
-        auto video_length = interceptors.SaveFile()->video_length();
+        auto video_length = interceptors.SaveFile()->video_length_s();
         auto output_format = convertToOutputFormat(interceptors.SaveFile()->output_format());
 
-        if (output_format != OutputFormat::NONE) {
-            simulation_interceptors.push_back(std::make_shared<SaveFileInterceptor>(output_format, fps, video_length));
-        }
+        simulation_interceptors.push_back(std::make_shared<SaveFileInterceptor>(output_format, fps, video_length));
     }
 
     return simulation_interceptors;
@@ -184,9 +182,9 @@ LinkedCellsContainer::BoundaryCondition XSDToInternalTypeAdapter::convertToBound
 }
 
 Thermostat XSDToInternalTypeAdapter::convertToThermostat(const ThermostatInterceptorType& thermostat, bool third_dimension) {
-    auto target_temperature = *thermostat.target_temperature();
+    auto target_temperature = thermostat.target_temperature();
     auto max_temperature_change = thermostat.max_temperature_change();
-    auto application_interval = *thermostat.application_interval();
+    auto application_interval = thermostat.application_interval();
 
     if (target_temperature < 0) {
         Logger::logger->error("Target temperature must be positive");

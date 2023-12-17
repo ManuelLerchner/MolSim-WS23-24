@@ -9,8 +9,6 @@
 
 FileOutputHandler::FileOutputHandler(const OutputFormat output_format, const SimulationParams& params) : params(params) {
     switch (output_format) {
-        case OutputFormat::NONE:
-            break;
         case OutputFormat::VTU:
             file_writer = std::make_unique<VTUWriter>();
             break;

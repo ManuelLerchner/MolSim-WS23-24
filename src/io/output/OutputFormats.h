@@ -6,7 +6,7 @@
 /**
  * @brief Enum class to specify the output format
  */
-enum class OutputFormat { VTU, XYZ, CHKPT, NONE };
+enum class OutputFormat { VTU, XYZ, CHKPT };
 
 /**
  * @brief Returns a mappping of supported output formats

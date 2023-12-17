@@ -6,12 +6,7 @@
 
 class ProgressBarInterceptor : public SimulationInterceptor {
    public:
-    /**
-     * @brief Construct a new Progress Bar Interceptor object
-     */
-    ProgressBarInterceptor() = default;
-
-    /**
+       /**
      * @brief This function initalized the start time of the simulation
      * and the previous time point
      */
@@ -42,6 +37,11 @@ class ProgressBarInterceptor : public SimulationInterceptor {
      * console.
      */
     explicit operator std::string() const override;
+
+    /**
+     * @brief Logs the summary of the progress bar
+     */
+    void logSummary(int depth) const override;
 
    private:
     size_t expected_iterations;

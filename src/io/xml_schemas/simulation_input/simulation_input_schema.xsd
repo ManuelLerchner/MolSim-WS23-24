@@ -161,14 +161,14 @@
 
   <xs:complexType name="SaveFileInterceptorType">
     <xs:attribute name="output_format" type="OutputFormatType" use="required" />
-    <xs:attribute name="fps" type="xs:integer" default="24" />
-    <xs:attribute name="video_length" type="xs:integer" default="30" />
+    <xs:attribute name="fps" type="xs:integer" use="required" />
+    <xs:attribute name="video_length_s" type="xs:integer" use="required" />
   </xs:complexType>
 
   <xs:complexType name="ThermostatInterceptorType">
-    <xs:attribute name="target_temperature" type="xs:double" />
-    <xs:attribute name="max_temperature_change" type="xs:double" default="INF" />
-    <xs:attribute name="application_interval" type="xs:integer" />
+    <xs:attribute name="target_temperature" type="xs:double" use="required" />
+    <xs:attribute name="max_temperature_change" type="xs:double" use="required" />
+    <xs:attribute name="application_interval" type="xs:integer" use="required" />
   </xs:complexType>
 
 

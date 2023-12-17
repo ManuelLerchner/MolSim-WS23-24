@@ -6,14 +6,9 @@
 
 class ParticleUpdateCounterInterceptor : public SimulationInterceptor {
    public:
-    /**
-     * @brief Construct a new Thermostat Interceptor object
-     */
-    ParticleUpdateCounterInterceptor() = default;
-
-    /**
+     /**
      * @brief This function is sets the particle_updates to 0 and initializes
-     * the start time of the simulation
+     * the start time of the simulation#
      */
     void onSimulationStart() override;
 
@@ -42,6 +37,11 @@ class ParticleUpdateCounterInterceptor : public SimulationInterceptor {
      * console.
      */
     explicit operator std::string() const override;
+
+    /**
+     * @brief Logs the summary of the particle update counter
+     */
+    void logSummary(int depth) const override;
 
     /**
      * @brief Get the particle updates per second

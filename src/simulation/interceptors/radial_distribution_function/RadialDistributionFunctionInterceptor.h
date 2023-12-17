@@ -44,6 +44,11 @@ class RadialDistributionFunctionInterceptor : public SimulationInterceptor {
      */
     explicit operator std::string() const override;
 
+    /**
+     * @brief Logs the summary of the radial distribution function
+     */
+    void logSummary(int depth) const override;
+
     double calculateLocalDensity(size_t N, size_t bin_index);
 
    private:

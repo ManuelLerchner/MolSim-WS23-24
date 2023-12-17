@@ -3,7 +3,7 @@
 #include "io/logger/Logger.h"
 
 const std::map<std::string, OutputFormat> get_supported_output_formats() {
-    return {{"vtu", OutputFormat::VTU}, {"xyz", OutputFormat::XYZ}, {"chkpt", OutputFormat::CHKPT}, {"none", OutputFormat::NONE}};
+    return {{"vtu", OutputFormat::VTU}, {"xyz", OutputFormat::XYZ}, {"chkpt", OutputFormat::CHKPT}};
 }
 
 OutputFormat convertToOutputFormat(const std::string& output_format) {

@@ -42,6 +42,11 @@ class ThermostatInterceptor : public SimulationInterceptor {
      */
     explicit operator std::string() const override;
 
+    /**
+     * @brief Logs the summary of the thermostat
+     */
+    void logSummary(int depth) const override;
+
    private:
     /**
      * @brief The thermostat that is used to scale the temperature

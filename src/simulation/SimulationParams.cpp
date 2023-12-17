@@ -123,10 +123,6 @@ void SimulationParams::logSummary(int depth) const {
     Logger::logger->info("{}║  End_time: {}", indent, end_time);
     Logger::logger->info("{}║  Reuse cached data: {}", indent, !fresh);
 
-    Logger::logger->info("{}╟┤{}Rendering arguments: {}", indent, ansi_yellow_bold, ansi_end);
-    // Logger::logger->info("{}║  Frames per second: {}", indent, fps);
-    // Logger::logger->info("{}║  Video length: {}", indent, video_length);
-
     // Print Physical setup
     Logger::logger->info("{}╟┤{}Physical setup: {}", indent, ansi_yellow_bold, ansi_end);
     Logger::logger->info("{}║  Number of particles: {}", indent, num_particles);
@@ -156,14 +152,10 @@ void SimulationParams::logSummary(int depth) const {
         throw std::runtime_error("Invalid container type");
     }
 
-    Logger::logger->info("{}╟┤{}Thermostat: {}", indent, ansi_yellow_bold, ansi_end);
-    // if (thermostat.has_value()) {
-    //     Logger::logger->info("{}║   ┌Target temperature: {}", indent, thermostat->getTargetTemperature());
-    //     Logger::logger->info("{}║   ├Maximum temperature change: {}", indent, thermostat->getMaxTemperatureChange());
-    //     Logger::logger->info("{}║   └Application interval: {}", indent, thermostat->getApplicationInterval());
-    // } else {
-    //     Logger::logger->info("{}║  No thermostat", indent);
-    // }
+    Logger::logger->info("{}╟┤{}Interceptors: {}", indent, ansi_yellow_bold, ansi_end);
+    for (auto& interceptor : interceptors) {
+        interceptor->logSummary(depth + 1);
+    }
 
     Logger::logger->info("{}╚════════════════════════════════════════", indent);
 }

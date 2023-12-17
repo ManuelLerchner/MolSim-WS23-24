@@ -8,10 +8,8 @@
 class SimulationInterceptor {
    public:
     /**
-     * @brief Construct a new Simulation Interceptor object
+     * @brief Destroy the Simulation Interceptor object
      */
-    explicit SimulationInterceptor() = default;
-
     virtual ~SimulationInterceptor() = default;
 
     /**
@@ -64,6 +62,13 @@ class SimulationInterceptor {
      * console.
      */
     virtual explicit operator std::string() const = 0;
+
+    /**
+     * @brief Summary of the interceptor
+     *
+     * @param every_nth_iteration
+     */
+    virtual void logSummary(int depth) const = 0;
 
    protected:
     std::shared_ptr<Simulation> simulation;
