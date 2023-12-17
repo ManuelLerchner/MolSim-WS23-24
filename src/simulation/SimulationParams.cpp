@@ -153,8 +153,12 @@ void SimulationParams::logSummary(int depth) const {
     }
 
     Logger::logger->info("{}╟┤{}Interceptors: {}", indent, ansi_yellow_bold, ansi_end);
-    for (auto& interceptor : interceptors) {
-        interceptor->logSummary(depth + 1);
+    if (interceptors.empty()) {
+        Logger::logger->info("{}║  None", indent);
+    } else {
+        for (auto& interceptor : interceptors) {
+            interceptor->logSummary(depth);
+        }
     }
 
     Logger::logger->info("{}╚════════════════════════════════════════", indent);

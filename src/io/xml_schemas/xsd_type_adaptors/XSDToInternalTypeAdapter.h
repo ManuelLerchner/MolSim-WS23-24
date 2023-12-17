@@ -49,6 +49,7 @@ class XSDToInternalTypeAdapter {
      * @brief Converts the simulation interceptors from the XSD format to the internal format
      *
      * @param interceptors Simulation interceptors in the XSD format
+     * @param third_dimension Whether the third dimension is enabled
      * @return List of simulation interceptors parsed from the given simulation interceptors in the XSD format
      */
     static std::vector<std::shared_ptr<SimulationInterceptor>> convertToSimulationInterceptors(

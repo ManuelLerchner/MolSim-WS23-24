@@ -118,12 +118,8 @@ class SimulationParams {
      * @param input_file_path Path to the input file of the simulation
      * @param delta_t Time step of a single simulation iteration
      * @param end_time End time of the simulation
-     * @param fps Frames per second at which to save the simulation. This is used to calculate how often to save the simulation data
-     * @param video_length Expected length of the simulation video in seconds. This is used to calculate how often to save the
-     * simulation data
      * @param container_type Type of the particle container
-     * @param thermostat Thermostat used in the simulation
-     * @param output_format Output file format of the simulation
+     * @param interceptors List of interceptors to be used in the simulation
      * @param simple_forces Simple Forces to be applied to the particles
      * @param pairwise_forces Forces to be applied to the particles
      * @param performance_test Whether to run the simulation in performance test mode

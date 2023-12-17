@@ -8,23 +8,23 @@
 RadialDistributionFunctionInterceptor::RadialDistributionFunctionInterceptor(double bin_width, size_t sample_every_x_percent)
     : bin_width(bin_width), sample_every_x_percent(sample_every_x_percent) {}
 
-void RadialDistributionFunctionInterceptor::onSimulationStart() {
-    csv_writer = std::make_unique<CSVWriter>(simulation->params.output_dir_path / "radial_distribution_function.csv");
+void RadialDistributionFunctionInterceptor::onSimulationStart(Simulation& simulation) {
+    csv_writer = std::make_unique<CSVWriter>(simulation.params.output_dir_path / "radial_distribution_function.csv");
 
     csv_writer->initialize({"iteration", "bin_index (w= " + std::to_string(bin_width) + ")", "samples", "local_density"});
 
-    auto expected_iterations = static_cast<size_t>(std::ceil(simulation->params.end_time / simulation->params.delta_t) + 1);
+    auto expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t) + 1);
     SimulationInterceptor::every_nth_iteration = std::max(1, static_cast<int>(sample_every_x_percent * expected_iterations / 100));
 
     samples_count = 0;
 }
 
-void RadialDistributionFunctionInterceptor::operator()(size_t iteration) {
+void RadialDistributionFunctionInterceptor::operator()(size_t iteration, Simulation& simulation) {
     std::map<size_t, size_t> samples_per_bin_index;
 
-    for (auto it1 = simulation->particle_container->begin(); it1 != simulation->particle_container->end(); it1++) {
+    for (auto it1 = simulation.particle_container->begin(); it1 != simulation.particle_container->end(); it1++) {
         auto& particle = *it1;
-        for (auto it2 = it1 + 1; it2 != simulation->particle_container->end(); it2++) {
+        for (auto it2 = it1 + 1; it2 != simulation.particle_container->end(); it2++) {
             auto& other_particle = *it2;
 
             if (particle == other_particle) continue;
@@ -43,7 +43,7 @@ void RadialDistributionFunctionInterceptor::operator()(size_t iteration) {
     }
 }
 
-void RadialDistributionFunctionInterceptor::onSimulationEnd(size_t iteration) {}
+void RadialDistributionFunctionInterceptor::onSimulationEnd(size_t iteration, Simulation& simulation) {}
 
 RadialDistributionFunctionInterceptor::operator std::string() const {
     return fmt::format("RadialDistributionFunctionInterceptor: {} samples", samples_count);

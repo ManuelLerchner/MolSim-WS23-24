@@ -38,6 +38,7 @@ class CSVWriter {
      *
      * @param file_path The path to the CSV file to write to.
      * @param headers The headers of the CSV file.
+     * @param append Whether to append to the CSV file or overwrite it.
      * @param separator The separator to use between values.
      */
     CSVWriter(const std::filesystem::path& file_path, const std::vector<std::string>& headers, bool append = false,
@@ -47,6 +48,7 @@ class CSVWriter {
      * @brief Creates a new CSVWriter instance.
      *
      * @param file_path The path to the CSV file to write to.
+     * @param append Whether to append to the CSV file or overwrite it.
      * @param separator The separator to use between values.
      */
     CSVWriter(const std::filesystem::path& file_path, bool append = false, std::string separator = ";");

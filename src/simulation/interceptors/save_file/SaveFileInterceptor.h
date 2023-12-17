@@ -14,23 +14,26 @@ class SaveFileInterceptor : public SimulationInterceptor {
 
     /**
      * @brief This function saves the initial state of the simulation
+     * @param simulation The simulation object
      */
-    void onSimulationStart() override;
+    void onSimulationStart(Simulation& simulation) override;
 
     /**
      * @brief This function is called on every nth iteration. It writes the current
      * state of the simulation to a file.
      *
      * @param iteration The current iteration
+     * @param simulation The simulation object
      */
-    void operator()(size_t iteration) override;
+    void operator()(size_t iteration, Simulation& simulation) override;
 
     /**
      * @brief This function saves the final state of the simulation
      *
      * @param iteration The current iteration
+     * @param simulation The simulation object
      */
-    void onSimulationEnd(size_t iteration) override;
+    void onSimulationEnd(size_t iteration, Simulation& simulation) override;
 
     /**
      * @brief The string representation of this interceptor

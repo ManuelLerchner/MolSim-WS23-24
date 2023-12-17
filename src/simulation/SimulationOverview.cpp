@@ -14,9 +14,15 @@ void SimulationOverview::logSummary(int depth) const {
     Logger::logger->info("{}║  Simulation time: {}", indent, format_seconds_total(total_time_seconds));
     Logger::logger->info("{}║  Number of iterations: {}", indent, total_iterations);
     Logger::logger->info("{}║  Number of particles left: {}", indent, resulting_particles.size());
-    Logger::logger->info("{}║  Interceptor Logs:", indent);
-    for (auto& interceptor_summary : interceptor_summaries) {
-        Logger::logger->info("{}║   ├ {}", indent, interceptor_summary);
+    Logger::logger->info("{}╟┤{}Interceptor Logs: {}", indent, ansi_yellow_bold, ansi_end);
+
+    if (interceptor_summaries.empty()) {
+        Logger::logger->info("{}║   └No interceptors", indent);
+    } else {
+        for (auto& interceptor_summary : interceptor_summaries) {
+            Logger::logger->info("{}║   ├{}", indent, interceptor_summary);
+        }
     }
+
     Logger::logger->info("{}╚════════════════════════════════════════", indent);
 }

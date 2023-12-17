@@ -13,31 +13,30 @@ class SimulationInterceptor {
     virtual ~SimulationInterceptor() = default;
 
     /**
-     * @brief Attaches the interceptor to the simulation
-     *
-     * @param simulation The simulation to attach to
-     */
-    void attach(Simulation& simulation) { this->simulation = std::shared_ptr<Simulation>(&simulation); }
-
-    /**
      * @brief Called before the simulation loop starts
+     *
+     * @param simulation The simulation object
      */
-    virtual void onSimulationStart() = 0;
+    virtual void onSimulationStart(Simulation& simulation) = 0;
 
     /**
      * @brief Called on every nth iteration. This function should perform the
      * desired action.
      *
      * @param iteration The current iteration
+     *
+     * @param simulation The simulation object
      */
-    virtual void operator()(size_t iteration) = 0;
+    virtual void operator()(size_t iteration, Simulation& simulation) = 0;
 
     /**
      * @brief Called after the simulation loop ends
      *
      * @param iteration The current iteration
+     *
+     * @param simulation The simulation object
      */
-    virtual void onSimulationEnd(size_t iteration) = 0;
+    virtual void onSimulationEnd(size_t iteration, Simulation& simulation) = 0;
 
     /**
      * @brief This function is called by the simulation loop on every iteration.
@@ -45,11 +44,12 @@ class SimulationInterceptor {
      * operator() function is called.
      *
      * @param iteration The current iteration
+     * @param simulation The simulation object
      * @see operator()
      */
-    void notify(size_t iteration) {
+    void notify(size_t iteration, Simulation& simulation) {
         if (iteration % every_nth_iteration == 0) {
-            (*this)(iteration);
+            (*this)(iteration, simulation);
         }
     }
 
@@ -66,11 +66,10 @@ class SimulationInterceptor {
     /**
      * @brief Summary of the interceptor
      *
-     * @param every_nth_iteration
+     * @param depth
      */
     virtual void logSummary(int depth) const = 0;
 
    protected:
-    std::shared_ptr<Simulation> simulation;
     size_t every_nth_iteration = 1;
 };

@@ -5,6 +5,7 @@
 #include "physics/pairwiseforces/LennardJonesForce.h"
 #include "physics/simpleforces/GlobalDownwardsGravity.h"
 #include "simulation/interceptors/particle_update_counter/ParticleUpdateCounterInterceptor.h"
+#include "simulation/interceptors/progress_bar/ProgressBarInterceptor.h"
 #include "simulation/interceptors/radial_distribution_function/RadialDistributionFunctionInterceptor.h"
 #include "simulation/interceptors/save_file/SaveFileInterceptor.h"
 #include "simulation/interceptors/thermostat/ThermostatInterceptor.h"
@@ -127,6 +128,8 @@ std::vector<std::shared_ptr<SimulationInterceptor>> XSDToInternalTypeAdapter::co
 
         simulation_interceptors.push_back(std::make_shared<SaveFileInterceptor>(output_format, fps, video_length));
     }
+
+    simulation_interceptors.push_back(std::make_shared<ProgressBarInterceptor>());
 
     return simulation_interceptors;
 }

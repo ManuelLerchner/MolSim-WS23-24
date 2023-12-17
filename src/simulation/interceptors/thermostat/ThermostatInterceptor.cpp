@@ -6,11 +6,13 @@ ThermostatInterceptor::ThermostatInterceptor(Thermostat& thermostat) : thermosta
     SimulationInterceptor::every_nth_iteration = thermostat.getApplicationInterval();
 }
 
-void ThermostatInterceptor::onSimulationStart() {}
+void ThermostatInterceptor::onSimulationStart(Simulation& simulation) {}
 
-void ThermostatInterceptor::operator()(size_t iteration) { thermostat.scaleTemperature(simulation->particle_container); }
+void ThermostatInterceptor::operator()(size_t iteration, Simulation& simulation) {
+    thermostat.scaleTemperature(simulation.particle_container);
+}
 
-void ThermostatInterceptor::onSimulationEnd(size_t iteration) {}
+void ThermostatInterceptor::onSimulationEnd(size_t iteration, Simulation& simulation) {}
 
 void ThermostatInterceptor::logSummary(int depth) const {
     std::string indent = std::string(depth * 2, ' ');

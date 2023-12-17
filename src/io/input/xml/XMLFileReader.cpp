@@ -211,9 +211,9 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::filesy
             result.logSummary(depth);
 
             // Write the checkpoint file
-            CheckPointWriter check_point_writer;
+            FileOutputHandler file_output_handler{OutputFormat::CHKPT, sub_config};
 
-            checkpoint_path = check_point_writer.writeFile(sub_config, result.total_iterations, result.resulting_particles);
+            checkpoint_path = file_output_handler.writeFile(result.total_iterations, result.resulting_particles);
 
             Logger::logger->info("Wrote {} particles to checkpoint file in: {}", result.resulting_particles.size(),
                                  (*checkpoint_path).string());

@@ -38,15 +38,6 @@ Simulation::Simulation(const std::vector<Particle>& initial_particles, const Sim
     for (auto& particle : initial_particles) {
         particle_container->addParticle(particle);
     }
-
-    // // Add interceptors to the simulation to allow for runtime monitoring
-    // if (!params.performance_test) {
-    //     params.interceptors.push_back(std::make_shared<ProgressBarInterceptor>(*this));
-    // }
-
-    for (auto& interceptor : params.interceptors) {
-        (*interceptor).attach(*this);
-    }
 }
 
 Simulation::~Simulation() = default;
@@ -64,7 +55,7 @@ SimulationOverview Simulation::runSimulation() {
 
     // Notify interceptors that the simulation is about to start
     for (auto& interceptor : params.interceptors) {
-        (*interceptor).onSimulationStart();
+        (*interceptor).onSimulationStart(*this);
     }
 
     auto t_start = std::chrono::high_resolution_clock::now();
@@ -77,7 +68,7 @@ SimulationOverview Simulation::runSimulation() {
 
         // Notify interceptors of the current iteration
         for (auto& interceptor : params.interceptors) {
-            (*interceptor).notify(iteration);
+            (*interceptor).notify(iteration, *this);
         }
     }
 
@@ -85,7 +76,7 @@ SimulationOverview Simulation::runSimulation() {
 
     // Notify interceptors that the simulation has ended
     for (auto& interceptor : params.interceptors) {
-        (*interceptor).onSimulationEnd(iteration);
+        (*interceptor).onSimulationEnd(iteration, *this);
     }
 
     Logger::logger->info("Simulation finished.");

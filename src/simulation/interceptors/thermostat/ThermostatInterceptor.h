@@ -13,24 +13,28 @@ class ThermostatInterceptor : public SimulationInterceptor {
 
     /**
      * @brief This function is empty as the thermostat doesnt need initialization
+     *
+     * @param simulation The simulation object
      */
-    void onSimulationStart() override;
+    void onSimulationStart(Simulation& simulation) override;
 
     /**
      * @brief This function is called on every nth iteration. It scales the
      * temperature of the particles in accordance with the thermostat.
      *
      * @param iteration The current iteration
+     * @param simulation The simulation object
      */
-    void operator()(size_t iteration) override;
+    void operator()(size_t iteration, Simulation& simulation) override;
 
     /**
      * @brief This function is empty as the thermostat doesnt need to do anything
      * at the end of the simulation
      *
      * @param iteration The current iteration
+     * @param simulation The simulation object
      */
-    void onSimulationEnd(size_t iteration) override;
+    void onSimulationEnd(size_t iteration, Simulation& simulation) override;
 
     /**
      * @brief The string representation of this interceptor
