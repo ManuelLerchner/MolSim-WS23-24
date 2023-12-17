@@ -4,6 +4,9 @@
 
 #include "cells/Cell.h"
 #include "io/logger/Logger.h"
+#include "particles/containers/linkedcells/boundaries/OutflowBoundaryType.h"
+#include "particles/containers/linkedcells/boundaries/PeriodicBoundaryType.h"
+#include "particles/containers/linkedcells/boundaries/ReflectiveBoundaryType.h"
 #include "physics/pairwiseforces/LennardJonesForce.h"
 #include "utils/ArrayUtils.h"
 
@@ -87,16 +90,11 @@ void LinkedCellsContainer::prepareForceCalculation() {
     // update the particle references in the cells in case the particles have moved
     updateCellsParticleReferences();
 
-    // move particles in the halo cells of periodic boundaries over to the other side of the domain
-    moveOverPeriodicBoundaries();
+    ReflectiveBoundaryType::pre(*this);
+    OutflowBoundaryType::pre(*this);
+    PeriodicBoundaryType::pre(*this);
 
     // update the particle references in the cells in case the particles have moved
-    updateCellsParticleReferences();
-
-    // remove all particles left in halo cells (they are in outflow boundaries)
-    deleteHaloParticles();
-
-    // update the particle references in the cells in case some particles have been removed
     updateCellsParticleReferences();
 }
 
@@ -110,10 +108,9 @@ void LinkedCellsContainer::applySimpleForces(const std::vector<std::shared_ptr<S
 
 void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr<PairwiseForceSource>>& force_sources) {
     // apply the boundary conditions
-    applyReflectiveBoundaryConditions();
-
-    // add the periodic halo particles
-    addPeriodicHaloParticles();
+    ReflectiveBoundaryType::applyBoundaryConditions(*this);
+    OutflowBoundaryType::applyBoundaryConditions(*this);
+    PeriodicBoundaryType::applyBoundaryConditions(*this);
 
     // clear the already influenced by vector in the cells
     // this is needed to prevent the two cells from affecting each other twice
@@ -356,302 +353,6 @@ void LinkedCellsContainer::deleteHaloParticles() {
     for (Cell* cell : halo_cell_references) {
         for (Particle* p : cell->getParticleReferences()) {
             particles.erase(std::find(particles.begin(), particles.end(), *p));
-        }
-    }
-}
-
-void LinkedCellsContainer::applyReflectiveBoundaryConditions() {
-    if (boundary_types[0] == BoundaryCondition::REFLECTIVE) {
-        for (Cell* cell : left_boundary_cell_references) {
-            for (Particle* p : cell->getParticleReferences()) {
-                double distance = p->getX()[0];
-                p->setF(p->getF() + calculateReflectiveBoundaryForce(*p, distance, BoundarySide::LEFT));
-            }
-        }
-    }
-
-    if (boundary_types[1] == BoundaryCondition::REFLECTIVE) {
-        for (Cell* cell : right_boundary_cell_references) {
-            for (Particle* p : cell->getParticleReferences()) {
-                double distance = domain_size[0] - p->getX()[0];
-                p->setF(p->getF() + calculateReflectiveBoundaryForce(*p, distance, BoundarySide::RIGHT));
-            }
-        }
-    }
-
-    if (boundary_types[2] == BoundaryCondition::REFLECTIVE) {
-        for (Cell* cell : bottom_boundary_cell_references) {
-            for (Particle* p : cell->getParticleReferences()) {
-                double distance = p->getX()[1];
-                p->setF(p->getF() + calculateReflectiveBoundaryForce(*p, distance, BoundarySide::BOTTOM));
-            }
-        }
-    }
-
-    if (boundary_types[3] == BoundaryCondition::REFLECTIVE) {
-        for (Cell* cell : top_boundary_cell_references) {
-            for (Particle* p : cell->getParticleReferences()) {
-                double distance = domain_size[1] - p->getX()[1];
-                p->setF(p->getF() + calculateReflectiveBoundaryForce(*p, distance, BoundarySide::TOP));
-            }
-        }
-    }
-
-    if (boundary_types[4] == BoundaryCondition::REFLECTIVE) {
-        for (Cell* cell : back_boundary_cell_references) {
-            for (Particle* p : cell->getParticleReferences()) {
-                double distance = p->getX()[2];
-                p->setF(p->getF() + calculateReflectiveBoundaryForce(*p, distance, BoundarySide::BACK));
-            }
-        }
-    }
-
-    if (boundary_types[5] == BoundaryCondition::REFLECTIVE) {
-        for (Cell* cell : front_boundary_cell_references) {
-            for (Particle* p : cell->getParticleReferences()) {
-                double distance = domain_size[2] - p->getX()[2];
-                p->setF(p->getF() + calculateReflectiveBoundaryForce(*p, distance, BoundarySide::FRONT));
-            }
-        }
-    }
-}
-
-std::array<double, 3> LinkedCellsContainer::calculateReflectiveBoundaryForce(Particle& p, double distance, BoundarySide side) {
-    LennardJonesForce force = LennardJonesForce();
-
-    if (2 * distance >= std::pow(2, 1.0 / 6) * p.getSigma()) {
-        return {0, 0, 0};
-    }
-
-    Particle ghost_particle = Particle(p);
-    ghost_particle.setX(p.getX() - std::array<double, 3>{2 * distance, 0, 0});
-
-    auto force_vector_left_side = force.calculateForce(p, ghost_particle);
-
-    switch (side) {
-        case BoundarySide::LEFT:
-            return force_vector_left_side;
-        case BoundarySide::RIGHT:
-            return {-force_vector_left_side[0], 0, 0};
-        case BoundarySide::BOTTOM:
-            return {0, force_vector_left_side[0], 0};
-        case BoundarySide::TOP:
-            return {0, -force_vector_left_side[0], 0};
-        case BoundarySide::BACK:
-            return {0, 0, force_vector_left_side[0]};
-        case BoundarySide::FRONT:
-            return {0, 0, -force_vector_left_side[0]};
-    }
-
-    Logger::logger->error("Faulty reflective boundary condition");
-    return {0, 0, 0};
-}
-
-void LinkedCellsContainer::addPeriodicHaloParticles() {
-    // Add Halo Particles for each side of the domain
-    if (boundary_types[0] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForSide(left_boundary_cell_references, {domain_size[0], 0, 0});
-    }
-
-    if (boundary_types[1] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForSide(right_boundary_cell_references, {-domain_size[0], 0, 0});
-    }
-
-    if (boundary_types[2] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForSide(bottom_boundary_cell_references, {0, domain_size[1], 0});
-    }
-
-    if (boundary_types[3] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForSide(top_boundary_cell_references, {0, -domain_size[1], 0});
-    }
-
-    if (boundary_types[4] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForSide(back_boundary_cell_references, {0, 0, domain_size[2]});
-    }
-
-    if (boundary_types[5] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForSide(front_boundary_cell_references, {0, 0, -domain_size[2]});
-    }
-
-    // Add Halo Particles for each edge of the domain
-    if (boundary_types[0] == BoundaryCondition::PERIODIC && boundary_types[2] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForEdge(2, {domain_size[0], domain_size[1], 0});
-    }
-
-    if (boundary_types[0] == BoundaryCondition::PERIODIC && boundary_types[3] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForEdge(2, {domain_size[0], -domain_size[1], 0});
-    }
-
-    if (boundary_types[1] == BoundaryCondition::PERIODIC && boundary_types[2] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForEdge(2, {-domain_size[0], domain_size[1], 0});
-    }
-
-    if (boundary_types[1] == BoundaryCondition::PERIODIC && boundary_types[3] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForEdge(2, {-domain_size[0], -domain_size[1], 0});
-    }
-
-    if (boundary_types[0] == BoundaryCondition::PERIODIC && boundary_types[4] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForEdge(1, {domain_size[0], 0, domain_size[2]});
-    }
-
-    if (boundary_types[0] == BoundaryCondition::PERIODIC && boundary_types[5] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForEdge(1, {domain_size[0], 0, -domain_size[2]});
-    }
-
-    if (boundary_types[1] == BoundaryCondition::PERIODIC && boundary_types[4] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForEdge(1, {-domain_size[0], 0, domain_size[2]});
-    }
-
-    if (boundary_types[1] == BoundaryCondition::PERIODIC && boundary_types[5] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForEdge(1, {-domain_size[0], 0, -domain_size[2]});
-    }
-
-    if (boundary_types[2] == BoundaryCondition::PERIODIC && boundary_types[4] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForEdge(0, {0, domain_size[1], domain_size[2]});
-    }
-
-    if (boundary_types[2] == BoundaryCondition::PERIODIC && boundary_types[5] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForEdge(0, {0, domain_size[1], -domain_size[2]});
-    }
-
-    if (boundary_types[3] == BoundaryCondition::PERIODIC && boundary_types[4] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForEdge(0, {0, -domain_size[1], domain_size[2]});
-    }
-
-    if (boundary_types[3] == BoundaryCondition::PERIODIC && boundary_types[5] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForEdge(0, {0, -domain_size[1], -domain_size[2]});
-    }
-
-    // Add Halo Particles for each corner of the domain
-    if (boundary_types[0] == BoundaryCondition::PERIODIC && boundary_types[2] == BoundaryCondition::PERIODIC &&
-        boundary_types[4] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForCorner({domain_size[0], domain_size[1], domain_size[2]});
-    }
-
-    if (boundary_types[0] == BoundaryCondition::PERIODIC && boundary_types[2] == BoundaryCondition::PERIODIC &&
-        boundary_types[5] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForCorner({domain_size[0], domain_size[1], -domain_size[2]});
-    }
-
-    if (boundary_types[0] == BoundaryCondition::PERIODIC && boundary_types[3] == BoundaryCondition::PERIODIC &&
-        boundary_types[4] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForCorner({domain_size[0], -domain_size[1], domain_size[2]});
-    }
-
-    if (boundary_types[0] == BoundaryCondition::PERIODIC && boundary_types[3] == BoundaryCondition::PERIODIC &&
-        boundary_types[5] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForCorner({domain_size[0], -domain_size[1], -domain_size[2]});
-    }
-
-    if (boundary_types[1] == BoundaryCondition::PERIODIC && boundary_types[2] == BoundaryCondition::PERIODIC &&
-        boundary_types[4] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForCorner({-domain_size[0], domain_size[1], domain_size[2]});
-    }
-
-    if (boundary_types[1] == BoundaryCondition::PERIODIC && boundary_types[2] == BoundaryCondition::PERIODIC &&
-        boundary_types[5] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForCorner({-domain_size[0], domain_size[1], -domain_size[2]});
-    }
-
-    if (boundary_types[1] == BoundaryCondition::PERIODIC && boundary_types[3] == BoundaryCondition::PERIODIC &&
-        boundary_types[4] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForCorner({-domain_size[0], -domain_size[1], domain_size[2]});
-    }
-
-    if (boundary_types[1] == BoundaryCondition::PERIODIC && boundary_types[3] == BoundaryCondition::PERIODIC &&
-        boundary_types[5] == BoundaryCondition::PERIODIC) {
-        addPeriodicHaloParticlesForCorner({-domain_size[0], -domain_size[1], -domain_size[2]});
-    }
-}
-
-void LinkedCellsContainer::addPeriodicHaloParticlesForSide(const std::vector<Cell*>& side_cell_references,
-                                                           const std::array<double, 3>& offset) {
-    for (Cell* cell : side_cell_references) {
-        for (Particle* p : cell->getParticleReferences()) {
-            Particle ghost_particle = Particle(*p);
-            ghost_particle.setX(p->getX() + offset);
-            addParticle(ghost_particle);
-        }
-    }
-}
-
-void LinkedCellsContainer::addPeriodicHaloParticlesForEdge(int free_dimension, const std::array<double, 3>& offset) {
-    std::array<int, 3> running_array{0, 0, 0};
-    running_array[0] = (offset[0] < 0) ? domain_num_cells[0] - 1 : 0;
-    running_array[1] = (offset[1] < 0) ? domain_num_cells[1] - 1 : 0;
-    running_array[2] = (offset[2] < 0) ? domain_num_cells[2] - 1 : 0;
-
-    for (int c = 0; c < domain_num_cells[2]; ++c) {
-        Cell* cell = &cells.at(cellCoordToCellIndex(running_array[0], running_array[1], running_array[2]));
-        for (Particle* p : cell->getParticleReferences()) {
-            Particle ghost_particle = Particle(*p);
-            ghost_particle.setX(p->getX() + offset);
-            addParticle(ghost_particle);
-        }
-        running_array[free_dimension] += 1;
-    }
-}
-
-void LinkedCellsContainer::addPeriodicHaloParticlesForCorner(const std::array<double, 3>& offset) {
-    std::array<int, 3> cell_coords{0, 0, 0};
-    cell_coords[0] = (offset[0] < 0) ? domain_num_cells[0] - 1 : 0;
-    cell_coords[1] = (offset[1] < 0) ? domain_num_cells[1] - 1 : 0;
-    cell_coords[2] = (offset[2] < 0) ? domain_num_cells[2] - 1 : 0;
-
-    Cell* cell = &cells.at(cellCoordToCellIndex(cell_coords[0], cell_coords[1], cell_coords[2]));
-    for (Particle* p : cell->getParticleReferences()) {
-        Particle ghost_particle = Particle(*p);
-        ghost_particle.setX(p->getX() + offset);
-        addParticle(ghost_particle);
-    }
-}
-
-void LinkedCellsContainer::moveOverPeriodicBoundaries() {
-    if (boundary_types[0] == BoundaryCondition::PERIODIC) {
-        for (Cell* cell : left_halo_cell_references) {
-            for (Particle* p : cell->getParticleReferences()) {
-                p->setX(p->getX() + std::array<double, 3>{domain_size[0], 0, 0});
-            }
-        }
-    }
-
-    if (boundary_types[1] == BoundaryCondition::PERIODIC) {
-        for (Cell* cell : right_halo_cell_references) {
-            for (Particle* p : cell->getParticleReferences()) {
-                p->setX(p->getX() + std::array<double, 3>{-domain_size[0], 0, 0});
-            }
-        }
-    }
-
-    if (boundary_types[2] == BoundaryCondition::PERIODIC) {
-        for (Cell* cell : bottom_halo_cell_references) {
-            for (Particle* p : cell->getParticleReferences()) {
-                p->setX(p->getX() + std::array<double, 3>{0, domain_size[1], 0});
-            }
-        }
-    }
-
-    if (boundary_types[3] == BoundaryCondition::PERIODIC) {
-        for (Cell* cell : top_halo_cell_references) {
-            for (Particle* p : cell->getParticleReferences()) {
-                p->setX(p->getX() + std::array<double, 3>{0, -domain_size[1], 0});
-            }
-        }
-    }
-
-    if (boundary_types[4] == BoundaryCondition::PERIODIC) {
-        for (Cell* cell : back_halo_cell_references) {
-            for (Particle* p : cell->getParticleReferences()) {
-                p->setX(p->getX() + std::array<double, 3>{0, 0, domain_size[2]});
-            }
-        }
-    }
-
-    if (boundary_types[5] == BoundaryCondition::PERIODIC) {
-        for (Cell* cell : front_halo_cell_references) {
-            for (Particle* p : cell->getParticleReferences()) {
-                p->setX(p->getX() + std::array<double, 3>{0, 0, -domain_size[2]});
-            }
         }
     }
 }
