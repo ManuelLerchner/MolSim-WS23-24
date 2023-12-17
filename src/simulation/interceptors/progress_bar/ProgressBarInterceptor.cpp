@@ -1,7 +1,7 @@
 #include "ProgressBarInterceptor.h"
 
 #include <filesystem>
-#include <format>
+#include <spdlog/fmt/fmt.h>
 #include <iostream>
 
 #include "io/logger/Logger.h"
