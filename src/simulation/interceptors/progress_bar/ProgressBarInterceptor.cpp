@@ -1,6 +1,6 @@
 #include "ProgressBarInterceptor.h"
 
-#include <spdlog/fmt/fmt.h>
+#include <spdlog/fmt/chrono.h>
 
 #include <filesystem>
 #include <iostream>
@@ -29,7 +29,8 @@ void ProgressBarInterceptor::onSimulationStart() {
     t_start = std::chrono::high_resolution_clock::now();
     t_prev = t_start;
 
-    Logger::logger->info("Start time: {}", std::format("{:%A %Y-%m-%d %H:%M:%S}", t_start));
+    std::time_t t_start_helper = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    Logger::logger->info("Start time: {}", fmt::format("{:%A %Y-%m-%d %H:%M:%S}", fmt::localtime(t_start_helper)));
     Logger::logger->flush();
 
     printProgress(simulation.params.input_file_path, 0, 0, expected_iterations, -1);
@@ -54,9 +55,8 @@ void ProgressBarInterceptor::operator()(size_t iteration) {
 void ProgressBarInterceptor::onSimulationEnd(size_t iteration) {
     printProgress(simulation.params.input_file_path, 100, expected_iterations, expected_iterations, 0, true);
 
-    t_end = std::chrono::high_resolution_clock::now();
-
-    Logger::logger->info("End time: {}", std::format("{:%A %Y-%m-%d %H:%M:%S}", t_end));
+    std::time_t t_end = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    Logger::logger->info("End time: {}", fmt::format("{:%A %Y-%m-%d %H:%M:%S}", fmt::localtime(t_end)));
 }
 
 ProgressBarInterceptor::operator std::string() const { return "ProgressBarInterceptor"; }
