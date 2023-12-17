@@ -40,7 +40,7 @@ void Thermostat::scaleTemperature(const std::unique_ptr<ParticleContainer>& part
 void Thermostat::setTemperature(double new_temperature, const std::unique_ptr<ParticleContainer>& particle_container) {
     if (dimensions < 2 || dimensions > 3) {
         Logger::logger->error("Invalid number of dimensions: {}. Must be 2 or 3.", dimensions);
-        exit(-1);
+        throw std::runtime_error("Invalid number of dimensions");
     }
 
     for (auto it = particle_container->begin(); it != particle_container->end(); ++it) {
@@ -51,7 +51,7 @@ void Thermostat::setTemperature(double new_temperature, const std::unique_ptr<Pa
 void Thermostat::setParticleTemperature(double new_temperature, Particle& particle, size_t dimensions) {
     if (dimensions < 2 || dimensions > 3) {
         Logger::logger->error("Invalid number of dimensions: {}. Must be 2 or 3.", dimensions);
-        exit(-1);
+        throw std::runtime_error("Invalid number of dimensions");
     }
 
     particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(std::sqrt(new_temperature / particle.getM()), dimensions));

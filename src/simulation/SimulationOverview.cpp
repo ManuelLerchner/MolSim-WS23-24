@@ -12,8 +12,6 @@ void SimulationOverview::logSummary(int depth) const {
     Logger::logger->info("{}║  Output directory: {}", indent, params.output_dir_path.string());
     Logger::logger->info("{}║  Simulation time: {}", indent, format_seconds_total(total_time_seconds));
     Logger::logger->info("{}║  Number of iterations: {}", indent, total_iterations);
-    Logger::logger->info("{}║  Particle Updates per Second: {:.0f}/s", indent, particle_updates_per_second);
-    Logger::logger->info("{}║  Number of files written: {}", indent, files_written);
     Logger::logger->info("{}║  Number of particles left: {}", indent, resulting_particles.size());
     Logger::logger->info("{}║  Interceptor Logs:", indent);
     for (auto& interceptor_summary : interceptor_summaries) {

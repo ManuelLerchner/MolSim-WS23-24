@@ -9,19 +9,7 @@
 #include "io/output/OutputFormats.h"
 #include "physics/ForcePicker.h"
 #include "physics/simpleforces/GlobalDownwardsGravity.h"
-
-auto splitString(const std::string& sv, const std::string& sep) {
-    std::vector<std::string> parts;
-    std::size_t start = 0;
-    std::size_t end = sv.find(sep);
-    while (end != std::string::npos) {
-        parts.push_back(sv.substr(start, end - start));
-        start = end + sep.length();
-        end = sv.find(sep, start);
-    }
-    parts.push_back(sv.substr(start, end - start));
-    return parts;
-}
+#include "utils/StringUtils.h"
 
 std::filesystem::path constructOutputPath(const std::filesystem::path& base_path, const std::string& name) {
     auto base = base_path;
@@ -43,7 +31,7 @@ auto convertToOutputFormat(const std::string& output_format) {
         }
 
         Logger::logger->error("Invalid output format given: {}. Supported output formats are: {}", output_format, supported_formats);
-        exit(-1);
+        throw std::runtime_error("Invalid output format given");
     }
 
     return supported[output_format];
@@ -59,7 +47,7 @@ std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::sha
 
     for (auto& force_s : force_strings) {
         // Split force string at spaces: Arg[0] is the force name, all others are parameters (if present)
-        auto force_args = splitString(force_s, " ");
+        auto force_args = split(force_s, " ");
 
         auto simple_force_it = std::find_if(supported_simple_forces.begin(), supported_simple_forces.end(),
                                             [&force_args](const auto& force) { return force.first == force_args[0]; });
@@ -68,7 +56,7 @@ std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::sha
             if (typeid(simple_force_it->second) == typeid(GlobalDownwardsGravity)) {
                 if (force_args.size() != 2) {
                     Logger::logger->error("Invalid force given: {}. GlobalDownwardsGravity needs one parameter: g", force_s);
-                    exit(-1);
+                    throw std::runtime_error("Invalid force given");
                 }
                 auto g = std::stod(force_args[1]);
                 dynamic_cast<GlobalDownwardsGravity&>(*simple_force_it->second).setGravitationalAcceleration(g);
@@ -94,7 +82,7 @@ std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::sha
             supported_force_names += name + ", ";
         }
         Logger::logger->error("Invalid force given: {}. Supported pairwise forces are: {}", force_s, supported_force_names);
-        exit(-1);
+        throw std::runtime_error("Invalid force given");
     }
 
     return {simple_forces, pairwise_forces};
@@ -119,19 +107,19 @@ SimulationParams::SimulationParams(const std::filesystem::path& input_file_path,
       fresh(fresh) {
     if (fps < 0) {
         Logger::logger->error("FPS must be positive");
-        exit(-1);
+        throw std::runtime_error("FPS must be positive");
     }
     if (video_length < 0) {
         Logger::logger->error("Video length must be positive");
-        exit(-1);
+        throw std::runtime_error("Video length must be positive");
     }
     if (end_time < 0) {
         Logger::logger->error("End time must be positive");
-        exit(-1);
+        throw std::runtime_error("End time must be positive");
     }
     if (delta_t < 0) {
         Logger::logger->error("Delta t must be positive");
-        exit(-1);
+        throw std::runtime_error("Delta t must be positive");
     }
 
     this->output_format = convertToOutputFormat(output_format);
@@ -200,7 +188,7 @@ void SimulationParams::logSummary(int depth) const {
         Logger::logger->info("{}║  Direct Sum", indent);
     } else {
         Logger::logger->error("Invalid container type");
-        exit(-1);
+        throw std::runtime_error("Invalid container type");
     }
 
     Logger::logger->info("{}╟┤{}Thermostat: {}", indent, ansi_yellow_bold, ansi_end);

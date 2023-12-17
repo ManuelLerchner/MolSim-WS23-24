@@ -38,5 +38,6 @@ class ProgressBarInterceptor : public SimulationInterceptor {
    private:
     size_t expected_iterations;
     std::chrono::high_resolution_clock::time_point t_start;
+    std::chrono::high_resolution_clock::time_point t_end;
     std::chrono::high_resolution_clock::time_point t_prev;
 };

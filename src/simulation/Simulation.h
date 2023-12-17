@@ -1,5 +1,6 @@
 #pragma once
 
+#include <map>
 #include <memory>
 #include <vector>
 
@@ -53,9 +54,9 @@ class Simulation {
      */
     std::unique_ptr<IntegrationFunctor> integration_functor;
 
-    static void savePerformanceTest(const SimulationOverview& overview, const SimulationParams& params, size_t num_particles);
+    static void savePerformanceTest(const SimulationOverview& overview, const SimulationParams& params);
 
-    std::vector<std::unique_ptr<SimulationInterceptor>> interceptors;
+    std::map<std::string, std::unique_ptr<SimulationInterceptor>> interceptors;
 
     /**
      * Befriend the interceptors to allow them to access the private members of this class
@@ -63,4 +64,5 @@ class Simulation {
     friend class ProgressBarInterceptor;
     friend class SaveFileInterceptor;
     friend class ThermostatInterceptor;
+    friend class ParticleUpdateCounterInterceptor;
 };

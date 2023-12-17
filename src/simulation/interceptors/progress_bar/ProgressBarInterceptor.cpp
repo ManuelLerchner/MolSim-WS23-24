@@ -1,6 +1,7 @@
 #include "ProgressBarInterceptor.h"
 
 #include <filesystem>
+#include <format>
 #include <iostream>
 
 #include "io/logger/Logger.h"
@@ -27,6 +28,9 @@ void ProgressBarInterceptor::onSimulationStart() {
     t_start = std::chrono::high_resolution_clock::now();
     t_prev = t_start;
 
+    Logger::logger->info("Start time: {}", std::format("{:%A %Y-%m-%d %H:%M:%S}", t_start));
+    Logger::logger->flush();
+
     printProgress(simulation.params.input_file_path, 0, 0, expected_iterations, -1);
 }
 
@@ -47,6 +51,10 @@ void ProgressBarInterceptor::operator()(int iteration) {
 
 void ProgressBarInterceptor::onSimulationEnd(int iteration) {
     printProgress(simulation.params.input_file_path, 100, expected_iterations, expected_iterations, 0, true);
+
+    t_end = std::chrono::high_resolution_clock::now();
+
+    Logger::logger->info("End time: {}", std::format("{:%A %Y-%m-%d %H:%M:%S}", t_end));
 }
 
 ProgressBarInterceptor::operator std::string() const { return "ProgressBarInterceptor"; }

@@ -10,5 +10,5 @@ const std::unique_ptr<IntegrationFunctor> get_integration_functor(IntegrationMet
     }
 
     Logger::logger->error("Unknown integration method");
-    exit(-1);
+    throw std::runtime_error("Unknown integration method");
 }

@@ -54,7 +54,7 @@ void loadCheckpointFile(std::vector<Particle>& particles, const std::filesystem:
     std::string file_extension = path.extension().string();
     if (file_extension != ".chkpt") {
         Logger::logger->error("Error: file extension '{}' is not supported. Only .chkpt files can be used as checkpoints.", file_extension);
-        exit(-1);
+        throw FileReader::FileFormatException("File extension is not supported");
     }
 
     ChkptPointFileReader reader;
@@ -99,7 +99,7 @@ auto loadConfig(const SubSimulationType& sub_simulation, const std::filesystem::
     if (file_extension != ".xml") {
         Logger::logger->error("Error: file extension '{}' is not supported. Only .xml files can be used as sub simulations.",
                               file_extension);
-        exit(-1);
+        throw FileReader::FileFormatException("File extension is not supported");
     }
 
     auto config = configuration(other_file_name);

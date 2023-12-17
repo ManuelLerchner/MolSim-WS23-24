@@ -19,27 +19,27 @@ CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawn
 
     if (grid_dimensions[0] <= 0 || grid_dimensions[1] <= 0 || grid_dimensions[2] <= 0) {
         Logger::logger->error("Cuboid grid dimensions must be positive");
-        exit(-1);
+        throw std::runtime_error("Cuboid grid dimensions must be positive");
     }
 
     if (!third_dimension && grid_dimensions[2] > 1) {
         Logger::logger->error("Cuboid grid dimensions must be 1 in z direction if third dimension is disabled");
-        exit(-1);
+        throw std::runtime_error("Cuboid grid dimensions must be 1 in z direction if third dimension is disabled");
     }
 
     if (grid_spacing <= 0) {
         Logger::logger->error("Cuboid grid spacing must be positive");
-        exit(-1);
+        throw std::runtime_error("Cuboid grid spacing must be positive");
     }
 
     if (mass <= 0) {
         Logger::logger->error("Cuboid mass must be positive");
-        exit(-1);
+        throw std::runtime_error("Cuboid mass must be positive");
     }
 
     if (temperature < 0) {
         Logger::logger->error("Cuboid temperature must be positive");
-        exit(-1);
+        throw std::runtime_error("Cuboid temperature must be positive");
     }
 
     return CuboidSpawner{
@@ -61,22 +61,22 @@ SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const SphereSpawn
 
     if (radius <= 0) {
         Logger::logger->error("Sphere radius must be positive");
-        exit(-1);
+        throw std::runtime_error("Sphere radius must be positive");
     }
 
     if (grid_spacing <= 0) {
         Logger::logger->error("Sphere grid spacing must be positive");
-        exit(-1);
+        throw std::runtime_error("Sphere grid spacing must be positive");
     }
 
     if (mass <= 0) {
         Logger::logger->error("Sphere mass must be positive");
-        exit(-1);
+        throw std::runtime_error("Sphere mass must be positive");
     }
 
     if (temperature < 0) {
         Logger::logger->error("Sphere temperature must be positive");
-        exit(-1);
+        throw std::runtime_error("Sphere temperature must be positive");
     }
 
     return SphereSpawner{center, static_cast<int>(radius), grid_spacing, mass, initial_velocity, static_cast<int>(type), epsilon,
@@ -112,7 +112,7 @@ std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType>
         container = SimulationParams::DirectSumType();
     } else {
         Logger::logger->error("Container type not implemented");
-        exit(-1);
+        throw std::runtime_error("Container type not implemented");
     }
 
     return container;
@@ -142,7 +142,7 @@ LinkedCellsContainer::BoundaryCondition XSDToInternalTypeAdapter::convertToBound
             return LinkedCellsContainer::BoundaryCondition::PERIODIC;
         default:
             Logger::logger->error("Boundary condition not implemented");
-            exit(-1);
+            throw std::runtime_error("Boundary condition not implemented");
     }
 }
 
@@ -153,21 +153,21 @@ Thermostat XSDToInternalTypeAdapter::convertToThermostat(const ThermostatType& t
 
     if (target_temperature < 0) {
         Logger::logger->error("Target temperature must be positive");
-        exit(-1);
+        throw std::runtime_error("Target temperature must be positive");
     }
 
     double max_temperature_change_value = std::numeric_limits<double>::infinity();
     if (max_temperature_change.present()) {
         if (*max_temperature_change < 0) {
             Logger::logger->error("Max temperature change must be an absolute value (positive)");
-            exit(-1);
+            throw std::runtime_error("Max temperature change must be an absolute value (positive)");
         }
         max_temperature_change_value = *max_temperature_change;
     }
 
     if (application_interval <= 0) {
         Logger::logger->error("Application interval must be a positive integer > 0");
-        exit(-1);
+        throw std::runtime_error("Application interval must be a positive integer > 0");
     }
 
     return Thermostat{target_temperature, max_temperature_change_value, static_cast<size_t>(application_interval), third_dimension};
@@ -183,7 +183,7 @@ Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particl
 
     if (mass <= 0) {
         Logger::logger->error("Particle mass must be positive");
-        exit(-1);
+        throw std::runtime_error("Particle mass must be positive");
     }
 
     return Particle{position, velocity, force, old_force, mass, static_cast<int>(type)};
