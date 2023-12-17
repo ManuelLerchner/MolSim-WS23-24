@@ -6,8 +6,8 @@ ThermostatInterceptor::ThermostatInterceptor(Simulation& simulation) : Simulatio
 
 void ThermostatInterceptor::onSimulationStart() {}
 
-void ThermostatInterceptor::operator()(int iteration) { simulation.params.thermostat->scaleTemperature(simulation.particle_container); }
+void ThermostatInterceptor::operator()(size_t iteration) { simulation.params.thermostat->scaleTemperature(simulation.particle_container); }
 
-void ThermostatInterceptor::onSimulationEnd(int iteration) {}
+void ThermostatInterceptor::onSimulationEnd(size_t iteration) {}
 
 ThermostatInterceptor::operator std::string() const { return "ThermostatInterceptor"; }

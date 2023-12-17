@@ -9,7 +9,7 @@ class SimulationInterceptor {
     /**
      * @brief Construct a new Simulation Interceptor object
      */
-    SimulationInterceptor(Simulation& simulation) : simulation(simulation) {}
+    explicit SimulationInterceptor(Simulation& simulation) : simulation(simulation) {}
 
     virtual ~SimulationInterceptor() = default;
 
@@ -24,14 +24,14 @@ class SimulationInterceptor {
      *
      * @param iteration The current iteration
      */
-    virtual void operator()(int iteration) = 0;
+    virtual void operator()(size_t iteration) = 0;
 
     /**
      * @brief Called after the simulation loop ends
      *
      * @param iteration The current iteration
      */
-    virtual void onSimulationEnd(int iteration) = 0;
+    virtual void onSimulationEnd(size_t iteration) = 0;
 
     /**
      * @brief This function is called by the simulation loop on every iteration.
@@ -41,7 +41,7 @@ class SimulationInterceptor {
      * @param iteration The current iteration
      * @see operator()
      */
-    void notify(int iteration) {
+    void notify(size_t iteration) {
         if (iteration % every_nth_iteration == 0) {
             (*this)(iteration);
         }
@@ -55,9 +55,9 @@ class SimulationInterceptor {
      * This is used to write the final summary of the Interceptors to the
      * console.
      */
-    virtual operator std::string() const = 0;
+    virtual explicit operator std::string() const = 0;
 
    protected:
     const Simulation& simulation;
-    int every_nth_iteration = 1;
+    size_t every_nth_iteration = 1;
 };

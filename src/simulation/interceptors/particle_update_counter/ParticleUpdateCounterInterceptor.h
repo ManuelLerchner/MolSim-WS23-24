@@ -8,13 +8,13 @@ class ParticleUpdateCounterInterceptor : public SimulationInterceptor {
     /**
      * @brief Construct a new Thermostat Interceptor object
      */
-    ParticleUpdateCounterInterceptor(Simulation& simulation);
+    explicit ParticleUpdateCounterInterceptor(Simulation& simulation);
 
     /**
      * @brief This function is sets the particle_updates to 0 and initializes
      * the start time of the simulation
      */
-    void onSimulationStart();
+    void onSimulationStart() override;
 
     /**
      * @brief This function is called on every nth iteration. It counts the
@@ -22,7 +22,7 @@ class ParticleUpdateCounterInterceptor : public SimulationInterceptor {
      *
      * @param iteration The current iteration
      */
-    void operator()(int iteration);
+    void operator()(size_t iteration) override;
 
     /**
      * @brief This function is empty as the thermostat doesnt need to do anything
@@ -30,7 +30,7 @@ class ParticleUpdateCounterInterceptor : public SimulationInterceptor {
      *
      * @param iteration The current iteration
      */
-    void onSimulationEnd(int iteration);
+    void onSimulationEnd(size_t iteration) override;
 
     /**
      * @brief The string representation of this interceptor
@@ -40,26 +40,26 @@ class ParticleUpdateCounterInterceptor : public SimulationInterceptor {
      * This is used to write the final summary of the Interceptors to the
      * console.
      */
-    operator std::string() const;
+    explicit operator std::string() const override;
 
     /**
      * @brief Get the particle updates per second
      *
      * @return double
      */
-    double getParticleUpdatesPerSecond() const;
+    [[nodiscard]] double getParticleUpdatesPerSecond() const;
 
     /**
      * @brief Get the duration of the simulation
      *
      * @return std::chrono::milliseconds::rep of the duration
      */
-    std::chrono::milliseconds::rep getSimulationDurationMS() const;
+    [[nodiscard]] std::chrono::milliseconds::rep getSimulationDurationMS() const;
 
    private:
     size_t particle_updates = 0;
     std::chrono::high_resolution_clock::time_point t_start;
     std::chrono::high_resolution_clock::time_point t_end;
-    std::chrono::milliseconds::rep t_diff;
-    double particle_updates_per_second;
+    std::chrono::milliseconds::rep t_diff{};
+    double particle_updates_per_second{};
 };

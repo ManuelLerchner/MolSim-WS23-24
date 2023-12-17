@@ -9,12 +9,12 @@ class SaveFileInterceptor : public SimulationInterceptor {
     /**
      * @brief Construct a new Save File Interceptor object
      */
-    SaveFileInterceptor(Simulation& simulation);
+    explicit SaveFileInterceptor(Simulation& simulation);
 
     /**
      * @brief This function saves the initial state of the simulation
      */
-    void onSimulationStart();
+    void onSimulationStart() override;
 
     /**
      * @brief This function is called on every nth iteration. It writes the current
@@ -22,14 +22,14 @@ class SaveFileInterceptor : public SimulationInterceptor {
      *
      * @param iteration The current iteration
      */
-    void operator()(int iteration);
+    void operator()(size_t iteration) override;
 
     /**
      * @brief This function saves the final state of the simulation
      *
      * @param iteration The current iteration
      */
-    void onSimulationEnd(int iteration);
+    void onSimulationEnd(size_t iteration) override;
 
     /**
      * @brief The string representation of this interceptor
@@ -39,7 +39,7 @@ class SaveFileInterceptor : public SimulationInterceptor {
      * This is used to write the final summary of the Interceptors to the
      * console.
      */
-    operator std::string() const;
+    explicit operator std::string() const override;
 
    private:
     size_t file_counter = 0;

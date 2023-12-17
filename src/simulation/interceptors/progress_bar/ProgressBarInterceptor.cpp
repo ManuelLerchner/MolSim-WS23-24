@@ -19,7 +19,7 @@ void printProgress(const std::filesystem::path& input_file_path, size_t percenta
 }
 
 ProgressBarInterceptor::ProgressBarInterceptor(Simulation& simulation) : SimulationInterceptor(simulation) {
-    expected_iterations = std::floor(simulation.params.end_time / simulation.params.delta_t);
+    expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t) + 1);
 
     SimulationInterceptor::every_nth_iteration = std::max(1, static_cast<int>(expected_iterations / 100));
 }
@@ -34,7 +34,7 @@ void ProgressBarInterceptor::onSimulationStart() {
     printProgress(simulation.params.input_file_path, 0, 0, expected_iterations, -1);
 }
 
-void ProgressBarInterceptor::operator()(int iteration) {
+void ProgressBarInterceptor::operator()(size_t iteration) {
     // calculate time since last write
     auto t_now = std::chrono::high_resolution_clock::now();
     const double seconds_since_last_write = std::chrono::duration<double>(t_now - t_prev).count();
@@ -44,12 +44,13 @@ void ProgressBarInterceptor::operator()(int iteration) {
     const int estimated_remaining_seconds = std::floor(seconds_since_last_write * static_cast<double>(expected_iterations - iteration) /
                                                        static_cast<double>(every_nth_iteration));
 
-    const size_t percentage = 100 * iteration / expected_iterations;
+    const size_t percentage =
+        std::min(100ul, static_cast<size_t>(100.0 * static_cast<double>(iteration) / static_cast<double>(expected_iterations)));
 
     printProgress(simulation.params.input_file_path, percentage, iteration, expected_iterations, estimated_remaining_seconds);
 }
 
-void ProgressBarInterceptor::onSimulationEnd(int iteration) {
+void ProgressBarInterceptor::onSimulationEnd(size_t iteration) {
     printProgress(simulation.params.input_file_path, 100, expected_iterations, expected_iterations, 0, true);
 
     t_end = std::chrono::high_resolution_clock::now();

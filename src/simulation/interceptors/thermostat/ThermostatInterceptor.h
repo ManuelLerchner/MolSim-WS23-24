@@ -8,12 +8,12 @@ class ThermostatInterceptor : public SimulationInterceptor {
     /**
      * @brief Construct a new Thermostat Interceptor object
      */
-    ThermostatInterceptor(Simulation& simulation);
+    explicit ThermostatInterceptor(Simulation& simulation);
 
     /**
      * @brief This function is empty as the thermostat doesnt need initialization
      */
-    void onSimulationStart();
+    void onSimulationStart() override;
 
     /**
      * @brief This function is called on every nth iteration. It scales the
@@ -21,7 +21,7 @@ class ThermostatInterceptor : public SimulationInterceptor {
      *
      * @param iteration The current iteration
      */
-    void operator()(int iteration);
+    void operator()(size_t iteration) override;
 
     /**
      * @brief This function is empty as the thermostat doesnt need to do anything
@@ -29,7 +29,7 @@ class ThermostatInterceptor : public SimulationInterceptor {
      *
      * @param iteration The current iteration
      */
-    void onSimulationEnd(int iteration);
+    void onSimulationEnd(size_t iteration) override;
 
     /**
      * @brief The string representation of this interceptor
@@ -39,8 +39,5 @@ class ThermostatInterceptor : public SimulationInterceptor {
      * This is used to write the final summary of the Interceptors to the
      * console.
      */
-    operator std::string() const;
-
-   private:
-    size_t file_counter = 0;
+    explicit operator std::string() const override;
 };
