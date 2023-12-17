@@ -48,7 +48,7 @@ void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, dou
 
     // Simulating with Direct Sum Container
     params_ds.logSummary();
-    SimulationOverview direct_sum_data = simulation_ds.runSimulationPerfTest();
+    SimulationOverview direct_sum_data = simulation_ds.runSimulation();
     direct_sum_data.logSummary();
 
     // ############################################################
@@ -72,7 +72,7 @@ void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, dou
     Simulation simulation_lc(particles_lc, params_lc);
     // Simulating with Linked Cells Container
     params_lc.logSummary();
-    SimulationOverview linked_cells_data = simulation_lc.runSimulationPerfTest();
+    SimulationOverview linked_cells_data = simulation_lc.runSimulation();
     linked_cells_data.logSummary();
 
     // ############################################################
