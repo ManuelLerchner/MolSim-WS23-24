@@ -1,12 +1,12 @@
 #include "ThermostatInterceptor.h"
 
-ThermostatInterceptor::ThermostatInterceptor(Simulation& simulation) : SimulationInterceptor(simulation) {
-    SimulationInterceptor::every_nth_iteration = simulation.params.thermostat->getApplicationInterval();
+ThermostatInterceptor::ThermostatInterceptor(Thermostat& thermostat) : thermostat(thermostat) {
+    SimulationInterceptor::every_nth_iteration = thermostat.getApplicationInterval();
 }
 
 void ThermostatInterceptor::onSimulationStart() {}
 
-void ThermostatInterceptor::operator()(size_t iteration) { simulation.params.thermostat->scaleTemperature(simulation.particle_container); }
+void ThermostatInterceptor::operator()(size_t iteration) { thermostat.scaleTemperature(simulation->particle_container); }
 
 void ThermostatInterceptor::onSimulationEnd(size_t iteration) {}
 

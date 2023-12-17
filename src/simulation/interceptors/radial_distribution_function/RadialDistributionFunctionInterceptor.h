@@ -10,7 +10,7 @@ class RadialDistributionFunctionInterceptor : public SimulationInterceptor {
     /**
      * @brief Construct a new Thermostat Interceptor object
      */
-    explicit RadialDistributionFunctionInterceptor(Simulation& simulation);
+    RadialDistributionFunctionInterceptor(double bin_width, size_t sample_every_x_percent);
 
     /**
      * @brief This function is sets the particle_updates to 0 and initializes
@@ -48,6 +48,7 @@ class RadialDistributionFunctionInterceptor : public SimulationInterceptor {
 
    private:
     double bin_width;
+    size_t sample_every_x_percent;
     std::unique_ptr<CSVWriter> csv_writer;
     size_t samples_count;
 };

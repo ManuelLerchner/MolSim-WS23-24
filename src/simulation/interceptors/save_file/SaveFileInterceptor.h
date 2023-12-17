@@ -2,6 +2,7 @@
 #include <chrono>
 
 #include "io/output/FileOutputHandler.h"
+#include "io/output/OutputFormats.h"
 #include "simulation/interceptors/SimulationInterceptor.h"
 
 class SaveFileInterceptor : public SimulationInterceptor {
@@ -9,7 +10,7 @@ class SaveFileInterceptor : public SimulationInterceptor {
     /**
      * @brief Construct a new Save File Interceptor object
      */
-    explicit SaveFileInterceptor(Simulation& simulation);
+    SaveFileInterceptor(OutputFormat output_format, int fps, int video_length);
 
     /**
      * @brief This function saves the initial state of the simulation
@@ -43,5 +44,8 @@ class SaveFileInterceptor : public SimulationInterceptor {
 
    private:
     size_t file_counter = 0;
-    FileOutputHandler file_output_handler;
+    std::unique_ptr<FileOutputHandler> file_output_handler;
+    OutputFormat output_format;
+    size_t fps;
+    size_t video_length;
 };

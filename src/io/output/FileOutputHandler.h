@@ -4,9 +4,7 @@
 #include <string>
 
 #include "io/output/FileWriter.h"
-#include "io/output/chkpt/CheckPointWriter.h"
-#include "io/output/vtu/VTUWriter.h"
-#include "io/output/xyz/XYZWriter.h"
+#include "io/output/OutputFormats.h"
 #include "particles/containers/ParticleContainer.h"
 
 /**
@@ -31,9 +29,10 @@ class FileOutputHandler {
     /**
      * @brief Construct a new FileOutputHandler object
      *
+     * @param output_format The output format to use
      * @param params SimulationParams object which provides the output directory path
      */
-    explicit FileOutputHandler(const SimulationParams& params);
+    explicit FileOutputHandler(const OutputFormat output_format, const SimulationParams& params);
 
     /**
      * @brief Writes the given ParticleContainers particle data to a file

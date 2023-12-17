@@ -6,19 +6,10 @@
 #include "io/logger/Logger.h"
 #include "spdlog/sinks/rotating_file_sink.h"
 
-SimulationParams parse_arguments(int argc, char* argsv[]) {
+CLIParams parse_arguments(int argc, char* argsv[]) {
     std::filesystem::path input_file_path;
     std::string log_level;
-    std::string output_format;
     std::string log_output;
-
-    double end_time = 0;
-    double delta_t = 0;
-
-    int fps = 0;
-    int video_length = 0;
-
-    std::vector<std::string> force_strings;
 
     bool performance_test = false;
     bool fresh = false;
@@ -29,19 +20,8 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
     options_desc.add_options()(
         "input_file_path,f", boost::program_options::value<std::filesystem::path>(&input_file_path),
         "The path to the input file. Must be specified, otherwise the program will terminate. Can be inserted as positional argument.");
-    options_desc.add_options()("delta_t,d", boost::program_options::value<double>(&delta_t), "The time step per simulation iteration");
-    options_desc.add_options()("end_time,e", boost::program_options::value<double>(&end_time),
-                               "The time, at which the simulation will end");
-    options_desc.add_options()("fps", boost::program_options::value<int>(&fps),
-                               "The number of frames per second at which the simulation will be saved");
-    options_desc.add_options()("video_length", boost::program_options::value<int>(&video_length),
-                               "The total length of the simulation video in seconds");
-    options_desc.add_options()("force", boost::program_options::value<std::vector<std::string>>(&force_strings)->multitoken(),
-                               "The forces to be applied to the particles. Possible values: gravity, electrostatic, none");
     options_desc.add_options()("log_level,l", boost::program_options::value<std::string>(&log_level)->default_value("info"),
                                "The log level. Possible values: trace, debug, info, warning, error, critical, off");
-    options_desc.add_options()("output_format", boost::program_options::value<std::string>(&output_format)->default_value("vtu"),
-                               "The output format. Possible values: vtu, xyz, none");
     options_desc.add_options()("performance_test,p", "Run the simulation in performance test mode");
     options_desc.add_options()(
         "log_output", boost::program_options::value<std::string>(&log_output)->default_value("std"),
@@ -88,40 +68,19 @@ SimulationParams parse_arguments(int argc, char* argsv[]) {
         performance_test = true;
     }
 
-    return SimulationParams{
-        input_file_path, delta_t,       end_time,         fps,  video_length, SimulationParams::DirectSumType{}, std::nullopt,
-        output_format,   force_strings, performance_test, fresh};
+    return CLIParams{input_file_path, performance_test, fresh};
 }
 
-SimulationParams merge_parameters(const SimulationParams& params_cli, const std::optional<SimulationParams>& file_params) {
+SimulationParams merge_parameters(const CLIParams& params_cli, const std::optional<SimulationParams>& file_params) {
     if (!file_params) {
-        return params_cli;
+        Logger::logger->warn("No simulation parameters provided. Try using a XML file as input.");
+        throw std::runtime_error("No simulation parameters provided. Try using a XML file as input.");
     }
 
     SimulationParams params = *file_params;
 
-    // Overwrite parameters from XML file with parameters from CLI
-    if (params_cli.delta_t != 0) {
-        params.delta_t = params_cli.delta_t;
-    }
-    if (params_cli.end_time != 0) {
-        params.end_time = params_cli.end_time;
-    }
-    if (params_cli.fps != 0) {
-        params.fps = params_cli.fps;
-    }
-    if (params_cli.video_length != 0) {
-        params.video_length = params_cli.video_length;
-    }
-    if (!params_cli.pairwise_forces.empty()) {
-        params.pairwise_forces = params_cli.pairwise_forces;
-    }
-
-    // Always takes value from CLI
+    // Update the parameters with the ones from the command line
     params.fresh = params_cli.fresh;
-
-    params.output_format = params_cli.output_format;
-
     params.performance_test = params_cli.performance_test;
 
     return params;

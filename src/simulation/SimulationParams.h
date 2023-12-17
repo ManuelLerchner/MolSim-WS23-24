@@ -8,12 +8,10 @@
 #include <variant>
 #include <vector>
 
-#include "io/input/InputFormats.h"
-#include "io/output/OutputFormats.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "physics/pairwiseforces/PairwiseForceSource.h"
 #include "physics/simpleforces/SimpleForceSource.h"
-#include "physics/thermostats/Thermostat.h"
+#include "simulation/interceptors/SimulationInterceptor.h"
 
 /**
  * @brief Contains all parameters needed to run a simulation.
@@ -80,24 +78,14 @@ class SimulationParams {
     double end_time;
 
     /**
-     * @brief Frames per second at which to save the simulation. This is used to calculate how often to save the simulation data
+     * @brief List of interceptors to be used in the simulation
      */
-    int fps;
-
-    /**
-     * @brief Expected length of the simulation video in seconds. This is used to calculate how often to save the simulation data
-     */
-    int video_length;
+    std::vector<std::shared_ptr<SimulationInterceptor>> interceptors;
 
     /**
      * @brief Type of the particle container
      */
     std::variant<DirectSumType, LinkedCellsType> container_type;
-
-    /**
-     * @brief Thermostat used in the simulation
-     */
-    std::optional<Thermostat> thermostat;
 
     /**
      * @brief Simple Forces to be applied to the particles
@@ -110,47 +98,19 @@ class SimulationParams {
     std::vector<std::shared_ptr<PairwiseForceSource>> pairwise_forces;
 
     /**
-     * @brief Whether to run the simulation in performance test mode
-     */
-    bool performance_test;
-
-    /**
-     * @brief Output file format of the simulation
-     */
-    OutputFormat output_format;
-
-    /**
      * @brief Number of particles in the simulation
      */
     size_t num_particles;
 
     /**
+     * @brief Whether to run the simulation in performance test mode
+     */
+    bool performance_test;
+
+    /**
      * @brief Flag to indicate whether the simulation should be run from scratch, or whether cached data should be used
      */
     bool fresh;
-
-    /**
-     * @brief Construct a new SimulationParams object
-     *
-     * @param input_file_path Path to the input file of the simulation
-     * @param delta_t Time step of a single simulation iteration
-     * @param end_time End time of the simulation
-     * @param fps Frames per second at which to save the simulation. This is used to calculate how often to save the simulation data
-     * @param video_length Expected length of the simulation video in seconds. This is used to calculate how often to save the
-     * simulation data
-     * @param container_type Type of the particle container
-     * @param thermostat Thermostat used in the simulation
-     * @param output_format Output file format of the simulation
-     * @param force_strings Strings describing the pairwise_forces to be applied to the particles
-     * @param performance_test Whether to run the simulation in performance test mode
-     * @param fresh Flag to indicate whether the simulation should be run from scratch, or whether cached data should be used
-     * @param base_path Base path to the output directory. This is used to construct the output directory path if none is given
-     * explicitly. Defaults to "./output/"
-     */
-    SimulationParams(const std::filesystem::path& input_file_path, double delta_t, double end_time, int fps, int video_length,
-                     const std::variant<DirectSumType, LinkedCellsType>& container_type, const std::optional<Thermostat>& thermostat,
-                     const std::string& output_format, const std::vector<std::string>& force_strings, bool performance_test,
-                     bool fresh = false, const std::filesystem::path& base_path = "./output");
 
     /**
      * @brief Construct a new SimulationParams object
@@ -171,11 +131,12 @@ class SimulationParams {
      * @param base_path Base path to the output directory. This is used to construct the output directory path if none is given
      * explicitly. Defaults to "./output/"
      */
-    SimulationParams(const std::filesystem::path& input_file_path, double delta_t, double end_time, int fps, int video_length,
-                     const std::variant<DirectSumType, LinkedCellsType>& container_type, const std::optional<Thermostat>& thermostat,
-                     const std::string& output_format, const std::vector<std::shared_ptr<SimpleForceSource>>& simple_forces,
-                     const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_forces, bool performance_test, bool fresh = false,
-                     const std::filesystem::path& base_path = "./output");
+    SimulationParams(const std::filesystem::path& input_file_path, double delta_t, double end_time,
+                     const std::variant<DirectSumType, LinkedCellsType>& container_type,
+                     const std::vector<std::shared_ptr<SimulationInterceptor>>& interceptors,
+                     const std::vector<std::shared_ptr<SimpleForceSource>>& simple_forces,
+                     const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_forces, bool performance_test = false,
+                     bool fresh = false, const std::filesystem::path& base_path = "./output");
 
     /**
      * @brief Prints a summary of the simulation parameters to the console

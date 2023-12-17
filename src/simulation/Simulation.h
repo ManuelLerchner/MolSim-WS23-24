@@ -8,9 +8,9 @@
 #include "particles/Particle.h"
 #include "particles/containers/ParticleContainer.h"
 #include "simulation/SimulationOverview.h"
-#include "simulation/SimulationParams.h"
 
 class SimulationInterceptor;
+class SimulationParams;
 
 /**
  * @brief Class to run a simulation
@@ -55,11 +55,6 @@ class Simulation {
     std::unique_ptr<IntegrationFunctor> integration_functor;
 
     static void savePerformanceTest(const SimulationOverview& overview, const SimulationParams& params);
-
-    /**
-     * @brief Map containing all the interceptors used by the simulation
-     */
-    std::map<std::string, std::unique_ptr<SimulationInterceptor>> interceptors;
 
     /**
      * Befriend the interceptors to allow them to access the private members of this class

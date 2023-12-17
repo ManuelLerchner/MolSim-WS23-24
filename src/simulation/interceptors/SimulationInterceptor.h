@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include <memory>
 
 #include "simulation/Simulation.h"
 
@@ -9,9 +10,16 @@ class SimulationInterceptor {
     /**
      * @brief Construct a new Simulation Interceptor object
      */
-    explicit SimulationInterceptor(Simulation& simulation) : simulation(simulation) {}
+    explicit SimulationInterceptor() = default;
 
     virtual ~SimulationInterceptor() = default;
+
+    /**
+     * @brief Attaches the interceptor to the simulation
+     *
+     * @param simulation The simulation to attach to
+     */
+    void attach(Simulation& simulation) { this->simulation = std::shared_ptr<Simulation>(&simulation); }
 
     /**
      * @brief Called before the simulation loop starts
@@ -58,6 +66,6 @@ class SimulationInterceptor {
     virtual explicit operator std::string() const = 0;
 
    protected:
-    const Simulation& simulation;
+    std::shared_ptr<Simulation> simulation;
     size_t every_nth_iteration = 1;
 };

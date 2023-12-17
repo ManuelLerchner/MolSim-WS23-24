@@ -2,6 +2,7 @@
 
 #include <spdlog/fmt/chrono.h>
 
+#include <chrono>
 #include <filesystem>
 #include <iostream>
 #include <tuple>
@@ -11,6 +12,7 @@
 #include "io/logger/Logger.h"
 #include "particles/containers/directsum/DirectSumContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
+#include "simulation/SimulationParams.h"
 #include "simulation/interceptors/SimulationInterceptor.h"
 #include "simulation/interceptors/particle_update_counter/ParticleUpdateCounterInterceptor.h"
 #include "simulation/interceptors/progress_bar/ProgressBarInterceptor.h"
@@ -37,22 +39,14 @@ Simulation::Simulation(const std::vector<Particle>& initial_particles, const Sim
         particle_container->addParticle(particle);
     }
 
-    // Add interceptors to the simulation to allow for runtime monitoring
-    if (!params.performance_test) {
-        interceptors.insert({"progress_bar", std::make_unique<ProgressBarInterceptor>(*this)});
+    // // Add interceptors to the simulation to allow for runtime monitoring
+    // if (!params.performance_test) {
+    //     params.interceptors.push_back(std::make_shared<ProgressBarInterceptor>(*this));
+    // }
+
+    for (auto& interceptor : params.interceptors) {
+        (*interceptor).attach(*this);
     }
-
-    if (params.fps > 0 && params.video_length > 0 && !params.performance_test) {
-        interceptors.insert({"save_file", std::make_unique<SaveFileInterceptor>(*this)});
-    }
-
-    interceptors.insert({"particle_update_counter", std::make_unique<ParticleUpdateCounterInterceptor>(*this)});
-
-    if (params.thermostat) {
-        interceptors.insert({"thermostat", std::make_unique<ThermostatInterceptor>(*this)});
-    }
-
-    interceptors.insert({"radial_distribution_function", std::make_unique<RadialDistributionFunctionInterceptor>(*this)});
 }
 
 Simulation::~Simulation() = default;
@@ -69,9 +63,11 @@ SimulationOverview Simulation::runSimulation() {
     Logger::logger->info("Simulation started...");
 
     // Notify interceptors that the simulation is about to start
-    for (auto& [_, interceptor] : interceptors) {
+    for (auto& interceptor : params.interceptors) {
         (*interceptor).onSimulationStart();
     }
+
+    auto t_start = std::chrono::high_resolution_clock::now();
 
     while (simulated_time < params.end_time) {
         integration_functor->step(particle_container, params.simple_forces, params.pairwise_forces, params.delta_t);
@@ -80,30 +76,28 @@ SimulationOverview Simulation::runSimulation() {
         simulated_time += params.delta_t;
 
         // Notify interceptors of the current iteration
-        for (auto& [_, interceptor] : interceptors) {
+        for (auto& interceptor : params.interceptors) {
             (*interceptor).notify(iteration);
         }
     }
 
+    auto t_end = std::chrono::high_resolution_clock::now();
+
     // Notify interceptors that the simulation has ended
-    for (auto& [_, interceptor] : interceptors) {
+    for (auto& interceptor : params.interceptors) {
         (*interceptor).onSimulationEnd(iteration);
     }
 
     Logger::logger->info("Simulation finished.");
 
     std::vector<std::string> interceptor_summaries;
-    for (auto& [_, interceptor] : interceptors) {
+    for (auto& interceptor : params.interceptors) {
         interceptor_summaries.push_back(std::string(*interceptor));
     }
 
-    auto particle_update_counter = dynamic_cast<ParticleUpdateCounterInterceptor&>(*interceptors["particle_update_counter"]);
+    auto total_time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(t_end - t_start).count();
 
-    SimulationOverview overview{params,
-                                static_cast<double>(particle_update_counter.getSimulationDurationMS()) / 1000.0,
-                                particle_update_counter.getParticleUpdatesPerSecond(),
-                                iteration,
-                                interceptor_summaries,
+    SimulationOverview overview{params, total_time_ms / 1000.0, iteration, interceptor_summaries,
                                 std::vector<Particle>(particle_container->begin(), particle_container->end())};
 
     if (params.performance_test) {
@@ -122,8 +116,18 @@ void Simulation::savePerformanceTest(const SimulationOverview& overview, const S
         params.output_dir_path / ("performance_test_" + formatted_time + ".csv"),
         {"num_particles", "particle_container", "delta_t", "total_time[s]", "particle_updates_per_second[1/s]", "total_iterations"});
 
+    // find ParticleUpdateCounterInterceptor
+    auto particle_update_counter = std::find_if(params.interceptors.begin(), params.interceptors.end(), [](auto& interceptor) {
+        return std::dynamic_pointer_cast<ParticleUpdateCounterInterceptor>(interceptor) != nullptr;
+    });
+
+    auto particle_updates_per_second =
+        particle_update_counter != params.interceptors.end()
+            ? std::dynamic_pointer_cast<ParticleUpdateCounterInterceptor>(*particle_update_counter)->getParticleUpdatesPerSecond()
+            : -1;
+
     std::string container_type_string = std::visit([](auto&& arg) { return std::string(arg); }, params.container_type);
 
     csv_writer.writeRow({params.num_particles, container_type_string, params.delta_t, overview.total_time_seconds,
-                         overview.particle_updates_per_second, overview.total_iterations});
+                         particle_updates_per_second, overview.total_iterations});
 }

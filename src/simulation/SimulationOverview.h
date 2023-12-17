@@ -4,7 +4,8 @@
 #include <cstddef>
 
 #include "particles/containers/ParticleContainer.h"
-#include "simulation/SimulationParams.h"
+
+class SimulationParams;
 
 /**
  * @brief Class to store some overview data of an executed simulation
@@ -14,17 +15,12 @@ class SimulationOverview {
     /**
      * @brief Original simulation parameters bevore the simulation
      */
-    SimulationParams params;
+    const SimulationParams& params;
 
     /**
      * @brief Total time the simulation took to execute in seconds (includes time for writing output files and logging)
      */
     double total_time_seconds;
-
-    /**
-     * @brief Average time the simulation took to execute per iteration in milliseconds (includes time for writing output files and logging)
-     */
-    double particle_updates_per_second;
 
     /**
      * @brief Total number of iterations the simulation ran for (includes an initial force calculation)

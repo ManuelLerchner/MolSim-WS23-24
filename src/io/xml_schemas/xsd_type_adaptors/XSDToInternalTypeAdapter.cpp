@@ -4,6 +4,10 @@
 #include "physics/pairwiseforces/GravitationalForce.h"
 #include "physics/pairwiseforces/LennardJonesForce.h"
 #include "physics/simpleforces/GlobalDownwardsGravity.h"
+#include "simulation/interceptors/particle_update_counter/ParticleUpdateCounterInterceptor.h"
+#include "simulation/interceptors/radial_distribution_function/RadialDistributionFunctionInterceptor.h"
+#include "simulation/interceptors/save_file/SaveFileInterceptor.h"
+#include "simulation/interceptors/thermostat/ThermostatInterceptor.h"
 
 CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawnerType& cuboid, bool third_dimension) {
     auto lower_left_front_corner = convertToVector(cuboid.lower_left_front_corner());
@@ -96,6 +100,39 @@ CuboidSpawner XSDToInternalTypeAdapter::convertToSingleParticleSpawner(const Sin
         position, {1, 1, 1}, 0, mass, initial_velocity, static_cast<int>(type), epsilon, sigma, third_dimension, particle.temperature()};
 }
 
+std::vector<std::shared_ptr<SimulationInterceptor>> XSDToInternalTypeAdapter::convertToSimulationInterceptors(
+    const SimulationInterceptorsType& interceptors, bool third_dimension) {
+    std::vector<std::shared_ptr<SimulationInterceptor>> simulation_interceptors;
+
+    if (interceptors.Thermostat()) {
+        auto thermostat = convertToThermostat(*interceptors.Thermostat(), third_dimension);
+        simulation_interceptors.push_back(std::make_shared<ThermostatInterceptor>(thermostat));
+    }
+
+    if (interceptors.ParticleUpdatesPerSecond()) {
+        simulation_interceptors.push_back(std::make_shared<ParticleUpdateCounterInterceptor>());
+    }
+
+    if (interceptors.RadialDistributionFunction()) {
+        auto bin_width = interceptors.RadialDistributionFunction()->bin_width();
+        auto sample_every_x_percent = interceptors.RadialDistributionFunction()->sample_every_x_percent();
+
+        simulation_interceptors.push_back(std::make_shared<RadialDistributionFunctionInterceptor>(bin_width, sample_every_x_percent));
+    }
+
+    if (interceptors.SaveFile()) {
+        auto fps = interceptors.SaveFile()->fps();
+        auto video_length = interceptors.SaveFile()->video_length();
+        auto output_format = convertToOutputFormat(interceptors.SaveFile()->output_format());
+
+        if (output_format != OutputFormat::NONE) {
+            simulation_interceptors.push_back(std::make_shared<SaveFileInterceptor>(output_format, fps, video_length));
+        }
+    }
+
+    return simulation_interceptors;
+}
+
 std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType> XSDToInternalTypeAdapter::convertToParticleContainer(
     const ParticleContainerType& particle_container) {
     std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType> container;
@@ -146,23 +183,19 @@ LinkedCellsContainer::BoundaryCondition XSDToInternalTypeAdapter::convertToBound
     }
 }
 
-Thermostat XSDToInternalTypeAdapter::convertToThermostat(const ThermostatType& thermostat, bool third_dimension) {
-    auto target_temperature = thermostat.target_temperature();
+Thermostat XSDToInternalTypeAdapter::convertToThermostat(const ThermostatInterceptorType& thermostat, bool third_dimension) {
+    auto target_temperature = *thermostat.target_temperature();
     auto max_temperature_change = thermostat.max_temperature_change();
-    auto application_interval = thermostat.application_interval();
+    auto application_interval = *thermostat.application_interval();
 
     if (target_temperature < 0) {
         Logger::logger->error("Target temperature must be positive");
         throw std::runtime_error("Target temperature must be positive");
     }
 
-    double max_temperature_change_value = std::numeric_limits<double>::infinity();
-    if (max_temperature_change.present()) {
-        if (*max_temperature_change < 0) {
-            Logger::logger->error("Max temperature change must be an absolute value (positive)");
-            throw std::runtime_error("Max temperature change must be an absolute value (positive)");
-        }
-        max_temperature_change_value = *max_temperature_change;
+    if (max_temperature_change < 0) {
+        Logger::logger->error("Max temperature change must be an absolute value (positive)");
+        throw std::runtime_error("Max temperature change must be an absolute value (positive)");
     }
 
     if (application_interval <= 0) {
@@ -170,7 +203,7 @@ Thermostat XSDToInternalTypeAdapter::convertToThermostat(const ThermostatType& t
         throw std::runtime_error("Application interval must be a positive integer > 0");
     }
 
-    return Thermostat{target_temperature, max_temperature_change_value, static_cast<size_t>(application_interval), third_dimension};
+    return Thermostat{target_temperature, max_temperature_change, static_cast<size_t>(application_interval), third_dimension};
 }
 
 Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particle) {

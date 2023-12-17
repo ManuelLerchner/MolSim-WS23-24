@@ -1,6 +1,7 @@
 #pragma once
 #include <chrono>
 
+#include "physics/thermostats/Thermostat.h"
 #include "simulation/interceptors/SimulationInterceptor.h"
 
 class ThermostatInterceptor : public SimulationInterceptor {
@@ -8,7 +9,7 @@ class ThermostatInterceptor : public SimulationInterceptor {
     /**
      * @brief Construct a new Thermostat Interceptor object
      */
-    explicit ThermostatInterceptor(Simulation& simulation);
+    explicit ThermostatInterceptor(Thermostat& thermostat);
 
     /**
      * @brief This function is empty as the thermostat doesnt need initialization
@@ -40,4 +41,10 @@ class ThermostatInterceptor : public SimulationInterceptor {
      * console.
      */
     explicit operator std::string() const override;
+
+   private:
+    /**
+     * @brief The thermostat that is used to scale the temperature
+     */
+    Thermostat thermostat;
 };

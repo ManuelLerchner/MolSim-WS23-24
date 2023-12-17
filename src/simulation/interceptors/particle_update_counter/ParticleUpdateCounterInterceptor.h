@@ -1,4 +1,5 @@
 #pragma once
+
 #include <chrono>
 
 #include "simulation/interceptors/SimulationInterceptor.h"
@@ -8,7 +9,7 @@ class ParticleUpdateCounterInterceptor : public SimulationInterceptor {
     /**
      * @brief Construct a new Thermostat Interceptor object
      */
-    explicit ParticleUpdateCounterInterceptor(Simulation& simulation);
+    ParticleUpdateCounterInterceptor() = default;
 
     /**
      * @brief This function is sets the particle_updates to 0 and initializes

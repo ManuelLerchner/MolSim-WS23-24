@@ -1,6 +1,7 @@
 #include "SimulationOverview.h"
 
 #include "io/logger/Logger.h"
+#include "simulation/SimulationParams.h"
 #include "utils/FormatTime.h"
 
 void SimulationOverview::logSummary(int depth) const {

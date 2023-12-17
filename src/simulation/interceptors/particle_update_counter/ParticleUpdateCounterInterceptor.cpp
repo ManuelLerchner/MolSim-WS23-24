@@ -2,16 +2,14 @@
 
 #include <chrono>
 
-ParticleUpdateCounterInterceptor::ParticleUpdateCounterInterceptor(Simulation& simulation) : SimulationInterceptor(simulation) {
-    SimulationInterceptor::every_nth_iteration = 1;
-}
-
 void ParticleUpdateCounterInterceptor::onSimulationStart() {
     particle_updates = 0;
     t_start = std::chrono::high_resolution_clock::now();
+
+    SimulationInterceptor::every_nth_iteration = 1;
 }
 
-void ParticleUpdateCounterInterceptor::operator()(size_t iteration) { particle_updates += simulation.particle_container->size(); }
+void ParticleUpdateCounterInterceptor::operator()(size_t iteration) { particle_updates += simulation->particle_container->size(); }
 
 void ParticleUpdateCounterInterceptor::onSimulationEnd(size_t iteration) {
     t_end = std::chrono::high_resolution_clock::now();

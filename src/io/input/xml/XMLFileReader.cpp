@@ -8,6 +8,7 @@
 #include "io/input/chkpt/ChkptPointFileReader.h"
 #include "io/logger/Logger.h"
 #include "io/output/FileOutputHandler.h"
+#include "io/output/chkpt/CheckPointWriter.h"
 #include "io/xml_schemas/xsd_type_adaptors/XSDToInternalTypeAdapter.h"
 #include "simulation/Simulation.h"
 
@@ -118,26 +119,13 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::filesy
 
     auto container_type = XSDToInternalTypeAdapter::convertToParticleContainer(settings.particle_container());
 
-    auto xsd_thermostat = settings.thermostat();
-    auto thermostat = (xsd_thermostat)
-                          ? std::make_optional(XSDToInternalTypeAdapter::convertToThermostat(*xsd_thermostat, settings.third_dimension()))
-                          : std::nullopt;
+    auto interceptors = XSDToInternalTypeAdapter::convertToSimulationInterceptors(settings.interceptors(), settings.third_dimension());
 
     auto forces = XSDToInternalTypeAdapter::convertToForces(settings.forces());
 
-    auto params = SimulationParams{curr_file_path,
-                                   settings.delta_t(),
-                                   settings.end_time(),
-                                   static_cast<int>(settings.fps()),
-                                   static_cast<int>(settings.video_length()),
-                                   container_type,
-                                   thermostat,
-                                   settings.output_format(),
-                                   std::get<0>(forces),
-                                   std::get<1>(forces),
-                                   false,
-                                   fresh,
-                                   output_base_path};
+    auto params = SimulationParams{curr_file_path, settings.delta_t(),  settings.end_time(), container_type,
+                                   interceptors,   std::get<0>(forces), std::get<1>(forces), false,
+                                   fresh,          output_base_path};
 
     if (output_base_path.empty()) {
         output_base_path = params.output_dir_path;
@@ -223,12 +211,9 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::filesy
             result.logSummary(depth);
 
             // Write the checkpoint file
-            auto checkpoint_config = sub_config;
-            checkpoint_config.output_format = OutputFormat::CHKPT;
+            CheckPointWriter check_point_writer;
 
-            FileOutputHandler file_output_handler{checkpoint_config};
-
-            checkpoint_path = file_output_handler.writeFile(result.total_iterations, result.resulting_particles);
+            checkpoint_path = check_point_writer.writeFile(sub_config, result.total_iterations, result.resulting_particles);
 
             Logger::logger->info("Wrote {} particles to checkpoint file in: {}", result.resulting_particles.size(),
                                  (*checkpoint_path).string());

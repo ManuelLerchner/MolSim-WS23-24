@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "io/logger/Logger.h"
+#include "simulation/SimulationParams.h"
 #include "utils/FormatTime.h"
 
 void printProgress(const std::filesystem::path& input_file_path, size_t percentage, size_t iteration, size_t expected_iterations,
@@ -19,12 +20,6 @@ void printProgress(const std::filesystem::path& input_file_path, size_t percenta
     std::cout << progress << "\r" << (finished ? "\n" : "") << std::flush;
 }
 
-ProgressBarInterceptor::ProgressBarInterceptor(Simulation& simulation) : SimulationInterceptor(simulation) {
-    expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t) + 1);
-
-    SimulationInterceptor::every_nth_iteration = std::max(1, static_cast<int>(expected_iterations / 100));
-}
-
 void ProgressBarInterceptor::onSimulationStart() {
     t_start = std::chrono::high_resolution_clock::now();
     t_prev = t_start;
@@ -33,7 +28,11 @@ void ProgressBarInterceptor::onSimulationStart() {
     Logger::logger->info("Start time: {}", fmt::format("{:%A %Y-%m-%d %H:%M:%S}", fmt::localtime(t_start_helper)));
     Logger::logger->flush();
 
-    printProgress(simulation.params.input_file_path, 0, 0, expected_iterations, -1);
+    expected_iterations = static_cast<size_t>(std::ceil(simulation->params.end_time / simulation->params.delta_t) + 1);
+
+    SimulationInterceptor::every_nth_iteration = std::max(1, static_cast<int>(expected_iterations / 100));
+
+    printProgress(simulation->params.input_file_path, 0, 0, expected_iterations, -1);
 }
 
 void ProgressBarInterceptor::operator()(size_t iteration) {
@@ -49,11 +48,11 @@ void ProgressBarInterceptor::operator()(size_t iteration) {
     const size_t percentage =
         std::min(100ul, static_cast<size_t>(100.0 * static_cast<double>(iteration) / static_cast<double>(expected_iterations)));
 
-    printProgress(simulation.params.input_file_path, percentage, iteration, expected_iterations, estimated_remaining_seconds);
+    printProgress(simulation->params.input_file_path, percentage, iteration, expected_iterations, estimated_remaining_seconds);
 }
 
 void ProgressBarInterceptor::onSimulationEnd(size_t iteration) {
-    printProgress(simulation.params.input_file_path, 100, expected_iterations, expected_iterations, 0, true);
+    printProgress(simulation->params.input_file_path, 100, expected_iterations, expected_iterations, 0, true);
 
     std::time_t t_end = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     Logger::logger->info("End time: {}", fmt::format("{:%A %Y-%m-%d %H:%M:%S}", fmt::localtime(t_end)));

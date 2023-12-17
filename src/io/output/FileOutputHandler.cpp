@@ -3,9 +3,12 @@
 #include <filesystem>
 
 #include "io/logger/Logger.h"
+#include "io/output/chkpt/CheckPointWriter.h"
+#include "io/output/vtu/VTUWriter.h"
+#include "io/output/xyz/XYZWriter.h"
 
-FileOutputHandler::FileOutputHandler(const SimulationParams& params) : params(params) {
-    switch (params.output_format) {
+FileOutputHandler::FileOutputHandler(const OutputFormat output_format, const SimulationParams& params) : params(params) {
+    switch (output_format) {
         case OutputFormat::NONE:
             break;
         case OutputFormat::VTU:
@@ -24,8 +27,8 @@ FileOutputHandler::FileOutputHandler(const SimulationParams& params) : params(pa
 
     if (std::filesystem::exists(params.output_dir_path)) {
         auto supported = get_supported_output_formats();
-        auto file_extension = std::find_if(supported.begin(), supported.end(), [params](const auto& pair) {
-                                  return pair.second == params.output_format;
+        auto file_extension = std::find_if(supported.begin(), supported.end(), [&params, &output_format](const auto& pair) {
+                                  return pair.second == output_format;
                               })->first;
 
         auto count = 0;
@@ -46,8 +49,9 @@ FileOutputHandler::FileOutputHandler(const SimulationParams& params) : params(pa
 }
 
 std::optional<const std::filesystem::path> FileOutputHandler::writeFile(size_t iteration, const std::vector<Particle>& particles) const {
-    if (params.output_format == OutputFormat::NONE) {
-        return std::nullopt;
+    if (!file_writer) {
+        Logger::logger->warn("No file writer set. Not writing file.");
+        throw std::runtime_error("No file writer set. Not writing file.");
     }
     return file_writer->writeFile(params, iteration, particles);
 }

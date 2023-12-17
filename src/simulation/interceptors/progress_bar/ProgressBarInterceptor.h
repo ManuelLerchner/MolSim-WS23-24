@@ -9,7 +9,7 @@ class ProgressBarInterceptor : public SimulationInterceptor {
     /**
      * @brief Construct a new Progress Bar Interceptor object
      */
-    explicit ProgressBarInterceptor(Simulation& simulation);
+    ProgressBarInterceptor() = default;
 
     /**
      * @brief This function initalized the start time of the simulation

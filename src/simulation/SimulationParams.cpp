@@ -9,6 +9,7 @@
 #include "io/output/OutputFormats.h"
 #include "physics/ForcePicker.h"
 #include "physics/simpleforces/GlobalDownwardsGravity.h"
+#include "simulation/SimulationParams.h"
 #include "utils/StringUtils.h"
 
 std::filesystem::path constructOutputPath(const std::filesystem::path& base_path, const std::string& name) {
@@ -19,22 +20,6 @@ std::filesystem::path constructOutputPath(const std::filesystem::path& base_path
     }
 
     return std::filesystem::absolute(base) / name;
-}
-
-auto convertToOutputFormat(const std::string& output_format) {
-    auto supported = get_supported_output_formats();
-
-    if (!supported.contains(output_format)) {
-        auto supported_formats = std::string();
-        for (auto& [name, format] : supported) {
-            supported_formats += name + ", ";
-        }
-
-        Logger::logger->error("Invalid output format given: {}. Supported output formats are: {}", output_format, supported_formats);
-        throw std::runtime_error("Invalid output format given");
-    }
-
-    return supported[output_format];
 }
 
 std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::shared_ptr<PairwiseForceSource>>> convertToForces(
@@ -88,31 +73,21 @@ std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::sha
     return {simple_forces, pairwise_forces};
 }
 
-SimulationParams::SimulationParams(const std::filesystem::path& input_file_path, double delta_t, double end_time, int fps, int video_length,
+SimulationParams::SimulationParams(const std::filesystem::path& input_file_path, double delta_t, double end_time,
                                    const std::variant<DirectSumType, LinkedCellsType>& container_type,
-                                   const std::optional<Thermostat>& thermostat, const std::string& output_format,
+                                   const std::vector<std::shared_ptr<SimulationInterceptor>>& interceptors,
                                    const std::vector<std::shared_ptr<SimpleForceSource>>& simple_forces,
                                    const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_forces, bool performance_test,
                                    bool fresh, const std::filesystem::path& base_path)
     : input_file_path(std::filesystem::absolute(input_file_path)),
       delta_t(delta_t),
       end_time(end_time),
-      fps(fps),
-      video_length(video_length),
+      interceptors(interceptors),
       container_type(container_type),
-      thermostat(thermostat),
       simple_forces(simple_forces),
       pairwise_forces(pairwise_forces),
       performance_test(performance_test),
       fresh(fresh) {
-    if (fps < 0) {
-        Logger::logger->error("FPS must be positive");
-        throw std::runtime_error("FPS must be positive");
-    }
-    if (video_length < 0) {
-        Logger::logger->error("Video length must be positive");
-        throw std::runtime_error("Video length must be positive");
-    }
     if (end_time < 0) {
         Logger::logger->error("End time must be positive");
         throw std::runtime_error("End time must be positive");
@@ -122,22 +97,12 @@ SimulationParams::SimulationParams(const std::filesystem::path& input_file_path,
         throw std::runtime_error("Delta t must be positive");
     }
 
-    this->output_format = convertToOutputFormat(output_format);
     this->output_dir_path = constructOutputPath(base_path, input_file_path.stem().string());
 
     this->input_file_hash = ChkptPointFileReader::calculateHash(input_file_path);
 
     this->num_particles = 0;
 }
-
-SimulationParams::SimulationParams(const std::filesystem::path& input_file_path, double delta_t, double end_time, int fps, int video_length,
-                                   const std::variant<DirectSumType, LinkedCellsType>& container_type,
-                                   const std::optional<Thermostat>& thermostat, const std::string& output_format,
-                                   const std::vector<std::string>& force_strings, bool performance_test, bool fresh,
-                                   const std::filesystem::path& base_path)
-    : SimulationParams(input_file_path, delta_t, end_time, fps, video_length, container_type, thermostat, output_format,
-                       std::get<0>(convertToForces(force_strings)), std::get<1>(convertToForces(force_strings)), performance_test, fresh,
-                       base_path) {}
 
 void SimulationParams::logSummary(int depth) const {
     std::string indent = std::string(depth * 2, ' ');
@@ -159,8 +124,8 @@ void SimulationParams::logSummary(int depth) const {
     Logger::logger->info("{}║  Reuse cached data: {}", indent, !fresh);
 
     Logger::logger->info("{}╟┤{}Rendering arguments: {}", indent, ansi_yellow_bold, ansi_end);
-    Logger::logger->info("{}║  Frames per second: {}", indent, fps);
-    Logger::logger->info("{}║  Video length: {}", indent, video_length);
+    // Logger::logger->info("{}║  Frames per second: {}", indent, fps);
+    // Logger::logger->info("{}║  Video length: {}", indent, video_length);
 
     // Print Physical setup
     Logger::logger->info("{}╟┤{}Physical setup: {}", indent, ansi_yellow_bold, ansi_end);
@@ -192,13 +157,13 @@ void SimulationParams::logSummary(int depth) const {
     }
 
     Logger::logger->info("{}╟┤{}Thermostat: {}", indent, ansi_yellow_bold, ansi_end);
-    if (thermostat.has_value()) {
-        Logger::logger->info("{}║   ┌Target temperature: {}", indent, thermostat->getTargetTemperature());
-        Logger::logger->info("{}║   ├Maximum temperature change: {}", indent, thermostat->getMaxTemperatureChange());
-        Logger::logger->info("{}║   └Application interval: {}", indent, thermostat->getApplicationInterval());
-    } else {
-        Logger::logger->info("{}║  No thermostat", indent);
-    }
+    // if (thermostat.has_value()) {
+    //     Logger::logger->info("{}║   ┌Target temperature: {}", indent, thermostat->getTargetTemperature());
+    //     Logger::logger->info("{}║   ├Maximum temperature change: {}", indent, thermostat->getMaxTemperatureChange());
+    //     Logger::logger->info("{}║   └Application interval: {}", indent, thermostat->getApplicationInterval());
+    // } else {
+    //     Logger::logger->info("{}║  No thermostat", indent);
+    // }
 
     Logger::logger->info("{}╚════════════════════════════════════════", indent);
 }
