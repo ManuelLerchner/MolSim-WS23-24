@@ -86,10 +86,10 @@ class CSVWriter {
      *
      * @param row The row to write.
      */
-    void writeRow(const std::tuple<DataTypes...>& data) {
+    void writeRow(const std::tuple<DataTypes...>& row) {
         static_assert(sizeof...(DataTypes) == tuple_length, "Tuple length does not match header length");
 
-        write_csv_row(file, data, separator);
+        write_csv_row(file, row, separator);
         file << std::endl;
     }
 

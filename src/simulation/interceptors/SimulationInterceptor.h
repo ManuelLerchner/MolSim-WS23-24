@@ -47,7 +47,7 @@ class SimulationInterceptor {
         }
     }
 
-     /**
+    /**
      * @brief The string representation of this interceptor
      *
      * @return std::string
