@@ -12,13 +12,12 @@
 #include "simulation/Simulation.h"
 #include "utils/ArrayUtils.h"
 
-void execute2DRectBenchmark(int x, int y) {
+void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, double lc_cutoff) {
     Logger::logger->set_level(spdlog::level::info);
-    Logger::logger->info("Starting 2DRect-benchmark. Dimensions {}x{}...", x, y);
+    Logger::logger->info("Starting 2DRect-benchmark. Dimensions {}x{}...", rect_width, rect_height);
 
     // Settings for the Linked Cells Container simulation
     std::array<double, 3> domain_size = {300, 300, 3};
-    double cutoff_radius = 30;
     std::array<LinkedCellsContainer::BoundaryCondition, 6> boundary_conditions = {
         LinkedCellsContainer::BoundaryCondition::REFLECTIVE, LinkedCellsContainer::BoundaryCondition::REFLECTIVE,
         LinkedCellsContainer::BoundaryCondition::REFLECTIVE, LinkedCellsContainer::BoundaryCondition::REFLECTIVE,
@@ -26,7 +25,8 @@ void execute2DRectBenchmark(int x, int y) {
 
     // Settings for the Cuboid spawner for both simulations
     std::array<double, 3> center_offset = {domain_size[0] / 2, domain_size[1] / 2, domain_size[2] / 2};
-    CuboidSpawner spawner(center_offset - std::array<double, 3>{x * 1.225 / 2, y * 1.225 / 2, 0}, {x, y, 1}, 1.225, 1, {0, 0, 0}, 0);
+    CuboidSpawner spawner(center_offset - std::array<double, 3>{rect_width * spacing / 2, rect_height * spacing / 2, 0},
+                          {rect_width, rect_height, 1}, spacing, 1, {0, 0, 0}, 0);
 
     // Settings for the forces for both simulations
     std::vector<std::unique_ptr<PairwiseForceSource>> forces;
@@ -63,7 +63,7 @@ void execute2DRectBenchmark(int x, int y) {
                                5,
                                0,
                                30,
-                               SimulationParams::LinkedCellsType{domain_size, cutoff_radius, boundary_conditions},
+                               SimulationParams::LinkedCellsType{domain_size, lc_cutoff, boundary_conditions},
                                Thermostat{0, 0},
                                "none",
                                {"LennardJones"},
@@ -79,20 +79,25 @@ void execute2DRectBenchmark(int x, int y) {
     // # Comparison Logging
     // ############################################################
 
-    Logger::logger->info("Simulation of {} particles in a {}x{} grid\n", x * y, x, y);
+    Logger::logger->info("Simulation of {} particles in a {}x{} grid\n", rect_width * rect_height, rect_width, rect_height);
 
     Logger::logger->info("Direct sum container:");
     Logger::logger->info("  Simulation took {:.3f}s", direct_sum_data.total_time_seconds);
     Logger::logger->info("  Total iterations: {}", direct_sum_data.total_iterations);
-    Logger::logger->info("  Average time per iteration: {:.3f}ms\n", direct_sum_data.average_time_per_iteration_millis);
+    Logger::logger->info("  Average time per iteration: {:.3f}ms\n", direct_sum_data.total_time_seconds / direct_sum_data.total_iterations);
+    Logger::logger->info("  Particle updates per second: {:.0f}/s\n", direct_sum_data.particle_updates_per_second);
 
     Logger::logger->info("Linked cells container:");
+    Logger::logger->info("  Domain size: {:.0f}x{:.0f}x{:.0f}", domain_size[0], domain_size[1], domain_size[2]);
+    Logger::logger->info("  Linked cells cutoff radius: {:.0f}", lc_cutoff);
     Logger::logger->info("  Simulation took {:.3f}s", linked_cells_data.total_time_seconds);
     Logger::logger->info("  Total iterations: {}", linked_cells_data.total_iterations);
-    Logger::logger->info("  Average time per iteration: {:.3f}ms\n", linked_cells_data.average_time_per_iteration_millis);
+    Logger::logger->info("  Average time per iteration: {:.3f}ms\n",
+                         linked_cells_data.total_time_seconds / linked_cells_data.total_iterations);
+    Logger::logger->info("  Particle updates per second: {:.0f}/s\n", linked_cells_data.particle_updates_per_second);
 
-    Logger::logger->info("Ratio Linked Cells / Direct Sum: {:.3f}%\n",
-                         linked_cells_data.total_time_seconds / direct_sum_data.total_time_seconds * 100);
+    Logger::logger->info("Particle update ratio - Linked Cells / Direct Sum: {:.2f}\n",
+                         linked_cells_data.particle_updates_per_second / direct_sum_data.particle_updates_per_second);
 }
 
 /*
@@ -103,7 +108,7 @@ int main() {
     std::vector<std::pair<int, int>> sizes = {{25, 40}, {50, 40}, {50, 80}, {100, 80}};
 
     for (auto [size_x, size_y] : sizes) {
-        execute2DRectBenchmark(size_x, size_y);
+        execute2DRectBenchmark(size_x, size_y, 1.1225, 3);
     }
 
     return 0;

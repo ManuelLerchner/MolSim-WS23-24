@@ -130,8 +130,7 @@ void Simulation::savePerformanceTest(const SimulationOverview& overview, const S
     std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     auto formatted_time = fmt::format("{:%d.%m.%Y-%H:%M:%S}", fmt::localtime(now));
     csv_file << formatted_time << "," << params.num_particles << "," << container_type_string << "," << params.delta_t << ","
-             << overview.total_time_seconds << "," << overview.average_time_per_iteration_millis << "," << overview.total_iterations
-             << "\n";
+             << overview.total_time_seconds << "," << overview.particle_updates_per_second << "," << overview.total_iterations << "\n";
 
     // close the file
     csv_file.close();

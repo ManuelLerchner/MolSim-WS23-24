@@ -24,7 +24,7 @@ class SimulationOverview {
     /**
      * @brief Average time the simulation took to execute per iteration in milliseconds (includes time for writing output files and logging)
      */
-    double average_time_per_iteration_millis;
+    double particle_updates_per_second;
 
     /**
      * @brief Total number of iterations the simulation ran for (includes an initial force calculation)
