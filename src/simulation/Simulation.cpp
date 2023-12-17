@@ -111,10 +111,9 @@ SimulationOverview Simulation::runSimulation() {
 }
 
 void Simulation::savePerformanceTest(const SimulationOverview& overview, const SimulationParams& params) {
-    CSVWriter<std::string, size_t, std::string, double, double, double, size_t> csv_writer(
-        params.output_dir_path / "performance_test.csv",
-        std::make_tuple("datetime", "num_particles", "particle_container", "delta_t", "total_time[s]", "particle_updates_per_second[1/s]",
-                        "total_iterations"));
+    CSVWriter csv_writer(params.output_dir_path / "performance_test.csv",
+                         {"datetime", "num_particles", "particle_container", "delta_t", "total_time[s]", "particle_updates_per_second[1/s]",
+                          "total_iterations"});
 
     // write the results to the file
     std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
@@ -122,6 +121,6 @@ void Simulation::savePerformanceTest(const SimulationOverview& overview, const S
 
     std::string container_type_string = std::visit([](auto&& arg) { return std::string(arg); }, params.container_type);
 
-    csv_writer.writeRow(std::tuple{formatted_time, params.num_particles, container_type_string, params.delta_t, overview.total_time_seconds,
-                                   overview.particle_updates_per_second, overview.total_iterations});
+    csv_writer.writeRow({formatted_time, params.num_particles, container_type_string, params.delta_t, overview.total_time_seconds,
+                         overview.particle_updates_per_second, overview.total_iterations});
 }

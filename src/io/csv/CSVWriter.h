@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <fstream>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "io/logger/Logger.h"
@@ -30,41 +31,19 @@ void write_csv_element<std::string>(std::ofstream& file, const std::string& valu
     file << "\"" << value << "\"";
 }
 
-/**
- * @brief Writes a row to the CSV file.
- *
- * @param file The file stream to write to.
- * @param data The data to write.
- * @param separator The separator to use between values.
- */
-template <size_t Index = 0, typename... Types>
-void write_csv_row(std::ofstream& file, const std::tuple<Types...>& data, const std::string& separator) {
-    if constexpr (Index < sizeof...(Types)) {
-        if (Index > 0) {
-            file << separator;
-        }
-        write_csv_element(file, std::get<Index>(data));
-        write_csv_row<Index + 1>(file, data, separator);
-    } else {
-        file << "\n";
-    }
-}
-
-template <typename... DataTypes>
 class CSVWriter {
    public:
-    static constexpr size_t tuple_length = std::tuple_size<std::tuple<DataTypes...>>::value;
     /**
      * @brief Creates a new CSVWriter instance.
      *
      * @param file_path The path to the CSV file to write to.
-     * @param header The header of the CSV file.
+     * @param cols The cols of the CSV file.
      * @param separator The separator to use between values.
      */
-    template <typename... HeaderTypes>
-    CSVWriter(const std::filesystem::path& file_path, const std::tuple<HeaderTypes...>& header, const std::string& separator = ";")
-        : separator(separator) {
-        static_assert(sizeof...(HeaderTypes) == tuple_length, "Tuple length does not match header length");
+    CSVWriter(const std::filesystem::path& file_path, const std::vector<std::string>& cols, std::string separator = ";")
+        : cols(cols), separator(std::move(separator)) {
+        Logger::logger->info("Creating CSVWriter for file {}...", file_path.string());
+        Logger::logger->info("Header: {}", cols.size());
 
         if (std::filesystem::exists(file_path)) {
             Logger::logger->warn("File {} already exists, appending to it!", file_path.string());
@@ -74,7 +53,7 @@ class CSVWriter {
             std::filesystem::create_directories(file_path.parent_path());
             file.open(file_path, std::ios_base::out);
 
-            write_csv_row(file, header, separator);
+            writeRow({cols.begin(), cols.end()});
         }
 
         if (!file.is_open()) {
@@ -88,10 +67,21 @@ class CSVWriter {
      *
      * @param row The row to write.
      */
-    void writeRow(const std::tuple<DataTypes...>& row) {
-        static_assert(sizeof...(DataTypes) == tuple_length, "Tuple length does not match header length");
 
-        write_csv_row(file, row, separator);
+    using serializable_types = std::variant<size_t, int, double, std::string>;
+    void writeRow(const std::vector<serializable_types>& row) {
+        if (row.size() != cols.size()) {
+            Logger::logger->error("Row size ({}) does not match cols size ({})!", row.size(), cols.size());
+            throw std::runtime_error("Row size does not match cols size!");
+        }
+
+        for (size_t i = 0; i < row.size(); i++) {
+            if (i > 0) {
+                file << separator;
+            }
+            std::visit([&](auto&& arg) { write_csv_element(file, arg); }, row[i]);
+        }
+        file << std::endl;
     }
 
    private:
@@ -99,6 +89,11 @@ class CSVWriter {
      * @brief The file stream to write to.
      */
     std::ofstream file;
+
+    /**
+     * @brief The cols of the CSV file.
+     */
+    const std::vector<std::string> cols;
 
     /**
      * @brief The separator to use between values.
