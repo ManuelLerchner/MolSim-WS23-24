@@ -40,7 +40,7 @@ void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, dou
     spawner.spawnParticles(particles_ds);
 
     // Instantiation of the Direct Sum Container simulation
-    SimulationParams params_ds{"2DParticleRect", 0.01, 5,   0, 30, SimulationParams::DirectSumType{}, Thermostat{0, 0}, "none",
+    SimulationParams params_ds{"2DParticleRect", 0.01, 5,   0, 30, SimulationParams::DirectSumType{}, std::nullopt, "none",
                                {"LennardJones"}, true, true};
     params_ds.num_particles = particles_ds.size();
 
@@ -64,11 +64,12 @@ void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, dou
                                0,
                                30,
                                SimulationParams::LinkedCellsType{domain_size, lc_cutoff, boundary_conditions},
-                               Thermostat{0, 0},
+                               std::nullopt,
                                "none",
                                {"LennardJones"},
                                true,
                                true};
+    params_lc.num_particles = particles_lc.size();
     Simulation simulation_lc(particles_lc, params_lc);
     // Simulating with Linked Cells Container
     params_lc.logSummary();

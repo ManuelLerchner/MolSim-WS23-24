@@ -45,6 +45,8 @@ void write_csv_row(std::ofstream& file, const std::tuple<Types...>& data, const 
         }
         write_csv_element(file, std::get<Index>(data));
         write_csv_row<Index + 1>(file, data, separator);
+    } else {
+        file << "\n";
     }
 }
 
@@ -90,7 +92,6 @@ class CSVWriter {
         static_assert(sizeof...(DataTypes) == tuple_length, "Tuple length does not match header length");
 
         write_csv_row(file, row, separator);
-        file << std::endl;
     }
 
    private:

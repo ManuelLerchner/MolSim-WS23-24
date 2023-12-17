@@ -73,7 +73,7 @@ SimulationOverview Simulation::runSimulation() {
     while (simulated_time < params.end_time) {
         integration_functor->step(particle_container, params.simple_forces, params.pairwise_forces, params.delta_t);
 
-        iteration++;
+        ++iteration;
         simulated_time += params.delta_t;
 
         // Notify interceptors of the current iteration
@@ -96,18 +96,25 @@ SimulationOverview Simulation::runSimulation() {
 
     auto particle_update_counter = dynamic_cast<ParticleUpdateCounterInterceptor&>(*interceptors["particle_update_counter"]);
 
-    return SimulationOverview{params,
-                              static_cast<double>(particle_update_counter.getSimulationDurationMS()) / 1000.0,
-                              particle_update_counter.getParticleUpdatesPerSecond(),
-                              iteration,
-                              interceptor_summaries,
-                              std::vector<Particle>(particle_container->begin(), particle_container->end())};
+    SimulationOverview overview{params,
+                                static_cast<double>(particle_update_counter.getSimulationDurationMS()) / 1000.0,
+                                particle_update_counter.getParticleUpdatesPerSecond(),
+                                iteration,
+                                interceptor_summaries,
+                                std::vector<Particle>(particle_container->begin(), particle_container->end())};
+
+    if (params.performance_test) {
+        savePerformanceTest(overview, params);
+    }
+
+    return overview;
 }
 
 void Simulation::savePerformanceTest(const SimulationOverview& overview, const SimulationParams& params) {
     CSVWriter<std::string, size_t, std::string, double, double, double, size_t> csv_writer(
-        params.output_dir_path / "performance_test.csv", std::make_tuple("datetime", "num_particles", "particle_container", "delta_t",
-                                                                         "total_time[s]", "time_per_iteration[ms]", "total_iterations"));
+        params.output_dir_path / "performance_test.csv",
+        std::make_tuple("datetime", "num_particles", "particle_container", "delta_t", "total_time[s]", "particle_updates_per_second[1/s]",
+                        "total_iterations"));
 
     // write the results to the file
     std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());

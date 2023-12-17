@@ -56,6 +56,9 @@ class Simulation {
 
     static void savePerformanceTest(const SimulationOverview& overview, const SimulationParams& params);
 
+    /**
+     * @brief Map containing all the interceptors used by the simulation
+     */
     std::map<std::string, std::unique_ptr<SimulationInterceptor>> interceptors;
 
     /**
