@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- just a sanity check: body collision rewritten to xml -->
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="simulation_schema.xsd">
+    xsi:noNamespaceSchemaLocation="../simulation_schema.xsd">
 
     <settings>
         <delta_t>0.0005</delta_t>

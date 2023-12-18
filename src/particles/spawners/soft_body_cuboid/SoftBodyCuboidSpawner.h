@@ -3,13 +3,13 @@
 #include "particles/spawners/ParticleSpawner.h"
 
 /**
- * @brief Class to spawn particles of a Membrane. Implements the interface ParticleSpawner.
+ * @brief Class to spawn particles of a soft body in a cuboid. Implements the interface ParticleSpawner.
  *
- * Implementation of the particle spawning in a Membrane.
- * This class is very similar to the CuboidSpawner, but it spawns particles only in a 2D plane and links neighboring particles with
- * harmonic springs.
+ * Implementation of the particle spawning in a soft body cuboid.
+ * This class is very similar to the CuboidSpawner, but it links neighboring particles with
+ * harmonic springs. The HarmonicForce then class calculates the force on the particles.
  */
-class MembraneSpawner : public ParticleSpawner {
+class SoftBodyCuboidSpawner : public ParticleSpawner {
    private:
     /**
      * @brief Defines the lower left corner where the cuboid will be spawned
@@ -69,7 +69,7 @@ class MembraneSpawner : public ParticleSpawner {
    public:
     /**
      * @brief Constructor
-     * @param lower_left_corner Lower left corner of the cuboid
+     * @param lower_left_corner Lower left corner of the soft body
      * @param grid_dimensions Grid dimensions
      * @param grid_spacing Spacing between neighboring particles
      * @param mass Mass of the particles
@@ -78,13 +78,14 @@ class MembraneSpawner : public ParticleSpawner {
      * @param epsilon Lennard-Jones epsilon parameter of the particles in the cuboid
      * @param sigma Lennard-Jones sigma parameter of the particles in the cuboid
      * @param spring_constant Spring constant of the harmonic springs
+     * @param third_dimension Whether to spawn particles in the third dimension
      * @param initial_temperature Initial temperature of the particles
      *
      * Constructor to initialize the cuboid spawner. The velocity of the particles is jittered by a Maxwell-Boltzmann distribution.
      */
-    MembraneSpawner(const std::array<double, 3>& lower_left_corner, const std::array<int, 3>& grid_dimensions, double grid_spacing,
-                    double mass, const std::array<double, 3>& initial_velocity, int type, double epsilon, double sigma,
-                    double spring_constant, bool third_dimension = true, double initial_temperature = 0.1);
+    SoftBodyCuboidSpawner(const std::array<double, 3>& lower_left_corner, const std::array<int, 3>& grid_dimensions, double grid_spacing,
+                          double mass, const std::array<double, 3>& initial_velocity, int type, double epsilon, double sigma,
+                          double spring_constant, bool third_dimension = true, double initial_temperature = 0.1);
 
     /**
      * @brief Spawns particles in the given container

@@ -1,4 +1,4 @@
-#include "MembraneSpawner.h"
+#include "SoftBodyCuboidSpawner.h"
 
 #include <memory>
 
@@ -6,9 +6,10 @@
 #include "physics/thermostats/Thermostat.h"
 #include "utils/ArrayUtils.h"
 
-MembraneSpawner::MembraneSpawner(const std::array<double, 3>& lower_left_corner, const std::array<int, 3>& grid_dimensions,
-                                 double grid_spacing, double mass, const std::array<double, 3>& initial_velocity, int type, double epsilon,
-                                 double sigma, double spring_constant, bool third_dimension, double initial_temperature)
+SoftBodyCuboidSpawner::SoftBodyCuboidSpawner(const std::array<double, 3>& lower_left_corner, const std::array<int, 3>& grid_dimensions,
+                                             double grid_spacing, double mass, const std::array<double, 3>& initial_velocity, int type,
+                                             double epsilon, double sigma, double spring_constant, bool third_dimension,
+                                             double initial_temperature)
     : lower_left_corner(lower_left_corner),
       grid_dimensions(grid_dimensions),
       grid_spacing(grid_spacing),
@@ -21,7 +22,7 @@ MembraneSpawner::MembraneSpawner(const std::array<double, 3>& lower_left_corner,
       initial_temperature(initial_temperature),
       third_dimension(third_dimension) {}
 
-int MembraneSpawner::spawnParticles(std::vector<Particle>& particles) const {
+int SoftBodyCuboidSpawner::spawnParticles(std::vector<Particle>& particles) const {
     auto particle_pos_to_index = [this](const std::array<int, 3>& grid_pos) {
         if (grid_pos[0] < 0 || grid_pos[0] >= grid_dimensions[0] || grid_pos[1] < 0 || grid_pos[1] >= grid_dimensions[1] ||
             grid_pos[2] < 0 || grid_pos[2] >= grid_dimensions[2]) {
@@ -82,6 +83,6 @@ int MembraneSpawner::spawnParticles(std::vector<Particle>& particles) const {
     return grid_dimensions[0] * grid_dimensions[1] * grid_dimensions[2];
 }
 
-size_t MembraneSpawner::getEstimatedNumberOfParticles() const {
+size_t SoftBodyCuboidSpawner::getEstimatedNumberOfParticles() const {
     return static_cast<size_t>(grid_dimensions[0]) * grid_dimensions[1] * grid_dimensions[2];
 }

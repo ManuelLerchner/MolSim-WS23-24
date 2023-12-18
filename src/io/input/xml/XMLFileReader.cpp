@@ -140,6 +140,12 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::filesy
         Logger::logger->info("Spawned {} particles from cuboid spawner", num_spawned);
     }
 
+    for (auto soft_body_cuboid_spawner : particle_sources.soft_body_cuboid_spawner()) {
+        auto spawner = XSDToInternalTypeAdapter::convertToSoftBodyCuboidSpawner(soft_body_cuboid_spawner, settings.third_dimension());
+        int num_spawned = spawner.spawnParticles(particles);
+        Logger::logger->info("Spawned {} particles from soft body cuboid spawner", num_spawned);
+    }
+
     for (auto sphere_spawner : particle_sources.sphere_spawner()) {
         auto spawner = XSDToInternalTypeAdapter::convertToSphereSpawner(sphere_spawner, settings.third_dimension());
         int num_spawned = spawner.spawnParticles(particles);

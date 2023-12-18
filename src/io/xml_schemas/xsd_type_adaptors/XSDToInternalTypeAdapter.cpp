@@ -53,6 +53,58 @@ CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawn
         third_dimension,         temperature};
 }
 
+SoftBodyCuboidSpawner XSDToInternalTypeAdapter::convertToSoftBodyCuboidSpawner(const SoftBodySpawnerType& soft_body_cuboid,
+                                                                               bool third_dimension) {
+    auto lower_left_front_corner = convertToVector(soft_body_cuboid.lower_left_front_corner());
+    auto grid_dimensions = convertToVector(soft_body_cuboid.grid_dim());
+    auto initial_velocity = convertToVector(soft_body_cuboid.velocity());
+
+    auto grid_spacing = soft_body_cuboid.grid_spacing();
+    auto mass = soft_body_cuboid.mass();
+    auto type = soft_body_cuboid.type();
+    auto spring_constant = soft_body_cuboid.spring_constant();
+    auto epsilon = soft_body_cuboid.epsilon();
+    auto sigma = soft_body_cuboid.sigma();
+    auto temperature = soft_body_cuboid.temperature();
+
+    if (grid_dimensions[0] <= 0 || grid_dimensions[1] <= 0 || grid_dimensions[2] <= 0) {
+        Logger::logger->error("Cuboid grid dimensions must be positive");
+        throw std::runtime_error("Cuboid grid dimensions must be positive");
+    }
+
+    if (!third_dimension && grid_dimensions[2] > 1) {
+        Logger::logger->error("Cuboid grid dimensions must be 1 in z direction if third dimension is disabled");
+        throw std::runtime_error("Cuboid grid dimensions must be 1 in z direction if third dimension is disabled");
+    }
+
+    if (grid_spacing <= 0) {
+        Logger::logger->error("Cuboid grid spacing must be positive");
+        throw std::runtime_error("Cuboid grid spacing must be positive");
+    }
+
+    if (mass <= 0) {
+        Logger::logger->error("Cuboid mass must be positive");
+        throw std::runtime_error("Cuboid mass must be positive");
+    }
+
+    if (temperature < 0) {
+        Logger::logger->error("Cuboid temperature must be positive");
+        throw std::runtime_error("Cuboid temperature must be positive");
+    }
+
+    return SoftBodyCuboidSpawner{lower_left_front_corner,
+                                 grid_dimensions,
+                                 grid_spacing,
+                                 mass,
+                                 initial_velocity,
+                                 static_cast<int>(type),
+                                 spring_constant,
+                                 epsilon,
+                                 sigma,
+                                 third_dimension,
+                                 temperature};
+}
+
 SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const SphereSpawnerType& sphere, bool third_dimension) {
     auto center = convertToVector(sphere.center());
     auto initial_velocity = convertToVector(sphere.velocity());

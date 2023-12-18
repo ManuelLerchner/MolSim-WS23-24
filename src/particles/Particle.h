@@ -158,14 +158,12 @@ class Particle {
 
     /**
      * @brief Adds a connected particle
-     *  
+     *
      * @param particle Particle to add
      * @param l_0 Prefered distance between the particles
      * @param k Spring constant
      */
     void addConnectedParticle(std::weak_ptr<Particle> particle, double l_0, double k);
-
-
 
     bool operator==(Particle& other);
 

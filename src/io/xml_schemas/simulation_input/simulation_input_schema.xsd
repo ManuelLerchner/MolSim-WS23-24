@@ -90,7 +90,7 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="MembraneSpawnerType">
+  <xs:complexType name="SoftBodySpawnerType">
     <xs:sequence>
       <xs:element name="lower_left_front_corner" type="DoubleVec3Type" />
       <xs:element name="grid_dim" type="IntVec3Type" />
@@ -100,6 +100,8 @@
       <xs:element name="velocity" type="DoubleVec3Type" />
       <xs:element name="type" type="xs:integer" />
       <xs:element name="spring_constant" type="xs:double" />
+      <xs:element name="epsilon" type="xs:double" />
+      <xs:element name="sigma" type="xs:double" />
     </xs:sequence>
   </xs:complexType>
 
@@ -140,7 +142,7 @@
   <xs:complexType name="ParticleSourceType">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element name="cuboid_spawner" type="CuboidSpawnerType" />
-      <xs:element name="membrane_spawner" type="MembraneSpawnerType" />
+      <xs:element name="soft_body_cuboid_spawner" type="SoftBodySpawnerType" />
       <xs:element name="sphere_spawner" type="SphereSpawnerType" />
       <xs:element name="single_particle_spawner" type="SingleParticleSpawnerType" />
       <xs:element name="check_point_loader" type="CheckPointLoaderType" />
