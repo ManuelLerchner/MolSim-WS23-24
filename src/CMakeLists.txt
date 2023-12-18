@@ -15,7 +15,7 @@ target_include_directories(project_lib PUBLIC
     ${libxsd_SOURCE_DIR}
     ${spdlog_SOURCE_DIR}/include)
 
-target_link_libraries(project_lib PUBLIC xerces-c boost_program_options spdlog::spdlog)
+target_link_libraries(project_lib PUBLIC xerces-c spdlog::spdlog)
 
 add_executable(MolSim MolSim.cpp)
 target_link_libraries(MolSim PUBLIC project_lib)
