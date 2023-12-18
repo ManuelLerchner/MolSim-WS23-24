@@ -27,7 +27,7 @@ CSVWriter::CSVWriter(CSVWriter&& rhs) noexcept {
     this->separator = std::move(rhs.separator);
     this->file = std::move(rhs.file);
 }
-CSVWriter& CSVWriter::operator=(CSVWriter&& rhs) {
+CSVWriter& CSVWriter::operator=(CSVWriter&& rhs) noexcept {
     this->file_path = std::move(rhs.file_path);
     this->headers = std::move(rhs.headers);
     this->separator = std::move(rhs.separator);
