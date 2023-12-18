@@ -4,6 +4,8 @@
 #include "physics/pairwiseforces/GravitationalForce.h"
 #include "physics/pairwiseforces/LennardJonesForce.h"
 #include "physics/simpleforces/GlobalDownwardsGravity.h"
+#include "physics/thermostats/absolute_thermostat/AbsoluteThermostat.h"
+#include "physics/thermostats/relative_thermostat/RelativeThermostat.h"
 #include "simulation/interceptors/frame_writer/FrameWriterInterceptor.h"
 #include "simulation/interceptors/particle_update_counter/ParticleUpdateCounterInterceptor.h"
 #include "simulation/interceptors/progress_bar/ProgressBarInterceptor.h"
@@ -118,8 +120,38 @@ std::vector<std::shared_ptr<SimulationInterceptor>> XSDToInternalTypeAdapter::co
     std::vector<std::shared_ptr<SimulationInterceptor>> simulation_interceptors;
 
     if (interceptors.Thermostat()) {
-        auto thermostat = convertToThermostat(*interceptors.Thermostat(), third_dimension);
-        simulation_interceptors.push_back(std::make_shared<ThermostatInterceptor>(thermostat));
+        auto xsd_thermostat = *interceptors.Thermostat();
+        auto target_temperature = xsd_thermostat.target_temperature();
+        auto max_temperature_change = xsd_thermostat.max_temperature_change();
+        auto application_interval = xsd_thermostat.application_interval();
+
+        if (target_temperature < 0) {
+            Logger::logger->error("Target temperature must be positive");
+            throw std::runtime_error("Target temperature must be positive");
+        }
+
+        if (max_temperature_change < 0) {
+            Logger::logger->error("Max temperature change must be an absolute value (positive)");
+            throw std::runtime_error("Max temperature change must be an absolute value (positive)");
+        }
+
+        if (application_interval <= 0) {
+            Logger::logger->error("Application interval must be a positive integer > 0");
+            throw std::runtime_error("Application interval must be a positive integer > 0");
+        }
+
+        std::shared_ptr<Thermostat> thermostat;
+
+        if (xsd_thermostat.type() == ThermostatType::value::absolute) {
+            thermostat = std::make_shared<AbsoluteThermostat>(target_temperature, max_temperature_change, third_dimension);
+        } else if (xsd_thermostat.type() == ThermostatType::value::relative_motion) {
+            thermostat = std::make_shared<RelativeThermostat>(target_temperature, max_temperature_change, third_dimension);
+        } else {
+            Logger::logger->error("Thermostat type not implemented");
+            throw std::runtime_error("Thermostat type not implemented");
+        }
+
+        simulation_interceptors.push_back(std::make_shared<ThermostatInterceptor>(thermostat, application_interval));
     }
 
     if (interceptors.ParticleUpdatesPerSecond()) {
@@ -127,8 +159,9 @@ std::vector<std::shared_ptr<SimulationInterceptor>> XSDToInternalTypeAdapter::co
     }
 
     if (interceptors.RadialDistributionFunction()) {
-        auto bin_width = interceptors.RadialDistributionFunction()->bin_width();
-        auto sample_every_x_percent = interceptors.RadialDistributionFunction()->sample_every_x_percent();
+        auto xsd_rdf = *interceptors.RadialDistributionFunction();
+        auto bin_width = xsd_rdf.bin_width();
+        auto sample_every_x_percent = xsd_rdf.sample_every_x_percent();
 
         simulation_interceptors.push_back(std::make_shared<RadialDistributionFunctionInterceptor>(bin_width, sample_every_x_percent));
     }
@@ -194,29 +227,6 @@ LinkedCellsContainer::BoundaryCondition XSDToInternalTypeAdapter::convertToBound
             Logger::logger->error("Boundary condition not implemented");
             throw std::runtime_error("Boundary condition not implemented");
     }
-}
-
-Thermostat XSDToInternalTypeAdapter::convertToThermostat(const ThermostatInterceptorType& thermostat, bool third_dimension) {
-    auto target_temperature = thermostat.target_temperature();
-    auto max_temperature_change = thermostat.max_temperature_change();
-    auto application_interval = thermostat.application_interval();
-
-    if (target_temperature < 0) {
-        Logger::logger->error("Target temperature must be positive");
-        throw std::runtime_error("Target temperature must be positive");
-    }
-
-    if (max_temperature_change < 0) {
-        Logger::logger->error("Max temperature change must be an absolute value (positive)");
-        throw std::runtime_error("Max temperature change must be an absolute value (positive)");
-    }
-
-    if (application_interval <= 0) {
-        Logger::logger->error("Application interval must be a positive integer > 0");
-        throw std::runtime_error("Application interval must be a positive integer > 0");
-    }
-
-    return Thermostat{target_temperature, max_temperature_change, static_cast<size_t>(application_interval), third_dimension};
 }
 
 Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particle) {

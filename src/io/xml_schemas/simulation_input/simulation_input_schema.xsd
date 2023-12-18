@@ -172,6 +172,7 @@
     <xs:attribute name="target_temperature" type="xs:double" use="required" />
     <xs:attribute name="max_temperature_change" type="xs:double" use="required" />
     <xs:attribute name="application_interval" type="xs:integer" use="required" />
+    <xs:attribute name="type" type="ThermostatType" use="required" />
   </xs:complexType>
 
 
@@ -228,6 +229,13 @@
       <xs:enumeration value="chkpt" />
       <xs:enumeration value="xyz" />
       <xs:enumeration value="none" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ThermostatType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="absolute" />
+      <xs:enumeration value="relative_motion" />
     </xs:restriction>
   </xs:simpleType>
 

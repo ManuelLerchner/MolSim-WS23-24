@@ -68,11 +68,11 @@ class Particle {
    public:
     Particle(const Particle& other);
 
-    Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type=0, double epsilon_arg=1.0, double sigma_arg=1.2,
-             bool locked=false);
+    Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type = 0, double epsilon_arg = 1.0,
+             double sigma_arg = 1.2, bool locked = false);
 
     Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std::array<double, 3> f_arg, std::array<double, 3> old_f_arg,
-             double m_arg, int type=0, double epsilon_arg=1.0, double sigma_arg=1.2, bool locked=false);
+             double m_arg, int type = 0, double epsilon_arg = 1.0, double sigma_arg = 1.2, bool locked = false);
 
     virtual ~Particle();
 

@@ -10,7 +10,6 @@
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "particles/spawners/cuboid/CuboidSpawner.h"
 #include "particles/spawners/sphere/SphereSpawner.h"
-#include "physics/thermostats/Thermostat.h"
 #include "simulation/SimulationParams.h"
 
 /**
@@ -79,15 +78,6 @@ class XSDToInternalTypeAdapter {
      * @return BoundaryCondition parsed from the given boundary type in the XSD format
      */
     static LinkedCellsContainer::BoundaryCondition convertToBoundaryCondition(const BoundaryType& boundary);
-
-    /**
-     * @brief Converts a thermostat type from the XSD format to the internal format
-     *
-     * @param thermostat Thermostat in the XSD format
-     * @param third_dimension Whether the third dimension is enabled (true = 3D, false = 2D)
-     * @return Thermostat parsed from the given thermostat in the XSD format
-     */
-    static Thermostat convertToThermostat(const ThermostatInterceptorType& thermostat, bool third_dimension);
 
     /**
      * @brief Converts a particle type from the XSD format to the internal format

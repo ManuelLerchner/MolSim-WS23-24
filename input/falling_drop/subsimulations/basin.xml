@@ -30,7 +30,8 @@
         </forces>
         <interceptors>
             <Thermostat target_temperature="0.5" max_temperature_change="INF"
-                application_interval="1000" />
+                application_interval="1000"
+                type="absolute" />
         </interceptors>
     </settings>
 

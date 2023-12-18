@@ -6,7 +6,7 @@
 #include "particles/Particle.h"
 #include "particles/containers/directsum/DirectSumContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
-#include "physics/thermostats/Thermostat.h"
+#include "physics/thermostats/absolute_thermostat/AbsoluteThermostat.h"
 #include "utils/ArrayUtils.h"
 
 /**
@@ -69,9 +69,9 @@ TEST(Thermostat, KineticEnergyCalculation) {
     particle_container->addParticle(p1);
     particle_container->addParticle(p2);
 
-    auto thermostat = Thermostat(1, 1, 1, true);
+    auto thermostat = AbsoluteThermostat(1, 1, true);
 
-    EXPECT_NEAR(thermostat.getKineticEnergy(particle_container), 4, 1e-6);
+    EXPECT_NEAR(thermostat.getContainerKineticEnergy(particle_container), 4, 1e-6);
 }
 
 /*
@@ -101,9 +101,9 @@ TEST(Thermostat, TemperatureCalculation3D) {
     particle_container->addParticle(p1);
     particle_container->addParticle(p2);
 
-    auto thermostat = Thermostat(1, 1, 1, true);
+    auto thermostat = AbsoluteThermostat(1, 1, true);
 
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container), 4.0 / 3, 1e-6);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container), 4.0 / 3, 1e-6);
 }
 
 /*
@@ -133,16 +133,16 @@ TEST(Thermostat, TemperatureCalculation2D) {
     particle_container->addParticle(p1);
     particle_container->addParticle(p2);
 
-    auto thermostat = Thermostat(1, 1, 1, false);
+    auto thermostat = AbsoluteThermostat(1, 1, false);
 
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container), 1.75, 1e-6);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container), 1.75, 1e-6);
 }
 
 /**
  * Test temperature setting
  */
 TEST(Thermostat, SetTemperature) {
-    auto thermostat = Thermostat(1, 1, 1, true);
+    auto thermostat = AbsoluteThermostat(1, 1, true);
 
     // Test with DirectSumContainer
 
@@ -150,11 +150,11 @@ TEST(Thermostat, SetTemperature) {
     generateParticles(50, 50, 50, particle_container_ds);
 
     // Initial temperature should be 0 since no particle has a velocity
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_ds), 0, 1e-6);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_ds), 0, 1e-6);
     thermostat.setTemperature(2, particle_container_ds);
 
     // Temperature should be around 2 after setting the temperature
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_ds), 2, 1e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_ds), 2, 1e-2);
 
     // Test with LinkedCellsContainer
 
@@ -162,18 +162,18 @@ TEST(Thermostat, SetTemperature) {
     generateParticles(50, 50, 50, particle_container_lc);
 
     // Initial temperature should be 0 since no particle has a velocity
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_lc), 0, 1e-6);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_lc), 0, 1e-6);
     thermostat.setTemperature(2, particle_container_lc);
 
     // Temperature should be around 2 after setting the temperature
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_lc), 2, 1e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_lc), 2, 1e-2);
 }
 
 /*
  * Test temperature scaling heating
  */
 TEST(Thermostat, TemperatureHeatingFullStep) {
-    auto thermostat = Thermostat(5, 5, 1, true);
+    auto thermostat = AbsoluteThermostat(5, 5, true);
 
     // Test with DirectSumContainer
 
@@ -182,13 +182,13 @@ TEST(Thermostat, TemperatureHeatingFullStep) {
     thermostat.setTemperature(1, particle_container_ds);
 
     // Initial temperature should be 1
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_ds), 1, 1e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_ds), 1, 1e-2);
 
     // Scale temperature to 5
     thermostat.scaleTemperature(particle_container_ds);
 
     // Temperature should be around 5 after scaling
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_ds), 5, 1e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_ds), 5, 1e-2);
 
     // Test with LinkedCellsContainer
 
@@ -197,20 +197,20 @@ TEST(Thermostat, TemperatureHeatingFullStep) {
     thermostat.setTemperature(1, particle_container_lc);
 
     // Initial temperature should be 1
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_lc), 1, 1e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_lc), 1, 1e-2);
 
     // Scale temperature to 5
     thermostat.scaleTemperature(particle_container_lc);
 
     // Temperature should be around 5 after scaling
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_lc), 5, 1e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_lc), 5, 1e-2);
 }
 
 /*
  * Test temperature scaling heating
  */
 TEST(Thermostat, TemperatureHeatingCappedStep) {
-    auto thermostat = Thermostat(5, 0.5, 1, true);
+    auto thermostat = AbsoluteThermostat(5, 0.5, true);
 
     // Test with DirectSumContainer
 
@@ -219,13 +219,13 @@ TEST(Thermostat, TemperatureHeatingCappedStep) {
     thermostat.setTemperature(1, particle_container_ds);
 
     // Initial temperature should be 1
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_ds), 1, 1e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_ds), 1, 1e-2);
 
     // Scale temperature to 5
     thermostat.scaleTemperature(particle_container_ds);
 
     // Temperature should be around 1.5 after scaling since the maximum temperature change is 0.5
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_ds), 1.5, 1e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_ds), 1.5, 1e-2);
 
     // Test with LinkedCellsContainer
 
@@ -234,20 +234,20 @@ TEST(Thermostat, TemperatureHeatingCappedStep) {
     thermostat.setTemperature(1, particle_container_lc);
 
     // Initial temperature should be 1
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_lc), 1, 1e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_lc), 1, 1e-2);
 
     // Scale temperature to 5
     thermostat.scaleTemperature(particle_container_lc);
 
     // Temperature should be around 1.5 after scaling since the maximum temperature change is 0.5
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_lc), 1.5, 1e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_lc), 1.5, 1e-2);
 }
 
 /*
  * Test temperature scaling heating
  */
 TEST(Thermostat, TemperatureCoolingFullStep) {
-    auto thermostat = Thermostat(5, 5, 1, true);
+    auto thermostat = AbsoluteThermostat(5, 5, true);
 
     // Test with DirectSumContainer
 
@@ -256,13 +256,13 @@ TEST(Thermostat, TemperatureCoolingFullStep) {
     thermostat.setTemperature(9, particle_container_ds);
 
     // Initial temperature should be 9
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_ds), 9, 3e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_ds), 9, 3e-2);
 
     // Scale temperature to 5
     thermostat.scaleTemperature(particle_container_ds);
 
     // Temperature should be around 5 after scaling
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_ds), 5, 3e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_ds), 5, 3e-2);
 
     // Test with LinkedCellsContainer
 
@@ -271,19 +271,19 @@ TEST(Thermostat, TemperatureCoolingFullStep) {
     thermostat.setTemperature(9, particle_container_lc);
 
     // Initial temperature should be 9
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_lc), 9, 3e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_lc), 9, 3e-2);
     // Scale temperature to 5
     thermostat.scaleTemperature(particle_container_lc);
 
     // Temperature should be around 5 after scaling
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_lc), 5, 3e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_lc), 5, 3e-2);
 }
 
 /*
  * Test temperature scaling heating
  */
 TEST(Thermostat, TemperatureCoolingCappedStep) {
-    auto thermostat = Thermostat(5, 0.5, 1, true);
+    auto thermostat = AbsoluteThermostat(5, 0.5, true);
 
     // Test with DirectSumContainer
 
@@ -292,13 +292,13 @@ TEST(Thermostat, TemperatureCoolingCappedStep) {
     thermostat.setTemperature(9, particle_container_ds);
 
     // Initial temperature should be 9
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_ds), 9, 3e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_ds), 9, 3e-2);
 
     // Scale temperature to 5
     thermostat.scaleTemperature(particle_container_ds);
 
     // Temperature should be around 8.5 after scaling since the maximum temperature change is 0.5
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_ds), 8.5, 3e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_ds), 8.5, 3e-2);
 
     // Test with LinkedCellsContainer
 
@@ -307,13 +307,13 @@ TEST(Thermostat, TemperatureCoolingCappedStep) {
     thermostat.setTemperature(9, particle_container_lc);
 
     // Initial temperature should be 9
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_lc), 9, 3e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_lc), 9, 3e-2);
 
     // Scale temperature to 5
     thermostat.scaleTemperature(particle_container_lc);
 
     // Temperature should be around 8.5 after scaling since the maximum temperature change is 0.5
-    EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_lc), 8.5, 3e-2);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_lc), 8.5, 3e-2);
 }
 
 /*
@@ -324,7 +324,7 @@ TEST(Thermostat, TemperatureKeeping) {
     std::mt19937 gen(rd());
     std::uniform_real_distribution<double> dist(1.005, 1.05);
 
-    auto thermostat = Thermostat(5, 0.75, 1, true);
+    auto thermostat = AbsoluteThermostat(5, 0.75, true);
 
     // Test with DirectSumContainer
 
@@ -333,7 +333,7 @@ TEST(Thermostat, TemperatureKeeping) {
     thermostat.setTemperature(5, particle_container_ds);
 
     // Initial temperature should be 5
-    double initial_temperature_ds = thermostat.getCurrentTemperature(particle_container_ds);
+    double initial_temperature_ds = thermostat.getCurrentContainerTemperature(particle_container_ds);
     EXPECT_NEAR(initial_temperature_ds, 5, 3e-2);
 
     for (int i = 0; i < 10; ++i) {
@@ -345,10 +345,10 @@ TEST(Thermostat, TemperatureKeeping) {
             it.setV(factor * it.getV());
         }
 
-        EXPECT_GE(thermostat.getCurrentTemperature(particle_container_ds), initial_temperature_ds);
+        EXPECT_GE(thermostat.getCurrentContainerTemperature(particle_container_ds), initial_temperature_ds);
 
         thermostat.scaleTemperature(particle_container_ds);
-        EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_ds), initial_temperature_ds, 3e-2);
+        EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_ds), initial_temperature_ds, 3e-2);
     }
 
     // Test with LinkedCellsContainer
@@ -358,7 +358,7 @@ TEST(Thermostat, TemperatureKeeping) {
     thermostat.setTemperature(5, particle_container_lc);
 
     // Initial temperature should be 5
-    double initial_temperature_lc = thermostat.getCurrentTemperature(particle_container_lc);
+    double initial_temperature_lc = thermostat.getCurrentContainerTemperature(particle_container_lc);
     EXPECT_NEAR(initial_temperature_lc, 5, 3e-2);
 
     for (int i = 0; i < 10; ++i) {
@@ -370,9 +370,9 @@ TEST(Thermostat, TemperatureKeeping) {
             it.setV(factor * it.getV());
         }
 
-        EXPECT_GE(thermostat.getCurrentTemperature(particle_container_lc), initial_temperature_lc);
+        EXPECT_GE(thermostat.getCurrentContainerTemperature(particle_container_lc), initial_temperature_lc);
 
         thermostat.scaleTemperature(particle_container_lc);
-        EXPECT_NEAR(thermostat.getCurrentTemperature(particle_container_lc), initial_temperature_lc, 3e-2);
+        EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_lc), initial_temperature_lc, 3e-2);
     }
 }

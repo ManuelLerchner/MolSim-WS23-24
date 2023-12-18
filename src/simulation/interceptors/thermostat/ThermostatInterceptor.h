@@ -1,5 +1,6 @@
 #pragma once
 #include <chrono>
+#include <memory>
 
 #include "physics/thermostats/Thermostat.h"
 #include "simulation/interceptors/SimulationInterceptor.h"
@@ -9,7 +10,7 @@ class ThermostatInterceptor : public SimulationInterceptor {
     /**
      * @brief Construct a new Thermostat Interceptor object
      */
-    explicit ThermostatInterceptor(Thermostat& thermostat);
+    explicit ThermostatInterceptor(std::shared_ptr<Thermostat> thermostat, size_t application_interval);
 
     /**
      * @brief This function is empty as the thermostat doesnt need initialization
@@ -55,5 +56,10 @@ class ThermostatInterceptor : public SimulationInterceptor {
     /**
      * @brief The thermostat that is used to scale the temperature
      */
-    Thermostat thermostat;
+    std::shared_ptr<Thermostat> thermostat;
+
+    /**
+     * @brief The interval at which the thermostat is applied
+     */
+    size_t application_interval;
 };
