@@ -609,7 +609,7 @@ class ParticleSourceType;
 class SettingsType;
 class ParticleUpdatesPerSecondInterceptionType;
 class RadialDistributionFunctionInterceptionType;
-class SaveFileInterceptorType;
+class FrameWriterInterceptorType;
 class ThermostatInterceptorType;
 class SimulationInterceptorsType;
 class LennardJonesType;
@@ -5251,11 +5251,11 @@ class RadialDistributionFunctionInterceptionType : public ::xml_schema::type {
 };
 
 /**
- * @brief Class corresponding to the %SaveFileInterceptorType schema type.
+ * @brief Class corresponding to the %FrameWriterInterceptorType schema type.
  *
  * @nosubgrouping
  */
-class SaveFileInterceptorType : public ::xml_schema::type {
+class FrameWriterInterceptorType : public ::xml_schema::type {
    public:
     /**
      * @name output_format
@@ -5408,7 +5408,7 @@ class SaveFileInterceptorType : public ::xml_schema::type {
      * @brief Create an instance from the ultimate base and
      * initializers for required elements and attributes.
      */
-    SaveFileInterceptorType(const output_format_type&, const fps_type&, const video_length_s_type&);
+    FrameWriterInterceptorType(const output_format_type&, const fps_type&, const video_length_s_type&);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -5418,7 +5418,7 @@ class SaveFileInterceptorType : public ::xml_schema::type {
      * @param c A pointer to the object that will contain the new
      * instance.
      */
-    SaveFileInterceptorType(const ::xercesc::DOMElement& e, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+    FrameWriterInterceptorType(const ::xercesc::DOMElement& e, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
 
     /**
      * @brief Copy constructor.
@@ -5429,7 +5429,7 @@ class SaveFileInterceptorType : public ::xml_schema::type {
      *
      * For polymorphic object models use the @c _clone function instead.
      */
-    SaveFileInterceptorType(const SaveFileInterceptorType& x, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+    FrameWriterInterceptorType(const FrameWriterInterceptorType& x, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
 
     /**
      * @brief Copy the instance polymorphically.
@@ -5442,7 +5442,7 @@ class SaveFileInterceptorType : public ::xml_schema::type {
      * used for copying and should be used for polymorphic object
      * models instead of the copy constructor.
      */
-    virtual SaveFileInterceptorType* _clone(::xml_schema::flags f = 0, ::xml_schema::container* c = 0) const;
+    virtual FrameWriterInterceptorType* _clone(::xml_schema::flags f = 0, ::xml_schema::container* c = 0) const;
 
     /**
      * @brief Copy assignment operator.
@@ -5452,14 +5452,14 @@ class SaveFileInterceptorType : public ::xml_schema::type {
      *
      * For polymorphic object models use the @c _clone function instead.
      */
-    SaveFileInterceptorType& operator=(const SaveFileInterceptorType& x);
+    FrameWriterInterceptorType& operator=(const FrameWriterInterceptorType& x);
 
     //@}
 
     /**
      * @brief Destructor.
      */
-    virtual ~SaveFileInterceptorType();
+    virtual ~FrameWriterInterceptorType();
 
     // Implementation.
     //
@@ -5845,9 +5845,9 @@ class SimulationInterceptorsType : public ::xml_schema::type {
     //@}
 
     /**
-     * @name SaveFile
+     * @name FrameWriter
      *
-     * @brief Accessor and modifier functions for the %SaveFile
+     * @brief Accessor and modifier functions for the %FrameWriter
      * optional element.
      */
     //@{
@@ -5855,17 +5855,17 @@ class SimulationInterceptorsType : public ::xml_schema::type {
     /**
      * @brief Element type.
      */
-    typedef ::SaveFileInterceptorType SaveFile_type;
+    typedef ::FrameWriterInterceptorType FrameWriter_type;
 
     /**
      * @brief Element optional container type.
      */
-    typedef ::xsd::cxx::tree::optional<SaveFile_type> SaveFile_optional;
+    typedef ::xsd::cxx::tree::optional<FrameWriter_type> FrameWriter_optional;
 
     /**
      * @brief Element traits type.
      */
-    typedef ::xsd::cxx::tree::traits<SaveFile_type, char> SaveFile_traits;
+    typedef ::xsd::cxx::tree::traits<FrameWriter_type, char> FrameWriter_traits;
 
     /**
      * @brief Return a read-only (constant) reference to the element
@@ -5873,14 +5873,14 @@ class SimulationInterceptorsType : public ::xml_schema::type {
      *
      * @return A constant reference to the optional container.
      */
-    const SaveFile_optional& SaveFile() const;
+    const FrameWriter_optional& FrameWriter() const;
 
     /**
      * @brief Return a read-write reference to the element container.
      *
      * @return A reference to the optional container.
      */
-    SaveFile_optional& SaveFile();
+    FrameWriter_optional& FrameWriter();
 
     /**
      * @brief Set the element value.
@@ -5890,7 +5890,7 @@ class SimulationInterceptorsType : public ::xml_schema::type {
      * This function makes a copy of its argument and sets it as
      * the new value of the element.
      */
-    void SaveFile(const SaveFile_type& x);
+    void FrameWriter(const FrameWriter_type& x);
 
     /**
      * @brief Set the element value.
@@ -5901,7 +5901,7 @@ class SimulationInterceptorsType : public ::xml_schema::type {
      * of this value and sets it as the new value of the element.
      * Otherwise the element container is set the 'not present' state.
      */
-    void SaveFile(const SaveFile_optional& x);
+    void FrameWriter(const FrameWriter_optional& x);
 
     /**
      * @brief Set the element value without copying.
@@ -5911,7 +5911,7 @@ class SimulationInterceptorsType : public ::xml_schema::type {
      * This function will try to use the passed value directly instead
      * of making a copy.
      */
-    void SaveFile(::std::unique_ptr<SaveFile_type> p);
+    void FrameWriter(::std::unique_ptr<FrameWriter_type> p);
 
     //@}
 
@@ -6059,7 +6059,7 @@ class SimulationInterceptorsType : public ::xml_schema::type {
    protected:
     ParticleUpdatesPerSecond_optional ParticleUpdatesPerSecond_;
     RadialDistributionFunction_optional RadialDistributionFunction_;
-    SaveFile_optional SaveFile_;
+    FrameWriter_optional FrameWriter_;
     Thermostat_optional Thermostat_;
 
     //@endcond
@@ -7318,7 +7318,7 @@ void operator<<(::xml_schema::list_stream&, const ParticleUpdatesPerSecondInterc
 
 void operator<<(::xercesc::DOMElement&, const RadialDistributionFunctionInterceptionType&);
 
-void operator<<(::xercesc::DOMElement&, const SaveFileInterceptorType&);
+void operator<<(::xercesc::DOMElement&, const FrameWriterInterceptorType&);
 
 void operator<<(::xercesc::DOMElement&, const ThermostatInterceptorType&);
 

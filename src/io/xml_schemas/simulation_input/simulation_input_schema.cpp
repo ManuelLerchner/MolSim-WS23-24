@@ -565,28 +565,32 @@ void RadialDistributionFunctionInterceptionType::sample_every_x_percent(const sa
     this->sample_every_x_percent_.set(x);
 }
 
-// SaveFileInterceptorType
+// FrameWriterInterceptorType
 //
 
-const SaveFileInterceptorType::output_format_type& SaveFileInterceptorType::output_format() const { return this->output_format_.get(); }
+const FrameWriterInterceptorType::output_format_type& FrameWriterInterceptorType::output_format() const {
+    return this->output_format_.get();
+}
 
-SaveFileInterceptorType::output_format_type& SaveFileInterceptorType::output_format() { return this->output_format_.get(); }
+FrameWriterInterceptorType::output_format_type& FrameWriterInterceptorType::output_format() { return this->output_format_.get(); }
 
-void SaveFileInterceptorType::output_format(const output_format_type& x) { this->output_format_.set(x); }
+void FrameWriterInterceptorType::output_format(const output_format_type& x) { this->output_format_.set(x); }
 
-void SaveFileInterceptorType::output_format(::std::unique_ptr<output_format_type> x) { this->output_format_.set(std::move(x)); }
+void FrameWriterInterceptorType::output_format(::std::unique_ptr<output_format_type> x) { this->output_format_.set(std::move(x)); }
 
-const SaveFileInterceptorType::fps_type& SaveFileInterceptorType::fps() const { return this->fps_.get(); }
+const FrameWriterInterceptorType::fps_type& FrameWriterInterceptorType::fps() const { return this->fps_.get(); }
 
-SaveFileInterceptorType::fps_type& SaveFileInterceptorType::fps() { return this->fps_.get(); }
+FrameWriterInterceptorType::fps_type& FrameWriterInterceptorType::fps() { return this->fps_.get(); }
 
-void SaveFileInterceptorType::fps(const fps_type& x) { this->fps_.set(x); }
+void FrameWriterInterceptorType::fps(const fps_type& x) { this->fps_.set(x); }
 
-const SaveFileInterceptorType::video_length_s_type& SaveFileInterceptorType::video_length_s() const { return this->video_length_s_.get(); }
+const FrameWriterInterceptorType::video_length_s_type& FrameWriterInterceptorType::video_length_s() const {
+    return this->video_length_s_.get();
+}
 
-SaveFileInterceptorType::video_length_s_type& SaveFileInterceptorType::video_length_s() { return this->video_length_s_.get(); }
+FrameWriterInterceptorType::video_length_s_type& FrameWriterInterceptorType::video_length_s() { return this->video_length_s_.get(); }
 
-void SaveFileInterceptorType::video_length_s(const video_length_s_type& x) { this->video_length_s_.set(x); }
+void FrameWriterInterceptorType::video_length_s(const video_length_s_type& x) { this->video_length_s_.set(x); }
 
 // ThermostatInterceptorType
 //
@@ -664,15 +668,15 @@ void SimulationInterceptorsType::RadialDistributionFunction(::std::unique_ptr<Ra
     this->RadialDistributionFunction_.set(std::move(x));
 }
 
-const SimulationInterceptorsType::SaveFile_optional& SimulationInterceptorsType::SaveFile() const { return this->SaveFile_; }
+const SimulationInterceptorsType::FrameWriter_optional& SimulationInterceptorsType::FrameWriter() const { return this->FrameWriter_; }
 
-SimulationInterceptorsType::SaveFile_optional& SimulationInterceptorsType::SaveFile() { return this->SaveFile_; }
+SimulationInterceptorsType::FrameWriter_optional& SimulationInterceptorsType::FrameWriter() { return this->FrameWriter_; }
 
-void SimulationInterceptorsType::SaveFile(const SaveFile_type& x) { this->SaveFile_.set(x); }
+void SimulationInterceptorsType::FrameWriter(const FrameWriter_type& x) { this->FrameWriter_.set(x); }
 
-void SimulationInterceptorsType::SaveFile(const SaveFile_optional& x) { this->SaveFile_ = x; }
+void SimulationInterceptorsType::FrameWriter(const FrameWriter_optional& x) { this->FrameWriter_ = x; }
 
-void SimulationInterceptorsType::SaveFile(::std::unique_ptr<SaveFile_type> x) { this->SaveFile_.set(std::move(x)); }
+void SimulationInterceptorsType::FrameWriter(::std::unique_ptr<FrameWriter_type> x) { this->FrameWriter_.set(std::move(x)); }
 
 const SimulationInterceptorsType::Thermostat_optional& SimulationInterceptorsType::Thermostat() const { return this->Thermostat_; }
 
@@ -2465,20 +2469,21 @@ RadialDistributionFunctionInterceptionType& RadialDistributionFunctionIntercepti
 
 RadialDistributionFunctionInterceptionType::~RadialDistributionFunctionInterceptionType() {}
 
-// SaveFileInterceptorType
+// FrameWriterInterceptorType
 //
 
-SaveFileInterceptorType::SaveFileInterceptorType(const output_format_type& output_format, const fps_type& fps,
-                                                 const video_length_s_type& video_length_s)
+FrameWriterInterceptorType::FrameWriterInterceptorType(const output_format_type& output_format, const fps_type& fps,
+                                                       const video_length_s_type& video_length_s)
     : ::xml_schema::type(), output_format_(output_format, this), fps_(fps, this), video_length_s_(video_length_s, this) {}
 
-SaveFileInterceptorType::SaveFileInterceptorType(const SaveFileInterceptorType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+FrameWriterInterceptorType::FrameWriterInterceptorType(const FrameWriterInterceptorType& x, ::xml_schema::flags f,
+                                                       ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
       output_format_(x.output_format_, f, this),
       fps_(x.fps_, f, this),
       video_length_s_(x.video_length_s_, f, this) {}
 
-SaveFileInterceptorType::SaveFileInterceptorType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+FrameWriterInterceptorType::FrameWriterInterceptorType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), output_format_(this), fps_(this), video_length_s_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
@@ -2486,7 +2491,7 @@ SaveFileInterceptorType::SaveFileInterceptorType(const ::xercesc::DOMElement& e,
     }
 }
 
-void SaveFileInterceptorType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+void FrameWriterInterceptorType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
     while (p.more_attributes()) {
         const ::xercesc::DOMAttr& i(p.next_attribute());
         const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
@@ -2520,11 +2525,11 @@ void SaveFileInterceptorType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml
     }
 }
 
-SaveFileInterceptorType* SaveFileInterceptorType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class SaveFileInterceptorType(*this, f, c);
+FrameWriterInterceptorType* FrameWriterInterceptorType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class FrameWriterInterceptorType(*this, f, c);
 }
 
-SaveFileInterceptorType& SaveFileInterceptorType::operator=(const SaveFileInterceptorType& x) {
+FrameWriterInterceptorType& FrameWriterInterceptorType::operator=(const FrameWriterInterceptorType& x) {
     if (this != &x) {
         static_cast< ::xml_schema::type&>(*this) = x;
         this->output_format_ = x.output_format_;
@@ -2535,7 +2540,7 @@ SaveFileInterceptorType& SaveFileInterceptorType::operator=(const SaveFileInterc
     return *this;
 }
 
-SaveFileInterceptorType::~SaveFileInterceptorType() {}
+FrameWriterInterceptorType::~FrameWriterInterceptorType() {}
 
 // ThermostatInterceptorType
 //
@@ -2620,21 +2625,21 @@ ThermostatInterceptorType::~ThermostatInterceptorType() {}
 //
 
 SimulationInterceptorsType::SimulationInterceptorsType()
-    : ::xml_schema::type(), ParticleUpdatesPerSecond_(this), RadialDistributionFunction_(this), SaveFile_(this), Thermostat_(this) {}
+    : ::xml_schema::type(), ParticleUpdatesPerSecond_(this), RadialDistributionFunction_(this), FrameWriter_(this), Thermostat_(this) {}
 
 SimulationInterceptorsType::SimulationInterceptorsType(const SimulationInterceptorsType& x, ::xml_schema::flags f,
                                                        ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
       ParticleUpdatesPerSecond_(x.ParticleUpdatesPerSecond_, f, this),
       RadialDistributionFunction_(x.RadialDistributionFunction_, f, this),
-      SaveFile_(x.SaveFile_, f, this),
+      FrameWriter_(x.FrameWriter_, f, this),
       Thermostat_(x.Thermostat_, f, this) {}
 
 SimulationInterceptorsType::SimulationInterceptorsType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
       ParticleUpdatesPerSecond_(this),
       RadialDistributionFunction_(this),
-      SaveFile_(this),
+      FrameWriter_(this),
       Thermostat_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
@@ -2669,13 +2674,13 @@ void SimulationInterceptorsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::
             }
         }
 
-        // SaveFile
+        // FrameWriter
         //
-        if (n.name() == "SaveFile" && n.namespace_().empty()) {
-            ::std::unique_ptr<SaveFile_type> r(SaveFile_traits::create(i, f, this));
+        if (n.name() == "FrameWriter" && n.namespace_().empty()) {
+            ::std::unique_ptr<FrameWriter_type> r(FrameWriter_traits::create(i, f, this));
 
-            if (!this->SaveFile_) {
-                this->SaveFile_.set(::std::move(r));
+            if (!this->FrameWriter_) {
+                this->FrameWriter_.set(::std::move(r));
                 continue;
             }
         }
@@ -2704,7 +2709,7 @@ SimulationInterceptorsType& SimulationInterceptorsType::operator=(const Simulati
         static_cast< ::xml_schema::type&>(*this) = x;
         this->ParticleUpdatesPerSecond_ = x.ParticleUpdatesPerSecond_;
         this->RadialDistributionFunction_ = x.RadialDistributionFunction_;
-        this->SaveFile_ = x.SaveFile_;
+        this->FrameWriter_ = x.FrameWriter_;
         this->Thermostat_ = x.Thermostat_;
     }
 
@@ -3759,7 +3764,7 @@ void operator<<(::xercesc::DOMElement& e, const RadialDistributionFunctionInterc
     }
 }
 
-void operator<<(::xercesc::DOMElement& e, const SaveFileInterceptorType& i) {
+void operator<<(::xercesc::DOMElement& e, const FrameWriterInterceptorType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
 
     // output_format
@@ -3834,12 +3839,12 @@ void operator<<(::xercesc::DOMElement& e, const SimulationInterceptorsType& i) {
         s << *i.RadialDistributionFunction();
     }
 
-    // SaveFile
+    // FrameWriter
     //
-    if (i.SaveFile()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("SaveFile", e));
+    if (i.FrameWriter()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("FrameWriter", e));
 
-        s << *i.SaveFile();
+        s << *i.FrameWriter();
     }
 
     // Thermostat

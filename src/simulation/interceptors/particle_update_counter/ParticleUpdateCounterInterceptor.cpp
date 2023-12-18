@@ -24,12 +24,13 @@ void ParticleUpdateCounterInterceptor::onSimulationEnd(size_t iteration, Simulat
 
 double ParticleUpdateCounterInterceptor::getParticleUpdatesPerSecond() const { return particle_updates_per_second; }
 
-ParticleUpdateCounterInterceptor::operator std::string() const {
-    return "ParticleUpdateInterceptor: " + std::to_string(particle_updates_per_second) + " particle updates per second";
-}
-
 void ParticleUpdateCounterInterceptor::logSummary(int depth) const {
     std::string indent = std::string(depth * 2, ' ');
 
-    Logger::logger->info("{}╟┤{}ParticleUpdateCounter: {}", indent, ansi_yellow_bold, ansi_end);
+    Logger::logger->info("{}╟┤{}ParticleUpdateCounter: {}", indent, ansi_orange_bold, ansi_end);
+    Logger::logger->info("{}║  ├Enabled", indent);
+}
+
+ParticleUpdateCounterInterceptor::operator std::string() const {
+    return "ParticleUpdateCalculator: " + std::to_string(particle_updates_per_second) + " particle updates per second";
 }

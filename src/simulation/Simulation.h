@@ -60,7 +60,7 @@ class Simulation {
      * Befriend the interceptors to allow them to access the private members of this class
      */
     friend class ProgressBarInterceptor;
-    friend class SaveFileInterceptor;
+    friend class FrameWriterInterceptor;
     friend class ThermostatInterceptor;
     friend class ParticleUpdateCounterInterceptor;
     friend class RadialDistributionFunctionInterceptor;

@@ -5,12 +5,12 @@
 #include "io/output/OutputFormats.h"
 #include "simulation/interceptors/SimulationInterceptor.h"
 
-class SaveFileInterceptor : public SimulationInterceptor {
+class FrameWriterInterceptor : public SimulationInterceptor {
    public:
     /**
      * @brief Construct a new Save File Interceptor object
      */
-    SaveFileInterceptor(OutputFormat output_format, int fps, int video_length);
+    FrameWriterInterceptor(OutputFormat output_format, int fps, int video_length);
 
     /**
      * @brief This function saves the initial state of the simulation

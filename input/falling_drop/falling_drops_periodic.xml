@@ -29,7 +29,7 @@
             <GlobalDownwardsGravity g="12.44" />
         </forces>
         <interceptors>
-            <SaveFile output_format="vtu" fps="60" video_length_s="30" />
+            <FrameWriter output_format="vtu" fps="60" video_length_s="30" />
         </interceptors>
     </settings>
 

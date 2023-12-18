@@ -1,6 +1,7 @@
 #include "ProgressBarInterceptor.h"
 
 #include <spdlog/fmt/chrono.h>
+#include <sys/ioctl.h>
 
 #include <filesystem>
 #include <iostream>
@@ -11,22 +12,32 @@
 
 void printProgress(const std::filesystem::path& input_file_path, size_t percentage, size_t iteration, size_t expected_iterations,
                    int estimated_remaining_seconds, bool finished = false) {
-    auto file_name = std::filesystem::path(input_file_path).stem().string();
+    struct winsize size;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
 
-    std::string progress = fmt::format("[{}{}] Iteration: {}/{}, {:>3}%, ETA: {} - [{}]", ansi_blue_bold + std::string(percentage, '#'),
-                                       std::string(100 - percentage, ' ') + ansi_end, iteration, expected_iterations, percentage,
-                                       format_seconds_eta(estimated_remaining_seconds), file_name);
+    auto should_progress_bar_length = std::min(std::max(size.ws_col - 90, 0), 100);
+    auto length_full_progress_bar = static_cast<size_t>(percentage * static_cast<double>(should_progress_bar_length) / 100.0);
 
-    std::cout << progress << "\r" << (finished ? "\n" : "") << std::flush;
+    auto progress_bar = fmt::format("[{}{}]", ansi_blue_bold + std::string(length_full_progress_bar, '#'),
+                                    std::string(should_progress_bar_length - length_full_progress_bar, ' ') + ansi_end);
+
+    std::string line = fmt::format("{} Step: {}/{} {:>3}%, ETA: {} [{}]", progress_bar, iteration, expected_iterations, percentage,
+                                   format_seconds_eta(estimated_remaining_seconds), std::filesystem::path(input_file_path).stem().string());
+
+    if (line.length() > size.ws_col) {
+        line = line.substr(0, size.ws_col - 3) + "...";
+    }
+
+    std::cout << "\33[2K\r" << line << std::flush;
+
+    if (finished) {
+        std::cout << std::endl;
+    }
 }
 
 void ProgressBarInterceptor::onSimulationStart(Simulation& simulation) {
     t_start = std::chrono::high_resolution_clock::now();
     t_prev = t_start;
-
-    std::time_t t_start_helper = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-    Logger::logger->info("Start time: {}", fmt::format("{:%A %Y-%m-%d %H:%M:%S}", fmt::localtime(t_start_helper)));
-    Logger::logger->flush();
 
     expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t) + 1);
 
@@ -53,15 +64,13 @@ void ProgressBarInterceptor::operator()(size_t iteration, Simulation& simulation
 
 void ProgressBarInterceptor::onSimulationEnd(size_t iteration, Simulation& simulation) {
     printProgress(simulation.params.input_file_path, 100, expected_iterations, expected_iterations, 0, true);
-
-    std::time_t t_end = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-    Logger::logger->info("End time: {}", fmt::format("{:%A %Y-%m-%d %H:%M:%S}", fmt::localtime(t_end)));
 }
 
 void ProgressBarInterceptor::logSummary(int depth) const {
     std::string indent = std::string(depth * 2, ' ');
 
-    Logger::logger->info("{}╟┤{}ProgressBar: {}", indent, ansi_yellow_bold, ansi_end);
+    Logger::logger->info("{}╟┤{}ProgressBar: {}", indent, ansi_orange_bold, ansi_end);
+    Logger::logger->info("{}║  ├Enabled", indent);
 }
 
-ProgressBarInterceptor::operator std::string() const { return "ProgressBarInterceptor"; }
+ProgressBarInterceptor::operator std::string() const { return ""; }

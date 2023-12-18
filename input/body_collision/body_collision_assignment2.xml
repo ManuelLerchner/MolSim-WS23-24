@@ -14,7 +14,7 @@
             <LennardJones />
         </forces>
         <interceptors>
-            <SaveFile output_format="vtu" fps="24" video_length_s="30" />
+            <FrameWriter output_format="vtu" fps="24" video_length_s="30" />
         </interceptors>
     </settings>
 

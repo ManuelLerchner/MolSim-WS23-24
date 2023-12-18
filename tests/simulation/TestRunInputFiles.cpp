@@ -69,7 +69,8 @@ TEST(SimulationRunner, EnsureBackwardsCompatibilityForAllInputFiles) {
 
         config.end_time = 0.01;
         config.delta_t = 0.001;
-        config.output_format = OutputFormat::NONE;
+        std::erase_if(config.interceptors,
+                      [](const auto& interceptor) { return std::dynamic_pointer_cast<FrameWriterInterceptor>(interceptor) != nullptr; });
 
         // Initialize simulation
         Simulation simulation{particles, config};

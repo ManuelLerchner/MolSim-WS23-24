@@ -3,8 +3,6 @@
     xsi:noNamespaceSchemaLocation="../../../input/simulation_schema.xsd">
 
     <settings>
-        <fps>24</fps>
-        <video_length>10</video_length>
         <delta_t>0.0014</delta_t>
         <end_time>6.0</end_time>
         <third_dimension>true</third_dimension>
@@ -14,11 +12,11 @@
         <forces>
             <LennardJones />
         </forces>
-        <output_format>none</output_format>
+        <interceptors></interceptors>
     </settings>
 
     <particle_source>
-        <sub_simulation path="./RecursiveExample.xml"/>
+        <sub_simulation path="./RecursiveExample.xml" />
 
         <cuboid_spawner>
             <lower_left_front_corner>

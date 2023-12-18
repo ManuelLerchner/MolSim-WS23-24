@@ -159,7 +159,7 @@
     <xs:attribute name="sample_every_x_percent" type="xs:double" use="required" />
   </xs:complexType>
 
-  <xs:complexType name="SaveFileInterceptorType">
+  <xs:complexType name="FrameWriterInterceptorType">
     <xs:attribute name="output_format" type="OutputFormatType" use="required" />
     <xs:attribute name="fps" type="xs:integer" use="required" />
     <xs:attribute name="video_length_s" type="xs:integer" use="required" />
@@ -178,7 +178,7 @@
         minOccurs="0" />
       <xs:element name="RadialDistributionFunction"
         type="RadialDistributionFunctionInterceptionType" minOccurs="0" />
-      <xs:element name="SaveFile" type="SaveFileInterceptorType" minOccurs="0" />
+      <xs:element name="FrameWriter" type="FrameWriterInterceptorType" minOccurs="0" />
       <xs:element name="Thermostat" type="ThermostatInterceptorType" minOccurs="0" />
     </xs:all>
   </xs:complexType>

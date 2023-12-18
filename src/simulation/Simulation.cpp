@@ -14,10 +14,10 @@
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "simulation/SimulationParams.h"
 #include "simulation/interceptors/SimulationInterceptor.h"
+#include "simulation/interceptors/frame_writer/FrameWriterInterceptor.h"
 #include "simulation/interceptors/particle_update_counter/ParticleUpdateCounterInterceptor.h"
 #include "simulation/interceptors/progress_bar/ProgressBarInterceptor.h"
 #include "simulation/interceptors/radial_distribution_function/RadialDistributionFunctionInterceptor.h"
-#include "simulation/interceptors/save_file/SaveFileInterceptor.h"
 #include "simulation/interceptors/thermostat/ThermostatInterceptor.h"
 
 Simulation::Simulation(const std::vector<Particle>& initial_particles, const SimulationParams& params, IntegrationMethod integration_method)
@@ -53,6 +53,9 @@ SimulationOverview Simulation::runSimulation() {
 
     Logger::logger->info("Simulation started...");
 
+    std::time_t t_start_helper = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    Logger::logger->info("Start time: {}", fmt::format("{:%A %Y-%m-%d %H:%M:%S}", fmt::localtime(t_start_helper)));
+
     // Notify interceptors that the simulation is about to start
     for (auto& interceptor : params.interceptors) {
         (*interceptor).onSimulationStart(*this);
@@ -80,10 +83,14 @@ SimulationOverview Simulation::runSimulation() {
     }
 
     Logger::logger->info("Simulation finished.");
+    Logger::logger->info("End time: {}", fmt::format("{:%A %Y-%m-%d %H:%M:%S}", fmt::localtime(t_end)));
 
     std::vector<std::string> interceptor_summaries;
     for (auto& interceptor : params.interceptors) {
-        interceptor_summaries.push_back(std::string(*interceptor));
+        auto summary = std::string(*interceptor);
+        if (!summary.empty()) {
+            interceptor_summaries.push_back(summary);
+        }
     }
 
     auto total_time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(t_end - t_start).count();

@@ -4,10 +4,10 @@
 #include "physics/pairwiseforces/GravitationalForce.h"
 #include "physics/pairwiseforces/LennardJonesForce.h"
 #include "physics/simpleforces/GlobalDownwardsGravity.h"
+#include "simulation/interceptors/frame_writer/FrameWriterInterceptor.h"
 #include "simulation/interceptors/particle_update_counter/ParticleUpdateCounterInterceptor.h"
 #include "simulation/interceptors/progress_bar/ProgressBarInterceptor.h"
 #include "simulation/interceptors/radial_distribution_function/RadialDistributionFunctionInterceptor.h"
-#include "simulation/interceptors/save_file/SaveFileInterceptor.h"
 #include "simulation/interceptors/thermostat/ThermostatInterceptor.h"
 
 CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawnerType& cuboid, bool third_dimension) {
@@ -121,12 +121,12 @@ std::vector<std::shared_ptr<SimulationInterceptor>> XSDToInternalTypeAdapter::co
         simulation_interceptors.push_back(std::make_shared<RadialDistributionFunctionInterceptor>(bin_width, sample_every_x_percent));
     }
 
-    if (interceptors.SaveFile()) {
-        auto fps = interceptors.SaveFile()->fps();
-        auto video_length = interceptors.SaveFile()->video_length_s();
-        auto output_format = convertToOutputFormat(interceptors.SaveFile()->output_format());
+    if (interceptors.FrameWriter()) {
+        auto fps = interceptors.FrameWriter()->fps();
+        auto video_length = interceptors.FrameWriter()->video_length_s();
+        auto output_format = convertToOutputFormat(interceptors.FrameWriter()->output_format());
 
-        simulation_interceptors.push_back(std::make_shared<SaveFileInterceptor>(output_format, fps, video_length));
+        simulation_interceptors.push_back(std::make_shared<FrameWriterInterceptor>(output_format, fps, video_length));
     }
 
     simulation_interceptors.push_back(std::make_shared<ProgressBarInterceptor>());

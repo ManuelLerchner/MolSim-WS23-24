@@ -1,4 +1,4 @@
-#include "SaveFileInterceptor.h"
+#include "FrameWriterInterceptor.h"
 
 #include <cmath>
 #include <string>
@@ -6,7 +6,7 @@
 #include "io/logger/Logger.h"
 #include "io/output/OutputFormats.h"
 
-SaveFileInterceptor::SaveFileInterceptor(OutputFormat output_format, int fps, int video_length)
+FrameWriterInterceptor::FrameWriterInterceptor(OutputFormat output_format, int fps, int video_length)
     : output_format(output_format), fps(fps), video_length(video_length) {
     if (fps < 0) {
         Logger::logger->error("FPS must be positive");
@@ -18,10 +18,10 @@ SaveFileInterceptor::SaveFileInterceptor(OutputFormat output_format, int fps, in
     }
 }
 
-void SaveFileInterceptor::onSimulationStart(Simulation& simulation) {
+void FrameWriterInterceptor::onSimulationStart(Simulation& simulation) {
     size_t expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t) + 1);
 
-    SimulationInterceptor::every_nth_iteration = std::max(expected_iterations / (fps * video_length), 1ul);
+    FrameWriterInterceptor::every_nth_iteration = std::max(expected_iterations / (fps * video_length), 1ul);
 
     file_output_handler = std::make_unique<FileOutputHandler>(output_format, simulation.params);
 
@@ -29,19 +29,17 @@ void SaveFileInterceptor::onSimulationStart(Simulation& simulation) {
     file_counter++;
 }
 
-void SaveFileInterceptor::operator()(size_t iteration, Simulation& simulation) {
+void FrameWriterInterceptor::operator()(size_t iteration, Simulation& simulation) {
     file_output_handler->writeFile(static_cast<int>(iteration), simulation.particle_container);
     file_counter++;
 }
 
-void SaveFileInterceptor::onSimulationEnd(size_t iteration, Simulation& simulation) {
+void FrameWriterInterceptor::onSimulationEnd(size_t iteration, Simulation& simulation) {
     file_output_handler->writeFile(static_cast<int>(iteration), simulation.particle_container);
     file_counter++;
 }
 
-SaveFileInterceptor::operator std::string() const { return "SaveFileInterceptor: " + std::to_string(file_counter) + " files saved"; }
-
-void SaveFileInterceptor::logSummary(int depth) const {
+void FrameWriterInterceptor::logSummary(int depth) const {
     std::string indent = std::string(depth * 2, ' ');
 
     auto supported_output_formats = get_supported_output_formats();
@@ -51,8 +49,10 @@ void SaveFileInterceptor::logSummary(int depth) const {
             return format.second == output_format;
         })->first;
 
-    Logger::logger->info("{}╟┤{}Save Files: {}", indent, ansi_yellow_bold, ansi_end);
+    Logger::logger->info("{}╟┤{}Frame Writer: {}", indent, ansi_orange_bold, ansi_end);
     Logger::logger->info("{}║  ┌Output format: {}", indent, output_format_s);
     Logger::logger->info("{}║  ├Frames per second: {}", indent, fps);
     Logger::logger->info("{}║  └Video length: {}", indent, video_length);
 }
+
+FrameWriterInterceptor::operator std::string() const { return "Frame Writer: " + std::to_string(file_counter) + " files saved"; }
