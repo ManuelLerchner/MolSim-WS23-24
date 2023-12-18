@@ -54,13 +54,6 @@ class ParticleUpdateCounterInterceptor : public SimulationInterceptor {
      */
     [[nodiscard]] double getParticleUpdatesPerSecond() const;
 
-    /**
-     * @brief Get the duration of the simulation
-     *
-     * @return std::chrono::milliseconds::rep of the duration
-     */
-    [[nodiscard]] std::chrono::milliseconds::rep getSimulationDurationMS() const;
-
    private:
     size_t particle_updates = 0;
     std::chrono::high_resolution_clock::time_point t_start;

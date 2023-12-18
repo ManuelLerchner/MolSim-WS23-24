@@ -12,7 +12,7 @@
 
 void printProgress(const std::filesystem::path& input_file_path, size_t percentage, size_t iteration, size_t expected_iterations,
                    int estimated_remaining_seconds, bool finished = false) {
-    struct winsize size;
+    struct winsize size {};
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &size);
 
     auto should_progress_bar_length = std::min(std::max(size.ws_col - 90, 0), 100);

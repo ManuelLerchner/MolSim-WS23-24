@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include <utility>
+#include <variant>
 #include <vector>
 
 #include "io/logger/Logger.h"
@@ -41,8 +42,7 @@ class CSVWriter {
      * @param append Whether to append to the CSV file or overwrite it.
      * @param separator The separator to use between values.
      */
-    CSVWriter(const std::filesystem::path& file_path, const std::vector<std::string>& headers, bool append = false,
-              std::string separator = ";");
+    CSVWriter(std::filesystem::path file_path, const std::vector<std::string>& headers, bool append = false, std::string separator = ";");
 
     /**
      * @brief Creates a new CSVWriter instance.
@@ -51,15 +51,15 @@ class CSVWriter {
      * @param append Whether to append to the CSV file or overwrite it.
      * @param separator The separator to use between values.
      */
-    CSVWriter(const std::filesystem::path& file_path, bool append = false, std::string separator = ";");
+    explicit CSVWriter(std::filesystem::path file_path, bool append = false, std::string separator = ";");
 
     // Delete copy constructor and assignment operator
     CSVWriter(const CSVWriter&) = delete;
     CSVWriter& operator=(CSVWriter&) = delete;
 
     // Move constructor and assignment operator
-    CSVWriter(CSVWriter&&);
-    CSVWriter& operator=(CSVWriter&&);
+    CSVWriter(CSVWriter&&) noexcept;
+    CSVWriter& operator=(CSVWriter&&) noexcept;
 
     ~CSVWriter();
 

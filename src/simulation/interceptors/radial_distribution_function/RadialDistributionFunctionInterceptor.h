@@ -53,7 +53,7 @@ class RadialDistributionFunctionInterceptor : public SimulationInterceptor {
      */
     void logSummary(int depth) const override;
 
-    double calculateLocalDensity(size_t N, size_t bin_index);
+    double calculateLocalDensity(size_t N, size_t bin_index) const;
 
    private:
     double bin_width;

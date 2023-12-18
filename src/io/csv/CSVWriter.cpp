@@ -1,5 +1,7 @@
 #include "CSVWriter.h"
 
+#include <utility>
+
 #include "io/logger/Logger.h"
 
 template <typename T>
@@ -12,14 +14,14 @@ void write_csv_element<std::string>(std::ofstream& file, const std::string& valu
     file << "\"" << value << "\"";
 }
 
-CSVWriter::CSVWriter(const std::filesystem::path& file_path, const std::vector<std::string>& headers, bool append, std::string separator)
-    : file_path(file_path), append(append), headers(headers), separator(std::move(separator)) {
+CSVWriter::CSVWriter(std::filesystem::path file_path, const std::vector<std::string>& headers, bool append, std::string separator)
+    : file_path(std::move(file_path)), append(append), headers(headers), separator(std::move(separator)) {
     initialize(headers);
 }
-CSVWriter::CSVWriter(const std::filesystem::path& file_path, bool append, std::string separator)
-    : file_path(file_path), append(append), separator(std::move(separator)) {}
+CSVWriter::CSVWriter(std::filesystem::path file_path, bool append, std::string separator)
+    : file_path(std::move(file_path)), append(append), separator(std::move(separator)) {}
 
-CSVWriter::CSVWriter(CSVWriter&& rhs) {
+CSVWriter::CSVWriter(CSVWriter&& rhs) noexcept {
     this->file_path = std::move(rhs.file_path);
     this->headers = std::move(rhs.headers);
     this->separator = std::move(rhs.separator);

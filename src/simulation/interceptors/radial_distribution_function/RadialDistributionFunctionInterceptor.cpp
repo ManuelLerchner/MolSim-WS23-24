@@ -57,7 +57,7 @@ RadialDistributionFunctionInterceptor::operator std::string() const {
     return fmt::format("RadialDistributionFunction: {} samples, bin width: {}", samples_count, bin_width);
 }
 
-double RadialDistributionFunctionInterceptor::calculateLocalDensity(size_t N, size_t bin_index) {
+double RadialDistributionFunctionInterceptor::calculateLocalDensity(size_t N, size_t bin_index) const {
     double bin_start = bin_index * bin_width;
     double bin_end = (bin_index + 1) * bin_width;
 

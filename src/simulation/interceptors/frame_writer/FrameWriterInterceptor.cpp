@@ -19,7 +19,7 @@ FrameWriterInterceptor::FrameWriterInterceptor(OutputFormat output_format, int f
 }
 
 void FrameWriterInterceptor::onSimulationStart(Simulation& simulation) {
-    size_t expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t) + 1);
+    auto expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t) + 1);
 
     FrameWriterInterceptor::every_nth_iteration = std::max(expected_iterations / (fps * video_length), 1ul);
 
