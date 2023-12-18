@@ -4,8 +4,6 @@
     xsi:noNamespaceSchemaLocation="../simulation_schema.xsd">
 
     <settings>
-        <fps>24</fps>
-        <video_length>30</video_length>
         <delta_t>0.0005</delta_t>
         <end_time>25.0</end_time>
         <third_dimension>false</third_dimension>
@@ -31,12 +29,11 @@
             <LennardJones />
             <GlobalDownwardsGravity g="12.44" />
         </forces>
-        <thermostat>
-            <target_temperature>40</target_temperature>
-            <max_temperature_change>1000000</max_temperature_change>
-            <application_interval>1000</application_interval>
-        </thermostat>
-        <output_format>vtu</output_format>
+        <interceptors>
+            <Thermostat application_interval="1000" target_temperature="40"
+                max_temperature_change="INF" />
+            <FrameWriter output_format="vtu" fps="24" video_length_s="30" />
+        </interceptors>
     </settings>
 
 

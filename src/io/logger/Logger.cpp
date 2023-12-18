@@ -15,7 +15,7 @@ void createDirectory(const std::string& dir_name) {
             std::filesystem::create_directory(dir_name);
         } catch (const std::filesystem::filesystem_error& e) {
             std::cerr << "Error creating directory: " << e.what() << std::endl;
-            exit(-1);
+            throw e;
         }
     }
 }
@@ -62,6 +62,6 @@ void Logger::update_level(std::string& log_level) {
         Logger::logger->set_level(spdlog::level::off);
     } else {
         std::cout << "Error: Invalid log level given." << std::endl;
-        exit(-1);
+        throw std::invalid_argument("Invalid log level given.");
     }
 }

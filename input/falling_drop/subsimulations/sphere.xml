@@ -3,8 +3,6 @@
     xsi:noNamespaceSchemaLocation="../../simulation_schema.xsd">
 
     <settings>
-        <fps>0</fps>
-        <video_length>0</video_length>
         <delta_t>0</delta_t>
         <end_time>0</end_time>
         <third_dimension>false</third_dimension>
@@ -29,7 +27,7 @@
         <forces>
             <LennardJones />
         </forces>
-        <output_format>none</output_format>
+        <interceptors />
     </settings>
 
     <particle_source>

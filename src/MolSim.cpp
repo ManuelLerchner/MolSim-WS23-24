@@ -5,7 +5,7 @@
 
 int main(int argc, char* argsv[]) {
     // Parse CLI arguments
-    SimulationParams params_cli = parse_arguments(argc, argsv);
+    CLIParams params_cli = parse_arguments(argc, argsv);
 
     // Parse input file
     auto [initial_particles, simulation_arguments] = FileInputHandler::readFile(params_cli.input_file_path, params_cli.fresh);
@@ -20,14 +20,7 @@ int main(int argc, char* argsv[]) {
     // Print simulation info
     params.logSummary();
 
-    // Run simulation
-    auto overview = [params](Simulation& simulation) {
-        if (params.performance_test) {
-            return simulation.runSimulationPerfTest();
-        } else {
-            return simulation.runSimulation();
-        }
-    }(simulation);
+    auto overview = simulation.runSimulation();
 
     // Print simulation overview
     overview.logSummary();

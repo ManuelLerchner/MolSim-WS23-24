@@ -34,12 +34,12 @@ LinkedCellsContainer::LinkedCellsContainer(const std::array<double, 3>& _domain_
     // reserve the memory for the particles to prevent reallocation during insertion
     particles.reserve(_n);
 
-    Logger::logger->info("Created LinkedCellsContainer with boundaries [{}, {}, {}] and cutoff radius {}", domain_size[0], domain_size[1],
-                         domain_size[2], cutoff_radius);
-    Logger::logger->info("Created LinkedCellsContainer with {} domain cells (of which {} are at the boundary) and {} halo cells",
-                         domain_cell_references.size(), boundary_cell_references.size(), halo_cell_references.size());
-    Logger::logger->info("Cells per dimension: [{}, {}, {}]", domain_num_cells[0], domain_num_cells[1], domain_num_cells[2]);
-    Logger::logger->info("Calculated cell size: [{}, {}, {}]", cell_size[0], cell_size[1], cell_size[2]);
+    Logger::logger->debug("Created LinkedCellsContainer with boundaries [{}, {}, {}] and cutoff radius {}", domain_size[0], domain_size[1],
+                          domain_size[2], cutoff_radius);
+    Logger::logger->debug("Created LinkedCellsContainer with {} domain cells (of which {} are at the boundary) and {} halo cells",
+                          domain_cell_references.size(), boundary_cell_references.size(), halo_cell_references.size());
+    Logger::logger->debug("Cells per dimension: [{}, {}, {}]", domain_num_cells[0], domain_num_cells[1], domain_num_cells[2]);
+    Logger::logger->debug("Calculated cell size: [{}, {}, {}]", cell_size[0], cell_size[1], cell_size[2]);
 }
 
 void LinkedCellsContainer::addParticle(const Particle& p) {
