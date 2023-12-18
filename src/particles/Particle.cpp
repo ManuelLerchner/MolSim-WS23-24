@@ -25,7 +25,7 @@ Particle::Particle(const Particle& other) {
 }
 
 Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type_arg, double epsilon_arg,
-                   double sigma_arg) {
+                   double sigma_arg, bool locked_arg) {
     x = x_arg;
     v = v_arg;
     m = m_arg;
@@ -33,12 +33,13 @@ Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, dou
     f = {0., 0., 0.};
     sigma = sigma_arg;
     type = type_arg;
+    locked = locked_arg;
     old_f = {0., 0., 0.};
     Logger::logger->debug("Particle created");
 }
 
 Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std::array<double, 3> f_arg, std::array<double, 3> old_f_arg,
-                   double m_arg, int type_arg, double epsilon_arg, double sigma_arg) {
+                   double m_arg, int type_arg, double epsilon_arg, double sigma_arg, bool locked_arg) {
     x = x_arg;
     v = v_arg;
     f = f_arg;
@@ -47,6 +48,7 @@ Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std
     type = type_arg;
     epsilon = epsilon_arg;
     sigma = sigma_arg;
+    locked = locked_arg;
     Logger::logger->debug("Particle created");
 }
 
@@ -75,6 +77,8 @@ double Particle::getEpsilon() const { return epsilon; }
 double Particle::getSigma() const { return sigma; }
 
 int Particle::getType() const { return type; }
+
+bool Particle::isLocked() const { return locked; }
 
 std::string Particle::toString() const {
     std::stringstream stream;

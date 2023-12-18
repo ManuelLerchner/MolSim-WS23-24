@@ -21,6 +21,7 @@ CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawn
     auto epsilon = cuboid.epsilon();
     auto sigma = cuboid.sigma();
     auto temperature = cuboid.temperature();
+    auto locked = cuboid.is_locked();
 
     if (grid_dimensions[0] <= 0 || grid_dimensions[1] <= 0 || grid_dimensions[2] <= 0) {
         Logger::logger->error("Cuboid grid dimensions must be positive");
@@ -48,7 +49,7 @@ CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawn
     }
 
     return CuboidSpawner{
-        lower_left_front_corner, grid_dimensions, grid_spacing, mass, initial_velocity, static_cast<int>(type), epsilon, sigma,
+        lower_left_front_corner, grid_dimensions, grid_spacing, mass, initial_velocity, static_cast<int>(type), epsilon, sigma, locked,
         third_dimension,         temperature};
 }
 
@@ -63,6 +64,7 @@ SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const SphereSpawn
     auto epsilon = sphere.epsilon();
     auto sigma = sphere.sigma();
     auto temperature = sphere.temperature();
+    auto locked = sphere.is_locked();
 
     if (radius <= 0) {
         Logger::logger->error("Sphere radius must be positive");
@@ -84,8 +86,8 @@ SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const SphereSpawn
         throw std::runtime_error("Sphere temperature must be positive");
     }
 
-    return SphereSpawner{center, static_cast<int>(radius), grid_spacing, mass, initial_velocity, static_cast<int>(type), epsilon,
-                         sigma,  third_dimension,          temperature};
+    return SphereSpawner{center, static_cast<int>(radius), grid_spacing, mass, initial_velocity, static_cast<int>(type), epsilon, sigma,
+                         locked, third_dimension,          temperature};
 }
 
 CuboidSpawner XSDToInternalTypeAdapter::convertToSingleParticleSpawner(const SingleParticleSpawnerType& particle, bool third_dimension) {
@@ -96,9 +98,19 @@ CuboidSpawner XSDToInternalTypeAdapter::convertToSingleParticleSpawner(const Sin
     auto type = particle.type();
     auto epsilon = particle.epsilon();
     auto sigma = particle.sigma();
+    auto locked = particle.is_locked();
 
-    return CuboidSpawner{
-        position, {1, 1, 1}, 0, mass, initial_velocity, static_cast<int>(type), epsilon, sigma, third_dimension, particle.temperature()};
+    return CuboidSpawner{position,
+                         {1, 1, 1},
+                         0,
+                         mass,
+                         initial_velocity,
+                         static_cast<int>(type),
+                         epsilon,
+                         sigma,
+                         locked,
+                         third_dimension,
+                         particle.temperature()};
 }
 
 std::vector<std::shared_ptr<SimulationInterceptor>> XSDToInternalTypeAdapter::convertToSimulationInterceptors(
@@ -214,13 +226,16 @@ Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particl
     auto old_force = XSDToInternalTypeAdapter::convertToVector(particle.old_force());
     auto type = particle.type();
     auto mass = particle.mass();
+    auto epsilon = particle.epsilon();
+    auto sigma = particle.sigma();
+    auto locked = particle.is_locked();
 
     if (mass <= 0) {
         Logger::logger->error("Particle mass must be positive");
         throw std::runtime_error("Particle mass must be positive");
     }
 
-    return Particle{position, velocity, force, old_force, mass, static_cast<int>(type)};
+    return Particle{position, velocity, force, old_force, mass, static_cast<int>(type), epsilon, sigma, locked};
 }
 
 std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::shared_ptr<PairwiseForceSource>>>

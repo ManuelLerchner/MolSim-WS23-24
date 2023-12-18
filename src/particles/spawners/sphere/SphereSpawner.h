@@ -49,6 +49,11 @@ class SphereSpawner : public ParticleSpawner {
     const double sigma;
 
     /**
+     * @brief Defines whether the particles in the sphere are locked
+     */
+    const bool locked;
+
+    /**
      * @brief Defines the initial velocity of the particles in the sphere
      */
     const std::array<double, 3> initial_velocity;
@@ -80,8 +85,8 @@ class SphereSpawner : public ParticleSpawner {
      * Constructor to initialize the cuboid spawner. The velocity of the particles is jittered by a Maxwell-Boltzmann distribution.
      */
     SphereSpawner(const std::array<double, 3>& center, int sphere_radius, double grid_spacing, double mass,
-                  const std::array<double, 3>& initial_velocity, int type, double epsilon = 1.0, double sigma = 1.2,
-                  bool third_dimension = true, double initial_temperature = 0.1);
+                  const std::array<double, 3>& initial_velocity, int type, double epsilon, double sigma, bool locked, bool third_dimension,
+                  double initial_temperature);
 
     /**
      * @brief Spawns particles in the given container

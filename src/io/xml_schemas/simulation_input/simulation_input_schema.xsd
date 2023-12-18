@@ -89,6 +89,7 @@
       <xs:element name="epsilon" type="xs:double" />
       <xs:element name="sigma" type="xs:double" />
     </xs:sequence>
+    <xs:attribute name="is_locked" type="xs:boolean" default="false" />
   </xs:complexType>
 
   <xs:complexType name="SphereSpawnerType">
@@ -103,6 +104,7 @@
       <xs:element name="epsilon" type="xs:double" />
       <xs:element name="sigma" type="xs:double" />
     </xs:sequence>
+    <xs:attribute name="is_locked" type="xs:boolean" default="false" />
   </xs:complexType>
 
   <xs:complexType name="SingleParticleSpawnerType">
@@ -115,6 +117,7 @@
       <xs:element name="epsilon" type="xs:double" />
       <xs:element name="sigma" type="xs:double" />
     </xs:sequence>
+    <xs:attribute name="is_locked" type="xs:boolean" default="false" />
   </xs:complexType>
 
   <xs:complexType name="CheckPointLoaderType">

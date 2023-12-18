@@ -60,14 +60,19 @@ class Particle {
      */
     int type;
 
+    /**
+     * @brief Wheter the particle is loccked in space
+     */
+    bool locked;
+
    public:
     Particle(const Particle& other);
 
-    Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type = 0, double epsilon_arg = 1.0,
-             double sigma_arg = 1.2);
+    Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type=0, double epsilon_arg=1.0, double sigma_arg=1.2,
+             bool locked=false);
 
     Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std::array<double, 3> f_arg, std::array<double, 3> old_f_arg,
-             double m_arg, int type = 0, double epsilon_arg = 1.0, double sigma_arg = 1.2);
+             double m_arg, int type=0, double epsilon_arg=1.0, double sigma_arg=1.2, bool locked=false);
 
     virtual ~Particle();
 
@@ -138,6 +143,11 @@ class Particle {
      * @brief Gets the Lennard-Jones potential parameter sigma
      */
     [[nodiscard]] double getSigma() const;
+
+    /**
+     * @brief Gets whether the particle is locked in space
+     */
+    [[nodiscard]] bool isLocked() const;
 
     bool operator==(Particle& other);
 
