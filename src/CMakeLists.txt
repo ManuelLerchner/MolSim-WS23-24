@@ -10,12 +10,10 @@ add_library(project_lib ${PROJECT_SRC}
         simulation/SimulationParams.cpp)
 
 target_include_directories(project_lib PUBLIC
-    ${program_options_SOURCE_DIR}/include
-    ${xercesc_SOURCE_DIR}/include
     ${libxsd_SOURCE_DIR}
     ${spdlog_SOURCE_DIR}/include)
 
-target_link_libraries(project_lib PUBLIC xerces-c boost_program_options spdlog::spdlog)
+target_link_libraries(project_lib PUBLIC XercesC::XercesC spdlog::spdlog Boost::program_options)
 
 add_executable(MolSim MolSim.cpp)
 target_link_libraries(MolSim PUBLIC project_lib)
