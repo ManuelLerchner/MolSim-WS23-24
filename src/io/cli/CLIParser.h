@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 
+#include "io/cli/CLIParams.h"
 #include "simulation/SimulationParams.h"
 
 /**
@@ -14,7 +15,7 @@
  *
  * Parses the command line arguments and returns a tuple containing all the arguments.
  */
-SimulationParams parse_arguments(int argc, char* argsv[]);
+CLIParams parse_arguments(int argc, char* argsv[]);
 
 /**
  * @brief Merges the simulation parameters retrieved via the command line with the ones from the XML file. Command line arguments have
@@ -26,4 +27,4 @@ SimulationParams parse_arguments(int argc, char* argsv[]);
  *
  * Merges the command line arguments with the parameters retrieved from the file. Command line arguments have priority.
  */
-SimulationParams merge_parameters(const SimulationParams& params_cli, const std::optional<SimulationParams>& file_params);
+SimulationParams merge_parameters(const CLIParams& params_cli, const std::optional<SimulationParams>& file_params);

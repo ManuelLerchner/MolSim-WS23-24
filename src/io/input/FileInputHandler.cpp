@@ -9,14 +9,14 @@ std::tuple<std::vector<Particle>, std::optional<SimulationParams>> FileInputHand
                                                                                               bool fresh, bool allow_recursion) {
     if (!std::filesystem::exists(input_file_path)) {
         Logger::logger->error("Error: file '{}' does not exist.", input_file_path.string());
-        exit(-1);
+        throw FileReader::FileFormatException("File does not exist");
     }
 
     std::string file_extension = input_file_path.extension().string();
 
     if (get_supported_input_file_extensions().find(file_extension) == get_supported_input_file_extensions().end()) {
         Logger::logger->error("Error: file extension '{}' is not supported.", file_extension);
-        exit(-1);
+        throw FileReader::FileFormatException("File extension is not supported");
     }
 
     std::unique_ptr<FileReader> file_reader;
@@ -27,7 +27,7 @@ std::tuple<std::vector<Particle>, std::optional<SimulationParams>> FileInputHand
         file_reader = std::make_unique<ChkptPointFileReader>();
     } else {
         Logger::logger->error("Error: file extension '{}' is not supported.", file_extension);
-        exit(-1);
+        throw FileReader::FileFormatException("File extension is not supported");
     }
 
     try {
@@ -37,6 +37,6 @@ std::tuple<std::vector<Particle>, std::optional<SimulationParams>> FileInputHand
     } catch (const FileReader::FileFormatException& e) {
         Logger::logger->error("Error: file '{}' is not a valid {} file.", input_file_path.string(), file_extension);
         Logger::logger->error("FileFormatException:\n{}", std::string(e.what()));
-        exit(-1);
+        throw;
     }
 }

@@ -18,8 +18,6 @@ TEST(XMLFileReader, CorrectParticleContainer) {
     auto conf = *params;
 
     double err = 1e-13;
-    EXPECT_EQ(conf.video_length, 10);
-    EXPECT_EQ(conf.fps, 24);
     EXPECT_NEAR(conf.end_time, 100, err);
     EXPECT_NEAR(conf.delta_t, 0.0014, err);
 

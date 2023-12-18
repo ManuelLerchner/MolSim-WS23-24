@@ -168,29 +168,6 @@ void LinkedCellsContainerType::boundary_conditions(::std::unique_ptr<boundary_co
     this->boundary_conditions_.set(std::move(x));
 }
 
-// ThermostatType
-//
-
-const ThermostatType::target_temperature_type& ThermostatType::target_temperature() const { return this->target_temperature_.get(); }
-
-ThermostatType::target_temperature_type& ThermostatType::target_temperature() { return this->target_temperature_.get(); }
-
-void ThermostatType::target_temperature(const target_temperature_type& x) { this->target_temperature_.set(x); }
-
-const ThermostatType::max_temperature_change_type& ThermostatType::max_temperature_change() const {
-    return this->max_temperature_change_.get();
-}
-
-ThermostatType::max_temperature_change_type& ThermostatType::max_temperature_change() { return this->max_temperature_change_.get(); }
-
-void ThermostatType::max_temperature_change(const max_temperature_change_type& x) { this->max_temperature_change_.set(x); }
-
-const ThermostatType::application_interval_type& ThermostatType::application_interval() const { return this->application_interval_.get(); }
-
-ThermostatType::application_interval_type& ThermostatType::application_interval() { return this->application_interval_.get(); }
-
-void ThermostatType::application_interval(const application_interval_type& x) { this->application_interval_.set(x); }
-
 // BoundaryConditionsType
 //
 
@@ -462,20 +439,45 @@ void SubSimulationType::path(const path_type& x) { this->path_.set(x); }
 
 void SubSimulationType::path(::std::unique_ptr<path_type> x) { this->path_.set(std::move(x)); }
 
-// SettingsType
+// ParticleSourceType
 //
 
-const SettingsType::fps_type& SettingsType::fps() const { return this->fps_.get(); }
+const ParticleSourceType::cuboid_spawner_sequence& ParticleSourceType::cuboid_spawner() const { return this->cuboid_spawner_; }
 
-SettingsType::fps_type& SettingsType::fps() { return this->fps_.get(); }
+ParticleSourceType::cuboid_spawner_sequence& ParticleSourceType::cuboid_spawner() { return this->cuboid_spawner_; }
 
-void SettingsType::fps(const fps_type& x) { this->fps_.set(x); }
+void ParticleSourceType::cuboid_spawner(const cuboid_spawner_sequence& s) { this->cuboid_spawner_ = s; }
 
-const SettingsType::video_length_type& SettingsType::video_length() const { return this->video_length_.get(); }
+const ParticleSourceType::sphere_spawner_sequence& ParticleSourceType::sphere_spawner() const { return this->sphere_spawner_; }
 
-SettingsType::video_length_type& SettingsType::video_length() { return this->video_length_.get(); }
+ParticleSourceType::sphere_spawner_sequence& ParticleSourceType::sphere_spawner() { return this->sphere_spawner_; }
 
-void SettingsType::video_length(const video_length_type& x) { this->video_length_.set(x); }
+void ParticleSourceType::sphere_spawner(const sphere_spawner_sequence& s) { this->sphere_spawner_ = s; }
+
+const ParticleSourceType::single_particle_spawner_sequence& ParticleSourceType::single_particle_spawner() const {
+    return this->single_particle_spawner_;
+}
+
+ParticleSourceType::single_particle_spawner_sequence& ParticleSourceType::single_particle_spawner() {
+    return this->single_particle_spawner_;
+}
+
+void ParticleSourceType::single_particle_spawner(const single_particle_spawner_sequence& s) { this->single_particle_spawner_ = s; }
+
+const ParticleSourceType::check_point_loader_sequence& ParticleSourceType::check_point_loader() const { return this->check_point_loader_; }
+
+ParticleSourceType::check_point_loader_sequence& ParticleSourceType::check_point_loader() { return this->check_point_loader_; }
+
+void ParticleSourceType::check_point_loader(const check_point_loader_sequence& s) { this->check_point_loader_ = s; }
+
+const ParticleSourceType::sub_simulation_sequence& ParticleSourceType::sub_simulation() const { return this->sub_simulation_; }
+
+ParticleSourceType::sub_simulation_sequence& ParticleSourceType::sub_simulation() { return this->sub_simulation_; }
+
+void ParticleSourceType::sub_simulation(const sub_simulation_sequence& s) { this->sub_simulation_ = s; }
+
+// SettingsType
+//
 
 const SettingsType::delta_t_type& SettingsType::delta_t() const { return this->delta_t_.get(); }
 
@@ -513,25 +515,13 @@ void SettingsType::forces(const forces_type& x) { this->forces_.set(x); }
 
 void SettingsType::forces(::std::unique_ptr<forces_type> x) { this->forces_.set(std::move(x)); }
 
-const SettingsType::thermostat_optional& SettingsType::thermostat() const { return this->thermostat_; }
+const SettingsType::interceptors_type& SettingsType::interceptors() const { return this->interceptors_.get(); }
 
-SettingsType::thermostat_optional& SettingsType::thermostat() { return this->thermostat_; }
+SettingsType::interceptors_type& SettingsType::interceptors() { return this->interceptors_.get(); }
 
-void SettingsType::thermostat(const thermostat_type& x) { this->thermostat_.set(x); }
+void SettingsType::interceptors(const interceptors_type& x) { this->interceptors_.set(x); }
 
-void SettingsType::thermostat(const thermostat_optional& x) { this->thermostat_ = x; }
-
-void SettingsType::thermostat(::std::unique_ptr<thermostat_type> x) { this->thermostat_.set(std::move(x)); }
-
-const SettingsType::output_format_type& SettingsType::output_format() const { return this->output_format_.get(); }
-
-SettingsType::output_format_type& SettingsType::output_format() { return this->output_format_.get(); }
-
-void SettingsType::output_format(const output_format_type& x) { this->output_format_.set(x); }
-
-void SettingsType::output_format(::std::unique_ptr<output_format_type> x) { this->output_format_.set(std::move(x)); }
-
-const SettingsType::output_format_type& SettingsType::output_format_default_value() { return output_format_default_value_; }
+void SettingsType::interceptors(::std::unique_ptr<interceptors_type> x) { this->interceptors_.set(std::move(x)); }
 
 const SettingsType::log_level_optional& SettingsType::log_level() const { return this->log_level_; }
 
@@ -545,44 +535,158 @@ void SettingsType::log_level(::std::unique_ptr<log_level_type> x) { this->log_le
 
 const SettingsType::log_level_type& SettingsType::log_level_default_value() { return log_level_default_value_; }
 
-// OutputFormatType
+// ParticleUpdatesPerSecondInterceptionType
 //
 
-OutputFormatType::OutputFormatType(value v) : ::xml_schema::string(_xsd_OutputFormatType_literals_[v]) {}
-
-OutputFormatType::OutputFormatType(const char* v) : ::xml_schema::string(v) {}
-
-OutputFormatType::OutputFormatType(const ::std::string& v) : ::xml_schema::string(v) {}
-
-OutputFormatType::OutputFormatType(const ::xml_schema::string& v) : ::xml_schema::string(v) {}
-
-OutputFormatType::OutputFormatType(const OutputFormatType& v, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(v, f, c) {}
-
-OutputFormatType& OutputFormatType::operator=(value v) {
-    static_cast< ::xml_schema::string&>(*this) = ::xml_schema::string(_xsd_OutputFormatType_literals_[v]);
-
-    return *this;
-}
-
-// LogLevelType
+// RadialDistributionFunctionInterceptionType
 //
 
-LogLevelType::LogLevelType(value v) : ::xml_schema::string(_xsd_LogLevelType_literals_[v]) {}
-
-LogLevelType::LogLevelType(const char* v) : ::xml_schema::string(v) {}
-
-LogLevelType::LogLevelType(const ::std::string& v) : ::xml_schema::string(v) {}
-
-LogLevelType::LogLevelType(const ::xml_schema::string& v) : ::xml_schema::string(v) {}
-
-LogLevelType::LogLevelType(const LogLevelType& v, ::xml_schema::flags f, ::xml_schema::container* c) : ::xml_schema::string(v, f, c) {}
-
-LogLevelType& LogLevelType::operator=(value v) {
-    static_cast< ::xml_schema::string&>(*this) = ::xml_schema::string(_xsd_LogLevelType_literals_[v]);
-
-    return *this;
+const RadialDistributionFunctionInterceptionType::bin_width_type& RadialDistributionFunctionInterceptionType::bin_width() const {
+    return this->bin_width_.get();
 }
+
+RadialDistributionFunctionInterceptionType::bin_width_type& RadialDistributionFunctionInterceptionType::bin_width() {
+    return this->bin_width_.get();
+}
+
+void RadialDistributionFunctionInterceptionType::bin_width(const bin_width_type& x) { this->bin_width_.set(x); }
+
+const RadialDistributionFunctionInterceptionType::sample_every_x_percent_type&
+RadialDistributionFunctionInterceptionType::sample_every_x_percent() const {
+    return this->sample_every_x_percent_.get();
+}
+
+RadialDistributionFunctionInterceptionType::sample_every_x_percent_type&
+RadialDistributionFunctionInterceptionType::sample_every_x_percent() {
+    return this->sample_every_x_percent_.get();
+}
+
+void RadialDistributionFunctionInterceptionType::sample_every_x_percent(const sample_every_x_percent_type& x) {
+    this->sample_every_x_percent_.set(x);
+}
+
+// FrameWriterInterceptorType
+//
+
+const FrameWriterInterceptorType::output_format_type& FrameWriterInterceptorType::output_format() const {
+    return this->output_format_.get();
+}
+
+FrameWriterInterceptorType::output_format_type& FrameWriterInterceptorType::output_format() { return this->output_format_.get(); }
+
+void FrameWriterInterceptorType::output_format(const output_format_type& x) { this->output_format_.set(x); }
+
+void FrameWriterInterceptorType::output_format(::std::unique_ptr<output_format_type> x) { this->output_format_.set(std::move(x)); }
+
+const FrameWriterInterceptorType::fps_type& FrameWriterInterceptorType::fps() const { return this->fps_.get(); }
+
+FrameWriterInterceptorType::fps_type& FrameWriterInterceptorType::fps() { return this->fps_.get(); }
+
+void FrameWriterInterceptorType::fps(const fps_type& x) { this->fps_.set(x); }
+
+const FrameWriterInterceptorType::video_length_s_type& FrameWriterInterceptorType::video_length_s() const {
+    return this->video_length_s_.get();
+}
+
+FrameWriterInterceptorType::video_length_s_type& FrameWriterInterceptorType::video_length_s() { return this->video_length_s_.get(); }
+
+void FrameWriterInterceptorType::video_length_s(const video_length_s_type& x) { this->video_length_s_.set(x); }
+
+// ThermostatInterceptorType
+//
+
+const ThermostatInterceptorType::target_temperature_type& ThermostatInterceptorType::target_temperature() const {
+    return this->target_temperature_.get();
+}
+
+ThermostatInterceptorType::target_temperature_type& ThermostatInterceptorType::target_temperature() {
+    return this->target_temperature_.get();
+}
+
+void ThermostatInterceptorType::target_temperature(const target_temperature_type& x) { this->target_temperature_.set(x); }
+
+const ThermostatInterceptorType::max_temperature_change_type& ThermostatInterceptorType::max_temperature_change() const {
+    return this->max_temperature_change_.get();
+}
+
+ThermostatInterceptorType::max_temperature_change_type& ThermostatInterceptorType::max_temperature_change() {
+    return this->max_temperature_change_.get();
+}
+
+void ThermostatInterceptorType::max_temperature_change(const max_temperature_change_type& x) { this->max_temperature_change_.set(x); }
+
+const ThermostatInterceptorType::application_interval_type& ThermostatInterceptorType::application_interval() const {
+    return this->application_interval_.get();
+}
+
+ThermostatInterceptorType::application_interval_type& ThermostatInterceptorType::application_interval() {
+    return this->application_interval_.get();
+}
+
+void ThermostatInterceptorType::application_interval(const application_interval_type& x) { this->application_interval_.set(x); }
+
+// SimulationInterceptorsType
+//
+
+const SimulationInterceptorsType::ParticleUpdatesPerSecond_optional& SimulationInterceptorsType::ParticleUpdatesPerSecond() const {
+    return this->ParticleUpdatesPerSecond_;
+}
+
+SimulationInterceptorsType::ParticleUpdatesPerSecond_optional& SimulationInterceptorsType::ParticleUpdatesPerSecond() {
+    return this->ParticleUpdatesPerSecond_;
+}
+
+void SimulationInterceptorsType::ParticleUpdatesPerSecond(const ParticleUpdatesPerSecond_type& x) {
+    this->ParticleUpdatesPerSecond_.set(x);
+}
+
+void SimulationInterceptorsType::ParticleUpdatesPerSecond(const ParticleUpdatesPerSecond_optional& x) {
+    this->ParticleUpdatesPerSecond_ = x;
+}
+
+void SimulationInterceptorsType::ParticleUpdatesPerSecond(::std::unique_ptr<ParticleUpdatesPerSecond_type> x) {
+    this->ParticleUpdatesPerSecond_.set(std::move(x));
+}
+
+const SimulationInterceptorsType::RadialDistributionFunction_optional& SimulationInterceptorsType::RadialDistributionFunction() const {
+    return this->RadialDistributionFunction_;
+}
+
+SimulationInterceptorsType::RadialDistributionFunction_optional& SimulationInterceptorsType::RadialDistributionFunction() {
+    return this->RadialDistributionFunction_;
+}
+
+void SimulationInterceptorsType::RadialDistributionFunction(const RadialDistributionFunction_type& x) {
+    this->RadialDistributionFunction_.set(x);
+}
+
+void SimulationInterceptorsType::RadialDistributionFunction(const RadialDistributionFunction_optional& x) {
+    this->RadialDistributionFunction_ = x;
+}
+
+void SimulationInterceptorsType::RadialDistributionFunction(::std::unique_ptr<RadialDistributionFunction_type> x) {
+    this->RadialDistributionFunction_.set(std::move(x));
+}
+
+const SimulationInterceptorsType::FrameWriter_optional& SimulationInterceptorsType::FrameWriter() const { return this->FrameWriter_; }
+
+SimulationInterceptorsType::FrameWriter_optional& SimulationInterceptorsType::FrameWriter() { return this->FrameWriter_; }
+
+void SimulationInterceptorsType::FrameWriter(const FrameWriter_type& x) { this->FrameWriter_.set(x); }
+
+void SimulationInterceptorsType::FrameWriter(const FrameWriter_optional& x) { this->FrameWriter_ = x; }
+
+void SimulationInterceptorsType::FrameWriter(::std::unique_ptr<FrameWriter_type> x) { this->FrameWriter_.set(std::move(x)); }
+
+const SimulationInterceptorsType::Thermostat_optional& SimulationInterceptorsType::Thermostat() const { return this->Thermostat_; }
+
+SimulationInterceptorsType::Thermostat_optional& SimulationInterceptorsType::Thermostat() { return this->Thermostat_; }
+
+void SimulationInterceptorsType::Thermostat(const Thermostat_type& x) { this->Thermostat_.set(x); }
+
+void SimulationInterceptorsType::Thermostat(const Thermostat_optional& x) { this->Thermostat_ = x; }
+
+void SimulationInterceptorsType::Thermostat(::std::unique_ptr<Thermostat_type> x) { this->Thermostat_.set(std::move(x)); }
 
 // LennardJonesType
 //
@@ -634,40 +738,44 @@ void ForcesType::GlobalDownwardsGravity(::std::unique_ptr<GlobalDownwardsGravity
     this->GlobalDownwardsGravity_.set(std::move(x));
 }
 
-// particle_source
+// LogLevelType
 //
 
-const particle_source::cuboid_spawner_sequence& particle_source::cuboid_spawner() const { return this->cuboid_spawner_; }
+LogLevelType::LogLevelType(value v) : ::xml_schema::string(_xsd_LogLevelType_literals_[v]) {}
 
-particle_source::cuboid_spawner_sequence& particle_source::cuboid_spawner() { return this->cuboid_spawner_; }
+LogLevelType::LogLevelType(const char* v) : ::xml_schema::string(v) {}
 
-void particle_source::cuboid_spawner(const cuboid_spawner_sequence& s) { this->cuboid_spawner_ = s; }
+LogLevelType::LogLevelType(const ::std::string& v) : ::xml_schema::string(v) {}
 
-const particle_source::sphere_spawner_sequence& particle_source::sphere_spawner() const { return this->sphere_spawner_; }
+LogLevelType::LogLevelType(const ::xml_schema::string& v) : ::xml_schema::string(v) {}
 
-particle_source::sphere_spawner_sequence& particle_source::sphere_spawner() { return this->sphere_spawner_; }
+LogLevelType::LogLevelType(const LogLevelType& v, ::xml_schema::flags f, ::xml_schema::container* c) : ::xml_schema::string(v, f, c) {}
 
-void particle_source::sphere_spawner(const sphere_spawner_sequence& s) { this->sphere_spawner_ = s; }
+LogLevelType& LogLevelType::operator=(value v) {
+    static_cast< ::xml_schema::string&>(*this) = ::xml_schema::string(_xsd_LogLevelType_literals_[v]);
 
-const particle_source::single_particle_spawner_sequence& particle_source::single_particle_spawner() const {
-    return this->single_particle_spawner_;
+    return *this;
 }
 
-particle_source::single_particle_spawner_sequence& particle_source::single_particle_spawner() { return this->single_particle_spawner_; }
+// OutputFormatType
+//
 
-void particle_source::single_particle_spawner(const single_particle_spawner_sequence& s) { this->single_particle_spawner_ = s; }
+OutputFormatType::OutputFormatType(value v) : ::xml_schema::string(_xsd_OutputFormatType_literals_[v]) {}
 
-const particle_source::check_point_loader_sequence& particle_source::check_point_loader() const { return this->check_point_loader_; }
+OutputFormatType::OutputFormatType(const char* v) : ::xml_schema::string(v) {}
 
-particle_source::check_point_loader_sequence& particle_source::check_point_loader() { return this->check_point_loader_; }
+OutputFormatType::OutputFormatType(const ::std::string& v) : ::xml_schema::string(v) {}
 
-void particle_source::check_point_loader(const check_point_loader_sequence& s) { this->check_point_loader_ = s; }
+OutputFormatType::OutputFormatType(const ::xml_schema::string& v) : ::xml_schema::string(v) {}
 
-const particle_source::sub_simulation_sequence& particle_source::sub_simulation() const { return this->sub_simulation_; }
+OutputFormatType::OutputFormatType(const OutputFormatType& v, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::string(v, f, c) {}
 
-particle_source::sub_simulation_sequence& particle_source::sub_simulation() { return this->sub_simulation_; }
+OutputFormatType& OutputFormatType::operator=(value v) {
+    static_cast< ::xml_schema::string&>(*this) = ::xml_schema::string(_xsd_OutputFormatType_literals_[v]);
 
-void particle_source::sub_simulation(const sub_simulation_sequence& s) { this->sub_simulation_ = s; }
+    return *this;
+}
 
 #include <xsd/cxx/xml/dom/parsing-source.hxx>
 
@@ -1095,98 +1203,6 @@ LinkedCellsContainerType& LinkedCellsContainerType::operator=(const LinkedCellsC
 }
 
 LinkedCellsContainerType::~LinkedCellsContainerType() {}
-
-// ThermostatType
-//
-
-ThermostatType::ThermostatType(const target_temperature_type& target_temperature, const max_temperature_change_type& max_temperature_change,
-                               const application_interval_type& application_interval)
-    : ::xml_schema::type(),
-      target_temperature_(target_temperature, this),
-      max_temperature_change_(max_temperature_change, this),
-      application_interval_(application_interval, this) {}
-
-ThermostatType::ThermostatType(const ThermostatType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      target_temperature_(x.target_temperature_, f, this),
-      max_temperature_change_(x.max_temperature_change_, f, this),
-      application_interval_(x.application_interval_, f, this) {}
-
-ThermostatType::ThermostatType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
-      target_temperature_(this),
-      max_temperature_change_(this),
-      application_interval_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
-        this->parse(p, f);
-    }
-}
-
-void ThermostatType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // target_temperature
-        //
-        if (n.name() == "target_temperature" && n.namespace_().empty()) {
-            if (!target_temperature_.present()) {
-                this->target_temperature_.set(target_temperature_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // max_temperature_change
-        //
-        if (n.name() == "max_temperature_change" && n.namespace_().empty()) {
-            if (!max_temperature_change_.present()) {
-                this->max_temperature_change_.set(max_temperature_change_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // application_interval
-        //
-        if (n.name() == "application_interval" && n.namespace_().empty()) {
-            if (!application_interval_.present()) {
-                this->application_interval_.set(application_interval_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        break;
-    }
-
-    if (!target_temperature_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("target_temperature", "");
-    }
-
-    if (!max_temperature_change_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("max_temperature_change", "");
-    }
-
-    if (!application_interval_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("application_interval", "");
-    }
-}
-
-ThermostatType* ThermostatType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class ThermostatType(*this, f, c);
-}
-
-ThermostatType& ThermostatType::operator=(const ThermostatType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->target_temperature_ = x.target_temperature_;
-        this->max_temperature_change_ = x.max_temperature_change_;
-        this->application_interval_ = x.application_interval_;
-    }
-
-    return *this;
-}
-
-ThermostatType::~ThermostatType() {}
 
 // BoundaryConditionsType
 //
@@ -2080,69 +2096,158 @@ SubSimulationType& SubSimulationType::operator=(const SubSimulationType& x) {
 
 SubSimulationType::~SubSimulationType() {}
 
+// ParticleSourceType
+//
+
+ParticleSourceType::ParticleSourceType()
+    : ::xml_schema::type(),
+      cuboid_spawner_(this),
+      sphere_spawner_(this),
+      single_particle_spawner_(this),
+      check_point_loader_(this),
+      sub_simulation_(this) {}
+
+ParticleSourceType::ParticleSourceType(const ParticleSourceType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c),
+      cuboid_spawner_(x.cuboid_spawner_, f, this),
+      sphere_spawner_(x.sphere_spawner_, f, this),
+      single_particle_spawner_(x.single_particle_spawner_, f, this),
+      check_point_loader_(x.check_point_loader_, f, this),
+      sub_simulation_(x.sub_simulation_, f, this) {}
+
+ParticleSourceType::ParticleSourceType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
+      cuboid_spawner_(this),
+      sphere_spawner_(this),
+      single_particle_spawner_(this),
+      check_point_loader_(this),
+      sub_simulation_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
+        this->parse(p, f);
+    }
+}
+
+void ParticleSourceType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    for (; p.more_content(); p.next_content(false)) {
+        const ::xercesc::DOMElement& i(p.cur_element());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        // cuboid_spawner
+        //
+        if (n.name() == "cuboid_spawner" && n.namespace_().empty()) {
+            ::std::unique_ptr<cuboid_spawner_type> r(cuboid_spawner_traits::create(i, f, this));
+
+            this->cuboid_spawner_.push_back(::std::move(r));
+            continue;
+        }
+
+        // sphere_spawner
+        //
+        if (n.name() == "sphere_spawner" && n.namespace_().empty()) {
+            ::std::unique_ptr<sphere_spawner_type> r(sphere_spawner_traits::create(i, f, this));
+
+            this->sphere_spawner_.push_back(::std::move(r));
+            continue;
+        }
+
+        // single_particle_spawner
+        //
+        if (n.name() == "single_particle_spawner" && n.namespace_().empty()) {
+            ::std::unique_ptr<single_particle_spawner_type> r(single_particle_spawner_traits::create(i, f, this));
+
+            this->single_particle_spawner_.push_back(::std::move(r));
+            continue;
+        }
+
+        // check_point_loader
+        //
+        if (n.name() == "check_point_loader" && n.namespace_().empty()) {
+            ::std::unique_ptr<check_point_loader_type> r(check_point_loader_traits::create(i, f, this));
+
+            this->check_point_loader_.push_back(::std::move(r));
+            continue;
+        }
+
+        // sub_simulation
+        //
+        if (n.name() == "sub_simulation" && n.namespace_().empty()) {
+            ::std::unique_ptr<sub_simulation_type> r(sub_simulation_traits::create(i, f, this));
+
+            this->sub_simulation_.push_back(::std::move(r));
+            continue;
+        }
+
+        break;
+    }
+}
+
+ParticleSourceType* ParticleSourceType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class ParticleSourceType(*this, f, c);
+}
+
+ParticleSourceType& ParticleSourceType::operator=(const ParticleSourceType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->cuboid_spawner_ = x.cuboid_spawner_;
+        this->sphere_spawner_ = x.sphere_spawner_;
+        this->single_particle_spawner_ = x.single_particle_spawner_;
+        this->check_point_loader_ = x.check_point_loader_;
+        this->sub_simulation_ = x.sub_simulation_;
+    }
+
+    return *this;
+}
+
+ParticleSourceType::~ParticleSourceType() {}
+
 // SettingsType
 //
 
-const SettingsType::output_format_type SettingsType::output_format_default_value_("vtu");
-
 const SettingsType::log_level_type SettingsType::log_level_default_value_("info");
 
-SettingsType::SettingsType(const fps_type& fps, const video_length_type& video_length, const delta_t_type& delta_t,
-                           const end_time_type& end_time, const third_dimension_type& third_dimension,
+SettingsType::SettingsType(const delta_t_type& delta_t, const end_time_type& end_time, const third_dimension_type& third_dimension,
                            const particle_container_type& particle_container, const forces_type& forces,
-                           const output_format_type& output_format)
+                           const interceptors_type& interceptors)
     : ::xml_schema::type(),
-      fps_(fps, this),
-      video_length_(video_length, this),
       delta_t_(delta_t, this),
       end_time_(end_time, this),
       third_dimension_(third_dimension, this),
       particle_container_(particle_container, this),
       forces_(forces, this),
-      thermostat_(this),
-      output_format_(output_format, this),
+      interceptors_(interceptors, this),
       log_level_(this) {}
 
-SettingsType::SettingsType(const fps_type& fps, const video_length_type& video_length, const delta_t_type& delta_t,
-                           const end_time_type& end_time, const third_dimension_type& third_dimension,
+SettingsType::SettingsType(const delta_t_type& delta_t, const end_time_type& end_time, const third_dimension_type& third_dimension,
                            ::std::unique_ptr<particle_container_type> particle_container, ::std::unique_ptr<forces_type> forces,
-                           const output_format_type& output_format)
+                           ::std::unique_ptr<interceptors_type> interceptors)
     : ::xml_schema::type(),
-      fps_(fps, this),
-      video_length_(video_length, this),
       delta_t_(delta_t, this),
       end_time_(end_time, this),
       third_dimension_(third_dimension, this),
       particle_container_(std::move(particle_container), this),
       forces_(std::move(forces), this),
-      thermostat_(this),
-      output_format_(output_format, this),
+      interceptors_(std::move(interceptors), this),
       log_level_(this) {}
 
 SettingsType::SettingsType(const SettingsType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
-      fps_(x.fps_, f, this),
-      video_length_(x.video_length_, f, this),
       delta_t_(x.delta_t_, f, this),
       end_time_(x.end_time_, f, this),
       third_dimension_(x.third_dimension_, f, this),
       particle_container_(x.particle_container_, f, this),
       forces_(x.forces_, f, this),
-      thermostat_(x.thermostat_, f, this),
-      output_format_(x.output_format_, f, this),
+      interceptors_(x.interceptors_, f, this),
       log_level_(x.log_level_, f, this) {}
 
 SettingsType::SettingsType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
-      fps_(this),
-      video_length_(this),
       delta_t_(this),
       end_time_(this),
       third_dimension_(this),
       particle_container_(this),
       forces_(this),
-      thermostat_(this),
-      output_format_(this),
+      interceptors_(this),
       log_level_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
@@ -2154,24 +2259,6 @@ void SettingsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::fl
     for (; p.more_content(); p.next_content(false)) {
         const ::xercesc::DOMElement& i(p.cur_element());
         const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // fps
-        //
-        if (n.name() == "fps" && n.namespace_().empty()) {
-            if (!fps_.present()) {
-                this->fps_.set(fps_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // video_length
-        //
-        if (n.name() == "video_length" && n.namespace_().empty()) {
-            if (!video_length_.present()) {
-                this->video_length_.set(video_length_traits::create(i, f, this));
-                continue;
-            }
-        }
 
         // delta_t
         //
@@ -2222,24 +2309,13 @@ void SettingsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::fl
             }
         }
 
-        // thermostat
+        // interceptors
         //
-        if (n.name() == "thermostat" && n.namespace_().empty()) {
-            ::std::unique_ptr<thermostat_type> r(thermostat_traits::create(i, f, this));
+        if (n.name() == "interceptors" && n.namespace_().empty()) {
+            ::std::unique_ptr<interceptors_type> r(interceptors_traits::create(i, f, this));
 
-            if (!this->thermostat_) {
-                this->thermostat_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // output_format
-        //
-        if (n.name() == "output_format" && n.namespace_().empty()) {
-            ::std::unique_ptr<output_format_type> r(output_format_traits::create(i, f, this));
-
-            if (!output_format_.present()) {
-                this->output_format_.set(::std::move(r));
+            if (!interceptors_.present()) {
+                this->interceptors_.set(::std::move(r));
                 continue;
             }
         }
@@ -2256,14 +2332,6 @@ void SettingsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::fl
         }
 
         break;
-    }
-
-    if (!fps_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("fps", "");
-    }
-
-    if (!video_length_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("video_length", "");
     }
 
     if (!delta_t_.present()) {
@@ -2286,8 +2354,8 @@ void SettingsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::fl
         throw ::xsd::cxx::tree::expected_element<char>("forces", "");
     }
 
-    if (!output_format_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("output_format", "");
+    if (!interceptors_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("interceptors", "");
     }
 }
 
@@ -2296,15 +2364,12 @@ SettingsType* SettingsType::_clone(::xml_schema::flags f, ::xml_schema::containe
 SettingsType& SettingsType::operator=(const SettingsType& x) {
     if (this != &x) {
         static_cast< ::xml_schema::type&>(*this) = x;
-        this->fps_ = x.fps_;
-        this->video_length_ = x.video_length_;
         this->delta_t_ = x.delta_t_;
         this->end_time_ = x.end_time_;
         this->third_dimension_ = x.third_dimension_;
         this->particle_container_ = x.particle_container_;
         this->forces_ = x.forces_;
-        this->thermostat_ = x.thermostat_;
-        this->output_format_ = x.output_format_;
+        this->interceptors_ = x.interceptors_;
         this->log_level_ = x.log_level_;
     }
 
@@ -2313,80 +2378,345 @@ SettingsType& SettingsType::operator=(const SettingsType& x) {
 
 SettingsType::~SettingsType() {}
 
-// OutputFormatType
+// ParticleUpdatesPerSecondInterceptionType
 //
 
-OutputFormatType::OutputFormatType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(e, f, c) {
-    _xsd_OutputFormatType_convert();
+ParticleUpdatesPerSecondInterceptionType::ParticleUpdatesPerSecondInterceptionType() : ::xml_schema::type() {}
+
+ParticleUpdatesPerSecondInterceptionType::ParticleUpdatesPerSecondInterceptionType(const ParticleUpdatesPerSecondInterceptionType& x,
+                                                                                   ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c) {}
+
+ParticleUpdatesPerSecondInterceptionType::ParticleUpdatesPerSecondInterceptionType(const ::xercesc::DOMElement& e, ::xml_schema::flags f,
+                                                                                   ::xml_schema::container* c)
+    : ::xml_schema::type(e, f, c) {}
+
+ParticleUpdatesPerSecondInterceptionType::ParticleUpdatesPerSecondInterceptionType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f,
+                                                                                   ::xml_schema::container* c)
+    : ::xml_schema::type(a, f, c) {}
+
+ParticleUpdatesPerSecondInterceptionType::ParticleUpdatesPerSecondInterceptionType(const ::std::string& s, const ::xercesc::DOMElement* e,
+                                                                                   ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(s, e, f, c) {}
+
+ParticleUpdatesPerSecondInterceptionType* ParticleUpdatesPerSecondInterceptionType::_clone(::xml_schema::flags f,
+                                                                                           ::xml_schema::container* c) const {
+    return new class ParticleUpdatesPerSecondInterceptionType(*this, f, c);
 }
 
-OutputFormatType::OutputFormatType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(a, f, c) {
-    _xsd_OutputFormatType_convert();
-}
+ParticleUpdatesPerSecondInterceptionType::~ParticleUpdatesPerSecondInterceptionType() {}
 
-OutputFormatType::OutputFormatType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f,
-                                   ::xml_schema::container* c)
-    : ::xml_schema::string(s, e, f, c) {
-    _xsd_OutputFormatType_convert();
-}
-
-OutputFormatType* OutputFormatType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class OutputFormatType(*this, f, c);
-}
-
-OutputFormatType::value OutputFormatType::_xsd_OutputFormatType_convert() const {
-    ::xsd::cxx::tree::enum_comparator<char> c(_xsd_OutputFormatType_literals_);
-    const value* i(::std::lower_bound(_xsd_OutputFormatType_indexes_, _xsd_OutputFormatType_indexes_ + 4, *this, c));
-
-    if (i == _xsd_OutputFormatType_indexes_ + 4 || _xsd_OutputFormatType_literals_[*i] != *this) {
-        throw ::xsd::cxx::tree::unexpected_enumerator<char>(*this);
-    }
-
-    return *i;
-}
-
-const char* const OutputFormatType::_xsd_OutputFormatType_literals_[4] = {"vtu", "chkpt", "xyz", "none"};
-
-const OutputFormatType::value OutputFormatType::_xsd_OutputFormatType_indexes_[4] = {::OutputFormatType::chkpt, ::OutputFormatType::none,
-                                                                                     ::OutputFormatType::vtu, ::OutputFormatType::xyz};
-
-// LogLevelType
+// RadialDistributionFunctionInterceptionType
 //
 
-LogLevelType::LogLevelType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(e, f, c) {
-    _xsd_LogLevelType_convert();
+RadialDistributionFunctionInterceptionType::RadialDistributionFunctionInterceptionType(
+    const bin_width_type& bin_width, const sample_every_x_percent_type& sample_every_x_percent)
+    : ::xml_schema::type(), bin_width_(bin_width, this), sample_every_x_percent_(sample_every_x_percent, this) {}
+
+RadialDistributionFunctionInterceptionType::RadialDistributionFunctionInterceptionType(const RadialDistributionFunctionInterceptionType& x,
+                                                                                       ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c), bin_width_(x.bin_width_, f, this), sample_every_x_percent_(x.sample_every_x_percent_, f, this) {}
+
+RadialDistributionFunctionInterceptionType::RadialDistributionFunctionInterceptionType(const ::xercesc::DOMElement& e,
+                                                                                       ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), bin_width_(this), sample_every_x_percent_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
+        this->parse(p, f);
+    }
 }
 
-LogLevelType::LogLevelType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c) : ::xml_schema::string(a, f, c) {
-    _xsd_LogLevelType_convert();
-}
+void RadialDistributionFunctionInterceptionType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
 
-LogLevelType::LogLevelType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(s, e, f, c) {
-    _xsd_LogLevelType_convert();
-}
+        if (n.name() == "bin_width" && n.namespace_().empty()) {
+            this->bin_width_.set(bin_width_traits::create(i, f, this));
+            continue;
+        }
 
-LogLevelType* LogLevelType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const { return new class LogLevelType(*this, f, c); }
-
-LogLevelType::value LogLevelType::_xsd_LogLevelType_convert() const {
-    ::xsd::cxx::tree::enum_comparator<char> c(_xsd_LogLevelType_literals_);
-    const value* i(::std::lower_bound(_xsd_LogLevelType_indexes_, _xsd_LogLevelType_indexes_ + 6, *this, c));
-
-    if (i == _xsd_LogLevelType_indexes_ + 6 || _xsd_LogLevelType_literals_[*i] != *this) {
-        throw ::xsd::cxx::tree::unexpected_enumerator<char>(*this);
+        if (n.name() == "sample_every_x_percent" && n.namespace_().empty()) {
+            this->sample_every_x_percent_.set(sample_every_x_percent_traits::create(i, f, this));
+            continue;
+        }
     }
 
-    return *i;
+    if (!bin_width_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("bin_width", "");
+    }
+
+    if (!sample_every_x_percent_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("sample_every_x_percent", "");
+    }
 }
 
-const char* const LogLevelType::_xsd_LogLevelType_literals_[6] = {"off", "critical", "error", "warning", "info", "debug"};
+RadialDistributionFunctionInterceptionType* RadialDistributionFunctionInterceptionType::_clone(::xml_schema::flags f,
+                                                                                               ::xml_schema::container* c) const {
+    return new class RadialDistributionFunctionInterceptionType(*this, f, c);
+}
 
-const LogLevelType::value LogLevelType::_xsd_LogLevelType_indexes_[6] = {::LogLevelType::critical, ::LogLevelType::debug,
-                                                                         ::LogLevelType::error,    ::LogLevelType::info,
-                                                                         ::LogLevelType::off,      ::LogLevelType::warning};
+RadialDistributionFunctionInterceptionType& RadialDistributionFunctionInterceptionType::operator=(
+    const RadialDistributionFunctionInterceptionType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->bin_width_ = x.bin_width_;
+        this->sample_every_x_percent_ = x.sample_every_x_percent_;
+    }
+
+    return *this;
+}
+
+RadialDistributionFunctionInterceptionType::~RadialDistributionFunctionInterceptionType() {}
+
+// FrameWriterInterceptorType
+//
+
+FrameWriterInterceptorType::FrameWriterInterceptorType(const output_format_type& output_format, const fps_type& fps,
+                                                       const video_length_s_type& video_length_s)
+    : ::xml_schema::type(), output_format_(output_format, this), fps_(fps, this), video_length_s_(video_length_s, this) {}
+
+FrameWriterInterceptorType::FrameWriterInterceptorType(const FrameWriterInterceptorType& x, ::xml_schema::flags f,
+                                                       ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c),
+      output_format_(x.output_format_, f, this),
+      fps_(x.fps_, f, this),
+      video_length_s_(x.video_length_s_, f, this) {}
+
+FrameWriterInterceptorType::FrameWriterInterceptorType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), output_format_(this), fps_(this), video_length_s_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
+        this->parse(p, f);
+    }
+}
+
+void FrameWriterInterceptorType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        if (n.name() == "output_format" && n.namespace_().empty()) {
+            this->output_format_.set(output_format_traits::create(i, f, this));
+            continue;
+        }
+
+        if (n.name() == "fps" && n.namespace_().empty()) {
+            this->fps_.set(fps_traits::create(i, f, this));
+            continue;
+        }
+
+        if (n.name() == "video_length_s" && n.namespace_().empty()) {
+            this->video_length_s_.set(video_length_s_traits::create(i, f, this));
+            continue;
+        }
+    }
+
+    if (!output_format_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("output_format", "");
+    }
+
+    if (!fps_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("fps", "");
+    }
+
+    if (!video_length_s_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("video_length_s", "");
+    }
+}
+
+FrameWriterInterceptorType* FrameWriterInterceptorType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class FrameWriterInterceptorType(*this, f, c);
+}
+
+FrameWriterInterceptorType& FrameWriterInterceptorType::operator=(const FrameWriterInterceptorType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->output_format_ = x.output_format_;
+        this->fps_ = x.fps_;
+        this->video_length_s_ = x.video_length_s_;
+    }
+
+    return *this;
+}
+
+FrameWriterInterceptorType::~FrameWriterInterceptorType() {}
+
+// ThermostatInterceptorType
+//
+
+ThermostatInterceptorType::ThermostatInterceptorType(const target_temperature_type& target_temperature,
+                                                     const max_temperature_change_type& max_temperature_change,
+                                                     const application_interval_type& application_interval)
+    : ::xml_schema::type(),
+      target_temperature_(target_temperature, this),
+      max_temperature_change_(max_temperature_change, this),
+      application_interval_(application_interval, this) {}
+
+ThermostatInterceptorType::ThermostatInterceptorType(const ThermostatInterceptorType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c),
+      target_temperature_(x.target_temperature_, f, this),
+      max_temperature_change_(x.max_temperature_change_, f, this),
+      application_interval_(x.application_interval_, f, this) {}
+
+ThermostatInterceptorType::ThermostatInterceptorType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
+      target_temperature_(this),
+      max_temperature_change_(this),
+      application_interval_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
+        this->parse(p, f);
+    }
+}
+
+void ThermostatInterceptorType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        if (n.name() == "target_temperature" && n.namespace_().empty()) {
+            this->target_temperature_.set(target_temperature_traits::create(i, f, this));
+            continue;
+        }
+
+        if (n.name() == "max_temperature_change" && n.namespace_().empty()) {
+            this->max_temperature_change_.set(max_temperature_change_traits::create(i, f, this));
+            continue;
+        }
+
+        if (n.name() == "application_interval" && n.namespace_().empty()) {
+            this->application_interval_.set(application_interval_traits::create(i, f, this));
+            continue;
+        }
+    }
+
+    if (!target_temperature_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("target_temperature", "");
+    }
+
+    if (!max_temperature_change_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("max_temperature_change", "");
+    }
+
+    if (!application_interval_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("application_interval", "");
+    }
+}
+
+ThermostatInterceptorType* ThermostatInterceptorType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class ThermostatInterceptorType(*this, f, c);
+}
+
+ThermostatInterceptorType& ThermostatInterceptorType::operator=(const ThermostatInterceptorType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->target_temperature_ = x.target_temperature_;
+        this->max_temperature_change_ = x.max_temperature_change_;
+        this->application_interval_ = x.application_interval_;
+    }
+
+    return *this;
+}
+
+ThermostatInterceptorType::~ThermostatInterceptorType() {}
+
+// SimulationInterceptorsType
+//
+
+SimulationInterceptorsType::SimulationInterceptorsType()
+    : ::xml_schema::type(), ParticleUpdatesPerSecond_(this), RadialDistributionFunction_(this), FrameWriter_(this), Thermostat_(this) {}
+
+SimulationInterceptorsType::SimulationInterceptorsType(const SimulationInterceptorsType& x, ::xml_schema::flags f,
+                                                       ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c),
+      ParticleUpdatesPerSecond_(x.ParticleUpdatesPerSecond_, f, this),
+      RadialDistributionFunction_(x.RadialDistributionFunction_, f, this),
+      FrameWriter_(x.FrameWriter_, f, this),
+      Thermostat_(x.Thermostat_, f, this) {}
+
+SimulationInterceptorsType::SimulationInterceptorsType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
+      ParticleUpdatesPerSecond_(this),
+      RadialDistributionFunction_(this),
+      FrameWriter_(this),
+      Thermostat_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
+        this->parse(p, f);
+    }
+}
+
+void SimulationInterceptorsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    for (; p.more_content(); p.next_content(false)) {
+        const ::xercesc::DOMElement& i(p.cur_element());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        // ParticleUpdatesPerSecond
+        //
+        if (n.name() == "ParticleUpdatesPerSecond" && n.namespace_().empty()) {
+            ::std::unique_ptr<ParticleUpdatesPerSecond_type> r(ParticleUpdatesPerSecond_traits::create(i, f, this));
+
+            if (!this->ParticleUpdatesPerSecond_) {
+                this->ParticleUpdatesPerSecond_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // RadialDistributionFunction
+        //
+        if (n.name() == "RadialDistributionFunction" && n.namespace_().empty()) {
+            ::std::unique_ptr<RadialDistributionFunction_type> r(RadialDistributionFunction_traits::create(i, f, this));
+
+            if (!this->RadialDistributionFunction_) {
+                this->RadialDistributionFunction_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // FrameWriter
+        //
+        if (n.name() == "FrameWriter" && n.namespace_().empty()) {
+            ::std::unique_ptr<FrameWriter_type> r(FrameWriter_traits::create(i, f, this));
+
+            if (!this->FrameWriter_) {
+                this->FrameWriter_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // Thermostat
+        //
+        if (n.name() == "Thermostat" && n.namespace_().empty()) {
+            ::std::unique_ptr<Thermostat_type> r(Thermostat_traits::create(i, f, this));
+
+            if (!this->Thermostat_) {
+                this->Thermostat_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        break;
+    }
+}
+
+SimulationInterceptorsType* SimulationInterceptorsType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class SimulationInterceptorsType(*this, f, c);
+}
+
+SimulationInterceptorsType& SimulationInterceptorsType::operator=(const SimulationInterceptorsType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->ParticleUpdatesPerSecond_ = x.ParticleUpdatesPerSecond_;
+        this->RadialDistributionFunction_ = x.RadialDistributionFunction_;
+        this->FrameWriter_ = x.FrameWriter_;
+        this->Thermostat_ = x.Thermostat_;
+    }
+
+    return *this;
+}
+
+SimulationInterceptorsType::~SimulationInterceptorsType() {}
 
 // LennardJonesType
 //
@@ -2559,110 +2889,80 @@ ForcesType& ForcesType::operator=(const ForcesType& x) {
 
 ForcesType::~ForcesType() {}
 
-// particle_source
+// LogLevelType
 //
 
-particle_source::particle_source()
-    : ::xml_schema::type(),
-      cuboid_spawner_(this),
-      sphere_spawner_(this),
-      single_particle_spawner_(this),
-      check_point_loader_(this),
-      sub_simulation_(this) {}
-
-particle_source::particle_source(const particle_source& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      cuboid_spawner_(x.cuboid_spawner_, f, this),
-      sphere_spawner_(x.sphere_spawner_, f, this),
-      single_particle_spawner_(x.single_particle_spawner_, f, this),
-      check_point_loader_(x.check_point_loader_, f, this),
-      sub_simulation_(x.sub_simulation_, f, this) {}
-
-particle_source::particle_source(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
-      cuboid_spawner_(this),
-      sphere_spawner_(this),
-      single_particle_spawner_(this),
-      check_point_loader_(this),
-      sub_simulation_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
-        this->parse(p, f);
-    }
+LogLevelType::LogLevelType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::string(e, f, c) {
+    _xsd_LogLevelType_convert();
 }
 
-void particle_source::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // cuboid_spawner
-        //
-        if (n.name() == "cuboid_spawner" && n.namespace_().empty()) {
-            ::std::unique_ptr<cuboid_spawner_type> r(cuboid_spawner_traits::create(i, f, this));
-
-            this->cuboid_spawner_.push_back(::std::move(r));
-            continue;
-        }
-
-        // sphere_spawner
-        //
-        if (n.name() == "sphere_spawner" && n.namespace_().empty()) {
-            ::std::unique_ptr<sphere_spawner_type> r(sphere_spawner_traits::create(i, f, this));
-
-            this->sphere_spawner_.push_back(::std::move(r));
-            continue;
-        }
-
-        // single_particle_spawner
-        //
-        if (n.name() == "single_particle_spawner" && n.namespace_().empty()) {
-            ::std::unique_ptr<single_particle_spawner_type> r(single_particle_spawner_traits::create(i, f, this));
-
-            this->single_particle_spawner_.push_back(::std::move(r));
-            continue;
-        }
-
-        // check_point_loader
-        //
-        if (n.name() == "check_point_loader" && n.namespace_().empty()) {
-            ::std::unique_ptr<check_point_loader_type> r(check_point_loader_traits::create(i, f, this));
-
-            this->check_point_loader_.push_back(::std::move(r));
-            continue;
-        }
-
-        // sub_simulation
-        //
-        if (n.name() == "sub_simulation" && n.namespace_().empty()) {
-            ::std::unique_ptr<sub_simulation_type> r(sub_simulation_traits::create(i, f, this));
-
-            this->sub_simulation_.push_back(::std::move(r));
-            continue;
-        }
-
-        break;
-    }
+LogLevelType::LogLevelType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c) : ::xml_schema::string(a, f, c) {
+    _xsd_LogLevelType_convert();
 }
 
-particle_source* particle_source::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class particle_source(*this, f, c);
+LogLevelType::LogLevelType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::string(s, e, f, c) {
+    _xsd_LogLevelType_convert();
 }
 
-particle_source& particle_source::operator=(const particle_source& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->cuboid_spawner_ = x.cuboid_spawner_;
-        this->sphere_spawner_ = x.sphere_spawner_;
-        this->single_particle_spawner_ = x.single_particle_spawner_;
-        this->check_point_loader_ = x.check_point_loader_;
-        this->sub_simulation_ = x.sub_simulation_;
+LogLevelType* LogLevelType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const { return new class LogLevelType(*this, f, c); }
+
+LogLevelType::value LogLevelType::_xsd_LogLevelType_convert() const {
+    ::xsd::cxx::tree::enum_comparator<char> c(_xsd_LogLevelType_literals_);
+    const value* i(::std::lower_bound(_xsd_LogLevelType_indexes_, _xsd_LogLevelType_indexes_ + 6, *this, c));
+
+    if (i == _xsd_LogLevelType_indexes_ + 6 || _xsd_LogLevelType_literals_[*i] != *this) {
+        throw ::xsd::cxx::tree::unexpected_enumerator<char>(*this);
     }
 
-    return *this;
+    return *i;
 }
 
-particle_source::~particle_source() {}
+const char* const LogLevelType::_xsd_LogLevelType_literals_[6] = {"off", "critical", "error", "warning", "info", "debug"};
+
+const LogLevelType::value LogLevelType::_xsd_LogLevelType_indexes_[6] = {::LogLevelType::critical, ::LogLevelType::debug,
+                                                                         ::LogLevelType::error,    ::LogLevelType::info,
+                                                                         ::LogLevelType::off,      ::LogLevelType::warning};
+
+// OutputFormatType
+//
+
+OutputFormatType::OutputFormatType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::string(e, f, c) {
+    _xsd_OutputFormatType_convert();
+}
+
+OutputFormatType::OutputFormatType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::string(a, f, c) {
+    _xsd_OutputFormatType_convert();
+}
+
+OutputFormatType::OutputFormatType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f,
+                                   ::xml_schema::container* c)
+    : ::xml_schema::string(s, e, f, c) {
+    _xsd_OutputFormatType_convert();
+}
+
+OutputFormatType* OutputFormatType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class OutputFormatType(*this, f, c);
+}
+
+OutputFormatType::value OutputFormatType::_xsd_OutputFormatType_convert() const {
+    ::xsd::cxx::tree::enum_comparator<char> c(_xsd_OutputFormatType_literals_);
+    const value* i(::std::lower_bound(_xsd_OutputFormatType_indexes_, _xsd_OutputFormatType_indexes_ + 4, *this, c));
+
+    if (i == _xsd_OutputFormatType_indexes_ + 4 || _xsd_OutputFormatType_literals_[*i] != *this) {
+        throw ::xsd::cxx::tree::unexpected_enumerator<char>(*this);
+    }
+
+    return *i;
+}
+
+const char* const OutputFormatType::_xsd_OutputFormatType_literals_[4] = {"vtu", "chkpt", "xyz", "none"};
+
+const OutputFormatType::value OutputFormatType::_xsd_OutputFormatType_indexes_[4] = {::OutputFormatType::chkpt, ::OutputFormatType::none,
+                                                                                     ::OutputFormatType::vtu, ::OutputFormatType::xyz};
 
 #include <istream>
 #include <xsd/cxx/tree/error-handler.hxx>
@@ -3025,34 +3325,6 @@ void operator<<(::xercesc::DOMElement& e, const LinkedCellsContainerType& i) {
     }
 }
 
-void operator<<(::xercesc::DOMElement& e, const ThermostatType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
-
-    // target_temperature
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("target_temperature", e));
-
-        s << ::xml_schema::as_double(i.target_temperature());
-    }
-
-    // max_temperature_change
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("max_temperature_change", e));
-
-        s << ::xml_schema::as_double(i.max_temperature_change());
-    }
-
-    // application_interval
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("application_interval", e));
-
-        s << i.application_interval();
-    }
-}
-
 void operator<<(::xercesc::DOMElement& e, const BoundaryConditionsType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
 
@@ -3347,24 +3619,65 @@ void operator<<(::xercesc::DOMElement& e, const SubSimulationType& i) {
     }
 }
 
-void operator<<(::xercesc::DOMElement& e, const SettingsType& i) {
+void operator<<(::xercesc::DOMElement& e, const ParticleSourceType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
 
-    // fps
+    // cuboid_spawner
     //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("fps", e));
+    for (ParticleSourceType::cuboid_spawner_const_iterator b(i.cuboid_spawner().begin()), n(i.cuboid_spawner().end()); b != n; ++b) {
+        const ParticleSourceType::cuboid_spawner_type& x(*b);
 
-        s << i.fps();
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("cuboid_spawner", e));
+
+        s << x;
     }
 
-    // video_length
+    // sphere_spawner
     //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("video_length", e));
+    for (ParticleSourceType::sphere_spawner_const_iterator b(i.sphere_spawner().begin()), n(i.sphere_spawner().end()); b != n; ++b) {
+        const ParticleSourceType::sphere_spawner_type& x(*b);
 
-        s << i.video_length();
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sphere_spawner", e));
+
+        s << x;
     }
+
+    // single_particle_spawner
+    //
+    for (ParticleSourceType::single_particle_spawner_const_iterator b(i.single_particle_spawner().begin()),
+         n(i.single_particle_spawner().end());
+         b != n; ++b) {
+        const ParticleSourceType::single_particle_spawner_type& x(*b);
+
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("single_particle_spawner", e));
+
+        s << x;
+    }
+
+    // check_point_loader
+    //
+    for (ParticleSourceType::check_point_loader_const_iterator b(i.check_point_loader().begin()), n(i.check_point_loader().end()); b != n;
+         ++b) {
+        const ParticleSourceType::check_point_loader_type& x(*b);
+
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("check_point_loader", e));
+
+        s << x;
+    }
+
+    // sub_simulation
+    //
+    for (ParticleSourceType::sub_simulation_const_iterator b(i.sub_simulation().begin()), n(i.sub_simulation().end()); b != n; ++b) {
+        const ParticleSourceType::sub_simulation_type& x(*b);
+
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sub_simulation", e));
+
+        s << x;
+    }
+}
+
+void operator<<(::xercesc::DOMElement& e, const SettingsType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
 
     // delta_t
     //
@@ -3406,20 +3719,12 @@ void operator<<(::xercesc::DOMElement& e, const SettingsType& i) {
         s << i.forces();
     }
 
-    // thermostat
-    //
-    if (i.thermostat()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("thermostat", e));
-
-        s << *i.thermostat();
-    }
-
-    // output_format
+    // interceptors
     //
     {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("output_format", e));
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("interceptors", e));
 
-        s << i.output_format();
+        s << i.interceptors();
     }
 
     // log_level
@@ -3431,17 +3736,125 @@ void operator<<(::xercesc::DOMElement& e, const SettingsType& i) {
     }
 }
 
-void operator<<(::xercesc::DOMElement& e, const OutputFormatType& i) { e << static_cast<const ::xml_schema::string&>(i); }
+void operator<<(::xercesc::DOMElement& e, const ParticleUpdatesPerSecondInterceptionType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+}
 
-void operator<<(::xercesc::DOMAttr& a, const OutputFormatType& i) { a << static_cast<const ::xml_schema::string&>(i); }
+void operator<<(::xercesc::DOMAttr&, const ParticleUpdatesPerSecondInterceptionType&) {}
 
-void operator<<(::xml_schema::list_stream& l, const OutputFormatType& i) { l << static_cast<const ::xml_schema::string&>(i); }
+void operator<<(::xml_schema::list_stream&, const ParticleUpdatesPerSecondInterceptionType&) {}
 
-void operator<<(::xercesc::DOMElement& e, const LogLevelType& i) { e << static_cast<const ::xml_schema::string&>(i); }
+void operator<<(::xercesc::DOMElement& e, const RadialDistributionFunctionInterceptionType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
 
-void operator<<(::xercesc::DOMAttr& a, const LogLevelType& i) { a << static_cast<const ::xml_schema::string&>(i); }
+    // bin_width
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("bin_width", e));
 
-void operator<<(::xml_schema::list_stream& l, const LogLevelType& i) { l << static_cast<const ::xml_schema::string&>(i); }
+        a << ::xml_schema::as_double(i.bin_width());
+    }
+
+    // sample_every_x_percent
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("sample_every_x_percent", e));
+
+        a << ::xml_schema::as_double(i.sample_every_x_percent());
+    }
+}
+
+void operator<<(::xercesc::DOMElement& e, const FrameWriterInterceptorType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // output_format
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("output_format", e));
+
+        a << i.output_format();
+    }
+
+    // fps
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("fps", e));
+
+        a << i.fps();
+    }
+
+    // video_length_s
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("video_length_s", e));
+
+        a << i.video_length_s();
+    }
+}
+
+void operator<<(::xercesc::DOMElement& e, const ThermostatInterceptorType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // target_temperature
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("target_temperature", e));
+
+        a << ::xml_schema::as_double(i.target_temperature());
+    }
+
+    // max_temperature_change
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("max_temperature_change", e));
+
+        a << ::xml_schema::as_double(i.max_temperature_change());
+    }
+
+    // application_interval
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("application_interval", e));
+
+        a << i.application_interval();
+    }
+}
+
+void operator<<(::xercesc::DOMElement& e, const SimulationInterceptorsType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // ParticleUpdatesPerSecond
+    //
+    if (i.ParticleUpdatesPerSecond()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("ParticleUpdatesPerSecond", e));
+
+        s << *i.ParticleUpdatesPerSecond();
+    }
+
+    // RadialDistributionFunction
+    //
+    if (i.RadialDistributionFunction()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("RadialDistributionFunction", e));
+
+        s << *i.RadialDistributionFunction();
+    }
+
+    // FrameWriter
+    //
+    if (i.FrameWriter()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("FrameWriter", e));
+
+        s << *i.FrameWriter();
+    }
+
+    // Thermostat
+    //
+    if (i.Thermostat()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("Thermostat", e));
+
+        s << *i.Thermostat();
+    }
+}
 
 void operator<<(::xercesc::DOMElement& e, const LennardJonesType& i) { e << static_cast<const ::xml_schema::type&>(i); }
 
@@ -3495,62 +3908,17 @@ void operator<<(::xercesc::DOMElement& e, const ForcesType& i) {
     }
 }
 
-void operator<<(::xercesc::DOMElement& e, const particle_source& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+void operator<<(::xercesc::DOMElement& e, const LogLevelType& i) { e << static_cast<const ::xml_schema::string&>(i); }
 
-    // cuboid_spawner
-    //
-    for (particle_source::cuboid_spawner_const_iterator b(i.cuboid_spawner().begin()), n(i.cuboid_spawner().end()); b != n; ++b) {
-        const particle_source::cuboid_spawner_type& x(*b);
+void operator<<(::xercesc::DOMAttr& a, const LogLevelType& i) { a << static_cast<const ::xml_schema::string&>(i); }
 
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("cuboid_spawner", e));
+void operator<<(::xml_schema::list_stream& l, const LogLevelType& i) { l << static_cast<const ::xml_schema::string&>(i); }
 
-        s << x;
-    }
+void operator<<(::xercesc::DOMElement& e, const OutputFormatType& i) { e << static_cast<const ::xml_schema::string&>(i); }
 
-    // sphere_spawner
-    //
-    for (particle_source::sphere_spawner_const_iterator b(i.sphere_spawner().begin()), n(i.sphere_spawner().end()); b != n; ++b) {
-        const particle_source::sphere_spawner_type& x(*b);
+void operator<<(::xercesc::DOMAttr& a, const OutputFormatType& i) { a << static_cast<const ::xml_schema::string&>(i); }
 
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sphere_spawner", e));
-
-        s << x;
-    }
-
-    // single_particle_spawner
-    //
-    for (particle_source::single_particle_spawner_const_iterator b(i.single_particle_spawner().begin()),
-         n(i.single_particle_spawner().end());
-         b != n; ++b) {
-        const particle_source::single_particle_spawner_type& x(*b);
-
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("single_particle_spawner", e));
-
-        s << x;
-    }
-
-    // check_point_loader
-    //
-    for (particle_source::check_point_loader_const_iterator b(i.check_point_loader().begin()), n(i.check_point_loader().end()); b != n;
-         ++b) {
-        const particle_source::check_point_loader_type& x(*b);
-
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("check_point_loader", e));
-
-        s << x;
-    }
-
-    // sub_simulation
-    //
-    for (particle_source::sub_simulation_const_iterator b(i.sub_simulation().begin()), n(i.sub_simulation().end()); b != n; ++b) {
-        const particle_source::sub_simulation_type& x(*b);
-
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sub_simulation", e));
-
-        s << x;
-    }
-}
+void operator<<(::xml_schema::list_stream& l, const OutputFormatType& i) { l << static_cast<const ::xml_schema::string&>(i); }
 
 #include <xsd/cxx/post.hxx>
 

@@ -8,18 +8,8 @@
   <xs:complexType name="ConfigurationType">
     <xs:sequence>
       <xs:element name="settings" type="SettingsType" />
+      <xs:element name="particle_source" type="ParticleSourceType" />
 
-      <xs:element name="particle_source">
-        <xs:complexType>
-          <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:element name="cuboid_spawner" type="CuboidSpawnerType" />
-            <xs:element name="sphere_spawner" type="SphereSpawnerType" />
-            <xs:element name="single_particle_spawner" type="SingleParticleSpawnerType" />
-            <xs:element name="check_point_loader" type="CheckPointLoaderType" />
-            <xs:element name="sub_simulation" type="SubSimulationType" />
-          </xs:choice>
-        </xs:complexType>
-      </xs:element>
     </xs:sequence>
   </xs:complexType>
 
@@ -59,16 +49,6 @@
       <xs:element name="domain_size" type="DoubleVec3Type" />
       <xs:element name="cutoff_radius" type="xs:double" />
       <xs:element name="boundary_conditions" type="BoundaryConditionsType" />
-    </xs:sequence>
-  </xs:complexType>
-
-
-  <!-- Thermostat -->
-  <xs:complexType name="ThermostatType">
-    <xs:sequence>
-      <xs:element name="target_temperature" type="xs:double" />
-      <xs:element name="max_temperature_change" type="xs:double" />
-      <xs:element name="application_interval" type="xs:integer" />
     </xs:sequence>
   </xs:complexType>
 
@@ -145,41 +125,63 @@
     <xs:attribute name="path" type="xs:string" use="required" />
   </xs:complexType>
 
+  <xs:complexType name="ParticleSourceType">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="cuboid_spawner" type="CuboidSpawnerType" />
+      <xs:element name="sphere_spawner" type="SphereSpawnerType" />
+      <xs:element name="single_particle_spawner" type="SingleParticleSpawnerType" />
+      <xs:element name="check_point_loader" type="CheckPointLoaderType" />
+      <xs:element name="sub_simulation" type="SubSimulationType" />
+    </xs:choice>
+  </xs:complexType>
+
+
   <!-- Settings -->
   <xs:complexType name="SettingsType">
     <xs:sequence>
-      <xs:element name="fps" type="xs:integer" />
-      <xs:element name="video_length" type="xs:integer" />
       <xs:element name="delta_t" type="xs:double" />
       <xs:element name="end_time" type="xs:double" />
       <xs:element name="third_dimension" type="xs:boolean" default="true" />
       <xs:element name="particle_container" type="ParticleContainerType" />
       <xs:element name="forces" type="ForcesType" />
-      <xs:element name="thermostat" type="ThermostatType" minOccurs="0" />
-      <xs:element name="output_format" type="OutputFormatType" default="vtu" />
+      <xs:element name="interceptors" type="SimulationInterceptorsType" />
       <xs:element name="log_level" type="LogLevelType" default="info" minOccurs="0" />
     </xs:sequence>
   </xs:complexType>
 
-  <xs:simpleType name="OutputFormatType">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="vtu" />
-      <xs:enumeration value="chkpt" />
-      <xs:enumeration value="xyz" />
-      <xs:enumeration value="none" />
-    </xs:restriction>
-  </xs:simpleType>
 
-  <xs:simpleType name="LogLevelType">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="off" />
-      <xs:enumeration value="critical" />
-      <xs:enumeration value="error" />
-      <xs:enumeration value="warning" />
-      <xs:enumeration value="info" />
-      <xs:enumeration value="debug" />
-    </xs:restriction>
-  </xs:simpleType>
+  <!-- Inerceptors -->
+  <xs:complexType name="ParticleUpdatesPerSecondInterceptionType">
+  </xs:complexType>
+
+  <xs:complexType name="RadialDistributionFunctionInterceptionType">
+    <xs:attribute name="bin_width" type="xs:double" use="required" />
+    <xs:attribute name="sample_every_x_percent" type="xs:double" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="FrameWriterInterceptorType">
+    <xs:attribute name="output_format" type="OutputFormatType" use="required" />
+    <xs:attribute name="fps" type="xs:integer" use="required" />
+    <xs:attribute name="video_length_s" type="xs:integer" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="ThermostatInterceptorType">
+    <xs:attribute name="target_temperature" type="xs:double" use="required" />
+    <xs:attribute name="max_temperature_change" type="xs:double" use="required" />
+    <xs:attribute name="application_interval" type="xs:integer" use="required" />
+  </xs:complexType>
+
+
+  <xs:complexType name="SimulationInterceptorsType">
+    <xs:all>
+      <xs:element name="ParticleUpdatesPerSecond" type="ParticleUpdatesPerSecondInterceptionType"
+        minOccurs="0" />
+      <xs:element name="RadialDistributionFunction"
+        type="RadialDistributionFunctionInterceptionType" minOccurs="0" />
+      <xs:element name="FrameWriter" type="FrameWriterInterceptorType" minOccurs="0" />
+      <xs:element name="Thermostat" type="ThermostatInterceptorType" minOccurs="0" />
+    </xs:all>
+  </xs:complexType>
 
 
   <!-- Forces -->
@@ -201,5 +203,29 @@
       <xs:element name="GlobalDownwardsGravity" type="GlobalGravityType" minOccurs="0" />
     </xs:all>
   </xs:complexType>
+
+
+  <!-- Enums -->
+
+  <xs:simpleType name="LogLevelType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="off" />
+      <xs:enumeration value="critical" />
+      <xs:enumeration value="error" />
+      <xs:enumeration value="warning" />
+      <xs:enumeration value="info" />
+      <xs:enumeration value="debug" />
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <xs:simpleType name="OutputFormatType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="vtu" />
+      <xs:enumeration value="chkpt" />
+      <xs:enumeration value="xyz" />
+      <xs:enumeration value="none" />
+    </xs:restriction>
+  </xs:simpleType>
 
 </xs:schema>
