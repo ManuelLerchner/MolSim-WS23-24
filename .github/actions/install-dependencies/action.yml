@@ -8,5 +8,5 @@ runs:
     - name: Install c++ libs
       run: |
         sudo apt install libxerces-c-dev -y
-        sudo apt install libboost-all-dev -y
+        sudo apt install build-essential libboost-system-dev libboost-thread-dev libboost-program-options-dev libboost-test-dev -y
       shell: bash
