@@ -41,6 +41,7 @@ All the submissions for the individual sheets, the presentation slides and the p
 - Doxygen 1.10.0: `sudo apt install doxygen` (optional, only needed for documentation)
   - Graphviz: `sudo apt install graphviz` (optional, only needed for drawing UML diagrams in doxygen)
 - Libxerces 3.2.3: `sudo apt install libxerces-c-dev`
+- Boost Program Options: `sudo apt-get install libboost-program-options-dev`
 - cmake-format: `sudo apt install cmake-format-13` (optional, only needed for formatting cmake files)
 
 ## Build
