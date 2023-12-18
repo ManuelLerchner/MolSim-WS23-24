@@ -30,8 +30,10 @@ endif()
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/)
 
 # project dependencies
-include(spdlog)
+include(boost_program_options)
 include(libxsd)
+include(spdlog)
+include(xercesc)
 
 # tests and documentation
 include(gtest) #provides a BUILD_TESTS option
