@@ -4,6 +4,7 @@
 #include "physics/pairwiseforces/GravitationalForce.h"
 #include "physics/pairwiseforces/LennardJonesForce.h"
 #include "physics/simpleforces/GlobalDownwardsGravity.h"
+#include "physics/simpleforces/HarmonicForce.h"
 #include "simulation/interceptors/frame_writer/FrameWriterInterceptor.h"
 #include "simulation/interceptors/particle_update_counter/ParticleUpdateCounterInterceptor.h"
 #include "simulation/interceptors/progress_bar/ProgressBarInterceptor.h"
@@ -237,6 +238,9 @@ XSDToInternalTypeAdapter::convertToForces(const ForcesType& forces) {
     if (forces.GlobalDownwardsGravity()) {
         auto g = (*forces.GlobalDownwardsGravity()).g();
         simple_force_sources.push_back(std::make_shared<GlobalDownwardsGravity>(g));
+    }
+    if (forces.HarmonicPotential()) {
+        simple_force_sources.push_back(std::make_shared<HarmonicForce>());
     }
 
     return {simple_force_sources, pairwise_force_sources};

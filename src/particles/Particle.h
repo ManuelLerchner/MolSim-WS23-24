@@ -8,7 +8,9 @@
 #pragma once
 
 #include <array>
+#include <memory>
 #include <string>
+#include <vector>
 
 /**
  * @brief Class to represent a particle
@@ -59,6 +61,16 @@ class Particle {
      * on)
      */
     int type;
+
+    /**
+     * @brief List of connected particles
+     *
+     * List of connected particles. Each entry is a tuple of a weak pointer to the connected particle, and the prefered distance between the
+     * spring constant.
+     *
+     * entry = (weak_ptr<Particle>, l_0, k)
+     */
+    std::vector<std::tuple<std::weak_ptr<Particle>, double, double>> connected_particles;
 
    public:
     Particle(const Particle& other);
@@ -138,6 +150,22 @@ class Particle {
      * @brief Gets the Lennard-Jones potential parameter sigma
      */
     [[nodiscard]] double getSigma() const;
+
+    /**
+     * @brief Gets the list of connected particles
+     */
+    [[nodiscard]] const std::vector<std::tuple<std::weak_ptr<Particle>, double, double>>& getConnectedParticles() const;
+
+    /**
+     * @brief Adds a connected particle
+     *  
+     * @param particle Particle to add
+     * @param l_0 Prefered distance between the particles
+     * @param k Spring constant
+     */
+    void addConnectedParticle(std::weak_ptr<Particle> particle, double l_0, double k);
+
+
 
     bool operator==(Particle& other);
 
