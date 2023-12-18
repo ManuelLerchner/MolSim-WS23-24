@@ -20,7 +20,6 @@ CuboidSpawner::CuboidSpawner(const std::array<double, 3>& lower_left_corner, con
 
 int CuboidSpawner::spawnParticles(std::vector<Particle>& particles) const {
     particles.reserve(particles.size() + getEstimatedNumberOfParticles());
-    int num_particles_spawned = 0;
     for (int i = 0; i < grid_dimensions[0]; i++) {
         for (int j = 0; j < grid_dimensions[1]; j++) {
             for (int k = 0; k < grid_dimensions[2]; k++) {
@@ -34,7 +33,7 @@ int CuboidSpawner::spawnParticles(std::vector<Particle>& particles) const {
             }
         }
     }
-    return num_particles_spawned;
+    return grid_dimensions[0] * grid_dimensions[1] * grid_dimensions[2];
 }
 
 size_t CuboidSpawner::getEstimatedNumberOfParticles() const {

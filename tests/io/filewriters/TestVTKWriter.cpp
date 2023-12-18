@@ -20,10 +20,9 @@ TEST(VTUWriter, CorrectWritingOfParticles) {
         particle_container->addParticle(Particle(pos, vel, i, i));
     }
 
-    auto params = SimulationParams("text.xml", 0, 0, 0, 0, SimulationParams::DirectSumType{}, Thermostat{0, 0, 100000}, "vtu",
-                                   {"LennardJones"}, false);
+    auto params = SimulationParams("test.xml", 0, 0, SimulationParams::DirectSumType{}, {}, {}, {}, false);
 
-    FileOutputHandler file_output_handler{params};
+    FileOutputHandler file_output_handler{OutputFormat::VTU, params};
 
     auto path = file_output_handler.writeFile(0, particle_container);
 

@@ -49,7 +49,7 @@ size_t ChkptPointFileReader::calculateHash(const std::filesystem::path& filepath
 
     if (!input_file.is_open()) {
         Logger::logger->error("Error: could not open file '{}'.", filepath.string());
-        exit(-1);
+        throw FileReader::FileFormatException("Could not open file");
     }
 
     auto buffer = std::stringstream();

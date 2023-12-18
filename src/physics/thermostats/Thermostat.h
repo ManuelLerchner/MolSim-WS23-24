@@ -63,7 +63,7 @@ class Thermostat {
      *
      * @param particle_container The particle container to scale the temperature of.
      */
-    void scaleTemperature(std::unique_ptr<ParticleContainer>& particle_container) const;
+    void scaleTemperature(const std::unique_ptr<ParticleContainer>& particle_container) const;
 
     /**
      * @brief Set the initial temperature of a particle container. This function sets the velocity of all particles in the container to a
@@ -73,7 +73,7 @@ class Thermostat {
      * @param new_temperature The new temperature of the particle container.
      * @param particle_container The particle container to set the initial temperature of.
      */
-    void setTemperature(double new_temperature, std::unique_ptr<ParticleContainer>& particle_container);
+    void setTemperature(double new_temperature, const std::unique_ptr<ParticleContainer>& particle_container);
 
     /**
      * @brief Set the temperature of a particle. This method adds a random velocity to the particle according to the Maxwell-Boltzmann
