@@ -18,8 +18,7 @@ class Thermostat {
      * @param max_temperature_change The maximum temperature change allowed per thermostat application.
      * @param dimensions The number of dimensions of the particle container that is going to be used.
      */
-    explicit Thermostat(double target_temperature, double max_temperature_change, size_t dimensions)
-        : target_temperature(target_temperature), max_temperature_change(max_temperature_change), dimensions(dimensions) {}
+    explicit Thermostat(double target_temperature, double max_temperature_change, size_t dimensions);
 
     /**
      * @brief Destroy the Thermostat object.

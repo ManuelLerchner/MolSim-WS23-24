@@ -22,22 +22,22 @@ class Particle {
     /**
      * @brief Position of the particle
      */
-    std::array<double, 3> x;
+    std::array<double, 3> x{};
 
     /**
      * @brief Velocity of the particle
      */
-    std::array<double, 3> v;
+    std::array<double, 3> v{};
 
     /**
      * @brief Force effective on this particle
      */
-    std::array<double, 3> f;
+    std::array<double, 3> f{};
 
     /**
      * @brief Force which was effective on this particle
      */
-    std::array<double, 3> old_f;
+    std::array<double, 3> old_f{};
 
     /**
      * @brief Lennard-Jones potential parameter epsilon

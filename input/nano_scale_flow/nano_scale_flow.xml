@@ -5,7 +5,7 @@
 
     <settings>
         <delta_t>0.0005</delta_t>
-        <end_time>500.0</end_time>
+        <end_time>50.0</end_time>
         <third_dimension>true</third_dimension>
         <particle_container>
             <linkedcells_container>
@@ -32,8 +32,9 @@
         <interceptors>
             <Thermostat application_interval="10" target_temperature="40"
                 max_temperature_change="INF"
-                type="absolute" />
+                type="relative_motion" />
             <FrameWriter output_format="vtu" fps="24" video_length_s="30" />
+            <VelocityProfile num_bins="100" sample_every_x_percent="20" />
         </interceptors>
     </settings>
 
@@ -109,7 +110,7 @@
                 <y>0.0</y>
                 <z>0.0</z>
             </velocity>
-            <type>1</type>
+            <type>2</type>
             <epsilon>1.0</epsilon>
             <sigma>1</sigma>
         </cuboid_spawner>

@@ -1,5 +1,7 @@
 #include "XSDToInternalTypeAdapter.h"
 
+#include <variant>
+
 #include "io/logger/Logger.h"
 #include "physics/pairwiseforces/GravitationalForce.h"
 #include "physics/pairwiseforces/LennardJonesForce.h"
@@ -11,6 +13,7 @@
 #include "simulation/interceptors/progress_bar/ProgressBarInterceptor.h"
 #include "simulation/interceptors/radial_distribution_function/RadialDistributionFunctionInterceptor.h"
 #include "simulation/interceptors/thermostat/ThermostatInterceptor.h"
+#include "simulation/interceptors/velocity_profile/VelocityProfileInterceptor.h"
 
 CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawnerType& cuboid, bool third_dimension) {
     auto lower_left_front_corner = convertToVector(cuboid.lower_left_front_corner());
@@ -116,29 +119,23 @@ CuboidSpawner XSDToInternalTypeAdapter::convertToSingleParticleSpawner(const Sin
 }
 
 std::vector<std::shared_ptr<SimulationInterceptor>> XSDToInternalTypeAdapter::convertToSimulationInterceptors(
-    const SimulationInterceptorsType& interceptors, bool third_dimension) {
+    const SimulationInterceptorsType& interceptors, bool third_dimension,
+    std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType> container_type) {
     std::vector<std::shared_ptr<SimulationInterceptor>> simulation_interceptors;
+
+    if (interceptors.FrameWriter()) {
+        auto fps = interceptors.FrameWriter()->fps();
+        auto video_length = interceptors.FrameWriter()->video_length_s();
+        auto output_format = convertToOutputFormat(interceptors.FrameWriter()->output_format());
+
+        simulation_interceptors.push_back(std::make_shared<FrameWriterInterceptor>(output_format, fps, video_length));
+    }
 
     if (interceptors.Thermostat()) {
         auto xsd_thermostat = *interceptors.Thermostat();
         auto target_temperature = xsd_thermostat.target_temperature();
         auto max_temperature_change = xsd_thermostat.max_temperature_change();
         auto application_interval = xsd_thermostat.application_interval();
-
-        if (target_temperature < 0) {
-            Logger::logger->error("Target temperature must be positive");
-            throw std::runtime_error("Target temperature must be positive");
-        }
-
-        if (max_temperature_change < 0) {
-            Logger::logger->error("Max temperature change must be an absolute value (positive)");
-            throw std::runtime_error("Max temperature change must be an absolute value (positive)");
-        }
-
-        if (application_interval <= 0) {
-            Logger::logger->error("Application interval must be a positive integer > 0");
-            throw std::runtime_error("Application interval must be a positive integer > 0");
-        }
 
         std::shared_ptr<Thermostat> thermostat;
 
@@ -166,12 +163,42 @@ std::vector<std::shared_ptr<SimulationInterceptor>> XSDToInternalTypeAdapter::co
         simulation_interceptors.push_back(std::make_shared<RadialDistributionFunctionInterceptor>(bin_width, sample_every_x_percent));
     }
 
-    if (interceptors.FrameWriter()) {
-        auto fps = interceptors.FrameWriter()->fps();
-        auto video_length = interceptors.FrameWriter()->video_length_s();
-        auto output_format = convertToOutputFormat(interceptors.FrameWriter()->output_format());
+    if (interceptors.VelocityProfile()) {
+        auto xsd_vp = *interceptors.VelocityProfile();
+        auto num_bins = xsd_vp.num_bins();
+        auto sample_every_x_percent = xsd_vp.sample_every_x_percent();
 
-        simulation_interceptors.push_back(std::make_shared<FrameWriterInterceptor>(output_format, fps, video_length));
+        auto box_xsd = xsd_vp.box();
+
+        std::pair<std::array<double, 3>, std::array<double, 3>> box;
+
+        if (box_xsd.present()) {
+            auto box_data = *box_xsd;
+
+            auto bottom_left = convertToVector(box_data.lower_left_front_corner());
+            auto top_right = convertToVector(box_data.upper_right_back_corner());
+
+            box = std::make_pair(bottom_left, top_right);
+        } else {
+            std::visit(
+                [&box](auto&& container) {
+                    if constexpr (std::is_same_v<std::decay_t<decltype(container)>, SimulationParams::DirectSumType>) {
+                        Logger::logger->error("Box must be specified if direct sum is used");
+                        throw std::runtime_error("Box must be specified if direct sum is used");
+                    } else if constexpr (std::is_same_v<std::decay_t<decltype(container)>, SimulationParams::LinkedCellsType>) {
+                        auto bottom_left = std::array<double, 3>{0, 0, 0};
+                        auto top_right = container.domain_size;
+
+                        box = std::make_pair(bottom_left, top_right);
+                    } else {
+                        Logger::logger->error("Container type not implemented");
+                        throw std::runtime_error("Container type not implemented");
+                    }
+                },
+                container_type);
+        }
+
+        simulation_interceptors.push_back(std::make_shared<VelocityProfileInterceptor>(box, num_bins, sample_every_x_percent));
     }
 
     simulation_interceptors.push_back(std::make_shared<ProgressBarInterceptor>());

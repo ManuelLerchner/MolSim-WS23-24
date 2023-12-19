@@ -21,6 +21,7 @@ Particle::Particle(const Particle& other) {
     type = other.type;
     epsilon = other.epsilon;
     sigma = other.sigma;
+    locked = other.locked;
     Logger::logger->debug("Particle created");
 }
 

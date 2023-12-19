@@ -4,6 +4,19 @@
 #include "utils/ArrayUtils.h"
 #include "utils/MaxwellBoltzmannDistribution.h"
 
+Thermostat::Thermostat(double target_temperature, double max_temperature_change, size_t dimensions)
+    : target_temperature(target_temperature), max_temperature_change(max_temperature_change), dimensions(dimensions) {
+    if (target_temperature < 0) {
+        Logger::logger->error("Target temperature must be positive");
+        throw std::runtime_error("Target temperature must be positive");
+    }
+
+    if (max_temperature_change < 0) {
+        Logger::logger->error("Max temperature change must be an absolute value (positive)");
+        throw std::runtime_error("Max temperature change must be an absolute value (positive)");
+    }
+}
+
 void Thermostat::setParticleTemperature(double new_temperature, Particle& particle, size_t dimensions) {
     if (dimensions < 2 || dimensions > 3) {
         Logger::logger->error("Invalid number of dimensions: {}. Must be 2 or 3.", dimensions);

@@ -64,4 +64,5 @@ class Simulation {
     friend class ThermostatInterceptor;
     friend class ParticleUpdateCounterInterceptor;
     friend class RadialDistributionFunctionInterceptor;
+    friend class VelocityProfileInterceptor;
 };

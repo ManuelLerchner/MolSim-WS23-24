@@ -157,10 +157,6 @@
   <xs:complexType name="ParticleUpdatesPerSecondInterceptionType">
   </xs:complexType>
 
-  <xs:complexType name="RadialDistributionFunctionInterceptionType">
-    <xs:attribute name="bin_width" type="xs:double" use="required" />
-    <xs:attribute name="sample_every_x_percent" type="xs:double" use="required" />
-  </xs:complexType>
 
   <xs:complexType name="FrameWriterInterceptorType">
     <xs:attribute name="output_format" type="OutputFormatType" use="required" />
@@ -175,6 +171,20 @@
     <xs:attribute name="type" type="ThermostatType" use="required" />
   </xs:complexType>
 
+  <xs:complexType name="RadialDistributionFunctionInterceptionType">
+    <xs:attribute name="bin_width" type="xs:double" use="required" />
+    <xs:attribute name="sample_every_x_percent" type="xs:double" use="required" />
+  </xs:complexType>
+
+
+  <xs:complexType name="VelocityProfileInterceptionType">
+    <xs:sequence>
+      <xs:element name="box" type="ThreeDRegionType" minOccurs="0" />
+    </xs:sequence>
+    <xs:attribute name="num_bins" type="xs:integer" use="required" />
+    <xs:attribute name="sample_every_x_percent" type="xs:double" use="required" />
+  </xs:complexType>
+
 
   <xs:complexType name="SimulationInterceptorsType">
     <xs:all>
@@ -182,6 +192,7 @@
         minOccurs="0" />
       <xs:element name="RadialDistributionFunction"
         type="RadialDistributionFunctionInterceptionType" minOccurs="0" />
+      <xs:element name="VelocityProfile" type="VelocityProfileInterceptionType" minOccurs="0" />
       <xs:element name="FrameWriter" type="FrameWriterInterceptorType" minOccurs="0" />
       <xs:element name="Thermostat" type="ThermostatInterceptorType" minOccurs="0" />
     </xs:all>
@@ -206,6 +217,13 @@
       <xs:element name="Gravitational" type="GravitationalType" minOccurs="0" />
       <xs:element name="GlobalDownwardsGravity" type="GlobalGravityType" minOccurs="0" />
     </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="ThreeDRegionType">
+    <xs:sequence>
+      <xs:element name="lower_left_front_corner" type="DoubleVec3Type" />
+      <xs:element name="upper_right_back_corner" type="DoubleVec3Type" />
+    </xs:sequence>
   </xs:complexType>
 
 

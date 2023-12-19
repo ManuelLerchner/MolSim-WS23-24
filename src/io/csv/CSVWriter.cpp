@@ -46,10 +46,7 @@ void CSVWriter::initialize(const std::vector<std::string>& headers) {
     this->headers = headers;
 
     if (!std::filesystem::exists(file_path)) {
-        Logger::logger->info("File {} does not exist, creating it!", file_path.string());
         std::filesystem::create_directories(file_path.parent_path());
-    } else {
-        Logger::logger->warn("File {} already exists", file_path.string());
     }
 
     if (append) {

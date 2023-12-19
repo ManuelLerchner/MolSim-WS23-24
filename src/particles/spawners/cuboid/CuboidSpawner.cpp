@@ -30,7 +30,7 @@ int CuboidSpawner::spawnParticles(std::vector<Particle>& particles) const {
 
                 Particle particle(x, initial_velocity, mass, type, epsilon, sigma, locked);
                 Thermostat::setParticleTemperature(initial_temperature, particle, third_dimension ? 3 : 2);
-                particles.push_back(std::move(particle));
+                particles.push_back(particle);
             }
         }
     }
