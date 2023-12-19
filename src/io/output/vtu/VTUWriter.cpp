@@ -13,13 +13,11 @@ VTKFile_t VTUWriter::initializeOutput(int numParticles) {
     DataArray_t velocity(type::Float32, "velocity", 3);
     DataArray_t forces(type::Float32, "force", 3);
     DataArray_t type(type::Int32, "type", 1);
-    DataArray_t locked(type::Int32, "locked", 1);
 
     point_data.DataArray().push_back(mass);
     point_data.DataArray().push_back(velocity);
     point_data.DataArray().push_back(forces);
     point_data.DataArray().push_back(type);
-    point_data.DataArray().push_back(locked);
 
     CellData cell_data;  // we don't have cell data => leave it empty
 
@@ -58,9 +56,6 @@ void VTUWriter::plotParticle(VTKFile_t& vtuFile, const Particle& p) {
 
     data_iterator++;
     data_iterator->push_back(p.getType());
-
-    data_iterator++;
-    data_iterator->push_back(p.isLocked() ? 1 : 0);
 
     Points::DataArray_sequence& points_sequence = vtuFile.UnstructuredGrid()->Piece().Points().DataArray();
     Points::DataArray_iterator points_iterator = points_sequence.begin();

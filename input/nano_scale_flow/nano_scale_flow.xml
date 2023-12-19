@@ -5,7 +5,7 @@
 
     <settings>
         <delta_t>0.0005</delta_t>
-        <end_time>50.0</end_time>
+        <end_time>5.0</end_time>
         <third_dimension>true</third_dimension>
         <particle_container>
             <linkedcells_container>
@@ -85,7 +85,7 @@
                 <y>0.0</y>
                 <z>0.0</z>
             </velocity>
-            <type>0</type>
+            <type>2</type>
             <epsilon>2.0</epsilon>
             <sigma>1.1</sigma>
         </cuboid_spawner>
@@ -110,7 +110,7 @@
                 <y>0.0</y>
                 <z>0.0</z>
             </velocity>
-            <type>2</type>
+            <type>1</type>
             <epsilon>1.0</epsilon>
             <sigma>1</sigma>
         </cuboid_spawner>
