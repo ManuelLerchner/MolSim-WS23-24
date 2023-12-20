@@ -69,19 +69,22 @@ Members of **Team C**:
       **Manuel fixed the Cmake and it worked** <TODO>
 3. **Comparable Performance Test**
     * We decided to use a 10000 particle cuboid without any thermostat or force acting globally as performance test. The exact program can be found in `/benchmarks/2DPartRect/2D_task4.cpp`.
-    * the simulation of 10000 particles took ____s on the Linux Cluster with ____ MUP/s <TODO>
+    * The simulation of 10000 particles took 35.376s on the Linux Cluster with 282960 MUP/s 
+    * The whole data can be found in `sheet04/data/Task4_job_output.txt`.
 
 4. **Profiling**
-    * When turning off output, we can get the following profile ____<TODO>
-    * So the calculation of ___ and ___ consume the most time <TODO>
+    * When turning off output, we can get the profile as shown in `/benchmarks/profiles/profile_task4.txt`
+    * So the calculation of the pairwise consume the most time as expected
 
 ### Task 5: Tuning the sequential Performance
-We already implemented a lot of runtime optimizations during the project so thinking of big additional ones was hard. We rejected micro optimisations like inlining or templates, because lots of it can be done better by a compiler with a high optimisation level.
+We already implemented a lot of runtime optimizations during the project so thinking of big additional ones was hard. We reject micro optimizations like inlining or templates, because lots of it can be done better by a compiler with a high optimization level and it messes up our code.
 1. **Idea 1**
 * Because we usually deal with a little number of different particles, we could avoid calculating the Lennard-Jones parameters for every particle pair by creating a lookup table with an entry for every pair of the different particle types.
-* On a native Ubuntu machine we measured (---)<TODO>:
-    * before: ___   <TODO>
-    * after: ___    <TODO>
+* On the Linux Cluster we measured:
+    * before optimization: 42.476s  with 235427 MUP/s (data in `sheet04/data/Contest_job_output.txt`)
+    * after (also the data for the contest): ___ s with ___ MUP/s <TODO>
+### Contest 1
+* We tried the program out on the linux cluster and it took ___s with ___ MUP/s <TODO>
 
 
 ### Misc
