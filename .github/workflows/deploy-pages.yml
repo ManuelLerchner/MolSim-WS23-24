@@ -66,8 +66,7 @@ jobs:
       - name: move everything important into submissions folder
         run: |
           mkdir submissions
-          cp -r . submissions || true
-          rm -rf submissions/.git
+          cp -r sheet* html-renderer submissions
           rm -rf submissions/*/data
 
       - name: Build index.html
