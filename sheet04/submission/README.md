@@ -68,22 +68,24 @@ Members of **Team C**:
     * Even though the required modules like `xerces-c` or `boost` are loaded, the compiler cannot find and link them.
       **Manuel fixed the Cmake and it worked** <TODO>
 3. **Comparable Performance Test**
-    * the simulation of 10000 particles took ____s with ____ MUP/s
+    * We decided to use a 10000 particle cuboid without any thermostat or force acting globally as performance test. The exact program can be found in `/benchmarks/2DPartRect/2D_task4.cpp`.
+    * the simulation of 10000 particles took ____s on the Linux Cluster with ____ MUP/s <TODO>
+
 4. **Profiling**
     * When turning off output, we can get the following profile ____<TODO>
-    * So the calculation of ___ and ___ consume the most time
+    * So the calculation of ___ and ___ consume the most time <TODO>
 
 ### Task 5: Tuning the sequential Performance
 We already implemented a lot of runtime optimizations during the project so thinking of big additional ones was hard. We rejected micro optimisations like inlining or templates, because lots of it can be done better by a compiler with a high optimisation level.
 1. **Idea 1**
 * Because we usually deal with a little number of different particles, we could avoid calculating the Lennard-Jones parameters for every particle pair by creating a lookup table with an entry for every pair of the different particle types.
-* On a native Ubuntu machine we measured:
-    * before: ___
-    * after: ___
+* On a native Ubuntu machine we measured (---)<TODO>:
+    * before: ___   <TODO>
+    * after: ___    <TODO>
 
 
 ### Misc
 
 * We refractored the code a little. We now have the concept of interceptors. These
   are events that are triggered only once per n iterations. This is useful for `FileOutputWriter`,
-  `Thermostat`, etc.
+  `Thermostat`, etc.. Grouping these types of functionalities like this seems more elegant to us.
