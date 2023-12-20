@@ -1,16 +1,8 @@
 name: clang-format Check
 on:
-  pull_request:
-    paths:
-      - "src/**"
-      - ".clang-format"
-      - ".github/workflows/clang-format.yml"
   push:
-    branches: "master"
-    paths:
-      - "src/**"
-      - ".clang-format"
-      - ".github/workflows/clang-format.yml"
+    branches: [master]
+  pull_request:
   workflow_dispatch:
 
 jobs:
