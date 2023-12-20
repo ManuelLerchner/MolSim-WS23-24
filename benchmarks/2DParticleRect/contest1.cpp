@@ -16,9 +16,8 @@
 #include "physics/thermostats/Thermostat.cpp"
 #include "simulation/interceptors/thermostat/ThermostatInterceptor.h"
 
-void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, double lc_cutoff) {
+void execute2DRectBenchmark() {
     Logger::logger->set_level(spdlog::level::info);
-    Logger::logger->info("Starting 2DRect-benchmark. Dimensions {}x{}...", rect_width, rect_height);
 
     // Settings for the Linked Cells Container simulation
     std::array<double, 3> domain_size = {300, 54, 3};
@@ -50,7 +49,7 @@ void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, dou
     SimulationParams params_lc{"2DParticleRect.xml",
                                0.0005,
                                0.5,
-                               SimulationParams::LinkedCellsType{domain_size, lc_cutoff, boundary_conditions},
+                               SimulationParams::LinkedCellsType{domain_size, 2.5, boundary_conditions},
                                simulation_interceptors,
                                simple_force_sources,
                                pairwise_forces,
@@ -66,6 +65,6 @@ void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, dou
 
 int main() {
 
-    execute2DRectBenchmark(100, 100, 1.1225, 3);
+    execute2DRectBenchmark();
     return 0;
 }
