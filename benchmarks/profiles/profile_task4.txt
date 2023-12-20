@@ -13,7 +13,7 @@
 
       11,965410000 seconds user
 
-Profile of './2D_task4' of the relevant functions (sorted by cpu time):
+Profile of './contest1' of the relevant functions (sorted by cpu time):
 
   24,46%  contest1  contest1              [.] LinkedCellsContainer::applyPairwiseForces                                                             ◆
   15,67%  contest1  libm.so.6             [.] __ieee754_pow_fma                                                                                     ▒
