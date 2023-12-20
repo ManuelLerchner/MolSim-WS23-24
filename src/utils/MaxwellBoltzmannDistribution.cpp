@@ -3,7 +3,7 @@
 std::array<double, 3> maxwellBoltzmannDistributedVelocity(double averageVelocity, size_t dimensions) {
     // we use a constant seed for repeatability.
     // random engine needs static lifetime otherwise it would be recreated for every call.
-    static std::default_random_engine random_engine(69);
+    static std::default_random_engine random_engine(42);
 
     // when adding independent normally distributed values to all velocity components
     // the velocity change is maxwell boltzmann distributed
