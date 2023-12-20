@@ -49,11 +49,9 @@ void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, dou
     params_lc.logSummary();
     SimulationOverview linked_cells_data = simulation_lc.runSimulation();
     linked_cells_data.logSummary();
-
 }
 
 int main() {
-
     execute2DRectBenchmark(100, 100, 1.1225, 3);
     return 0;
 }

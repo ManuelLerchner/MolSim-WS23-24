@@ -10,11 +10,11 @@
 #include "particles/spawners/cuboid/CuboidSpawner.h"
 #include "physics/pairwiseforces/GravitationalForce.h"
 #include "physics/pairwiseforces/LennardJonesForce.h"
-#include "simulation/Simulation.h"
-#include "utils/ArrayUtils.h"
 #include "physics/simpleforces/GlobalDownwardsGravity.h"
 #include "physics/thermostats/Thermostat.cpp"
+#include "simulation/Simulation.h"
 #include "simulation/interceptors/thermostat/ThermostatInterceptor.h"
+#include "utils/ArrayUtils.h"
 
 void execute2DRectBenchmark() {
     Logger::logger->set_level(spdlog::level::info);
@@ -22,15 +22,13 @@ void execute2DRectBenchmark() {
     // Settings for the Linked Cells Container simulation
     std::array<double, 3> domain_size = {300, 54, 3};
     std::array<LinkedCellsContainer::BoundaryCondition, 6> boundary_conditions = {
-        LinkedCellsContainer::BoundaryCondition::PERIODIC, LinkedCellsContainer::BoundaryCondition::PERIODIC,
+        LinkedCellsContainer::BoundaryCondition::PERIODIC,   LinkedCellsContainer::BoundaryCondition::PERIODIC,
         LinkedCellsContainer::BoundaryCondition::REFLECTIVE, LinkedCellsContainer::BoundaryCondition::REFLECTIVE,
-        LinkedCellsContainer::BoundaryCondition::OUTFLOW, LinkedCellsContainer::BoundaryCondition::OUTFLOW};
+        LinkedCellsContainer::BoundaryCondition::OUTFLOW,    LinkedCellsContainer::BoundaryCondition::OUTFLOW};
 
     // Settings for the Cuboid spawner of task 2
-    CuboidSpawner spawner1({0.6,2.0,0.5},
-                          {250,20,1}, 1.2, 1.0, {0.0,0.0,0.0}, static_cast<int>(0), 1.0, 1.2, false, 40);
-    CuboidSpawner spawner2({0.6,27.0,0.5},
-                          {250,20,1}, 1.2, 2.0, {0.0,0.0,0.0}, static_cast<int>(1), 1.0, 1.1, false, 40);
+    CuboidSpawner spawner1({0.6, 2.0, 0.5}, {250, 20, 1}, 1.2, 1.0, {0.0, 0.0, 0.0}, static_cast<int>(0), 1.0, 1.2, false, 40);
+    CuboidSpawner spawner2({0.6, 27.0, 0.5}, {250, 20, 1}, 1.2, 2.0, {0.0, 0.0, 0.0}, static_cast<int>(1), 1.0, 1.1, false, 40);
 
     std::vector<std::shared_ptr<PairwiseForceSource>> pairwise_forces;
     std::vector<std::shared_ptr<SimpleForceSource>> simple_force_sources;
@@ -38,7 +36,7 @@ void execute2DRectBenchmark() {
     simple_force_sources.push_back(std::make_shared<GlobalDownwardsGravity>(12.44));
 
     // Set the thermostat:
-    Thermostat thermostat{40, std::numeric_limits<double>::infinity(),static_cast<size_t>(1000), false};
+    Thermostat thermostat{40, std::numeric_limits<double>::infinity(), static_cast<size_t>(1000), false};
     std::vector<std::shared_ptr<SimulationInterceptor>> simulation_interceptors;
     simulation_interceptors.push_back(std::make_shared<ThermostatInterceptor>(thermostat));
 
@@ -53,18 +51,18 @@ void execute2DRectBenchmark() {
                                simulation_interceptors,
                                simple_force_sources,
                                pairwise_forces,
-                               false,false,"./output"};
+                               false,
+                               false,
+                               "./output"};
     params_lc.num_particles = particles_lc.size();
     Simulation simulation_lc(particles_lc, params_lc);
     // Simulating with Linked Cells Container
     params_lc.logSummary();
     SimulationOverview linked_cells_data = simulation_lc.runSimulation();
     linked_cells_data.logSummary();
-
 }
 
 int main() {
-
     execute2DRectBenchmark();
     return 0;
 }
