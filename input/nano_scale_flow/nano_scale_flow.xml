@@ -5,7 +5,7 @@
 
     <settings>
         <delta_t>0.0005</delta_t>
-        <end_time>5.0</end_time>
+        <end_time>10.0</end_time>
         <third_dimension>true</third_dimension>
         <particle_container>
             <linkedcells_container>
@@ -27,14 +27,14 @@
         </particle_container>
         <forces>
             <LennardJones />
-            <GlobalDownwardsGravity g="0.8" />
+            <GlobalDownwardsGravity g="10.8" />
         </forces>
         <interceptors>
             <Thermostat application_interval="10" target_temperature="40"
                 max_temperature_change="INF"
                 type="relative_motion" />
             <FrameWriter output_format="vtu" fps="24" video_length_s="30" />
-            <VelocityProfile num_bins="100" sample_every_x_percent="20" />
+            <VelocityProfile num_bins="20" sample_every_x_percent="1" />
         </interceptors>
     </settings>
 

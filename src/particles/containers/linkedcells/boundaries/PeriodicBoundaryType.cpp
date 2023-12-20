@@ -196,6 +196,7 @@ void PeriodicBoundaryType::addPeriodicHaloParticlesForSide(LinkedCellsContainer&
     for (Cell* cell : side_cell_references) {
         for (Particle* p : cell->getParticleReferences()) {
             Particle ghost_particle = Particle(*p);
+            ghost_particle.setLocked(true);
             ghost_particle.setX(p->getX() + offset);
             container.addParticle(ghost_particle);
         }
@@ -213,6 +214,7 @@ void PeriodicBoundaryType::addPeriodicHaloParticlesForEdge(LinkedCellsContainer&
         Cell* cell = &container.cells.at(container.cellCoordToCellIndex(running_array[0], running_array[1], running_array[2]));
         for (Particle* p : cell->getParticleReferences()) {
             Particle ghost_particle = Particle(*p);
+            ghost_particle.setLocked(true);
             ghost_particle.setX(p->getX() + offset);
             container.addParticle(ghost_particle);
         }
@@ -229,6 +231,7 @@ void PeriodicBoundaryType::addPeriodicHaloParticlesForCorner(LinkedCellsContaine
     Cell* cell = &container.cells.at(container.cellCoordToCellIndex(cell_coords[0], cell_coords[1], cell_coords[2]));
     for (Particle* p : cell->getParticleReferences()) {
         Particle ghost_particle = Particle(*p);
+        ghost_particle.setLocked(true);
         ghost_particle.setX(p->getX() + offset);
         container.addParticle(ghost_particle);
     }

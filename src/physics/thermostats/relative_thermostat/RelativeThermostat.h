@@ -38,17 +38,19 @@ class RelativeThermostat : public Thermostat {
     /**
      * @brief Get the kinetic energy of a particle.
      *
-     * @param particle The particle to get the kinetic energy of.
+     * @param particle_container The particle container to get the kinetic energy of.
      * @param average_velocity The average velocity of all particles in the container.
      * @return double The kinetic energy of the particle.
      */
-    double getKineticEnergy(Particle& particle, std::array<double, 3>& average_velocity) const;
+    double getContainerKineticEnergy(const std::unique_ptr<ParticleContainer>& particle_container,
+                                     std::array<double, 3> average_velocity) const;
 
     /**
      * @brief Get the current temperature of a particle
      *
-     * @param particle The particle to get the temperature of.
+     * @param particle_container The particle container to get the temperature of.
      * @param average_velocity The average velocity of all particles in the container.
      */
-    double getCurrentTemperature(Particle& particle, std::array<double, 3>& average_velocity) const;
+    double getCurrentContainerTemperature(const std::unique_ptr<ParticleContainer>& particle_container,
+                                          std::array<double, 3> average_velocity) const;
 };

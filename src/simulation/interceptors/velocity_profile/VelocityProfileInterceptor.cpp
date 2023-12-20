@@ -18,16 +18,16 @@ void VelocityProfileInterceptor::onSimulationStart(Simulation& simulation) {
     bin_width[1] = (box.second[1] - box.first[1]) / num_bins;
     bin_width[2] = (box.second[2] - box.first[2]) / num_bins;
 
-    csv_writer_x->initialize({"iteration", "bin_index (w= " + std::to_string(bin_width[0]) + ")", "avg_velocity_x", "avg_velocity_y",
-                              "avg_velocity_z", "avg_velocity_mag"});
+    csv_writer_x->initialize(
+        {"iteration", "bin_index (w= " + std::to_string(bin_width[0]) + ")", "avg_velocity_x", "avg_velocity_y", "avg_velocity_z"});
 
-    csv_writer_y->initialize({"iteration", "bin_index (w= " + std::to_string(bin_width[1]) + ")", "avg_velocity_x", "avg_velocity_y",
-                              "avg_velocity_z", "avg_velocity_mag"});
+    csv_writer_y->initialize(
+        {"iteration", "bin_index (w= " + std::to_string(bin_width[1]) + ")", "avg_velocity_x", "avg_velocity_y", "avg_velocity_z"});
 
-    csv_writer_z->initialize({"iteration", "bin_index (w= " + std::to_string(bin_width[2]) + ")", "avg_velocity_x", "avg_velocity_y",
-                              "avg_velocity_z", "avg_velocity_mag"});
+    csv_writer_z->initialize(
+        {"iteration", "bin_index (w= " + std::to_string(bin_width[2]) + ")", "avg_velocity_x", "avg_velocity_y", "avg_velocity_z"});
 
-    auto expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t) + 1);
+    auto expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t));
     SimulationInterceptor::every_nth_iteration = std::max(1, static_cast<int>(sample_every_x_percent * expected_iterations / 100));
 }
 
@@ -43,6 +43,12 @@ void VelocityProfileInterceptor::operator()(size_t iteration, Simulation& simula
     for (auto& particle : *simulation.particle_container) {
         auto& velocity = particle.getV();
         auto& position = particle.getX();
+
+        // check if particle is in box
+        if (position[0] < box.first[0] || position[0] > box.second[0] || position[1] < box.first[1] || position[1] > box.second[1] ||
+            position[2] < box.first[2] || position[2] > box.second[2]) {
+            continue;
+        }
 
         size_t bin_index_x = std::floor((position[0] - box.first[0]) / bin_width[0]);
         size_t bin_index_y = std::floor((position[1] - box.first[1]) / bin_width[1]);
@@ -66,15 +72,15 @@ void VelocityProfileInterceptor::operator()(size_t iteration, Simulation& simula
     }
 
     for (auto& [bin_index, avg_velocity] : avg_velocity_per_bin_index_x) {
-        csv_writer_x->writeRow({iteration, bin_index, avg_velocity[0], avg_velocity[1], avg_velocity[2], ArrayUtils::L2Norm(avg_velocity)});
+        csv_writer_x->writeRow({iteration, bin_index, avg_velocity[0], avg_velocity[1], avg_velocity[2]});
     }
 
     for (auto& [bin_index, avg_velocity] : avg_velocity_per_bin_index_y) {
-        csv_writer_y->writeRow({iteration, bin_index, avg_velocity[0], avg_velocity[1], avg_velocity[2], ArrayUtils::L2Norm(avg_velocity)});
+        csv_writer_y->writeRow({iteration, bin_index, avg_velocity[0], avg_velocity[1], avg_velocity[2]});
     }
 
     for (auto& [bin_index, avg_velocity] : avg_velocity_per_bin_index_z) {
-        csv_writer_z->writeRow({iteration, bin_index, avg_velocity[0], avg_velocity[1], avg_velocity[2], ArrayUtils::L2Norm(avg_velocity)});
+        csv_writer_z->writeRow({iteration, bin_index, avg_velocity[0], avg_velocity[1], avg_velocity[2]});
     }
 }
 

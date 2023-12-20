@@ -145,6 +145,11 @@ class Particle {
     [[nodiscard]] double getSigma() const;
 
     /**
+     * @brief Set wheter the particle is locked in space
+     */
+    void setLocked(bool locked);
+
+    /**
      * @brief Gets whether the particle is locked in space
      */
     [[nodiscard]] bool isLocked() const;

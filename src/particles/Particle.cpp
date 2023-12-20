@@ -81,6 +81,8 @@ int Particle::getType() const { return type; }
 
 bool Particle::isLocked() const { return locked; }
 
+void Particle::setLocked(bool locked_arg) { locked = locked_arg; }
+
 std::string Particle::toString() const {
     std::stringstream stream;
     stream << "Particle: X:" << x << " v: " << v << " f: " << f << " old_f: " << old_f << " type: " << type;

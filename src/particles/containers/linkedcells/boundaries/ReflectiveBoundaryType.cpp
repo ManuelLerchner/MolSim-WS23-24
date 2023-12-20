@@ -12,6 +12,7 @@ void ReflectiveBoundaryType::applyBoundaryConditions(LinkedCellsContainer& conta
     if (container.boundary_types[0] == LinkedCellsContainer::BoundaryCondition::REFLECTIVE) {
         for (Cell* cell : container.left_boundary_cell_references) {
             for (Particle* p : cell->getParticleReferences()) {
+                if (p->isLocked()) continue;
                 double distance = p->getX()[0];
                 p->setF(p->getF() + calculateReflectiveBoundaryForce(*p, distance, LinkedCellsContainer::BoundarySide::LEFT));
             }
@@ -21,6 +22,7 @@ void ReflectiveBoundaryType::applyBoundaryConditions(LinkedCellsContainer& conta
     if (container.boundary_types[1] == LinkedCellsContainer::BoundaryCondition::REFLECTIVE) {
         for (Cell* cell : container.right_boundary_cell_references) {
             for (Particle* p : cell->getParticleReferences()) {
+                if (p->isLocked()) continue;
                 double distance = container.domain_size[0] - p->getX()[0];
                 p->setF(p->getF() + calculateReflectiveBoundaryForce(*p, distance, LinkedCellsContainer::BoundarySide::RIGHT));
             }
@@ -30,6 +32,7 @@ void ReflectiveBoundaryType::applyBoundaryConditions(LinkedCellsContainer& conta
     if (container.boundary_types[2] == LinkedCellsContainer::BoundaryCondition::REFLECTIVE) {
         for (Cell* cell : container.bottom_boundary_cell_references) {
             for (Particle* p : cell->getParticleReferences()) {
+                if (p->isLocked()) continue;
                 double distance = p->getX()[1];
                 p->setF(p->getF() + calculateReflectiveBoundaryForce(*p, distance, LinkedCellsContainer::BoundarySide::BOTTOM));
             }
@@ -39,6 +42,7 @@ void ReflectiveBoundaryType::applyBoundaryConditions(LinkedCellsContainer& conta
     if (container.boundary_types[3] == LinkedCellsContainer::BoundaryCondition::REFLECTIVE) {
         for (Cell* cell : container.top_boundary_cell_references) {
             for (Particle* p : cell->getParticleReferences()) {
+                if (p->isLocked()) continue;
                 double distance = container.domain_size[1] - p->getX()[1];
                 p->setF(p->getF() + calculateReflectiveBoundaryForce(*p, distance, LinkedCellsContainer::BoundarySide::TOP));
             }
@@ -48,6 +52,7 @@ void ReflectiveBoundaryType::applyBoundaryConditions(LinkedCellsContainer& conta
     if (container.boundary_types[4] == LinkedCellsContainer::BoundaryCondition::REFLECTIVE) {
         for (Cell* cell : container.back_boundary_cell_references) {
             for (Particle* p : cell->getParticleReferences()) {
+                if (p->isLocked()) continue;
                 double distance = p->getX()[2];
                 p->setF(p->getF() + calculateReflectiveBoundaryForce(*p, distance, LinkedCellsContainer::BoundarySide::BACK));
             }
@@ -57,6 +62,7 @@ void ReflectiveBoundaryType::applyBoundaryConditions(LinkedCellsContainer& conta
     if (container.boundary_types[5] == LinkedCellsContainer::BoundaryCondition::REFLECTIVE) {
         for (Cell* cell : container.front_boundary_cell_references) {
             for (Particle* p : cell->getParticleReferences()) {
+                if (p->isLocked()) continue;
                 double distance = container.domain_size[2] - p->getX()[2];
                 p->setF(p->getF() + calculateReflectiveBoundaryForce(*p, distance, LinkedCellsContainer::BoundarySide::FRONT));
             }

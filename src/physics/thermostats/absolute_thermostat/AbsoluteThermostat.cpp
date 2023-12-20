@@ -15,6 +15,7 @@ void AbsoluteThermostat::scaleTemperature(const std::unique_ptr<ParticleContaine
     const double scaling_factor = std::sqrt(new_temperature / current_temperature);
 
     for (auto& particle : *particle_container) {
+        if (particle.isLocked()) continue;
         particle.setV(scaling_factor * particle.getV());
     }
 }
@@ -22,6 +23,7 @@ void AbsoluteThermostat::scaleTemperature(const std::unique_ptr<ParticleContaine
 double AbsoluteThermostat::getContainerKineticEnergy(const std::unique_ptr<ParticleContainer>& particle_container) const {
     double total_kinetic_energy = 0;
     for (auto& particle : *particle_container) {
+        if (particle.isLocked()) continue;
         std::array<double, 3> v = particle.getV();
         total_kinetic_energy += particle.getM() * (v[0] * v[0] + v[1] * v[1] + v[2] * v[2]) * 0.5;
     }
