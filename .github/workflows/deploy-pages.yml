@@ -22,6 +22,8 @@ jobs:
           sudo apt-get install -y doxygen
           sudo apt-get install -y graphviz
           sudo apt-get install -y cmake
+          sudo apt install libxerces-c-dev -y
+          sudo apt install build-essential libboost-system-dev libboost-thread-dev libboost-program-options-dev libboost-test-dev -y
 
       - name: Build docs
         run: |
