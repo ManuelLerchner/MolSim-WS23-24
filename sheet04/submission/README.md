@@ -10,8 +10,10 @@ Members of **Team C**:
 
 * Link:     <https://github.com/ManuelLerchner/MolSim-WS23-24>
 * Branch:   master
-* Revision: <TODO>
+* Revision: 335f831
 * Compiler: gcc 13.1.0 (But should work with most up to date compilers)
+
+> **IMPORTANT**: The optimization is on the `performance_cluster` branch. And has not been merged into master yet. So please switch to that branch to see the optimization.
 
 ## Report
 
