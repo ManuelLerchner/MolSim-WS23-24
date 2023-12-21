@@ -113,6 +113,9 @@ We already implemented a lot of runtime optimizations during the project so thin
 * So our optimization did not work as expected. This may be because the compiler already reuses the calculations for the mixing rule 
 from previous loop iterations and thus the mapping logic just creates additional overhead.
 
+* We also found during the profiling, that the particle== operator takes up a lot of time. This is probably due to the fact that we remove halo particles from the system by finding them in the particle vector which is a linear search. Since we use mostly pointers to particle objects within our implementation, this search can be prevented by using the pointer difference to calculate the particles index in the particle vector and removing the corresponding entry.
+* Additionally the addAlreadyInfluencedBy() method seems to take a disproportionate amount of time for what it actually should do. Since it is simply a insert into an std::unordered_map, we think that the hash function is the bottleneck here. We tried std::vector to replace the unordered_map, but the following linear lookup was too slow. Other data structures could potentially fix this problem, but we did not have the time to try them out.
+
 ### Contest 1
 
 * We tried the program out on the linux cluster and it took 42.476s with 235427 MUP/s (data in `sheet04/data/Contest1_job_nooptimization.txt`).
