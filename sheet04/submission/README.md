@@ -111,7 +111,9 @@ We already implemented a lot of runtime optimizations during the project so thin
 * Because we usually deal with a little number of different particles, we could avoid calculating the Lennard-Jones parameters for every particle pair by creating a lookup table with an entry for every pair of the different particle types.
 * On the Linux Cluster we measured:
   * before optimization: 42.476s  with 235427 MUP/s (also the data for the contest)
-  * after (data in `sheet04/data/Contest1_job_optimized.txt`)): 42s 853ms with 233355 MUP/s 
+  * after first idea (data in `sheet04/data/Contest1_job_optimized.txt`): 42s 853ms with 233355 MUP/s 
+
+
 * So our optimization did not work as expected. This may be because the compiler already reuses the calculations for the mixing rule 
 from previous loop iterations and thus the mapping logic just creates additional overhead.
 
@@ -121,7 +123,7 @@ from previous loop iterations and thus the mapping logic just creates additional
 ### Contest 1
 
 * We tried the program out on the linux cluster and it took 42.476s with 235427 MUP/s (data in `sheet04/data/Contest1_job_nooptimization.txt`).
-
+* The performance will be tuned more though until the actual contest deadline on 5 January.
 ### Misc
 
 * We refractored the code a little. We now have the concept of interceptors. These
