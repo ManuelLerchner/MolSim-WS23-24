@@ -11,31 +11,33 @@ Members of **Team C**:
 * Link:     <https://github.com/ManuelLerchner/MolSim-WS23-24>
 * Branch:   master
 * Revision: <TODO>
-* Compiler: gcc 13.1.0 (But should work most up to date compilers)
+* Compiler: gcc 13.1.0 (But should work with most up to date compilers)
 
 ## Report
 
 ### Task 1: Thermostats
 
 1. **Global Scaling of the Temperature**
-    * Implementing the scaling was trivial. And it was the same for gradual and instant scaling.
+    * Implementing the scaling was trivial. And it was the same for gradual and instant scaling, appart from clamping the temperature change to the maximum difference specified in the input file.
 
 2. **Additional changes to task**
-    * We do not have a uniform system initialized velocity, so our spawners can spawn with different initial temperatures.The current Temperature of the system is calculated every iteration to be able to see e.g. temperature distribution over time. We think this is essential for staying true to reality and this will make our simulations be more accurate.
-    * We also decided to do so, because the global initial temperature scenario is just a special case.
-    * The scaling with a thermostat works identically
+    * We do not have a uniform globally initialized velocity, so our spawners can spawn groups of particles with different initial temperatures.
+    * We also decided to do so, because the global initial temperature seemed like a rather special scenario.
+    * It is also possible to specify the initial temperature even if there is already velocity in the system. Forbidding that would have required extra code and also artificially limit the users input possibilities which seemed unnecessary to us.
 
 ### Task 2: Simulation of the Rayleigh-Taylor instability
 
-1. **periodic boundaries**
-    * At first, we had the idea to implement periodic boundaries by connecting cells on opposite sides as neighbours, basically forming a cylinder or torus (donut) shape with the (2D-)domain. But this ended up causing more problems and we implemented the boundaries by copying particles in halo cells to the other side.
+1. **Periodic boundaries**
+    * At first, we had the idea to implement periodic boundaries by connecting cells on opposite sides as neighbours and using a special transformation on the particles coordinates during force calculation. This should be equivalent of mapping the particles positions onto the surface of a cylinder or torus (on which opposite sides are adjacent). In our opinion this method would be faster, than the one suggested in the introduction of this assignment, since lots of expensive memory allocations and frees for halo particles would be avoided. Sadly the math turned out to more elaborate than we thought and the implementation in our codebase seemed to harder than expected. Therefore we decided on using the suggested implementation by copying particles in halo cells to the other side.
     * In the process of implementing periodic boundaries, we restructured our boundary implementation in a more elegant way.
-    * We divide a boundaries effects in 2 parts: a possible pre-calculation action (like the teleporting halo cells particles to the other side of the domain for periodic boundaries) and a possible condition (like having particles experience a force in the other direction like with reflective boundaries). This allowed more structured optimisations.
+    * We divide a boundaries effects in 2 parts: a possible pre-calculation action (like the teleportation of halo cells particles to the other side of the domain for periodic boundaries) and the actual boundary condition (like having particles experience a force in the other direction like with reflective boundaries). This allowed more structured optimisations.
 2. **Gravity**
     * we now divide forces in simple forces which act globally like gravity in this case and pairwise forces which act between every particle pair.
     * As gravity fell in the simple forces bucket, its calculation was a simple loop.
 3. **Lorentz-Berthelot mixing rule**
-    * The implementation of these adjustments to the LJ-Potential were also trivial to implement.
+    * The implementation of these adjustments to the LJ-Potential were trivial to implement.
+    * The particles now simply hold the additional epsilon and sigma values used in the Lennard-Jones potential. Those values are assigned via the particle spawners input values.
+    * The Lennard-Jones potential then calculates the combined Lennard-Jones parameters of both its input particles and uses those values.
 4. **Rayleigh-Taylor instability**
     * We have simulated this and the full rendered video can be seen here: [Github Pages](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet04) under the name FluidMixing.mp4.
     * As expected we could observe the less dense fluid shooting out through small paths created by broken symmetries of the denser fluid on top
@@ -47,8 +49,8 @@ Members of **Team C**:
 
    The requirement was to be able to checkpoint a system of particles and use it as a starting point for a new simulation.
     * So instead of modelling equilibration as a seperate process and writing the checkpoint into a file to be then read by your actual simulation, we decided to see the equilibration as a pre- or a subsimulation.
-    * Now the user can link simulation files as subsimulations to your simulation which will we used to equilibrate your objects before merging them and starting the new simulation. This makes the process of equilibrating more intuitive and faster.
-    * This works recurvively by letting subsimulations have further subsimulations. This way you can intuitively build large systems by constructing them from smaller pieces. An extrme example can be seen in `/input/subsimulations/multiple_recursive_levels.xml`
+    * Now the user can link other xml input files as subsimulations to another simulation. Those subsimulations will be automatically executed before the start of the "parent"-simulation and their final particle states saved into checkpoint files. Those particle states are simply copied into the simulation and used as starting points for further simulation.
+    * This works also recurvively by letting subsimulations have further subsimulations. This way you can intuitively build large systems by constructing them from smaller pieces. An extreme example can be seen in `/input/subsimulations/multiple_recursive_levels.xml`
       * The file defines two subsimulations, which then have subsimulations again and so on. The resulting computation tree looks like this:
         * Multiple recursive levels `[main simulation]`
           1. Top Left `[first simulation at depth 1]`
@@ -67,27 +69,28 @@ Members of **Team C**:
     When running the simulation, the effects of the equilibration can be seen directly, because the deeper a simulation is in the tree, the more time it had to equilibrate and is therefore generally more spread out.
 
     * Each subsimulation can have its own settings, and even allows for file output. This can be used to debug the equilibration process. Furthermore there exists a caching mechanism, which reloads the final equilibration state from a `.chkpt` (checkpoint) file, if the simulation is run again.
-      * The system is actually quite intelligent as it automatically detects if the input file has deviated from the checkpoint file (it does this by comparing the hash of the input file with the hash stored of the checkpoint file). This helps to avoid unwanted cache loads.
+      * The system is actually quite intelligent as it automatically detects if the input file has deviated from the checkpoint file (it does this by comparing the hash of the input file with the hash stored of the checkpoint file). This helps to avoid unwanted cache loads or unnecessary resimulations.
 
 2. **Running equilibration and simulation**
     * The file used to generate the falling drop can be found in `falling_drop_equilibrated.xml`
     * We also observed how relevant the temperature was for during the equilibration and simulation. We tried the equilibration first without a thermostat, but this kept making the light fluid "evaporate". The thermostat ensures the low temperature and that the fluid stays a fluid.
     * We also tried a simulation with the thermostat turned on and it looked really sad compared to the actual simulation. Like you can see [here](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet04), the video kind of looks like a ball of squishy sand falling on a sandy surface not really having any effect
     * These observations kind of remind us of the different properties that the same material has in different states of matter like solid, fluid and gas, which depend directly on the temperature.
+    * 
 3. **Simulation of a falling drop**
     * The final simulation turned out great, which you can watch [here](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet04) under `FallingDropFancy.mp4`
     * We could really see the big waves caused by the falling droplet, displacing the liquid underneath. This only gives the feeling of a liquid mixing. We also observed waves of different sizes and this resembles reality very well.
     * After the big waves the energy propagates to all particles in the system, distributing itself more and more uniformly as you would also expect in reality
     * Next we made a similar [simulation](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet04) of a drop falling with some horizontal velocity to see more of the periodic boundary. Here you can really see the effect of the periodic boundaries in contrast to reflective ones. This also produced an impressive surfer-like wave.
-    * We also found out that you can stack different glyph types on top of each other to show the different particle types aswell the forces acting on them, if you tweak the colors right the video can look really cool.
+    * We also found out that you can stack different glyph types on top of each other to show the different particle types aswell as the forces acting on them, if you tweak the colors right the video can look really cool.
 
 ### Task 4: Performance Measurement and Profiling
 
 1. **Login and modules**
-    * This part went largely smoothly
+    * This part went largely smoothly we were able to log in and load the required modules.
 2. **Compiling and linking**
-    * Even though the required modules like `xerces-c` or `boost` are loaded, the compiler cannot find and link them.
-      **Manuel fixed the Cmake and it worked** <TODO>
+    * We had some trouble in this part. Even though the required modules like `xerces-c` or `boost` were loaded, the compiler couldn't find and link them.
+    * After some trial and error we managed to fix this by using the cmake command `find_package` for the troublesome libraries which seemed to solve the problem for us.
 3. **Comparable Performance Test**
     * We decided to use a 10000 particle cuboid without any thermostat or force acting globally as performance test. The exact program can be found in `/benchmarks/2DPartRect/2D_task4.cpp`.
     * The simulation of 10000 particles took 35.376s on the Linux Cluster with 282960 MUP/s
