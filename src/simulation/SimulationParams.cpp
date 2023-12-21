@@ -126,7 +126,7 @@ void SimulationParams::logSummary(int depth) const {
     // Print Physical setup
     Logger::logger->info("{}╟┤{}Physical setup: {}", indent, ansi_yellow_bold, ansi_end);
     Logger::logger->info("{}║  Number of particles: {}", indent, num_particles);
-    Logger::logger->info("{}║  Number of forces: {}", indent, pairwise_forces.size());
+    Logger::logger->info("{}║  Number of forces: {}", indent, pairwise_forces.size() + simple_forces.size());
     Logger::logger->info("{}║  Forces: {}", indent, force_names);
 
     Logger::logger->info("{}╟┤{}Container: {}", indent, ansi_yellow_bold, ansi_end);

@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<!-- just a sanity check: body collision rewritten to xml -->
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../simulation_schema.xsd">
+
+    <settings>
+        <delta_t>0.0001</delta_t>
+        <end_time>8</end_time>
+        <third_dimension>true</third_dimension>
+        <particle_container>
+            <linkedcells_container>
+                <domain_size>
+                    <x>30</x>
+                    <y>30</y>
+                    <z>12</z>
+                </domain_size>
+                <cutoff_radius>2.75</cutoff_radius>
+                <boundary_conditions>
+                    <left>Outflow</left>
+                    <right>Outflow</right>
+                    <bottom>Periodic</bottom>
+                    <top>Periodic</top>
+                    <back>Periodic</back>
+                    <front>Periodic</front>
+                </boundary_conditions>
+            </linkedcells_container>
+        </particle_container>
+        <forces>
+            <LennardJones />
+            <GlobalDownwardsGravity g="5.8" />
+        </forces>
+        <interceptors>
+            <Thermostat application_interval="10" target_temperature="40"
+                max_temperature_change="INF"
+                type="relative_motion" />
+            <FrameWriter output_format="vtu" fps="24" video_length_s="30" />
+            <VelocityProfile num_bins="20" sample_every_x_percent="5" />
+        </interceptors>
+    </settings>
+
+
+    <particle_source>
+        <!-- Left wall -->
+        <cuboid_spawner is_locked="true">
+            <lower_left_front_corner>
+                <x>1.0</x>
+                <y>0.5</y>
+                <z>0.5</z>
+            </lower_left_front_corner>
+            <grid_dim>
+                <x>2</x>
+                <y>30</y>
+                <z>12</z>
+            </grid_dim>
+            <grid_spacing>1.0</grid_spacing>
+            <temperature>40</temperature>
+            <mass>1.0</mass>
+            <velocity>
+                <x>0.0</x>
+                <y>0.0</y>
+                <z>0.0</z>
+            </velocity>
+            <type>0</type>
+            <epsilon>2.0</epsilon>
+            <sigma>1.1</sigma>
+        </cuboid_spawner>
+
+        <!-- Right wall -->
+        <cuboid_spawner is_locked="true">
+            <lower_left_front_corner>
+                <x>27.2</x>
+                <y>0.5</y>
+                <z>0.5</z>
+            </lower_left_front_corner>
+            <grid_dim>
+                <x>2</x>
+                <y>30</y>
+                <z>12</z>
+            </grid_dim>
+            <grid_spacing>1.0</grid_spacing>
+            <temperature>40</temperature>
+            <mass>1.0</mass>
+            <velocity>
+                <x>0.0</x>
+                <y>0.0</y>
+                <z>0.0</z>
+            </velocity>
+            <type>2</type>
+            <epsilon>2.0</epsilon>
+            <sigma>1.1</sigma>
+        </cuboid_spawner>
+
+        <!-- Fluid Bot -->
+        <cuboid_spawner>
+            <lower_left_front_corner>
+                <x>3.2</x>
+                <y>0.6</y>
+                <z>0.6</z>
+            </lower_left_front_corner>
+            <grid_dim>
+                <x>20</x>
+                <y>9</y>
+                <z>10</z>
+            </grid_dim>
+            <grid_spacing>1.2</grid_spacing>
+            <temperature>40</temperature>
+            <mass>1.0</mass>
+            <velocity>
+                <x>0.0</x>
+                <y>0.0</y>
+                <z>0.0</z>
+            </velocity>
+            <type>1</type>
+            <epsilon>1.0</epsilon>
+            <sigma>1</sigma>
+        </cuboid_spawner>
+
+        <!-- Fluid Top -->
+        <cuboid_spawner>
+            <lower_left_front_corner>
+                <x>3.2</x>
+                <y>19.8</y>
+                <z>0.6</z>
+            </lower_left_front_corner>
+            <grid_dim>
+                <x>20</x>
+                <y>9</y>
+                <z>10</z>
+            </grid_dim>
+            <grid_spacing>1.2</grid_spacing>
+            <temperature>40</temperature>
+            <mass>1.0</mass>
+            <velocity>
+                <x>0.0</x>
+                <y>0.0</y>
+                <z>0.0</z>
+            </velocity>
+            <type>1</type>
+            <epsilon>1.0</epsilon>
+            <sigma>1</sigma>
+        </cuboid_spawner>
+
+
+        <!-- Fluid center left -->
+        <cuboid_spawner>
+            <lower_left_front_corner>
+                <x>3.2</x>
+                <y>11.4</y>
+                <z>0.6</z>
+            </lower_left_front_corner>
+            <grid_dim>
+                <x>10</x>
+                <y>7</y>
+                <z>10</z>
+            </grid_dim>
+            <grid_spacing>1.2</grid_spacing>
+            <temperature>40</temperature>
+            <mass>1.0</mass>
+            <velocity>
+                <x>0.0</x>
+                <y>0.0</y>
+                <z>0.0</z>
+            </velocity>
+            <type>1</type>
+            <epsilon>1.0</epsilon>
+            <sigma>1</sigma>
+        </cuboid_spawner>
+
+        <!-- Obstacle -->
+        <sphere_spawner is_locked="true">
+            <center>
+                <x>20.0</x>
+                <y>15.0</y>
+                <z>4</z>
+            </center>
+            <radius>3</radius>
+            <grid_spacing>1</grid_spacing>
+            <temperature>40</temperature>
+            <mass>1.0</mass>
+            <velocity>
+                <x>0.0</x>
+                <y>0.0</y>
+                <z>0.0</z>
+            </velocity>
+            <type>3</type>
+            <epsilon>2.0</epsilon>
+            <sigma>1.1</sigma>
+        </sphere_spawner>
+
+    </particle_source>
+
+</configuration>
