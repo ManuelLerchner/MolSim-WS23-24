@@ -1,4 +1,4 @@
-# Sheet <TODO>: Team C
+# Sheet 4: Team C
 
 Members of **Team C**:
 
@@ -48,10 +48,30 @@ Members of **Team C**:
    The requirement was to be able to checkpoint a system of particles and use it as a starting point for a new simulation.
     * So instead of modelling equilibration as a seperate process and writing the checkpoint into a file to be then read by your actual simulation, we decided to see the equilibration as a pre- or a subsimulation.
     * Now the user can link simulation files as subsimulations to your simulation which will we used to equilibrate your objects before merging them and starting the new simulation. This makes the process of equilibrating more intuitive and faster.
-    * This also works recurvively by letting subsimulations have further subsimulations. This way you can intuitivle build large systems by constructing them from smaller pieces. An example can be seen in `/input/subsimulations/multiple_recursive_levels.xml`
+    * This works recurvively by letting subsimulations have further subsimulations. This way you can intuitively build large systems by constructing them from smaller pieces. An extrme example can be seen in `/input/subsimulations/multiple_recursive_levels.xml`
+      * The file defines two subsimulations, which then have subsimulations again and so on. The resulting computation tree looks like this:
+        * Multiple recursive levels `[main simulation]`
+          1. Top Left `[first simulation at depth 1]`
+             * Sphere Spawner
+             1. Right center `[first simulation at depth 2]`
+                * Sphere spawner
+                1. Top Right `[first simulation at depth 3]`
+                   * Sphere spawner
+                2. Bottom Right `[second simulation at depth 3]`
+                   * Sphere spawner
+                   1. Center Center `[first simulation at depth 4]`
+                      * Sphere spawner
+          2. Bottom Left `[second simulation at depth 1]`
+             * Sphere spawner
+
+    When running the simulation, the effects of the equilibration can be seen directly, because the deeper a simulation is in the tree, the more time it had to equilibrate and is therefore generally more spread out.
+
+    * Each subsimulation can have its own settings, and even allows for file output. This can be used to debug the equilibration process. Furthermore there exists a caching mechanism, which reloads the final equilibration state from a `.chkpt` (checkpoint) file, if the simulation is run again.
+      * The system is actually quite intelligent as it automatically detects if the input file has deviated from the checkpoint file (it does this by comparing the hash of the input file with the hash stored of the checkpoint file). This helps to avoid unwanted cache loads.
+
 2. **Running equilibration and simulation**
     * The file used to generate the falling drop can be found in `falling_drop_equilibrated.xml`
-    * We also observed how relevant the temperature was for during the equilibration and simulation. We tried the equilibration first without a thermostat, but this kept making the light fluid evaporate. The thermostat ensures the low temperature and that the fluid stays a fluid.
+    * We also observed how relevant the temperature was for during the equilibration and simulation. We tried the equilibration first without a thermostat, but this kept making the light fluid "evaporate". The thermostat ensures the low temperature and that the fluid stays a fluid.
     * We also tried a simulation with the thermostat turned on and it looked really sad compared to the actual simulation. Like you can see [here](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet04), the video kind of looks like a ball of squishy sand falling on a sandy surface not really having any effect
     * These observations kind of remind us of the different properties that the same material has in different states of matter like solid, fluid and gas, which depend directly on the temperature.
 3. **Simulation of a falling drop**
@@ -59,6 +79,7 @@ Members of **Team C**:
     * We could really see the big waves caused by the falling droplet, displacing the liquid underneath. This only gives the feeling of a liquid mixing. We also observed waves of different sizes and this resembles reality very well.
     * After the big waves the energy propagates to all particles in the system, distributing itself more and more uniformly as you would also expect in reality
     * Next we made a similar [simulation](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet04) of a drop falling with some horizontal velocity to see more of the periodic boundary. Here you can really see the effect of the periodic boundaries in contrast to reflective ones. This also produced an impressive surfer-like wave.
+    * We also found out that you can stack different glyph types on top of each other to show the different particle types aswell the forces acting on them, if you tweak the colors right the video can look really cool.
 
 ### Task 4: Performance Measurement and Profiling
 
@@ -73,19 +94,21 @@ Members of **Team C**:
 
 4. **Profiling**
     * When turning off output, we can get the following profile ____<TODO>
-    * So the calculation of ___ and ___ consume the most time <TODO>
+    * So the calculation of _**and**_ consume the most time <TODO>
 
 ### Task 5: Tuning the sequential Performance
+
 We already implemented a lot of runtime optimizations during the project so thinking of big additional ones was hard. We rejected micro optimisations like inlining or templates, because lots of it can be done better by a compiler with a high optimisation level.
+
 1. **Idea 1**
+
 * Because we usually deal with a little number of different particles, we could avoid calculating the Lennard-Jones parameters for every particle pair by creating a lookup table with an entry for every pair of the different particle types.
 * On a native Ubuntu machine we measured (---)<TODO>:
-    * before: ___   <TODO>
-    * after: ___    <TODO>
-
+  * before: ___   <TODO>
+  * after: ___    <TODO>
 
 ### Misc
 
 * We refractored the code a little. We now have the concept of interceptors. These
-  are events that are triggered only once per n iterations. This is useful for `FileOutputWriter`,
-  `Thermostat`, etc.. Grouping these types of functionalities like this seems more elegant to us.
+  are events that are triggered only once per n iterations. This is useful for `FileOutputWriter`, `Thermostat`, `Progress Bar`, and `Data Logging`.
+  Grouping these types of functionalities like this seems more elegant to us will help us in the next sheet where we want different ways of extracting internal data statistics from the simulation.

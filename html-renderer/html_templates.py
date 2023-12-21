@@ -66,12 +66,12 @@ html_template = """
       The source code for the whole project can be found at
       <a href="https://github.com/ManuelLerchner/MolSim-WS23-24/"> MolSim-WS23-24</a>
       <br/>
-      All the data for the submissions can be found at
+      All the data for the submissions can be found in the submissions branch at
       <a href="https://github.com/ManuelLerchner/MolSim-WS23-24/tree/presentations"> MolSim-WS23-24/presentations</a>
     </p>
 
     <p>
-       This page is automatically generated automatically from all the media files in the submissions folder using a <b>Python</b> script.
+       This page is generated automatically from all the media files in the submissions folder using a <a href="https://github.com/ManuelLerchner/MolSim-WS23-24/tree/presentations/html-renderer"><b>Python</b> script</a> every time a new commit is pushed to the submissions branch.
     </p>
 
     <h3>Table of Contents</h3>
