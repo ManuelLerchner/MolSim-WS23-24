@@ -94,7 +94,7 @@ content_template = """
 """
 
 media_wall_template = """
-<div style='display: flex; flex-wrap: wrap; justify-content: space-evenly; align-items: center; gap: 1em; margin-top: 2em; margin-bottom: 2em;'>
+<div style='display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; gap: 1em; margin-top: 2em; margin-bottom: 2em;'>
 ###MEDIA_WALL###
 </div>
 """

@@ -38,7 +38,7 @@ def render_content():
                 media = content_template
 
                 media = media.replace(
-                    "###MEDIA###", "<video controls autoplay muted><source src='" + full_path + "' type='video/mp4'></video>")
+                    "###MEDIA###", "<video controls muted><source src='" + full_path + "' type='video/mp4'></video>")
 
                 media = media.replace("###SUBTITLE###", file)
 
