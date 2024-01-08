@@ -5,11 +5,8 @@
 #include "simulation/SimulationParams.h"
 #include "utils/ArrayUtils.h"
 
-RadialDistributionFunctionInterceptor::RadialDistributionFunctionInterceptor(double bin_width, size_t sample_every_x_percent)
-    : bin_width(bin_width), sample_every_x_percent(sample_every_x_percent) {}
-
 void RadialDistributionFunctionInterceptor::onSimulationStart(Simulation& simulation) {
-    csv_writer = std::make_unique<CSVWriter>(simulation.params.output_dir_path / "radial_distribution_function.csv");
+    csv_writer = std::make_unique<CSVWriter>(simulation.params.output_dir_path / "statistics" / "radial_distribution_function.csv");
 
     csv_writer->initialize({"iteration", "bin_index (w= " + std::to_string(bin_width) + ")", "samples", "local_density"});
 
