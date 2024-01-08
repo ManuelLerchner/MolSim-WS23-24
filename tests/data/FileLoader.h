@@ -16,7 +16,7 @@ class FileLoader {
 #ifdef TEST_DATA_DIR
         return TEST_DATA_DIR;
 #else
-        Logger::logger->error("Error: TEST_DATA_DIR not defined.");
+        throw std::runtime_error("Error: TEST_DATA_DIR not defined.");
 #endif
     }
 

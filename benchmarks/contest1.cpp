@@ -52,7 +52,6 @@ void execute2DRectBenchmark() {
                                simple_force_sources,
                                pairwise_forces,
                                false,
-                               false,
                                "./output"};
     params_lc.num_particles = particles_lc.size();
     Simulation simulation_lc(particles_lc, params_lc);
@@ -60,6 +59,7 @@ void execute2DRectBenchmark() {
     params_lc.logSummary();
     SimulationOverview linked_cells_data = simulation_lc.runSimulation();
     linked_cells_data.logSummary();
+    linked_cells_data.savePerformanceDataCSV("Contest");
 }
 
 int main() {

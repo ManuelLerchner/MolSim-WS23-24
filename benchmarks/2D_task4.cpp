@@ -41,7 +41,6 @@ void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, dou
                                {},
                                {},
                                forces,
-                               true,
                                true};
     params_lc.num_particles = particles_lc.size();
     Simulation simulation_lc(particles_lc, params_lc);
@@ -49,6 +48,7 @@ void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, dou
     params_lc.logSummary();
     SimulationOverview linked_cells_data = simulation_lc.runSimulation();
     linked_cells_data.logSummary();
+    linked_cells_data.savePerformanceDataCSV("Task4" + std::to_string(rect_width) + "x" + std::to_string(rect_height));
 }
 
 int main() {

@@ -25,5 +25,8 @@ int main(int argc, char* argsv[]) {
     // Print simulation overview
     overview.logSummary();
 
+    // Save performance data to csv file
+    overview.savePerformanceDataCSV();
+
     return 0;
 }
