@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "particles/Particle.h"
+#include "particles/spawners/cuboid/CuboidSpawner.h"
 #include "physics/thermostats/Thermostat.h"
 #include "utils/ArrayUtils.h"
 
@@ -23,15 +24,7 @@ SoftBodyCuboidSpawner::SoftBodyCuboidSpawner(const std::array<double, 3>& lower_
       third_dimension(third_dimension) {}
 
 int SoftBodyCuboidSpawner::spawnParticles(std::vector<Particle>& particles) const {
-    auto particle_pos_to_index = [this](const std::array<int, 3>& grid_pos) {
-        if (grid_pos[0] < 0 || grid_pos[0] >= grid_dimensions[0] || grid_pos[1] < 0 || grid_pos[1] >= grid_dimensions[1] ||
-            grid_pos[2] < 0 || grid_pos[2] >= grid_dimensions[2]) {
-            return -1;
-        }
-
-        return grid_pos[0] + grid_dimensions[0] * grid_pos[1] + grid_dimensions[0] * grid_dimensions[1] * grid_pos[2];
-    };
-
+    auto prev_size = particles.size();
     particles.reserve(particles.size() + getEstimatedNumberOfParticles());
     for (int i = 0; i < grid_dimensions[0]; i++) {
         for (int j = 0; j < grid_dimensions[1]; j++) {
@@ -46,6 +39,16 @@ int SoftBodyCuboidSpawner::spawnParticles(std::vector<Particle>& particles) cons
             }
         }
     }
+
+    auto particle_pos_to_index = [this, &prev_size](const std::array<int, 3>& grid_pos) {
+        if (grid_pos[0] < 0 || grid_pos[0] >= grid_dimensions[0] || grid_pos[1] < 0 || grid_pos[1] >= grid_dimensions[1] ||
+            grid_pos[2] < 0 || grid_pos[2] >= grid_dimensions[2]) {
+            return -1;
+        }
+
+        return static_cast<int>(prev_size) + grid_pos[2] + grid_dimensions[2] * grid_pos[1] +
+               grid_dimensions[2] * grid_dimensions[1] * grid_pos[0];
+    };
 
     // connect particles with harmonic springs
     for (int i = 0; i < grid_dimensions[0]; i++) {
@@ -71,8 +74,7 @@ int SoftBodyCuboidSpawner::spawnParticles(std::vector<Particle>& particles) cons
 
                             auto initial_distance = ArrayUtils::L2Norm(curr_particle.getX() - neighbor_particle.getX());
 
-                            curr_particle.addConnectedParticle(std::make_shared<Particle>(neighbor_particle), initial_distance,
-                                                               spring_constant);
+                            curr_particle.addConnectedParticle(&neighbor_particle, initial_distance, spring_constant);
                         }
                     }
                 }

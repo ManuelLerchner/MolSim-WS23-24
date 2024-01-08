@@ -84,8 +84,8 @@ class SoftBodyCuboidSpawner : public ParticleSpawner {
      * Constructor to initialize the cuboid spawner. The velocity of the particles is jittered by a Maxwell-Boltzmann distribution.
      */
     SoftBodyCuboidSpawner(const std::array<double, 3>& lower_left_corner, const std::array<int, 3>& grid_dimensions, double grid_spacing,
-                          double mass, const std::array<double, 3>& initial_velocity, int type, double epsilon, double sigma,
-                          double spring_constant, bool third_dimension = true, double initial_temperature = 0.1);
+                          double mass, const std::array<double, 3>& initial_velocity, int type, double epsilon = 1.0, double sigma = 1.2,
+                          double spring_constant = 300, bool third_dimension = true, double initial_temperature = 0.1);
 
     /**
      * @brief Spawns particles in the given container

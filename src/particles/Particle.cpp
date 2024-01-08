@@ -76,13 +76,9 @@ double Particle::getSigma() const { return sigma; }
 
 int Particle::getType() const { return type; }
 
-const std::vector<std::tuple<std::weak_ptr<Particle>, double, double>>& Particle::getConnectedParticles() const {
-    return connected_particles;
-}
+const std::vector<std::tuple<Particle*, double, double>>& Particle::getConnectedParticles() const { return connected_particles; }
 
-void Particle::addConnectedParticle(std::weak_ptr<Particle> particle, double l_0, double k) {
-    connected_particles.push_back({particle, l_0, k});
-}
+void Particle::addConnectedParticle(Particle* particle, double l_0, double k) { connected_particles.push_back({particle, l_0, k}); }
 
 std::string Particle::toString() const {
     std::stringstream stream;

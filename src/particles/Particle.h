@@ -66,11 +66,11 @@ class Particle {
      * @brief List of connected particles
      *
      * List of connected particles. Each entry is a tuple of a weak pointer to the connected particle, and the prefered distance between the
-     * spring constant.
+     * the particles and the spring constant. The prefered distance is the distance at which the spring force is zero.
      *
-     * entry = (weak_ptr<Particle>, l_0, k)
+     * entry = (Particle_ptr, l_0, k)
      */
-    std::vector<std::tuple<std::weak_ptr<Particle>, double, double>> connected_particles;
+    std::vector<std::tuple<Particle*, double, double>> connected_particles;
 
    public:
     Particle(const Particle& other);
@@ -154,7 +154,7 @@ class Particle {
     /**
      * @brief Gets the list of connected particles
      */
-    [[nodiscard]] const std::vector<std::tuple<std::weak_ptr<Particle>, double, double>>& getConnectedParticles() const;
+    [[nodiscard]] const std::vector<std::tuple<Particle*, double, double>>& getConnectedParticles() const;
 
     /**
      * @brief Adds a connected particle
@@ -163,7 +163,7 @@ class Particle {
      * @param l_0 Prefered distance between the particles
      * @param k Spring constant
      */
-    void addConnectedParticle(std::weak_ptr<Particle> particle, double l_0, double k);
+    void addConnectedParticle(Particle* particle, double l_0, double k);
 
     bool operator==(Particle& other);
 
