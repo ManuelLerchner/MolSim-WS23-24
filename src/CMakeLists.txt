@@ -9,11 +9,11 @@ list(REMOVE_ITEM PROJECT_SRC "${CMAKE_CURRENT_SOURCE_DIR}/MolSim.cpp")
 add_library(project_lib ${PROJECT_SRC}
         simulation/SimulationParams.cpp)
 
-target_include_directories(project_lib PUBLIC 
+target_include_directories(project_lib PUBLIC
     ${libxsd_SOURCE_DIR}
     ${spdlog_SOURCE_DIR}/include)
 
-target_link_libraries(project_lib PUBLIC xerces-c boost_program_options spdlog::spdlog)
+target_link_libraries(project_lib PUBLIC XercesC::XercesC spdlog::spdlog Boost::program_options)
 
 add_executable(MolSim MolSim.cpp)
 target_link_libraries(MolSim PUBLIC project_lib)
