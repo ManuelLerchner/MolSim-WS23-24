@@ -18,5 +18,5 @@ foreach (_source IN ITEMS ${BENCHMARK_SRC})
     add_executable(${_name} EXCLUDE_FROM_ALL ${_source})
     target_link_libraries(${_name} project_lib)
     add_dependencies(benchmarks ${_name})
+    target_compile_definitions(${_name} PRIVATE BENCHMARK_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
 endforeach ()
-  

@@ -54,8 +54,6 @@ class Simulation {
      */
     std::unique_ptr<IntegrationFunctor> integration_functor;
 
-    static void savePerformanceTest(const SimulationOverview& overview, const SimulationParams& params);
-
     /**
      * Befriend the interceptors to allow them to access the private members of this class
      */

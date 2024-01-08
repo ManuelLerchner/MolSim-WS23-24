@@ -2,7 +2,7 @@
 #include <chrono>
 #include <memory>
 
-#include "io/csv/CSVWriter.h"
+#include "io/output/csv/CSVWriter.h"
 #include "simulation/interceptors/SimulationInterceptor.h"
 
 class RadialDistributionFunctionInterceptor : public SimulationInterceptor {

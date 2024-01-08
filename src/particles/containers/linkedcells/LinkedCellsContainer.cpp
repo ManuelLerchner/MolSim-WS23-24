@@ -352,7 +352,7 @@ void LinkedCellsContainer::updateCellsParticleReferences() {
 void LinkedCellsContainer::deleteHaloParticles() {
     for (Cell* cell : halo_cell_references) {
         for (Particle* p : cell->getParticleReferences()) {
-            particles.erase(std::find(particles.begin(), particles.end(), *p));
+            particles.erase(particles.begin() + (p - &particles[0]));
         }
     }
 }

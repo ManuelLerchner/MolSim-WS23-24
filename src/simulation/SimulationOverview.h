@@ -42,4 +42,15 @@ class SimulationOverview {
      * @param depth determines the indentation of the log message
      */
     void logSummary(int depth = 0) const;
+
+    /**
+     * @brief Saves the simulation overview to a csv file
+     */
+    void savePerformanceDataCSV() const;
+
+    /**
+     * @brief Saves the simulation overview to a csv file
+     * @param filename_prefix Prefix for the outputted filename (\<prefix\>_performance_data_\<timestamp\>.csv)
+     */
+    void savePerformanceDataCSV(const std::string& filename_prefix) const;
 };
