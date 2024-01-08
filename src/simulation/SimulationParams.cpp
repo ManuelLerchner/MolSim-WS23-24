@@ -77,8 +77,8 @@ SimulationParams::SimulationParams(const std::filesystem::path& input_file_path,
                                    const std::variant<DirectSumType, LinkedCellsType>& container_type,
                                    const std::vector<std::shared_ptr<SimulationInterceptor>>& interceptors,
                                    const std::vector<std::shared_ptr<SimpleForceSource>>& simple_forces,
-                                   const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_forces, bool performance_test,
-                                   bool fresh, const std::filesystem::path& base_path)
+                                   const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_forces, bool fresh,
+                                   const std::filesystem::path& base_path)
     : input_file_path(std::filesystem::absolute(input_file_path)),
       delta_t(delta_t),
       end_time(end_time),
@@ -86,7 +86,6 @@ SimulationParams::SimulationParams(const std::filesystem::path& input_file_path,
       container_type(container_type),
       simple_forces(simple_forces),
       pairwise_forces(pairwise_forces),
-      performance_test(performance_test),
       fresh(fresh) {
     if (end_time < 0) {
         Logger::logger->error("End time must be positive");

@@ -1,6 +1,8 @@
 #include <array>
 #include <memory>
 
+#include "../FileLoader.h"
+#include "io/input/FileInputHandler.h"
 #include "io/logger/Logger.h"
 #include "io/output/FileOutputHandler.h"
 #include "particles/containers/ParticleContainer.h"
@@ -16,6 +18,10 @@ void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, dou
     Logger::logger->set_level(spdlog::level::info);
     Logger::logger->info("Starting 2DRect-benchmark. Dimensions {}x{}...", rect_width, rect_height);
 
+    // Parse input file
+    auto [initial_particles, simulation_arguments] =
+        FileInputHandler::readFile(FileLoader::get_input_file_path("2DParticleRect/BenchmarkRectFrame.xml"), true);
+
     // Settings for the Linked Cells Container simulation
     std::array<double, 3> domain_size = {300, 300, 3};
     std::array<LinkedCellsContainer::BoundaryCondition, 6> boundary_conditions = {
@@ -28,10 +34,6 @@ void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, dou
     CuboidSpawner spawner(center_offset - std::array<double, 3>{rect_width * spacing / 2, rect_height * spacing / 2, 0},
                           {rect_width, rect_height, 1}, spacing, 1, {0, 0, 0}, 0);
 
-    // Settings for the forces for both simulations
-    std::vector<std::shared_ptr<PairwiseForceSource>> forces;
-    forces.push_back(std::make_shared<LennardJonesForce>());
-
     // ############################################################
     // # Direct Sum Container
     // ############################################################
@@ -41,7 +43,7 @@ void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, dou
 
     // Instantiation of the Direct Sum Container simulation
 
-    SimulationParams params_ds("2DParticleRect.xml", 0.01, 5, SimulationParams::DirectSumType{}, {}, {}, forces, true, true);
+    SimulationParams params_ds{*simulation_arguments};
 
     params_ds.num_particles = particles_ds.size();
 
@@ -51,6 +53,7 @@ void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, dou
     params_ds.logSummary();
     SimulationOverview direct_sum_data = simulation_ds.runSimulation();
     direct_sum_data.logSummary();
+    direct_sum_data.savePerformanceDataCSV("DirectSum" + std::to_string(rect_width) + "x" + std::to_string(rect_height));
 
     // ############################################################
     // # Linked Cells Container
@@ -59,52 +62,27 @@ void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, dou
     std::vector<Particle> particles_lc;
     spawner.spawnParticles(particles_lc);
     // Instantiation of the Linked Cells Container simulation
-    SimulationParams params_lc{"2DParticleRect.xml",
-                               0.01,
-                               5,
-                               SimulationParams::LinkedCellsType{domain_size, lc_cutoff, boundary_conditions},
-                               {},
-                               {},
-                               forces,
-                               true,
-                               true};
+    SimulationParams params_lc{*simulation_arguments};
+    params_lc.container_type = SimulationParams::LinkedCellsType{domain_size, lc_cutoff, boundary_conditions};
     params_lc.num_particles = particles_lc.size();
+
     Simulation simulation_lc(particles_lc, params_lc);
     // Simulating with Linked Cells Container
     params_lc.logSummary();
     SimulationOverview linked_cells_data = simulation_lc.runSimulation();
     linked_cells_data.logSummary();
+    linked_cells_data.savePerformanceDataCSV("LinkedCells" + std::to_string(rect_width) + "x" + std::to_string(rect_height));
 
     // ############################################################
     // # Comparison Logging
     // ############################################################
 
-    std::string ds_summary = "";
-    for (auto& summary : direct_sum_data.interceptor_summaries) {
-        ds_summary += summary + ";";
-    }
-
-    std::string lc_summary = "";
-    for (auto& summary : linked_cells_data.interceptor_summaries) {
-        lc_summary += summary + ";";
-    }
-
-    Logger::logger->info("Simulation of {} particles in a {}x{} grid\n", rect_width * rect_height, rect_width, rect_height);
-
-    Logger::logger->info("Direct sum container:");
-    Logger::logger->info("  Simulation took {:.3f}s", direct_sum_data.total_time_seconds);
-    Logger::logger->info("  Total iterations: {}", direct_sum_data.total_iterations);
-    Logger::logger->info("  Average time per iteration: {:.3f}ms\n", direct_sum_data.total_time_seconds / direct_sum_data.total_iterations);
-    Logger::logger->info("  Summary {}", ds_summary);
-
-    Logger::logger->info("Linked cells container:");
-    Logger::logger->info("  Domain size: {:.0f}x{:.0f}x{:.0f}", domain_size[0], domain_size[1], domain_size[2]);
-    Logger::logger->info("  Linked cells cutoff radius: {:.0f}", lc_cutoff);
-    Logger::logger->info("  Simulation took {:.3f}s", linked_cells_data.total_time_seconds);
-    Logger::logger->info("  Total iterations: {}", linked_cells_data.total_iterations);
-    Logger::logger->info("  Average time per iteration: {:.3f}ms\n",
-                         linked_cells_data.total_time_seconds / linked_cells_data.total_iterations);
-    Logger::logger->info(" Summary {}", lc_summary);
+    Logger::logger->info("Comparison of Direct Sum and Linked Cells Container:");
+    // Ratio between Direct Sum and Linked Cells Container performance
+    Logger::logger->info("Runtime Direct Sum: {} s", direct_sum_data.total_time_seconds);
+    Logger::logger->info("Runtime Linked Cells: {} s", linked_cells_data.total_time_seconds);
+    Logger::logger->info("Performance ratio (DirectSum / LinkedCells): {}",
+                         direct_sum_data.total_time_seconds / linked_cells_data.total_time_seconds);
 }
 
 /*

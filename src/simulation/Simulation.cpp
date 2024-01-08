@@ -8,14 +8,12 @@
 #include <tuple>
 
 #include "integration/IntegrationMethods.h"
-#include "io/csv/CSVWriter.h"
 #include "io/logger/Logger.h"
 #include "particles/containers/directsum/DirectSumContainer.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "simulation/SimulationParams.h"
 #include "simulation/interceptors/SimulationInterceptor.h"
 #include "simulation/interceptors/frame_writer/FrameWriterInterceptor.h"
-#include "simulation/interceptors/particle_update_counter/ParticleUpdateCounterInterceptor.h"
 #include "simulation/interceptors/progress_bar/ProgressBarInterceptor.h"
 #include "simulation/interceptors/radial_distribution_function/RadialDistributionFunctionInterceptor.h"
 #include "simulation/interceptors/thermostat/ThermostatInterceptor.h"
@@ -98,34 +96,5 @@ SimulationOverview Simulation::runSimulation() {
     SimulationOverview overview{params, total_time_ms / 1000.0, iteration, interceptor_summaries,
                                 std::vector<Particle>(particle_container->begin(), particle_container->end())};
 
-    if (params.performance_test) {
-        savePerformanceTest(overview, params);
-    }
-
     return overview;
-}
-
-void Simulation::savePerformanceTest(const SimulationOverview& overview, const SimulationParams& params) {
-    // write the results to the file
-    std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-    auto formatted_time = fmt::format("{:%d.%m.%Y-%H:%M:%S}", fmt::localtime(now));
-
-    CSVWriter csv_writer(
-        params.output_dir_path / ("performance_test_" + formatted_time + ".csv"),
-        {"num_particles", "particle_container", "delta_t", "total_time[s]", "particle_updates_per_second[1/s]", "total_iterations"});
-
-    // find ParticleUpdateCounterInterceptor
-    auto particle_update_counter = std::find_if(params.interceptors.begin(), params.interceptors.end(), [](auto& interceptor) {
-        return std::dynamic_pointer_cast<ParticleUpdateCounterInterceptor>(interceptor) != nullptr;
-    });
-
-    auto particle_updates_per_second =
-        particle_update_counter != params.interceptors.end()
-            ? std::dynamic_pointer_cast<ParticleUpdateCounterInterceptor>(*particle_update_counter)->getParticleUpdatesPerSecond()
-            : -1;
-
-    std::string container_type_string = std::visit([](auto&& arg) { return std::string(arg); }, params.container_type);
-
-    csv_writer.writeRow({params.num_particles, container_type_string, params.delta_t, overview.total_time_seconds,
-                         particle_updates_per_second, overview.total_iterations});
 }
