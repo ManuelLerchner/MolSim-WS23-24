@@ -6,12 +6,6 @@ on:
       - master
       - presentations
   pull_request:
-    paths:
-      - "src/**"
-      - "Doxyfile"
-      - "**.md"
-      - ".github/workflows/build-docs.yml"
-
   workflow_dispatch:
 
 jobs:
