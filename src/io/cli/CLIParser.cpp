@@ -11,7 +11,6 @@ CLIParams parse_arguments(int argc, char* argsv[]) {
     std::string log_level;
     std::string log_output;
 
-    bool performance_test = false;
     bool fresh = false;
 
     // choosing 0 as one of the parameters (end_time, delta_t, fps, video_length) is equivalent to choosing the default value
@@ -22,7 +21,6 @@ CLIParams parse_arguments(int argc, char* argsv[]) {
         "The path to the input file. Must be specified, otherwise the program will terminate. Can be inserted as positional argument.");
     options_desc.add_options()("log_level,l", boost::program_options::value<std::string>(&log_level)->default_value("info"),
                                "The log level. Possible values: trace, debug, info, warning, error, critical, off");
-    options_desc.add_options()("performance_test,p", "Run the simulation in performance test mode");
     options_desc.add_options()(
         "log_output", boost::program_options::value<std::string>(&log_output)->default_value("std"),
         "You can only choose between the output options std(only cl output) and file (only file output). Default: no file output");
@@ -64,11 +62,8 @@ CLIParams parse_arguments(int argc, char* argsv[]) {
         Logger::logger->info(help_message.str());
         exit(-1);
     }
-    if (variables_map.count("performance_test")) {
-        performance_test = true;
-    }
 
-    return CLIParams{input_file_path, performance_test, fresh};
+    return CLIParams{input_file_path, fresh};
 }
 
 SimulationParams merge_parameters(const CLIParams& params_cli, const std::optional<SimulationParams>& file_params) {
@@ -81,7 +76,6 @@ SimulationParams merge_parameters(const CLIParams& params_cli, const std::option
 
     // Update the parameters with the ones from the command line
     params.fresh = params_cli.fresh;
-    params.performance_test = params_cli.performance_test;
 
     return params;
 }

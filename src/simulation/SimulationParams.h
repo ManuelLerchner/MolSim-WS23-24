@@ -103,11 +103,6 @@ class SimulationParams {
     size_t num_particles;
 
     /**
-     * @brief Whether to run the simulation in performance test mode
-     */
-    bool performance_test;
-
-    /**
      * @brief Flag to indicate whether the simulation should be run from scratch, or whether cached data should be used
      */
     bool fresh;
@@ -122,7 +117,6 @@ class SimulationParams {
      * @param interceptors List of interceptors to be used in the simulation
      * @param simple_forces Simple Forces to be applied to the particles
      * @param pairwise_forces Forces to be applied to the particles
-     * @param performance_test Whether to run the simulation in performance test mode
      * @param fresh Flag to indicate whether the simulation should be run from scratch, or whether cached data should be used
      * @param base_path Base path to the output directory. This is used to construct the output directory path if none is given
      * explicitly. Defaults to "./output/"
@@ -131,8 +125,8 @@ class SimulationParams {
                      const std::variant<DirectSumType, LinkedCellsType>& container_type,
                      const std::vector<std::shared_ptr<SimulationInterceptor>>& interceptors,
                      const std::vector<std::shared_ptr<SimpleForceSource>>& simple_forces,
-                     const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_forces, bool performance_test = false,
-                     bool fresh = false, const std::filesystem::path& base_path = "./output");
+                     const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_forces, bool fresh = false,
+                     const std::filesystem::path& base_path = "./output");
 
     /**
      * @brief Prints a summary of the simulation parameters to the console
