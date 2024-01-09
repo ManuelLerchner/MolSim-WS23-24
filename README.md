@@ -18,8 +18,18 @@ This repo contains the code for the practical course **PSE: Molecular Dynamics**
 
 <!-- markdownlint-disable MD033 -->
 <a href="https://github.com/ManuelLerchner/MolSim-WS23-24/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=ManuelLerchner/MolSim-WS23-24" />
+  <img src="https://contrib.rocks/image?repo=ManuelLerchner/MolSim-WS23-24" alt="Contributors"/>
 </a>
+
+## Simulation Process
+
+The simulation is designed in a modular way. The following diagram shows the main components of the simulation and how they interact with each other.
+
+<img style="background-color: white;" src="./docs/images/simulation_overview.svg" alt="Simulation Overview"/>
+
+- **Recursive Subsimulations:** The simulations can be run recursively when loading initial particle configurations from files. This allows to simulate complex systems with multiple particle types and different initial conditions inside a single simulation.
+- **Interceptor Pattern:** The simulation is designed to be easily extensible. This is achieved by using the interceptor pattern. This allows to add new features to the simulation without having to change the core simulation code. A Intercepor is a class that implements a certain interface and is registered in the simulation. The simulation then calls the interceptor at certain points during the simulation.
+- **Flexible Input File Format:** The simulation can be specified via a XML file. This allows to specify all the simulation parameters at once and makes it easy to run the same simulation multiple times with different parameters. The XML file format can be looked up in the [Input File Formats](@ref InputFileFormats) section.
 
 ## Submissions and Presentations
 
