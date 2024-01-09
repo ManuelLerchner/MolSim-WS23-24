@@ -3,7 +3,7 @@
     xsi:noNamespaceSchemaLocation="../simulation_schema.xsd">
 
     <settings>
-        <delta_t>0.00001</delta_t>
+        <delta_t>0.001</delta_t>
         <end_time>100.0</end_time>
         <third_dimension>true</third_dimension>
         <particle_container>
@@ -30,9 +30,9 @@
         <interceptors>
             <Thermostat application_interval="25" target_temperature="0.02"
                 max_temperature_change="2.5E-3">
-                <temperature_sensor sample_every_x_percent="0.00001" />
+                <temperature_sensor sample_every_x_percent="1" />
             </Thermostat>
-            <FrameWriter output_format="vtu" fps="1280000" video_length_s="30" />
+            <FrameWriter output_format="vtu" fps="240" video_length_s="30" />
             <RadialDistributionFunction bin_width="0.1" sample_every_x_percent="10" />
             <DiffusionFunction sample_every_x_percent="1" />
         </interceptors>
