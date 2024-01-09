@@ -10,7 +10,8 @@ class RadialDistributionFunctionInterceptor : public SimulationInterceptor {
     /**
      * @brief Construct a new Thermostat Interceptor object
      */
-    RadialDistributionFunctionInterceptor(double bin_width, double sample_every_x_percent) : bin_width(bin_width), sample_every_x_percent(sample_every_x_percent) {}
+    RadialDistributionFunctionInterceptor(double bin_width, double sample_every_x_percent)
+        : bin_width(bin_width), sample_every_x_percent(sample_every_x_percent) {}
 
     /**
      * @brief This function is sets the particle_updates to 0 and initializes
