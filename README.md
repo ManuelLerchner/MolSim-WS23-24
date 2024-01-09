@@ -94,11 +94,9 @@ In this section we describe how to build the project. You can use the following 
 
   - Excecute `./MolSim --help` to get a detailed list of all options, parameters and their default values.
 
-  - An example run could look like this: `./MolSim ../../body_collision.cub -d 0.0002 -e 5`
+  - An example run could look like this: `./MolSim ../../body_collision.xml`
   
   - Further information about the possible input file formats can be found in the `/docs` directory.
-  
-    - **Note:** Input files can, and for some cases have to provide own simulation parameters. In case the user provides additional parameters via the command line, both sources of parameters are merged. If a conflict occurs, the command line parameters take precedence, since it was explicitly requested by the user. To avoid mixups, it is recommended to define all parameters in the input file and only use command line for small, temporary adjustments to avoid changing the input file.
 
 ### Run the tests
 
