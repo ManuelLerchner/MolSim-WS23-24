@@ -25,7 +25,7 @@ This repo contains the code for the practical course **PSE: Molecular Dynamics**
 
 The simulation is designed in a modular way. The following diagram shows the main components of the simulation and how they interact with each other.
 
-<img style="background-color: white;" src="./docs/images/simulation_overview.svg" alt="Simulation Overview"/>
+![Simulation Overview](./docs/images/simulation_overview.svg)
 
 - **Recursive Subsimulations:** The simulations can be run recursively when loading initial particle configurations from files. This allows to simulate complex systems with multiple particle types and different initial conditions inside a single simulation.
 - **Interceptor Pattern:** The simulation is designed to be easily extensible. This is achieved by using the interceptor pattern. This allows to add new features to the simulation without having to change the core simulation code. A Intercepor is a class that implements a certain interface and is registered in the simulation. The simulation then calls the interceptor at certain points during the simulation.
