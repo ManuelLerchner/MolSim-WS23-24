@@ -1,17 +1,17 @@
 #pragma once
 #include <chrono>
 #include <memory>
+#include <vector>
 
 #include "io/output/csv/CSVWriter.h"
 #include "simulation/interceptors/SimulationInterceptor.h"
 
-class RadialDistributionFunctionInterceptor : public SimulationInterceptor {
+class DiffusionFunctionInterceptor : public SimulationInterceptor {
    public:
     /**
      * @brief Construct a new Thermostat Interceptor object
      */
-    RadialDistributionFunctionInterceptor(double bin_width, double sample_every_x_percent)
-        : bin_width(bin_width), sample_every_x_percent(sample_every_x_percent) {}
+    explicit DiffusionFunctionInterceptor(double sample_every_x_percent) : sample_every_x_percent(sample_every_x_percent) {}
 
     /**
      * @brief This function is sets the particle_updates to 0 and initializes
@@ -54,14 +54,12 @@ class RadialDistributionFunctionInterceptor : public SimulationInterceptor {
      */
     void logSummary(int depth) const override;
 
-    double calculateLocalDensity(size_t N, size_t bin_index) const;
-
    private:
-    void saveCurrentRadialDistribution(size_t iteration, Simulation& simulation);
-
-   private:
-    double bin_width;
     double sample_every_x_percent;
     std::unique_ptr<CSVWriter> csv_writer;
-    size_t samples_count;
+    std::vector<std::array<double, 3>> old_particle_positions;
+    size_t last_sampled_iteration = 0;
+
+    void saveCurrentParticlePositions(const Simulation& simulation);
+    double calculateCurrentDiffusion(const Simulation& simulation) const;
 };

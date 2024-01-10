@@ -1,29 +1,28 @@
 #pragma once
 #include <chrono>
-#include <memory>
 
 #include "io/output/csv/CSVWriter.h"
+#include "physics/thermostats/Thermostat.h"
 #include "simulation/interceptors/SimulationInterceptor.h"
 
-class RadialDistributionFunctionInterceptor : public SimulationInterceptor {
+class TemperatureSensorInterceptor : public SimulationInterceptor {
    public:
     /**
-     * @brief Construct a new Thermostat Interceptor object
+     * @brief Construct a new TemperatureSensor Interceptor object
      */
-    RadialDistributionFunctionInterceptor(double bin_width, double sample_every_x_percent)
-        : bin_width(bin_width), sample_every_x_percent(sample_every_x_percent) {}
+    explicit TemperatureSensorInterceptor(Thermostat& thermostat, double sample_every_x_percent)
+        : thermostat(thermostat), sample_every_x_percent(sample_every_x_percent) {}
 
     /**
-     * @brief This function is sets the particle_updates to 0 and initializes
-     * the start time of the simulation
+     * @brief This function is empty as the thermostat doesnt need initialization
      *
      * @param simulation The simulation object
      */
     void onSimulationStart(Simulation& simulation) override;
 
     /**
-     * @brief This function is called on every nth iteration. It counts the
-     * number of particle updates which have been performed.
+     * @brief This function is called on every nth iteration. It scales the
+     * temperature of the particles in accordance with the thermostat.
      *
      * @param iteration The current iteration
      * @param simulation The simulation object
@@ -50,18 +49,17 @@ class RadialDistributionFunctionInterceptor : public SimulationInterceptor {
     explicit operator std::string() const override;
 
     /**
-     * @brief Logs the summary of the radial distribution function
+     * @brief Logs the summary of the thermostat
      */
     void logSummary(int depth) const override;
 
-    double calculateLocalDensity(size_t N, size_t bin_index) const;
-
    private:
-    void saveCurrentRadialDistribution(size_t iteration, Simulation& simulation);
-
-   private:
-    double bin_width;
-    double sample_every_x_percent;
     std::unique_ptr<CSVWriter> csv_writer;
-    size_t samples_count;
+
+    /**
+     * @brief The thermostat that is used to scale the temperature
+     */
+    Thermostat thermostat;
+
+    double sample_every_x_percent;
 };

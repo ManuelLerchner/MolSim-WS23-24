@@ -14,7 +14,7 @@ TEST(CHKPTWriter, CorrectWritingAndReadingOfParticles) {
     for (double i = 1; i < 5; i++) {
         auto pos = std::array<double, 3>{i, 2 * i, 3 * i};
         auto vel = std::array<double, 3>{4 * i, 5 * i, 6 * i};
-        particle_container->addParticle(Particle(pos, vel, i, i));
+        particle_container->addParticle(Particle(pos, vel, i, i, i * i, i * i * i));
     }
 
     auto params = SimulationParams("test.xml", 0, 0, SimulationParams::DirectSumType{}, {}, {}, {}, false);

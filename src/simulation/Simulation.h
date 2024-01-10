@@ -59,7 +59,9 @@ class Simulation {
      */
     friend class ProgressBarInterceptor;
     friend class FrameWriterInterceptor;
+    friend class TemperatureSensorInterceptor;
     friend class ThermostatInterceptor;
     friend class ParticleUpdateCounterInterceptor;
     friend class RadialDistributionFunctionInterceptor;
+    friend class DiffusionFunctionInterceptor;
 };

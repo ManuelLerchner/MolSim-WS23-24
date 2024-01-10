@@ -1,6 +1,7 @@
 #pragma once
 #include <chrono>
 
+#include "io/output/csv/CSVWriter.h"
 #include "physics/thermostats/Thermostat.h"
 #include "simulation/interceptors/SimulationInterceptor.h"
 

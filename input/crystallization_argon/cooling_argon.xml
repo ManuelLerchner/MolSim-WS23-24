@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../simulation_schema.xsd">
+
+    <settings>
+        <delta_t>0.001</delta_t>
+        <end_time>250.0</end_time>
+        <third_dimension>true</third_dimension>
+        <particle_container>
+            <linkedcells_container>
+                <domain_size>
+                    <x>9.2</x>
+                    <y>9.2</y>
+                    <z>9.2</z>
+                </domain_size>
+                <cutoff_radius>2.3</cutoff_radius>
+                <boundary_conditions>
+                    <left>Periodic</left>
+                    <right>Periodic</right>
+                    <bottom>Periodic</bottom>
+                    <top>Periodic</top>
+                    <back>Periodic</back>
+                    <front>Periodic</front>
+                </boundary_conditions>
+            </linkedcells_container>
+        </particle_container>
+        <forces>
+            <SmoothedLennardJones r_c="2.3" r_l="1.9" />
+        </forces>
+        <interceptors>
+            <Thermostat application_interval="50" target_temperature="0.5"
+                max_temperature_change="7.8E-4">
+                <temperature_sensor sample_every_x_percent="1" />
+            </Thermostat>
+            <FrameWriter output_format="vtu" fps="240" video_length_s="30" />
+            <RadialDistributionFunction bin_width="0.05" sample_every_x_percent="10" />
+            <DiffusionFunction sample_every_x_percent="1" />
+        </interceptors>
+    </settings>
+
+
+    <particle_source>
+        <!-- 3°K Equilibrated Argon Fluid -->
+        <sub_simulation path="subsimulations/base_fluid.xml" />
+    </particle_source>
+
+</configuration>

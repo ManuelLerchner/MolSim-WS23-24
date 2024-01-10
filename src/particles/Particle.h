@@ -40,25 +40,25 @@ class Particle {
     std::array<double, 3> old_f;
 
     /**
-     * @brief Lennard-Jones potential parameter epsilon
-     */
-    double epsilon;
-
-    /**
      * @brief Mass of this particle
      */
     double m;
-
-    /**
-     * @brief Lennard-Jones potential parameter sigma
-     */
-    double sigma;
 
     /**
      * @brief Type of the particle. Use it for whatever you want (e.g. to separate molecules belonging to different bodies, matters, and so
      * on)
      */
     int type;
+
+    /**
+     * @brief Lennard-Jones potential parameter epsilon
+     */
+    double epsilon;
+
+    /**
+     * @brief Lennard-Jones potential parameter sigma
+     */
+    double sigma;
 
    public:
     Particle(const Particle& other);

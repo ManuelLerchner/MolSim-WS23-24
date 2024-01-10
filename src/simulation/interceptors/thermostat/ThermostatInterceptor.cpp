@@ -2,11 +2,11 @@
 
 #include "io/logger/Logger.h"
 
-ThermostatInterceptor::ThermostatInterceptor(Thermostat& thermostat) : thermostat(thermostat) {
+ThermostatInterceptor::ThermostatInterceptor(Thermostat& thermostat) : thermostat(thermostat) {}
+
+void ThermostatInterceptor::onSimulationStart(Simulation& simulation) {
     SimulationInterceptor::every_nth_iteration = thermostat.getApplicationInterval();
 }
-
-void ThermostatInterceptor::onSimulationStart(Simulation& simulation) {}
 
 void ThermostatInterceptor::operator()(size_t iteration, Simulation& simulation) {
     thermostat.scaleTemperature(simulation.particle_container);

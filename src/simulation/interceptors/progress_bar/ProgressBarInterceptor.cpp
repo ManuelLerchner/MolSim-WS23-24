@@ -70,7 +70,7 @@ void ProgressBarInterceptor::logSummary(int depth) const {
     std::string indent = std::string(depth * 2, ' ');
 
     Logger::logger->info("{}╟┤{}ProgressBar: {}", indent, ansi_orange_bold, ansi_end);
-    Logger::logger->info("{}║  ├Enabled", indent);
+    Logger::logger->info("{}║   ├Enabled", indent);
 }
 
 ProgressBarInterceptor::operator std::string() const { return ""; }

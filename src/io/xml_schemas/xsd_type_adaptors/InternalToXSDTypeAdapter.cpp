@@ -7,8 +7,10 @@ ParticleType InternalToXSDTypeAdapter::convertToParticle(const Particle& particl
     auto old_force = convertToVector(particle.getOldF());
     auto mass = particle.getM();
     auto type = particle.getType();
+    auto epsilon = particle.getEpsilon();
+    auto sigma = particle.getSigma();
 
-    return ParticleType{position, velocity, force, old_force, mass, type};
+    return ParticleType{position, velocity, force, old_force, mass, type, epsilon, sigma};
 }
 
 DoubleVec3Type InternalToXSDTypeAdapter::convertToVector(const std::array<double, 3>& vector) {
