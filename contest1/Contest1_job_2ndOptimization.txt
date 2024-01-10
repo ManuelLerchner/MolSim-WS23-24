@@ -1,0 +1,43 @@
+[16:47:08] [info] Starting 2DRect-benchmark. Dimensions 100x100...
+[16:47:08] [warning] File '2DParticleRect.xml' does not exist. Using hash 0.
+[16:47:08] [info] ╔════════════════════════════════════════
+[16:47:08] [info] ╟┤Simulation arguments:
+[16:47:08] [info] ║  Input file path: /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/2DParticleRect.xml
+[16:47:08] [info] ║  Output directory path: /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/./output/2DParticleRect
+[16:47:08] [info] ║  Delta_t: 0.0005
+[16:47:08] [info] ║  End_time: 0.5
+[16:47:08] [info] ║  Reuse cached data: true
+[16:47:08] [info] ╟┤Physical setup:
+[16:47:08] [info] ║  Number of particles: 10000
+[16:47:08] [info] ║  Number of forces: 1
+[16:47:08] [info] ║  Forces: GlobalDownwardsGravity, LennardJones,
+[16:47:08] [info] ╟┤Container:
+[16:47:08] [info] ║  Linked Cells
+[16:47:08] [info] ║  Domain size: 300 x 54 x 3
+[16:47:08] [info] ║  Cutoff radius: 3
+[16:47:08] [info] ║   ┌Left: Periodic
+[16:47:08] [info] ║   ├Right: Periodic
+[16:47:08] [info] ║   ├Bottom: Reflective
+[16:47:08] [info] ║   ├Top: Reflective
+[16:47:08] [info] ║   ├Back: Outflow
+[16:47:08] [info] ║   └Front: Outflow
+[16:47:08] [info] ╟┤Interceptors:
+[16:47:08] [info] ╟┤Thermostat:
+[16:47:08] [info] ║   ┌Target temperature: 40
+[16:47:08] [info] ║   ├Maximum temperature change: inf
+[16:47:08] [info] ║   └Application interval: 1000
+[16:47:08] [info] ╚════════════════════════════════════════
+[16:47:09] [info] Simulation started...
+[16:47:09] [info] Start time: Wednesday 2024-01-10 16:47:09
+[16:47:50] [info] Simulation finished.
+[16:47:50] [info] End time: Wednesday 2024-01-10 16:47:50
+[16:47:50] [info] ╔════════════════════════════════════════
+[16:47:50] [info] ╟┤Simulation overview:
+[16:47:50] [info] ║  Input file: /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/2DParticleRect.xml
+[16:47:50] [info] ║  Output directory: /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/./output/2DParticleRect
+[16:47:50] [info] ║  Simulation time: 0h 0m 41s 307ms
+[16:47:50] [info] ║  Number of iterations: 1000
+[16:47:50] [info] ║  Number of particles left: 10000
+[16:47:50] [info] ╟┤Interceptor Logs:
+[16:47:50] [info] ║   └No interceptors
+[16:47:50] [info] ╚════════════════════════════════════════

@@ -1,0 +1,47 @@
+/var/slurmd-serial/job3910522/slurm_script: line 15: module: command not found
+/var/slurmd-serial/job3910522/slurm_script: line 16: module: command not found
+/var/slurmd-serial/job3910522/slurm_script: line 17: module: command not found
+/var/slurmd-serial/job3910522/slurm_script: line 18: module: command not found
+[11:25:07] [info] Starting 2DRect-benchmark. Dimensions 100x100...
+[11:25:07] [warning] File '2DParticleRect.xml' does not exist. Using hash 0.
+[11:25:07] [info] ╔════════════════════════════════════════
+[11:25:07] [info] ╟┤Simulation arguments:
+[11:25:07] [info] ║  Input file path: /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/2DParticleRect.xml
+[11:25:07] [info] ║  Output directory path: /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/./output/2DParticleRect
+[11:25:07] [info] ║  Delta_t: 0.0005
+[11:25:07] [info] ║  End_time: 0.5
+[11:25:07] [info] ║  Reuse cached data: true
+[11:25:07] [info] ╟┤Physical setup:
+[11:25:07] [info] ║  Number of particles: 10000
+[11:25:07] [info] ║  Number of forces: 1
+[11:25:07] [info] ║  Forces: GlobalDownwardsGravity, LennardJones,
+[11:25:07] [info] ╟┤Container:
+[11:25:07] [info] ║  Linked Cells
+[11:25:07] [info] ║  Domain size: 300 x 54 x 3
+[11:25:07] [info] ║  Cutoff radius: 3
+[11:25:07] [info] ║   ┌Left: Periodic
+[11:25:07] [info] ║   ├Right: Periodic
+[11:25:07] [info] ║   ├Bottom: Reflective
+[11:25:07] [info] ║   ├Top: Reflective
+[11:25:07] [info] ║   ├Back: Outflow
+[11:25:07] [info] ║   └Front: Outflow
+[11:25:07] [info] ╟┤Interceptors:
+[11:25:07] [info] ╟┤Thermostat:
+[11:25:07] [info] ║   ┌Target temperature: 40
+[11:25:07] [info] ║   ├Maximum temperature change: inf
+[11:25:07] [info] ║   └Application interval: 1000
+[11:25:07] [info] ╚════════════════════════════════════════
+[11:25:07] [info] Simulation started...
+[11:25:07] [info] Start time: Thursday 2023-12-21 11:25:07
+[11:25:50] [info] Simulation finished.
+[11:25:50] [info] End time: Thursday 2023-12-21 11:25:50
+[11:25:50] [info] ╔════════════════════════════════════════
+[11:25:50] [info] ╟┤Simulation overview:
+[11:25:50] [info] ║  Input file: /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/2DParticleRect.xml
+[11:25:50] [info] ║  Output directory: /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/./output/2DParticleRect
+[11:25:50] [info] ║  Simulation time: 0h 0m 42s 853ms
+[11:25:50] [info] ║  Number of iterations: 1000
+[11:25:50] [info] ║  Number of particles left: 10000
+[11:25:50] [info] ╟┤Interceptor Logs:
+[11:25:50] [info] ║   └No interceptors
+[11:25:50] [info] ╚════════════════════════════════════════
