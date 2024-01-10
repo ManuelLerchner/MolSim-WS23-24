@@ -32,8 +32,8 @@
                 max_temperature_change="7.8E-4">
                 <temperature_sensor sample_every_x_percent="1" />
             </Thermostat>
-            <FrameWriter output_format="vtu" fps="128" video_length_s="30" />
-            <RadialDistributionFunction bin_width="0.1" sample_every_x_percent="10" />
+            <FrameWriter output_format="vtu" fps="240" video_length_s="30" />
+            <RadialDistributionFunction bin_width="0.05" sample_every_x_percent="10" />
             <DiffusionFunction sample_every_x_percent="1" />
         </interceptors>
     </settings>

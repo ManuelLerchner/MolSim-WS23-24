@@ -14,33 +14,16 @@ void RadialDistributionFunctionInterceptor::onSimulationStart(Simulation& simula
     SimulationInterceptor::every_nth_iteration = std::max(1, static_cast<int>(sample_every_x_percent * expected_iterations / 100));
 
     samples_count = 0;
+    saveCurrentRadialDistribution(0, simulation);
 }
 
 void RadialDistributionFunctionInterceptor::operator()(size_t iteration, Simulation& simulation) {
-    std::map<size_t, size_t> samples_per_bin_index;
-
-    for (auto it1 = simulation.particle_container->begin(); it1 != simulation.particle_container->end(); it1++) {
-        auto& particle = *it1;
-        for (auto it2 = it1 + 1; it2 != simulation.particle_container->end(); it2++) {
-            auto& other_particle = *it2;
-
-            if (particle == other_particle) continue;
-
-            double distance = ArrayUtils::L2Norm(particle.getX() - other_particle.getX());
-
-            size_t bin_index = std::floor(distance / bin_width);
-            samples_per_bin_index[bin_index]++;
-
-            samples_count++;
-        }
-    }
-
-    for (auto& [bin_index, samples] : samples_per_bin_index) {
-        csv_writer->writeRow({iteration, bin_index, samples, calculateLocalDensity(samples, bin_index)});
-    }
+    saveCurrentRadialDistribution(iteration, simulation);
 }
 
-void RadialDistributionFunctionInterceptor::onSimulationEnd(size_t iteration, Simulation& simulation) {}
+void RadialDistributionFunctionInterceptor::onSimulationEnd(size_t iteration, Simulation& simulation) {
+    saveCurrentRadialDistribution(iteration, simulation);
+}
 
 void RadialDistributionFunctionInterceptor::logSummary(int depth) const {
     std::string indent = std::string(depth * 2, ' ');
@@ -61,4 +44,34 @@ double RadialDistributionFunctionInterceptor::calculateLocalDensity(size_t N, si
     double bin_volume = 4.0 / 3.0 * M_PI * (std::pow(bin_end, 3) - std::pow(bin_start, 3));
 
     return N / bin_volume;
+}
+
+void RadialDistributionFunctionInterceptor::saveCurrentRadialDistribution(size_t iteration, Simulation& simulation) {
+    std::map<size_t, size_t> samples_per_bin_index;
+
+    for (auto it1 = simulation.particle_container->begin(); it1 != simulation.particle_container->end(); it1++) {
+        auto& particle = *it1;
+        for (auto it2 = it1 + 1; it2 != simulation.particle_container->end(); it2++) {
+            auto& other_particle = *it2;
+
+            if (particle == other_particle) continue;
+
+            double distance = ArrayUtils::L2Norm(particle.getX() - other_particle.getX());
+
+            size_t bin_index = std::floor(distance / bin_width);
+            samples_per_bin_index[bin_index]++;
+
+            samples_count++;
+        }
+    }
+
+    for (size_t i = 0; i <= samples_per_bin_index.rbegin()->first; i++) {
+        if (samples_per_bin_index.find(i) == samples_per_bin_index.end()) {
+            samples_per_bin_index[i] = 0;
+        }
+    }
+
+    for (auto& [bin_index, samples] : samples_per_bin_index) {
+        csv_writer->writeRow({iteration, bin_index, samples, calculateLocalDensity(samples, bin_index)});
+    }
 }

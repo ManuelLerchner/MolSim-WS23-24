@@ -57,6 +57,9 @@ class RadialDistributionFunctionInterceptor : public SimulationInterceptor {
     double calculateLocalDensity(size_t N, size_t bin_index) const;
 
    private:
+    void saveCurrentRadialDistribution(size_t iteration, Simulation& simulation);
+
+   private:
     double bin_width;
     double sample_every_x_percent;
     std::unique_ptr<CSVWriter> csv_writer;

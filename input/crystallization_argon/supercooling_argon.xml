@@ -4,7 +4,7 @@
 
     <settings>
         <delta_t>0.001</delta_t>
-        <end_time>100.0</end_time>
+        <end_time>250.0</end_time>
         <third_dimension>true</third_dimension>
         <particle_container>
             <linkedcells_container>
@@ -33,7 +33,7 @@
                 <temperature_sensor sample_every_x_percent="1" />
             </Thermostat>
             <FrameWriter output_format="vtu" fps="240" video_length_s="30" />
-            <RadialDistributionFunction bin_width="0.1" sample_every_x_percent="10" />
+            <RadialDistributionFunction bin_width="0.05" sample_every_x_percent="10" />
             <DiffusionFunction sample_every_x_percent="1" />
         </interceptors>
     </settings>
