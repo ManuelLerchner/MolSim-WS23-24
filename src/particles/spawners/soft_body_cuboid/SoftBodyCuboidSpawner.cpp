@@ -74,7 +74,7 @@ int SoftBodyCuboidSpawner::spawnParticles(std::vector<Particle>& particles) cons
 
                             auto initial_distance = ArrayUtils::L2Norm(curr_particle.getX() - neighbor_particle.getX());
 
-                            curr_particle.addConnectedParticle(&neighbor_particle, initial_distance, spring_constant);
+                            curr_particle.addConnectedParticle(&neighbor_particle - &curr_particle, initial_distance, spring_constant);
                         }
                     }
                 }

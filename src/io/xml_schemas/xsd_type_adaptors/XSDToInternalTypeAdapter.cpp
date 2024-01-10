@@ -3,8 +3,10 @@
 #include "io/logger/Logger.h"
 #include "physics/pairwiseforces/GravitationalForce.h"
 #include "physics/pairwiseforces/LennardJonesForce.h"
+#include "physics/pairwiseforces/LennardJonesRepulsiveForce.h"
 #include "physics/simpleforces/GlobalDownwardsGravity.h"
 #include "physics/simpleforces/HarmonicForce.h"
+#include "physics/targettedforces/TargettedTemporaryConstantForce.h"
 #include "simulation/interceptors/frame_writer/FrameWriterInterceptor.h"
 #include "simulation/interceptors/particle_update_counter/ParticleUpdateCounterInterceptor.h"
 #include "simulation/interceptors/progress_bar/ProgressBarInterceptor.h"
@@ -92,17 +94,9 @@ SoftBodyCuboidSpawner XSDToInternalTypeAdapter::convertToSoftBodyCuboidSpawner(c
         throw std::runtime_error("Cuboid temperature must be positive");
     }
 
-    return SoftBodyCuboidSpawner{lower_left_front_corner,
-                                 grid_dimensions,
-                                 grid_spacing,
-                                 mass,
-                                 initial_velocity,
-                                 static_cast<int>(type),
-                                 spring_constant,
-                                 epsilon,
-                                 sigma,
-                                 third_dimension,
-                                 temperature};
+    return SoftBodyCuboidSpawner{lower_left_front_corner, grid_dimensions,        grid_spacing, mass,
+                                 initial_velocity,        static_cast<int>(type), epsilon,      sigma,
+                                 spring_constant,         third_dimension,        temperature};
 }
 
 SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const SphereSpawnerType& sphere, bool third_dimension) {
@@ -276,17 +270,14 @@ Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particl
     return Particle{position, velocity, force, old_force, mass, static_cast<int>(type)};
 }
 
-std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::shared_ptr<PairwiseForceSource>>>
+std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::shared_ptr<PairwiseForceSource>>,
+           std::vector<std::shared_ptr<TargettedForceSource>>>
 XSDToInternalTypeAdapter::convertToForces(const ForcesType& forces) {
     std::vector<std::shared_ptr<SimpleForceSource>> simple_force_sources;
     std::vector<std::shared_ptr<PairwiseForceSource>> pairwise_force_sources;
+    std::vector<std::shared_ptr<TargettedForceSource>> targetted_force_sources;
 
-    if (forces.LennardJones()) {
-        pairwise_force_sources.push_back(std::make_shared<LennardJonesForce>());
-    }
-    if (forces.Gravitational()) {
-        pairwise_force_sources.push_back(std::make_shared<GravitationalForce>());
-    }
+    // Simple Forces
     if (forces.GlobalDownwardsGravity()) {
         auto g = (*forces.GlobalDownwardsGravity()).g();
         simple_force_sources.push_back(std::make_shared<GlobalDownwardsGravity>(g));
@@ -295,7 +286,32 @@ XSDToInternalTypeAdapter::convertToForces(const ForcesType& forces) {
         simple_force_sources.push_back(std::make_shared<HarmonicForce>());
     }
 
-    return {simple_force_sources, pairwise_force_sources};
+    // Pairwise Forces
+    if (forces.LennardJones()) {
+        pairwise_force_sources.push_back(std::make_shared<LennardJonesForce>());
+    }
+    if (forces.LennardJonesRepulsive()) {
+        pairwise_force_sources.push_back(std::make_shared<LennardJonesRepulsiveForce>());
+    }
+    if (forces.Gravitational()) {
+        pairwise_force_sources.push_back(std::make_shared<GravitationalForce>());
+    }
+
+    // Targetted Forces
+    if (forces.TargettedTemporaryConstant()) {
+        auto indices_list = forces.TargettedTemporaryConstant()->indices();
+        std::vector<size_t> indices_vector;
+        for (auto& index : indices_list) {
+            indices_vector.push_back(index);
+        }
+        auto force = convertToVector(forces.TargettedTemporaryConstant()->force());
+        auto start_time = forces.TargettedTemporaryConstant()->start_time();
+        auto end_time = forces.TargettedTemporaryConstant()->end_time();
+
+        targetted_force_sources.push_back(std::make_shared<TargettedTemporaryConstantForce>(indices_vector, force, start_time, end_time));
+    }
+
+    return {simple_force_sources, pairwise_force_sources, targetted_force_sources};
 }
 
 std::array<double, 3> XSDToInternalTypeAdapter::convertToVector(const DoubleVec3Type& vector) {

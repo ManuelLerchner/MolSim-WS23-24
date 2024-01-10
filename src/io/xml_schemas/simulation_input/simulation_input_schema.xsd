@@ -200,7 +200,19 @@
 
 
   <!-- Forces -->
+  <xs:complexType name="TargettedTemporaryConstantType">
+    <xs:sequence>
+      <xs:element name="force" type="DoubleVec3Type" />
+    </xs:sequence>
+    <xs:attribute name="indices" type="IntegerListType" use="required" />
+    <xs:attribute name="start_time" type="xs:double" use="required" />
+    <xs:attribute name="end_time" type="xs:double" use="required" />
+  </xs:complexType>
+
   <xs:complexType name="LennardJonesType">
+  </xs:complexType>
+
+  <xs:complexType name="LennardJonesRepulsiveType">
   </xs:complexType>
 
   <xs:complexType name="GravitationalType">
@@ -217,13 +229,22 @@
 
   <xs:complexType name="ForcesType">
     <xs:all>
+      <xs:element name="TargettedTemporaryConstant" type="TargettedTemporaryConstantType"
+        minOccurs="0" />
       <xs:element name="LennardJones" type="LennardJonesType" minOccurs="0" />
+      <xs:element name="LennardJonesRepulsive" type="LennardJonesRepulsiveType" minOccurs="0" />
       <xs:element name="Gravitational" type="GravitationalType" minOccurs="0" />
       <xs:element name="GlobalDownwardsGravity" type="GlobalGravityType" minOccurs="0" />
       <xs:element name="HarmonicPotential" type="HarmonicPotentialType" minOccurs="0" />
     </xs:all>
   </xs:complexType>
 
+
+  <!-- Lists -->
+
+  <xs:simpleType name="IntegerListType">
+    <xs:list itemType="xs:integer" />
+  </xs:simpleType>
 
   <!-- Enums -->
 

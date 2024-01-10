@@ -21,6 +21,7 @@ Particle::Particle(const Particle& other) {
     type = other.type;
     epsilon = other.epsilon;
     sigma = other.sigma;
+    connected_particles = other.connected_particles;
     Logger::logger->debug("Particle created");
 }
 
@@ -76,9 +77,9 @@ double Particle::getSigma() const { return sigma; }
 
 int Particle::getType() const { return type; }
 
-const std::vector<std::tuple<Particle*, double, double>>& Particle::getConnectedParticles() const { return connected_particles; }
+const std::vector<std::tuple<int, double, double>>& Particle::getConnectedParticles() const { return connected_particles; }
 
-void Particle::addConnectedParticle(Particle* particle, double l_0, double k) { connected_particles.push_back({particle, l_0, k}); }
+void Particle::addConnectedParticle(int ptr_diff, double l_0, double k) { connected_particles.push_back({ptr_diff, l_0, k}); }
 
 std::string Particle::toString() const {
     std::stringstream stream;

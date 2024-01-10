@@ -48,3 +48,10 @@ void DirectSumContainer::applyPairwiseForces(const std::vector<std::shared_ptr<P
         }
     }
 }
+
+void DirectSumContainer::applyTargettedForces(const std::vector<std::shared_ptr<TargettedForceSource>>& force_sources,
+                                              double curr_simulation_time) {
+    for (const auto& force_source : force_sources) {
+        force_source->applyForce(particles, curr_simulation_time);
+    }
+}

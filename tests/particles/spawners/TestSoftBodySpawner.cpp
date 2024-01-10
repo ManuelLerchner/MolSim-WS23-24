@@ -93,56 +93,56 @@ TEST(SoftBodyParticleSpawner, CheckLinksWithinSoftBody) {
     spawner.spawnParticles(particles);
     EXPECT_EQ(spawner.getEstimatedNumberOfParticles(), particles.size() - 1);
 
-    std::vector<std::tuple<Particle*, double, double>> expected_links_1 = {{&(particles[2]), 1.0, 300},
-                                                                           {&(particles[7]), 1.0, 300},
-                                                                           {&(particles[8]), std::sqrt(2.0), 300},
-                                                                           {&(particles[31]), 1.0, 300},
-                                                                           {&(particles[32]), std::sqrt(2.0), 300},
-                                                                           {&(particles[37]), std::sqrt(2.0), 300},
-                                                                           {&(particles[38]), std::sqrt(3.0), 300}};
+    std::vector<std::tuple<int, double, double>> expected_links_1 = {{&(particles[2]) - &(particles[1]), 1.0, 300},
+                                                                     {&(particles[7]) - &(particles[1]), 1.0, 300},
+                                                                     {&(particles[8]) - &(particles[1]), std::sqrt(2.0), 300},
+                                                                     {&(particles[31]) - &(particles[1]), 1.0, 300},
+                                                                     {&(particles[32]) - &(particles[1]), std::sqrt(2.0), 300},
+                                                                     {&(particles[37]) - &(particles[1]), std::sqrt(2.0), 300},
+                                                                     {&(particles[38]) - &(particles[1]), std::sqrt(3.0), 300}};
 
     EXPECT_EQ(particles[1].getConnectedParticles().size(), expected_links_1.size());
 
     for (int i = 0; i < particles[1].getConnectedParticles().size(); i++) {
         EXPECT_EQ(std::get<0>(particles[1].getConnectedParticles()[i]), std::get<0>(expected_links_1[i]));
-        std::cout << std::get<0>(particles[1].getConnectedParticles()[i])->getX() << std::endl;
+        std::cout << (&(particles[1]) + std::get<0>(particles[1].getConnectedParticles()[i]))->getX() << std::endl;
         EXPECT_EQ(std::get<1>(particles[1].getConnectedParticles()[i]), std::get<1>(expected_links_1[i]));
         EXPECT_EQ(std::get<2>(particles[1].getConnectedParticles()[i]), std::get<2>(expected_links_1[i]));
     }
 
-    std::vector<std::tuple<Particle*, double, double>> expected_links_45 = {
-        {&(particles[8]), std::sqrt(3.0), 300},
-        {&(particles[9]), std::sqrt(2.0), 300},
-        {&(particles[10]), std::sqrt(3.0), 300},
-        {&(particles[14]), std::sqrt(2.0), 300},
-        {&(particles[15]), 1.0, 300},
-        {&(particles[16]), std::sqrt(2.0), 300},
-        {&(particles[20]), std::sqrt(3.0), 300},
-        {&(particles[21]), std::sqrt(2.0), 300},
-        {&(particles[22]), std::sqrt(3.0), 300},
-        {&(particles[38]), std::sqrt(2.0), 300},
-        {&(particles[39]), 1.0, 300},
-        {&(particles[40]), std::sqrt(2.0), 300},
-        {&(particles[44]), 1.0, 300},
-        {&(particles[46]), 1.0, 300},
-        {&(particles[50]), std::sqrt(2.0), 300},
-        {&(particles[51]), 1.0, 300},
-        {&(particles[52]), std::sqrt(2.0), 300},
-        {&(particles[68]), std::sqrt(3.0), 300},
-        {&(particles[69]), std::sqrt(2.0), 300},
-        {&(particles[70]), std::sqrt(3.0), 300},
-        {&(particles[74]), std::sqrt(2.0), 300},
-        {&(particles[75]), 1.0, 300},
-        {&(particles[76]), std::sqrt(2.0), 300},
-        {&(particles[80]), std::sqrt(3.0), 300},
-        {&(particles[81]), std::sqrt(2.0), 300},
-        {&(particles[82]), std::sqrt(3.0), 300},
+    std::vector<std::tuple<int, double, double>> expected_links_45 = {
+        {&(particles[8]) - &(particles[45]), std::sqrt(3.0), 300},
+        {&(particles[9]) - &(particles[45]), std::sqrt(2.0), 300},
+        {&(particles[10]) - &(particles[45]), std::sqrt(3.0), 300},
+        {&(particles[14]) - &(particles[45]), std::sqrt(2.0), 300},
+        {&(particles[15]) - &(particles[45]), 1.0, 300},
+        {&(particles[16]) - &(particles[45]), std::sqrt(2.0), 300},
+        {&(particles[20]) - &(particles[45]), std::sqrt(3.0), 300},
+        {&(particles[21]) - &(particles[45]), std::sqrt(2.0), 300},
+        {&(particles[22]) - &(particles[45]), std::sqrt(3.0), 300},
+        {&(particles[38]) - &(particles[45]), std::sqrt(2.0), 300},
+        {&(particles[39]) - &(particles[45]), 1.0, 300},
+        {&(particles[40]) - &(particles[45]), std::sqrt(2.0), 300},
+        {&(particles[44]) - &(particles[45]), 1.0, 300},
+        {&(particles[46]) - &(particles[45]), 1.0, 300},
+        {&(particles[50]) - &(particles[45]), std::sqrt(2.0), 300},
+        {&(particles[51]) - &(particles[45]), 1.0, 300},
+        {&(particles[52]) - &(particles[45]), std::sqrt(2.0), 300},
+        {&(particles[68]) - &(particles[45]), std::sqrt(3.0), 300},
+        {&(particles[69]) - &(particles[45]), std::sqrt(2.0), 300},
+        {&(particles[70]) - &(particles[45]), std::sqrt(3.0), 300},
+        {&(particles[74]) - &(particles[45]), std::sqrt(2.0), 300},
+        {&(particles[75]) - &(particles[45]), 1.0, 300},
+        {&(particles[76]) - &(particles[45]), std::sqrt(2.0), 300},
+        {&(particles[80]) - &(particles[45]), std::sqrt(3.0), 300},
+        {&(particles[81]) - &(particles[45]), std::sqrt(2.0), 300},
+        {&(particles[82]) - &(particles[45]), std::sqrt(3.0), 300},
     };
 
     EXPECT_EQ(particles[45].getConnectedParticles().size(), expected_links_45.size());
     for (int i = 0; i < particles[45].getConnectedParticles().size(); i++) {
         EXPECT_EQ(std::get<0>(particles[45].getConnectedParticles()[i]), std::get<0>(expected_links_45[i]));
-        std::cout << std::get<0>(particles[45].getConnectedParticles()[i])->getX() << std::endl;
+        std::cout << (&(particles[45]) + std::get<0>(particles[45].getConnectedParticles()[i]))->getX() << std::endl;
         EXPECT_EQ(std::get<1>(particles[45].getConnectedParticles()[i]), std::get<1>(expected_links_45[i]));
         EXPECT_EQ(std::get<2>(particles[45].getConnectedParticles()[i]), std::get<2>(expected_links_45[i]));
     }

@@ -6,6 +6,7 @@
 #include "particles/Particle.h"
 #include "physics/pairwiseforces/PairwiseForceSource.h"
 #include "physics/simpleforces/SimpleForceSource.h"
+#include "physics/targettedforces/TargettedForceSource.h"
 
 /**
  * @brief Interface for particle containers
@@ -61,6 +62,17 @@ class ParticleContainer {
      * Uses newton's third law to calculate the forces between the particles in an optimized way.
      */
     virtual void applyPairwiseForces(const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_force_sources) = 0;
+
+    /**
+     * @brief Applies the given targetted force sources to the particles
+     *
+     * @param targetted_force_sources List of targetted force sources to be applied
+     * @param curr_simulation_time Current simulation time
+     *
+     * Applies the given targetted force sources to the particles in the container.
+     */
+    virtual void applyTargettedForces(const std::vector<std::shared_ptr<TargettedForceSource>>& targetted_force_sources,
+                                      double curr_simulation_time) = 0;
 
     /**
      * @brief Reserves space for n particles

@@ -6,7 +6,8 @@
 std::array<double, 3UL> HarmonicForce::calculateForce(Particle& p) const {
     auto total_harmonic_force = std::array<double, 3UL>{0, 0, 0};
 
-    for (auto& [connected_particle, l_0, k] : p.getConnectedParticles()) {
+    for (auto& [ptr_diff, l_0, k] : p.getConnectedParticles()) {
+        Particle* connected_particle = &p + ptr_diff;
         const auto displacement = connected_particle->getX() - p.getX();
         const double dist = ArrayUtils::L2Norm(displacement);
 

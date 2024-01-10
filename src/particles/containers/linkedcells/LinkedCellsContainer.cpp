@@ -161,6 +161,13 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
     updateCellsParticleReferences();
 }
 
+void LinkedCellsContainer::applyTargettedForces(const std::vector<std::shared_ptr<TargettedForceSource>>& force_sources,
+                                                double curr_simulation_time) {
+    for (const auto& force_source : force_sources) {
+        force_source->applyForce(particles, curr_simulation_time);
+    }
+}
+
 void LinkedCellsContainer::reserve(size_t n) {
     Logger::logger->debug("Reserving space for {} particles", n);
 

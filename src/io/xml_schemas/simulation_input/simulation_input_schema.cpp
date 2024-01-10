@@ -773,7 +773,43 @@ void SimulationInterceptorsType::Thermostat(const Thermostat_optional& x) { this
 
 void SimulationInterceptorsType::Thermostat(::std::unique_ptr<Thermostat_type> x) { this->Thermostat_.set(std::move(x)); }
 
+// TargettedTemporaryConstantType
+//
+
+const TargettedTemporaryConstantType::force_type& TargettedTemporaryConstantType::force() const { return this->force_.get(); }
+
+TargettedTemporaryConstantType::force_type& TargettedTemporaryConstantType::force() { return this->force_.get(); }
+
+void TargettedTemporaryConstantType::force(const force_type& x) { this->force_.set(x); }
+
+void TargettedTemporaryConstantType::force(::std::unique_ptr<force_type> x) { this->force_.set(std::move(x)); }
+
+const TargettedTemporaryConstantType::indices_type& TargettedTemporaryConstantType::indices() const { return this->indices_.get(); }
+
+TargettedTemporaryConstantType::indices_type& TargettedTemporaryConstantType::indices() { return this->indices_.get(); }
+
+void TargettedTemporaryConstantType::indices(const indices_type& x) { this->indices_.set(x); }
+
+void TargettedTemporaryConstantType::indices(::std::unique_ptr<indices_type> x) { this->indices_.set(std::move(x)); }
+
+const TargettedTemporaryConstantType::start_time_type& TargettedTemporaryConstantType::start_time() const {
+    return this->start_time_.get();
+}
+
+TargettedTemporaryConstantType::start_time_type& TargettedTemporaryConstantType::start_time() { return this->start_time_.get(); }
+
+void TargettedTemporaryConstantType::start_time(const start_time_type& x) { this->start_time_.set(x); }
+
+const TargettedTemporaryConstantType::end_time_type& TargettedTemporaryConstantType::end_time() const { return this->end_time_.get(); }
+
+TargettedTemporaryConstantType::end_time_type& TargettedTemporaryConstantType::end_time() { return this->end_time_.get(); }
+
+void TargettedTemporaryConstantType::end_time(const end_time_type& x) { this->end_time_.set(x); }
+
 // LennardJonesType
+//
+
+// LennardJonesRepulsiveType
 //
 
 // GravitationalType
@@ -794,6 +830,20 @@ void GlobalGravityType::g(const g_type& x) { this->g_.set(x); }
 // ForcesType
 //
 
+const ForcesType::TargettedTemporaryConstant_optional& ForcesType::TargettedTemporaryConstant() const {
+    return this->TargettedTemporaryConstant_;
+}
+
+ForcesType::TargettedTemporaryConstant_optional& ForcesType::TargettedTemporaryConstant() { return this->TargettedTemporaryConstant_; }
+
+void ForcesType::TargettedTemporaryConstant(const TargettedTemporaryConstant_type& x) { this->TargettedTemporaryConstant_.set(x); }
+
+void ForcesType::TargettedTemporaryConstant(const TargettedTemporaryConstant_optional& x) { this->TargettedTemporaryConstant_ = x; }
+
+void ForcesType::TargettedTemporaryConstant(::std::unique_ptr<TargettedTemporaryConstant_type> x) {
+    this->TargettedTemporaryConstant_.set(std::move(x));
+}
+
 const ForcesType::LennardJones_optional& ForcesType::LennardJones() const { return this->LennardJones_; }
 
 ForcesType::LennardJones_optional& ForcesType::LennardJones() { return this->LennardJones_; }
@@ -803,6 +853,16 @@ void ForcesType::LennardJones(const LennardJones_type& x) { this->LennardJones_.
 void ForcesType::LennardJones(const LennardJones_optional& x) { this->LennardJones_ = x; }
 
 void ForcesType::LennardJones(::std::unique_ptr<LennardJones_type> x) { this->LennardJones_.set(std::move(x)); }
+
+const ForcesType::LennardJonesRepulsive_optional& ForcesType::LennardJonesRepulsive() const { return this->LennardJonesRepulsive_; }
+
+ForcesType::LennardJonesRepulsive_optional& ForcesType::LennardJonesRepulsive() { return this->LennardJonesRepulsive_; }
+
+void ForcesType::LennardJonesRepulsive(const LennardJonesRepulsive_type& x) { this->LennardJonesRepulsive_.set(x); }
+
+void ForcesType::LennardJonesRepulsive(const LennardJonesRepulsive_optional& x) { this->LennardJonesRepulsive_ = x; }
+
+void ForcesType::LennardJonesRepulsive(::std::unique_ptr<LennardJonesRepulsive_type> x) { this->LennardJonesRepulsive_.set(std::move(x)); }
 
 const ForcesType::Gravitational_optional& ForcesType::Gravitational() const { return this->Gravitational_; }
 
@@ -835,6 +895,17 @@ void ForcesType::HarmonicPotential(const HarmonicPotential_type& x) { this->Harm
 void ForcesType::HarmonicPotential(const HarmonicPotential_optional& x) { this->HarmonicPotential_ = x; }
 
 void ForcesType::HarmonicPotential(::std::unique_ptr<HarmonicPotential_type> x) { this->HarmonicPotential_.set(std::move(x)); }
+
+// IntegerListType
+//
+
+IntegerListType::IntegerListType() : ::xsd::cxx::tree::list< ::xml_schema::integer, char>(this) {}
+
+IntegerListType::IntegerListType(size_type n, const ::xml_schema::integer& x)
+    : ::xsd::cxx::tree::list< ::xml_schema::integer, char>(n, x, this) {}
+
+IntegerListType::IntegerListType(const IntegerListType& o, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::simple_type(o, f, c), ::xsd::cxx::tree::list< ::xml_schema::integer, char>(o, f, this) {}
 
 // LogLevelType
 //
@@ -3065,6 +3136,112 @@ SimulationInterceptorsType& SimulationInterceptorsType::operator=(const Simulati
 
 SimulationInterceptorsType::~SimulationInterceptorsType() {}
 
+// TargettedTemporaryConstantType
+//
+
+TargettedTemporaryConstantType::TargettedTemporaryConstantType(const force_type& force, const indices_type& indices,
+                                                               const start_time_type& start_time, const end_time_type& end_time)
+    : ::xml_schema::type(), force_(force, this), indices_(indices, this), start_time_(start_time, this), end_time_(end_time, this) {}
+
+TargettedTemporaryConstantType::TargettedTemporaryConstantType(::std::unique_ptr<force_type> force, const indices_type& indices,
+                                                               const start_time_type& start_time, const end_time_type& end_time)
+    : ::xml_schema::type(),
+      force_(std::move(force), this),
+      indices_(indices, this),
+      start_time_(start_time, this),
+      end_time_(end_time, this) {}
+
+TargettedTemporaryConstantType::TargettedTemporaryConstantType(const TargettedTemporaryConstantType& x, ::xml_schema::flags f,
+                                                               ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c),
+      force_(x.force_, f, this),
+      indices_(x.indices_, f, this),
+      start_time_(x.start_time_, f, this),
+      end_time_(x.end_time_, f, this) {}
+
+TargettedTemporaryConstantType::TargettedTemporaryConstantType(const ::xercesc::DOMElement& e, ::xml_schema::flags f,
+                                                               ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), force_(this), indices_(this), start_time_(this), end_time_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, true);
+        this->parse(p, f);
+    }
+}
+
+void TargettedTemporaryConstantType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    for (; p.more_content(); p.next_content(false)) {
+        const ::xercesc::DOMElement& i(p.cur_element());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        // force
+        //
+        if (n.name() == "force" && n.namespace_().empty()) {
+            ::std::unique_ptr<force_type> r(force_traits::create(i, f, this));
+
+            if (!force_.present()) {
+                this->force_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        break;
+    }
+
+    if (!force_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("force", "");
+    }
+
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        if (n.name() == "indices" && n.namespace_().empty()) {
+            this->indices_.set(indices_traits::create(i, f, this));
+            continue;
+        }
+
+        if (n.name() == "start_time" && n.namespace_().empty()) {
+            this->start_time_.set(start_time_traits::create(i, f, this));
+            continue;
+        }
+
+        if (n.name() == "end_time" && n.namespace_().empty()) {
+            this->end_time_.set(end_time_traits::create(i, f, this));
+            continue;
+        }
+    }
+
+    if (!indices_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("indices", "");
+    }
+
+    if (!start_time_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("start_time", "");
+    }
+
+    if (!end_time_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("end_time", "");
+    }
+}
+
+TargettedTemporaryConstantType* TargettedTemporaryConstantType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class TargettedTemporaryConstantType(*this, f, c);
+}
+
+TargettedTemporaryConstantType& TargettedTemporaryConstantType::operator=(const TargettedTemporaryConstantType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->force_ = x.force_;
+        this->indices_ = x.indices_;
+        this->start_time_ = x.start_time_;
+        this->end_time_ = x.end_time_;
+    }
+
+    return *this;
+}
+
+TargettedTemporaryConstantType::~TargettedTemporaryConstantType() {}
+
 // LennardJonesType
 //
 
@@ -3088,6 +3265,30 @@ LennardJonesType* LennardJonesType::_clone(::xml_schema::flags f, ::xml_schema::
 }
 
 LennardJonesType::~LennardJonesType() {}
+
+// LennardJonesRepulsiveType
+//
+
+LennardJonesRepulsiveType::LennardJonesRepulsiveType() : ::xml_schema::type() {}
+
+LennardJonesRepulsiveType::LennardJonesRepulsiveType(const LennardJonesRepulsiveType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c) {}
+
+LennardJonesRepulsiveType::LennardJonesRepulsiveType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f, c) {}
+
+LennardJonesRepulsiveType::LennardJonesRepulsiveType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(a, f, c) {}
+
+LennardJonesRepulsiveType::LennardJonesRepulsiveType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f,
+                                                     ::xml_schema::container* c)
+    : ::xml_schema::type(s, e, f, c) {}
+
+LennardJonesRepulsiveType* LennardJonesRepulsiveType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class LennardJonesRepulsiveType(*this, f, c);
+}
+
+LennardJonesRepulsiveType::~LennardJonesRepulsiveType() {}
 
 // GravitationalType
 //
@@ -3188,18 +3389,28 @@ HarmonicPotentialType::~HarmonicPotentialType() {}
 //
 
 ForcesType::ForcesType()
-    : ::xml_schema::type(), LennardJones_(this), Gravitational_(this), GlobalDownwardsGravity_(this), HarmonicPotential_(this) {}
+    : ::xml_schema::type(),
+      TargettedTemporaryConstant_(this),
+      LennardJones_(this),
+      LennardJonesRepulsive_(this),
+      Gravitational_(this),
+      GlobalDownwardsGravity_(this),
+      HarmonicPotential_(this) {}
 
 ForcesType::ForcesType(const ForcesType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
+      TargettedTemporaryConstant_(x.TargettedTemporaryConstant_, f, this),
       LennardJones_(x.LennardJones_, f, this),
+      LennardJonesRepulsive_(x.LennardJonesRepulsive_, f, this),
       Gravitational_(x.Gravitational_, f, this),
       GlobalDownwardsGravity_(x.GlobalDownwardsGravity_, f, this),
       HarmonicPotential_(x.HarmonicPotential_, f, this) {}
 
 ForcesType::ForcesType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
+      TargettedTemporaryConstant_(this),
       LennardJones_(this),
+      LennardJonesRepulsive_(this),
       Gravitational_(this),
       GlobalDownwardsGravity_(this),
       HarmonicPotential_(this) {
@@ -3214,6 +3425,17 @@ void ForcesType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flag
         const ::xercesc::DOMElement& i(p.cur_element());
         const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
 
+        // TargettedTemporaryConstant
+        //
+        if (n.name() == "TargettedTemporaryConstant" && n.namespace_().empty()) {
+            ::std::unique_ptr<TargettedTemporaryConstant_type> r(TargettedTemporaryConstant_traits::create(i, f, this));
+
+            if (!this->TargettedTemporaryConstant_) {
+                this->TargettedTemporaryConstant_.set(::std::move(r));
+                continue;
+            }
+        }
+
         // LennardJones
         //
         if (n.name() == "LennardJones" && n.namespace_().empty()) {
@@ -3221,6 +3443,17 @@ void ForcesType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flag
 
             if (!this->LennardJones_) {
                 this->LennardJones_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // LennardJonesRepulsive
+        //
+        if (n.name() == "LennardJonesRepulsive" && n.namespace_().empty()) {
+            ::std::unique_ptr<LennardJonesRepulsive_type> r(LennardJonesRepulsive_traits::create(i, f, this));
+
+            if (!this->LennardJonesRepulsive_) {
+                this->LennardJonesRepulsive_.set(::std::move(r));
                 continue;
             }
         }
@@ -3267,7 +3500,9 @@ ForcesType* ForcesType::_clone(::xml_schema::flags f, ::xml_schema::container* c
 ForcesType& ForcesType::operator=(const ForcesType& x) {
     if (this != &x) {
         static_cast< ::xml_schema::type&>(*this) = x;
+        this->TargettedTemporaryConstant_ = x.TargettedTemporaryConstant_;
         this->LennardJones_ = x.LennardJones_;
+        this->LennardJonesRepulsive_ = x.LennardJonesRepulsive_;
         this->Gravitational_ = x.Gravitational_;
         this->GlobalDownwardsGravity_ = x.GlobalDownwardsGravity_;
         this->HarmonicPotential_ = x.HarmonicPotential_;
@@ -3277,6 +3512,24 @@ ForcesType& ForcesType::operator=(const ForcesType& x) {
 }
 
 ForcesType::~ForcesType() {}
+
+// IntegerListType
+//
+
+IntegerListType::IntegerListType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::simple_type(e, f, c), ::xsd::cxx::tree::list< ::xml_schema::integer, char>(e, f, this) {}
+
+IntegerListType::IntegerListType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::simple_type(a, f, c), ::xsd::cxx::tree::list< ::xml_schema::integer, char>(a, f, this) {}
+
+IntegerListType::IntegerListType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::simple_type(s, e, f, c), ::xsd::cxx::tree::list< ::xml_schema::integer, char>(s, e, f, this) {}
+
+IntegerListType* IntegerListType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class IntegerListType(*this, f, c);
+}
+
+IntegerListType::~IntegerListType() {}
 
 // LogLevelType
 //
@@ -4341,11 +4594,53 @@ void operator<<(::xercesc::DOMElement& e, const SimulationInterceptorsType& i) {
     }
 }
 
+void operator<<(::xercesc::DOMElement& e, const TargettedTemporaryConstantType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // force
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("force", e));
+
+        s << i.force();
+    }
+
+    // indices
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("indices", e));
+
+        a << i.indices();
+    }
+
+    // start_time
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("start_time", e));
+
+        a << ::xml_schema::as_double(i.start_time());
+    }
+
+    // end_time
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("end_time", e));
+
+        a << ::xml_schema::as_double(i.end_time());
+    }
+}
+
 void operator<<(::xercesc::DOMElement& e, const LennardJonesType& i) { e << static_cast<const ::xml_schema::type&>(i); }
 
 void operator<<(::xercesc::DOMAttr&, const LennardJonesType&) {}
 
 void operator<<(::xml_schema::list_stream&, const LennardJonesType&) {}
+
+void operator<<(::xercesc::DOMElement& e, const LennardJonesRepulsiveType& i) { e << static_cast<const ::xml_schema::type&>(i); }
+
+void operator<<(::xercesc::DOMAttr&, const LennardJonesRepulsiveType&) {}
+
+void operator<<(::xml_schema::list_stream&, const LennardJonesRepulsiveType&) {}
 
 void operator<<(::xercesc::DOMElement& e, const GravitationalType& i) { e << static_cast<const ::xml_schema::type&>(i); }
 
@@ -4374,12 +4669,28 @@ void operator<<(::xml_schema::list_stream&, const HarmonicPotentialType&) {}
 void operator<<(::xercesc::DOMElement& e, const ForcesType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
 
+    // TargettedTemporaryConstant
+    //
+    if (i.TargettedTemporaryConstant()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("TargettedTemporaryConstant", e));
+
+        s << *i.TargettedTemporaryConstant();
+    }
+
     // LennardJones
     //
     if (i.LennardJones()) {
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("LennardJones", e));
 
         s << *i.LennardJones();
+    }
+
+    // LennardJonesRepulsive
+    //
+    if (i.LennardJonesRepulsive()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("LennardJonesRepulsive", e));
+
+        s << *i.LennardJonesRepulsive();
     }
 
     // Gravitational
@@ -4405,6 +4716,18 @@ void operator<<(::xercesc::DOMElement& e, const ForcesType& i) {
 
         s << *i.HarmonicPotential();
     }
+}
+
+void operator<<(::xercesc::DOMElement& e, const IntegerListType& i) {
+    e << static_cast<const ::xsd::cxx::tree::list< ::xml_schema::integer, char>&>(i);
+}
+
+void operator<<(::xercesc::DOMAttr& a, const IntegerListType& i) {
+    a << static_cast<const ::xsd::cxx::tree::list< ::xml_schema::integer, char>&>(i);
+}
+
+void operator<<(::xml_schema::list_stream& l, const IntegerListType& i) {
+    l << static_cast<const ::xsd::cxx::tree::list< ::xml_schema::integer, char>&>(i);
 }
 
 void operator<<(::xercesc::DOMElement& e, const LogLevelType& i) { e << static_cast<const ::xml_schema::string&>(i); }

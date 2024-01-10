@@ -51,6 +51,7 @@ void execute2DRectBenchmark() {
                                simulation_interceptors,
                                simple_force_sources,
                                pairwise_forces,
+                               {},
                                false,
                                "./output"};
     params_lc.num_particles = particles_lc.size();

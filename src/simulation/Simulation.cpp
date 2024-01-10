@@ -48,6 +48,7 @@ SimulationOverview Simulation::runSimulation() {
     particle_container->prepareForceCalculation();
     particle_container->applySimpleForces(params.simple_forces);
     particle_container->applyPairwiseForces(params.pairwise_forces);
+    particle_container->applyTargettedForces(params.targetted_forces, simulated_time);
 
     Logger::logger->info("Simulation started...");
 
@@ -62,7 +63,8 @@ SimulationOverview Simulation::runSimulation() {
     auto t_start = std::chrono::high_resolution_clock::now();
 
     while (simulated_time < params.end_time) {
-        integration_functor->step(particle_container, params.simple_forces, params.pairwise_forces, params.delta_t);
+        integration_functor->step(particle_container, params.simple_forces, params.pairwise_forces, params.targetted_forces, params.delta_t,
+                                  simulated_time);
 
         ++iteration;
         simulated_time += params.delta_t;

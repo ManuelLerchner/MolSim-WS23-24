@@ -4,7 +4,9 @@
 
 void VerletFunctor::step(std::unique_ptr<ParticleContainer>& particle_container,
                          const std::vector<std::shared_ptr<SimpleForceSource>>& simple_force_sources,
-                         const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_force_sources, double delta_t) const {
+                         const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_force_sources,
+                         const std::vector<std::shared_ptr<TargettedForceSource>>& targetted_force_sources, double delta_t,
+                         double curr_simulation_time) const {
     for (auto& p : *particle_container) {
         // update position
         const std::array<double, 3> new_x = p.getX() + delta_t * p.getV() + (delta_t * delta_t / (2 * p.getM())) * p.getF();
@@ -19,6 +21,7 @@ void VerletFunctor::step(std::unique_ptr<ParticleContainer>& particle_container,
     particle_container->prepareForceCalculation();
     particle_container->applySimpleForces(simple_force_sources);
     particle_container->applyPairwiseForces(pairwise_force_sources);
+    particle_container->applyTargettedForces(targetted_force_sources, curr_simulation_time);
 
     // update velocity
     for (auto& p : *particle_container) {
