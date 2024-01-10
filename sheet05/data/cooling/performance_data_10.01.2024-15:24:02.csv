@@ -1,0 +1,2 @@
+"num_particles";"particle_container";"delta_t";"total_time[s]";"particle_updates_per_second[1/s]";"total_iterations"
+512;"LinkedCells ([9.200000x9.200000x9.200000];2.300000;[Periodic|Periodic|Periodic|Periodic|Periodic|Periodic])";0.001;519.142;"N/A";250000
