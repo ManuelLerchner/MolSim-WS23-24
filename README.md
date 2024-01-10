@@ -18,8 +18,18 @@ This repo contains the code for the practical course **PSE: Molecular Dynamics**
 
 <!-- markdownlint-disable MD033 -->
 <a href="https://github.com/ManuelLerchner/MolSim-WS23-24/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=ManuelLerchner/MolSim-WS23-24" />
+  <img src="https://contrib.rocks/image?repo=ManuelLerchner/MolSim-WS23-24" alt="Contributors"/>
 </a>
+
+## Simulation Process
+
+The simulation is designed in a modular way. The following diagram shows the main components of the simulation and how they interact with each other.
+
+![Simulation Overview](./docs/images/simulation_overview.svg)
+
+- **Recursive Subsimulations:** The simulations can be run recursively when loading initial particle configurations from files. This allows to simulate complex systems with multiple particle types and different initial conditions inside a single simulation.
+- **Interceptor Pattern:** The simulation is designed to be easily extensible. This is achieved by using the interceptor pattern. This allows to add new features to the simulation without having to change the core simulation code. A Intercepor is a class that implements a certain interface and is registered in the simulation. The simulation then calls the interceptor at certain points during the simulation.
+- **Flexible Input File Format:** The simulation can be specified via a XML file. This allows to specify all the simulation parameters at once and makes it easy to run the same simulation multiple times with different parameters. The XML file format can be looked up in the [Input File Formats](@ref InputFileFormats) section.
 
 ## Submissions and Presentations
 
@@ -84,11 +94,9 @@ In this section we describe how to build the project. You can use the following 
 
   - Excecute `./MolSim --help` to get a detailed list of all options, parameters and their default values.
 
-  - An example run could look like this: `./MolSim ../../body_collision.cub -d 0.0002 -e 5`
+  - An example run could look like this: `./MolSim ../../body_collision.xml`
   
   - Further information about the possible input file formats can be found in the `/docs` directory.
-  
-    - **Note:** Input files can, and for some cases have to provide own simulation parameters. In case the user provides additional parameters via the command line, both sources of parameters are merged. If a conflict occurs, the command line parameters take precedence, since it was explicitly requested by the user. To avoid mixups, it is recommended to define all parameters in the input file and only use command line for small, temporary adjustments to avoid changing the input file.
 
 ### Run the tests
 
