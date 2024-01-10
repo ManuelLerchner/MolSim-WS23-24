@@ -65,9 +65,11 @@ void RadialDistributionFunctionInterceptor::saveCurrentRadialDistribution(size_t
         }
     }
 
-    for (size_t i = 0; i <= samples_per_bin_index.rbegin()->first; i++) {
-        if (samples_per_bin_index.find(i) == samples_per_bin_index.end()) {
-            samples_per_bin_index[i] = 0;
+    if (samples_per_bin_index.rbegin() != samples_per_bin_index.rend()) {
+        for (size_t i = 0; i <= samples_per_bin_index.rbegin()->first; i++) {
+            if (samples_per_bin_index.find(i) == samples_per_bin_index.end()) {
+                samples_per_bin_index[i] = 0;
+            }
         }
     }
 
