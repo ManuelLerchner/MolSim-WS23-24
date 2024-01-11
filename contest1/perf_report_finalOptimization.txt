@@ -1,0 +1,17 @@
+Samples: 47K of event 'cpu-clock', Event count (approx.): 11970500000
+Overhead  Command   Shared Object         Symbol
+  40,71%  contest1  contest1              [.] LinkedCellsContainer::applyPairwiseForces
+  17,81%  contest1  contest1              [.] Cell::addAlreadyInfluencedBy
+  14,11%  contest1  contest1              [.] LennardJonesForce::calculateForce
+   4,48%  contest1  contest1              [.] LinkedCellsContainer::updateCellsParticleReferences
+   3,73%  contest1  contest1              [.] Particle::setF
+   3,70%  contest1  libc.so.6             [.] _int_malloc
+   2,14%  contest1  libc.so.6             [.] _int_free
+   1,82%  contest1  contest1              [.] VerletFunctor::step
+   1,59%  contest1  contest1              [.] LinkedCellsContainer::particlePosToCell
+   1,34%  contest1  libc.so.6             [.] malloc
+   1,26%  contest1  contest1              [.] Cell::clearAlreadyInfluencedBy
+   1,09%  contest1  contest1              [.] Particle::getX
+   0,62%  contest1  contest1              [.] Cell::getParticleReferences
+   0,52%  contest1  contest1              [.] Cell::clearParticleReferences
+   0,51%  contest1  contest1              [.] Cell::getAlreadyInfluencedBy
