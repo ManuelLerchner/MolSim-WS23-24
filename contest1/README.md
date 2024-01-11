@@ -10,42 +10,60 @@ Members of **Team C**:
 
 * Link:     <https://github.com/ManuelLerchner/MolSim-WS23-24>
 * Branch:   performance_cluster
-* Revision: b878518 
-* Compiler: gcc 11.2.0 
+* Revision: b878518
+* Compiler: gcc 11.2.0
 
-# Results
-these ideas were already explored in the previous report, but for convenience here are the 
+## Starting point
+
+Before we started optimizing the code, we had the following baseline for running our benchmark:
+
+* **Time**: 42.476s
+* **MUP/s**: 235427
+
+The output of the unoptimized benchmark can be found in the file `MolSim-WS23-24/sheet04/data/Contest1_job_nooptimization.txt`
+
+## Optimization ideas
+
+These ideas were already explored in the previous report, but for convenience here are the
 relevant parts
-## Lookup table for Lennard-Jones parameters
 
-* Because we usually deal with a little number of distinct particles, we could avoid calculating the Lennard-Jones parameters for every particle pair by creating a lookup table with an entry for every pair of the different particle types.
+### Lookup table for Lennard-Jones parameters
+
+* Because we usually deal with a little number of distinct particles, we tried to avoid calculating the Lennard-Jones parameters for every particle pair by creating a lookup table with an entry for every pair of the different particle types. But this did not give us the speedup we hoped for:
 * On the Linux Cluster we measured:
-    * before optimization: 42.476s  with 235427 MUP/s (also the data for the contest)
-    * after first idea (data in `MolSim-WS23-24/sheet04/data/Contest1_job_optimized.txt`): 42s 853ms with 233355 MUP/s
+  * after first idea (data in `MolSim-WS23-24/sheet04/data/Contest1_job_optimized.txt`): 42s 853ms with 233355 MUP/s
 
+* So our optimization did not work as expected. This may be because the cached results from previous calculations get reused and the lookup table is not used as much as we thought it would be. Another (in our opinion more likely) reason is, that the memory lookup takes at least as long as the calculation (square roots, multiplication...) from scratch.
 
-* So our optimization did not work as expected. This may be because the compiler already reuses the calculations for the mixing rule
-  from previous loop iterations and thus the mapping logic just creates additional overhead.
+### Pointer calculation
 
-## Pointer calculation 
 * We found during the profiling, that the particle== operator takes up a lot of time. This is probably due to the fact that we remove halo particles from the system by finding them in the particle vector which is a linear search. Since we use mostly pointers to particle objects within our implementation, this search can be prevented by using the pointer difference to calculate the particles index in the particle vector and removing the corresponding entry.
-* This optimization gave a big speedup as expected. On the Linux Cluster we measured the following: 
-  * 31s 530ms with 317.158,26 MUP/s with
-  
+* This optimization gave a big speedup as expected. On the Linux Cluster we measured the following:
+  * 31s 530ms with 317158 MUP/s. This is about a 26% speedup compared to the original implementation.
+
+The profiling data that lead to this finding is in the file `MolSim-WS23-24/sheet04/data/profile_contest1_nooptimization.txt`
+
+## Fast math
+
+* Most of the remaining calculation time is spent in the `LinkedCellsContainer::applyPairwiseForces` and `__ieee754_pow_fma` functions. We tried using the "fast math" compiler flag to speed up the calculation of the Lennard-Jones potential and this gave us a speedup of another 23% on our machines. We hope the benchmark on the cluster finished before the deadline, so we can include the results here.
+
 ## SpeedUp
-* This becomes a speedup of about 26% compared to the original implementation.
+
+* In total this becomes a speedup of about 26% compared to the original implementation.
   <img src="./Contest_Speedup.pdf" width="128"/>
 
-## Final result
-* Measurement for the contest submission: 
+### Final result (before the Fast Math optimization)
+
+* Measurement for the contest submission:
   -> **31s 530ms** with **317.158,26 MUP/s**
 
-
 ## Reproducibility
-So everything can be reproduced, here are the instructions, given that the project has been compiled in the 
-    `build` directory following the README.md from the root directory:
-0. make sure to be on the `performance_cluster` branch
-1. remember to load the modules: `$ source load_CoolMucModules.sh`   
-2. switch to the `MolSim-WS23-24/build/benchmarks` directory
-3. compile the benchmarks: `$ make benchmarks`
-4. run the contest1 benchmark: `$ ./contest1`
+
+To make sure everything can be reproduced, here are the instructions, to compile and run the code on the Linux Cluster:
+
+1. Make sure to be on the `performance_cluster` branch
+2. Remember to load the modules: `$ source load_CoolMucModules.sh`
+3. Following the `build` instructions as described in the README.md to build the benchmarks.
+   * Make sure to configure cmake with the `-DCMAKE_BUILD_TYPE=Release` flag. This should be the default but its better to be sure.
+4. Switch to the `MolSim-WS23-24/build/benchmarks` directory
+5. Submit a job running the `$ ./contest1` executable to the cluster.
