@@ -43,7 +43,7 @@ relevant parts
 * This optimization gave a big speedup as expected. On the Linux Cluster we measured the following:
   * 31s 530ms with 317,158 MUP/s. This is about a 26% speedup compared to the original implementation.
 
-The profiling data that lead to this finding is in the file `MolSim-WS23-24/sheet04/data/profile_contest1_nooptimization.txt`
+The profiling data that lead to this finding of this optimization possibility is located in the file `MolSim-WS23-24/sheet04/data/profile_contest1_nooptimization.txt`
 
 ## Fast math
 
@@ -57,7 +57,7 @@ The profiling data that lead to this finding is in the file `MolSim-WS23-24/shee
 
 ## Conclusion
 
-* Using the pointer calculation and the fast math optimization the major runtime overhead of the Particle== operator and the std::pow function are removed. Which can be seen in the new profiling data ![PerfData](PerfAfterFastMathOptimization.jpg).
+* Using the pointer calculation and the fast math optimization the major runtime overhead of the Particle== operator and the std::pow function are removed. Which can be seen in the new profiling data(`MolSim-WS23-24/contest1/perf_report_finalOptimization.txt`).
 * An additional potential optimization would be a fixed ordering in cell-interactions for pairwise force calculation. That ordering could not only prevent duplicate force application, but would allow us to remove the remaining high costs of the `addAlreadyInfluencedBy()` function, since the corresponding datastructure could then be removed.
 
 ### Final result (before the Fast Math optimization)
