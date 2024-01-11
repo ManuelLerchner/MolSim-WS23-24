@@ -50,9 +50,9 @@ void FrameWriterInterceptor::logSummary(int depth) const {
         })->first;
 
     Logger::logger->info("{}╟┤{}Frame Writer: {}", indent, ansi_orange_bold, ansi_end);
-    Logger::logger->info("{}║  ┌Output format: {}", indent, output_format_s);
-    Logger::logger->info("{}║  ├Frames per second: {}", indent, fps);
-    Logger::logger->info("{}║  └Video length: {}", indent, video_length);
+    Logger::logger->info("{}║   ┌Output format: {}", indent, output_format_s);
+    Logger::logger->info("{}║   ├Frames per second: {}", indent, fps);
+    Logger::logger->info("{}║   └Video length: {}", indent, video_length);
 }
 
 FrameWriterInterceptor::operator std::string() const { return "Frame Writer: " + std::to_string(file_counter) + " files saved"; }

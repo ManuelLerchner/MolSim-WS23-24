@@ -2,6 +2,7 @@
 #include <chrono>
 #include <memory>
 
+#include "io/output/csv/CSVWriter.h"
 #include "physics/thermostats/Thermostat.h"
 #include "simulation/interceptors/SimulationInterceptor.h"
 

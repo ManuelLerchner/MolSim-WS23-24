@@ -31,9 +31,9 @@
       </old_force>
       <mass>13</mass>
       <type>14</type>
-      <epsilon>1</epsilon>
-      <sigma>1.2</sigma>
-      <is_locked>false</is_locked>
+      <epsilon>15</epsilon>
+      <sigma>16</sigma>
+      <is_locked>true</is_locked>
     </particle>
     <particle>
       <position>
@@ -58,8 +58,8 @@
       </old_force>
       <mass>27</mass>
       <type>28</type>
-      <epsilon>1</epsilon>
-      <sigma>1.2</sigma>
+      <epsilon>29</epsilon>
+      <sigma>30</sigma>
       <is_locked>false</is_locked>
     </particle>
   </ParticleData>

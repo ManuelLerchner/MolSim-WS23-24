@@ -158,6 +158,10 @@
   </xs:complexType>
 
 
+  <xs:complexType name="DiffusionFunctionInterceptorType">
+    <xs:attribute name="sample_every_x_percent" type="xs:double" use="required" />
+  </xs:complexType>
+
   <xs:complexType name="FrameWriterInterceptorType">
     <xs:attribute name="output_format" type="OutputFormatType" use="required" />
     <xs:attribute name="fps" type="xs:integer" use="required" />
@@ -165,6 +169,9 @@
   </xs:complexType>
 
   <xs:complexType name="ThermostatInterceptorType">
+    <xs:sequence>
+      <xs:element name="temperature_sensor" type="TemperatureSensorInterceptorType" minOccurs="0" />
+    </xs:sequence>
     <xs:attribute name="target_temperature" type="xs:double" use="required" />
     <xs:attribute name="max_temperature_change" type="xs:double" use="required" />
     <xs:attribute name="application_interval" type="xs:integer" use="required" />
@@ -185,11 +192,16 @@
     <xs:attribute name="sample_every_x_percent" type="xs:double" use="required" />
   </xs:complexType>
 
+  <xs:complexType name="TemperatureSensorInterceptorType">
+    <xs:attribute name="sample_every_x_percent" type="xs:double" use="required" />
+  </xs:complexType>
+
 
   <xs:complexType name="SimulationInterceptorsType">
     <xs:all>
       <xs:element name="ParticleUpdatesPerSecond" type="ParticleUpdatesPerSecondInterceptionType"
         minOccurs="0" />
+      <xs:element name="DiffusionFunction" type="DiffusionFunctionInterceptorType" minOccurs="0" />
       <xs:element name="RadialDistributionFunction"
         type="RadialDistributionFunctionInterceptionType" minOccurs="0" />
       <xs:element name="VelocityProfile" type="VelocityProfileInterceptionType" minOccurs="0" />
@@ -203,6 +215,11 @@
   <xs:complexType name="LennardJonesType">
   </xs:complexType>
 
+  <xs:complexType name="SmoothedLennardJonesType">
+    <xs:attribute name="r_c" type="xs:double" use="required" />
+    <xs:attribute name="r_l" type="xs:double" use="required" />
+  </xs:complexType>
+
   <xs:complexType name="GravitationalType">
   </xs:complexType>
 
@@ -214,6 +231,7 @@
   <xs:complexType name="ForcesType">
     <xs:all>
       <xs:element name="LennardJones" type="LennardJonesType" minOccurs="0" />
+      <xs:element name="SmoothedLennardJones" type="SmoothedLennardJonesType" minOccurs="0" />
       <xs:element name="Gravitational" type="GravitationalType" minOccurs="0" />
       <xs:element name="GlobalDownwardsGravity" type="GlobalGravityType" minOccurs="0" />
     </xs:all>

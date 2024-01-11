@@ -30,10 +30,10 @@ Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, dou
     x = x_arg;
     v = v_arg;
     m = m_arg;
-    epsilon = epsilon_arg;
-    f = {0., 0., 0.};
-    sigma = sigma_arg;
     type = type_arg;
+    f = {0., 0., 0.};
+    epsilon = epsilon_arg;
+    sigma = sigma_arg;
     locked = locked_arg;
     old_f = {0., 0., 0.};
     Logger::logger->debug("Particle created");

@@ -53,4 +53,12 @@ class RelativeThermostat : public Thermostat {
      */
     double getCurrentContainerTemperature(const std::unique_ptr<ParticleContainer>& particle_container,
                                           std::array<double, 3> average_velocity) const;
+
+    /**
+     * @brief Get the current temperature of a particle container.
+     *
+     * @param particle_container The particle container to get the temperature of.
+     * @return double The current temperature of the particle container.
+     */
+    double getCurrentContainerTemperature(const std::unique_ptr<ParticleContainer>& particle_container) const override;
 };

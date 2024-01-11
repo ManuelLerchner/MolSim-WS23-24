@@ -43,7 +43,8 @@ void SimulationOverview::savePerformanceDataCSV(const std::string& filename_pref
     auto formatted_time = fmt::format("{:%d.%m.%Y-%H:%M:%S}", fmt::localtime(now));
 
     CSVWriter csv_writer(
-        params.output_dir_path / (filename_prefix + (filename_prefix.empty() ? "" : "_") + "performance_data_" + formatted_time + ".csv"),
+        params.output_dir_path / "statistics" /
+            (filename_prefix + (filename_prefix.empty() ? "" : "_") + "performance_data_" + formatted_time + ".csv"),
         {"num_particles", "particle_container", "delta_t", "total_time[s]", "particle_updates_per_second[1/s]", "total_iterations"});
 
     // find ParticleUpdateCounterInterceptor

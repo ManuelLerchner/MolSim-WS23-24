@@ -48,3 +48,7 @@ double RelativeThermostat::getCurrentContainerTemperature(const std::unique_ptr<
                                                           std::array<double, 3> average_velocity) const {
     return 2 * getContainerKineticEnergy(particle_container, average_velocity) / (dimensions * particle_container->size());
 }
+
+double RelativeThermostat::getCurrentContainerTemperature(const std::unique_ptr<ParticleContainer>& particle_container) const {
+    return getCurrentContainerTemperature(particle_container, averageVelocity(particle_container));
+}

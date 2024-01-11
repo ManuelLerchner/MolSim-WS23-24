@@ -33,6 +33,14 @@ class Thermostat {
     virtual void scaleTemperature(const std::unique_ptr<ParticleContainer>& particle_container) const = 0;
 
     /**
+     * @brief Get the current temperature of a particle container.
+     *
+     * @param particle_container The particle container to get the temperature of.
+     * @return double The current temperature of the particle container.
+     */
+    virtual double getCurrentContainerTemperature(const std::unique_ptr<ParticleContainer>& particle_container) const = 0;
+
+    /**
      * @brief Set the initial temperature of a particle container. This function sets the velocity of all particles in the container to a
      * random value according to the Maxwell-Boltzmann distribution (all previous velocities are discarded).
      * Use this function for systems with no initial velocity.

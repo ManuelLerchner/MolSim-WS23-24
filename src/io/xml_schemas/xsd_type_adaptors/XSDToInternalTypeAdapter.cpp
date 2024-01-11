@@ -5,13 +5,16 @@
 #include "io/logger/Logger.h"
 #include "physics/pairwiseforces/GravitationalForce.h"
 #include "physics/pairwiseforces/LennardJonesForce.h"
+#include "physics/pairwiseforces/SmoothedLennardJonesForce.h"
 #include "physics/simpleforces/GlobalDownwardsGravity.h"
 #include "physics/thermostats/absolute_thermostat/AbsoluteThermostat.h"
 #include "physics/thermostats/relative_thermostat/RelativeThermostat.h"
+#include "simulation/interceptors/diffusion_function/DiffusionFunctionInterceptor.h"
 #include "simulation/interceptors/frame_writer/FrameWriterInterceptor.h"
 #include "simulation/interceptors/particle_update_counter/ParticleUpdateCounterInterceptor.h"
 #include "simulation/interceptors/progress_bar/ProgressBarInterceptor.h"
 #include "simulation/interceptors/radial_distribution_function/RadialDistributionFunctionInterceptor.h"
+#include "simulation/interceptors/temperature_sensor/TemperatureSensorInterceptor.h"
 #include "simulation/interceptors/thermostat/ThermostatInterceptor.h"
 #include "simulation/interceptors/velocity_profile/VelocityProfileInterceptor.h"
 
@@ -149,10 +152,22 @@ std::vector<std::shared_ptr<SimulationInterceptor>> XSDToInternalTypeAdapter::co
         }
 
         simulation_interceptors.push_back(std::make_shared<ThermostatInterceptor>(thermostat, application_interval));
+
+        if (xsd_thermostat.temperature_sensor()) {
+            auto temperature_sensor = *xsd_thermostat.temperature_sensor();
+            auto sample_every_x_percent = temperature_sensor.sample_every_x_percent();
+
+            simulation_interceptors.push_back(std::make_shared<TemperatureSensorInterceptor>(thermostat, sample_every_x_percent));
+        }
     }
 
     if (interceptors.ParticleUpdatesPerSecond()) {
         simulation_interceptors.push_back(std::make_shared<ParticleUpdateCounterInterceptor>());
+    }
+
+    if (interceptors.DiffusionFunction()) {
+        auto sample_every_x_percent = interceptors.DiffusionFunction()->sample_every_x_percent();
+        simulation_interceptors.push_back(std::make_shared<DiffusionFunctionInterceptor>(sample_every_x_percent));
     }
 
     if (interceptors.RadialDistributionFunction()) {
@@ -282,6 +297,11 @@ XSDToInternalTypeAdapter::convertToForces(const ForcesType& forces) {
 
     if (forces.LennardJones()) {
         pairwise_force_sources.push_back(std::make_shared<LennardJonesForce>());
+    }
+    if (forces.SmoothedLennardJones()) {
+        double r_c = (*forces.SmoothedLennardJones()).r_c();
+        double r_l = (*forces.SmoothedLennardJones()).r_l();
+        pairwise_force_sources.push_back(std::make_shared<SmoothedLennardJonesForce>(r_c, r_l));
     }
     if (forces.Gravitational()) {
         pairwise_force_sources.push_back(std::make_shared<GravitationalForce>());

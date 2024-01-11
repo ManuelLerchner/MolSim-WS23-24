@@ -144,17 +144,17 @@ ParticleType::type_type& ParticleType::type() { return this->type_.get(); }
 
 void ParticleType::type(const type_type& x) { this->type_.set(x); }
 
-const ParticleType::sigma_type& ParticleType::sigma() const { return this->sigma_.get(); }
-
-ParticleType::sigma_type& ParticleType::sigma() { return this->sigma_.get(); }
-
-void ParticleType::sigma(const sigma_type& x) { this->sigma_.set(x); }
-
 const ParticleType::epsilon_type& ParticleType::epsilon() const { return this->epsilon_.get(); }
 
 ParticleType::epsilon_type& ParticleType::epsilon() { return this->epsilon_.get(); }
 
 void ParticleType::epsilon(const epsilon_type& x) { this->epsilon_.set(x); }
+
+const ParticleType::sigma_type& ParticleType::sigma() const { return this->sigma_.get(); }
+
+ParticleType::sigma_type& ParticleType::sigma() { return this->sigma_.get(); }
+
+void ParticleType::sigma(const sigma_type& x) { this->sigma_.set(x); }
 
 const ParticleType::is_locked_type& ParticleType::is_locked() const { return this->is_locked_.get(); }
 
@@ -399,8 +399,8 @@ ParticleDataType::~ParticleDataType() {}
 //
 
 ParticleType::ParticleType(const position_type& position, const velocity_type& velocity, const force_type& force,
-                           const old_force_type& old_force, const mass_type& mass, const type_type& type, const sigma_type& sigma,
-                           const epsilon_type& epsilon, const is_locked_type& is_locked)
+                           const old_force_type& old_force, const mass_type& mass, const type_type& type, const epsilon_type& epsilon,
+                           const sigma_type& sigma, const is_locked_type& is_locked)
     : ::xml_schema::type(),
       position_(position, this),
       velocity_(velocity, this),
@@ -408,13 +408,13 @@ ParticleType::ParticleType(const position_type& position, const velocity_type& v
       old_force_(old_force, this),
       mass_(mass, this),
       type_(type, this),
-      sigma_(sigma, this),
       epsilon_(epsilon, this),
+      sigma_(sigma, this),
       is_locked_(is_locked, this) {}
 
 ParticleType::ParticleType(::std::unique_ptr<position_type> position, ::std::unique_ptr<velocity_type> velocity,
                            ::std::unique_ptr<force_type> force, ::std::unique_ptr<old_force_type> old_force, const mass_type& mass,
-                           const type_type& type, const sigma_type& sigma, const epsilon_type& epsilon, const is_locked_type& is_locked)
+                           const type_type& type, const epsilon_type& epsilon, const sigma_type& sigma, const is_locked_type& is_locked)
     : ::xml_schema::type(),
       position_(std::move(position), this),
       velocity_(std::move(velocity), this),
@@ -422,8 +422,8 @@ ParticleType::ParticleType(::std::unique_ptr<position_type> position, ::std::uni
       old_force_(std::move(old_force), this),
       mass_(mass, this),
       type_(type, this),
-      sigma_(sigma, this),
       epsilon_(epsilon, this),
+      sigma_(sigma, this),
       is_locked_(is_locked, this) {}
 
 ParticleType::ParticleType(const ParticleType& x, ::xml_schema::flags f, ::xml_schema::container* c)
@@ -434,8 +434,8 @@ ParticleType::ParticleType(const ParticleType& x, ::xml_schema::flags f, ::xml_s
       old_force_(x.old_force_, f, this),
       mass_(x.mass_, f, this),
       type_(x.type_, f, this),
-      sigma_(x.sigma_, f, this),
       epsilon_(x.epsilon_, f, this),
+      sigma_(x.sigma_, f, this),
       is_locked_(x.is_locked_, f, this) {}
 
 ParticleType::ParticleType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
@@ -446,8 +446,8 @@ ParticleType::ParticleType(const ::xercesc::DOMElement& e, ::xml_schema::flags f
       old_force_(this),
       mass_(this),
       type_(this),
-      sigma_(this),
       epsilon_(this),
+      sigma_(this),
       is_locked_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
@@ -522,20 +522,20 @@ void ParticleType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::fl
             }
         }
 
-        // sigma
-        //
-        if (n.name() == "sigma" && n.namespace_().empty()) {
-            if (!sigma_.present()) {
-                this->sigma_.set(sigma_traits::create(i, f, this));
-                continue;
-            }
-        }
-
         // epsilon
         //
         if (n.name() == "epsilon" && n.namespace_().empty()) {
             if (!epsilon_.present()) {
                 this->epsilon_.set(epsilon_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // sigma
+        //
+        if (n.name() == "sigma" && n.namespace_().empty()) {
+            if (!sigma_.present()) {
+                this->sigma_.set(sigma_traits::create(i, f, this));
                 continue;
             }
         }
@@ -576,12 +576,12 @@ void ParticleType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::fl
         throw ::xsd::cxx::tree::expected_element<char>("type", "");
     }
 
-    if (!sigma_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("sigma", "");
-    }
-
     if (!epsilon_.present()) {
         throw ::xsd::cxx::tree::expected_element<char>("epsilon", "");
+    }
+
+    if (!sigma_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("sigma", "");
     }
 
     if (!is_locked_.present()) {
@@ -600,8 +600,8 @@ ParticleType& ParticleType::operator=(const ParticleType& x) {
         this->old_force_ = x.old_force_;
         this->mass_ = x.mass_;
         this->type_ = x.type_;
-        this->sigma_ = x.sigma_;
         this->epsilon_ = x.epsilon_;
+        this->sigma_ = x.sigma_;
         this->is_locked_ = x.is_locked_;
     }
 
@@ -962,20 +962,20 @@ void operator<<(::xercesc::DOMElement& e, const ParticleType& i) {
         s << i.type();
     }
 
-    // sigma
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sigma", e));
-
-        s << ::xml_schema::as_double(i.sigma());
-    }
-
     // epsilon
     //
     {
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("epsilon", e));
 
         s << ::xml_schema::as_double(i.epsilon());
+    }
+
+    // sigma
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sigma", e));
+
+        s << ::xml_schema::as_double(i.sigma());
     }
 
     // is_locked
