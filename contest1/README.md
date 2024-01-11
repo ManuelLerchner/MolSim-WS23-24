@@ -13,6 +13,8 @@ Members of **Team C**:
 * Revision: b878518
 * Compiler: gcc 11.2.0
 
+> **Note: The .txt files given in this report can be found on the presentation branch of the repository**
+
 ## Starting point
 
 Before we started optimizing the code, we had the following baseline for running our benchmark:
@@ -52,6 +54,11 @@ The profiling data that lead to this finding is in the file `MolSim-WS23-24/shee
 * The optimized pointer calculation yields a runtime of about 74% compared to the original implementation.
 * Adding the local gain of the fast-math optimization, theoretically another 23% of the runtime can be cut, reaching as low as ~57% ( = 1.0 * 0.74 * 0.77) of the original runtime.
   * This second optimization has yet to be confirmed on the cluster.
+
+## Conclusion
+
+* Using the pointer calculation and the fast math optimization the major runtime overhead of the Particle== operator and the std::pow function are removed. Which can be seen in the new profiling data ![PerfData](PerfAfterFastMathOptimization.jpg).
+* An additional potential optimization would be a fixed ordering in cell-interactions for pairwise force calculation. That ordering could not only prevent duplicate force application, but would allow us to remove the remaining high costs of the `addAlreadyInfluencedBy()` function, since the corresponding datastructure could then be removed.
 
 ### Final result (before the Fast Math optimization)
 
