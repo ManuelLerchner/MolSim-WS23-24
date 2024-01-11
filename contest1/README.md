@@ -10,7 +10,7 @@ Members of **Team C**:
 
 * Link:     <https://github.com/ManuelLerchner/MolSim-WS23-24>
 * Branch:   performance_cluster
-* Revision: 1340473 <TODO>
+* Revision: fd7797d 
 * Compiler: gcc 11.2.0 
 
 # Results
@@ -45,7 +45,7 @@ relevant parts
 So everything can be reproduced, here are the instructions, given that the project has been compiled in the 
     `build` directory following the README.md from the root directory:
 0. make sure to be on the `performance_cluster` branch
-1. remember to load the modules: `$ source load_CoolMucModules.sh`   <TODO>
+1. remember to load the modules: `$ source load_CoolMucModules.sh`   
 2. switch to the `MolSim-WS23-24/build/benchmarks` directory
 3. compile the benchmarks: `$ make benchmarks`
 4. run the contest1 benchmark: `$ ./contest1`
