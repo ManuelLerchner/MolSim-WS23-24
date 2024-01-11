@@ -1540,6 +1540,94 @@ class ParticleType : public ::xml_schema::type {
     //@}
 
     /**
+     * @name epsilon
+     *
+     * @brief Accessor and modifier functions for the %epsilon
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::double_ epsilon_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<epsilon_type, char, ::xsd::cxx::tree::schema_type::double_> epsilon_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const epsilon_type& epsilon() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    epsilon_type& epsilon();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void epsilon(const epsilon_type& x);
+
+    //@}
+
+    /**
+     * @name sigma
+     *
+     * @brief Accessor and modifier functions for the %sigma
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::double_ sigma_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<sigma_type, char, ::xsd::cxx::tree::schema_type::double_> sigma_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const sigma_type& sigma() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    sigma_type& sigma();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void sigma(const sigma_type& x);
+
+    //@}
+
+    /**
      * @name Constructors
      */
     //@{
@@ -1548,7 +1636,8 @@ class ParticleType : public ::xml_schema::type {
      * @brief Create an instance from the ultimate base and
      * initializers for required elements and attributes.
      */
-    ParticleType(const position_type&, const velocity_type&, const force_type&, const old_force_type&, const mass_type&, const type_type&);
+    ParticleType(const position_type&, const velocity_type&, const force_type&, const old_force_type&, const mass_type&, const type_type&,
+                 const epsilon_type&, const sigma_type&);
 
     /**
      * @brief Create an instance from the ultimate base and
@@ -1559,7 +1648,7 @@ class ParticleType : public ::xml_schema::type {
      * instead of making copies.
      */
     ParticleType(::std::unique_ptr<position_type>, ::std::unique_ptr<velocity_type>, ::std::unique_ptr<force_type>,
-                 ::std::unique_ptr<old_force_type>, const mass_type&, const type_type&);
+                 ::std::unique_ptr<old_force_type>, const mass_type&, const type_type&, const epsilon_type&, const sigma_type&);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -1627,6 +1716,8 @@ class ParticleType : public ::xml_schema::type {
     ::xsd::cxx::tree::one<old_force_type> old_force_;
     ::xsd::cxx::tree::one<mass_type> mass_;
     ::xsd::cxx::tree::one<type_type> type_;
+    ::xsd::cxx::tree::one<epsilon_type> epsilon_;
+    ::xsd::cxx::tree::one<sigma_type> sigma_;
 
     //@endcond
 };

@@ -4,13 +4,16 @@
 #include "physics/pairwiseforces/GravitationalForce.h"
 #include "physics/pairwiseforces/LennardJonesForce.h"
 #include "physics/pairwiseforces/LennardJonesRepulsiveForce.h"
+#include "physics/pairwiseforces/SmoothedLennardJonesForce.h"
 #include "physics/simpleforces/GlobalDownwardsGravity.h"
 #include "physics/simpleforces/HarmonicForce.h"
 #include "physics/targettedforces/TargettedTemporaryConstantForce.h"
+#include "simulation/interceptors/diffusion_function/DiffusionFunctionInterceptor.h"
 #include "simulation/interceptors/frame_writer/FrameWriterInterceptor.h"
 #include "simulation/interceptors/particle_update_counter/ParticleUpdateCounterInterceptor.h"
 #include "simulation/interceptors/progress_bar/ProgressBarInterceptor.h"
 #include "simulation/interceptors/radial_distribution_function/RadialDistributionFunctionInterceptor.h"
+#include "simulation/interceptors/temperature_sensor/TemperatureSensorInterceptor.h"
 #include "simulation/interceptors/thermostat/ThermostatInterceptor.h"
 
 CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawnerType& cuboid, bool third_dimension) {
@@ -153,12 +156,26 @@ std::vector<std::shared_ptr<SimulationInterceptor>> XSDToInternalTypeAdapter::co
     std::vector<std::shared_ptr<SimulationInterceptor>> simulation_interceptors;
 
     if (interceptors.Thermostat()) {
-        auto thermostat = convertToThermostat(*interceptors.Thermostat(), third_dimension);
+        auto xsd_thermostat = *interceptors.Thermostat();
+
+        auto thermostat = convertToThermostat(xsd_thermostat, third_dimension);
         simulation_interceptors.push_back(std::make_shared<ThermostatInterceptor>(thermostat));
+
+        if (xsd_thermostat.temperature_sensor()) {
+            auto temperature_sensor = *xsd_thermostat.temperature_sensor();
+            auto sample_every_x_percent = temperature_sensor.sample_every_x_percent();
+
+            simulation_interceptors.push_back(std::make_shared<TemperatureSensorInterceptor>(thermostat, sample_every_x_percent));
+        }
     }
 
     if (interceptors.ParticleUpdatesPerSecond()) {
         simulation_interceptors.push_back(std::make_shared<ParticleUpdateCounterInterceptor>());
+    }
+
+    if (interceptors.DiffusionFunction()) {
+        auto sample_every_x_percent = interceptors.DiffusionFunction()->sample_every_x_percent();
+        simulation_interceptors.push_back(std::make_shared<DiffusionFunctionInterceptor>(sample_every_x_percent));
     }
 
     if (interceptors.RadialDistributionFunction()) {
@@ -261,13 +278,15 @@ Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particl
     auto old_force = XSDToInternalTypeAdapter::convertToVector(particle.old_force());
     auto type = particle.type();
     auto mass = particle.mass();
+    auto epsilon = particle.epsilon();
+    auto sigma = particle.sigma();
 
     if (mass <= 0) {
         Logger::logger->error("Particle mass must be positive");
         throw std::runtime_error("Particle mass must be positive");
     }
 
-    return Particle{position, velocity, force, old_force, mass, static_cast<int>(type)};
+    return Particle{position, velocity, force, old_force, mass, static_cast<int>(type), epsilon, sigma};
 }
 
 std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::shared_ptr<PairwiseForceSource>>,
@@ -292,6 +311,11 @@ XSDToInternalTypeAdapter::convertToForces(const ForcesType& forces) {
     }
     if (forces.LennardJonesRepulsive()) {
         pairwise_force_sources.push_back(std::make_shared<LennardJonesRepulsiveForce>());
+    }
+    if (forces.SmoothedLennardJones()) {
+        double r_c = (*forces.SmoothedLennardJones()).r_c();
+        double r_l = (*forces.SmoothedLennardJones()).r_l();
+        pairwise_force_sources.push_back(std::make_shared<SmoothedLennardJonesForce>(r_c, r_l));
     }
     if (forces.Gravitational()) {
         pairwise_force_sources.push_back(std::make_shared<GravitationalForce>());

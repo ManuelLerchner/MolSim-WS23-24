@@ -31,6 +31,8 @@
       </old_force>
       <mass>13</mass>
       <type>14</type>
+      <epsilon>15</epsilon>
+      <sigma>16</sigma>
     </particle>
     <particle>
       <position>
@@ -55,6 +57,8 @@
       </old_force>
       <mass>27</mass>
       <type>28</type>
+      <epsilon>29</epsilon>
+      <sigma>30</sigma>
     </particle>
   </ParticleData>
 </CheckPoint>

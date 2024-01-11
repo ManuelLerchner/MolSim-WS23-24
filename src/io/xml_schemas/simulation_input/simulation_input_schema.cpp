@@ -650,6 +650,21 @@ void RadialDistributionFunctionInterceptionType::sample_every_x_percent(const sa
     this->sample_every_x_percent_.set(x);
 }
 
+// DiffusionFunctionInterceptorType
+//
+
+const DiffusionFunctionInterceptorType::sample_every_x_percent_type& DiffusionFunctionInterceptorType::sample_every_x_percent() const {
+    return this->sample_every_x_percent_.get();
+}
+
+DiffusionFunctionInterceptorType::sample_every_x_percent_type& DiffusionFunctionInterceptorType::sample_every_x_percent() {
+    return this->sample_every_x_percent_.get();
+}
+
+void DiffusionFunctionInterceptorType::sample_every_x_percent(const sample_every_x_percent_type& x) {
+    this->sample_every_x_percent_.set(x);
+}
+
 // FrameWriterInterceptorType
 //
 
@@ -679,6 +694,22 @@ void FrameWriterInterceptorType::video_length_s(const video_length_s_type& x) { 
 
 // ThermostatInterceptorType
 //
+
+const ThermostatInterceptorType::temperature_sensor_optional& ThermostatInterceptorType::temperature_sensor() const {
+    return this->temperature_sensor_;
+}
+
+ThermostatInterceptorType::temperature_sensor_optional& ThermostatInterceptorType::temperature_sensor() {
+    return this->temperature_sensor_;
+}
+
+void ThermostatInterceptorType::temperature_sensor(const temperature_sensor_type& x) { this->temperature_sensor_.set(x); }
+
+void ThermostatInterceptorType::temperature_sensor(const temperature_sensor_optional& x) { this->temperature_sensor_ = x; }
+
+void ThermostatInterceptorType::temperature_sensor(::std::unique_ptr<temperature_sensor_type> x) {
+    this->temperature_sensor_.set(std::move(x));
+}
 
 const ThermostatInterceptorType::target_temperature_type& ThermostatInterceptorType::target_temperature() const {
     return this->target_temperature_.get();
@@ -710,6 +741,21 @@ ThermostatInterceptorType::application_interval_type& ThermostatInterceptorType:
 
 void ThermostatInterceptorType::application_interval(const application_interval_type& x) { this->application_interval_.set(x); }
 
+// TemperatureSensorInterceptorType
+//
+
+const TemperatureSensorInterceptorType::sample_every_x_percent_type& TemperatureSensorInterceptorType::sample_every_x_percent() const {
+    return this->sample_every_x_percent_.get();
+}
+
+TemperatureSensorInterceptorType::sample_every_x_percent_type& TemperatureSensorInterceptorType::sample_every_x_percent() {
+    return this->sample_every_x_percent_.get();
+}
+
+void TemperatureSensorInterceptorType::sample_every_x_percent(const sample_every_x_percent_type& x) {
+    this->sample_every_x_percent_.set(x);
+}
+
 // SimulationInterceptorsType
 //
 
@@ -731,6 +777,20 @@ void SimulationInterceptorsType::ParticleUpdatesPerSecond(const ParticleUpdatesP
 
 void SimulationInterceptorsType::ParticleUpdatesPerSecond(::std::unique_ptr<ParticleUpdatesPerSecond_type> x) {
     this->ParticleUpdatesPerSecond_.set(std::move(x));
+}
+
+const SimulationInterceptorsType::DiffusionFunction_optional& SimulationInterceptorsType::DiffusionFunction() const {
+    return this->DiffusionFunction_;
+}
+
+SimulationInterceptorsType::DiffusionFunction_optional& SimulationInterceptorsType::DiffusionFunction() { return this->DiffusionFunction_; }
+
+void SimulationInterceptorsType::DiffusionFunction(const DiffusionFunction_type& x) { this->DiffusionFunction_.set(x); }
+
+void SimulationInterceptorsType::DiffusionFunction(const DiffusionFunction_optional& x) { this->DiffusionFunction_ = x; }
+
+void SimulationInterceptorsType::DiffusionFunction(::std::unique_ptr<DiffusionFunction_type> x) {
+    this->DiffusionFunction_.set(std::move(x));
 }
 
 const SimulationInterceptorsType::RadialDistributionFunction_optional& SimulationInterceptorsType::RadialDistributionFunction() const {
@@ -812,6 +872,21 @@ void TargettedTemporaryConstantType::end_time(const end_time_type& x) { this->en
 // LennardJonesRepulsiveType
 //
 
+// SmoothedLennardJonesType
+//
+
+const SmoothedLennardJonesType::r_c_type& SmoothedLennardJonesType::r_c() const { return this->r_c_.get(); }
+
+SmoothedLennardJonesType::r_c_type& SmoothedLennardJonesType::r_c() { return this->r_c_.get(); }
+
+void SmoothedLennardJonesType::r_c(const r_c_type& x) { this->r_c_.set(x); }
+
+const SmoothedLennardJonesType::r_l_type& SmoothedLennardJonesType::r_l() const { return this->r_l_.get(); }
+
+SmoothedLennardJonesType::r_l_type& SmoothedLennardJonesType::r_l() { return this->r_l_.get(); }
+
+void SmoothedLennardJonesType::r_l(const r_l_type& x) { this->r_l_.set(x); }
+
 // GravitationalType
 //
 
@@ -863,6 +938,16 @@ void ForcesType::LennardJonesRepulsive(const LennardJonesRepulsive_type& x) { th
 void ForcesType::LennardJonesRepulsive(const LennardJonesRepulsive_optional& x) { this->LennardJonesRepulsive_ = x; }
 
 void ForcesType::LennardJonesRepulsive(::std::unique_ptr<LennardJonesRepulsive_type> x) { this->LennardJonesRepulsive_.set(std::move(x)); }
+
+const ForcesType::SmoothedLennardJones_optional& ForcesType::SmoothedLennardJones() const { return this->SmoothedLennardJones_; }
+
+ForcesType::SmoothedLennardJones_optional& ForcesType::SmoothedLennardJones() { return this->SmoothedLennardJones_; }
+
+void ForcesType::SmoothedLennardJones(const SmoothedLennardJones_type& x) { this->SmoothedLennardJones_.set(x); }
+
+void ForcesType::SmoothedLennardJones(const SmoothedLennardJones_optional& x) { this->SmoothedLennardJones_ = x; }
+
+void ForcesType::SmoothedLennardJones(::std::unique_ptr<SmoothedLennardJones_type> x) { this->SmoothedLennardJones_.set(std::move(x)); }
 
 const ForcesType::Gravitational_optional& ForcesType::Gravitational() const { return this->Gravitational_; }
 
@@ -2887,6 +2972,56 @@ RadialDistributionFunctionInterceptionType& RadialDistributionFunctionIntercepti
 
 RadialDistributionFunctionInterceptionType::~RadialDistributionFunctionInterceptionType() {}
 
+// DiffusionFunctionInterceptorType
+//
+
+DiffusionFunctionInterceptorType::DiffusionFunctionInterceptorType(const sample_every_x_percent_type& sample_every_x_percent)
+    : ::xml_schema::type(), sample_every_x_percent_(sample_every_x_percent, this) {}
+
+DiffusionFunctionInterceptorType::DiffusionFunctionInterceptorType(const DiffusionFunctionInterceptorType& x, ::xml_schema::flags f,
+                                                                   ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c), sample_every_x_percent_(x.sample_every_x_percent_, f, this) {}
+
+DiffusionFunctionInterceptorType::DiffusionFunctionInterceptorType(const ::xercesc::DOMElement& e, ::xml_schema::flags f,
+                                                                   ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), sample_every_x_percent_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
+        this->parse(p, f);
+    }
+}
+
+void DiffusionFunctionInterceptorType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        if (n.name() == "sample_every_x_percent" && n.namespace_().empty()) {
+            this->sample_every_x_percent_.set(sample_every_x_percent_traits::create(i, f, this));
+            continue;
+        }
+    }
+
+    if (!sample_every_x_percent_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("sample_every_x_percent", "");
+    }
+}
+
+DiffusionFunctionInterceptorType* DiffusionFunctionInterceptorType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class DiffusionFunctionInterceptorType(*this, f, c);
+}
+
+DiffusionFunctionInterceptorType& DiffusionFunctionInterceptorType::operator=(const DiffusionFunctionInterceptorType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->sample_every_x_percent_ = x.sample_every_x_percent_;
+    }
+
+    return *this;
+}
+
+DiffusionFunctionInterceptorType::~DiffusionFunctionInterceptorType() {}
+
 // FrameWriterInterceptorType
 //
 
@@ -2967,28 +3102,49 @@ ThermostatInterceptorType::ThermostatInterceptorType(const target_temperature_ty
                                                      const max_temperature_change_type& max_temperature_change,
                                                      const application_interval_type& application_interval)
     : ::xml_schema::type(),
+      temperature_sensor_(this),
       target_temperature_(target_temperature, this),
       max_temperature_change_(max_temperature_change, this),
       application_interval_(application_interval, this) {}
 
 ThermostatInterceptorType::ThermostatInterceptorType(const ThermostatInterceptorType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
+      temperature_sensor_(x.temperature_sensor_, f, this),
       target_temperature_(x.target_temperature_, f, this),
       max_temperature_change_(x.max_temperature_change_, f, this),
       application_interval_(x.application_interval_, f, this) {}
 
 ThermostatInterceptorType::ThermostatInterceptorType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
+      temperature_sensor_(this),
       target_temperature_(this),
       max_temperature_change_(this),
       application_interval_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, true);
         this->parse(p, f);
     }
 }
 
 void ThermostatInterceptorType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    for (; p.more_content(); p.next_content(false)) {
+        const ::xercesc::DOMElement& i(p.cur_element());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        // temperature_sensor
+        //
+        if (n.name() == "temperature_sensor" && n.namespace_().empty()) {
+            ::std::unique_ptr<temperature_sensor_type> r(temperature_sensor_traits::create(i, f, this));
+
+            if (!this->temperature_sensor_) {
+                this->temperature_sensor_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        break;
+    }
+
     while (p.more_attributes()) {
         const ::xercesc::DOMAttr& i(p.next_attribute());
         const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
@@ -3029,6 +3185,7 @@ ThermostatInterceptorType* ThermostatInterceptorType::_clone(::xml_schema::flags
 ThermostatInterceptorType& ThermostatInterceptorType::operator=(const ThermostatInterceptorType& x) {
     if (this != &x) {
         static_cast< ::xml_schema::type&>(*this) = x;
+        this->temperature_sensor_ = x.temperature_sensor_;
         this->target_temperature_ = x.target_temperature_;
         this->max_temperature_change_ = x.max_temperature_change_;
         this->application_interval_ = x.application_interval_;
@@ -3039,16 +3196,72 @@ ThermostatInterceptorType& ThermostatInterceptorType::operator=(const Thermostat
 
 ThermostatInterceptorType::~ThermostatInterceptorType() {}
 
+// TemperatureSensorInterceptorType
+//
+
+TemperatureSensorInterceptorType::TemperatureSensorInterceptorType(const sample_every_x_percent_type& sample_every_x_percent)
+    : ::xml_schema::type(), sample_every_x_percent_(sample_every_x_percent, this) {}
+
+TemperatureSensorInterceptorType::TemperatureSensorInterceptorType(const TemperatureSensorInterceptorType& x, ::xml_schema::flags f,
+                                                                   ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c), sample_every_x_percent_(x.sample_every_x_percent_, f, this) {}
+
+TemperatureSensorInterceptorType::TemperatureSensorInterceptorType(const ::xercesc::DOMElement& e, ::xml_schema::flags f,
+                                                                   ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), sample_every_x_percent_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
+        this->parse(p, f);
+    }
+}
+
+void TemperatureSensorInterceptorType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        if (n.name() == "sample_every_x_percent" && n.namespace_().empty()) {
+            this->sample_every_x_percent_.set(sample_every_x_percent_traits::create(i, f, this));
+            continue;
+        }
+    }
+
+    if (!sample_every_x_percent_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("sample_every_x_percent", "");
+    }
+}
+
+TemperatureSensorInterceptorType* TemperatureSensorInterceptorType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class TemperatureSensorInterceptorType(*this, f, c);
+}
+
+TemperatureSensorInterceptorType& TemperatureSensorInterceptorType::operator=(const TemperatureSensorInterceptorType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->sample_every_x_percent_ = x.sample_every_x_percent_;
+    }
+
+    return *this;
+}
+
+TemperatureSensorInterceptorType::~TemperatureSensorInterceptorType() {}
+
 // SimulationInterceptorsType
 //
 
 SimulationInterceptorsType::SimulationInterceptorsType()
-    : ::xml_schema::type(), ParticleUpdatesPerSecond_(this), RadialDistributionFunction_(this), FrameWriter_(this), Thermostat_(this) {}
+    : ::xml_schema::type(),
+      ParticleUpdatesPerSecond_(this),
+      DiffusionFunction_(this),
+      RadialDistributionFunction_(this),
+      FrameWriter_(this),
+      Thermostat_(this) {}
 
 SimulationInterceptorsType::SimulationInterceptorsType(const SimulationInterceptorsType& x, ::xml_schema::flags f,
                                                        ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
       ParticleUpdatesPerSecond_(x.ParticleUpdatesPerSecond_, f, this),
+      DiffusionFunction_(x.DiffusionFunction_, f, this),
       RadialDistributionFunction_(x.RadialDistributionFunction_, f, this),
       FrameWriter_(x.FrameWriter_, f, this),
       Thermostat_(x.Thermostat_, f, this) {}
@@ -3056,6 +3269,7 @@ SimulationInterceptorsType::SimulationInterceptorsType(const SimulationIntercept
 SimulationInterceptorsType::SimulationInterceptorsType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
       ParticleUpdatesPerSecond_(this),
+      DiffusionFunction_(this),
       RadialDistributionFunction_(this),
       FrameWriter_(this),
       Thermostat_(this) {
@@ -3077,6 +3291,17 @@ void SimulationInterceptorsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::
 
             if (!this->ParticleUpdatesPerSecond_) {
                 this->ParticleUpdatesPerSecond_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // DiffusionFunction
+        //
+        if (n.name() == "DiffusionFunction" && n.namespace_().empty()) {
+            ::std::unique_ptr<DiffusionFunction_type> r(DiffusionFunction_traits::create(i, f, this));
+
+            if (!this->DiffusionFunction_) {
+                this->DiffusionFunction_.set(::std::move(r));
                 continue;
             }
         }
@@ -3126,6 +3351,7 @@ SimulationInterceptorsType& SimulationInterceptorsType::operator=(const Simulati
     if (this != &x) {
         static_cast< ::xml_schema::type&>(*this) = x;
         this->ParticleUpdatesPerSecond_ = x.ParticleUpdatesPerSecond_;
+        this->DiffusionFunction_ = x.DiffusionFunction_;
         this->RadialDistributionFunction_ = x.RadialDistributionFunction_;
         this->FrameWriter_ = x.FrameWriter_;
         this->Thermostat_ = x.Thermostat_;
@@ -3290,6 +3516,64 @@ LennardJonesRepulsiveType* LennardJonesRepulsiveType::_clone(::xml_schema::flags
 
 LennardJonesRepulsiveType::~LennardJonesRepulsiveType() {}
 
+// SmoothedLennardJonesType
+//
+
+SmoothedLennardJonesType::SmoothedLennardJonesType(const r_c_type& r_c, const r_l_type& r_l)
+    : ::xml_schema::type(), r_c_(r_c, this), r_l_(r_l, this) {}
+
+SmoothedLennardJonesType::SmoothedLennardJonesType(const SmoothedLennardJonesType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c), r_c_(x.r_c_, f, this), r_l_(x.r_l_, f, this) {}
+
+SmoothedLennardJonesType::SmoothedLennardJonesType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), r_c_(this), r_l_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
+        this->parse(p, f);
+    }
+}
+
+void SmoothedLennardJonesType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        if (n.name() == "r_c" && n.namespace_().empty()) {
+            this->r_c_.set(r_c_traits::create(i, f, this));
+            continue;
+        }
+
+        if (n.name() == "r_l" && n.namespace_().empty()) {
+            this->r_l_.set(r_l_traits::create(i, f, this));
+            continue;
+        }
+    }
+
+    if (!r_c_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("r_c", "");
+    }
+
+    if (!r_l_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("r_l", "");
+    }
+}
+
+SmoothedLennardJonesType* SmoothedLennardJonesType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class SmoothedLennardJonesType(*this, f, c);
+}
+
+SmoothedLennardJonesType& SmoothedLennardJonesType::operator=(const SmoothedLennardJonesType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->r_c_ = x.r_c_;
+        this->r_l_ = x.r_l_;
+    }
+
+    return *this;
+}
+
+SmoothedLennardJonesType::~SmoothedLennardJonesType() {}
+
 // GravitationalType
 //
 
@@ -3393,6 +3677,7 @@ ForcesType::ForcesType()
       TargettedTemporaryConstant_(this),
       LennardJones_(this),
       LennardJonesRepulsive_(this),
+      SmoothedLennardJones_(this),
       Gravitational_(this),
       GlobalDownwardsGravity_(this),
       HarmonicPotential_(this) {}
@@ -3402,6 +3687,7 @@ ForcesType::ForcesType(const ForcesType& x, ::xml_schema::flags f, ::xml_schema:
       TargettedTemporaryConstant_(x.TargettedTemporaryConstant_, f, this),
       LennardJones_(x.LennardJones_, f, this),
       LennardJonesRepulsive_(x.LennardJonesRepulsive_, f, this),
+      SmoothedLennardJones_(x.SmoothedLennardJones_, f, this),
       Gravitational_(x.Gravitational_, f, this),
       GlobalDownwardsGravity_(x.GlobalDownwardsGravity_, f, this),
       HarmonicPotential_(x.HarmonicPotential_, f, this) {}
@@ -3411,6 +3697,7 @@ ForcesType::ForcesType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::
       TargettedTemporaryConstant_(this),
       LennardJones_(this),
       LennardJonesRepulsive_(this),
+      SmoothedLennardJones_(this),
       Gravitational_(this),
       GlobalDownwardsGravity_(this),
       HarmonicPotential_(this) {
@@ -3454,6 +3741,17 @@ void ForcesType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flag
 
             if (!this->LennardJonesRepulsive_) {
                 this->LennardJonesRepulsive_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // SmoothedLennardJones
+        //
+        if (n.name() == "SmoothedLennardJones" && n.namespace_().empty()) {
+            ::std::unique_ptr<SmoothedLennardJones_type> r(SmoothedLennardJones_traits::create(i, f, this));
+
+            if (!this->SmoothedLennardJones_) {
+                this->SmoothedLennardJones_.set(::std::move(r));
                 continue;
             }
         }
@@ -3503,6 +3801,7 @@ ForcesType& ForcesType::operator=(const ForcesType& x) {
         this->TargettedTemporaryConstant_ = x.TargettedTemporaryConstant_;
         this->LennardJones_ = x.LennardJones_;
         this->LennardJonesRepulsive_ = x.LennardJonesRepulsive_;
+        this->SmoothedLennardJones_ = x.SmoothedLennardJones_;
         this->Gravitational_ = x.Gravitational_;
         this->GlobalDownwardsGravity_ = x.GlobalDownwardsGravity_;
         this->HarmonicPotential_ = x.HarmonicPotential_;
@@ -4502,6 +4801,18 @@ void operator<<(::xercesc::DOMElement& e, const RadialDistributionFunctionInterc
     }
 }
 
+void operator<<(::xercesc::DOMElement& e, const DiffusionFunctionInterceptorType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // sample_every_x_percent
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("sample_every_x_percent", e));
+
+        a << ::xml_schema::as_double(i.sample_every_x_percent());
+    }
+}
+
 void operator<<(::xercesc::DOMElement& e, const FrameWriterInterceptorType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
 
@@ -4533,6 +4844,14 @@ void operator<<(::xercesc::DOMElement& e, const FrameWriterInterceptorType& i) {
 void operator<<(::xercesc::DOMElement& e, const ThermostatInterceptorType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
 
+    // temperature_sensor
+    //
+    if (i.temperature_sensor()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("temperature_sensor", e));
+
+        s << *i.temperature_sensor();
+    }
+
     // target_temperature
     //
     {
@@ -4558,6 +4877,18 @@ void operator<<(::xercesc::DOMElement& e, const ThermostatInterceptorType& i) {
     }
 }
 
+void operator<<(::xercesc::DOMElement& e, const TemperatureSensorInterceptorType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // sample_every_x_percent
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("sample_every_x_percent", e));
+
+        a << ::xml_schema::as_double(i.sample_every_x_percent());
+    }
+}
+
 void operator<<(::xercesc::DOMElement& e, const SimulationInterceptorsType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
 
@@ -4567,6 +4898,14 @@ void operator<<(::xercesc::DOMElement& e, const SimulationInterceptorsType& i) {
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("ParticleUpdatesPerSecond", e));
 
         s << *i.ParticleUpdatesPerSecond();
+    }
+
+    // DiffusionFunction
+    //
+    if (i.DiffusionFunction()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("DiffusionFunction", e));
+
+        s << *i.DiffusionFunction();
     }
 
     // RadialDistributionFunction
@@ -4642,6 +4981,26 @@ void operator<<(::xercesc::DOMAttr&, const LennardJonesRepulsiveType&) {}
 
 void operator<<(::xml_schema::list_stream&, const LennardJonesRepulsiveType&) {}
 
+void operator<<(::xercesc::DOMElement& e, const SmoothedLennardJonesType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // r_c
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("r_c", e));
+
+        a << ::xml_schema::as_double(i.r_c());
+    }
+
+    // r_l
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("r_l", e));
+
+        a << ::xml_schema::as_double(i.r_l());
+    }
+}
+
 void operator<<(::xercesc::DOMElement& e, const GravitationalType& i) { e << static_cast<const ::xml_schema::type&>(i); }
 
 void operator<<(::xercesc::DOMAttr&, const GravitationalType&) {}
@@ -4691,6 +5050,14 @@ void operator<<(::xercesc::DOMElement& e, const ForcesType& i) {
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("LennardJonesRepulsive", e));
 
         s << *i.LennardJonesRepulsive();
+    }
+
+    // SmoothedLennardJones
+    //
+    if (i.SmoothedLennardJones()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("SmoothedLennardJones", e));
+
+        s << *i.SmoothedLennardJones();
     }
 
     // Gravitational
