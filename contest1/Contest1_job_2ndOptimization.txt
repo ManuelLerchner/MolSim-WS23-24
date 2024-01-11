@@ -1,43 +1,46 @@
-[16:47:08] [info] Starting 2DRect-benchmark. Dimensions 100x100...
-[16:47:08] [warning] File '2DParticleRect.xml' does not exist. Using hash 0.
-[16:47:08] [info] ╔════════════════════════════════════════
-[16:47:08] [info] ╟┤Simulation arguments:
-[16:47:08] [info] ║  Input file path: /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/2DParticleRect.xml
-[16:47:08] [info] ║  Output directory path: /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/./output/2DParticleRect
-[16:47:08] [info] ║  Delta_t: 0.0005
-[16:47:08] [info] ║  End_time: 0.5
-[16:47:08] [info] ║  Reuse cached data: true
-[16:47:08] [info] ╟┤Physical setup:
-[16:47:08] [info] ║  Number of particles: 10000
-[16:47:08] [info] ║  Number of forces: 1
-[16:47:08] [info] ║  Forces: GlobalDownwardsGravity, LennardJones,
-[16:47:08] [info] ╟┤Container:
-[16:47:08] [info] ║  Linked Cells
-[16:47:08] [info] ║  Domain size: 300 x 54 x 3
-[16:47:08] [info] ║  Cutoff radius: 3
-[16:47:08] [info] ║   ┌Left: Periodic
-[16:47:08] [info] ║   ├Right: Periodic
-[16:47:08] [info] ║   ├Bottom: Reflective
-[16:47:08] [info] ║   ├Top: Reflective
-[16:47:08] [info] ║   ├Back: Outflow
-[16:47:08] [info] ║   └Front: Outflow
-[16:47:08] [info] ╟┤Interceptors:
-[16:47:08] [info] ╟┤Thermostat:
-[16:47:08] [info] ║   ┌Target temperature: 40
-[16:47:08] [info] ║   ├Maximum temperature change: inf
-[16:47:08] [info] ║   └Application interval: 1000
-[16:47:08] [info] ╚════════════════════════════════════════
-[16:47:09] [info] Simulation started...
-[16:47:09] [info] Start time: Wednesday 2024-01-10 16:47:09
-[16:47:50] [info] Simulation finished.
-[16:47:50] [info] End time: Wednesday 2024-01-10 16:47:50
-[16:47:50] [info] ╔════════════════════════════════════════
-[16:47:50] [info] ╟┤Simulation overview:
-[16:47:50] [info] ║  Input file: /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/2DParticleRect.xml
-[16:47:50] [info] ║  Output directory: /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/./output/2DParticleRect
-[16:47:50] [info] ║  Simulation time: 0h 0m 41s 307ms
-[16:47:50] [info] ║  Number of iterations: 1000
-[16:47:50] [info] ║  Number of particles left: 10000
-[16:47:50] [info] ╟┤Interceptor Logs:
-[16:47:50] [info] ║   └No interceptors
-[16:47:50] [info] ╚════════════════════════════════════════
+[17:35:47] [warning] File '2DParticleRect.xml' does not exist. Using hash 0.
+[17:35:47] [info] ╔════════════════════════════════════════
+[17:35:47] [info] ╟┤Simulation arguments:
+[17:35:47] [info] ║  Input file path: /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/2DParticleRect.xml
+[17:35:47] [info] ║  Output directory path: /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/./output/2DParticleRect
+[17:35:47] [info] ║  Delta_t: 0.0005
+[17:35:47] [info] ║  End_time: 0.5
+[17:35:47] [info] ║  Reuse cached data: true
+[17:35:47] [info] ╟┤Physical setup:
+[17:35:47] [info] ║  Number of particles: 10000
+[17:35:47] [info] ║  Number of forces: 1
+[17:35:47] [info] ║  Forces: GlobalDownwardsGravity, LennardJones,
+[17:35:47] [info] ╟┤Container:
+[17:35:47] [info] ║  Linked Cells
+[17:35:47] [info] ║  Domain size: 300 x 54 x 3
+[17:35:47] [info] ║  Cutoff radius: 2.5
+[17:35:47] [info] ║   ┌Left: Periodic
+[17:35:47] [info] ║   ├Right: Periodic
+[17:35:47] [info] ║   ├Bottom: Reflective
+[17:35:47] [info] ║   ├Top: Reflective
+[17:35:47] [info] ║   ├Back: Outflow
+[17:35:47] [info] ║   └Front: Outflow
+[17:35:47] [info] ╟┤Interceptors:
+[17:35:47] [info] ╟┤Thermostat:
+[17:35:47] [info] ║   ┌Target temperature: 40
+[17:35:47] [info] ║   ├Maximum temperature change: inf
+[17:35:47] [info] ║   └Application interval: 1000
+[17:35:47] [info] ╚════════════════════════════════════════
+[17:35:47] [info] Simulation started...
+[17:35:47] [info] Start time: Wednesday 2024-01-10 17:35:47
+[17:36:18] [info] Simulation finished.
+[17:36:18] [info] End time: Wednesday 2024-01-10 17:36:18
+[17:36:18] [info] ╔════════════════════════════════════════
+[17:36:18] [info] ╟┤Simulation overview:
+[17:36:18] [info] ║  Input file: /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/2DParticleRect.xml
+[17:36:18] [info] ║  Output directory: /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/./output/2DParticleRect
+[17:36:18] [info] ║  Simulation time: 0h 0m 31s 530ms
+[17:36:18] [info] ║  Number of iterations: 1000
+[17:36:18] [info] ║  Number of particles left: 10000
+[17:36:18] [info] ╟┤Interceptor Logs:
+[17:36:18] [info] ║   └No interceptors
+[17:36:18] [info] ╚════════════════════════════════════════
+[17:36:18] [info] Creating CSVWriter for file /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/./output/2DParticleRect/Contest_performance_data_10.01.2024-17:36:18.csv...
+[17:36:18] [info] File /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/./output/2DParticleRect/Contest_performance_data_10.01.2024-17:36:18.csv does not exist, creating it!
+[17:36:18] [warning] Overwriting file /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/./output/2DParticleRect/Contest_performance_data_10.01.2024-17:36:18.csv...
+[17:36:18] [info] Closing CSVWriter for file /dss/dsshome1/lxc0B/di29waz/project/MolSim-WS23-24/build/benchmarks/./output/2DParticleRect/Contest_performance_data_10.01.2024-17:36:18.csv...
