@@ -70,7 +70,7 @@ class Particle {
      *
      * entry = (ptr_diff, l_0, k)
      */
-    std::vector<std::tuple<int, double, double>> connected_particles;
+    std::vector<std::tuple<long, double, double>> connected_particles;
 
    public:
     Particle(const Particle& other);
@@ -154,16 +154,16 @@ class Particle {
     /**
      * @brief Gets the list of connected particles
      */
-    [[nodiscard]] const std::vector<std::tuple<int, double, double>>& getConnectedParticles() const;
+    [[nodiscard]] std::vector<std::tuple<long, double, double>>& getConnectedParticles();
 
     /**
      * @brief Adds a connected particle
      *
-     * @param particle Particle to add
+     * @param ptr_diff
      * @param l_0 Prefered distance between the particles
      * @param k Spring constant
      */
-    void addConnectedParticle(int particle, double l_0, double k);
+    void addConnectedParticle(long ptr_diff, double l_0, double k);
 
     bool operator==(Particle& other);
 

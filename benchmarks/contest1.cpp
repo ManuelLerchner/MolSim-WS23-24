@@ -13,6 +13,7 @@
 #include "physics/simpleforces/GlobalDownwardsGravity.h"
 #include "physics/thermostats/Thermostat.cpp"
 #include "simulation/Simulation.h"
+#include "simulation/interceptors/particle_update_counter/ParticleUpdateCounterInterceptor.h"
 #include "simulation/interceptors/thermostat/ThermostatInterceptor.h"
 #include "utils/ArrayUtils.h"
 
@@ -39,6 +40,7 @@ void execute2DRectBenchmark() {
     Thermostat thermostat{40, std::numeric_limits<double>::infinity(), static_cast<size_t>(1000), false};
     std::vector<std::shared_ptr<SimulationInterceptor>> simulation_interceptors;
     simulation_interceptors.push_back(std::make_shared<ThermostatInterceptor>(thermostat));
+    simulation_interceptors.push_back(std::make_shared<ParticleUpdateCounterInterceptor>());
 
     std::vector<Particle> particles_lc;
     spawner1.spawnParticles(particles_lc);

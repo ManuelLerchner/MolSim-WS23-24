@@ -57,14 +57,14 @@ class SoftBodyCuboidSpawner : public ParticleSpawner {
     const std::array<double, 3> initial_velocity;
 
     /**
-     * @brief Defines whether the third dimension is enabled
-     */
-    const bool third_dimension;
-
-    /**
      * @brief Defines the initial temperature of the particles in the cuboid
      */
     const double initial_temperature;
+
+    /**
+     * @brief Defines whether the third dimension is enabled
+     */
+    const bool third_dimension;
 
    public:
     /**
@@ -78,8 +78,8 @@ class SoftBodyCuboidSpawner : public ParticleSpawner {
      * @param epsilon Lennard-Jones epsilon parameter of the particles in the cuboid
      * @param sigma Lennard-Jones sigma parameter of the particles in the cuboid
      * @param spring_constant Spring constant of the harmonic springs
-     * @param third_dimension Whether to spawn particles in the third dimension
      * @param initial_temperature Initial temperature of the particles
+     * @param third_dimension Whether to spawn particles in the third dimension
      *
      * Constructor to initialize the cuboid spawner. The velocity of the particles is jittered by a Maxwell-Boltzmann distribution.
      */
