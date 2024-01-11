@@ -10,7 +10,7 @@ Members of **Team C**:
 
 * Link:     <https://github.com/ManuelLerchner/MolSim-WS23-24>
 * Branch:   performance_cluster
-* Revision: fd7797d 
+* Revision: b878518 
 * Compiler: gcc 11.2.0 
 
 # Results
