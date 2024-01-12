@@ -103,7 +103,7 @@ TEST(SoftBodyParticleSpawner, CheckLinksWithinSoftBody) {
 
     EXPECT_EQ(particles[1].getConnectedParticles().size(), expected_links_1.size());
 
-    for (int i = 0; i < particles[1].getConnectedParticles().size(); i++) {
+    for (size_t i = 0; i < particles[1].getConnectedParticles().size(); i++) {
         EXPECT_EQ(std::get<0>(particles[1].getConnectedParticles()[i]), std::get<0>(expected_links_1[i]));
         std::cout << (&(particles[1]) + std::get<0>(particles[1].getConnectedParticles()[i]))->getX() << std::endl;
         EXPECT_EQ(std::get<1>(particles[1].getConnectedParticles()[i]), std::get<1>(expected_links_1[i]));
@@ -140,7 +140,7 @@ TEST(SoftBodyParticleSpawner, CheckLinksWithinSoftBody) {
     };
 
     EXPECT_EQ(particles[45].getConnectedParticles().size(), expected_links_45.size());
-    for (int i = 0; i < particles[45].getConnectedParticles().size(); i++) {
+    for (size_t i = 0; i < particles[45].getConnectedParticles().size(); i++) {
         EXPECT_EQ(std::get<0>(particles[45].getConnectedParticles()[i]), std::get<0>(expected_links_45[i]));
         std::cout << (&(particles[45]) + std::get<0>(particles[45].getConnectedParticles()[i]))->getX() << std::endl;
         EXPECT_EQ(std::get<1>(particles[45].getConnectedParticles()[i]), std::get<1>(expected_links_45[i]));
