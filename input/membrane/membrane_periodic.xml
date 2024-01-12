@@ -5,30 +5,30 @@
 
     <settings>
         <delta_t>0.01</delta_t>
-        <end_time>400.0</end_time>
+        <end_time>750.0</end_time>
         <third_dimension>true</third_dimension>
         <particle_container>
             <linkedcells_container>
                 <domain_size>
                     <x>148.0</x>
-                    <y>40.0</y>
+                    <y>30.0</y>
                     <z>148.0</z>
                 </domain_size>
                 <cutoff_radius>4.0</cutoff_radius>
                 <boundary_conditions>
-                    <left>Reflective</left>
-                    <right>Reflective</right>
+                    <left>Periodic</left>
+                    <right>Periodic</right>
                     <bottom>Periodic</bottom>
                     <top>Periodic</top>
-                    <back>Reflective</back>
-                    <front>Reflective</front>
+                    <back>Periodic</back>
+                    <front>Periodic</front>
                 </boundary_conditions>
             </linkedcells_container>
         </particle_container>
         <forces>
             <TargettedTemporaryConstant indices="874 875 924 925" start_time="0" end_time="150">
                 <force>
-                    <x>0</x>
+                    <x>0.8</x>
                     <y>0.8</y>
                     <z>0</z>
                 </force>
@@ -46,7 +46,7 @@
     <particle_source>
         <soft_body_cuboid_spawner>
             <lower_left_front_corner>
-                <x>15.0</x>
+                <x>30.0</x>
                 <y>15.0</y>
                 <z>15.0</z>
             </lower_left_front_corner>

@@ -69,7 +69,7 @@ double DiffusionFunctionInterceptor::calculateCurrentDiffusion(const Simulation&
             auto& container = std::get<SimulationParams::LinkedCellsType>(simulation.params.container_type);
             auto& box_size = container.domain_size;
 
-            for (size_t i = 0; i < 2; i++) {
+            for (size_t i = 0; i < displacement.size(); i++) {
                 if (std::abs(displacement[i]) > box_size[i] / 2) {
                     displacement[i] = box_size[i] - std::abs(displacement[i]);
                 }

@@ -121,7 +121,7 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::filesy
 
     auto interceptors = XSDToInternalTypeAdapter::convertToSimulationInterceptors(settings.interceptors(), settings.third_dimension());
 
-    auto forces = XSDToInternalTypeAdapter::convertToForces(settings.forces());
+    auto forces = XSDToInternalTypeAdapter::convertToForces(settings.forces(), container_type);
 
     auto params = SimulationParams{curr_file_path,      settings.delta_t(),  settings.end_time(), container_type, interceptors,
                                    std::get<0>(forces), std::get<1>(forces), std::get<2>(forces), fresh,          output_base_path};

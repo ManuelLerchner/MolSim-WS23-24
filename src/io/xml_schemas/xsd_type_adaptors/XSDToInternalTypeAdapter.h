@@ -111,11 +111,13 @@ class XSDToInternalTypeAdapter {
      * @brief Converts a force type from the XSD format to the internal format
      *
      * @param forces List of forces in the XSD format
+     * @param container_data Container data as a variant of DirectSumType and LinkedCellsType
      * @return Tuple with lists of simple and pairwise forces parsed from the given list of forces in the XSD format
      */
     static std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::shared_ptr<PairwiseForceSource>>,
                       std::vector<std::shared_ptr<TargettedForceSource>>>
-    convertToForces(const ForcesType& forces);
+    convertToForces(const ForcesType& forces,
+                    const std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType>& container_data);
 
     /**
      * @brief Converts a double vector from the XSD format to the internal format

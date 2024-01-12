@@ -209,7 +209,7 @@ void PeriodicBoundaryType::addPeriodicHaloParticlesForEdge(LinkedCellsContainer&
     running_array[1] = (offset[1] < 0) ? container.domain_num_cells[1] - 1 : 0;
     running_array[2] = (offset[2] < 0) ? container.domain_num_cells[2] - 1 : 0;
 
-    for (int c = 0; c < container.domain_num_cells[2]; ++c) {
+    for (int c = 0; c < container.domain_num_cells[free_dimension]; ++c) {
         Cell* cell = &container.cells.at(container.cellCoordToCellIndex(running_array[0], running_array[1], running_array[2]));
         for (Particle* p : cell->getParticleReferences()) {
             Particle ghost_particle = Particle(*p);

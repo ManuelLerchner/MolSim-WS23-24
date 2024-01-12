@@ -291,7 +291,8 @@ Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particl
 
 std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::shared_ptr<PairwiseForceSource>>,
            std::vector<std::shared_ptr<TargettedForceSource>>>
-XSDToInternalTypeAdapter::convertToForces(const ForcesType& forces) {
+XSDToInternalTypeAdapter::convertToForces(
+    const ForcesType& forces, const std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType>& container_data) {
     std::vector<std::shared_ptr<SimpleForceSource>> simple_force_sources;
     std::vector<std::shared_ptr<PairwiseForceSource>> pairwise_force_sources;
     std::vector<std::shared_ptr<TargettedForceSource>> targetted_force_sources;
@@ -302,7 +303,7 @@ XSDToInternalTypeAdapter::convertToForces(const ForcesType& forces) {
         simple_force_sources.push_back(std::make_shared<GlobalDownwardsGravity>(g));
     }
     if (forces.HarmonicPotential()) {
-        simple_force_sources.push_back(std::make_shared<HarmonicForce>());
+        simple_force_sources.push_back(std::make_shared<HarmonicForce>(container_data));
     }
 
     // Pairwise Forces
