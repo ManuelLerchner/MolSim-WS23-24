@@ -8,7 +8,9 @@
 #pragma once
 
 #include <array>
+#include <memory>
 #include <string>
+#include <vector>
 
 /**
  * @brief Class to represent a particle
@@ -64,6 +66,16 @@ class Particle {
      * @brief Wheter the particle is loccked in space
      */
     bool locked;
+
+    /**
+     * @brief List of connected particles
+     *
+     * List of connected particles. Each entry is a tuple of a weak pointer to the connected particle, and the prefered distance between the
+     * the particles and the spring constant. The prefered distance is the distance at which the spring force is zero.
+     *
+     * entry = (ptr_diff, l_0, k)
+     */
+    std::vector<std::tuple<long, double, double>> connected_particles;
 
    public:
     Particle(const Particle& other);
@@ -153,6 +165,20 @@ class Particle {
      * @brief Gets whether the particle is locked in space
      */
     [[nodiscard]] bool isLocked() const;
+
+    /**
+     * @brief Gets the list of connected particles
+     */
+    [[nodiscard]] std::vector<std::tuple<long, double, double>>& getConnectedParticles();
+
+    /**
+     * @brief Adds a connected particle
+     *
+     * @param ptr_diff
+     * @param l_0 Prefered distance between the particles
+     * @param k Spring constant
+     */
+    void addConnectedParticle(long ptr_diff, double l_0, double k);
 
     bool operator==(Particle& other);
 

@@ -41,6 +41,7 @@ void execute2DRectBenchmark(int rect_width, int rect_height, double spacing, dou
                                {},
                                {},
                                forces,
+                               {},
                                true};
     params_lc.num_particles = particles_lc.size();
     Simulation simulation_lc(particles_lc, params_lc);

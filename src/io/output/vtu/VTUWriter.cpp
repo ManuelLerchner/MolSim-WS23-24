@@ -50,9 +50,9 @@ void VTUWriter::plotParticle(VTKFile_t& vtuFile, const Particle& p) {
     data_iterator->push_back(p.getV()[2]);
 
     data_iterator++;
-    data_iterator->push_back(p.getOldF()[0]);
-    data_iterator->push_back(p.getOldF()[1]);
-    data_iterator->push_back(p.getOldF()[2]);
+    data_iterator->push_back(p.getF()[0]);
+    data_iterator->push_back(p.getF()[1]);
+    data_iterator->push_back(p.getF()[2]);
 
     data_iterator++;
     data_iterator->push_back(p.getType());

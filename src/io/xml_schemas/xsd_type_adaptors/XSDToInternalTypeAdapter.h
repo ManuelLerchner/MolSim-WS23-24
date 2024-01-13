@@ -9,6 +9,7 @@
 #include "io/xml_schemas/simulation_input/simulation_input_schema.h"
 #include "particles/containers/linkedcells/LinkedCellsContainer.h"
 #include "particles/spawners/cuboid/CuboidSpawner.h"
+#include "particles/spawners/soft_body_cuboid/SoftBodyCuboidSpawner.h"
 #include "particles/spawners/sphere/SphereSpawner.h"
 #include "simulation/SimulationParams.h"
 
@@ -25,6 +26,15 @@ class XSDToInternalTypeAdapter {
      * @return CuboidSpawner parsed from the given cuboid in the XSD format
      */
     static CuboidSpawner convertToCuboidSpawner(const CuboidSpawnerType& cuboid, bool third_dimension);
+
+    /**
+     * @brief Converts a soft body cuboid from the XSD format to the internal format
+     *
+     * @param soft_body_cuboid Soft body cuboid in the XSD format
+     * @param third_dimension Whether the third dimension is enabled
+     * @return SoftBodyCuboidSpawner parsed from the given soft body cuboid in the XSD format
+     */
+    static SoftBodyCuboidSpawner convertToSoftBodyCuboidSpawner(const SoftBodySpawnerType& soft_body_cuboid, bool third_dimension);
 
     /**
      * @brief Converts a sphere from the XSD format to the internal format
@@ -93,10 +103,13 @@ class XSDToInternalTypeAdapter {
      * @brief Converts a force type from the XSD format to the internal format
      *
      * @param forces List of forces in the XSD format
+     * @param container_data Container data as a variant of DirectSumType and LinkedCellsType
      * @return Tuple with lists of simple and pairwise forces parsed from the given list of forces in the XSD format
      */
-    static std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::shared_ptr<PairwiseForceSource>>> convertToForces(
-        const ForcesType& forces);
+    static std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::shared_ptr<PairwiseForceSource>>,
+                      std::vector<std::shared_ptr<TargettedForceSource>>>
+    convertToForces(const ForcesType& forces,
+                    const std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType>& container_data);
 
     /**
      * @brief Converts a double vector from the XSD format to the internal format

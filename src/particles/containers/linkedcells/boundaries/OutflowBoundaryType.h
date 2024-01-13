@@ -23,7 +23,4 @@ class OutflowBoundaryType {
      * This method is empty, as the outflow boundary condition does not require any special treatment.
      */
     static void applyBoundaryConditions(LinkedCellsContainer& container);
-
-   private:
-    static std::array<double, 3> calculateReflectiveBoundaryForce(Particle& p, double distance, LinkedCellsContainer::BoundarySide side);
 };

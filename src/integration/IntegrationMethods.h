@@ -16,4 +16,4 @@ enum class IntegrationMethod { VERLET };
  * @param method Integration method to get the functor for
  * @return std::unique_ptr<IntegrationFunctor> Integration functor for the given integration method
  */
-const std::unique_ptr<IntegrationFunctor> get_integration_functor(IntegrationMethod method);
+std::unique_ptr<IntegrationFunctor> get_integration_functor(IntegrationMethod method);
