@@ -24,22 +24,22 @@ class Particle {
     /**
      * @brief Position of the particle
      */
-    std::array<double, 3> x;
+    std::array<double, 3> x{};
 
     /**
      * @brief Velocity of the particle
      */
-    std::array<double, 3> v;
+    std::array<double, 3> v{};
 
     /**
      * @brief Force effective on this particle
      */
-    std::array<double, 3> f;
+    std::array<double, 3> f{};
 
     /**
      * @brief Force which was effective on this particle
      */
-    std::array<double, 3> old_f;
+    std::array<double, 3> old_f{};
 
     /**
      * @brief Mass of this particle
@@ -63,6 +63,11 @@ class Particle {
     double sigma;
 
     /**
+     * @brief Wheter the particle is loccked in space
+     */
+    bool locked;
+
+    /**
      * @brief List of connected particles
      *
      * List of connected particles. Each entry is a tuple of a weak pointer to the connected particle, and the prefered distance between the
@@ -76,10 +81,10 @@ class Particle {
     Particle(const Particle& other);
 
     Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type = 0, double epsilon_arg = 1.0,
-             double sigma_arg = 1.2);
+             double sigma_arg = 1.2, bool locked = false);
 
     Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std::array<double, 3> f_arg, std::array<double, 3> old_f_arg,
-             double m_arg, int type = 0, double epsilon_arg = 1.0, double sigma_arg = 1.2);
+             double m_arg, int type = 0, double epsilon_arg = 1.0, double sigma_arg = 1.2, bool locked = false);
 
     virtual ~Particle();
 
@@ -150,6 +155,16 @@ class Particle {
      * @brief Gets the Lennard-Jones potential parameter sigma
      */
     [[nodiscard]] double getSigma() const;
+
+    /**
+     * @brief Set wheter the particle is locked in space
+     */
+    void setLocked(bool locked);
+
+    /**
+     * @brief Gets whether the particle is locked in space
+     */
+    [[nodiscard]] bool isLocked() const;
 
     /**
      * @brief Gets the list of connected particles

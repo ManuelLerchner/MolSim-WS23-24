@@ -21,25 +21,27 @@ Particle::Particle(const Particle& other) {
     type = other.type;
     epsilon = other.epsilon;
     sigma = other.sigma;
+    locked = other.locked;
     connected_particles = other.connected_particles;
     Logger::logger->debug("Particle created");
 }
 
 Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type_arg, double epsilon_arg,
-                   double sigma_arg) {
+                   double sigma_arg, bool locked_arg) {
     x = x_arg;
     v = v_arg;
     m = m_arg;
-    epsilon = epsilon_arg;
-    f = {0., 0., 0.};
-    sigma = sigma_arg;
     type = type_arg;
+    f = {0., 0., 0.};
+    epsilon = epsilon_arg;
+    sigma = sigma_arg;
+    locked = locked_arg;
     old_f = {0., 0., 0.};
     Logger::logger->debug("Particle created");
 }
 
 Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std::array<double, 3> f_arg, std::array<double, 3> old_f_arg,
-                   double m_arg, int type_arg, double epsilon_arg, double sigma_arg) {
+                   double m_arg, int type_arg, double epsilon_arg, double sigma_arg, bool locked_arg) {
     x = x_arg;
     v = v_arg;
     f = f_arg;
@@ -48,6 +50,7 @@ Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std
     type = type_arg;
     epsilon = epsilon_arg;
     sigma = sigma_arg;
+    locked = locked_arg;
     Logger::logger->debug("Particle created");
 }
 
@@ -76,6 +79,10 @@ double Particle::getEpsilon() const { return epsilon; }
 double Particle::getSigma() const { return sigma; }
 
 int Particle::getType() const { return type; }
+
+bool Particle::isLocked() const { return locked; }
+
+void Particle::setLocked(bool locked_arg) { locked = locked_arg; }
 
 std::vector<std::tuple<long, double, double>>& Particle::getConnectedParticles() { return connected_particles; }
 

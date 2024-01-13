@@ -13,6 +13,7 @@ VTKFile_t VTUWriter::initializeOutput(int numParticles) {
     DataArray_t velocity(type::Float32, "velocity", 3);
     DataArray_t forces(type::Float32, "force", 3);
     DataArray_t type(type::Int32, "type", 1);
+
     point_data.DataArray().push_back(mass);
     point_data.DataArray().push_back(velocity);
     point_data.DataArray().push_back(forces);

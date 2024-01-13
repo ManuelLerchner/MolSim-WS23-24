@@ -11,7 +11,6 @@
 #include "particles/spawners/cuboid/CuboidSpawner.h"
 #include "particles/spawners/soft_body_cuboid/SoftBodyCuboidSpawner.h"
 #include "particles/spawners/sphere/SphereSpawner.h"
-#include "physics/thermostats/Thermostat.h"
 #include "simulation/SimulationParams.h"
 
 /**
@@ -60,10 +59,12 @@ class XSDToInternalTypeAdapter {
      *
      * @param interceptors Simulation interceptors in the XSD format
      * @param third_dimension Whether the third dimension is enabled
+     * @param container_type Container type
      * @return List of simulation interceptors parsed from the given simulation interceptors in the XSD format
      */
     static std::vector<std::shared_ptr<SimulationInterceptor>> convertToSimulationInterceptors(
-        const SimulationInterceptorsType& interceptors, bool third_dimension);
+        const SimulationInterceptorsType& interceptors, bool third_dimension,
+        std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType> container_type);
 
     /**
      * @brief Converts a container type from the XSD format to the internal format
@@ -89,15 +90,6 @@ class XSDToInternalTypeAdapter {
      * @return BoundaryCondition parsed from the given boundary type in the XSD format
      */
     static LinkedCellsContainer::BoundaryCondition convertToBoundaryCondition(const BoundaryType& boundary);
-
-    /**
-     * @brief Converts a thermostat type from the XSD format to the internal format
-     *
-     * @param thermostat Thermostat in the XSD format
-     * @param third_dimension Whether the third dimension is enabled (true = 3D, false = 2D)
-     * @return Thermostat parsed from the given thermostat in the XSD format
-     */
-    static Thermostat convertToThermostat(const ThermostatInterceptorType& thermostat, bool third_dimension);
 
     /**
      * @brief Converts a particle type from the XSD format to the internal format

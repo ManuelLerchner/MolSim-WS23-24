@@ -10,10 +10,9 @@ void RadialDistributionFunctionInterceptor::onSimulationStart(Simulation& simula
 
     csv_writer->initialize({"iteration", "bin_index (w= " + std::to_string(bin_width) + ")", "samples", "local_density"});
 
-    auto expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t) + 1);
+    auto expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t));
     SimulationInterceptor::every_nth_iteration = std::max(1, static_cast<int>(sample_every_x_percent * expected_iterations / 100));
 
-    samples_count = 0;
     saveCurrentRadialDistribution(0, simulation);
 }
 
@@ -34,7 +33,7 @@ void RadialDistributionFunctionInterceptor::logSummary(int depth) const {
 }
 
 RadialDistributionFunctionInterceptor::operator std::string() const {
-    return fmt::format("RadialDistributionFunction: {} samples, bin width: {}", samples_count, bin_width);
+    return fmt::format("RadialDistributionFunction: bin_width={}, sample_every_x_percent={}", bin_width, sample_every_x_percent);
 }
 
 double RadialDistributionFunctionInterceptor::calculateLocalDensity(size_t N, size_t bin_index) const {
@@ -60,8 +59,6 @@ void RadialDistributionFunctionInterceptor::saveCurrentRadialDistribution(size_t
 
             size_t bin_index = std::floor(distance / bin_width);
             samples_per_bin_index[bin_index]++;
-
-            samples_count++;
         }
     }
 

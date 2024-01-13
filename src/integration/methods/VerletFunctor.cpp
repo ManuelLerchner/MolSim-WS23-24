@@ -9,8 +9,10 @@ void VerletFunctor::step(std::unique_ptr<ParticleContainer>& particle_container,
                          double curr_simulation_time) const {
     for (auto& p : *particle_container) {
         // update position
-        const std::array<double, 3> new_x = p.getX() + delta_t * p.getV() + (delta_t * delta_t / (2 * p.getM())) * p.getF();
-        p.setX(new_x);
+        if (!p.isLocked()) {
+            const std::array<double, 3> new_x = p.getX() + delta_t * p.getV() + (delta_t * delta_t / (2 * p.getM())) * p.getF();
+            p.setX(new_x);
+        }
 
         // reset forces
         p.setOldF(p.getF());
@@ -25,7 +27,11 @@ void VerletFunctor::step(std::unique_ptr<ParticleContainer>& particle_container,
 
     // update velocity
     for (auto& p : *particle_container) {
-        const std::array<double, 3> new_v = p.getV() + (delta_t / (2 * p.getM())) * (p.getF() + p.getOldF());
-        p.setV(new_v);
+        if (!p.isLocked()) {
+            const std::array<double, 3> new_v = p.getV() + (delta_t / (2 * p.getM())) * (p.getF() + p.getOldF());
+            p.setV(new_v);
+        } else {
+            p.setV({0, 0, 0});
+        }
     }
 }

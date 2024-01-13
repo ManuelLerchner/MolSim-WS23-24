@@ -64,4 +64,5 @@ class Simulation {
     friend class ParticleUpdateCounterInterceptor;
     friend class RadialDistributionFunctionInterceptor;
     friend class DiffusionFunctionInterceptor;
+    friend class VelocityProfileInterceptor;
 };

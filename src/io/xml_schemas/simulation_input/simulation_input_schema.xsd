@@ -88,6 +88,7 @@
       <xs:element name="epsilon" type="xs:double" />
       <xs:element name="sigma" type="xs:double" />
     </xs:sequence>
+    <xs:attribute name="is_locked" type="xs:boolean" default="false" />
   </xs:complexType>
 
   <xs:complexType name="SoftBodySpawnerType">
@@ -117,6 +118,7 @@
       <xs:element name="epsilon" type="xs:double" />
       <xs:element name="sigma" type="xs:double" />
     </xs:sequence>
+    <xs:attribute name="is_locked" type="xs:boolean" default="false" />
   </xs:complexType>
 
   <xs:complexType name="SingleParticleSpawnerType">
@@ -129,6 +131,7 @@
       <xs:element name="epsilon" type="xs:double" />
       <xs:element name="sigma" type="xs:double" />
     </xs:sequence>
+    <xs:attribute name="is_locked" type="xs:boolean" default="false" />
   </xs:complexType>
 
   <xs:complexType name="CheckPointLoaderType">
@@ -169,10 +172,6 @@
   <xs:complexType name="ParticleUpdatesPerSecondInterceptionType">
   </xs:complexType>
 
-  <xs:complexType name="RadialDistributionFunctionInterceptionType">
-    <xs:attribute name="bin_width" type="xs:double" use="required" />
-    <xs:attribute name="sample_every_x_percent" type="xs:double" use="required" />
-  </xs:complexType>
 
   <xs:complexType name="DiffusionFunctionInterceptorType">
     <xs:attribute name="sample_every_x_percent" type="xs:double" use="required" />
@@ -191,6 +190,21 @@
     <xs:attribute name="target_temperature" type="xs:double" use="required" />
     <xs:attribute name="max_temperature_change" type="xs:double" use="required" />
     <xs:attribute name="application_interval" type="xs:integer" use="required" />
+    <xs:attribute name="type" type="ThermostatType" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="RadialDistributionFunctionInterceptionType">
+    <xs:attribute name="bin_width" type="xs:double" use="required" />
+    <xs:attribute name="sample_every_x_percent" type="xs:double" use="required" />
+  </xs:complexType>
+
+
+  <xs:complexType name="VelocityProfileInterceptionType">
+    <xs:sequence>
+      <xs:element name="box" type="ThreeDRegionType" minOccurs="0" />
+    </xs:sequence>
+    <xs:attribute name="num_bins" type="xs:integer" use="required" />
+    <xs:attribute name="sample_every_x_percent" type="xs:double" use="required" />
   </xs:complexType>
 
   <xs:complexType name="TemperatureSensorInterceptorType">
@@ -205,6 +219,7 @@
       <xs:element name="DiffusionFunction" type="DiffusionFunctionInterceptorType" minOccurs="0" />
       <xs:element name="RadialDistributionFunction"
         type="RadialDistributionFunctionInterceptionType" minOccurs="0" />
+      <xs:element name="VelocityProfile" type="VelocityProfileInterceptionType" minOccurs="0" />
       <xs:element name="FrameWriter" type="FrameWriterInterceptorType" minOccurs="0" />
       <xs:element name="Thermostat" type="ThermostatInterceptorType" minOccurs="0" />
     </xs:all>
@@ -257,6 +272,13 @@
     </xs:all>
   </xs:complexType>
 
+  <xs:complexType name="ThreeDRegionType">
+    <xs:sequence>
+      <xs:element name="lower_left_front_corner" type="DoubleVec3Type" />
+      <xs:element name="upper_right_back_corner" type="DoubleVec3Type" />
+    </xs:sequence>
+  </xs:complexType>
+
 
   <!-- Lists -->
 
@@ -284,6 +306,13 @@
       <xs:enumeration value="chkpt" />
       <xs:enumeration value="xyz" />
       <xs:enumeration value="none" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ThermostatType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="absolute" />
+      <xs:enumeration value="relative_motion" />
     </xs:restriction>
   </xs:simpleType>
 

@@ -31,7 +31,8 @@
         </forces>
         <interceptors>
             <Thermostat application_interval="1000" target_temperature="40"
-                max_temperature_change="INF" />
+                max_temperature_change="INF"
+                type="absolute" />
             <FrameWriter output_format="vtu" fps="24" video_length_s="30" />
         </interceptors>
     </settings>
