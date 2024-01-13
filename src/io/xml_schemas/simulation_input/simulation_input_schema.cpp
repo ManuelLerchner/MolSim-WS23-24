@@ -307,6 +307,81 @@ CuboidSpawnerType::sigma_type& CuboidSpawnerType::sigma() { return this->sigma_.
 
 void CuboidSpawnerType::sigma(const sigma_type& x) { this->sigma_.set(x); }
 
+// SoftBodySpawnerType
+//
+
+const SoftBodySpawnerType::lower_left_front_corner_type& SoftBodySpawnerType::lower_left_front_corner() const {
+    return this->lower_left_front_corner_.get();
+}
+
+SoftBodySpawnerType::lower_left_front_corner_type& SoftBodySpawnerType::lower_left_front_corner() {
+    return this->lower_left_front_corner_.get();
+}
+
+void SoftBodySpawnerType::lower_left_front_corner(const lower_left_front_corner_type& x) { this->lower_left_front_corner_.set(x); }
+
+void SoftBodySpawnerType::lower_left_front_corner(::std::unique_ptr<lower_left_front_corner_type> x) {
+    this->lower_left_front_corner_.set(std::move(x));
+}
+
+const SoftBodySpawnerType::grid_dim_type& SoftBodySpawnerType::grid_dim() const { return this->grid_dim_.get(); }
+
+SoftBodySpawnerType::grid_dim_type& SoftBodySpawnerType::grid_dim() { return this->grid_dim_.get(); }
+
+void SoftBodySpawnerType::grid_dim(const grid_dim_type& x) { this->grid_dim_.set(x); }
+
+void SoftBodySpawnerType::grid_dim(::std::unique_ptr<grid_dim_type> x) { this->grid_dim_.set(std::move(x)); }
+
+const SoftBodySpawnerType::grid_spacing_type& SoftBodySpawnerType::grid_spacing() const { return this->grid_spacing_.get(); }
+
+SoftBodySpawnerType::grid_spacing_type& SoftBodySpawnerType::grid_spacing() { return this->grid_spacing_.get(); }
+
+void SoftBodySpawnerType::grid_spacing(const grid_spacing_type& x) { this->grid_spacing_.set(x); }
+
+const SoftBodySpawnerType::temperature_type& SoftBodySpawnerType::temperature() const { return this->temperature_.get(); }
+
+SoftBodySpawnerType::temperature_type& SoftBodySpawnerType::temperature() { return this->temperature_.get(); }
+
+void SoftBodySpawnerType::temperature(const temperature_type& x) { this->temperature_.set(x); }
+
+const SoftBodySpawnerType::mass_type& SoftBodySpawnerType::mass() const { return this->mass_.get(); }
+
+SoftBodySpawnerType::mass_type& SoftBodySpawnerType::mass() { return this->mass_.get(); }
+
+void SoftBodySpawnerType::mass(const mass_type& x) { this->mass_.set(x); }
+
+const SoftBodySpawnerType::velocity_type& SoftBodySpawnerType::velocity() const { return this->velocity_.get(); }
+
+SoftBodySpawnerType::velocity_type& SoftBodySpawnerType::velocity() { return this->velocity_.get(); }
+
+void SoftBodySpawnerType::velocity(const velocity_type& x) { this->velocity_.set(x); }
+
+void SoftBodySpawnerType::velocity(::std::unique_ptr<velocity_type> x) { this->velocity_.set(std::move(x)); }
+
+const SoftBodySpawnerType::type_type& SoftBodySpawnerType::type() const { return this->type_.get(); }
+
+SoftBodySpawnerType::type_type& SoftBodySpawnerType::type() { return this->type_.get(); }
+
+void SoftBodySpawnerType::type(const type_type& x) { this->type_.set(x); }
+
+const SoftBodySpawnerType::spring_constant_type& SoftBodySpawnerType::spring_constant() const { return this->spring_constant_.get(); }
+
+SoftBodySpawnerType::spring_constant_type& SoftBodySpawnerType::spring_constant() { return this->spring_constant_.get(); }
+
+void SoftBodySpawnerType::spring_constant(const spring_constant_type& x) { this->spring_constant_.set(x); }
+
+const SoftBodySpawnerType::epsilon_type& SoftBodySpawnerType::epsilon() const { return this->epsilon_.get(); }
+
+SoftBodySpawnerType::epsilon_type& SoftBodySpawnerType::epsilon() { return this->epsilon_.get(); }
+
+void SoftBodySpawnerType::epsilon(const epsilon_type& x) { this->epsilon_.set(x); }
+
+const SoftBodySpawnerType::sigma_type& SoftBodySpawnerType::sigma() const { return this->sigma_.get(); }
+
+SoftBodySpawnerType::sigma_type& SoftBodySpawnerType::sigma() { return this->sigma_.get(); }
+
+void SoftBodySpawnerType::sigma(const sigma_type& x) { this->sigma_.set(x); }
+
 // SphereSpawnerType
 //
 
@@ -447,6 +522,16 @@ const ParticleSourceType::cuboid_spawner_sequence& ParticleSourceType::cuboid_sp
 ParticleSourceType::cuboid_spawner_sequence& ParticleSourceType::cuboid_spawner() { return this->cuboid_spawner_; }
 
 void ParticleSourceType::cuboid_spawner(const cuboid_spawner_sequence& s) { this->cuboid_spawner_ = s; }
+
+const ParticleSourceType::soft_body_cuboid_spawner_sequence& ParticleSourceType::soft_body_cuboid_spawner() const {
+    return this->soft_body_cuboid_spawner_;
+}
+
+ParticleSourceType::soft_body_cuboid_spawner_sequence& ParticleSourceType::soft_body_cuboid_spawner() {
+    return this->soft_body_cuboid_spawner_;
+}
+
+void ParticleSourceType::soft_body_cuboid_spawner(const soft_body_cuboid_spawner_sequence& s) { this->soft_body_cuboid_spawner_ = s; }
 
 const ParticleSourceType::sphere_spawner_sequence& ParticleSourceType::sphere_spawner() const { return this->sphere_spawner_; }
 
@@ -748,7 +833,43 @@ void SimulationInterceptorsType::Thermostat(const Thermostat_optional& x) { this
 
 void SimulationInterceptorsType::Thermostat(::std::unique_ptr<Thermostat_type> x) { this->Thermostat_.set(std::move(x)); }
 
+// TargettedTemporaryConstantType
+//
+
+const TargettedTemporaryConstantType::force_type& TargettedTemporaryConstantType::force() const { return this->force_.get(); }
+
+TargettedTemporaryConstantType::force_type& TargettedTemporaryConstantType::force() { return this->force_.get(); }
+
+void TargettedTemporaryConstantType::force(const force_type& x) { this->force_.set(x); }
+
+void TargettedTemporaryConstantType::force(::std::unique_ptr<force_type> x) { this->force_.set(std::move(x)); }
+
+const TargettedTemporaryConstantType::indices_type& TargettedTemporaryConstantType::indices() const { return this->indices_.get(); }
+
+TargettedTemporaryConstantType::indices_type& TargettedTemporaryConstantType::indices() { return this->indices_.get(); }
+
+void TargettedTemporaryConstantType::indices(const indices_type& x) { this->indices_.set(x); }
+
+void TargettedTemporaryConstantType::indices(::std::unique_ptr<indices_type> x) { this->indices_.set(std::move(x)); }
+
+const TargettedTemporaryConstantType::start_time_type& TargettedTemporaryConstantType::start_time() const {
+    return this->start_time_.get();
+}
+
+TargettedTemporaryConstantType::start_time_type& TargettedTemporaryConstantType::start_time() { return this->start_time_.get(); }
+
+void TargettedTemporaryConstantType::start_time(const start_time_type& x) { this->start_time_.set(x); }
+
+const TargettedTemporaryConstantType::end_time_type& TargettedTemporaryConstantType::end_time() const { return this->end_time_.get(); }
+
+TargettedTemporaryConstantType::end_time_type& TargettedTemporaryConstantType::end_time() { return this->end_time_.get(); }
+
+void TargettedTemporaryConstantType::end_time(const end_time_type& x) { this->end_time_.set(x); }
+
 // LennardJonesType
+//
+
+// LennardJonesRepulsiveType
 //
 
 // SmoothedLennardJonesType
@@ -778,8 +899,25 @@ GlobalGravityType::g_type& GlobalGravityType::g() { return this->g_.get(); }
 
 void GlobalGravityType::g(const g_type& x) { this->g_.set(x); }
 
+// HarmonicPotentialType
+//
+
 // ForcesType
 //
+
+const ForcesType::TargettedTemporaryConstant_optional& ForcesType::TargettedTemporaryConstant() const {
+    return this->TargettedTemporaryConstant_;
+}
+
+ForcesType::TargettedTemporaryConstant_optional& ForcesType::TargettedTemporaryConstant() { return this->TargettedTemporaryConstant_; }
+
+void ForcesType::TargettedTemporaryConstant(const TargettedTemporaryConstant_type& x) { this->TargettedTemporaryConstant_.set(x); }
+
+void ForcesType::TargettedTemporaryConstant(const TargettedTemporaryConstant_optional& x) { this->TargettedTemporaryConstant_ = x; }
+
+void ForcesType::TargettedTemporaryConstant(::std::unique_ptr<TargettedTemporaryConstant_type> x) {
+    this->TargettedTemporaryConstant_.set(std::move(x));
+}
 
 const ForcesType::LennardJones_optional& ForcesType::LennardJones() const { return this->LennardJones_; }
 
@@ -790,6 +928,16 @@ void ForcesType::LennardJones(const LennardJones_type& x) { this->LennardJones_.
 void ForcesType::LennardJones(const LennardJones_optional& x) { this->LennardJones_ = x; }
 
 void ForcesType::LennardJones(::std::unique_ptr<LennardJones_type> x) { this->LennardJones_.set(std::move(x)); }
+
+const ForcesType::LennardJonesRepulsive_optional& ForcesType::LennardJonesRepulsive() const { return this->LennardJonesRepulsive_; }
+
+ForcesType::LennardJonesRepulsive_optional& ForcesType::LennardJonesRepulsive() { return this->LennardJonesRepulsive_; }
+
+void ForcesType::LennardJonesRepulsive(const LennardJonesRepulsive_type& x) { this->LennardJonesRepulsive_.set(x); }
+
+void ForcesType::LennardJonesRepulsive(const LennardJonesRepulsive_optional& x) { this->LennardJonesRepulsive_ = x; }
+
+void ForcesType::LennardJonesRepulsive(::std::unique_ptr<LennardJonesRepulsive_type> x) { this->LennardJonesRepulsive_.set(std::move(x)); }
 
 const ForcesType::SmoothedLennardJones_optional& ForcesType::SmoothedLennardJones() const { return this->SmoothedLennardJones_; }
 
@@ -822,6 +970,27 @@ void ForcesType::GlobalDownwardsGravity(const GlobalDownwardsGravity_optional& x
 void ForcesType::GlobalDownwardsGravity(::std::unique_ptr<GlobalDownwardsGravity_type> x) {
     this->GlobalDownwardsGravity_.set(std::move(x));
 }
+
+const ForcesType::HarmonicPotential_optional& ForcesType::HarmonicPotential() const { return this->HarmonicPotential_; }
+
+ForcesType::HarmonicPotential_optional& ForcesType::HarmonicPotential() { return this->HarmonicPotential_; }
+
+void ForcesType::HarmonicPotential(const HarmonicPotential_type& x) { this->HarmonicPotential_.set(x); }
+
+void ForcesType::HarmonicPotential(const HarmonicPotential_optional& x) { this->HarmonicPotential_ = x; }
+
+void ForcesType::HarmonicPotential(::std::unique_ptr<HarmonicPotential_type> x) { this->HarmonicPotential_.set(std::move(x)); }
+
+// IntegerListType
+//
+
+IntegerListType::IntegerListType() : ::xsd::cxx::tree::list< ::xml_schema::integer, char>(this) {}
+
+IntegerListType::IntegerListType(size_type n, const ::xml_schema::integer& x)
+    : ::xsd::cxx::tree::list< ::xml_schema::integer, char>(n, x, this) {}
+
+IntegerListType::IntegerListType(const IntegerListType& o, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::simple_type(o, f, c), ::xsd::cxx::tree::list< ::xml_schema::integer, char>(o, f, this) {}
 
 // LogLevelType
 //
@@ -1696,6 +1865,242 @@ CuboidSpawnerType& CuboidSpawnerType::operator=(const CuboidSpawnerType& x) {
 
 CuboidSpawnerType::~CuboidSpawnerType() {}
 
+// SoftBodySpawnerType
+//
+
+SoftBodySpawnerType::SoftBodySpawnerType(const lower_left_front_corner_type& lower_left_front_corner, const grid_dim_type& grid_dim,
+                                         const grid_spacing_type& grid_spacing, const temperature_type& temperature, const mass_type& mass,
+                                         const velocity_type& velocity, const type_type& type, const spring_constant_type& spring_constant,
+                                         const epsilon_type& epsilon, const sigma_type& sigma)
+    : ::xml_schema::type(),
+      lower_left_front_corner_(lower_left_front_corner, this),
+      grid_dim_(grid_dim, this),
+      grid_spacing_(grid_spacing, this),
+      temperature_(temperature, this),
+      mass_(mass, this),
+      velocity_(velocity, this),
+      type_(type, this),
+      spring_constant_(spring_constant, this),
+      epsilon_(epsilon, this),
+      sigma_(sigma, this) {}
+
+SoftBodySpawnerType::SoftBodySpawnerType(::std::unique_ptr<lower_left_front_corner_type> lower_left_front_corner,
+                                         ::std::unique_ptr<grid_dim_type> grid_dim, const grid_spacing_type& grid_spacing,
+                                         const temperature_type& temperature, const mass_type& mass,
+                                         ::std::unique_ptr<velocity_type> velocity, const type_type& type,
+                                         const spring_constant_type& spring_constant, const epsilon_type& epsilon, const sigma_type& sigma)
+    : ::xml_schema::type(),
+      lower_left_front_corner_(std::move(lower_left_front_corner), this),
+      grid_dim_(std::move(grid_dim), this),
+      grid_spacing_(grid_spacing, this),
+      temperature_(temperature, this),
+      mass_(mass, this),
+      velocity_(std::move(velocity), this),
+      type_(type, this),
+      spring_constant_(spring_constant, this),
+      epsilon_(epsilon, this),
+      sigma_(sigma, this) {}
+
+SoftBodySpawnerType::SoftBodySpawnerType(const SoftBodySpawnerType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c),
+      lower_left_front_corner_(x.lower_left_front_corner_, f, this),
+      grid_dim_(x.grid_dim_, f, this),
+      grid_spacing_(x.grid_spacing_, f, this),
+      temperature_(x.temperature_, f, this),
+      mass_(x.mass_, f, this),
+      velocity_(x.velocity_, f, this),
+      type_(x.type_, f, this),
+      spring_constant_(x.spring_constant_, f, this),
+      epsilon_(x.epsilon_, f, this),
+      sigma_(x.sigma_, f, this) {}
+
+SoftBodySpawnerType::SoftBodySpawnerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
+      lower_left_front_corner_(this),
+      grid_dim_(this),
+      grid_spacing_(this),
+      temperature_(this),
+      mass_(this),
+      velocity_(this),
+      type_(this),
+      spring_constant_(this),
+      epsilon_(this),
+      sigma_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
+        this->parse(p, f);
+    }
+}
+
+void SoftBodySpawnerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    for (; p.more_content(); p.next_content(false)) {
+        const ::xercesc::DOMElement& i(p.cur_element());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        // lower_left_front_corner
+        //
+        if (n.name() == "lower_left_front_corner" && n.namespace_().empty()) {
+            ::std::unique_ptr<lower_left_front_corner_type> r(lower_left_front_corner_traits::create(i, f, this));
+
+            if (!lower_left_front_corner_.present()) {
+                this->lower_left_front_corner_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // grid_dim
+        //
+        if (n.name() == "grid_dim" && n.namespace_().empty()) {
+            ::std::unique_ptr<grid_dim_type> r(grid_dim_traits::create(i, f, this));
+
+            if (!grid_dim_.present()) {
+                this->grid_dim_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // grid_spacing
+        //
+        if (n.name() == "grid_spacing" && n.namespace_().empty()) {
+            if (!grid_spacing_.present()) {
+                this->grid_spacing_.set(grid_spacing_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // temperature
+        //
+        if (n.name() == "temperature" && n.namespace_().empty()) {
+            if (!temperature_.present()) {
+                this->temperature_.set(temperature_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // mass
+        //
+        if (n.name() == "mass" && n.namespace_().empty()) {
+            if (!mass_.present()) {
+                this->mass_.set(mass_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // velocity
+        //
+        if (n.name() == "velocity" && n.namespace_().empty()) {
+            ::std::unique_ptr<velocity_type> r(velocity_traits::create(i, f, this));
+
+            if (!velocity_.present()) {
+                this->velocity_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // type
+        //
+        if (n.name() == "type" && n.namespace_().empty()) {
+            if (!type_.present()) {
+                this->type_.set(type_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // spring_constant
+        //
+        if (n.name() == "spring_constant" && n.namespace_().empty()) {
+            if (!spring_constant_.present()) {
+                this->spring_constant_.set(spring_constant_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // epsilon
+        //
+        if (n.name() == "epsilon" && n.namespace_().empty()) {
+            if (!epsilon_.present()) {
+                this->epsilon_.set(epsilon_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // sigma
+        //
+        if (n.name() == "sigma" && n.namespace_().empty()) {
+            if (!sigma_.present()) {
+                this->sigma_.set(sigma_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        break;
+    }
+
+    if (!lower_left_front_corner_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("lower_left_front_corner", "");
+    }
+
+    if (!grid_dim_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("grid_dim", "");
+    }
+
+    if (!grid_spacing_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("grid_spacing", "");
+    }
+
+    if (!temperature_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("temperature", "");
+    }
+
+    if (!mass_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("mass", "");
+    }
+
+    if (!velocity_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("velocity", "");
+    }
+
+    if (!type_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("type", "");
+    }
+
+    if (!spring_constant_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("spring_constant", "");
+    }
+
+    if (!epsilon_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("epsilon", "");
+    }
+
+    if (!sigma_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("sigma", "");
+    }
+}
+
+SoftBodySpawnerType* SoftBodySpawnerType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class SoftBodySpawnerType(*this, f, c);
+}
+
+SoftBodySpawnerType& SoftBodySpawnerType::operator=(const SoftBodySpawnerType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->lower_left_front_corner_ = x.lower_left_front_corner_;
+        this->grid_dim_ = x.grid_dim_;
+        this->grid_spacing_ = x.grid_spacing_;
+        this->temperature_ = x.temperature_;
+        this->mass_ = x.mass_;
+        this->velocity_ = x.velocity_;
+        this->type_ = x.type_;
+        this->spring_constant_ = x.spring_constant_;
+        this->epsilon_ = x.epsilon_;
+        this->sigma_ = x.sigma_;
+    }
+
+    return *this;
+}
+
+SoftBodySpawnerType::~SoftBodySpawnerType() {}
+
 // SphereSpawnerType
 //
 
@@ -2187,6 +2592,7 @@ SubSimulationType::~SubSimulationType() {}
 ParticleSourceType::ParticleSourceType()
     : ::xml_schema::type(),
       cuboid_spawner_(this),
+      soft_body_cuboid_spawner_(this),
       sphere_spawner_(this),
       single_particle_spawner_(this),
       check_point_loader_(this),
@@ -2195,6 +2601,7 @@ ParticleSourceType::ParticleSourceType()
 ParticleSourceType::ParticleSourceType(const ParticleSourceType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
       cuboid_spawner_(x.cuboid_spawner_, f, this),
+      soft_body_cuboid_spawner_(x.soft_body_cuboid_spawner_, f, this),
       sphere_spawner_(x.sphere_spawner_, f, this),
       single_particle_spawner_(x.single_particle_spawner_, f, this),
       check_point_loader_(x.check_point_loader_, f, this),
@@ -2203,6 +2610,7 @@ ParticleSourceType::ParticleSourceType(const ParticleSourceType& x, ::xml_schema
 ParticleSourceType::ParticleSourceType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
       cuboid_spawner_(this),
+      soft_body_cuboid_spawner_(this),
       sphere_spawner_(this),
       single_particle_spawner_(this),
       check_point_loader_(this),
@@ -2224,6 +2632,15 @@ void ParticleSourceType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_sche
             ::std::unique_ptr<cuboid_spawner_type> r(cuboid_spawner_traits::create(i, f, this));
 
             this->cuboid_spawner_.push_back(::std::move(r));
+            continue;
+        }
+
+        // soft_body_cuboid_spawner
+        //
+        if (n.name() == "soft_body_cuboid_spawner" && n.namespace_().empty()) {
+            ::std::unique_ptr<soft_body_cuboid_spawner_type> r(soft_body_cuboid_spawner_traits::create(i, f, this));
+
+            this->soft_body_cuboid_spawner_.push_back(::std::move(r));
             continue;
         }
 
@@ -2275,6 +2692,7 @@ ParticleSourceType& ParticleSourceType::operator=(const ParticleSourceType& x) {
     if (this != &x) {
         static_cast< ::xml_schema::type&>(*this) = x;
         this->cuboid_spawner_ = x.cuboid_spawner_;
+        this->soft_body_cuboid_spawner_ = x.soft_body_cuboid_spawner_;
         this->sphere_spawner_ = x.sphere_spawner_;
         this->single_particle_spawner_ = x.single_particle_spawner_;
         this->check_point_loader_ = x.check_point_loader_;
@@ -2944,6 +3362,112 @@ SimulationInterceptorsType& SimulationInterceptorsType::operator=(const Simulati
 
 SimulationInterceptorsType::~SimulationInterceptorsType() {}
 
+// TargettedTemporaryConstantType
+//
+
+TargettedTemporaryConstantType::TargettedTemporaryConstantType(const force_type& force, const indices_type& indices,
+                                                               const start_time_type& start_time, const end_time_type& end_time)
+    : ::xml_schema::type(), force_(force, this), indices_(indices, this), start_time_(start_time, this), end_time_(end_time, this) {}
+
+TargettedTemporaryConstantType::TargettedTemporaryConstantType(::std::unique_ptr<force_type> force, const indices_type& indices,
+                                                               const start_time_type& start_time, const end_time_type& end_time)
+    : ::xml_schema::type(),
+      force_(std::move(force), this),
+      indices_(indices, this),
+      start_time_(start_time, this),
+      end_time_(end_time, this) {}
+
+TargettedTemporaryConstantType::TargettedTemporaryConstantType(const TargettedTemporaryConstantType& x, ::xml_schema::flags f,
+                                                               ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c),
+      force_(x.force_, f, this),
+      indices_(x.indices_, f, this),
+      start_time_(x.start_time_, f, this),
+      end_time_(x.end_time_, f, this) {}
+
+TargettedTemporaryConstantType::TargettedTemporaryConstantType(const ::xercesc::DOMElement& e, ::xml_schema::flags f,
+                                                               ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), force_(this), indices_(this), start_time_(this), end_time_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, true);
+        this->parse(p, f);
+    }
+}
+
+void TargettedTemporaryConstantType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    for (; p.more_content(); p.next_content(false)) {
+        const ::xercesc::DOMElement& i(p.cur_element());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        // force
+        //
+        if (n.name() == "force" && n.namespace_().empty()) {
+            ::std::unique_ptr<force_type> r(force_traits::create(i, f, this));
+
+            if (!force_.present()) {
+                this->force_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        break;
+    }
+
+    if (!force_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("force", "");
+    }
+
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        if (n.name() == "indices" && n.namespace_().empty()) {
+            this->indices_.set(indices_traits::create(i, f, this));
+            continue;
+        }
+
+        if (n.name() == "start_time" && n.namespace_().empty()) {
+            this->start_time_.set(start_time_traits::create(i, f, this));
+            continue;
+        }
+
+        if (n.name() == "end_time" && n.namespace_().empty()) {
+            this->end_time_.set(end_time_traits::create(i, f, this));
+            continue;
+        }
+    }
+
+    if (!indices_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("indices", "");
+    }
+
+    if (!start_time_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("start_time", "");
+    }
+
+    if (!end_time_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("end_time", "");
+    }
+}
+
+TargettedTemporaryConstantType* TargettedTemporaryConstantType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class TargettedTemporaryConstantType(*this, f, c);
+}
+
+TargettedTemporaryConstantType& TargettedTemporaryConstantType::operator=(const TargettedTemporaryConstantType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->force_ = x.force_;
+        this->indices_ = x.indices_;
+        this->start_time_ = x.start_time_;
+        this->end_time_ = x.end_time_;
+    }
+
+    return *this;
+}
+
+TargettedTemporaryConstantType::~TargettedTemporaryConstantType() {}
+
 // LennardJonesType
 //
 
@@ -2967,6 +3491,30 @@ LennardJonesType* LennardJonesType::_clone(::xml_schema::flags f, ::xml_schema::
 }
 
 LennardJonesType::~LennardJonesType() {}
+
+// LennardJonesRepulsiveType
+//
+
+LennardJonesRepulsiveType::LennardJonesRepulsiveType() : ::xml_schema::type() {}
+
+LennardJonesRepulsiveType::LennardJonesRepulsiveType(const LennardJonesRepulsiveType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c) {}
+
+LennardJonesRepulsiveType::LennardJonesRepulsiveType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f, c) {}
+
+LennardJonesRepulsiveType::LennardJonesRepulsiveType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(a, f, c) {}
+
+LennardJonesRepulsiveType::LennardJonesRepulsiveType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f,
+                                                     ::xml_schema::container* c)
+    : ::xml_schema::type(s, e, f, c) {}
+
+LennardJonesRepulsiveType* LennardJonesRepulsiveType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class LennardJonesRepulsiveType(*this, f, c);
+}
+
+LennardJonesRepulsiveType::~LennardJonesRepulsiveType() {}
 
 // SmoothedLennardJonesType
 //
@@ -3097,25 +3645,62 @@ GlobalGravityType& GlobalGravityType::operator=(const GlobalGravityType& x) {
 
 GlobalGravityType::~GlobalGravityType() {}
 
+// HarmonicPotentialType
+//
+
+HarmonicPotentialType::HarmonicPotentialType() : ::xml_schema::type() {}
+
+HarmonicPotentialType::HarmonicPotentialType(const HarmonicPotentialType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c) {}
+
+HarmonicPotentialType::HarmonicPotentialType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f, c) {}
+
+HarmonicPotentialType::HarmonicPotentialType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(a, f, c) {}
+
+HarmonicPotentialType::HarmonicPotentialType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f,
+                                             ::xml_schema::container* c)
+    : ::xml_schema::type(s, e, f, c) {}
+
+HarmonicPotentialType* HarmonicPotentialType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class HarmonicPotentialType(*this, f, c);
+}
+
+HarmonicPotentialType::~HarmonicPotentialType() {}
+
 // ForcesType
 //
 
 ForcesType::ForcesType()
-    : ::xml_schema::type(), LennardJones_(this), SmoothedLennardJones_(this), Gravitational_(this), GlobalDownwardsGravity_(this) {}
+    : ::xml_schema::type(),
+      TargettedTemporaryConstant_(this),
+      LennardJones_(this),
+      LennardJonesRepulsive_(this),
+      SmoothedLennardJones_(this),
+      Gravitational_(this),
+      GlobalDownwardsGravity_(this),
+      HarmonicPotential_(this) {}
 
 ForcesType::ForcesType(const ForcesType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
+      TargettedTemporaryConstant_(x.TargettedTemporaryConstant_, f, this),
       LennardJones_(x.LennardJones_, f, this),
+      LennardJonesRepulsive_(x.LennardJonesRepulsive_, f, this),
       SmoothedLennardJones_(x.SmoothedLennardJones_, f, this),
       Gravitational_(x.Gravitational_, f, this),
-      GlobalDownwardsGravity_(x.GlobalDownwardsGravity_, f, this) {}
+      GlobalDownwardsGravity_(x.GlobalDownwardsGravity_, f, this),
+      HarmonicPotential_(x.HarmonicPotential_, f, this) {}
 
 ForcesType::ForcesType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
+      TargettedTemporaryConstant_(this),
       LennardJones_(this),
+      LennardJonesRepulsive_(this),
       SmoothedLennardJones_(this),
       Gravitational_(this),
-      GlobalDownwardsGravity_(this) {
+      GlobalDownwardsGravity_(this),
+      HarmonicPotential_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
         this->parse(p, f);
@@ -3127,6 +3712,17 @@ void ForcesType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flag
         const ::xercesc::DOMElement& i(p.cur_element());
         const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
 
+        // TargettedTemporaryConstant
+        //
+        if (n.name() == "TargettedTemporaryConstant" && n.namespace_().empty()) {
+            ::std::unique_ptr<TargettedTemporaryConstant_type> r(TargettedTemporaryConstant_traits::create(i, f, this));
+
+            if (!this->TargettedTemporaryConstant_) {
+                this->TargettedTemporaryConstant_.set(::std::move(r));
+                continue;
+            }
+        }
+
         // LennardJones
         //
         if (n.name() == "LennardJones" && n.namespace_().empty()) {
@@ -3134,6 +3730,17 @@ void ForcesType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flag
 
             if (!this->LennardJones_) {
                 this->LennardJones_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // LennardJonesRepulsive
+        //
+        if (n.name() == "LennardJonesRepulsive" && n.namespace_().empty()) {
+            ::std::unique_ptr<LennardJonesRepulsive_type> r(LennardJonesRepulsive_traits::create(i, f, this));
+
+            if (!this->LennardJonesRepulsive_) {
+                this->LennardJonesRepulsive_.set(::std::move(r));
                 continue;
             }
         }
@@ -3171,6 +3778,17 @@ void ForcesType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flag
             }
         }
 
+        // HarmonicPotential
+        //
+        if (n.name() == "HarmonicPotential" && n.namespace_().empty()) {
+            ::std::unique_ptr<HarmonicPotential_type> r(HarmonicPotential_traits::create(i, f, this));
+
+            if (!this->HarmonicPotential_) {
+                this->HarmonicPotential_.set(::std::move(r));
+                continue;
+            }
+        }
+
         break;
     }
 }
@@ -3180,16 +3798,37 @@ ForcesType* ForcesType::_clone(::xml_schema::flags f, ::xml_schema::container* c
 ForcesType& ForcesType::operator=(const ForcesType& x) {
     if (this != &x) {
         static_cast< ::xml_schema::type&>(*this) = x;
+        this->TargettedTemporaryConstant_ = x.TargettedTemporaryConstant_;
         this->LennardJones_ = x.LennardJones_;
+        this->LennardJonesRepulsive_ = x.LennardJonesRepulsive_;
         this->SmoothedLennardJones_ = x.SmoothedLennardJones_;
         this->Gravitational_ = x.Gravitational_;
         this->GlobalDownwardsGravity_ = x.GlobalDownwardsGravity_;
+        this->HarmonicPotential_ = x.HarmonicPotential_;
     }
 
     return *this;
 }
 
 ForcesType::~ForcesType() {}
+
+// IntegerListType
+//
+
+IntegerListType::IntegerListType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::simple_type(e, f, c), ::xsd::cxx::tree::list< ::xml_schema::integer, char>(e, f, this) {}
+
+IntegerListType::IntegerListType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::simple_type(a, f, c), ::xsd::cxx::tree::list< ::xml_schema::integer, char>(a, f, this) {}
+
+IntegerListType::IntegerListType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::simple_type(s, e, f, c), ::xsd::cxx::tree::list< ::xml_schema::integer, char>(s, e, f, this) {}
+
+IntegerListType* IntegerListType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class IntegerListType(*this, f, c);
+}
+
+IntegerListType::~IntegerListType() {}
 
 // LogLevelType
 //
@@ -3761,6 +4400,90 @@ void operator<<(::xercesc::DOMElement& e, const CuboidSpawnerType& i) {
     }
 }
 
+void operator<<(::xercesc::DOMElement& e, const SoftBodySpawnerType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // lower_left_front_corner
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("lower_left_front_corner", e));
+
+        s << i.lower_left_front_corner();
+    }
+
+    // grid_dim
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("grid_dim", e));
+
+        s << i.grid_dim();
+    }
+
+    // grid_spacing
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("grid_spacing", e));
+
+        s << ::xml_schema::as_double(i.grid_spacing());
+    }
+
+    // temperature
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("temperature", e));
+
+        s << ::xml_schema::as_double(i.temperature());
+    }
+
+    // mass
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("mass", e));
+
+        s << ::xml_schema::as_double(i.mass());
+    }
+
+    // velocity
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("velocity", e));
+
+        s << i.velocity();
+    }
+
+    // type
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("type", e));
+
+        s << i.type();
+    }
+
+    // spring_constant
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("spring_constant", e));
+
+        s << ::xml_schema::as_double(i.spring_constant());
+    }
+
+    // epsilon
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("epsilon", e));
+
+        s << ::xml_schema::as_double(i.epsilon());
+    }
+
+    // sigma
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sigma", e));
+
+        s << ::xml_schema::as_double(i.sigma());
+    }
+}
+
 void operator<<(::xercesc::DOMElement& e, const SphereSpawnerType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
 
@@ -3930,6 +4653,18 @@ void operator<<(::xercesc::DOMElement& e, const ParticleSourceType& i) {
         const ParticleSourceType::cuboid_spawner_type& x(*b);
 
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("cuboid_spawner", e));
+
+        s << x;
+    }
+
+    // soft_body_cuboid_spawner
+    //
+    for (ParticleSourceType::soft_body_cuboid_spawner_const_iterator b(i.soft_body_cuboid_spawner().begin()),
+         n(i.soft_body_cuboid_spawner().end());
+         b != n; ++b) {
+        const ParticleSourceType::soft_body_cuboid_spawner_type& x(*b);
+
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("soft_body_cuboid_spawner", e));
 
         s << x;
     }
@@ -4198,11 +4933,53 @@ void operator<<(::xercesc::DOMElement& e, const SimulationInterceptorsType& i) {
     }
 }
 
+void operator<<(::xercesc::DOMElement& e, const TargettedTemporaryConstantType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // force
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("force", e));
+
+        s << i.force();
+    }
+
+    // indices
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("indices", e));
+
+        a << i.indices();
+    }
+
+    // start_time
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("start_time", e));
+
+        a << ::xml_schema::as_double(i.start_time());
+    }
+
+    // end_time
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("end_time", e));
+
+        a << ::xml_schema::as_double(i.end_time());
+    }
+}
+
 void operator<<(::xercesc::DOMElement& e, const LennardJonesType& i) { e << static_cast<const ::xml_schema::type&>(i); }
 
 void operator<<(::xercesc::DOMAttr&, const LennardJonesType&) {}
 
 void operator<<(::xml_schema::list_stream&, const LennardJonesType&) {}
+
+void operator<<(::xercesc::DOMElement& e, const LennardJonesRepulsiveType& i) { e << static_cast<const ::xml_schema::type&>(i); }
+
+void operator<<(::xercesc::DOMAttr&, const LennardJonesRepulsiveType&) {}
+
+void operator<<(::xml_schema::list_stream&, const LennardJonesRepulsiveType&) {}
 
 void operator<<(::xercesc::DOMElement& e, const SmoothedLennardJonesType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
@@ -4242,8 +5019,22 @@ void operator<<(::xercesc::DOMElement& e, const GlobalGravityType& i) {
     }
 }
 
+void operator<<(::xercesc::DOMElement& e, const HarmonicPotentialType& i) { e << static_cast<const ::xml_schema::type&>(i); }
+
+void operator<<(::xercesc::DOMAttr&, const HarmonicPotentialType&) {}
+
+void operator<<(::xml_schema::list_stream&, const HarmonicPotentialType&) {}
+
 void operator<<(::xercesc::DOMElement& e, const ForcesType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
+
+    // TargettedTemporaryConstant
+    //
+    if (i.TargettedTemporaryConstant()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("TargettedTemporaryConstant", e));
+
+        s << *i.TargettedTemporaryConstant();
+    }
 
     // LennardJones
     //
@@ -4251,6 +5042,14 @@ void operator<<(::xercesc::DOMElement& e, const ForcesType& i) {
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("LennardJones", e));
 
         s << *i.LennardJones();
+    }
+
+    // LennardJonesRepulsive
+    //
+    if (i.LennardJonesRepulsive()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("LennardJonesRepulsive", e));
+
+        s << *i.LennardJonesRepulsive();
     }
 
     // SmoothedLennardJones
@@ -4276,6 +5075,26 @@ void operator<<(::xercesc::DOMElement& e, const ForcesType& i) {
 
         s << *i.GlobalDownwardsGravity();
     }
+
+    // HarmonicPotential
+    //
+    if (i.HarmonicPotential()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("HarmonicPotential", e));
+
+        s << *i.HarmonicPotential();
+    }
+}
+
+void operator<<(::xercesc::DOMElement& e, const IntegerListType& i) {
+    e << static_cast<const ::xsd::cxx::tree::list< ::xml_schema::integer, char>&>(i);
+}
+
+void operator<<(::xercesc::DOMAttr& a, const IntegerListType& i) {
+    a << static_cast<const ::xsd::cxx::tree::list< ::xml_schema::integer, char>&>(i);
+}
+
+void operator<<(::xml_schema::list_stream& l, const IntegerListType& i) {
+    l << static_cast<const ::xsd::cxx::tree::list< ::xml_schema::integer, char>&>(i);
 }
 
 void operator<<(::xercesc::DOMElement& e, const LogLevelType& i) { e << static_cast<const ::xml_schema::string&>(i); }

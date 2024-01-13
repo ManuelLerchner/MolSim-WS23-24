@@ -3,8 +3,11 @@
 #include "io/logger/Logger.h"
 #include "physics/pairwiseforces/GravitationalForce.h"
 #include "physics/pairwiseforces/LennardJonesForce.h"
+#include "physics/pairwiseforces/LennardJonesRepulsiveForce.h"
 #include "physics/pairwiseforces/SmoothedLennardJonesForce.h"
 #include "physics/simpleforces/GlobalDownwardsGravity.h"
+#include "physics/simpleforces/HarmonicForce.h"
+#include "physics/targettedforces/TargettedTemporaryConstantForce.h"
 #include "simulation/interceptors/diffusion_function/DiffusionFunctionInterceptor.h"
 #include "simulation/interceptors/frame_writer/FrameWriterInterceptor.h"
 #include "simulation/interceptors/particle_update_counter/ParticleUpdateCounterInterceptor.h"
@@ -53,6 +56,50 @@ CuboidSpawner XSDToInternalTypeAdapter::convertToCuboidSpawner(const CuboidSpawn
     return CuboidSpawner{
         lower_left_front_corner, grid_dimensions, grid_spacing, mass, initial_velocity, static_cast<int>(type), epsilon, sigma,
         third_dimension,         temperature};
+}
+
+SoftBodyCuboidSpawner XSDToInternalTypeAdapter::convertToSoftBodyCuboidSpawner(const SoftBodySpawnerType& soft_body_cuboid,
+                                                                               bool third_dimension) {
+    auto lower_left_front_corner = convertToVector(soft_body_cuboid.lower_left_front_corner());
+    auto grid_dimensions = convertToVector(soft_body_cuboid.grid_dim());
+    auto initial_velocity = convertToVector(soft_body_cuboid.velocity());
+
+    auto grid_spacing = soft_body_cuboid.grid_spacing();
+    auto mass = soft_body_cuboid.mass();
+    auto type = soft_body_cuboid.type();
+    auto spring_constant = soft_body_cuboid.spring_constant();
+    auto epsilon = soft_body_cuboid.epsilon();
+    auto sigma = soft_body_cuboid.sigma();
+    auto temperature = soft_body_cuboid.temperature();
+
+    if (grid_dimensions[0] <= 0 || grid_dimensions[1] <= 0 || grid_dimensions[2] <= 0) {
+        Logger::logger->error("Cuboid grid dimensions must be positive");
+        throw std::runtime_error("Cuboid grid dimensions must be positive");
+    }
+
+    if (!third_dimension && grid_dimensions[2] > 1) {
+        Logger::logger->error("Cuboid grid dimensions must be 1 in z direction if third dimension is disabled");
+        throw std::runtime_error("Cuboid grid dimensions must be 1 in z direction if third dimension is disabled");
+    }
+
+    if (grid_spacing <= 0) {
+        Logger::logger->error("Cuboid grid spacing must be positive");
+        throw std::runtime_error("Cuboid grid spacing must be positive");
+    }
+
+    if (mass <= 0) {
+        Logger::logger->error("Cuboid mass must be positive");
+        throw std::runtime_error("Cuboid mass must be positive");
+    }
+
+    if (temperature < 0) {
+        Logger::logger->error("Cuboid temperature must be positive");
+        throw std::runtime_error("Cuboid temperature must be positive");
+    }
+
+    return SoftBodyCuboidSpawner{lower_left_front_corner, grid_dimensions,        grid_spacing, mass,
+                                 initial_velocity,        static_cast<int>(type), epsilon,      sigma,
+                                 spring_constant,         third_dimension,        temperature};
 }
 
 SphereSpawner XSDToInternalTypeAdapter::convertToSphereSpawner(const SphereSpawnerType& sphere, bool third_dimension) {
@@ -242,13 +289,29 @@ Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particl
     return Particle{position, velocity, force, old_force, mass, static_cast<int>(type), epsilon, sigma};
 }
 
-std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::shared_ptr<PairwiseForceSource>>>
-XSDToInternalTypeAdapter::convertToForces(const ForcesType& forces) {
+std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::shared_ptr<PairwiseForceSource>>,
+           std::vector<std::shared_ptr<TargettedForceSource>>>
+XSDToInternalTypeAdapter::convertToForces(
+    const ForcesType& forces, const std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType>& container_data) {
     std::vector<std::shared_ptr<SimpleForceSource>> simple_force_sources;
     std::vector<std::shared_ptr<PairwiseForceSource>> pairwise_force_sources;
+    std::vector<std::shared_ptr<TargettedForceSource>> targetted_force_sources;
 
+    // Simple Forces
+    if (forces.GlobalDownwardsGravity()) {
+        auto g = (*forces.GlobalDownwardsGravity()).g();
+        simple_force_sources.push_back(std::make_shared<GlobalDownwardsGravity>(g));
+    }
+    if (forces.HarmonicPotential()) {
+        simple_force_sources.push_back(std::make_shared<HarmonicForce>(container_data));
+    }
+
+    // Pairwise Forces
     if (forces.LennardJones()) {
         pairwise_force_sources.push_back(std::make_shared<LennardJonesForce>());
+    }
+    if (forces.LennardJonesRepulsive()) {
+        pairwise_force_sources.push_back(std::make_shared<LennardJonesRepulsiveForce>());
     }
     if (forces.SmoothedLennardJones()) {
         double r_c = (*forces.SmoothedLennardJones()).r_c();
@@ -258,12 +321,22 @@ XSDToInternalTypeAdapter::convertToForces(const ForcesType& forces) {
     if (forces.Gravitational()) {
         pairwise_force_sources.push_back(std::make_shared<GravitationalForce>());
     }
-    if (forces.GlobalDownwardsGravity()) {
-        auto g = (*forces.GlobalDownwardsGravity()).g();
-        simple_force_sources.push_back(std::make_shared<GlobalDownwardsGravity>(g));
+
+    // Targetted Forces
+    if (forces.TargettedTemporaryConstant()) {
+        auto indices_list = forces.TargettedTemporaryConstant()->indices();
+        std::vector<size_t> indices_vector;
+        for (auto& index : indices_list) {
+            indices_vector.push_back(index);
+        }
+        auto force = convertToVector(forces.TargettedTemporaryConstant()->force());
+        auto start_time = forces.TargettedTemporaryConstant()->start_time();
+        auto end_time = forces.TargettedTemporaryConstant()->end_time();
+
+        targetted_force_sources.push_back(std::make_shared<TargettedTemporaryConstantForce>(indices_vector, force, start_time, end_time));
     }
 
-    return {simple_force_sources, pairwise_force_sources};
+    return {simple_force_sources, pairwise_force_sources, targetted_force_sources};
 }
 
 std::array<double, 3> XSDToInternalTypeAdapter::convertToVector(const DoubleVec3Type& vector) {

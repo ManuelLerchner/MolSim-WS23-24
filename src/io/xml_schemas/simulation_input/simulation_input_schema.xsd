@@ -66,7 +66,6 @@
   </xs:complexType>
 
 
-  <!-- Forces -->
   <xs:simpleType name="BoundaryType">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Outflow" />
@@ -86,6 +85,21 @@
       <xs:element name="mass" type="xs:double" />
       <xs:element name="velocity" type="DoubleVec3Type" />
       <xs:element name="type" type="xs:integer" />
+      <xs:element name="epsilon" type="xs:double" />
+      <xs:element name="sigma" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SoftBodySpawnerType">
+    <xs:sequence>
+      <xs:element name="lower_left_front_corner" type="DoubleVec3Type" />
+      <xs:element name="grid_dim" type="IntVec3Type" />
+      <xs:element name="grid_spacing" type="xs:double" />
+      <xs:element name="temperature" type="xs:double" />
+      <xs:element name="mass" type="xs:double" />
+      <xs:element name="velocity" type="DoubleVec3Type" />
+      <xs:element name="type" type="xs:integer" />
+      <xs:element name="spring_constant" type="xs:double" />
       <xs:element name="epsilon" type="xs:double" />
       <xs:element name="sigma" type="xs:double" />
     </xs:sequence>
@@ -128,6 +142,7 @@
   <xs:complexType name="ParticleSourceType">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element name="cuboid_spawner" type="CuboidSpawnerType" />
+      <xs:element name="soft_body_cuboid_spawner" type="SoftBodySpawnerType" />
       <xs:element name="sphere_spawner" type="SphereSpawnerType" />
       <xs:element name="single_particle_spawner" type="SingleParticleSpawnerType" />
       <xs:element name="check_point_loader" type="CheckPointLoaderType" />
@@ -197,7 +212,19 @@
 
 
   <!-- Forces -->
+  <xs:complexType name="TargettedTemporaryConstantType">
+    <xs:sequence>
+      <xs:element name="force" type="DoubleVec3Type" />
+    </xs:sequence>
+    <xs:attribute name="indices" type="IntegerListType" use="required" />
+    <xs:attribute name="start_time" type="xs:double" use="required" />
+    <xs:attribute name="end_time" type="xs:double" use="required" />
+  </xs:complexType>
+
   <xs:complexType name="LennardJonesType">
+  </xs:complexType>
+
+  <xs:complexType name="LennardJonesRepulsiveType">
   </xs:complexType>
 
   <xs:complexType name="SmoothedLennardJonesType">
@@ -213,15 +240,29 @@
   </xs:complexType>
 
 
+  <xs:complexType name="HarmonicPotentialType">
+  </xs:complexType>
+
+
   <xs:complexType name="ForcesType">
     <xs:all>
+      <xs:element name="TargettedTemporaryConstant" type="TargettedTemporaryConstantType"
+        minOccurs="0" />
       <xs:element name="LennardJones" type="LennardJonesType" minOccurs="0" />
+      <xs:element name="LennardJonesRepulsive" type="LennardJonesRepulsiveType" minOccurs="0" />
       <xs:element name="SmoothedLennardJones" type="SmoothedLennardJonesType" minOccurs="0" />
       <xs:element name="Gravitational" type="GravitationalType" minOccurs="0" />
       <xs:element name="GlobalDownwardsGravity" type="GlobalGravityType" minOccurs="0" />
+      <xs:element name="HarmonicPotential" type="HarmonicPotentialType" minOccurs="0" />
     </xs:all>
   </xs:complexType>
 
+
+  <!-- Lists -->
+
+  <xs:simpleType name="IntegerListType">
+    <xs:list itemType="xs:integer" />
+  </xs:simpleType>
 
   <!-- Enums -->
 

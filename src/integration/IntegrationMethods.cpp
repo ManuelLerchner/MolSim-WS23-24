@@ -3,7 +3,7 @@
 #include "integration/methods/VerletFunctor.h"
 #include "io/logger/Logger.h"
 
-const std::unique_ptr<IntegrationFunctor> get_integration_functor(IntegrationMethod method) {
+std::unique_ptr<IntegrationFunctor> get_integration_functor(IntegrationMethod method) {
     switch (method) {
         case IntegrationMethod::VERLET:
             return std::make_unique<VerletFunctor>();

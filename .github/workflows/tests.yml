@@ -23,6 +23,9 @@ jobs:
       - uses: ./.github/actions/install-dependencies
 
       - name: Run CMake
+        env:
+          CC: gcc-13
+          CXX: g++-13
         run: |
           rm -rf build
           mkdir build
