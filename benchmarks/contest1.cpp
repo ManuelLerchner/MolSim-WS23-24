@@ -11,7 +11,7 @@
 #include "physics/pairwiseforces/GravitationalForce.h"
 #include "physics/pairwiseforces/LennardJonesForce.h"
 #include "physics/simpleforces/GlobalDownwardsGravity.h"
-#include "physics/thermostats/Thermostat.cpp"
+#include "physics/thermostats/absolute_thermostat/AbsoluteThermostat.h"
 #include "simulation/Simulation.h"
 #include "simulation/interceptors/thermostat/ThermostatInterceptor.h"
 #include "utils/ArrayUtils.h"
@@ -36,9 +36,9 @@ void execute2DRectBenchmark() {
     simple_force_sources.push_back(std::make_shared<GlobalDownwardsGravity>(12.44));
 
     // Set the thermostat:
-    Thermostat thermostat{40, std::numeric_limits<double>::infinity(), static_cast<size_t>(1000), false};
+    std::shared_ptr<Thermostat> thermostat = std::make_shared<AbsoluteThermostat>(40, std::numeric_limits<double>::infinity(), false);
     std::vector<std::shared_ptr<SimulationInterceptor>> simulation_interceptors;
-    simulation_interceptors.push_back(std::make_shared<ThermostatInterceptor>(thermostat));
+    simulation_interceptors.push_back(std::make_shared<ThermostatInterceptor>(thermostat, 1000));
 
     std::vector<Particle> particles_lc;
     spawner1.spawnParticles(particles_lc);
@@ -51,6 +51,7 @@ void execute2DRectBenchmark() {
                                simulation_interceptors,
                                simple_force_sources,
                                pairwise_forces,
+                               {},
                                false,
                                "./output"};
     params_lc.num_particles = particles_lc.size();

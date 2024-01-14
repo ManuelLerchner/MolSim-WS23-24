@@ -307,6 +307,89 @@ CuboidSpawnerType::sigma_type& CuboidSpawnerType::sigma() { return this->sigma_.
 
 void CuboidSpawnerType::sigma(const sigma_type& x) { this->sigma_.set(x); }
 
+const CuboidSpawnerType::is_locked_type& CuboidSpawnerType::is_locked() const { return this->is_locked_.get(); }
+
+CuboidSpawnerType::is_locked_type& CuboidSpawnerType::is_locked() { return this->is_locked_.get(); }
+
+void CuboidSpawnerType::is_locked(const is_locked_type& x) { this->is_locked_.set(x); }
+
+CuboidSpawnerType::is_locked_type CuboidSpawnerType::is_locked_default_value() { return is_locked_type(false); }
+
+// SoftBodySpawnerType
+//
+
+const SoftBodySpawnerType::lower_left_front_corner_type& SoftBodySpawnerType::lower_left_front_corner() const {
+    return this->lower_left_front_corner_.get();
+}
+
+SoftBodySpawnerType::lower_left_front_corner_type& SoftBodySpawnerType::lower_left_front_corner() {
+    return this->lower_left_front_corner_.get();
+}
+
+void SoftBodySpawnerType::lower_left_front_corner(const lower_left_front_corner_type& x) { this->lower_left_front_corner_.set(x); }
+
+void SoftBodySpawnerType::lower_left_front_corner(::std::unique_ptr<lower_left_front_corner_type> x) {
+    this->lower_left_front_corner_.set(std::move(x));
+}
+
+const SoftBodySpawnerType::grid_dim_type& SoftBodySpawnerType::grid_dim() const { return this->grid_dim_.get(); }
+
+SoftBodySpawnerType::grid_dim_type& SoftBodySpawnerType::grid_dim() { return this->grid_dim_.get(); }
+
+void SoftBodySpawnerType::grid_dim(const grid_dim_type& x) { this->grid_dim_.set(x); }
+
+void SoftBodySpawnerType::grid_dim(::std::unique_ptr<grid_dim_type> x) { this->grid_dim_.set(std::move(x)); }
+
+const SoftBodySpawnerType::grid_spacing_type& SoftBodySpawnerType::grid_spacing() const { return this->grid_spacing_.get(); }
+
+SoftBodySpawnerType::grid_spacing_type& SoftBodySpawnerType::grid_spacing() { return this->grid_spacing_.get(); }
+
+void SoftBodySpawnerType::grid_spacing(const grid_spacing_type& x) { this->grid_spacing_.set(x); }
+
+const SoftBodySpawnerType::temperature_type& SoftBodySpawnerType::temperature() const { return this->temperature_.get(); }
+
+SoftBodySpawnerType::temperature_type& SoftBodySpawnerType::temperature() { return this->temperature_.get(); }
+
+void SoftBodySpawnerType::temperature(const temperature_type& x) { this->temperature_.set(x); }
+
+const SoftBodySpawnerType::mass_type& SoftBodySpawnerType::mass() const { return this->mass_.get(); }
+
+SoftBodySpawnerType::mass_type& SoftBodySpawnerType::mass() { return this->mass_.get(); }
+
+void SoftBodySpawnerType::mass(const mass_type& x) { this->mass_.set(x); }
+
+const SoftBodySpawnerType::velocity_type& SoftBodySpawnerType::velocity() const { return this->velocity_.get(); }
+
+SoftBodySpawnerType::velocity_type& SoftBodySpawnerType::velocity() { return this->velocity_.get(); }
+
+void SoftBodySpawnerType::velocity(const velocity_type& x) { this->velocity_.set(x); }
+
+void SoftBodySpawnerType::velocity(::std::unique_ptr<velocity_type> x) { this->velocity_.set(std::move(x)); }
+
+const SoftBodySpawnerType::type_type& SoftBodySpawnerType::type() const { return this->type_.get(); }
+
+SoftBodySpawnerType::type_type& SoftBodySpawnerType::type() { return this->type_.get(); }
+
+void SoftBodySpawnerType::type(const type_type& x) { this->type_.set(x); }
+
+const SoftBodySpawnerType::spring_constant_type& SoftBodySpawnerType::spring_constant() const { return this->spring_constant_.get(); }
+
+SoftBodySpawnerType::spring_constant_type& SoftBodySpawnerType::spring_constant() { return this->spring_constant_.get(); }
+
+void SoftBodySpawnerType::spring_constant(const spring_constant_type& x) { this->spring_constant_.set(x); }
+
+const SoftBodySpawnerType::epsilon_type& SoftBodySpawnerType::epsilon() const { return this->epsilon_.get(); }
+
+SoftBodySpawnerType::epsilon_type& SoftBodySpawnerType::epsilon() { return this->epsilon_.get(); }
+
+void SoftBodySpawnerType::epsilon(const epsilon_type& x) { this->epsilon_.set(x); }
+
+const SoftBodySpawnerType::sigma_type& SoftBodySpawnerType::sigma() const { return this->sigma_.get(); }
+
+SoftBodySpawnerType::sigma_type& SoftBodySpawnerType::sigma() { return this->sigma_.get(); }
+
+void SoftBodySpawnerType::sigma(const sigma_type& x) { this->sigma_.set(x); }
+
 // SphereSpawnerType
 //
 
@@ -368,6 +451,14 @@ SphereSpawnerType::sigma_type& SphereSpawnerType::sigma() { return this->sigma_.
 
 void SphereSpawnerType::sigma(const sigma_type& x) { this->sigma_.set(x); }
 
+const SphereSpawnerType::is_locked_type& SphereSpawnerType::is_locked() const { return this->is_locked_.get(); }
+
+SphereSpawnerType::is_locked_type& SphereSpawnerType::is_locked() { return this->is_locked_.get(); }
+
+void SphereSpawnerType::is_locked(const is_locked_type& x) { this->is_locked_.set(x); }
+
+SphereSpawnerType::is_locked_type SphereSpawnerType::is_locked_default_value() { return is_locked_type(false); }
+
 // SingleParticleSpawnerType
 //
 
@@ -417,6 +508,14 @@ SingleParticleSpawnerType::sigma_type& SingleParticleSpawnerType::sigma() { retu
 
 void SingleParticleSpawnerType::sigma(const sigma_type& x) { this->sigma_.set(x); }
 
+const SingleParticleSpawnerType::is_locked_type& SingleParticleSpawnerType::is_locked() const { return this->is_locked_.get(); }
+
+SingleParticleSpawnerType::is_locked_type& SingleParticleSpawnerType::is_locked() { return this->is_locked_.get(); }
+
+void SingleParticleSpawnerType::is_locked(const is_locked_type& x) { this->is_locked_.set(x); }
+
+SingleParticleSpawnerType::is_locked_type SingleParticleSpawnerType::is_locked_default_value() { return is_locked_type(false); }
+
 // CheckPointLoaderType
 //
 
@@ -447,6 +546,16 @@ const ParticleSourceType::cuboid_spawner_sequence& ParticleSourceType::cuboid_sp
 ParticleSourceType::cuboid_spawner_sequence& ParticleSourceType::cuboid_spawner() { return this->cuboid_spawner_; }
 
 void ParticleSourceType::cuboid_spawner(const cuboid_spawner_sequence& s) { this->cuboid_spawner_ = s; }
+
+const ParticleSourceType::soft_body_cuboid_spawner_sequence& ParticleSourceType::soft_body_cuboid_spawner() const {
+    return this->soft_body_cuboid_spawner_;
+}
+
+ParticleSourceType::soft_body_cuboid_spawner_sequence& ParticleSourceType::soft_body_cuboid_spawner() {
+    return this->soft_body_cuboid_spawner_;
+}
+
+void ParticleSourceType::soft_body_cuboid_spawner(const soft_body_cuboid_spawner_sequence& s) { this->soft_body_cuboid_spawner_ = s; }
 
 const ParticleSourceType::sphere_spawner_sequence& ParticleSourceType::sphere_spawner() const { return this->sphere_spawner_; }
 
@@ -537,33 +646,6 @@ const SettingsType::log_level_type& SettingsType::log_level_default_value() { re
 
 // ParticleUpdatesPerSecondInterceptionType
 //
-
-// RadialDistributionFunctionInterceptionType
-//
-
-const RadialDistributionFunctionInterceptionType::bin_width_type& RadialDistributionFunctionInterceptionType::bin_width() const {
-    return this->bin_width_.get();
-}
-
-RadialDistributionFunctionInterceptionType::bin_width_type& RadialDistributionFunctionInterceptionType::bin_width() {
-    return this->bin_width_.get();
-}
-
-void RadialDistributionFunctionInterceptionType::bin_width(const bin_width_type& x) { this->bin_width_.set(x); }
-
-const RadialDistributionFunctionInterceptionType::sample_every_x_percent_type&
-RadialDistributionFunctionInterceptionType::sample_every_x_percent() const {
-    return this->sample_every_x_percent_.get();
-}
-
-RadialDistributionFunctionInterceptionType::sample_every_x_percent_type&
-RadialDistributionFunctionInterceptionType::sample_every_x_percent() {
-    return this->sample_every_x_percent_.get();
-}
-
-void RadialDistributionFunctionInterceptionType::sample_every_x_percent(const sample_every_x_percent_type& x) {
-    this->sample_every_x_percent_.set(x);
-}
 
 // DiffusionFunctionInterceptorType
 //
@@ -656,6 +738,70 @@ ThermostatInterceptorType::application_interval_type& ThermostatInterceptorType:
 
 void ThermostatInterceptorType::application_interval(const application_interval_type& x) { this->application_interval_.set(x); }
 
+const ThermostatInterceptorType::type_type& ThermostatInterceptorType::type() const { return this->type_.get(); }
+
+ThermostatInterceptorType::type_type& ThermostatInterceptorType::type() { return this->type_.get(); }
+
+void ThermostatInterceptorType::type(const type_type& x) { this->type_.set(x); }
+
+void ThermostatInterceptorType::type(::std::unique_ptr<type_type> x) { this->type_.set(std::move(x)); }
+
+// RadialDistributionFunctionInterceptionType
+//
+
+const RadialDistributionFunctionInterceptionType::bin_width_type& RadialDistributionFunctionInterceptionType::bin_width() const {
+    return this->bin_width_.get();
+}
+
+RadialDistributionFunctionInterceptionType::bin_width_type& RadialDistributionFunctionInterceptionType::bin_width() {
+    return this->bin_width_.get();
+}
+
+void RadialDistributionFunctionInterceptionType::bin_width(const bin_width_type& x) { this->bin_width_.set(x); }
+
+const RadialDistributionFunctionInterceptionType::sample_every_x_percent_type&
+RadialDistributionFunctionInterceptionType::sample_every_x_percent() const {
+    return this->sample_every_x_percent_.get();
+}
+
+RadialDistributionFunctionInterceptionType::sample_every_x_percent_type&
+RadialDistributionFunctionInterceptionType::sample_every_x_percent() {
+    return this->sample_every_x_percent_.get();
+}
+
+void RadialDistributionFunctionInterceptionType::sample_every_x_percent(const sample_every_x_percent_type& x) {
+    this->sample_every_x_percent_.set(x);
+}
+
+// VelocityProfileInterceptionType
+//
+
+const VelocityProfileInterceptionType::box_optional& VelocityProfileInterceptionType::box() const { return this->box_; }
+
+VelocityProfileInterceptionType::box_optional& VelocityProfileInterceptionType::box() { return this->box_; }
+
+void VelocityProfileInterceptionType::box(const box_type& x) { this->box_.set(x); }
+
+void VelocityProfileInterceptionType::box(const box_optional& x) { this->box_ = x; }
+
+void VelocityProfileInterceptionType::box(::std::unique_ptr<box_type> x) { this->box_.set(std::move(x)); }
+
+const VelocityProfileInterceptionType::num_bins_type& VelocityProfileInterceptionType::num_bins() const { return this->num_bins_.get(); }
+
+VelocityProfileInterceptionType::num_bins_type& VelocityProfileInterceptionType::num_bins() { return this->num_bins_.get(); }
+
+void VelocityProfileInterceptionType::num_bins(const num_bins_type& x) { this->num_bins_.set(x); }
+
+const VelocityProfileInterceptionType::sample_every_x_percent_type& VelocityProfileInterceptionType::sample_every_x_percent() const {
+    return this->sample_every_x_percent_.get();
+}
+
+VelocityProfileInterceptionType::sample_every_x_percent_type& VelocityProfileInterceptionType::sample_every_x_percent() {
+    return this->sample_every_x_percent_.get();
+}
+
+void VelocityProfileInterceptionType::sample_every_x_percent(const sample_every_x_percent_type& x) { this->sample_every_x_percent_.set(x); }
+
 // TemperatureSensorInterceptorType
 //
 
@@ -728,6 +874,18 @@ void SimulationInterceptorsType::RadialDistributionFunction(::std::unique_ptr<Ra
     this->RadialDistributionFunction_.set(std::move(x));
 }
 
+const SimulationInterceptorsType::VelocityProfile_optional& SimulationInterceptorsType::VelocityProfile() const {
+    return this->VelocityProfile_;
+}
+
+SimulationInterceptorsType::VelocityProfile_optional& SimulationInterceptorsType::VelocityProfile() { return this->VelocityProfile_; }
+
+void SimulationInterceptorsType::VelocityProfile(const VelocityProfile_type& x) { this->VelocityProfile_.set(x); }
+
+void SimulationInterceptorsType::VelocityProfile(const VelocityProfile_optional& x) { this->VelocityProfile_ = x; }
+
+void SimulationInterceptorsType::VelocityProfile(::std::unique_ptr<VelocityProfile_type> x) { this->VelocityProfile_.set(std::move(x)); }
+
 const SimulationInterceptorsType::FrameWriter_optional& SimulationInterceptorsType::FrameWriter() const { return this->FrameWriter_; }
 
 SimulationInterceptorsType::FrameWriter_optional& SimulationInterceptorsType::FrameWriter() { return this->FrameWriter_; }
@@ -748,7 +906,43 @@ void SimulationInterceptorsType::Thermostat(const Thermostat_optional& x) { this
 
 void SimulationInterceptorsType::Thermostat(::std::unique_ptr<Thermostat_type> x) { this->Thermostat_.set(std::move(x)); }
 
+// TargettedTemporaryConstantType
+//
+
+const TargettedTemporaryConstantType::force_type& TargettedTemporaryConstantType::force() const { return this->force_.get(); }
+
+TargettedTemporaryConstantType::force_type& TargettedTemporaryConstantType::force() { return this->force_.get(); }
+
+void TargettedTemporaryConstantType::force(const force_type& x) { this->force_.set(x); }
+
+void TargettedTemporaryConstantType::force(::std::unique_ptr<force_type> x) { this->force_.set(std::move(x)); }
+
+const TargettedTemporaryConstantType::indices_type& TargettedTemporaryConstantType::indices() const { return this->indices_.get(); }
+
+TargettedTemporaryConstantType::indices_type& TargettedTemporaryConstantType::indices() { return this->indices_.get(); }
+
+void TargettedTemporaryConstantType::indices(const indices_type& x) { this->indices_.set(x); }
+
+void TargettedTemporaryConstantType::indices(::std::unique_ptr<indices_type> x) { this->indices_.set(std::move(x)); }
+
+const TargettedTemporaryConstantType::start_time_type& TargettedTemporaryConstantType::start_time() const {
+    return this->start_time_.get();
+}
+
+TargettedTemporaryConstantType::start_time_type& TargettedTemporaryConstantType::start_time() { return this->start_time_.get(); }
+
+void TargettedTemporaryConstantType::start_time(const start_time_type& x) { this->start_time_.set(x); }
+
+const TargettedTemporaryConstantType::end_time_type& TargettedTemporaryConstantType::end_time() const { return this->end_time_.get(); }
+
+TargettedTemporaryConstantType::end_time_type& TargettedTemporaryConstantType::end_time() { return this->end_time_.get(); }
+
+void TargettedTemporaryConstantType::end_time(const end_time_type& x) { this->end_time_.set(x); }
+
 // LennardJonesType
+//
+
+// LennardJonesRepulsiveType
 //
 
 // SmoothedLennardJonesType
@@ -778,8 +972,25 @@ GlobalGravityType::g_type& GlobalGravityType::g() { return this->g_.get(); }
 
 void GlobalGravityType::g(const g_type& x) { this->g_.set(x); }
 
+// HarmonicPotentialType
+//
+
 // ForcesType
 //
+
+const ForcesType::TargettedTemporaryConstant_optional& ForcesType::TargettedTemporaryConstant() const {
+    return this->TargettedTemporaryConstant_;
+}
+
+ForcesType::TargettedTemporaryConstant_optional& ForcesType::TargettedTemporaryConstant() { return this->TargettedTemporaryConstant_; }
+
+void ForcesType::TargettedTemporaryConstant(const TargettedTemporaryConstant_type& x) { this->TargettedTemporaryConstant_.set(x); }
+
+void ForcesType::TargettedTemporaryConstant(const TargettedTemporaryConstant_optional& x) { this->TargettedTemporaryConstant_ = x; }
+
+void ForcesType::TargettedTemporaryConstant(::std::unique_ptr<TargettedTemporaryConstant_type> x) {
+    this->TargettedTemporaryConstant_.set(std::move(x));
+}
 
 const ForcesType::LennardJones_optional& ForcesType::LennardJones() const { return this->LennardJones_; }
 
@@ -790,6 +1001,16 @@ void ForcesType::LennardJones(const LennardJones_type& x) { this->LennardJones_.
 void ForcesType::LennardJones(const LennardJones_optional& x) { this->LennardJones_ = x; }
 
 void ForcesType::LennardJones(::std::unique_ptr<LennardJones_type> x) { this->LennardJones_.set(std::move(x)); }
+
+const ForcesType::LennardJonesRepulsive_optional& ForcesType::LennardJonesRepulsive() const { return this->LennardJonesRepulsive_; }
+
+ForcesType::LennardJonesRepulsive_optional& ForcesType::LennardJonesRepulsive() { return this->LennardJonesRepulsive_; }
+
+void ForcesType::LennardJonesRepulsive(const LennardJonesRepulsive_type& x) { this->LennardJonesRepulsive_.set(x); }
+
+void ForcesType::LennardJonesRepulsive(const LennardJonesRepulsive_optional& x) { this->LennardJonesRepulsive_ = x; }
+
+void ForcesType::LennardJonesRepulsive(::std::unique_ptr<LennardJonesRepulsive_type> x) { this->LennardJonesRepulsive_.set(std::move(x)); }
 
 const ForcesType::SmoothedLennardJones_optional& ForcesType::SmoothedLennardJones() const { return this->SmoothedLennardJones_; }
 
@@ -822,6 +1043,54 @@ void ForcesType::GlobalDownwardsGravity(const GlobalDownwardsGravity_optional& x
 void ForcesType::GlobalDownwardsGravity(::std::unique_ptr<GlobalDownwardsGravity_type> x) {
     this->GlobalDownwardsGravity_.set(std::move(x));
 }
+
+const ForcesType::HarmonicPotential_optional& ForcesType::HarmonicPotential() const { return this->HarmonicPotential_; }
+
+ForcesType::HarmonicPotential_optional& ForcesType::HarmonicPotential() { return this->HarmonicPotential_; }
+
+void ForcesType::HarmonicPotential(const HarmonicPotential_type& x) { this->HarmonicPotential_.set(x); }
+
+void ForcesType::HarmonicPotential(const HarmonicPotential_optional& x) { this->HarmonicPotential_ = x; }
+
+void ForcesType::HarmonicPotential(::std::unique_ptr<HarmonicPotential_type> x) { this->HarmonicPotential_.set(std::move(x)); }
+
+// ThreeDRegionType
+//
+
+const ThreeDRegionType::lower_left_front_corner_type& ThreeDRegionType::lower_left_front_corner() const {
+    return this->lower_left_front_corner_.get();
+}
+
+ThreeDRegionType::lower_left_front_corner_type& ThreeDRegionType::lower_left_front_corner() { return this->lower_left_front_corner_.get(); }
+
+void ThreeDRegionType::lower_left_front_corner(const lower_left_front_corner_type& x) { this->lower_left_front_corner_.set(x); }
+
+void ThreeDRegionType::lower_left_front_corner(::std::unique_ptr<lower_left_front_corner_type> x) {
+    this->lower_left_front_corner_.set(std::move(x));
+}
+
+const ThreeDRegionType::upper_right_back_corner_type& ThreeDRegionType::upper_right_back_corner() const {
+    return this->upper_right_back_corner_.get();
+}
+
+ThreeDRegionType::upper_right_back_corner_type& ThreeDRegionType::upper_right_back_corner() { return this->upper_right_back_corner_.get(); }
+
+void ThreeDRegionType::upper_right_back_corner(const upper_right_back_corner_type& x) { this->upper_right_back_corner_.set(x); }
+
+void ThreeDRegionType::upper_right_back_corner(::std::unique_ptr<upper_right_back_corner_type> x) {
+    this->upper_right_back_corner_.set(std::move(x));
+}
+
+// IntegerListType
+//
+
+IntegerListType::IntegerListType() : ::xsd::cxx::tree::list< ::xml_schema::integer, char>(this) {}
+
+IntegerListType::IntegerListType(size_type n, const ::xml_schema::integer& x)
+    : ::xsd::cxx::tree::list< ::xml_schema::integer, char>(n, x, this) {}
+
+IntegerListType::IntegerListType(const IntegerListType& o, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::simple_type(o, f, c), ::xsd::cxx::tree::list< ::xml_schema::integer, char>(o, f, this) {}
 
 // LogLevelType
 //
@@ -858,6 +1127,26 @@ OutputFormatType::OutputFormatType(const OutputFormatType& v, ::xml_schema::flag
 
 OutputFormatType& OutputFormatType::operator=(value v) {
     static_cast< ::xml_schema::string&>(*this) = ::xml_schema::string(_xsd_OutputFormatType_literals_[v]);
+
+    return *this;
+}
+
+// ThermostatType
+//
+
+ThermostatType::ThermostatType(value v) : ::xml_schema::string(_xsd_ThermostatType_literals_[v]) {}
+
+ThermostatType::ThermostatType(const char* v) : ::xml_schema::string(v) {}
+
+ThermostatType::ThermostatType(const ::std::string& v) : ::xml_schema::string(v) {}
+
+ThermostatType::ThermostatType(const ::xml_schema::string& v) : ::xml_schema::string(v) {}
+
+ThermostatType::ThermostatType(const ThermostatType& v, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::string(v, f, c) {}
+
+ThermostatType& ThermostatType::operator=(value v) {
+    static_cast< ::xml_schema::string&>(*this) = ::xml_schema::string(_xsd_ThermostatType_literals_[v]);
 
     return *this;
 }
@@ -1495,7 +1784,8 @@ CuboidSpawnerType::CuboidSpawnerType(const lower_left_front_corner_type& lower_l
       velocity_(velocity, this),
       type_(type, this),
       epsilon_(epsilon, this),
-      sigma_(sigma, this) {}
+      sigma_(sigma, this),
+      is_locked_(is_locked_default_value(), this) {}
 
 CuboidSpawnerType::CuboidSpawnerType(::std::unique_ptr<lower_left_front_corner_type> lower_left_front_corner,
                                      ::std::unique_ptr<grid_dim_type> grid_dim, const grid_spacing_type& grid_spacing,
@@ -1510,7 +1800,8 @@ CuboidSpawnerType::CuboidSpawnerType(::std::unique_ptr<lower_left_front_corner_t
       velocity_(std::move(velocity), this),
       type_(type, this),
       epsilon_(epsilon, this),
-      sigma_(sigma, this) {}
+      sigma_(sigma, this),
+      is_locked_(is_locked_default_value(), this) {}
 
 CuboidSpawnerType::CuboidSpawnerType(const CuboidSpawnerType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
@@ -1522,7 +1813,8 @@ CuboidSpawnerType::CuboidSpawnerType(const CuboidSpawnerType& x, ::xml_schema::f
       velocity_(x.velocity_, f, this),
       type_(x.type_, f, this),
       epsilon_(x.epsilon_, f, this),
-      sigma_(x.sigma_, f, this) {}
+      sigma_(x.sigma_, f, this),
+      is_locked_(x.is_locked_, f, this) {}
 
 CuboidSpawnerType::CuboidSpawnerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
@@ -1534,9 +1826,10 @@ CuboidSpawnerType::CuboidSpawnerType(const ::xercesc::DOMElement& e, ::xml_schem
       velocity_(this),
       type_(this),
       epsilon_(this),
-      sigma_(this) {
+      sigma_(this),
+      is_locked_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, true);
         this->parse(p, f);
     }
 }
@@ -1671,6 +1964,20 @@ void CuboidSpawnerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schem
     if (!sigma_.present()) {
         throw ::xsd::cxx::tree::expected_element<char>("sigma", "");
     }
+
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        if (n.name() == "is_locked" && n.namespace_().empty()) {
+            this->is_locked_.set(is_locked_traits::create(i, f, this));
+            continue;
+        }
+    }
+
+    if (!is_locked_.present()) {
+        this->is_locked_.set(is_locked_default_value());
+    }
 }
 
 CuboidSpawnerType* CuboidSpawnerType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
@@ -1689,12 +1996,249 @@ CuboidSpawnerType& CuboidSpawnerType::operator=(const CuboidSpawnerType& x) {
         this->type_ = x.type_;
         this->epsilon_ = x.epsilon_;
         this->sigma_ = x.sigma_;
+        this->is_locked_ = x.is_locked_;
     }
 
     return *this;
 }
 
 CuboidSpawnerType::~CuboidSpawnerType() {}
+
+// SoftBodySpawnerType
+//
+
+SoftBodySpawnerType::SoftBodySpawnerType(const lower_left_front_corner_type& lower_left_front_corner, const grid_dim_type& grid_dim,
+                                         const grid_spacing_type& grid_spacing, const temperature_type& temperature, const mass_type& mass,
+                                         const velocity_type& velocity, const type_type& type, const spring_constant_type& spring_constant,
+                                         const epsilon_type& epsilon, const sigma_type& sigma)
+    : ::xml_schema::type(),
+      lower_left_front_corner_(lower_left_front_corner, this),
+      grid_dim_(grid_dim, this),
+      grid_spacing_(grid_spacing, this),
+      temperature_(temperature, this),
+      mass_(mass, this),
+      velocity_(velocity, this),
+      type_(type, this),
+      spring_constant_(spring_constant, this),
+      epsilon_(epsilon, this),
+      sigma_(sigma, this) {}
+
+SoftBodySpawnerType::SoftBodySpawnerType(::std::unique_ptr<lower_left_front_corner_type> lower_left_front_corner,
+                                         ::std::unique_ptr<grid_dim_type> grid_dim, const grid_spacing_type& grid_spacing,
+                                         const temperature_type& temperature, const mass_type& mass,
+                                         ::std::unique_ptr<velocity_type> velocity, const type_type& type,
+                                         const spring_constant_type& spring_constant, const epsilon_type& epsilon, const sigma_type& sigma)
+    : ::xml_schema::type(),
+      lower_left_front_corner_(std::move(lower_left_front_corner), this),
+      grid_dim_(std::move(grid_dim), this),
+      grid_spacing_(grid_spacing, this),
+      temperature_(temperature, this),
+      mass_(mass, this),
+      velocity_(std::move(velocity), this),
+      type_(type, this),
+      spring_constant_(spring_constant, this),
+      epsilon_(epsilon, this),
+      sigma_(sigma, this) {}
+
+SoftBodySpawnerType::SoftBodySpawnerType(const SoftBodySpawnerType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c),
+      lower_left_front_corner_(x.lower_left_front_corner_, f, this),
+      grid_dim_(x.grid_dim_, f, this),
+      grid_spacing_(x.grid_spacing_, f, this),
+      temperature_(x.temperature_, f, this),
+      mass_(x.mass_, f, this),
+      velocity_(x.velocity_, f, this),
+      type_(x.type_, f, this),
+      spring_constant_(x.spring_constant_, f, this),
+      epsilon_(x.epsilon_, f, this),
+      sigma_(x.sigma_, f, this) {}
+
+SoftBodySpawnerType::SoftBodySpawnerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
+      lower_left_front_corner_(this),
+      grid_dim_(this),
+      grid_spacing_(this),
+      temperature_(this),
+      mass_(this),
+      velocity_(this),
+      type_(this),
+      spring_constant_(this),
+      epsilon_(this),
+      sigma_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
+        this->parse(p, f);
+    }
+}
+
+void SoftBodySpawnerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    for (; p.more_content(); p.next_content(false)) {
+        const ::xercesc::DOMElement& i(p.cur_element());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        // lower_left_front_corner
+        //
+        if (n.name() == "lower_left_front_corner" && n.namespace_().empty()) {
+            ::std::unique_ptr<lower_left_front_corner_type> r(lower_left_front_corner_traits::create(i, f, this));
+
+            if (!lower_left_front_corner_.present()) {
+                this->lower_left_front_corner_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // grid_dim
+        //
+        if (n.name() == "grid_dim" && n.namespace_().empty()) {
+            ::std::unique_ptr<grid_dim_type> r(grid_dim_traits::create(i, f, this));
+
+            if (!grid_dim_.present()) {
+                this->grid_dim_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // grid_spacing
+        //
+        if (n.name() == "grid_spacing" && n.namespace_().empty()) {
+            if (!grid_spacing_.present()) {
+                this->grid_spacing_.set(grid_spacing_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // temperature
+        //
+        if (n.name() == "temperature" && n.namespace_().empty()) {
+            if (!temperature_.present()) {
+                this->temperature_.set(temperature_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // mass
+        //
+        if (n.name() == "mass" && n.namespace_().empty()) {
+            if (!mass_.present()) {
+                this->mass_.set(mass_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // velocity
+        //
+        if (n.name() == "velocity" && n.namespace_().empty()) {
+            ::std::unique_ptr<velocity_type> r(velocity_traits::create(i, f, this));
+
+            if (!velocity_.present()) {
+                this->velocity_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // type
+        //
+        if (n.name() == "type" && n.namespace_().empty()) {
+            if (!type_.present()) {
+                this->type_.set(type_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // spring_constant
+        //
+        if (n.name() == "spring_constant" && n.namespace_().empty()) {
+            if (!spring_constant_.present()) {
+                this->spring_constant_.set(spring_constant_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // epsilon
+        //
+        if (n.name() == "epsilon" && n.namespace_().empty()) {
+            if (!epsilon_.present()) {
+                this->epsilon_.set(epsilon_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // sigma
+        //
+        if (n.name() == "sigma" && n.namespace_().empty()) {
+            if (!sigma_.present()) {
+                this->sigma_.set(sigma_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        break;
+    }
+
+    if (!lower_left_front_corner_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("lower_left_front_corner", "");
+    }
+
+    if (!grid_dim_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("grid_dim", "");
+    }
+
+    if (!grid_spacing_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("grid_spacing", "");
+    }
+
+    if (!temperature_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("temperature", "");
+    }
+
+    if (!mass_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("mass", "");
+    }
+
+    if (!velocity_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("velocity", "");
+    }
+
+    if (!type_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("type", "");
+    }
+
+    if (!spring_constant_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("spring_constant", "");
+    }
+
+    if (!epsilon_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("epsilon", "");
+    }
+
+    if (!sigma_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("sigma", "");
+    }
+}
+
+SoftBodySpawnerType* SoftBodySpawnerType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class SoftBodySpawnerType(*this, f, c);
+}
+
+SoftBodySpawnerType& SoftBodySpawnerType::operator=(const SoftBodySpawnerType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->lower_left_front_corner_ = x.lower_left_front_corner_;
+        this->grid_dim_ = x.grid_dim_;
+        this->grid_spacing_ = x.grid_spacing_;
+        this->temperature_ = x.temperature_;
+        this->mass_ = x.mass_;
+        this->velocity_ = x.velocity_;
+        this->type_ = x.type_;
+        this->spring_constant_ = x.spring_constant_;
+        this->epsilon_ = x.epsilon_;
+        this->sigma_ = x.sigma_;
+    }
+
+    return *this;
+}
+
+SoftBodySpawnerType::~SoftBodySpawnerType() {}
 
 // SphereSpawnerType
 //
@@ -1711,7 +2255,8 @@ SphereSpawnerType::SphereSpawnerType(const center_type& center, const radius_typ
       velocity_(velocity, this),
       type_(type, this),
       epsilon_(epsilon, this),
-      sigma_(sigma, this) {}
+      sigma_(sigma, this),
+      is_locked_(is_locked_default_value(), this) {}
 
 SphereSpawnerType::SphereSpawnerType(::std::unique_ptr<center_type> center, const radius_type& radius,
                                      const grid_spacing_type& grid_spacing, const temperature_type& temperature, const mass_type& mass,
@@ -1726,7 +2271,8 @@ SphereSpawnerType::SphereSpawnerType(::std::unique_ptr<center_type> center, cons
       velocity_(std::move(velocity), this),
       type_(type, this),
       epsilon_(epsilon, this),
-      sigma_(sigma, this) {}
+      sigma_(sigma, this),
+      is_locked_(is_locked_default_value(), this) {}
 
 SphereSpawnerType::SphereSpawnerType(const SphereSpawnerType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
@@ -1738,7 +2284,8 @@ SphereSpawnerType::SphereSpawnerType(const SphereSpawnerType& x, ::xml_schema::f
       velocity_(x.velocity_, f, this),
       type_(x.type_, f, this),
       epsilon_(x.epsilon_, f, this),
-      sigma_(x.sigma_, f, this) {}
+      sigma_(x.sigma_, f, this),
+      is_locked_(x.is_locked_, f, this) {}
 
 SphereSpawnerType::SphereSpawnerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
@@ -1750,9 +2297,10 @@ SphereSpawnerType::SphereSpawnerType(const ::xercesc::DOMElement& e, ::xml_schem
       velocity_(this),
       type_(this),
       epsilon_(this),
-      sigma_(this) {
+      sigma_(this),
+      is_locked_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, true);
         this->parse(p, f);
     }
 }
@@ -1885,6 +2433,20 @@ void SphereSpawnerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schem
     if (!sigma_.present()) {
         throw ::xsd::cxx::tree::expected_element<char>("sigma", "");
     }
+
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        if (n.name() == "is_locked" && n.namespace_().empty()) {
+            this->is_locked_.set(is_locked_traits::create(i, f, this));
+            continue;
+        }
+    }
+
+    if (!is_locked_.present()) {
+        this->is_locked_.set(is_locked_default_value());
+    }
 }
 
 SphereSpawnerType* SphereSpawnerType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
@@ -1903,6 +2465,7 @@ SphereSpawnerType& SphereSpawnerType::operator=(const SphereSpawnerType& x) {
         this->type_ = x.type_;
         this->epsilon_ = x.epsilon_;
         this->sigma_ = x.sigma_;
+        this->is_locked_ = x.is_locked_;
     }
 
     return *this;
@@ -1923,7 +2486,8 @@ SingleParticleSpawnerType::SingleParticleSpawnerType(const position_type& positi
       velocity_(velocity, this),
       type_(type, this),
       epsilon_(epsilon, this),
-      sigma_(sigma, this) {}
+      sigma_(sigma, this),
+      is_locked_(is_locked_default_value(), this) {}
 
 SingleParticleSpawnerType::SingleParticleSpawnerType(::std::unique_ptr<position_type> position, const temperature_type& temperature,
                                                      const mass_type& mass, ::std::unique_ptr<velocity_type> velocity,
@@ -1935,7 +2499,8 @@ SingleParticleSpawnerType::SingleParticleSpawnerType(::std::unique_ptr<position_
       velocity_(std::move(velocity), this),
       type_(type, this),
       epsilon_(epsilon, this),
-      sigma_(sigma, this) {}
+      sigma_(sigma, this),
+      is_locked_(is_locked_default_value(), this) {}
 
 SingleParticleSpawnerType::SingleParticleSpawnerType(const SingleParticleSpawnerType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
@@ -1945,7 +2510,8 @@ SingleParticleSpawnerType::SingleParticleSpawnerType(const SingleParticleSpawner
       velocity_(x.velocity_, f, this),
       type_(x.type_, f, this),
       epsilon_(x.epsilon_, f, this),
-      sigma_(x.sigma_, f, this) {}
+      sigma_(x.sigma_, f, this),
+      is_locked_(x.is_locked_, f, this) {}
 
 SingleParticleSpawnerType::SingleParticleSpawnerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
@@ -1955,9 +2521,10 @@ SingleParticleSpawnerType::SingleParticleSpawnerType(const ::xercesc::DOMElement
       velocity_(this),
       type_(this),
       epsilon_(this),
-      sigma_(this) {
+      sigma_(this),
+      is_locked_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, true);
         this->parse(p, f);
     }
 }
@@ -2064,6 +2631,20 @@ void SingleParticleSpawnerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::x
     if (!sigma_.present()) {
         throw ::xsd::cxx::tree::expected_element<char>("sigma", "");
     }
+
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        if (n.name() == "is_locked" && n.namespace_().empty()) {
+            this->is_locked_.set(is_locked_traits::create(i, f, this));
+            continue;
+        }
+    }
+
+    if (!is_locked_.present()) {
+        this->is_locked_.set(is_locked_default_value());
+    }
 }
 
 SingleParticleSpawnerType* SingleParticleSpawnerType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
@@ -2080,6 +2661,7 @@ SingleParticleSpawnerType& SingleParticleSpawnerType::operator=(const SinglePart
         this->type_ = x.type_;
         this->epsilon_ = x.epsilon_;
         this->sigma_ = x.sigma_;
+        this->is_locked_ = x.is_locked_;
     }
 
     return *this;
@@ -2187,6 +2769,7 @@ SubSimulationType::~SubSimulationType() {}
 ParticleSourceType::ParticleSourceType()
     : ::xml_schema::type(),
       cuboid_spawner_(this),
+      soft_body_cuboid_spawner_(this),
       sphere_spawner_(this),
       single_particle_spawner_(this),
       check_point_loader_(this),
@@ -2195,6 +2778,7 @@ ParticleSourceType::ParticleSourceType()
 ParticleSourceType::ParticleSourceType(const ParticleSourceType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
       cuboid_spawner_(x.cuboid_spawner_, f, this),
+      soft_body_cuboid_spawner_(x.soft_body_cuboid_spawner_, f, this),
       sphere_spawner_(x.sphere_spawner_, f, this),
       single_particle_spawner_(x.single_particle_spawner_, f, this),
       check_point_loader_(x.check_point_loader_, f, this),
@@ -2203,6 +2787,7 @@ ParticleSourceType::ParticleSourceType(const ParticleSourceType& x, ::xml_schema
 ParticleSourceType::ParticleSourceType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
       cuboid_spawner_(this),
+      soft_body_cuboid_spawner_(this),
       sphere_spawner_(this),
       single_particle_spawner_(this),
       check_point_loader_(this),
@@ -2224,6 +2809,15 @@ void ParticleSourceType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_sche
             ::std::unique_ptr<cuboid_spawner_type> r(cuboid_spawner_traits::create(i, f, this));
 
             this->cuboid_spawner_.push_back(::std::move(r));
+            continue;
+        }
+
+        // soft_body_cuboid_spawner
+        //
+        if (n.name() == "soft_body_cuboid_spawner" && n.namespace_().empty()) {
+            ::std::unique_ptr<soft_body_cuboid_spawner_type> r(soft_body_cuboid_spawner_traits::create(i, f, this));
+
+            this->soft_body_cuboid_spawner_.push_back(::std::move(r));
             continue;
         }
 
@@ -2275,6 +2869,7 @@ ParticleSourceType& ParticleSourceType::operator=(const ParticleSourceType& x) {
     if (this != &x) {
         static_cast< ::xml_schema::type&>(*this) = x;
         this->cuboid_spawner_ = x.cuboid_spawner_;
+        this->soft_body_cuboid_spawner_ = x.soft_body_cuboid_spawner_;
         this->sphere_spawner_ = x.sphere_spawner_;
         this->single_particle_spawner_ = x.single_particle_spawner_;
         this->check_point_loader_ = x.check_point_loader_;
@@ -2491,69 +3086,6 @@ ParticleUpdatesPerSecondInterceptionType* ParticleUpdatesPerSecondInterceptionTy
 
 ParticleUpdatesPerSecondInterceptionType::~ParticleUpdatesPerSecondInterceptionType() {}
 
-// RadialDistributionFunctionInterceptionType
-//
-
-RadialDistributionFunctionInterceptionType::RadialDistributionFunctionInterceptionType(
-    const bin_width_type& bin_width, const sample_every_x_percent_type& sample_every_x_percent)
-    : ::xml_schema::type(), bin_width_(bin_width, this), sample_every_x_percent_(sample_every_x_percent, this) {}
-
-RadialDistributionFunctionInterceptionType::RadialDistributionFunctionInterceptionType(const RadialDistributionFunctionInterceptionType& x,
-                                                                                       ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c), bin_width_(x.bin_width_, f, this), sample_every_x_percent_(x.sample_every_x_percent_, f, this) {}
-
-RadialDistributionFunctionInterceptionType::RadialDistributionFunctionInterceptionType(const ::xercesc::DOMElement& e,
-                                                                                       ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), bin_width_(this), sample_every_x_percent_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
-        this->parse(p, f);
-    }
-}
-
-void RadialDistributionFunctionInterceptionType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    while (p.more_attributes()) {
-        const ::xercesc::DOMAttr& i(p.next_attribute());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        if (n.name() == "bin_width" && n.namespace_().empty()) {
-            this->bin_width_.set(bin_width_traits::create(i, f, this));
-            continue;
-        }
-
-        if (n.name() == "sample_every_x_percent" && n.namespace_().empty()) {
-            this->sample_every_x_percent_.set(sample_every_x_percent_traits::create(i, f, this));
-            continue;
-        }
-    }
-
-    if (!bin_width_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("bin_width", "");
-    }
-
-    if (!sample_every_x_percent_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("sample_every_x_percent", "");
-    }
-}
-
-RadialDistributionFunctionInterceptionType* RadialDistributionFunctionInterceptionType::_clone(::xml_schema::flags f,
-                                                                                               ::xml_schema::container* c) const {
-    return new class RadialDistributionFunctionInterceptionType(*this, f, c);
-}
-
-RadialDistributionFunctionInterceptionType& RadialDistributionFunctionInterceptionType::operator=(
-    const RadialDistributionFunctionInterceptionType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->bin_width_ = x.bin_width_;
-        this->sample_every_x_percent_ = x.sample_every_x_percent_;
-    }
-
-    return *this;
-}
-
-RadialDistributionFunctionInterceptionType::~RadialDistributionFunctionInterceptionType() {}
-
 // DiffusionFunctionInterceptorType
 //
 
@@ -2682,26 +3214,29 @@ FrameWriterInterceptorType::~FrameWriterInterceptorType() {}
 
 ThermostatInterceptorType::ThermostatInterceptorType(const target_temperature_type& target_temperature,
                                                      const max_temperature_change_type& max_temperature_change,
-                                                     const application_interval_type& application_interval)
+                                                     const application_interval_type& application_interval, const type_type& type)
     : ::xml_schema::type(),
       temperature_sensor_(this),
       target_temperature_(target_temperature, this),
       max_temperature_change_(max_temperature_change, this),
-      application_interval_(application_interval, this) {}
+      application_interval_(application_interval, this),
+      type_(type, this) {}
 
 ThermostatInterceptorType::ThermostatInterceptorType(const ThermostatInterceptorType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
       temperature_sensor_(x.temperature_sensor_, f, this),
       target_temperature_(x.target_temperature_, f, this),
       max_temperature_change_(x.max_temperature_change_, f, this),
-      application_interval_(x.application_interval_, f, this) {}
+      application_interval_(x.application_interval_, f, this),
+      type_(x.type_, f, this) {}
 
 ThermostatInterceptorType::ThermostatInterceptorType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
       temperature_sensor_(this),
       target_temperature_(this),
       max_temperature_change_(this),
-      application_interval_(this) {
+      application_interval_(this),
+      type_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, true, false, true);
         this->parse(p, f);
@@ -2745,6 +3280,11 @@ void ThermostatInterceptorType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::x
             this->application_interval_.set(application_interval_traits::create(i, f, this));
             continue;
         }
+
+        if (n.name() == "type" && n.namespace_().empty()) {
+            this->type_.set(type_traits::create(i, f, this));
+            continue;
+        }
     }
 
     if (!target_temperature_.present()) {
@@ -2757,6 +3297,10 @@ void ThermostatInterceptorType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::x
 
     if (!application_interval_.present()) {
         throw ::xsd::cxx::tree::expected_attribute<char>("application_interval", "");
+    }
+
+    if (!type_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("type", "");
     }
 }
 
@@ -2771,12 +3315,159 @@ ThermostatInterceptorType& ThermostatInterceptorType::operator=(const Thermostat
         this->target_temperature_ = x.target_temperature_;
         this->max_temperature_change_ = x.max_temperature_change_;
         this->application_interval_ = x.application_interval_;
+        this->type_ = x.type_;
     }
 
     return *this;
 }
 
 ThermostatInterceptorType::~ThermostatInterceptorType() {}
+
+// RadialDistributionFunctionInterceptionType
+//
+
+RadialDistributionFunctionInterceptionType::RadialDistributionFunctionInterceptionType(
+    const bin_width_type& bin_width, const sample_every_x_percent_type& sample_every_x_percent)
+    : ::xml_schema::type(), bin_width_(bin_width, this), sample_every_x_percent_(sample_every_x_percent, this) {}
+
+RadialDistributionFunctionInterceptionType::RadialDistributionFunctionInterceptionType(const RadialDistributionFunctionInterceptionType& x,
+                                                                                       ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c), bin_width_(x.bin_width_, f, this), sample_every_x_percent_(x.sample_every_x_percent_, f, this) {}
+
+RadialDistributionFunctionInterceptionType::RadialDistributionFunctionInterceptionType(const ::xercesc::DOMElement& e,
+                                                                                       ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), bin_width_(this), sample_every_x_percent_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
+        this->parse(p, f);
+    }
+}
+
+void RadialDistributionFunctionInterceptionType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        if (n.name() == "bin_width" && n.namespace_().empty()) {
+            this->bin_width_.set(bin_width_traits::create(i, f, this));
+            continue;
+        }
+
+        if (n.name() == "sample_every_x_percent" && n.namespace_().empty()) {
+            this->sample_every_x_percent_.set(sample_every_x_percent_traits::create(i, f, this));
+            continue;
+        }
+    }
+
+    if (!bin_width_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("bin_width", "");
+    }
+
+    if (!sample_every_x_percent_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("sample_every_x_percent", "");
+    }
+}
+
+RadialDistributionFunctionInterceptionType* RadialDistributionFunctionInterceptionType::_clone(::xml_schema::flags f,
+                                                                                               ::xml_schema::container* c) const {
+    return new class RadialDistributionFunctionInterceptionType(*this, f, c);
+}
+
+RadialDistributionFunctionInterceptionType& RadialDistributionFunctionInterceptionType::operator=(
+    const RadialDistributionFunctionInterceptionType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->bin_width_ = x.bin_width_;
+        this->sample_every_x_percent_ = x.sample_every_x_percent_;
+    }
+
+    return *this;
+}
+
+RadialDistributionFunctionInterceptionType::~RadialDistributionFunctionInterceptionType() {}
+
+// VelocityProfileInterceptionType
+//
+
+VelocityProfileInterceptionType::VelocityProfileInterceptionType(const num_bins_type& num_bins,
+                                                                 const sample_every_x_percent_type& sample_every_x_percent)
+    : ::xml_schema::type(), box_(this), num_bins_(num_bins, this), sample_every_x_percent_(sample_every_x_percent, this) {}
+
+VelocityProfileInterceptionType::VelocityProfileInterceptionType(const VelocityProfileInterceptionType& x, ::xml_schema::flags f,
+                                                                 ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c),
+      box_(x.box_, f, this),
+      num_bins_(x.num_bins_, f, this),
+      sample_every_x_percent_(x.sample_every_x_percent_, f, this) {}
+
+VelocityProfileInterceptionType::VelocityProfileInterceptionType(const ::xercesc::DOMElement& e, ::xml_schema::flags f,
+                                                                 ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), box_(this), num_bins_(this), sample_every_x_percent_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, true);
+        this->parse(p, f);
+    }
+}
+
+void VelocityProfileInterceptionType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    for (; p.more_content(); p.next_content(false)) {
+        const ::xercesc::DOMElement& i(p.cur_element());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        // box
+        //
+        if (n.name() == "box" && n.namespace_().empty()) {
+            ::std::unique_ptr<box_type> r(box_traits::create(i, f, this));
+
+            if (!this->box_) {
+                this->box_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        break;
+    }
+
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        if (n.name() == "num_bins" && n.namespace_().empty()) {
+            this->num_bins_.set(num_bins_traits::create(i, f, this));
+            continue;
+        }
+
+        if (n.name() == "sample_every_x_percent" && n.namespace_().empty()) {
+            this->sample_every_x_percent_.set(sample_every_x_percent_traits::create(i, f, this));
+            continue;
+        }
+    }
+
+    if (!num_bins_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("num_bins", "");
+    }
+
+    if (!sample_every_x_percent_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("sample_every_x_percent", "");
+    }
+}
+
+VelocityProfileInterceptionType* VelocityProfileInterceptionType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class VelocityProfileInterceptionType(*this, f, c);
+}
+
+VelocityProfileInterceptionType& VelocityProfileInterceptionType::operator=(const VelocityProfileInterceptionType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->box_ = x.box_;
+        this->num_bins_ = x.num_bins_;
+        this->sample_every_x_percent_ = x.sample_every_x_percent_;
+    }
+
+    return *this;
+}
+
+VelocityProfileInterceptionType::~VelocityProfileInterceptionType() {}
 
 // TemperatureSensorInterceptorType
 //
@@ -2836,6 +3527,7 @@ SimulationInterceptorsType::SimulationInterceptorsType()
       ParticleUpdatesPerSecond_(this),
       DiffusionFunction_(this),
       RadialDistributionFunction_(this),
+      VelocityProfile_(this),
       FrameWriter_(this),
       Thermostat_(this) {}
 
@@ -2845,6 +3537,7 @@ SimulationInterceptorsType::SimulationInterceptorsType(const SimulationIntercept
       ParticleUpdatesPerSecond_(x.ParticleUpdatesPerSecond_, f, this),
       DiffusionFunction_(x.DiffusionFunction_, f, this),
       RadialDistributionFunction_(x.RadialDistributionFunction_, f, this),
+      VelocityProfile_(x.VelocityProfile_, f, this),
       FrameWriter_(x.FrameWriter_, f, this),
       Thermostat_(x.Thermostat_, f, this) {}
 
@@ -2853,6 +3546,7 @@ SimulationInterceptorsType::SimulationInterceptorsType(const ::xercesc::DOMEleme
       ParticleUpdatesPerSecond_(this),
       DiffusionFunction_(this),
       RadialDistributionFunction_(this),
+      VelocityProfile_(this),
       FrameWriter_(this),
       Thermostat_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
@@ -2899,6 +3593,17 @@ void SimulationInterceptorsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::
             }
         }
 
+        // VelocityProfile
+        //
+        if (n.name() == "VelocityProfile" && n.namespace_().empty()) {
+            ::std::unique_ptr<VelocityProfile_type> r(VelocityProfile_traits::create(i, f, this));
+
+            if (!this->VelocityProfile_) {
+                this->VelocityProfile_.set(::std::move(r));
+                continue;
+            }
+        }
+
         // FrameWriter
         //
         if (n.name() == "FrameWriter" && n.namespace_().empty()) {
@@ -2935,6 +3640,7 @@ SimulationInterceptorsType& SimulationInterceptorsType::operator=(const Simulati
         this->ParticleUpdatesPerSecond_ = x.ParticleUpdatesPerSecond_;
         this->DiffusionFunction_ = x.DiffusionFunction_;
         this->RadialDistributionFunction_ = x.RadialDistributionFunction_;
+        this->VelocityProfile_ = x.VelocityProfile_;
         this->FrameWriter_ = x.FrameWriter_;
         this->Thermostat_ = x.Thermostat_;
     }
@@ -2943,6 +3649,112 @@ SimulationInterceptorsType& SimulationInterceptorsType::operator=(const Simulati
 }
 
 SimulationInterceptorsType::~SimulationInterceptorsType() {}
+
+// TargettedTemporaryConstantType
+//
+
+TargettedTemporaryConstantType::TargettedTemporaryConstantType(const force_type& force, const indices_type& indices,
+                                                               const start_time_type& start_time, const end_time_type& end_time)
+    : ::xml_schema::type(), force_(force, this), indices_(indices, this), start_time_(start_time, this), end_time_(end_time, this) {}
+
+TargettedTemporaryConstantType::TargettedTemporaryConstantType(::std::unique_ptr<force_type> force, const indices_type& indices,
+                                                               const start_time_type& start_time, const end_time_type& end_time)
+    : ::xml_schema::type(),
+      force_(std::move(force), this),
+      indices_(indices, this),
+      start_time_(start_time, this),
+      end_time_(end_time, this) {}
+
+TargettedTemporaryConstantType::TargettedTemporaryConstantType(const TargettedTemporaryConstantType& x, ::xml_schema::flags f,
+                                                               ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c),
+      force_(x.force_, f, this),
+      indices_(x.indices_, f, this),
+      start_time_(x.start_time_, f, this),
+      end_time_(x.end_time_, f, this) {}
+
+TargettedTemporaryConstantType::TargettedTemporaryConstantType(const ::xercesc::DOMElement& e, ::xml_schema::flags f,
+                                                               ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), force_(this), indices_(this), start_time_(this), end_time_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, true);
+        this->parse(p, f);
+    }
+}
+
+void TargettedTemporaryConstantType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    for (; p.more_content(); p.next_content(false)) {
+        const ::xercesc::DOMElement& i(p.cur_element());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        // force
+        //
+        if (n.name() == "force" && n.namespace_().empty()) {
+            ::std::unique_ptr<force_type> r(force_traits::create(i, f, this));
+
+            if (!force_.present()) {
+                this->force_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        break;
+    }
+
+    if (!force_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("force", "");
+    }
+
+    while (p.more_attributes()) {
+        const ::xercesc::DOMAttr& i(p.next_attribute());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        if (n.name() == "indices" && n.namespace_().empty()) {
+            this->indices_.set(indices_traits::create(i, f, this));
+            continue;
+        }
+
+        if (n.name() == "start_time" && n.namespace_().empty()) {
+            this->start_time_.set(start_time_traits::create(i, f, this));
+            continue;
+        }
+
+        if (n.name() == "end_time" && n.namespace_().empty()) {
+            this->end_time_.set(end_time_traits::create(i, f, this));
+            continue;
+        }
+    }
+
+    if (!indices_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("indices", "");
+    }
+
+    if (!start_time_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("start_time", "");
+    }
+
+    if (!end_time_.present()) {
+        throw ::xsd::cxx::tree::expected_attribute<char>("end_time", "");
+    }
+}
+
+TargettedTemporaryConstantType* TargettedTemporaryConstantType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class TargettedTemporaryConstantType(*this, f, c);
+}
+
+TargettedTemporaryConstantType& TargettedTemporaryConstantType::operator=(const TargettedTemporaryConstantType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->force_ = x.force_;
+        this->indices_ = x.indices_;
+        this->start_time_ = x.start_time_;
+        this->end_time_ = x.end_time_;
+    }
+
+    return *this;
+}
+
+TargettedTemporaryConstantType::~TargettedTemporaryConstantType() {}
 
 // LennardJonesType
 //
@@ -2967,6 +3779,30 @@ LennardJonesType* LennardJonesType::_clone(::xml_schema::flags f, ::xml_schema::
 }
 
 LennardJonesType::~LennardJonesType() {}
+
+// LennardJonesRepulsiveType
+//
+
+LennardJonesRepulsiveType::LennardJonesRepulsiveType() : ::xml_schema::type() {}
+
+LennardJonesRepulsiveType::LennardJonesRepulsiveType(const LennardJonesRepulsiveType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c) {}
+
+LennardJonesRepulsiveType::LennardJonesRepulsiveType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f, c) {}
+
+LennardJonesRepulsiveType::LennardJonesRepulsiveType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(a, f, c) {}
+
+LennardJonesRepulsiveType::LennardJonesRepulsiveType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f,
+                                                     ::xml_schema::container* c)
+    : ::xml_schema::type(s, e, f, c) {}
+
+LennardJonesRepulsiveType* LennardJonesRepulsiveType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class LennardJonesRepulsiveType(*this, f, c);
+}
+
+LennardJonesRepulsiveType::~LennardJonesRepulsiveType() {}
 
 // SmoothedLennardJonesType
 //
@@ -3097,25 +3933,62 @@ GlobalGravityType& GlobalGravityType::operator=(const GlobalGravityType& x) {
 
 GlobalGravityType::~GlobalGravityType() {}
 
+// HarmonicPotentialType
+//
+
+HarmonicPotentialType::HarmonicPotentialType() : ::xml_schema::type() {}
+
+HarmonicPotentialType::HarmonicPotentialType(const HarmonicPotentialType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c) {}
+
+HarmonicPotentialType::HarmonicPotentialType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f, c) {}
+
+HarmonicPotentialType::HarmonicPotentialType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(a, f, c) {}
+
+HarmonicPotentialType::HarmonicPotentialType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f,
+                                             ::xml_schema::container* c)
+    : ::xml_schema::type(s, e, f, c) {}
+
+HarmonicPotentialType* HarmonicPotentialType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class HarmonicPotentialType(*this, f, c);
+}
+
+HarmonicPotentialType::~HarmonicPotentialType() {}
+
 // ForcesType
 //
 
 ForcesType::ForcesType()
-    : ::xml_schema::type(), LennardJones_(this), SmoothedLennardJones_(this), Gravitational_(this), GlobalDownwardsGravity_(this) {}
+    : ::xml_schema::type(),
+      TargettedTemporaryConstant_(this),
+      LennardJones_(this),
+      LennardJonesRepulsive_(this),
+      SmoothedLennardJones_(this),
+      Gravitational_(this),
+      GlobalDownwardsGravity_(this),
+      HarmonicPotential_(this) {}
 
 ForcesType::ForcesType(const ForcesType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
+      TargettedTemporaryConstant_(x.TargettedTemporaryConstant_, f, this),
       LennardJones_(x.LennardJones_, f, this),
+      LennardJonesRepulsive_(x.LennardJonesRepulsive_, f, this),
       SmoothedLennardJones_(x.SmoothedLennardJones_, f, this),
       Gravitational_(x.Gravitational_, f, this),
-      GlobalDownwardsGravity_(x.GlobalDownwardsGravity_, f, this) {}
+      GlobalDownwardsGravity_(x.GlobalDownwardsGravity_, f, this),
+      HarmonicPotential_(x.HarmonicPotential_, f, this) {}
 
 ForcesType::ForcesType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
+      TargettedTemporaryConstant_(this),
       LennardJones_(this),
+      LennardJonesRepulsive_(this),
       SmoothedLennardJones_(this),
       Gravitational_(this),
-      GlobalDownwardsGravity_(this) {
+      GlobalDownwardsGravity_(this),
+      HarmonicPotential_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
         this->parse(p, f);
@@ -3127,6 +4000,17 @@ void ForcesType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flag
         const ::xercesc::DOMElement& i(p.cur_element());
         const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
 
+        // TargettedTemporaryConstant
+        //
+        if (n.name() == "TargettedTemporaryConstant" && n.namespace_().empty()) {
+            ::std::unique_ptr<TargettedTemporaryConstant_type> r(TargettedTemporaryConstant_traits::create(i, f, this));
+
+            if (!this->TargettedTemporaryConstant_) {
+                this->TargettedTemporaryConstant_.set(::std::move(r));
+                continue;
+            }
+        }
+
         // LennardJones
         //
         if (n.name() == "LennardJones" && n.namespace_().empty()) {
@@ -3134,6 +4018,17 @@ void ForcesType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flag
 
             if (!this->LennardJones_) {
                 this->LennardJones_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // LennardJonesRepulsive
+        //
+        if (n.name() == "LennardJonesRepulsive" && n.namespace_().empty()) {
+            ::std::unique_ptr<LennardJonesRepulsive_type> r(LennardJonesRepulsive_traits::create(i, f, this));
+
+            if (!this->LennardJonesRepulsive_) {
+                this->LennardJonesRepulsive_.set(::std::move(r));
                 continue;
             }
         }
@@ -3171,6 +4066,17 @@ void ForcesType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flag
             }
         }
 
+        // HarmonicPotential
+        //
+        if (n.name() == "HarmonicPotential" && n.namespace_().empty()) {
+            ::std::unique_ptr<HarmonicPotential_type> r(HarmonicPotential_traits::create(i, f, this));
+
+            if (!this->HarmonicPotential_) {
+                this->HarmonicPotential_.set(::std::move(r));
+                continue;
+            }
+        }
+
         break;
     }
 }
@@ -3180,16 +4086,120 @@ ForcesType* ForcesType::_clone(::xml_schema::flags f, ::xml_schema::container* c
 ForcesType& ForcesType::operator=(const ForcesType& x) {
     if (this != &x) {
         static_cast< ::xml_schema::type&>(*this) = x;
+        this->TargettedTemporaryConstant_ = x.TargettedTemporaryConstant_;
         this->LennardJones_ = x.LennardJones_;
+        this->LennardJonesRepulsive_ = x.LennardJonesRepulsive_;
         this->SmoothedLennardJones_ = x.SmoothedLennardJones_;
         this->Gravitational_ = x.Gravitational_;
         this->GlobalDownwardsGravity_ = x.GlobalDownwardsGravity_;
+        this->HarmonicPotential_ = x.HarmonicPotential_;
     }
 
     return *this;
 }
 
 ForcesType::~ForcesType() {}
+
+// ThreeDRegionType
+//
+
+ThreeDRegionType::ThreeDRegionType(const lower_left_front_corner_type& lower_left_front_corner,
+                                   const upper_right_back_corner_type& upper_right_back_corner)
+    : ::xml_schema::type(),
+      lower_left_front_corner_(lower_left_front_corner, this),
+      upper_right_back_corner_(upper_right_back_corner, this) {}
+
+ThreeDRegionType::ThreeDRegionType(::std::unique_ptr<lower_left_front_corner_type> lower_left_front_corner,
+                                   ::std::unique_ptr<upper_right_back_corner_type> upper_right_back_corner)
+    : ::xml_schema::type(),
+      lower_left_front_corner_(std::move(lower_left_front_corner), this),
+      upper_right_back_corner_(std::move(upper_right_back_corner), this) {}
+
+ThreeDRegionType::ThreeDRegionType(const ThreeDRegionType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c),
+      lower_left_front_corner_(x.lower_left_front_corner_, f, this),
+      upper_right_back_corner_(x.upper_right_back_corner_, f, this) {}
+
+ThreeDRegionType::ThreeDRegionType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), lower_left_front_corner_(this), upper_right_back_corner_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
+        this->parse(p, f);
+    }
+}
+
+void ThreeDRegionType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    for (; p.more_content(); p.next_content(false)) {
+        const ::xercesc::DOMElement& i(p.cur_element());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        // lower_left_front_corner
+        //
+        if (n.name() == "lower_left_front_corner" && n.namespace_().empty()) {
+            ::std::unique_ptr<lower_left_front_corner_type> r(lower_left_front_corner_traits::create(i, f, this));
+
+            if (!lower_left_front_corner_.present()) {
+                this->lower_left_front_corner_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        // upper_right_back_corner
+        //
+        if (n.name() == "upper_right_back_corner" && n.namespace_().empty()) {
+            ::std::unique_ptr<upper_right_back_corner_type> r(upper_right_back_corner_traits::create(i, f, this));
+
+            if (!upper_right_back_corner_.present()) {
+                this->upper_right_back_corner_.set(::std::move(r));
+                continue;
+            }
+        }
+
+        break;
+    }
+
+    if (!lower_left_front_corner_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("lower_left_front_corner", "");
+    }
+
+    if (!upper_right_back_corner_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("upper_right_back_corner", "");
+    }
+}
+
+ThreeDRegionType* ThreeDRegionType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class ThreeDRegionType(*this, f, c);
+}
+
+ThreeDRegionType& ThreeDRegionType::operator=(const ThreeDRegionType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->lower_left_front_corner_ = x.lower_left_front_corner_;
+        this->upper_right_back_corner_ = x.upper_right_back_corner_;
+    }
+
+    return *this;
+}
+
+ThreeDRegionType::~ThreeDRegionType() {}
+
+// IntegerListType
+//
+
+IntegerListType::IntegerListType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::simple_type(e, f, c), ::xsd::cxx::tree::list< ::xml_schema::integer, char>(e, f, this) {}
+
+IntegerListType::IntegerListType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::simple_type(a, f, c), ::xsd::cxx::tree::list< ::xml_schema::integer, char>(a, f, this) {}
+
+IntegerListType::IntegerListType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::simple_type(s, e, f, c), ::xsd::cxx::tree::list< ::xml_schema::integer, char>(s, e, f, this) {}
+
+IntegerListType* IntegerListType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class IntegerListType(*this, f, c);
+}
+
+IntegerListType::~IntegerListType() {}
 
 // LogLevelType
 //
@@ -3265,6 +4275,44 @@ const char* const OutputFormatType::_xsd_OutputFormatType_literals_[4] = {"vtu",
 
 const OutputFormatType::value OutputFormatType::_xsd_OutputFormatType_indexes_[4] = {::OutputFormatType::chkpt, ::OutputFormatType::none,
                                                                                      ::OutputFormatType::vtu, ::OutputFormatType::xyz};
+
+// ThermostatType
+//
+
+ThermostatType::ThermostatType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::string(e, f, c) {
+    _xsd_ThermostatType_convert();
+}
+
+ThermostatType::ThermostatType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::string(a, f, c) {
+    _xsd_ThermostatType_convert();
+}
+
+ThermostatType::ThermostatType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::string(s, e, f, c) {
+    _xsd_ThermostatType_convert();
+}
+
+ThermostatType* ThermostatType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class ThermostatType(*this, f, c);
+}
+
+ThermostatType::value ThermostatType::_xsd_ThermostatType_convert() const {
+    ::xsd::cxx::tree::enum_comparator<char> c(_xsd_ThermostatType_literals_);
+    const value* i(::std::lower_bound(_xsd_ThermostatType_indexes_, _xsd_ThermostatType_indexes_ + 2, *this, c));
+
+    if (i == _xsd_ThermostatType_indexes_ + 2 || _xsd_ThermostatType_literals_[*i] != *this) {
+        throw ::xsd::cxx::tree::unexpected_enumerator<char>(*this);
+    }
+
+    return *i;
+}
+
+const char* const ThermostatType::_xsd_ThermostatType_literals_[2] = {"absolute", "relative_motion"};
+
+const ThermostatType::value ThermostatType::_xsd_ThermostatType_indexes_[2] = {::ThermostatType::absolute,
+                                                                               ::ThermostatType::relative_motion};
 
 #include <istream>
 #include <xsd/cxx/tree/error-handler.hxx>
@@ -3759,6 +4807,98 @@ void operator<<(::xercesc::DOMElement& e, const CuboidSpawnerType& i) {
 
         s << ::xml_schema::as_double(i.sigma());
     }
+
+    // is_locked
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("is_locked", e));
+
+        a << i.is_locked();
+    }
+}
+
+void operator<<(::xercesc::DOMElement& e, const SoftBodySpawnerType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // lower_left_front_corner
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("lower_left_front_corner", e));
+
+        s << i.lower_left_front_corner();
+    }
+
+    // grid_dim
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("grid_dim", e));
+
+        s << i.grid_dim();
+    }
+
+    // grid_spacing
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("grid_spacing", e));
+
+        s << ::xml_schema::as_double(i.grid_spacing());
+    }
+
+    // temperature
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("temperature", e));
+
+        s << ::xml_schema::as_double(i.temperature());
+    }
+
+    // mass
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("mass", e));
+
+        s << ::xml_schema::as_double(i.mass());
+    }
+
+    // velocity
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("velocity", e));
+
+        s << i.velocity();
+    }
+
+    // type
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("type", e));
+
+        s << i.type();
+    }
+
+    // spring_constant
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("spring_constant", e));
+
+        s << ::xml_schema::as_double(i.spring_constant());
+    }
+
+    // epsilon
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("epsilon", e));
+
+        s << ::xml_schema::as_double(i.epsilon());
+    }
+
+    // sigma
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sigma", e));
+
+        s << ::xml_schema::as_double(i.sigma());
+    }
 }
 
 void operator<<(::xercesc::DOMElement& e, const SphereSpawnerType& i) {
@@ -3835,6 +4975,14 @@ void operator<<(::xercesc::DOMElement& e, const SphereSpawnerType& i) {
 
         s << ::xml_schema::as_double(i.sigma());
     }
+
+    // is_locked
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("is_locked", e));
+
+        a << i.is_locked();
+    }
 }
 
 void operator<<(::xercesc::DOMElement& e, const SingleParticleSpawnerType& i) {
@@ -3895,6 +5043,14 @@ void operator<<(::xercesc::DOMElement& e, const SingleParticleSpawnerType& i) {
 
         s << ::xml_schema::as_double(i.sigma());
     }
+
+    // is_locked
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("is_locked", e));
+
+        a << i.is_locked();
+    }
 }
 
 void operator<<(::xercesc::DOMElement& e, const CheckPointLoaderType& i) {
@@ -3930,6 +5086,18 @@ void operator<<(::xercesc::DOMElement& e, const ParticleSourceType& i) {
         const ParticleSourceType::cuboid_spawner_type& x(*b);
 
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("cuboid_spawner", e));
+
+        s << x;
+    }
+
+    // soft_body_cuboid_spawner
+    //
+    for (ParticleSourceType::soft_body_cuboid_spawner_const_iterator b(i.soft_body_cuboid_spawner().begin()),
+         n(i.soft_body_cuboid_spawner().end());
+         b != n; ++b) {
+        const ParticleSourceType::soft_body_cuboid_spawner_type& x(*b);
+
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("soft_body_cuboid_spawner", e));
 
         s << x;
     }
@@ -4046,26 +5214,6 @@ void operator<<(::xercesc::DOMAttr&, const ParticleUpdatesPerSecondInterceptionT
 
 void operator<<(::xml_schema::list_stream&, const ParticleUpdatesPerSecondInterceptionType&) {}
 
-void operator<<(::xercesc::DOMElement& e, const RadialDistributionFunctionInterceptionType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
-
-    // bin_width
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("bin_width", e));
-
-        a << ::xml_schema::as_double(i.bin_width());
-    }
-
-    // sample_every_x_percent
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("sample_every_x_percent", e));
-
-        a << ::xml_schema::as_double(i.sample_every_x_percent());
-    }
-}
-
 void operator<<(::xercesc::DOMElement& e, const DiffusionFunctionInterceptorType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
 
@@ -4140,6 +5288,62 @@ void operator<<(::xercesc::DOMElement& e, const ThermostatInterceptorType& i) {
 
         a << i.application_interval();
     }
+
+    // type
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("type", e));
+
+        a << i.type();
+    }
+}
+
+void operator<<(::xercesc::DOMElement& e, const RadialDistributionFunctionInterceptionType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // bin_width
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("bin_width", e));
+
+        a << ::xml_schema::as_double(i.bin_width());
+    }
+
+    // sample_every_x_percent
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("sample_every_x_percent", e));
+
+        a << ::xml_schema::as_double(i.sample_every_x_percent());
+    }
+}
+
+void operator<<(::xercesc::DOMElement& e, const VelocityProfileInterceptionType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // box
+    //
+    if (i.box()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("box", e));
+
+        s << *i.box();
+    }
+
+    // num_bins
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("num_bins", e));
+
+        a << i.num_bins();
+    }
+
+    // sample_every_x_percent
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("sample_every_x_percent", e));
+
+        a << ::xml_schema::as_double(i.sample_every_x_percent());
+    }
 }
 
 void operator<<(::xercesc::DOMElement& e, const TemperatureSensorInterceptorType& i) {
@@ -4181,6 +5385,14 @@ void operator<<(::xercesc::DOMElement& e, const SimulationInterceptorsType& i) {
         s << *i.RadialDistributionFunction();
     }
 
+    // VelocityProfile
+    //
+    if (i.VelocityProfile()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("VelocityProfile", e));
+
+        s << *i.VelocityProfile();
+    }
+
     // FrameWriter
     //
     if (i.FrameWriter()) {
@@ -4198,11 +5410,53 @@ void operator<<(::xercesc::DOMElement& e, const SimulationInterceptorsType& i) {
     }
 }
 
+void operator<<(::xercesc::DOMElement& e, const TargettedTemporaryConstantType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // force
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("force", e));
+
+        s << i.force();
+    }
+
+    // indices
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("indices", e));
+
+        a << i.indices();
+    }
+
+    // start_time
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("start_time", e));
+
+        a << ::xml_schema::as_double(i.start_time());
+    }
+
+    // end_time
+    //
+    {
+        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("end_time", e));
+
+        a << ::xml_schema::as_double(i.end_time());
+    }
+}
+
 void operator<<(::xercesc::DOMElement& e, const LennardJonesType& i) { e << static_cast<const ::xml_schema::type&>(i); }
 
 void operator<<(::xercesc::DOMAttr&, const LennardJonesType&) {}
 
 void operator<<(::xml_schema::list_stream&, const LennardJonesType&) {}
+
+void operator<<(::xercesc::DOMElement& e, const LennardJonesRepulsiveType& i) { e << static_cast<const ::xml_schema::type&>(i); }
+
+void operator<<(::xercesc::DOMAttr&, const LennardJonesRepulsiveType&) {}
+
+void operator<<(::xml_schema::list_stream&, const LennardJonesRepulsiveType&) {}
 
 void operator<<(::xercesc::DOMElement& e, const SmoothedLennardJonesType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
@@ -4242,8 +5496,22 @@ void operator<<(::xercesc::DOMElement& e, const GlobalGravityType& i) {
     }
 }
 
+void operator<<(::xercesc::DOMElement& e, const HarmonicPotentialType& i) { e << static_cast<const ::xml_schema::type&>(i); }
+
+void operator<<(::xercesc::DOMAttr&, const HarmonicPotentialType&) {}
+
+void operator<<(::xml_schema::list_stream&, const HarmonicPotentialType&) {}
+
 void operator<<(::xercesc::DOMElement& e, const ForcesType& i) {
     e << static_cast<const ::xml_schema::type&>(i);
+
+    // TargettedTemporaryConstant
+    //
+    if (i.TargettedTemporaryConstant()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("TargettedTemporaryConstant", e));
+
+        s << *i.TargettedTemporaryConstant();
+    }
 
     // LennardJones
     //
@@ -4251,6 +5519,14 @@ void operator<<(::xercesc::DOMElement& e, const ForcesType& i) {
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("LennardJones", e));
 
         s << *i.LennardJones();
+    }
+
+    // LennardJonesRepulsive
+    //
+    if (i.LennardJonesRepulsive()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("LennardJonesRepulsive", e));
+
+        s << *i.LennardJonesRepulsive();
     }
 
     // SmoothedLennardJones
@@ -4276,6 +5552,46 @@ void operator<<(::xercesc::DOMElement& e, const ForcesType& i) {
 
         s << *i.GlobalDownwardsGravity();
     }
+
+    // HarmonicPotential
+    //
+    if (i.HarmonicPotential()) {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("HarmonicPotential", e));
+
+        s << *i.HarmonicPotential();
+    }
+}
+
+void operator<<(::xercesc::DOMElement& e, const ThreeDRegionType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // lower_left_front_corner
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("lower_left_front_corner", e));
+
+        s << i.lower_left_front_corner();
+    }
+
+    // upper_right_back_corner
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("upper_right_back_corner", e));
+
+        s << i.upper_right_back_corner();
+    }
+}
+
+void operator<<(::xercesc::DOMElement& e, const IntegerListType& i) {
+    e << static_cast<const ::xsd::cxx::tree::list< ::xml_schema::integer, char>&>(i);
+}
+
+void operator<<(::xercesc::DOMAttr& a, const IntegerListType& i) {
+    a << static_cast<const ::xsd::cxx::tree::list< ::xml_schema::integer, char>&>(i);
+}
+
+void operator<<(::xml_schema::list_stream& l, const IntegerListType& i) {
+    l << static_cast<const ::xsd::cxx::tree::list< ::xml_schema::integer, char>&>(i);
 }
 
 void operator<<(::xercesc::DOMElement& e, const LogLevelType& i) { e << static_cast<const ::xml_schema::string&>(i); }
@@ -4289,6 +5605,12 @@ void operator<<(::xercesc::DOMElement& e, const OutputFormatType& i) { e << stat
 void operator<<(::xercesc::DOMAttr& a, const OutputFormatType& i) { a << static_cast<const ::xml_schema::string&>(i); }
 
 void operator<<(::xml_schema::list_stream& l, const OutputFormatType& i) { l << static_cast<const ::xml_schema::string&>(i); }
+
+void operator<<(::xercesc::DOMElement& e, const ThermostatType& i) { e << static_cast<const ::xml_schema::string&>(i); }
+
+void operator<<(::xercesc::DOMAttr& a, const ThermostatType& i) { a << static_cast<const ::xml_schema::string&>(i); }
+
+void operator<<(::xml_schema::list_stream& l, const ThermostatType& i) { l << static_cast<const ::xml_schema::string&>(i); }
 
 #include <xsd/cxx/post.hxx>
 

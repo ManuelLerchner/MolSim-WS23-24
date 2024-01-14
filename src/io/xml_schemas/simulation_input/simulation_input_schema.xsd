@@ -66,7 +66,6 @@
   </xs:complexType>
 
 
-  <!-- Forces -->
   <xs:simpleType name="BoundaryType">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Outflow" />
@@ -89,6 +88,22 @@
       <xs:element name="epsilon" type="xs:double" />
       <xs:element name="sigma" type="xs:double" />
     </xs:sequence>
+    <xs:attribute name="is_locked" type="xs:boolean" default="false" />
+  </xs:complexType>
+
+  <xs:complexType name="SoftBodySpawnerType">
+    <xs:sequence>
+      <xs:element name="lower_left_front_corner" type="DoubleVec3Type" />
+      <xs:element name="grid_dim" type="IntVec3Type" />
+      <xs:element name="grid_spacing" type="xs:double" />
+      <xs:element name="temperature" type="xs:double" />
+      <xs:element name="mass" type="xs:double" />
+      <xs:element name="velocity" type="DoubleVec3Type" />
+      <xs:element name="type" type="xs:integer" />
+      <xs:element name="spring_constant" type="xs:double" />
+      <xs:element name="epsilon" type="xs:double" />
+      <xs:element name="sigma" type="xs:double" />
+    </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="SphereSpawnerType">
@@ -103,6 +118,7 @@
       <xs:element name="epsilon" type="xs:double" />
       <xs:element name="sigma" type="xs:double" />
     </xs:sequence>
+    <xs:attribute name="is_locked" type="xs:boolean" default="false" />
   </xs:complexType>
 
   <xs:complexType name="SingleParticleSpawnerType">
@@ -115,6 +131,7 @@
       <xs:element name="epsilon" type="xs:double" />
       <xs:element name="sigma" type="xs:double" />
     </xs:sequence>
+    <xs:attribute name="is_locked" type="xs:boolean" default="false" />
   </xs:complexType>
 
   <xs:complexType name="CheckPointLoaderType">
@@ -128,6 +145,7 @@
   <xs:complexType name="ParticleSourceType">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element name="cuboid_spawner" type="CuboidSpawnerType" />
+      <xs:element name="soft_body_cuboid_spawner" type="SoftBodySpawnerType" />
       <xs:element name="sphere_spawner" type="SphereSpawnerType" />
       <xs:element name="single_particle_spawner" type="SingleParticleSpawnerType" />
       <xs:element name="check_point_loader" type="CheckPointLoaderType" />
@@ -154,10 +172,6 @@
   <xs:complexType name="ParticleUpdatesPerSecondInterceptionType">
   </xs:complexType>
 
-  <xs:complexType name="RadialDistributionFunctionInterceptionType">
-    <xs:attribute name="bin_width" type="xs:double" use="required" />
-    <xs:attribute name="sample_every_x_percent" type="xs:double" use="required" />
-  </xs:complexType>
 
   <xs:complexType name="DiffusionFunctionInterceptorType">
     <xs:attribute name="sample_every_x_percent" type="xs:double" use="required" />
@@ -176,6 +190,21 @@
     <xs:attribute name="target_temperature" type="xs:double" use="required" />
     <xs:attribute name="max_temperature_change" type="xs:double" use="required" />
     <xs:attribute name="application_interval" type="xs:integer" use="required" />
+    <xs:attribute name="type" type="ThermostatType" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="RadialDistributionFunctionInterceptionType">
+    <xs:attribute name="bin_width" type="xs:double" use="required" />
+    <xs:attribute name="sample_every_x_percent" type="xs:double" use="required" />
+  </xs:complexType>
+
+
+  <xs:complexType name="VelocityProfileInterceptionType">
+    <xs:sequence>
+      <xs:element name="box" type="ThreeDRegionType" minOccurs="0" />
+    </xs:sequence>
+    <xs:attribute name="num_bins" type="xs:integer" use="required" />
+    <xs:attribute name="sample_every_x_percent" type="xs:double" use="required" />
   </xs:complexType>
 
   <xs:complexType name="TemperatureSensorInterceptorType">
@@ -190,6 +219,7 @@
       <xs:element name="DiffusionFunction" type="DiffusionFunctionInterceptorType" minOccurs="0" />
       <xs:element name="RadialDistributionFunction"
         type="RadialDistributionFunctionInterceptionType" minOccurs="0" />
+      <xs:element name="VelocityProfile" type="VelocityProfileInterceptionType" minOccurs="0" />
       <xs:element name="FrameWriter" type="FrameWriterInterceptorType" minOccurs="0" />
       <xs:element name="Thermostat" type="ThermostatInterceptorType" minOccurs="0" />
     </xs:all>
@@ -197,7 +227,19 @@
 
 
   <!-- Forces -->
+  <xs:complexType name="TargettedTemporaryConstantType">
+    <xs:sequence>
+      <xs:element name="force" type="DoubleVec3Type" />
+    </xs:sequence>
+    <xs:attribute name="indices" type="IntegerListType" use="required" />
+    <xs:attribute name="start_time" type="xs:double" use="required" />
+    <xs:attribute name="end_time" type="xs:double" use="required" />
+  </xs:complexType>
+
   <xs:complexType name="LennardJonesType">
+  </xs:complexType>
+
+  <xs:complexType name="LennardJonesRepulsiveType">
   </xs:complexType>
 
   <xs:complexType name="SmoothedLennardJonesType">
@@ -213,15 +255,36 @@
   </xs:complexType>
 
 
+  <xs:complexType name="HarmonicPotentialType">
+  </xs:complexType>
+
+
   <xs:complexType name="ForcesType">
     <xs:all>
+      <xs:element name="TargettedTemporaryConstant" type="TargettedTemporaryConstantType"
+        minOccurs="0" />
       <xs:element name="LennardJones" type="LennardJonesType" minOccurs="0" />
+      <xs:element name="LennardJonesRepulsive" type="LennardJonesRepulsiveType" minOccurs="0" />
       <xs:element name="SmoothedLennardJones" type="SmoothedLennardJonesType" minOccurs="0" />
       <xs:element name="Gravitational" type="GravitationalType" minOccurs="0" />
       <xs:element name="GlobalDownwardsGravity" type="GlobalGravityType" minOccurs="0" />
+      <xs:element name="HarmonicPotential" type="HarmonicPotentialType" minOccurs="0" />
     </xs:all>
   </xs:complexType>
 
+  <xs:complexType name="ThreeDRegionType">
+    <xs:sequence>
+      <xs:element name="lower_left_front_corner" type="DoubleVec3Type" />
+      <xs:element name="upper_right_back_corner" type="DoubleVec3Type" />
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <!-- Lists -->
+
+  <xs:simpleType name="IntegerListType">
+    <xs:list itemType="xs:integer" />
+  </xs:simpleType>
 
   <!-- Enums -->
 
@@ -243,6 +306,13 @@
       <xs:enumeration value="chkpt" />
       <xs:enumeration value="xyz" />
       <xs:enumeration value="none" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ThermostatType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="absolute" />
+      <xs:enumeration value="relative_motion" />
     </xs:restriction>
   </xs:simpleType>
 

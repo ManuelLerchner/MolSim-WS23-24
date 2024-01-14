@@ -13,7 +13,9 @@
         </forces>
         <interceptors>
             <Thermostat target_temperature="1" max_temperature_change="1"
-                application_interval="10000" />
+                application_interval="10000"
+                type="absolute"
+            />
         </interceptors>
     </settings>
     <particle_source>

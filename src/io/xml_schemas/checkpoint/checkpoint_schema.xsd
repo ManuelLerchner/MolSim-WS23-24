@@ -47,6 +47,7 @@
       <xs:element name="type" type="xs:integer" />
       <xs:element name="epsilon" type="xs:double" />
       <xs:element name="sigma" type="xs:double" />
+      <xs:element name="is_locked" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
 

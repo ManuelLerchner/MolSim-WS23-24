@@ -33,6 +33,7 @@
       <type>14</type>
       <epsilon>15</epsilon>
       <sigma>16</sigma>
+      <is_locked>true</is_locked>
     </particle>
     <particle>
       <position>
@@ -59,6 +60,7 @@
       <type>28</type>
       <epsilon>29</epsilon>
       <sigma>30</sigma>
+      <is_locked>false</is_locked>
     </particle>
   </ParticleData>
 </CheckPoint>

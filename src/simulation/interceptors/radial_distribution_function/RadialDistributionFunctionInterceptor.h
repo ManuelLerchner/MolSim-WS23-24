@@ -63,5 +63,4 @@ class RadialDistributionFunctionInterceptor : public SimulationInterceptor {
     double bin_width;
     double sample_every_x_percent;
     std::unique_ptr<CSVWriter> csv_writer;
-    size_t samples_count;
 };

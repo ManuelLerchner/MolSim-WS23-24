@@ -1628,6 +1628,50 @@ class ParticleType : public ::xml_schema::type {
     //@}
 
     /**
+     * @name is_locked
+     *
+     * @brief Accessor and modifier functions for the %is_locked
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::boolean is_locked_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<is_locked_type, char> is_locked_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const is_locked_type& is_locked() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    is_locked_type& is_locked();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void is_locked(const is_locked_type& x);
+
+    //@}
+
+    /**
      * @name Constructors
      */
     //@{
@@ -1637,7 +1681,7 @@ class ParticleType : public ::xml_schema::type {
      * initializers for required elements and attributes.
      */
     ParticleType(const position_type&, const velocity_type&, const force_type&, const old_force_type&, const mass_type&, const type_type&,
-                 const epsilon_type&, const sigma_type&);
+                 const epsilon_type&, const sigma_type&, const is_locked_type&);
 
     /**
      * @brief Create an instance from the ultimate base and
@@ -1648,7 +1692,8 @@ class ParticleType : public ::xml_schema::type {
      * instead of making copies.
      */
     ParticleType(::std::unique_ptr<position_type>, ::std::unique_ptr<velocity_type>, ::std::unique_ptr<force_type>,
-                 ::std::unique_ptr<old_force_type>, const mass_type&, const type_type&, const epsilon_type&, const sigma_type&);
+                 ::std::unique_ptr<old_force_type>, const mass_type&, const type_type&, const epsilon_type&, const sigma_type&,
+                 const is_locked_type&);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -1718,6 +1763,7 @@ class ParticleType : public ::xml_schema::type {
     ::xsd::cxx::tree::one<type_type> type_;
     ::xsd::cxx::tree::one<epsilon_type> epsilon_;
     ::xsd::cxx::tree::one<sigma_type> sigma_;
+    ::xsd::cxx::tree::one<is_locked_type> is_locked_;
 
     //@endcond
 };

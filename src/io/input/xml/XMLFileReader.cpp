@@ -119,13 +119,13 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::filesy
 
     auto container_type = XSDToInternalTypeAdapter::convertToParticleContainer(settings.particle_container());
 
-    auto interceptors = XSDToInternalTypeAdapter::convertToSimulationInterceptors(settings.interceptors(), settings.third_dimension());
+    auto interceptors =
+        XSDToInternalTypeAdapter::convertToSimulationInterceptors(settings.interceptors(), settings.third_dimension(), container_type);
 
-    auto forces = XSDToInternalTypeAdapter::convertToForces(settings.forces());
+    auto forces = XSDToInternalTypeAdapter::convertToForces(settings.forces(), container_type);
 
-    auto params = SimulationParams{curr_file_path,  settings.delta_t(),  settings.end_time(), container_type,
-                                   interceptors,    std::get<0>(forces), std::get<1>(forces), fresh,
-                                   output_base_path};
+    auto params = SimulationParams{curr_file_path,      settings.delta_t(),  settings.end_time(), container_type, interceptors,
+                                   std::get<0>(forces), std::get<1>(forces), std::get<2>(forces), fresh,          output_base_path};
 
     if (output_base_path.empty()) {
         output_base_path = params.output_dir_path;
@@ -138,6 +138,21 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::filesy
         auto spawner = XSDToInternalTypeAdapter::convertToCuboidSpawner(cuboid_spawner, settings.third_dimension());
         int num_spawned = spawner.spawnParticles(particles);
         Logger::logger->info("Spawned {} particles from cuboid spawner", num_spawned);
+    }
+
+    for (auto soft_body_cuboid_spawner : particle_sources.soft_body_cuboid_spawner()) {
+        // if container has outflow boundaries
+        if (std::holds_alternative<SimulationParams::LinkedCellsType>(container_type)) {
+            auto container = std::get<SimulationParams::LinkedCellsType>(container_type);
+            if (std::find(container.boundary_conditions.begin(), container.boundary_conditions.end(),
+                          LinkedCellsContainer::BoundaryCondition::OUTFLOW) != container.boundary_conditions.end()) {
+                throw FileReader::FileFormatException("Soft body cuboid spawner is not supported with outflow boundary conditions");
+            }
+        }
+
+        auto spawner = XSDToInternalTypeAdapter::convertToSoftBodyCuboidSpawner(soft_body_cuboid_spawner, settings.third_dimension());
+        int num_spawned = spawner.spawnParticles(particles);
+        Logger::logger->info("Spawned {} particles from soft body cuboid spawner", num_spawned);
     }
 
     for (auto sphere_spawner : particle_sources.sphere_spawner()) {

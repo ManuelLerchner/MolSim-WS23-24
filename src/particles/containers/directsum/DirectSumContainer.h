@@ -154,4 +154,15 @@ class DirectSumContainer : public ParticleContainer {
      * Uses newton's third law to calculate the forces between the particles in a more optimized way.
      */
     void applyPairwiseForces(const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_force_sources) override;
+
+    /**
+     * @brief Applies the given targetted force sources to the particles
+     *
+     * @param targetted_force_sources List of targetted force sources to be applied
+     * @param curr_simulation_time Current simulation time
+     *
+     * Applies the given targetted force sources to the particles in the container.
+     */
+    void applyTargettedForces(const std::vector<std::shared_ptr<TargettedForceSource>>& targetted_force_sources,
+                              double curr_simulation_time) override;
 };

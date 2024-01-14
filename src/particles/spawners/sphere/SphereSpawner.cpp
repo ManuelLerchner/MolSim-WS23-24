@@ -5,8 +5,9 @@
 #include "utils/ArrayUtils.h"
 
 SphereSpawner::SphereSpawner(const std::array<double, 3>& center, const int sphere_radius, double grid_spacing, double mass,
-                             const std::array<double, 3>& initial_velocity, int type, double epsilon, double sigma, bool third_dimension,
-                             double initial_temperature)
+                             const std::array<double, 3>& initial_velocity, int type, double epsilon, double sigma, bool locked,
+
+                             bool third_dimension, double initial_temperature)
     : center(center),
       sphere_radius(sphere_radius),
       grid_spacing(grid_spacing),
@@ -14,6 +15,7 @@ SphereSpawner::SphereSpawner(const std::array<double, 3>& center, const int sphe
       type(type),
       espilon(epsilon),
       sigma(sigma),
+      locked(locked),
       initial_velocity(initial_velocity),
       initial_temperature(initial_temperature),
       third_dimension(third_dimension) {}
@@ -33,7 +35,7 @@ int SphereSpawner::spawnParticles(std::vector<Particle>& particles) const {
 
                 if (dist <= sphere_radius * grid_spacing) {
                     const auto position = center + displacement;
-                    Particle particle(position, initial_velocity, mass, type, espilon, sigma);
+                    Particle particle(position, initial_velocity, mass, type, espilon, sigma, locked);
                     Thermostat::setParticleTemperature(initial_temperature, particle, third_dimension ? 3 : 2);
 
                     particles.push_back(std::move(particle));

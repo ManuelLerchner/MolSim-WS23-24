@@ -100,6 +100,7 @@ void LinkedCellsContainer::prepareForceCalculation() {
 
 void LinkedCellsContainer::applySimpleForces(const std::vector<std::shared_ptr<SimpleForceSource>>& simple_force_sources) {
     for (Particle& p : particles) {
+        if (p.isLocked()) continue;
         for (const auto& force_source : simple_force_sources) {
             p.setF(p.getF() + force_source->calculateForce(p));
         }
@@ -128,6 +129,7 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
             // calculate the forces between the particle and the particles in the same cell
             // uses direct sum with newtons third law
             for (auto it2 = (it1 + 1); it2 != cell->getParticleReferences().end(); ++it2) {
+                if (p->isLocked() && (*it2)->isLocked()) continue;
                 Particle* q = *it2;
                 std::array<double, 3> total_force{0, 0, 0};
                 for (auto& force : force_sources) {
@@ -142,6 +144,7 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
                 if (cell->getAlreadyInfluencedBy().contains(neighbour)) continue;
 
                 for (Particle* neighbour_particle : neighbour->getParticleReferences()) {
+                    if (p->isLocked() && neighbour_particle->isLocked()) continue;
                     if (ArrayUtils::L2Norm(p->getX() - neighbour_particle->getX()) > cutoff_radius) continue;
 
                     for (const auto& force_source : force_sources) {
@@ -159,6 +162,13 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
     // remove the periodic halo particles
     deleteHaloParticles();
     updateCellsParticleReferences();
+}
+
+void LinkedCellsContainer::applyTargettedForces(const std::vector<std::shared_ptr<TargettedForceSource>>& force_sources,
+                                                double curr_simulation_time) {
+    for (const auto& force_source : force_sources) {
+        force_source->applyForce(particles, curr_simulation_time);
+    }
 }
 
 void LinkedCellsContainer::reserve(size_t n) {
@@ -352,6 +362,13 @@ void LinkedCellsContainer::updateCellsParticleReferences() {
 void LinkedCellsContainer::deleteHaloParticles() {
     for (Cell* cell : halo_cell_references) {
         for (Particle* p : cell->getParticleReferences()) {
+            // for (auto& [connected_particle_offset, _, _] : p->getConnectedParticles()) {
+            //     Particle* connected_particle = p + connected_particle_offset;
+            //     std::erase_if(connected_particle->getConnectedParticles(),
+            //                   [connected_particle, p](const std::tuple<long, double, double>& tuple) { return std::get<0>(tuple) == p -
+            //                   connected_particle; });
+            // }
+
             particles.erase(particles.begin() + (p - &particles[0]));
         }
     }

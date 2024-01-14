@@ -11,19 +11,19 @@ void TemperatureSensorInterceptor::onSimulationStart(Simulation& simulation) {
     auto expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t) + 1);
     SimulationInterceptor::every_nth_iteration = std::max(1, static_cast<int>(sample_every_x_percent * expected_iterations / 100));
 
-    auto current_temperature = thermostat.getCurrentTemperature(simulation.particle_container);
+    auto current_temperature = thermostat->getCurrentContainerTemperature(simulation.particle_container);
 
     csv_writer->writeRow({0, current_temperature});
 }
 
 void TemperatureSensorInterceptor::operator()(size_t iteration, Simulation& simulation) {
-    const double current_temperature = thermostat.getCurrentTemperature(simulation.particle_container);
+    const double current_temperature = thermostat->getCurrentContainerTemperature(simulation.particle_container);
 
     csv_writer->writeRow({iteration, current_temperature});
 }
 
 void TemperatureSensorInterceptor::onSimulationEnd(size_t iteration, Simulation& simulation) {
-    const double current_temperature = thermostat.getCurrentTemperature(simulation.particle_container);
+    const double current_temperature = thermostat->getCurrentContainerTemperature(simulation.particle_container);
 
     csv_writer->writeRow({iteration, current_temperature});
 }

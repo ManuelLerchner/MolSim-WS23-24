@@ -10,7 +10,7 @@ class TemperatureSensorInterceptor : public SimulationInterceptor {
     /**
      * @brief Construct a new TemperatureSensor Interceptor object
      */
-    explicit TemperatureSensorInterceptor(Thermostat& thermostat, double sample_every_x_percent)
+    explicit TemperatureSensorInterceptor(std::shared_ptr<Thermostat> thermostat, double sample_every_x_percent)
         : thermostat(thermostat), sample_every_x_percent(sample_every_x_percent) {}
 
     /**
@@ -59,7 +59,7 @@ class TemperatureSensorInterceptor : public SimulationInterceptor {
     /**
      * @brief The thermostat that is used to scale the temperature
      */
-    Thermostat thermostat;
+    std::shared_ptr<Thermostat> thermostat;
 
     double sample_every_x_percent;
 };

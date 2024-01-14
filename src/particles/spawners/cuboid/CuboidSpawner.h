@@ -49,6 +49,11 @@ class CuboidSpawner : public ParticleSpawner {
     double sigma;
 
     /**
+     * @brief Defines whether the particles in the cuboid are locked
+     */
+    bool locked;
+
+    /**
      * @brief Defines the initial velocity of the particles in the cuboid
      */
     const std::array<double, 3> initial_velocity;
@@ -74,6 +79,7 @@ class CuboidSpawner : public ParticleSpawner {
      * @param type Type of the particles in the cuboid
      * @param epsilon Lennard-Jones epsilon parameter of the particles in the cuboid
      * @param sigma Lennard-Jones sigma parameter of the particles in the cuboid
+     * @param locked Whether the particles in the cuboid are locked
      * @param third_dimension Whether to spawn particles in the third dimension
      * @param initial_temperature Initial temperature of the particles
      *
@@ -81,7 +87,7 @@ class CuboidSpawner : public ParticleSpawner {
      */
     CuboidSpawner(const std::array<double, 3>& lower_left_corner, const std::array<int, 3>& grid_dimensions, double grid_spacing,
                   double mass, const std::array<double, 3>& initial_velocity, int type, double epsilon = 1.0, double sigma = 1.2,
-                  bool third_dimension = true, double initial_temperature = 0.1);
+                  bool locked = false, bool third_dimension = true, double initial_temperature = 0.1);
 
     /**
      * @brief Spawns particles in the given container

@@ -94,6 +94,17 @@ class LinkedCellsContainer : public ParticleContainer {
     void applyPairwiseForces(const std::vector<std::shared_ptr<PairwiseForceSource>>& force_sources) override;
 
     /**
+     * @brief Applies the given targetted force sources to the particles
+     *
+     * @param targetted_force_sources List of targetted force sources to be applied
+     * @param curr_simulation_time Current simulation time
+     *
+     * Applies the given targetted force sources to the particles in the container.
+     */
+    void applyTargettedForces(const std::vector<std::shared_ptr<TargettedForceSource>>& targetted_force_sources,
+                              double curr_simulation_time) override;
+
+    /**
      * @brief Reserves space for n particles. This is useful if the number of particles is known in advance
      * and prevents reallocation of memory for the internal dynamic array of particles, when inserting new particles.
      *

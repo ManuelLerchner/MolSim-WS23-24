@@ -29,7 +29,7 @@
         </forces>
         <interceptors>
             <Thermostat application_interval="40" target_temperature="3"
-                max_temperature_change="0.001">
+                max_temperature_change="0.001" type="absolute">
                 <temperature_sensor sample_every_x_percent="0.2" />
             </Thermostat>
             <FrameWriter output_format="vtu" fps="24" video_length_s="30" />

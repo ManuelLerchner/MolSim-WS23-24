@@ -39,10 +39,11 @@ void ProgressBarInterceptor::onSimulationStart(Simulation& simulation) {
     t_start = std::chrono::high_resolution_clock::now();
     t_prev = t_start;
 
-    expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t) + 1);
+    expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t));
 
-    SimulationInterceptor::every_nth_iteration = std::max(1, static_cast<int>(expected_iterations / 100));
+    SimulationInterceptor::every_nth_iteration = std::max(1, static_cast<int>(expected_iterations / (2 * 100)));
 
+    Logger::logger->flush();
     printProgress(simulation.params.input_file_path, 0, 0, expected_iterations, -1);
 }
 
