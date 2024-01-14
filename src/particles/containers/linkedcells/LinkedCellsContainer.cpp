@@ -147,6 +147,7 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
             if (cell->getParticleReferences().empty()) continue;
 
             for (Cell* neighbour_cell : cell->getNeighbourReferences()) {
+                if (cell < neighbour_cell) continue;
                 if (neighbour_cell->getParticleReferences().empty()) continue;
 
                 for (Particle* p : cell->getParticleReferences()) {
@@ -157,6 +158,8 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
                         for (const auto& force_source : force_sources) {
                             std::array<double, 3> force = force_source->calculateForce(*p, *neighbour_particle);
                             p->setF(p->getF() + force);
+
+                            neighbour_particle->setF(neighbour_particle->getF() - force);
                         }
                     }
                 }
@@ -344,21 +347,30 @@ void LinkedCellsContainer::initCellNeighbourReferences() {
 }
 
 void LinkedCellsContainer::initIterationOrders() {
-    const std::array<std::array<int, 3>, 8> start_offsets = {
-        {{0, 0, 0}, {1, 0, 0}, {0, 1, 0}, {1, 1, 0}, {0, 0, 1}, {1, 0, 1}, {0, 1, 1}, {1, 1, 1}}};
+    std::vector<std::array<int, 3>> start_offsets;
 
-    for (int i = 0; i < 8; ++i) {
+    int d_cells = 3;
+    for (int x = -1; x < d_cells-1; ++x) {
+        for (int y = -1; y < d_cells-1; ++y) {
+            for (int z = -1; z < d_cells-1; ++z) {
+                start_offsets.push_back({x, y, z});
+            }
+        }
+    }
+
+    for (int i = 0; i < start_offsets.size(); ++i) {
         std::vector<Cell*> iteration_order;
         const std::array<int, 3>& start_offset = start_offsets[i];
 
-        for (int cx = start_offset[0]; cx < domain_num_cells[0]; cx += 2) {
-            for (int cy = start_offset[1]; cy < domain_num_cells[1]; cy += 2) {
-                for (int cz = start_offset[2]; cz < domain_num_cells[2]; cz += 2) {
+        for (int cx = start_offset[0]; cx <= domain_num_cells[0]; cx += d_cells) {
+            for (int cy = start_offset[1]; cy <= domain_num_cells[1]; cy += d_cells) {
+                for (int cz = start_offset[2]; cz <= domain_num_cells[2]; cz += d_cells) {
                     iteration_order.push_back(&cells.at(cellCoordToCellIndex(cx, cy, cz)));
                 }
             }
         }
-        iteration_orders[i] = iteration_order;
+
+        iteration_orders.push_back(iteration_order);
     }
 }
 

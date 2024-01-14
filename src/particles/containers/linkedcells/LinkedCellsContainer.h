@@ -13,7 +13,7 @@
  * approach
  */
 class LinkedCellsContainer : public ParticleContainer {
-    std::array<std::vector<Cell*>, 8> iteration_orders;
+    std::vector<std::vector<Cell*>> iteration_orders;
 
    public:
     /**
