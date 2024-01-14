@@ -13,6 +13,8 @@
  * approach
  */
 class LinkedCellsContainer : public ParticleContainer {
+    std::array<std::vector<Cell*>, 8> iteration_orders;
+
    public:
     /**
      * @brief Boundary type enum for labeling the sides of the domain
@@ -258,6 +260,11 @@ class LinkedCellsContainer : public ParticleContainer {
      * @brief Sets the neighbour references for each cell in the cell vector
      */
     void initCellNeighbourReferences();
+
+    /**
+     * @brief Sets the iteration orders for parallel execution
+     */
+    void initIterationOrders();
 
     /**
      * @brief Updates the particle references in the cells. This is necessary after a reallocation of the internal particle vector.

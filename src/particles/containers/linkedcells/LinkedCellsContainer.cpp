@@ -31,6 +31,9 @@ LinkedCellsContainer::LinkedCellsContainer(const std::array<double, 3>& _domain_
     // add the neighbour references to the cells
     initCellNeighbourReferences();
 
+    // create the iteration orders
+    initIterationOrders();
+
     // reserve the memory for the particles to prevent reallocation during insertion
     particles.reserve(_n);
 
@@ -120,10 +123,7 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
         cell->clearAlreadyInfluencedBy();
     }
 
-    for (Cell* cell : occupied_cells_references) {
-        // skip halo cells
-        // if (cell->getCellType() == Cell::CellType::HALO) continue;
-
+    for (Cell* cell : domain_cell_references) {
         for (auto it1 = cell->getParticleReferences().begin(); it1 != cell->getParticleReferences().end(); ++it1) {
             Particle* p = *it1;
             // calculate the forces between the particle and the particles in the same cell
@@ -138,23 +138,28 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
                 p->setF(p->getF() + total_force);
                 q->setF(q->getF() - total_force);
             }
+        }
+    }
 
-            // calculate the forces between the particle and the particles in the neighbour cells
-            for (Cell* neighbour : cell->getNeighbourReferences()) {
-                if (cell->getAlreadyInfluencedBy().contains(neighbour)) continue;
+    for (auto& it_order : iteration_orders) {
+#pragma omp parallel for
+        for (Cell* cell : it_order) {
+            if (cell->getParticleReferences().empty()) continue;
 
-                for (Particle* neighbour_particle : neighbour->getParticleReferences()) {
-                    if (p->isLocked() && neighbour_particle->isLocked()) continue;
-                    if (ArrayUtils::L2Norm(p->getX() - neighbour_particle->getX()) > cutoff_radius) continue;
+            for (Cell* neighbour_cell : cell->getNeighbourReferences()) {
+                if (neighbour_cell->getParticleReferences().empty()) continue;
 
-                    for (const auto& force_source : force_sources) {
-                        std::array<double, 3> force = force_source->calculateForce(*p, *neighbour_particle);
-                        p->setF(p->getF() + force);
-                        neighbour_particle->setF(neighbour_particle->getF() - force);
+                for (Particle* p : cell->getParticleReferences()) {
+                    for (Particle* neighbour_particle : neighbour_cell->getParticleReferences()) {
+                        if (p->isLocked() && neighbour_particle->isLocked()) continue;
+                        if (ArrayUtils::L2Norm(p->getX() - neighbour_particle->getX()) > cutoff_radius) continue;
+
+                        for (const auto& force_source : force_sources) {
+                            std::array<double, 3> force = force_source->calculateForce(*p, *neighbour_particle);
+                            p->setF(p->getF() + force);
+                        }
                     }
                 }
-
-                neighbour->addAlreadyInfluencedBy(cell);
             }
         }
     }
@@ -253,8 +258,7 @@ void LinkedCellsContainer::initCells() {
         for (int cy = -1; cy < domain_num_cells[1] + 1; ++cy) {
             for (int cz = -1; cz < domain_num_cells[2] + 1; ++cz) {
                 if (cx < 0 || cx >= domain_num_cells[0] || cy < 0 || cy >= domain_num_cells[1] || cz < 0 || cz >= domain_num_cells[2]) {
-                    Cell new_cell(Cell::CellType::HALO);
-                    cells.push_back(new_cell);
+                    cells.emplace_back(Cell::CellType::HALO);
                     halo_cell_references.push_back(&cells.back());
 
                     if (cx == -1) {
@@ -277,8 +281,7 @@ void LinkedCellsContainer::initCells() {
                     }
                 } else if (cx == 0 || cx == domain_num_cells[0] - 1 || cy == 0 || cy == domain_num_cells[1] - 1 || cz == 0 ||
                            cz == domain_num_cells[2] - 1) {
-                    Cell new_cell(Cell::CellType::BOUNDARY);
-                    cells.push_back(new_cell);
+                    cells.emplace_back(Cell::CellType::BOUNDARY);
                     boundary_cell_references.push_back(&cells.back());
                     domain_cell_references.push_back(&cells.back());
 
@@ -301,8 +304,7 @@ void LinkedCellsContainer::initCells() {
                         front_boundary_cell_references.push_back(&cells.back());
                     }
                 } else {
-                    Cell new_cell(Cell::CellType::INNER);
-                    cells.push_back(new_cell);
+                    cells.emplace_back(Cell::CellType::INNER);
                     domain_cell_references.push_back(&cells.back());
                 }
             }
@@ -338,6 +340,25 @@ void LinkedCellsContainer::initCellNeighbourReferences() {
                 }
             }
         }
+    }
+}
+
+void LinkedCellsContainer::initIterationOrders() {
+    const std::array<std::array<int, 3>, 8> start_offsets = {
+        {{0, 0, 0}, {1, 0, 0}, {0, 1, 0}, {1, 1, 0}, {0, 0, 1}, {1, 0, 1}, {0, 1, 1}, {1, 1, 1}}};
+
+    for (int i = 0; i < 8; ++i) {
+        std::vector<Cell*> iteration_order;
+        const std::array<int, 3>& start_offset = start_offsets[i];
+
+        for (int cx = start_offset[0]; cx < domain_num_cells[0]; cx += 2) {
+            for (int cy = start_offset[1]; cy < domain_num_cells[1]; cy += 2) {
+                for (int cz = start_offset[2]; cz < domain_num_cells[2]; cz += 2) {
+                    iteration_order.push_back(&cells.at(cellCoordToCellIndex(cx, cy, cz)));
+                }
+            }
+        }
+        iteration_orders[i] = iteration_order;
     }
 }
 
