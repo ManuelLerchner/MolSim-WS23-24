@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include <omp.h>
+
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -263,3 +265,7 @@ std::enable_if_t<ArrayUtils::is_container<Container>::value, bool> operator==(co
     }
     return true;
 }
+
+// Open MP Reduction for 3d arrays
+
+#pragma omp declare reduction(+ : std::array <double, 3> : omp_out = omp_out + omp_in) initializer(omp_priv = {0, 0, 0})

@@ -1,5 +1,7 @@
 #include "DirectSumContainer.h"
 
+#include <omp.h>
+
 #include "utils/ArrayUtils.h"
 
 DirectSumContainer::DirectSumContainer(int n) { particles.reserve(n); }
@@ -38,16 +40,18 @@ void DirectSumContainer::applySimpleForces(const std::vector<std::shared_ptr<Sim
 }
 
 void DirectSumContainer::applyPairwiseForces(const std::vector<std::shared_ptr<PairwiseForceSource>>& force_sources) {
+#pragma omp parallel for
     for (auto it1 = particles.begin(); it1 != particles.end(); ++it1) {
-        for (auto it2 = (it1 + 1); it2 != particles.end(); ++it2) {
+        std::array<double, 3> total_force{0, 0, 0};
+
+        for (auto it2 = particles.begin(); it2 != particles.end(); ++it2) {
+            if (it1 == it2) continue;
             if (it1->isLocked() && it2->isLocked()) continue;
-            std::array<double, 3> total_force{0, 0, 0};
             for (auto& force : force_sources) {
                 total_force = total_force + force->calculateForce(*it1, *it2);
             }
-            it1->setF(it1->getF() + total_force);
-            it2->setF(it2->getF() - total_force);
         }
+        it1->setF(it1->getF() + total_force);
     }
 }
 

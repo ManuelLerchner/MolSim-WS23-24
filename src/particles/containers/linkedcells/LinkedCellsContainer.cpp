@@ -362,13 +362,6 @@ void LinkedCellsContainer::updateCellsParticleReferences() {
 void LinkedCellsContainer::deleteHaloParticles() {
     for (Cell* cell : halo_cell_references) {
         for (Particle* p : cell->getParticleReferences()) {
-            // for (auto& [connected_particle_offset, _, _] : p->getConnectedParticles()) {
-            //     Particle* connected_particle = p + connected_particle_offset;
-            //     std::erase_if(connected_particle->getConnectedParticles(),
-            //                   [connected_particle, p](const std::tuple<long, double, double>& tuple) { return std::get<0>(tuple) == p -
-            //                   connected_particle; });
-            // }
-
             particles.erase(particles.begin() + (p - &particles[0]));
         }
     }
