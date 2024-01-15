@@ -1,5 +1,7 @@
 #include "SimulationParams.h"
 
+#include <omp.h>
+
 #include <filesystem>
 #include <fstream>
 #include <numeric>
@@ -80,6 +82,7 @@ void SimulationParams::logSummary(int depth) const {
     Logger::logger->info("{}║  Forces: {}", indent, force_names);
 
     Logger::logger->info("{}╟┤{}Container: {}", indent, ansi_yellow_bold, ansi_end);
+
     if (std::holds_alternative<SimulationParams::LinkedCellsType>(container_type)) {
         auto lc_container = std::get<SimulationParams::LinkedCellsType>(container_type);
 
@@ -110,6 +113,10 @@ void SimulationParams::logSummary(int depth) const {
             interceptor->logSummary(depth);
         }
     }
+
+#ifdef _OPENMP
+    Logger::logger->info("{}║  Maximum Number of Threads: {}", indent, omp_get_max_threads());
+#endif
 
     Logger::logger->info("{}╚════════════════════════════════════════", indent);
 }
