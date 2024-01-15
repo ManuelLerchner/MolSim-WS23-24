@@ -30,7 +30,7 @@ SimulationParams::SimulationParams(const std::filesystem::path& input_file_path,
                                    const std::vector<std::shared_ptr<SimpleForceSource>>& simple_forces,
                                    const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_forces,
                                    const std::vector<std::shared_ptr<TargettedForceSource>>& targetted_forces, bool fresh,
-                                   const std::filesystem::path& base_path)
+                                   const std::filesystem::path& base_path, size_t start_iteration)
     : input_file_path(std::filesystem::absolute(input_file_path)),
       delta_t(delta_t),
       end_time(end_time),
@@ -39,7 +39,8 @@ SimulationParams::SimulationParams(const std::filesystem::path& input_file_path,
       simple_forces(simple_forces),
       pairwise_forces(pairwise_forces),
       targetted_forces(targetted_forces),
-      fresh(fresh) {
+      fresh(fresh),
+      start_iteration(start_iteration) {
     if (end_time < 0) {
         Logger::logger->error("End time must be positive");
         throw std::runtime_error("End time must be positive");
@@ -71,6 +72,7 @@ void SimulationParams::logSummary(int depth) const {
     Logger::logger->info("{}╟┤{}Simulation arguments: {}", indent, ansi_yellow_bold, ansi_end);
     Logger::logger->info("{}║  Input file path: {}", indent, input_file_path.string());
     Logger::logger->info("{}║  Output directory path: {}", indent, output_dir_path.string());
+    Logger::logger->info("{}║  Start iteration: {}", indent, start_iteration);
     Logger::logger->info("{}║  Delta_t: {}", indent, delta_t);
     Logger::logger->info("{}║  End_time: {}", indent, end_time);
     Logger::logger->info("{}║  Reuse cached data: {}", indent, !fresh);

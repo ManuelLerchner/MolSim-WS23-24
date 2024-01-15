@@ -4,8 +4,8 @@
     xsi:noNamespaceSchemaLocation="../simulation_schema.xsd">
 
     <settings>
-        <delta_t>0.0003</delta_t>
-        <end_time>15.0</end_time>
+        <delta_t>0.003</delta_t>
+        <end_time>1.0</end_time>
         <third_dimension>true</third_dimension>
         <particle_container>
             <linkedcells_container>
@@ -35,6 +35,7 @@
                 type="relative_motion" />
             <FrameWriter output_format="vtu" fps="24" video_length_s="30" />
             <VelocityProfile num_bins="20" sample_every_x_percent="5" />
+            <FrameWriter output_format="chkpt" fps="10" video_length_s="1" />
         </interceptors>
     </settings>
 

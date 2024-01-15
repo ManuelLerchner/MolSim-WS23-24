@@ -24,6 +24,7 @@
       <xs:element name="input_file_hash" type="xs:unsignedLong" />
       <xs:element name="end_time" type="xs:double" />
       <xs:element name="delta_t" type="xs:double" />
+      <xs:element name="current_iteration" type="xs:unsignedLong" />
     </xs:sequence>
   </xs:complexType>
 
