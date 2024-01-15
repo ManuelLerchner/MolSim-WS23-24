@@ -41,54 +41,7 @@
 
 
     <particle_source>
-        <cuboid_spawner>
-            <lower_left_front_corner>
-                <x>0.6</x>
-                <y>0.6</y>
-                <z>0.6</z>
-            </lower_left_front_corner>
-            <grid_dim>
-                <x>50</x>
-                <y>20</y>
-                <z>50</z>
-            </grid_dim>
-            <grid_spacing>1.2</grid_spacing>
-            <temperature>40</temperature>
-            <mass>1.0</mass>
-            <velocity>
-                <x>0.0</x>
-                <y>0.0</y>
-                <z>0.0</z>
-            </velocity>
-            <type>0</type>
-            <epsilon>1.0</epsilon>
-            <sigma>1.2</sigma>
-        </cuboid_spawner>
-
-        <cuboid_spawner>
-            <lower_left_front_corner>
-                <x>0.6</x>
-                <y>24.6</y>
-                <z>0.6</z>
-            </lower_left_front_corner>
-            <grid_dim>
-                <x>50</x>
-                <y>20</y>
-                <z>50</z>
-            </grid_dim>
-            <grid_spacing>1.2</grid_spacing>
-            <temperature>40</temperature>
-            <mass>2.0</mass>
-            <velocity>
-                <x>0.0</x>
-                <y>0.0</y>
-                <z>0.0</z>
-            </velocity>
-            <type>1</type>
-            <epsilon>1.0</epsilon>
-            <sigma>1.1</sigma>
-        </cuboid_spawner>
-
+        <check_point_loader path="../../build/project/output/fluid_mixing_3d/MD_CHKPT_5000.chkpt" />
     </particle_source>
 
 </configuration>

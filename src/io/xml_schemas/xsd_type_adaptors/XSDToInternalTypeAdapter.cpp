@@ -173,16 +173,15 @@ std::vector<std::shared_ptr<SimulationInterceptor>> XSDToInternalTypeAdapter::co
     std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType> container_type) {
     std::vector<std::shared_ptr<SimulationInterceptor>> simulation_interceptors;
 
-    if (interceptors.FrameWriter()) {
-        auto fps = interceptors.FrameWriter()->fps();
-        auto video_length = interceptors.FrameWriter()->video_length_s();
-        auto output_format = convertToOutputFormat(interceptors.FrameWriter()->output_format());
+    for (auto frame_writer : interceptors.FrameWriter()) {
+        auto fps = frame_writer.fps();
+        auto video_length = frame_writer.video_length_s();
+        auto output_format = convertToOutputFormat(frame_writer.output_format());
 
         simulation_interceptors.push_back(std::make_shared<FrameWriterInterceptor>(output_format, fps, video_length));
     }
 
-    if (interceptors.Thermostat()) {
-        auto xsd_thermostat = *interceptors.Thermostat();
+    for (auto xsd_thermostat : interceptors.Thermostat()) {
         auto target_temperature = xsd_thermostat.target_temperature();
         auto max_temperature_change = xsd_thermostat.max_temperature_change();
         auto application_interval = xsd_thermostat.application_interval();
@@ -208,25 +207,23 @@ std::vector<std::shared_ptr<SimulationInterceptor>> XSDToInternalTypeAdapter::co
         }
     }
 
-    if (interceptors.ParticleUpdatesPerSecond()) {
+    if (interceptors.ParticleUpdatesPerSecond().size() > 0) {
         simulation_interceptors.push_back(std::make_shared<ParticleUpdateCounterInterceptor>());
     }
 
-    if (interceptors.DiffusionFunction()) {
-        auto sample_every_x_percent = interceptors.DiffusionFunction()->sample_every_x_percent();
+    for (auto diffusion_function : interceptors.DiffusionFunction()) {
+        auto sample_every_x_percent = diffusion_function.sample_every_x_percent();
         simulation_interceptors.push_back(std::make_shared<DiffusionFunctionInterceptor>(sample_every_x_percent));
     }
 
-    if (interceptors.RadialDistributionFunction()) {
-        auto xsd_rdf = *interceptors.RadialDistributionFunction();
+    for (auto xsd_rdf : interceptors.RadialDistributionFunction()) {
         auto bin_width = xsd_rdf.bin_width();
         auto sample_every_x_percent = xsd_rdf.sample_every_x_percent();
 
         simulation_interceptors.push_back(std::make_shared<RadialDistributionFunctionInterceptor>(bin_width, sample_every_x_percent));
     }
 
-    if (interceptors.VelocityProfile()) {
-        auto xsd_vp = *interceptors.VelocityProfile();
+    for (auto xsd_vp : interceptors.VelocityProfile()) {
         auto num_bins = xsd_vp.num_bins();
         auto sample_every_x_percent = xsd_vp.sample_every_x_percent();
 

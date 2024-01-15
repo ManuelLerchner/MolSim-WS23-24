@@ -36,5581 +36,9574 @@
 //
 // End prologue.
 
-#include "simulation_input_schema.h"
-
 #include <xsd/cxx/pre.hxx>
+
+#include "simulation_input_schema.h"
 
 // ConfigurationType
 //
 
-const ConfigurationType::settings_type& ConfigurationType::settings() const { return this->settings_.get(); }
+const ConfigurationType::settings_type& ConfigurationType::
+settings () const
+{
+  return this->settings_.get ();
+}
 
-ConfigurationType::settings_type& ConfigurationType::settings() { return this->settings_.get(); }
+ConfigurationType::settings_type& ConfigurationType::
+settings ()
+{
+  return this->settings_.get ();
+}
 
-void ConfigurationType::settings(const settings_type& x) { this->settings_.set(x); }
+void ConfigurationType::
+settings (const settings_type& x)
+{
+  this->settings_.set (x);
+}
 
-void ConfigurationType::settings(::std::unique_ptr<settings_type> x) { this->settings_.set(std::move(x)); }
+void ConfigurationType::
+settings (::std::unique_ptr< settings_type > x)
+{
+  this->settings_.set (std::move (x));
+}
 
-const ConfigurationType::particle_source_type& ConfigurationType::particle_source() const { return this->particle_source_.get(); }
+const ConfigurationType::particle_source_type& ConfigurationType::
+particle_source () const
+{
+  return this->particle_source_.get ();
+}
 
-ConfigurationType::particle_source_type& ConfigurationType::particle_source() { return this->particle_source_.get(); }
+ConfigurationType::particle_source_type& ConfigurationType::
+particle_source ()
+{
+  return this->particle_source_.get ();
+}
 
-void ConfigurationType::particle_source(const particle_source_type& x) { this->particle_source_.set(x); }
+void ConfigurationType::
+particle_source (const particle_source_type& x)
+{
+  this->particle_source_.set (x);
+}
 
-void ConfigurationType::particle_source(::std::unique_ptr<particle_source_type> x) { this->particle_source_.set(std::move(x)); }
+void ConfigurationType::
+particle_source (::std::unique_ptr< particle_source_type > x)
+{
+  this->particle_source_.set (std::move (x));
+}
+
 
 // DoubleVec3Type
 //
 
-const DoubleVec3Type::x_type& DoubleVec3Type::x() const { return this->x_.get(); }
+const DoubleVec3Type::x_type& DoubleVec3Type::
+x () const
+{
+  return this->x_.get ();
+}
 
-DoubleVec3Type::x_type& DoubleVec3Type::x() { return this->x_.get(); }
+DoubleVec3Type::x_type& DoubleVec3Type::
+x ()
+{
+  return this->x_.get ();
+}
 
-void DoubleVec3Type::x(const x_type& x) { this->x_.set(x); }
+void DoubleVec3Type::
+x (const x_type& x)
+{
+  this->x_.set (x);
+}
 
-const DoubleVec3Type::y_type& DoubleVec3Type::y() const { return this->y_.get(); }
+const DoubleVec3Type::y_type& DoubleVec3Type::
+y () const
+{
+  return this->y_.get ();
+}
 
-DoubleVec3Type::y_type& DoubleVec3Type::y() { return this->y_.get(); }
+DoubleVec3Type::y_type& DoubleVec3Type::
+y ()
+{
+  return this->y_.get ();
+}
 
-void DoubleVec3Type::y(const y_type& x) { this->y_.set(x); }
+void DoubleVec3Type::
+y (const y_type& x)
+{
+  this->y_.set (x);
+}
 
-const DoubleVec3Type::z_type& DoubleVec3Type::z() const { return this->z_.get(); }
+const DoubleVec3Type::z_type& DoubleVec3Type::
+z () const
+{
+  return this->z_.get ();
+}
 
-DoubleVec3Type::z_type& DoubleVec3Type::z() { return this->z_.get(); }
+DoubleVec3Type::z_type& DoubleVec3Type::
+z ()
+{
+  return this->z_.get ();
+}
 
-void DoubleVec3Type::z(const z_type& x) { this->z_.set(x); }
+void DoubleVec3Type::
+z (const z_type& x)
+{
+  this->z_.set (x);
+}
+
 
 // IntVec3Type
 //
 
-const IntVec3Type::x_type& IntVec3Type::x() const { return this->x_.get(); }
+const IntVec3Type::x_type& IntVec3Type::
+x () const
+{
+  return this->x_.get ();
+}
 
-IntVec3Type::x_type& IntVec3Type::x() { return this->x_.get(); }
+IntVec3Type::x_type& IntVec3Type::
+x ()
+{
+  return this->x_.get ();
+}
 
-void IntVec3Type::x(const x_type& x) { this->x_.set(x); }
+void IntVec3Type::
+x (const x_type& x)
+{
+  this->x_.set (x);
+}
 
-const IntVec3Type::y_type& IntVec3Type::y() const { return this->y_.get(); }
+const IntVec3Type::y_type& IntVec3Type::
+y () const
+{
+  return this->y_.get ();
+}
 
-IntVec3Type::y_type& IntVec3Type::y() { return this->y_.get(); }
+IntVec3Type::y_type& IntVec3Type::
+y ()
+{
+  return this->y_.get ();
+}
 
-void IntVec3Type::y(const y_type& x) { this->y_.set(x); }
+void IntVec3Type::
+y (const y_type& x)
+{
+  this->y_.set (x);
+}
 
-const IntVec3Type::z_type& IntVec3Type::z() const { return this->z_.get(); }
+const IntVec3Type::z_type& IntVec3Type::
+z () const
+{
+  return this->z_.get ();
+}
 
-IntVec3Type::z_type& IntVec3Type::z() { return this->z_.get(); }
+IntVec3Type::z_type& IntVec3Type::
+z ()
+{
+  return this->z_.get ();
+}
 
-void IntVec3Type::z(const z_type& x) { this->z_.set(x); }
+void IntVec3Type::
+z (const z_type& x)
+{
+  this->z_.set (x);
+}
+
 
 // ParticleContainerType
 //
 
-const ParticleContainerType::directsum_container_optional& ParticleContainerType::directsum_container() const {
-    return this->directsum_container_;
+const ParticleContainerType::directsum_container_optional& ParticleContainerType::
+directsum_container () const
+{
+  return this->directsum_container_;
 }
 
-ParticleContainerType::directsum_container_optional& ParticleContainerType::directsum_container() { return this->directsum_container_; }
-
-void ParticleContainerType::directsum_container(const directsum_container_type& x) { this->directsum_container_.set(x); }
-
-void ParticleContainerType::directsum_container(const directsum_container_optional& x) { this->directsum_container_ = x; }
-
-void ParticleContainerType::directsum_container(::std::unique_ptr<directsum_container_type> x) {
-    this->directsum_container_.set(std::move(x));
+ParticleContainerType::directsum_container_optional& ParticleContainerType::
+directsum_container ()
+{
+  return this->directsum_container_;
 }
 
-const ParticleContainerType::linkedcells_container_optional& ParticleContainerType::linkedcells_container() const {
-    return this->linkedcells_container_;
+void ParticleContainerType::
+directsum_container (const directsum_container_type& x)
+{
+  this->directsum_container_.set (x);
 }
 
-ParticleContainerType::linkedcells_container_optional& ParticleContainerType::linkedcells_container() {
-    return this->linkedcells_container_;
+void ParticleContainerType::
+directsum_container (const directsum_container_optional& x)
+{
+  this->directsum_container_ = x;
 }
 
-void ParticleContainerType::linkedcells_container(const linkedcells_container_type& x) { this->linkedcells_container_.set(x); }
-
-void ParticleContainerType::linkedcells_container(const linkedcells_container_optional& x) { this->linkedcells_container_ = x; }
-
-void ParticleContainerType::linkedcells_container(::std::unique_ptr<linkedcells_container_type> x) {
-    this->linkedcells_container_.set(std::move(x));
+void ParticleContainerType::
+directsum_container (::std::unique_ptr< directsum_container_type > x)
+{
+  this->directsum_container_.set (std::move (x));
 }
+
+const ParticleContainerType::linkedcells_container_optional& ParticleContainerType::
+linkedcells_container () const
+{
+  return this->linkedcells_container_;
+}
+
+ParticleContainerType::linkedcells_container_optional& ParticleContainerType::
+linkedcells_container ()
+{
+  return this->linkedcells_container_;
+}
+
+void ParticleContainerType::
+linkedcells_container (const linkedcells_container_type& x)
+{
+  this->linkedcells_container_.set (x);
+}
+
+void ParticleContainerType::
+linkedcells_container (const linkedcells_container_optional& x)
+{
+  this->linkedcells_container_ = x;
+}
+
+void ParticleContainerType::
+linkedcells_container (::std::unique_ptr< linkedcells_container_type > x)
+{
+  this->linkedcells_container_.set (std::move (x));
+}
+
 
 // DirectSumContainerType
 //
 
+
 // LinkedCellsContainerType
 //
 
-const LinkedCellsContainerType::domain_size_type& LinkedCellsContainerType::domain_size() const { return this->domain_size_.get(); }
-
-LinkedCellsContainerType::domain_size_type& LinkedCellsContainerType::domain_size() { return this->domain_size_.get(); }
-
-void LinkedCellsContainerType::domain_size(const domain_size_type& x) { this->domain_size_.set(x); }
-
-void LinkedCellsContainerType::domain_size(::std::unique_ptr<domain_size_type> x) { this->domain_size_.set(std::move(x)); }
-
-const LinkedCellsContainerType::cutoff_radius_type& LinkedCellsContainerType::cutoff_radius() const { return this->cutoff_radius_.get(); }
-
-LinkedCellsContainerType::cutoff_radius_type& LinkedCellsContainerType::cutoff_radius() { return this->cutoff_radius_.get(); }
-
-void LinkedCellsContainerType::cutoff_radius(const cutoff_radius_type& x) { this->cutoff_radius_.set(x); }
-
-const LinkedCellsContainerType::boundary_conditions_type& LinkedCellsContainerType::boundary_conditions() const {
-    return this->boundary_conditions_.get();
+const LinkedCellsContainerType::domain_size_type& LinkedCellsContainerType::
+domain_size () const
+{
+  return this->domain_size_.get ();
 }
 
-LinkedCellsContainerType::boundary_conditions_type& LinkedCellsContainerType::boundary_conditions() {
-    return this->boundary_conditions_.get();
+LinkedCellsContainerType::domain_size_type& LinkedCellsContainerType::
+domain_size ()
+{
+  return this->domain_size_.get ();
 }
 
-void LinkedCellsContainerType::boundary_conditions(const boundary_conditions_type& x) { this->boundary_conditions_.set(x); }
-
-void LinkedCellsContainerType::boundary_conditions(::std::unique_ptr<boundary_conditions_type> x) {
-    this->boundary_conditions_.set(std::move(x));
+void LinkedCellsContainerType::
+domain_size (const domain_size_type& x)
+{
+  this->domain_size_.set (x);
 }
+
+void LinkedCellsContainerType::
+domain_size (::std::unique_ptr< domain_size_type > x)
+{
+  this->domain_size_.set (std::move (x));
+}
+
+const LinkedCellsContainerType::cutoff_radius_type& LinkedCellsContainerType::
+cutoff_radius () const
+{
+  return this->cutoff_radius_.get ();
+}
+
+LinkedCellsContainerType::cutoff_radius_type& LinkedCellsContainerType::
+cutoff_radius ()
+{
+  return this->cutoff_radius_.get ();
+}
+
+void LinkedCellsContainerType::
+cutoff_radius (const cutoff_radius_type& x)
+{
+  this->cutoff_radius_.set (x);
+}
+
+const LinkedCellsContainerType::boundary_conditions_type& LinkedCellsContainerType::
+boundary_conditions () const
+{
+  return this->boundary_conditions_.get ();
+}
+
+LinkedCellsContainerType::boundary_conditions_type& LinkedCellsContainerType::
+boundary_conditions ()
+{
+  return this->boundary_conditions_.get ();
+}
+
+void LinkedCellsContainerType::
+boundary_conditions (const boundary_conditions_type& x)
+{
+  this->boundary_conditions_.set (x);
+}
+
+void LinkedCellsContainerType::
+boundary_conditions (::std::unique_ptr< boundary_conditions_type > x)
+{
+  this->boundary_conditions_.set (std::move (x));
+}
+
 
 // BoundaryConditionsType
 //
 
-const BoundaryConditionsType::left_type& BoundaryConditionsType::left() const { return this->left_.get(); }
+const BoundaryConditionsType::left_type& BoundaryConditionsType::
+left () const
+{
+  return this->left_.get ();
+}
 
-BoundaryConditionsType::left_type& BoundaryConditionsType::left() { return this->left_.get(); }
+BoundaryConditionsType::left_type& BoundaryConditionsType::
+left ()
+{
+  return this->left_.get ();
+}
 
-void BoundaryConditionsType::left(const left_type& x) { this->left_.set(x); }
+void BoundaryConditionsType::
+left (const left_type& x)
+{
+  this->left_.set (x);
+}
 
-void BoundaryConditionsType::left(::std::unique_ptr<left_type> x) { this->left_.set(std::move(x)); }
+void BoundaryConditionsType::
+left (::std::unique_ptr< left_type > x)
+{
+  this->left_.set (std::move (x));
+}
 
-const BoundaryConditionsType::right_type& BoundaryConditionsType::right() const { return this->right_.get(); }
+const BoundaryConditionsType::right_type& BoundaryConditionsType::
+right () const
+{
+  return this->right_.get ();
+}
 
-BoundaryConditionsType::right_type& BoundaryConditionsType::right() { return this->right_.get(); }
+BoundaryConditionsType::right_type& BoundaryConditionsType::
+right ()
+{
+  return this->right_.get ();
+}
 
-void BoundaryConditionsType::right(const right_type& x) { this->right_.set(x); }
+void BoundaryConditionsType::
+right (const right_type& x)
+{
+  this->right_.set (x);
+}
 
-void BoundaryConditionsType::right(::std::unique_ptr<right_type> x) { this->right_.set(std::move(x)); }
+void BoundaryConditionsType::
+right (::std::unique_ptr< right_type > x)
+{
+  this->right_.set (std::move (x));
+}
 
-const BoundaryConditionsType::bottom_type& BoundaryConditionsType::bottom() const { return this->bottom_.get(); }
+const BoundaryConditionsType::bottom_type& BoundaryConditionsType::
+bottom () const
+{
+  return this->bottom_.get ();
+}
 
-BoundaryConditionsType::bottom_type& BoundaryConditionsType::bottom() { return this->bottom_.get(); }
+BoundaryConditionsType::bottom_type& BoundaryConditionsType::
+bottom ()
+{
+  return this->bottom_.get ();
+}
 
-void BoundaryConditionsType::bottom(const bottom_type& x) { this->bottom_.set(x); }
+void BoundaryConditionsType::
+bottom (const bottom_type& x)
+{
+  this->bottom_.set (x);
+}
 
-void BoundaryConditionsType::bottom(::std::unique_ptr<bottom_type> x) { this->bottom_.set(std::move(x)); }
+void BoundaryConditionsType::
+bottom (::std::unique_ptr< bottom_type > x)
+{
+  this->bottom_.set (std::move (x));
+}
 
-const BoundaryConditionsType::top_type& BoundaryConditionsType::top() const { return this->top_.get(); }
+const BoundaryConditionsType::top_type& BoundaryConditionsType::
+top () const
+{
+  return this->top_.get ();
+}
 
-BoundaryConditionsType::top_type& BoundaryConditionsType::top() { return this->top_.get(); }
+BoundaryConditionsType::top_type& BoundaryConditionsType::
+top ()
+{
+  return this->top_.get ();
+}
 
-void BoundaryConditionsType::top(const top_type& x) { this->top_.set(x); }
+void BoundaryConditionsType::
+top (const top_type& x)
+{
+  this->top_.set (x);
+}
 
-void BoundaryConditionsType::top(::std::unique_ptr<top_type> x) { this->top_.set(std::move(x)); }
+void BoundaryConditionsType::
+top (::std::unique_ptr< top_type > x)
+{
+  this->top_.set (std::move (x));
+}
 
-const BoundaryConditionsType::back_type& BoundaryConditionsType::back() const { return this->back_.get(); }
+const BoundaryConditionsType::back_type& BoundaryConditionsType::
+back () const
+{
+  return this->back_.get ();
+}
 
-BoundaryConditionsType::back_type& BoundaryConditionsType::back() { return this->back_.get(); }
+BoundaryConditionsType::back_type& BoundaryConditionsType::
+back ()
+{
+  return this->back_.get ();
+}
 
-void BoundaryConditionsType::back(const back_type& x) { this->back_.set(x); }
+void BoundaryConditionsType::
+back (const back_type& x)
+{
+  this->back_.set (x);
+}
 
-void BoundaryConditionsType::back(::std::unique_ptr<back_type> x) { this->back_.set(std::move(x)); }
+void BoundaryConditionsType::
+back (::std::unique_ptr< back_type > x)
+{
+  this->back_.set (std::move (x));
+}
 
-const BoundaryConditionsType::front_type& BoundaryConditionsType::front() const { return this->front_.get(); }
+const BoundaryConditionsType::front_type& BoundaryConditionsType::
+front () const
+{
+  return this->front_.get ();
+}
 
-BoundaryConditionsType::front_type& BoundaryConditionsType::front() { return this->front_.get(); }
+BoundaryConditionsType::front_type& BoundaryConditionsType::
+front ()
+{
+  return this->front_.get ();
+}
 
-void BoundaryConditionsType::front(const front_type& x) { this->front_.set(x); }
+void BoundaryConditionsType::
+front (const front_type& x)
+{
+  this->front_.set (x);
+}
 
-void BoundaryConditionsType::front(::std::unique_ptr<front_type> x) { this->front_.set(std::move(x)); }
+void BoundaryConditionsType::
+front (::std::unique_ptr< front_type > x)
+{
+  this->front_.set (std::move (x));
+}
+
 
 // BoundaryType
 //
 
-BoundaryType::BoundaryType(value v) : ::xml_schema::string(_xsd_BoundaryType_literals_[v]) {}
-
-BoundaryType::BoundaryType(const char* v) : ::xml_schema::string(v) {}
-
-BoundaryType::BoundaryType(const ::std::string& v) : ::xml_schema::string(v) {}
-
-BoundaryType::BoundaryType(const ::xml_schema::string& v) : ::xml_schema::string(v) {}
-
-BoundaryType::BoundaryType(const BoundaryType& v, ::xml_schema::flags f, ::xml_schema::container* c) : ::xml_schema::string(v, f, c) {}
-
-BoundaryType& BoundaryType::operator=(value v) {
-    static_cast< ::xml_schema::string&>(*this) = ::xml_schema::string(_xsd_BoundaryType_literals_[v]);
-
-    return *this;
+BoundaryType::
+BoundaryType (value v)
+: ::xml_schema::string (_xsd_BoundaryType_literals_[v])
+{
 }
+
+BoundaryType::
+BoundaryType (const char* v)
+: ::xml_schema::string (v)
+{
+}
+
+BoundaryType::
+BoundaryType (const ::std::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+BoundaryType::
+BoundaryType (const ::xml_schema::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+BoundaryType::
+BoundaryType (const BoundaryType& v,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+: ::xml_schema::string (v, f, c)
+{
+}
+
+BoundaryType& BoundaryType::
+operator= (value v)
+{
+  static_cast< ::xml_schema::string& > (*this) = 
+  ::xml_schema::string (_xsd_BoundaryType_literals_[v]);
+
+  return *this;
+}
+
 
 // CuboidSpawnerType
 //
 
-const CuboidSpawnerType::lower_left_front_corner_type& CuboidSpawnerType::lower_left_front_corner() const {
-    return this->lower_left_front_corner_.get();
+const CuboidSpawnerType::lower_left_front_corner_type& CuboidSpawnerType::
+lower_left_front_corner () const
+{
+  return this->lower_left_front_corner_.get ();
 }
 
-CuboidSpawnerType::lower_left_front_corner_type& CuboidSpawnerType::lower_left_front_corner() {
-    return this->lower_left_front_corner_.get();
+CuboidSpawnerType::lower_left_front_corner_type& CuboidSpawnerType::
+lower_left_front_corner ()
+{
+  return this->lower_left_front_corner_.get ();
 }
 
-void CuboidSpawnerType::lower_left_front_corner(const lower_left_front_corner_type& x) { this->lower_left_front_corner_.set(x); }
-
-void CuboidSpawnerType::lower_left_front_corner(::std::unique_ptr<lower_left_front_corner_type> x) {
-    this->lower_left_front_corner_.set(std::move(x));
+void CuboidSpawnerType::
+lower_left_front_corner (const lower_left_front_corner_type& x)
+{
+  this->lower_left_front_corner_.set (x);
 }
 
-const CuboidSpawnerType::grid_dim_type& CuboidSpawnerType::grid_dim() const { return this->grid_dim_.get(); }
+void CuboidSpawnerType::
+lower_left_front_corner (::std::unique_ptr< lower_left_front_corner_type > x)
+{
+  this->lower_left_front_corner_.set (std::move (x));
+}
 
-CuboidSpawnerType::grid_dim_type& CuboidSpawnerType::grid_dim() { return this->grid_dim_.get(); }
+const CuboidSpawnerType::grid_dim_type& CuboidSpawnerType::
+grid_dim () const
+{
+  return this->grid_dim_.get ();
+}
 
-void CuboidSpawnerType::grid_dim(const grid_dim_type& x) { this->grid_dim_.set(x); }
+CuboidSpawnerType::grid_dim_type& CuboidSpawnerType::
+grid_dim ()
+{
+  return this->grid_dim_.get ();
+}
 
-void CuboidSpawnerType::grid_dim(::std::unique_ptr<grid_dim_type> x) { this->grid_dim_.set(std::move(x)); }
+void CuboidSpawnerType::
+grid_dim (const grid_dim_type& x)
+{
+  this->grid_dim_.set (x);
+}
 
-const CuboidSpawnerType::grid_spacing_type& CuboidSpawnerType::grid_spacing() const { return this->grid_spacing_.get(); }
+void CuboidSpawnerType::
+grid_dim (::std::unique_ptr< grid_dim_type > x)
+{
+  this->grid_dim_.set (std::move (x));
+}
 
-CuboidSpawnerType::grid_spacing_type& CuboidSpawnerType::grid_spacing() { return this->grid_spacing_.get(); }
+const CuboidSpawnerType::grid_spacing_type& CuboidSpawnerType::
+grid_spacing () const
+{
+  return this->grid_spacing_.get ();
+}
 
-void CuboidSpawnerType::grid_spacing(const grid_spacing_type& x) { this->grid_spacing_.set(x); }
+CuboidSpawnerType::grid_spacing_type& CuboidSpawnerType::
+grid_spacing ()
+{
+  return this->grid_spacing_.get ();
+}
 
-const CuboidSpawnerType::temperature_type& CuboidSpawnerType::temperature() const { return this->temperature_.get(); }
+void CuboidSpawnerType::
+grid_spacing (const grid_spacing_type& x)
+{
+  this->grid_spacing_.set (x);
+}
 
-CuboidSpawnerType::temperature_type& CuboidSpawnerType::temperature() { return this->temperature_.get(); }
+const CuboidSpawnerType::temperature_type& CuboidSpawnerType::
+temperature () const
+{
+  return this->temperature_.get ();
+}
 
-void CuboidSpawnerType::temperature(const temperature_type& x) { this->temperature_.set(x); }
+CuboidSpawnerType::temperature_type& CuboidSpawnerType::
+temperature ()
+{
+  return this->temperature_.get ();
+}
 
-const CuboidSpawnerType::mass_type& CuboidSpawnerType::mass() const { return this->mass_.get(); }
+void CuboidSpawnerType::
+temperature (const temperature_type& x)
+{
+  this->temperature_.set (x);
+}
 
-CuboidSpawnerType::mass_type& CuboidSpawnerType::mass() { return this->mass_.get(); }
+const CuboidSpawnerType::mass_type& CuboidSpawnerType::
+mass () const
+{
+  return this->mass_.get ();
+}
 
-void CuboidSpawnerType::mass(const mass_type& x) { this->mass_.set(x); }
+CuboidSpawnerType::mass_type& CuboidSpawnerType::
+mass ()
+{
+  return this->mass_.get ();
+}
 
-const CuboidSpawnerType::velocity_type& CuboidSpawnerType::velocity() const { return this->velocity_.get(); }
+void CuboidSpawnerType::
+mass (const mass_type& x)
+{
+  this->mass_.set (x);
+}
 
-CuboidSpawnerType::velocity_type& CuboidSpawnerType::velocity() { return this->velocity_.get(); }
+const CuboidSpawnerType::velocity_type& CuboidSpawnerType::
+velocity () const
+{
+  return this->velocity_.get ();
+}
 
-void CuboidSpawnerType::velocity(const velocity_type& x) { this->velocity_.set(x); }
+CuboidSpawnerType::velocity_type& CuboidSpawnerType::
+velocity ()
+{
+  return this->velocity_.get ();
+}
 
-void CuboidSpawnerType::velocity(::std::unique_ptr<velocity_type> x) { this->velocity_.set(std::move(x)); }
+void CuboidSpawnerType::
+velocity (const velocity_type& x)
+{
+  this->velocity_.set (x);
+}
 
-const CuboidSpawnerType::type_type& CuboidSpawnerType::type() const { return this->type_.get(); }
+void CuboidSpawnerType::
+velocity (::std::unique_ptr< velocity_type > x)
+{
+  this->velocity_.set (std::move (x));
+}
 
-CuboidSpawnerType::type_type& CuboidSpawnerType::type() { return this->type_.get(); }
+const CuboidSpawnerType::type_type& CuboidSpawnerType::
+type () const
+{
+  return this->type_.get ();
+}
 
-void CuboidSpawnerType::type(const type_type& x) { this->type_.set(x); }
+CuboidSpawnerType::type_type& CuboidSpawnerType::
+type ()
+{
+  return this->type_.get ();
+}
 
-const CuboidSpawnerType::epsilon_type& CuboidSpawnerType::epsilon() const { return this->epsilon_.get(); }
+void CuboidSpawnerType::
+type (const type_type& x)
+{
+  this->type_.set (x);
+}
 
-CuboidSpawnerType::epsilon_type& CuboidSpawnerType::epsilon() { return this->epsilon_.get(); }
+const CuboidSpawnerType::epsilon_type& CuboidSpawnerType::
+epsilon () const
+{
+  return this->epsilon_.get ();
+}
 
-void CuboidSpawnerType::epsilon(const epsilon_type& x) { this->epsilon_.set(x); }
+CuboidSpawnerType::epsilon_type& CuboidSpawnerType::
+epsilon ()
+{
+  return this->epsilon_.get ();
+}
 
-const CuboidSpawnerType::sigma_type& CuboidSpawnerType::sigma() const { return this->sigma_.get(); }
+void CuboidSpawnerType::
+epsilon (const epsilon_type& x)
+{
+  this->epsilon_.set (x);
+}
 
-CuboidSpawnerType::sigma_type& CuboidSpawnerType::sigma() { return this->sigma_.get(); }
+const CuboidSpawnerType::sigma_type& CuboidSpawnerType::
+sigma () const
+{
+  return this->sigma_.get ();
+}
 
-void CuboidSpawnerType::sigma(const sigma_type& x) { this->sigma_.set(x); }
+CuboidSpawnerType::sigma_type& CuboidSpawnerType::
+sigma ()
+{
+  return this->sigma_.get ();
+}
 
-const CuboidSpawnerType::is_locked_type& CuboidSpawnerType::is_locked() const { return this->is_locked_.get(); }
+void CuboidSpawnerType::
+sigma (const sigma_type& x)
+{
+  this->sigma_.set (x);
+}
 
-CuboidSpawnerType::is_locked_type& CuboidSpawnerType::is_locked() { return this->is_locked_.get(); }
+const CuboidSpawnerType::is_locked_type& CuboidSpawnerType::
+is_locked () const
+{
+  return this->is_locked_.get ();
+}
 
-void CuboidSpawnerType::is_locked(const is_locked_type& x) { this->is_locked_.set(x); }
+CuboidSpawnerType::is_locked_type& CuboidSpawnerType::
+is_locked ()
+{
+  return this->is_locked_.get ();
+}
 
-CuboidSpawnerType::is_locked_type CuboidSpawnerType::is_locked_default_value() { return is_locked_type(false); }
+void CuboidSpawnerType::
+is_locked (const is_locked_type& x)
+{
+  this->is_locked_.set (x);
+}
+
+CuboidSpawnerType::is_locked_type CuboidSpawnerType::
+is_locked_default_value ()
+{
+  return is_locked_type (false);
+}
+
 
 // SoftBodySpawnerType
 //
 
-const SoftBodySpawnerType::lower_left_front_corner_type& SoftBodySpawnerType::lower_left_front_corner() const {
-    return this->lower_left_front_corner_.get();
+const SoftBodySpawnerType::lower_left_front_corner_type& SoftBodySpawnerType::
+lower_left_front_corner () const
+{
+  return this->lower_left_front_corner_.get ();
 }
 
-SoftBodySpawnerType::lower_left_front_corner_type& SoftBodySpawnerType::lower_left_front_corner() {
-    return this->lower_left_front_corner_.get();
+SoftBodySpawnerType::lower_left_front_corner_type& SoftBodySpawnerType::
+lower_left_front_corner ()
+{
+  return this->lower_left_front_corner_.get ();
 }
 
-void SoftBodySpawnerType::lower_left_front_corner(const lower_left_front_corner_type& x) { this->lower_left_front_corner_.set(x); }
-
-void SoftBodySpawnerType::lower_left_front_corner(::std::unique_ptr<lower_left_front_corner_type> x) {
-    this->lower_left_front_corner_.set(std::move(x));
+void SoftBodySpawnerType::
+lower_left_front_corner (const lower_left_front_corner_type& x)
+{
+  this->lower_left_front_corner_.set (x);
 }
 
-const SoftBodySpawnerType::grid_dim_type& SoftBodySpawnerType::grid_dim() const { return this->grid_dim_.get(); }
+void SoftBodySpawnerType::
+lower_left_front_corner (::std::unique_ptr< lower_left_front_corner_type > x)
+{
+  this->lower_left_front_corner_.set (std::move (x));
+}
 
-SoftBodySpawnerType::grid_dim_type& SoftBodySpawnerType::grid_dim() { return this->grid_dim_.get(); }
+const SoftBodySpawnerType::grid_dim_type& SoftBodySpawnerType::
+grid_dim () const
+{
+  return this->grid_dim_.get ();
+}
 
-void SoftBodySpawnerType::grid_dim(const grid_dim_type& x) { this->grid_dim_.set(x); }
+SoftBodySpawnerType::grid_dim_type& SoftBodySpawnerType::
+grid_dim ()
+{
+  return this->grid_dim_.get ();
+}
 
-void SoftBodySpawnerType::grid_dim(::std::unique_ptr<grid_dim_type> x) { this->grid_dim_.set(std::move(x)); }
+void SoftBodySpawnerType::
+grid_dim (const grid_dim_type& x)
+{
+  this->grid_dim_.set (x);
+}
 
-const SoftBodySpawnerType::grid_spacing_type& SoftBodySpawnerType::grid_spacing() const { return this->grid_spacing_.get(); }
+void SoftBodySpawnerType::
+grid_dim (::std::unique_ptr< grid_dim_type > x)
+{
+  this->grid_dim_.set (std::move (x));
+}
 
-SoftBodySpawnerType::grid_spacing_type& SoftBodySpawnerType::grid_spacing() { return this->grid_spacing_.get(); }
+const SoftBodySpawnerType::grid_spacing_type& SoftBodySpawnerType::
+grid_spacing () const
+{
+  return this->grid_spacing_.get ();
+}
 
-void SoftBodySpawnerType::grid_spacing(const grid_spacing_type& x) { this->grid_spacing_.set(x); }
+SoftBodySpawnerType::grid_spacing_type& SoftBodySpawnerType::
+grid_spacing ()
+{
+  return this->grid_spacing_.get ();
+}
 
-const SoftBodySpawnerType::temperature_type& SoftBodySpawnerType::temperature() const { return this->temperature_.get(); }
+void SoftBodySpawnerType::
+grid_spacing (const grid_spacing_type& x)
+{
+  this->grid_spacing_.set (x);
+}
 
-SoftBodySpawnerType::temperature_type& SoftBodySpawnerType::temperature() { return this->temperature_.get(); }
+const SoftBodySpawnerType::temperature_type& SoftBodySpawnerType::
+temperature () const
+{
+  return this->temperature_.get ();
+}
 
-void SoftBodySpawnerType::temperature(const temperature_type& x) { this->temperature_.set(x); }
+SoftBodySpawnerType::temperature_type& SoftBodySpawnerType::
+temperature ()
+{
+  return this->temperature_.get ();
+}
 
-const SoftBodySpawnerType::mass_type& SoftBodySpawnerType::mass() const { return this->mass_.get(); }
+void SoftBodySpawnerType::
+temperature (const temperature_type& x)
+{
+  this->temperature_.set (x);
+}
 
-SoftBodySpawnerType::mass_type& SoftBodySpawnerType::mass() { return this->mass_.get(); }
+const SoftBodySpawnerType::mass_type& SoftBodySpawnerType::
+mass () const
+{
+  return this->mass_.get ();
+}
 
-void SoftBodySpawnerType::mass(const mass_type& x) { this->mass_.set(x); }
+SoftBodySpawnerType::mass_type& SoftBodySpawnerType::
+mass ()
+{
+  return this->mass_.get ();
+}
 
-const SoftBodySpawnerType::velocity_type& SoftBodySpawnerType::velocity() const { return this->velocity_.get(); }
+void SoftBodySpawnerType::
+mass (const mass_type& x)
+{
+  this->mass_.set (x);
+}
 
-SoftBodySpawnerType::velocity_type& SoftBodySpawnerType::velocity() { return this->velocity_.get(); }
+const SoftBodySpawnerType::velocity_type& SoftBodySpawnerType::
+velocity () const
+{
+  return this->velocity_.get ();
+}
 
-void SoftBodySpawnerType::velocity(const velocity_type& x) { this->velocity_.set(x); }
+SoftBodySpawnerType::velocity_type& SoftBodySpawnerType::
+velocity ()
+{
+  return this->velocity_.get ();
+}
 
-void SoftBodySpawnerType::velocity(::std::unique_ptr<velocity_type> x) { this->velocity_.set(std::move(x)); }
+void SoftBodySpawnerType::
+velocity (const velocity_type& x)
+{
+  this->velocity_.set (x);
+}
 
-const SoftBodySpawnerType::type_type& SoftBodySpawnerType::type() const { return this->type_.get(); }
+void SoftBodySpawnerType::
+velocity (::std::unique_ptr< velocity_type > x)
+{
+  this->velocity_.set (std::move (x));
+}
 
-SoftBodySpawnerType::type_type& SoftBodySpawnerType::type() { return this->type_.get(); }
+const SoftBodySpawnerType::type_type& SoftBodySpawnerType::
+type () const
+{
+  return this->type_.get ();
+}
 
-void SoftBodySpawnerType::type(const type_type& x) { this->type_.set(x); }
+SoftBodySpawnerType::type_type& SoftBodySpawnerType::
+type ()
+{
+  return this->type_.get ();
+}
 
-const SoftBodySpawnerType::spring_constant_type& SoftBodySpawnerType::spring_constant() const { return this->spring_constant_.get(); }
+void SoftBodySpawnerType::
+type (const type_type& x)
+{
+  this->type_.set (x);
+}
 
-SoftBodySpawnerType::spring_constant_type& SoftBodySpawnerType::spring_constant() { return this->spring_constant_.get(); }
+const SoftBodySpawnerType::spring_constant_type& SoftBodySpawnerType::
+spring_constant () const
+{
+  return this->spring_constant_.get ();
+}
 
-void SoftBodySpawnerType::spring_constant(const spring_constant_type& x) { this->spring_constant_.set(x); }
+SoftBodySpawnerType::spring_constant_type& SoftBodySpawnerType::
+spring_constant ()
+{
+  return this->spring_constant_.get ();
+}
 
-const SoftBodySpawnerType::epsilon_type& SoftBodySpawnerType::epsilon() const { return this->epsilon_.get(); }
+void SoftBodySpawnerType::
+spring_constant (const spring_constant_type& x)
+{
+  this->spring_constant_.set (x);
+}
 
-SoftBodySpawnerType::epsilon_type& SoftBodySpawnerType::epsilon() { return this->epsilon_.get(); }
+const SoftBodySpawnerType::epsilon_type& SoftBodySpawnerType::
+epsilon () const
+{
+  return this->epsilon_.get ();
+}
 
-void SoftBodySpawnerType::epsilon(const epsilon_type& x) { this->epsilon_.set(x); }
+SoftBodySpawnerType::epsilon_type& SoftBodySpawnerType::
+epsilon ()
+{
+  return this->epsilon_.get ();
+}
 
-const SoftBodySpawnerType::sigma_type& SoftBodySpawnerType::sigma() const { return this->sigma_.get(); }
+void SoftBodySpawnerType::
+epsilon (const epsilon_type& x)
+{
+  this->epsilon_.set (x);
+}
 
-SoftBodySpawnerType::sigma_type& SoftBodySpawnerType::sigma() { return this->sigma_.get(); }
+const SoftBodySpawnerType::sigma_type& SoftBodySpawnerType::
+sigma () const
+{
+  return this->sigma_.get ();
+}
 
-void SoftBodySpawnerType::sigma(const sigma_type& x) { this->sigma_.set(x); }
+SoftBodySpawnerType::sigma_type& SoftBodySpawnerType::
+sigma ()
+{
+  return this->sigma_.get ();
+}
+
+void SoftBodySpawnerType::
+sigma (const sigma_type& x)
+{
+  this->sigma_.set (x);
+}
+
 
 // SphereSpawnerType
 //
 
-const SphereSpawnerType::center_type& SphereSpawnerType::center() const { return this->center_.get(); }
+const SphereSpawnerType::center_type& SphereSpawnerType::
+center () const
+{
+  return this->center_.get ();
+}
 
-SphereSpawnerType::center_type& SphereSpawnerType::center() { return this->center_.get(); }
+SphereSpawnerType::center_type& SphereSpawnerType::
+center ()
+{
+  return this->center_.get ();
+}
 
-void SphereSpawnerType::center(const center_type& x) { this->center_.set(x); }
+void SphereSpawnerType::
+center (const center_type& x)
+{
+  this->center_.set (x);
+}
 
-void SphereSpawnerType::center(::std::unique_ptr<center_type> x) { this->center_.set(std::move(x)); }
+void SphereSpawnerType::
+center (::std::unique_ptr< center_type > x)
+{
+  this->center_.set (std::move (x));
+}
 
-const SphereSpawnerType::radius_type& SphereSpawnerType::radius() const { return this->radius_.get(); }
+const SphereSpawnerType::radius_type& SphereSpawnerType::
+radius () const
+{
+  return this->radius_.get ();
+}
 
-SphereSpawnerType::radius_type& SphereSpawnerType::radius() { return this->radius_.get(); }
+SphereSpawnerType::radius_type& SphereSpawnerType::
+radius ()
+{
+  return this->radius_.get ();
+}
 
-void SphereSpawnerType::radius(const radius_type& x) { this->radius_.set(x); }
+void SphereSpawnerType::
+radius (const radius_type& x)
+{
+  this->radius_.set (x);
+}
 
-const SphereSpawnerType::grid_spacing_type& SphereSpawnerType::grid_spacing() const { return this->grid_spacing_.get(); }
+const SphereSpawnerType::grid_spacing_type& SphereSpawnerType::
+grid_spacing () const
+{
+  return this->grid_spacing_.get ();
+}
 
-SphereSpawnerType::grid_spacing_type& SphereSpawnerType::grid_spacing() { return this->grid_spacing_.get(); }
+SphereSpawnerType::grid_spacing_type& SphereSpawnerType::
+grid_spacing ()
+{
+  return this->grid_spacing_.get ();
+}
 
-void SphereSpawnerType::grid_spacing(const grid_spacing_type& x) { this->grid_spacing_.set(x); }
+void SphereSpawnerType::
+grid_spacing (const grid_spacing_type& x)
+{
+  this->grid_spacing_.set (x);
+}
 
-const SphereSpawnerType::temperature_type& SphereSpawnerType::temperature() const { return this->temperature_.get(); }
+const SphereSpawnerType::temperature_type& SphereSpawnerType::
+temperature () const
+{
+  return this->temperature_.get ();
+}
 
-SphereSpawnerType::temperature_type& SphereSpawnerType::temperature() { return this->temperature_.get(); }
+SphereSpawnerType::temperature_type& SphereSpawnerType::
+temperature ()
+{
+  return this->temperature_.get ();
+}
 
-void SphereSpawnerType::temperature(const temperature_type& x) { this->temperature_.set(x); }
+void SphereSpawnerType::
+temperature (const temperature_type& x)
+{
+  this->temperature_.set (x);
+}
 
-const SphereSpawnerType::mass_type& SphereSpawnerType::mass() const { return this->mass_.get(); }
+const SphereSpawnerType::mass_type& SphereSpawnerType::
+mass () const
+{
+  return this->mass_.get ();
+}
 
-SphereSpawnerType::mass_type& SphereSpawnerType::mass() { return this->mass_.get(); }
+SphereSpawnerType::mass_type& SphereSpawnerType::
+mass ()
+{
+  return this->mass_.get ();
+}
 
-void SphereSpawnerType::mass(const mass_type& x) { this->mass_.set(x); }
+void SphereSpawnerType::
+mass (const mass_type& x)
+{
+  this->mass_.set (x);
+}
 
-const SphereSpawnerType::velocity_type& SphereSpawnerType::velocity() const { return this->velocity_.get(); }
+const SphereSpawnerType::velocity_type& SphereSpawnerType::
+velocity () const
+{
+  return this->velocity_.get ();
+}
 
-SphereSpawnerType::velocity_type& SphereSpawnerType::velocity() { return this->velocity_.get(); }
+SphereSpawnerType::velocity_type& SphereSpawnerType::
+velocity ()
+{
+  return this->velocity_.get ();
+}
 
-void SphereSpawnerType::velocity(const velocity_type& x) { this->velocity_.set(x); }
+void SphereSpawnerType::
+velocity (const velocity_type& x)
+{
+  this->velocity_.set (x);
+}
 
-void SphereSpawnerType::velocity(::std::unique_ptr<velocity_type> x) { this->velocity_.set(std::move(x)); }
+void SphereSpawnerType::
+velocity (::std::unique_ptr< velocity_type > x)
+{
+  this->velocity_.set (std::move (x));
+}
 
-const SphereSpawnerType::type_type& SphereSpawnerType::type() const { return this->type_.get(); }
+const SphereSpawnerType::type_type& SphereSpawnerType::
+type () const
+{
+  return this->type_.get ();
+}
 
-SphereSpawnerType::type_type& SphereSpawnerType::type() { return this->type_.get(); }
+SphereSpawnerType::type_type& SphereSpawnerType::
+type ()
+{
+  return this->type_.get ();
+}
 
-void SphereSpawnerType::type(const type_type& x) { this->type_.set(x); }
+void SphereSpawnerType::
+type (const type_type& x)
+{
+  this->type_.set (x);
+}
 
-const SphereSpawnerType::epsilon_type& SphereSpawnerType::epsilon() const { return this->epsilon_.get(); }
+const SphereSpawnerType::epsilon_type& SphereSpawnerType::
+epsilon () const
+{
+  return this->epsilon_.get ();
+}
 
-SphereSpawnerType::epsilon_type& SphereSpawnerType::epsilon() { return this->epsilon_.get(); }
+SphereSpawnerType::epsilon_type& SphereSpawnerType::
+epsilon ()
+{
+  return this->epsilon_.get ();
+}
 
-void SphereSpawnerType::epsilon(const epsilon_type& x) { this->epsilon_.set(x); }
+void SphereSpawnerType::
+epsilon (const epsilon_type& x)
+{
+  this->epsilon_.set (x);
+}
 
-const SphereSpawnerType::sigma_type& SphereSpawnerType::sigma() const { return this->sigma_.get(); }
+const SphereSpawnerType::sigma_type& SphereSpawnerType::
+sigma () const
+{
+  return this->sigma_.get ();
+}
 
-SphereSpawnerType::sigma_type& SphereSpawnerType::sigma() { return this->sigma_.get(); }
+SphereSpawnerType::sigma_type& SphereSpawnerType::
+sigma ()
+{
+  return this->sigma_.get ();
+}
 
-void SphereSpawnerType::sigma(const sigma_type& x) { this->sigma_.set(x); }
+void SphereSpawnerType::
+sigma (const sigma_type& x)
+{
+  this->sigma_.set (x);
+}
 
-const SphereSpawnerType::is_locked_type& SphereSpawnerType::is_locked() const { return this->is_locked_.get(); }
+const SphereSpawnerType::is_locked_type& SphereSpawnerType::
+is_locked () const
+{
+  return this->is_locked_.get ();
+}
 
-SphereSpawnerType::is_locked_type& SphereSpawnerType::is_locked() { return this->is_locked_.get(); }
+SphereSpawnerType::is_locked_type& SphereSpawnerType::
+is_locked ()
+{
+  return this->is_locked_.get ();
+}
 
-void SphereSpawnerType::is_locked(const is_locked_type& x) { this->is_locked_.set(x); }
+void SphereSpawnerType::
+is_locked (const is_locked_type& x)
+{
+  this->is_locked_.set (x);
+}
 
-SphereSpawnerType::is_locked_type SphereSpawnerType::is_locked_default_value() { return is_locked_type(false); }
+SphereSpawnerType::is_locked_type SphereSpawnerType::
+is_locked_default_value ()
+{
+  return is_locked_type (false);
+}
+
 
 // SingleParticleSpawnerType
 //
 
-const SingleParticleSpawnerType::position_type& SingleParticleSpawnerType::position() const { return this->position_.get(); }
+const SingleParticleSpawnerType::position_type& SingleParticleSpawnerType::
+position () const
+{
+  return this->position_.get ();
+}
 
-SingleParticleSpawnerType::position_type& SingleParticleSpawnerType::position() { return this->position_.get(); }
+SingleParticleSpawnerType::position_type& SingleParticleSpawnerType::
+position ()
+{
+  return this->position_.get ();
+}
 
-void SingleParticleSpawnerType::position(const position_type& x) { this->position_.set(x); }
+void SingleParticleSpawnerType::
+position (const position_type& x)
+{
+  this->position_.set (x);
+}
 
-void SingleParticleSpawnerType::position(::std::unique_ptr<position_type> x) { this->position_.set(std::move(x)); }
+void SingleParticleSpawnerType::
+position (::std::unique_ptr< position_type > x)
+{
+  this->position_.set (std::move (x));
+}
 
-const SingleParticleSpawnerType::temperature_type& SingleParticleSpawnerType::temperature() const { return this->temperature_.get(); }
+const SingleParticleSpawnerType::temperature_type& SingleParticleSpawnerType::
+temperature () const
+{
+  return this->temperature_.get ();
+}
 
-SingleParticleSpawnerType::temperature_type& SingleParticleSpawnerType::temperature() { return this->temperature_.get(); }
+SingleParticleSpawnerType::temperature_type& SingleParticleSpawnerType::
+temperature ()
+{
+  return this->temperature_.get ();
+}
 
-void SingleParticleSpawnerType::temperature(const temperature_type& x) { this->temperature_.set(x); }
+void SingleParticleSpawnerType::
+temperature (const temperature_type& x)
+{
+  this->temperature_.set (x);
+}
 
-const SingleParticleSpawnerType::mass_type& SingleParticleSpawnerType::mass() const { return this->mass_.get(); }
+const SingleParticleSpawnerType::mass_type& SingleParticleSpawnerType::
+mass () const
+{
+  return this->mass_.get ();
+}
 
-SingleParticleSpawnerType::mass_type& SingleParticleSpawnerType::mass() { return this->mass_.get(); }
+SingleParticleSpawnerType::mass_type& SingleParticleSpawnerType::
+mass ()
+{
+  return this->mass_.get ();
+}
 
-void SingleParticleSpawnerType::mass(const mass_type& x) { this->mass_.set(x); }
+void SingleParticleSpawnerType::
+mass (const mass_type& x)
+{
+  this->mass_.set (x);
+}
 
-const SingleParticleSpawnerType::velocity_type& SingleParticleSpawnerType::velocity() const { return this->velocity_.get(); }
+const SingleParticleSpawnerType::velocity_type& SingleParticleSpawnerType::
+velocity () const
+{
+  return this->velocity_.get ();
+}
 
-SingleParticleSpawnerType::velocity_type& SingleParticleSpawnerType::velocity() { return this->velocity_.get(); }
+SingleParticleSpawnerType::velocity_type& SingleParticleSpawnerType::
+velocity ()
+{
+  return this->velocity_.get ();
+}
 
-void SingleParticleSpawnerType::velocity(const velocity_type& x) { this->velocity_.set(x); }
+void SingleParticleSpawnerType::
+velocity (const velocity_type& x)
+{
+  this->velocity_.set (x);
+}
 
-void SingleParticleSpawnerType::velocity(::std::unique_ptr<velocity_type> x) { this->velocity_.set(std::move(x)); }
+void SingleParticleSpawnerType::
+velocity (::std::unique_ptr< velocity_type > x)
+{
+  this->velocity_.set (std::move (x));
+}
 
-const SingleParticleSpawnerType::type_type& SingleParticleSpawnerType::type() const { return this->type_.get(); }
+const SingleParticleSpawnerType::type_type& SingleParticleSpawnerType::
+type () const
+{
+  return this->type_.get ();
+}
 
-SingleParticleSpawnerType::type_type& SingleParticleSpawnerType::type() { return this->type_.get(); }
+SingleParticleSpawnerType::type_type& SingleParticleSpawnerType::
+type ()
+{
+  return this->type_.get ();
+}
 
-void SingleParticleSpawnerType::type(const type_type& x) { this->type_.set(x); }
+void SingleParticleSpawnerType::
+type (const type_type& x)
+{
+  this->type_.set (x);
+}
 
-const SingleParticleSpawnerType::epsilon_type& SingleParticleSpawnerType::epsilon() const { return this->epsilon_.get(); }
+const SingleParticleSpawnerType::epsilon_type& SingleParticleSpawnerType::
+epsilon () const
+{
+  return this->epsilon_.get ();
+}
 
-SingleParticleSpawnerType::epsilon_type& SingleParticleSpawnerType::epsilon() { return this->epsilon_.get(); }
+SingleParticleSpawnerType::epsilon_type& SingleParticleSpawnerType::
+epsilon ()
+{
+  return this->epsilon_.get ();
+}
 
-void SingleParticleSpawnerType::epsilon(const epsilon_type& x) { this->epsilon_.set(x); }
+void SingleParticleSpawnerType::
+epsilon (const epsilon_type& x)
+{
+  this->epsilon_.set (x);
+}
 
-const SingleParticleSpawnerType::sigma_type& SingleParticleSpawnerType::sigma() const { return this->sigma_.get(); }
+const SingleParticleSpawnerType::sigma_type& SingleParticleSpawnerType::
+sigma () const
+{
+  return this->sigma_.get ();
+}
 
-SingleParticleSpawnerType::sigma_type& SingleParticleSpawnerType::sigma() { return this->sigma_.get(); }
+SingleParticleSpawnerType::sigma_type& SingleParticleSpawnerType::
+sigma ()
+{
+  return this->sigma_.get ();
+}
 
-void SingleParticleSpawnerType::sigma(const sigma_type& x) { this->sigma_.set(x); }
+void SingleParticleSpawnerType::
+sigma (const sigma_type& x)
+{
+  this->sigma_.set (x);
+}
 
-const SingleParticleSpawnerType::is_locked_type& SingleParticleSpawnerType::is_locked() const { return this->is_locked_.get(); }
+const SingleParticleSpawnerType::is_locked_type& SingleParticleSpawnerType::
+is_locked () const
+{
+  return this->is_locked_.get ();
+}
 
-SingleParticleSpawnerType::is_locked_type& SingleParticleSpawnerType::is_locked() { return this->is_locked_.get(); }
+SingleParticleSpawnerType::is_locked_type& SingleParticleSpawnerType::
+is_locked ()
+{
+  return this->is_locked_.get ();
+}
 
-void SingleParticleSpawnerType::is_locked(const is_locked_type& x) { this->is_locked_.set(x); }
+void SingleParticleSpawnerType::
+is_locked (const is_locked_type& x)
+{
+  this->is_locked_.set (x);
+}
 
-SingleParticleSpawnerType::is_locked_type SingleParticleSpawnerType::is_locked_default_value() { return is_locked_type(false); }
+SingleParticleSpawnerType::is_locked_type SingleParticleSpawnerType::
+is_locked_default_value ()
+{
+  return is_locked_type (false);
+}
+
 
 // CheckPointLoaderType
 //
 
-const CheckPointLoaderType::path_type& CheckPointLoaderType::path() const { return this->path_.get(); }
+const CheckPointLoaderType::path_type& CheckPointLoaderType::
+path () const
+{
+  return this->path_.get ();
+}
 
-CheckPointLoaderType::path_type& CheckPointLoaderType::path() { return this->path_.get(); }
+CheckPointLoaderType::path_type& CheckPointLoaderType::
+path ()
+{
+  return this->path_.get ();
+}
 
-void CheckPointLoaderType::path(const path_type& x) { this->path_.set(x); }
+void CheckPointLoaderType::
+path (const path_type& x)
+{
+  this->path_.set (x);
+}
 
-void CheckPointLoaderType::path(::std::unique_ptr<path_type> x) { this->path_.set(std::move(x)); }
+void CheckPointLoaderType::
+path (::std::unique_ptr< path_type > x)
+{
+  this->path_.set (std::move (x));
+}
+
 
 // SubSimulationType
 //
 
-const SubSimulationType::path_type& SubSimulationType::path() const { return this->path_.get(); }
+const SubSimulationType::path_type& SubSimulationType::
+path () const
+{
+  return this->path_.get ();
+}
 
-SubSimulationType::path_type& SubSimulationType::path() { return this->path_.get(); }
+SubSimulationType::path_type& SubSimulationType::
+path ()
+{
+  return this->path_.get ();
+}
 
-void SubSimulationType::path(const path_type& x) { this->path_.set(x); }
+void SubSimulationType::
+path (const path_type& x)
+{
+  this->path_.set (x);
+}
 
-void SubSimulationType::path(::std::unique_ptr<path_type> x) { this->path_.set(std::move(x)); }
+void SubSimulationType::
+path (::std::unique_ptr< path_type > x)
+{
+  this->path_.set (std::move (x));
+}
+
 
 // ParticleSourceType
 //
 
-const ParticleSourceType::cuboid_spawner_sequence& ParticleSourceType::cuboid_spawner() const { return this->cuboid_spawner_; }
-
-ParticleSourceType::cuboid_spawner_sequence& ParticleSourceType::cuboid_spawner() { return this->cuboid_spawner_; }
-
-void ParticleSourceType::cuboid_spawner(const cuboid_spawner_sequence& s) { this->cuboid_spawner_ = s; }
-
-const ParticleSourceType::soft_body_cuboid_spawner_sequence& ParticleSourceType::soft_body_cuboid_spawner() const {
-    return this->soft_body_cuboid_spawner_;
+const ParticleSourceType::cuboid_spawner_sequence& ParticleSourceType::
+cuboid_spawner () const
+{
+  return this->cuboid_spawner_;
 }
 
-ParticleSourceType::soft_body_cuboid_spawner_sequence& ParticleSourceType::soft_body_cuboid_spawner() {
-    return this->soft_body_cuboid_spawner_;
+ParticleSourceType::cuboid_spawner_sequence& ParticleSourceType::
+cuboid_spawner ()
+{
+  return this->cuboid_spawner_;
 }
 
-void ParticleSourceType::soft_body_cuboid_spawner(const soft_body_cuboid_spawner_sequence& s) { this->soft_body_cuboid_spawner_ = s; }
-
-const ParticleSourceType::sphere_spawner_sequence& ParticleSourceType::sphere_spawner() const { return this->sphere_spawner_; }
-
-ParticleSourceType::sphere_spawner_sequence& ParticleSourceType::sphere_spawner() { return this->sphere_spawner_; }
-
-void ParticleSourceType::sphere_spawner(const sphere_spawner_sequence& s) { this->sphere_spawner_ = s; }
-
-const ParticleSourceType::single_particle_spawner_sequence& ParticleSourceType::single_particle_spawner() const {
-    return this->single_particle_spawner_;
+void ParticleSourceType::
+cuboid_spawner (const cuboid_spawner_sequence& s)
+{
+  this->cuboid_spawner_ = s;
 }
 
-ParticleSourceType::single_particle_spawner_sequence& ParticleSourceType::single_particle_spawner() {
-    return this->single_particle_spawner_;
+const ParticleSourceType::soft_body_cuboid_spawner_sequence& ParticleSourceType::
+soft_body_cuboid_spawner () const
+{
+  return this->soft_body_cuboid_spawner_;
 }
 
-void ParticleSourceType::single_particle_spawner(const single_particle_spawner_sequence& s) { this->single_particle_spawner_ = s; }
+ParticleSourceType::soft_body_cuboid_spawner_sequence& ParticleSourceType::
+soft_body_cuboid_spawner ()
+{
+  return this->soft_body_cuboid_spawner_;
+}
 
-const ParticleSourceType::check_point_loader_sequence& ParticleSourceType::check_point_loader() const { return this->check_point_loader_; }
+void ParticleSourceType::
+soft_body_cuboid_spawner (const soft_body_cuboid_spawner_sequence& s)
+{
+  this->soft_body_cuboid_spawner_ = s;
+}
 
-ParticleSourceType::check_point_loader_sequence& ParticleSourceType::check_point_loader() { return this->check_point_loader_; }
+const ParticleSourceType::sphere_spawner_sequence& ParticleSourceType::
+sphere_spawner () const
+{
+  return this->sphere_spawner_;
+}
 
-void ParticleSourceType::check_point_loader(const check_point_loader_sequence& s) { this->check_point_loader_ = s; }
+ParticleSourceType::sphere_spawner_sequence& ParticleSourceType::
+sphere_spawner ()
+{
+  return this->sphere_spawner_;
+}
 
-const ParticleSourceType::sub_simulation_sequence& ParticleSourceType::sub_simulation() const { return this->sub_simulation_; }
+void ParticleSourceType::
+sphere_spawner (const sphere_spawner_sequence& s)
+{
+  this->sphere_spawner_ = s;
+}
 
-ParticleSourceType::sub_simulation_sequence& ParticleSourceType::sub_simulation() { return this->sub_simulation_; }
+const ParticleSourceType::single_particle_spawner_sequence& ParticleSourceType::
+single_particle_spawner () const
+{
+  return this->single_particle_spawner_;
+}
 
-void ParticleSourceType::sub_simulation(const sub_simulation_sequence& s) { this->sub_simulation_ = s; }
+ParticleSourceType::single_particle_spawner_sequence& ParticleSourceType::
+single_particle_spawner ()
+{
+  return this->single_particle_spawner_;
+}
+
+void ParticleSourceType::
+single_particle_spawner (const single_particle_spawner_sequence& s)
+{
+  this->single_particle_spawner_ = s;
+}
+
+const ParticleSourceType::check_point_loader_sequence& ParticleSourceType::
+check_point_loader () const
+{
+  return this->check_point_loader_;
+}
+
+ParticleSourceType::check_point_loader_sequence& ParticleSourceType::
+check_point_loader ()
+{
+  return this->check_point_loader_;
+}
+
+void ParticleSourceType::
+check_point_loader (const check_point_loader_sequence& s)
+{
+  this->check_point_loader_ = s;
+}
+
+const ParticleSourceType::sub_simulation_sequence& ParticleSourceType::
+sub_simulation () const
+{
+  return this->sub_simulation_;
+}
+
+ParticleSourceType::sub_simulation_sequence& ParticleSourceType::
+sub_simulation ()
+{
+  return this->sub_simulation_;
+}
+
+void ParticleSourceType::
+sub_simulation (const sub_simulation_sequence& s)
+{
+  this->sub_simulation_ = s;
+}
+
 
 // SettingsType
 //
 
-const SettingsType::delta_t_type& SettingsType::delta_t() const { return this->delta_t_.get(); }
+const SettingsType::delta_t_type& SettingsType::
+delta_t () const
+{
+  return this->delta_t_.get ();
+}
 
-SettingsType::delta_t_type& SettingsType::delta_t() { return this->delta_t_.get(); }
+SettingsType::delta_t_type& SettingsType::
+delta_t ()
+{
+  return this->delta_t_.get ();
+}
 
-void SettingsType::delta_t(const delta_t_type& x) { this->delta_t_.set(x); }
+void SettingsType::
+delta_t (const delta_t_type& x)
+{
+  this->delta_t_.set (x);
+}
 
-const SettingsType::end_time_type& SettingsType::end_time() const { return this->end_time_.get(); }
+const SettingsType::end_time_type& SettingsType::
+end_time () const
+{
+  return this->end_time_.get ();
+}
 
-SettingsType::end_time_type& SettingsType::end_time() { return this->end_time_.get(); }
+SettingsType::end_time_type& SettingsType::
+end_time ()
+{
+  return this->end_time_.get ();
+}
 
-void SettingsType::end_time(const end_time_type& x) { this->end_time_.set(x); }
+void SettingsType::
+end_time (const end_time_type& x)
+{
+  this->end_time_.set (x);
+}
 
-const SettingsType::third_dimension_type& SettingsType::third_dimension() const { return this->third_dimension_.get(); }
+const SettingsType::third_dimension_type& SettingsType::
+third_dimension () const
+{
+  return this->third_dimension_.get ();
+}
 
-SettingsType::third_dimension_type& SettingsType::third_dimension() { return this->third_dimension_.get(); }
+SettingsType::third_dimension_type& SettingsType::
+third_dimension ()
+{
+  return this->third_dimension_.get ();
+}
 
-void SettingsType::third_dimension(const third_dimension_type& x) { this->third_dimension_.set(x); }
+void SettingsType::
+third_dimension (const third_dimension_type& x)
+{
+  this->third_dimension_.set (x);
+}
 
-SettingsType::third_dimension_type SettingsType::third_dimension_default_value() { return third_dimension_type(true); }
+SettingsType::third_dimension_type SettingsType::
+third_dimension_default_value ()
+{
+  return third_dimension_type (true);
+}
 
-const SettingsType::particle_container_type& SettingsType::particle_container() const { return this->particle_container_.get(); }
+const SettingsType::particle_container_type& SettingsType::
+particle_container () const
+{
+  return this->particle_container_.get ();
+}
 
-SettingsType::particle_container_type& SettingsType::particle_container() { return this->particle_container_.get(); }
+SettingsType::particle_container_type& SettingsType::
+particle_container ()
+{
+  return this->particle_container_.get ();
+}
 
-void SettingsType::particle_container(const particle_container_type& x) { this->particle_container_.set(x); }
+void SettingsType::
+particle_container (const particle_container_type& x)
+{
+  this->particle_container_.set (x);
+}
 
-void SettingsType::particle_container(::std::unique_ptr<particle_container_type> x) { this->particle_container_.set(std::move(x)); }
+void SettingsType::
+particle_container (::std::unique_ptr< particle_container_type > x)
+{
+  this->particle_container_.set (std::move (x));
+}
 
-const SettingsType::forces_type& SettingsType::forces() const { return this->forces_.get(); }
+const SettingsType::forces_type& SettingsType::
+forces () const
+{
+  return this->forces_.get ();
+}
 
-SettingsType::forces_type& SettingsType::forces() { return this->forces_.get(); }
+SettingsType::forces_type& SettingsType::
+forces ()
+{
+  return this->forces_.get ();
+}
 
-void SettingsType::forces(const forces_type& x) { this->forces_.set(x); }
+void SettingsType::
+forces (const forces_type& x)
+{
+  this->forces_.set (x);
+}
 
-void SettingsType::forces(::std::unique_ptr<forces_type> x) { this->forces_.set(std::move(x)); }
+void SettingsType::
+forces (::std::unique_ptr< forces_type > x)
+{
+  this->forces_.set (std::move (x));
+}
 
-const SettingsType::interceptors_type& SettingsType::interceptors() const { return this->interceptors_.get(); }
+const SettingsType::interceptors_type& SettingsType::
+interceptors () const
+{
+  return this->interceptors_.get ();
+}
 
-SettingsType::interceptors_type& SettingsType::interceptors() { return this->interceptors_.get(); }
+SettingsType::interceptors_type& SettingsType::
+interceptors ()
+{
+  return this->interceptors_.get ();
+}
 
-void SettingsType::interceptors(const interceptors_type& x) { this->interceptors_.set(x); }
+void SettingsType::
+interceptors (const interceptors_type& x)
+{
+  this->interceptors_.set (x);
+}
 
-void SettingsType::interceptors(::std::unique_ptr<interceptors_type> x) { this->interceptors_.set(std::move(x)); }
+void SettingsType::
+interceptors (::std::unique_ptr< interceptors_type > x)
+{
+  this->interceptors_.set (std::move (x));
+}
 
-const SettingsType::log_level_optional& SettingsType::log_level() const { return this->log_level_; }
+const SettingsType::log_level_optional& SettingsType::
+log_level () const
+{
+  return this->log_level_;
+}
 
-SettingsType::log_level_optional& SettingsType::log_level() { return this->log_level_; }
+SettingsType::log_level_optional& SettingsType::
+log_level ()
+{
+  return this->log_level_;
+}
 
-void SettingsType::log_level(const log_level_type& x) { this->log_level_.set(x); }
+void SettingsType::
+log_level (const log_level_type& x)
+{
+  this->log_level_.set (x);
+}
 
-void SettingsType::log_level(const log_level_optional& x) { this->log_level_ = x; }
+void SettingsType::
+log_level (const log_level_optional& x)
+{
+  this->log_level_ = x;
+}
 
-void SettingsType::log_level(::std::unique_ptr<log_level_type> x) { this->log_level_.set(std::move(x)); }
+void SettingsType::
+log_level (::std::unique_ptr< log_level_type > x)
+{
+  this->log_level_.set (std::move (x));
+}
 
-const SettingsType::log_level_type& SettingsType::log_level_default_value() { return log_level_default_value_; }
+const SettingsType::log_level_type& SettingsType::
+log_level_default_value ()
+{
+  return log_level_default_value_;
+}
+
 
 // ParticleUpdatesPerSecondInterceptionType
 //
 
+
 // DiffusionFunctionInterceptorType
 //
 
-const DiffusionFunctionInterceptorType::sample_every_x_percent_type& DiffusionFunctionInterceptorType::sample_every_x_percent() const {
-    return this->sample_every_x_percent_.get();
+const DiffusionFunctionInterceptorType::sample_every_x_percent_type& DiffusionFunctionInterceptorType::
+sample_every_x_percent () const
+{
+  return this->sample_every_x_percent_.get ();
 }
 
-DiffusionFunctionInterceptorType::sample_every_x_percent_type& DiffusionFunctionInterceptorType::sample_every_x_percent() {
-    return this->sample_every_x_percent_.get();
+DiffusionFunctionInterceptorType::sample_every_x_percent_type& DiffusionFunctionInterceptorType::
+sample_every_x_percent ()
+{
+  return this->sample_every_x_percent_.get ();
 }
 
-void DiffusionFunctionInterceptorType::sample_every_x_percent(const sample_every_x_percent_type& x) {
-    this->sample_every_x_percent_.set(x);
+void DiffusionFunctionInterceptorType::
+sample_every_x_percent (const sample_every_x_percent_type& x)
+{
+  this->sample_every_x_percent_.set (x);
 }
+
 
 // FrameWriterInterceptorType
 //
 
-const FrameWriterInterceptorType::output_format_type& FrameWriterInterceptorType::output_format() const {
-    return this->output_format_.get();
+const FrameWriterInterceptorType::output_format_type& FrameWriterInterceptorType::
+output_format () const
+{
+  return this->output_format_.get ();
 }
 
-FrameWriterInterceptorType::output_format_type& FrameWriterInterceptorType::output_format() { return this->output_format_.get(); }
-
-void FrameWriterInterceptorType::output_format(const output_format_type& x) { this->output_format_.set(x); }
-
-void FrameWriterInterceptorType::output_format(::std::unique_ptr<output_format_type> x) { this->output_format_.set(std::move(x)); }
-
-const FrameWriterInterceptorType::fps_type& FrameWriterInterceptorType::fps() const { return this->fps_.get(); }
-
-FrameWriterInterceptorType::fps_type& FrameWriterInterceptorType::fps() { return this->fps_.get(); }
-
-void FrameWriterInterceptorType::fps(const fps_type& x) { this->fps_.set(x); }
-
-const FrameWriterInterceptorType::video_length_s_type& FrameWriterInterceptorType::video_length_s() const {
-    return this->video_length_s_.get();
+FrameWriterInterceptorType::output_format_type& FrameWriterInterceptorType::
+output_format ()
+{
+  return this->output_format_.get ();
 }
 
-FrameWriterInterceptorType::video_length_s_type& FrameWriterInterceptorType::video_length_s() { return this->video_length_s_.get(); }
+void FrameWriterInterceptorType::
+output_format (const output_format_type& x)
+{
+  this->output_format_.set (x);
+}
 
-void FrameWriterInterceptorType::video_length_s(const video_length_s_type& x) { this->video_length_s_.set(x); }
+void FrameWriterInterceptorType::
+output_format (::std::unique_ptr< output_format_type > x)
+{
+  this->output_format_.set (std::move (x));
+}
+
+const FrameWriterInterceptorType::fps_type& FrameWriterInterceptorType::
+fps () const
+{
+  return this->fps_.get ();
+}
+
+FrameWriterInterceptorType::fps_type& FrameWriterInterceptorType::
+fps ()
+{
+  return this->fps_.get ();
+}
+
+void FrameWriterInterceptorType::
+fps (const fps_type& x)
+{
+  this->fps_.set (x);
+}
+
+const FrameWriterInterceptorType::video_length_s_type& FrameWriterInterceptorType::
+video_length_s () const
+{
+  return this->video_length_s_.get ();
+}
+
+FrameWriterInterceptorType::video_length_s_type& FrameWriterInterceptorType::
+video_length_s ()
+{
+  return this->video_length_s_.get ();
+}
+
+void FrameWriterInterceptorType::
+video_length_s (const video_length_s_type& x)
+{
+  this->video_length_s_.set (x);
+}
+
 
 // ThermostatInterceptorType
 //
 
-const ThermostatInterceptorType::temperature_sensor_optional& ThermostatInterceptorType::temperature_sensor() const {
-    return this->temperature_sensor_;
+const ThermostatInterceptorType::temperature_sensor_optional& ThermostatInterceptorType::
+temperature_sensor () const
+{
+  return this->temperature_sensor_;
 }
 
-ThermostatInterceptorType::temperature_sensor_optional& ThermostatInterceptorType::temperature_sensor() {
-    return this->temperature_sensor_;
+ThermostatInterceptorType::temperature_sensor_optional& ThermostatInterceptorType::
+temperature_sensor ()
+{
+  return this->temperature_sensor_;
 }
 
-void ThermostatInterceptorType::temperature_sensor(const temperature_sensor_type& x) { this->temperature_sensor_.set(x); }
-
-void ThermostatInterceptorType::temperature_sensor(const temperature_sensor_optional& x) { this->temperature_sensor_ = x; }
-
-void ThermostatInterceptorType::temperature_sensor(::std::unique_ptr<temperature_sensor_type> x) {
-    this->temperature_sensor_.set(std::move(x));
+void ThermostatInterceptorType::
+temperature_sensor (const temperature_sensor_type& x)
+{
+  this->temperature_sensor_.set (x);
 }
 
-const ThermostatInterceptorType::target_temperature_type& ThermostatInterceptorType::target_temperature() const {
-    return this->target_temperature_.get();
+void ThermostatInterceptorType::
+temperature_sensor (const temperature_sensor_optional& x)
+{
+  this->temperature_sensor_ = x;
 }
 
-ThermostatInterceptorType::target_temperature_type& ThermostatInterceptorType::target_temperature() {
-    return this->target_temperature_.get();
+void ThermostatInterceptorType::
+temperature_sensor (::std::unique_ptr< temperature_sensor_type > x)
+{
+  this->temperature_sensor_.set (std::move (x));
 }
 
-void ThermostatInterceptorType::target_temperature(const target_temperature_type& x) { this->target_temperature_.set(x); }
-
-const ThermostatInterceptorType::max_temperature_change_type& ThermostatInterceptorType::max_temperature_change() const {
-    return this->max_temperature_change_.get();
+const ThermostatInterceptorType::target_temperature_type& ThermostatInterceptorType::
+target_temperature () const
+{
+  return this->target_temperature_.get ();
 }
 
-ThermostatInterceptorType::max_temperature_change_type& ThermostatInterceptorType::max_temperature_change() {
-    return this->max_temperature_change_.get();
+ThermostatInterceptorType::target_temperature_type& ThermostatInterceptorType::
+target_temperature ()
+{
+  return this->target_temperature_.get ();
 }
 
-void ThermostatInterceptorType::max_temperature_change(const max_temperature_change_type& x) { this->max_temperature_change_.set(x); }
-
-const ThermostatInterceptorType::application_interval_type& ThermostatInterceptorType::application_interval() const {
-    return this->application_interval_.get();
+void ThermostatInterceptorType::
+target_temperature (const target_temperature_type& x)
+{
+  this->target_temperature_.set (x);
 }
 
-ThermostatInterceptorType::application_interval_type& ThermostatInterceptorType::application_interval() {
-    return this->application_interval_.get();
+const ThermostatInterceptorType::max_temperature_change_type& ThermostatInterceptorType::
+max_temperature_change () const
+{
+  return this->max_temperature_change_.get ();
 }
 
-void ThermostatInterceptorType::application_interval(const application_interval_type& x) { this->application_interval_.set(x); }
+ThermostatInterceptorType::max_temperature_change_type& ThermostatInterceptorType::
+max_temperature_change ()
+{
+  return this->max_temperature_change_.get ();
+}
 
-const ThermostatInterceptorType::type_type& ThermostatInterceptorType::type() const { return this->type_.get(); }
+void ThermostatInterceptorType::
+max_temperature_change (const max_temperature_change_type& x)
+{
+  this->max_temperature_change_.set (x);
+}
 
-ThermostatInterceptorType::type_type& ThermostatInterceptorType::type() { return this->type_.get(); }
+const ThermostatInterceptorType::application_interval_type& ThermostatInterceptorType::
+application_interval () const
+{
+  return this->application_interval_.get ();
+}
 
-void ThermostatInterceptorType::type(const type_type& x) { this->type_.set(x); }
+ThermostatInterceptorType::application_interval_type& ThermostatInterceptorType::
+application_interval ()
+{
+  return this->application_interval_.get ();
+}
 
-void ThermostatInterceptorType::type(::std::unique_ptr<type_type> x) { this->type_.set(std::move(x)); }
+void ThermostatInterceptorType::
+application_interval (const application_interval_type& x)
+{
+  this->application_interval_.set (x);
+}
+
+const ThermostatInterceptorType::type_type& ThermostatInterceptorType::
+type () const
+{
+  return this->type_.get ();
+}
+
+ThermostatInterceptorType::type_type& ThermostatInterceptorType::
+type ()
+{
+  return this->type_.get ();
+}
+
+void ThermostatInterceptorType::
+type (const type_type& x)
+{
+  this->type_.set (x);
+}
+
+void ThermostatInterceptorType::
+type (::std::unique_ptr< type_type > x)
+{
+  this->type_.set (std::move (x));
+}
+
 
 // RadialDistributionFunctionInterceptionType
 //
 
-const RadialDistributionFunctionInterceptionType::bin_width_type& RadialDistributionFunctionInterceptionType::bin_width() const {
-    return this->bin_width_.get();
+const RadialDistributionFunctionInterceptionType::bin_width_type& RadialDistributionFunctionInterceptionType::
+bin_width () const
+{
+  return this->bin_width_.get ();
 }
 
-RadialDistributionFunctionInterceptionType::bin_width_type& RadialDistributionFunctionInterceptionType::bin_width() {
-    return this->bin_width_.get();
+RadialDistributionFunctionInterceptionType::bin_width_type& RadialDistributionFunctionInterceptionType::
+bin_width ()
+{
+  return this->bin_width_.get ();
 }
 
-void RadialDistributionFunctionInterceptionType::bin_width(const bin_width_type& x) { this->bin_width_.set(x); }
-
-const RadialDistributionFunctionInterceptionType::sample_every_x_percent_type&
-RadialDistributionFunctionInterceptionType::sample_every_x_percent() const {
-    return this->sample_every_x_percent_.get();
+void RadialDistributionFunctionInterceptionType::
+bin_width (const bin_width_type& x)
+{
+  this->bin_width_.set (x);
 }
 
-RadialDistributionFunctionInterceptionType::sample_every_x_percent_type&
-RadialDistributionFunctionInterceptionType::sample_every_x_percent() {
-    return this->sample_every_x_percent_.get();
+const RadialDistributionFunctionInterceptionType::sample_every_x_percent_type& RadialDistributionFunctionInterceptionType::
+sample_every_x_percent () const
+{
+  return this->sample_every_x_percent_.get ();
 }
 
-void RadialDistributionFunctionInterceptionType::sample_every_x_percent(const sample_every_x_percent_type& x) {
-    this->sample_every_x_percent_.set(x);
+RadialDistributionFunctionInterceptionType::sample_every_x_percent_type& RadialDistributionFunctionInterceptionType::
+sample_every_x_percent ()
+{
+  return this->sample_every_x_percent_.get ();
 }
+
+void RadialDistributionFunctionInterceptionType::
+sample_every_x_percent (const sample_every_x_percent_type& x)
+{
+  this->sample_every_x_percent_.set (x);
+}
+
 
 // VelocityProfileInterceptionType
 //
 
-const VelocityProfileInterceptionType::box_optional& VelocityProfileInterceptionType::box() const { return this->box_; }
-
-VelocityProfileInterceptionType::box_optional& VelocityProfileInterceptionType::box() { return this->box_; }
-
-void VelocityProfileInterceptionType::box(const box_type& x) { this->box_.set(x); }
-
-void VelocityProfileInterceptionType::box(const box_optional& x) { this->box_ = x; }
-
-void VelocityProfileInterceptionType::box(::std::unique_ptr<box_type> x) { this->box_.set(std::move(x)); }
-
-const VelocityProfileInterceptionType::num_bins_type& VelocityProfileInterceptionType::num_bins() const { return this->num_bins_.get(); }
-
-VelocityProfileInterceptionType::num_bins_type& VelocityProfileInterceptionType::num_bins() { return this->num_bins_.get(); }
-
-void VelocityProfileInterceptionType::num_bins(const num_bins_type& x) { this->num_bins_.set(x); }
-
-const VelocityProfileInterceptionType::sample_every_x_percent_type& VelocityProfileInterceptionType::sample_every_x_percent() const {
-    return this->sample_every_x_percent_.get();
+const VelocityProfileInterceptionType::box_optional& VelocityProfileInterceptionType::
+box () const
+{
+  return this->box_;
 }
 
-VelocityProfileInterceptionType::sample_every_x_percent_type& VelocityProfileInterceptionType::sample_every_x_percent() {
-    return this->sample_every_x_percent_.get();
+VelocityProfileInterceptionType::box_optional& VelocityProfileInterceptionType::
+box ()
+{
+  return this->box_;
 }
 
-void VelocityProfileInterceptionType::sample_every_x_percent(const sample_every_x_percent_type& x) { this->sample_every_x_percent_.set(x); }
+void VelocityProfileInterceptionType::
+box (const box_type& x)
+{
+  this->box_.set (x);
+}
+
+void VelocityProfileInterceptionType::
+box (const box_optional& x)
+{
+  this->box_ = x;
+}
+
+void VelocityProfileInterceptionType::
+box (::std::unique_ptr< box_type > x)
+{
+  this->box_.set (std::move (x));
+}
+
+const VelocityProfileInterceptionType::num_bins_type& VelocityProfileInterceptionType::
+num_bins () const
+{
+  return this->num_bins_.get ();
+}
+
+VelocityProfileInterceptionType::num_bins_type& VelocityProfileInterceptionType::
+num_bins ()
+{
+  return this->num_bins_.get ();
+}
+
+void VelocityProfileInterceptionType::
+num_bins (const num_bins_type& x)
+{
+  this->num_bins_.set (x);
+}
+
+const VelocityProfileInterceptionType::sample_every_x_percent_type& VelocityProfileInterceptionType::
+sample_every_x_percent () const
+{
+  return this->sample_every_x_percent_.get ();
+}
+
+VelocityProfileInterceptionType::sample_every_x_percent_type& VelocityProfileInterceptionType::
+sample_every_x_percent ()
+{
+  return this->sample_every_x_percent_.get ();
+}
+
+void VelocityProfileInterceptionType::
+sample_every_x_percent (const sample_every_x_percent_type& x)
+{
+  this->sample_every_x_percent_.set (x);
+}
+
 
 // TemperatureSensorInterceptorType
 //
 
-const TemperatureSensorInterceptorType::sample_every_x_percent_type& TemperatureSensorInterceptorType::sample_every_x_percent() const {
-    return this->sample_every_x_percent_.get();
+const TemperatureSensorInterceptorType::sample_every_x_percent_type& TemperatureSensorInterceptorType::
+sample_every_x_percent () const
+{
+  return this->sample_every_x_percent_.get ();
 }
 
-TemperatureSensorInterceptorType::sample_every_x_percent_type& TemperatureSensorInterceptorType::sample_every_x_percent() {
-    return this->sample_every_x_percent_.get();
+TemperatureSensorInterceptorType::sample_every_x_percent_type& TemperatureSensorInterceptorType::
+sample_every_x_percent ()
+{
+  return this->sample_every_x_percent_.get ();
 }
 
-void TemperatureSensorInterceptorType::sample_every_x_percent(const sample_every_x_percent_type& x) {
-    this->sample_every_x_percent_.set(x);
+void TemperatureSensorInterceptorType::
+sample_every_x_percent (const sample_every_x_percent_type& x)
+{
+  this->sample_every_x_percent_.set (x);
 }
+
 
 // SimulationInterceptorsType
 //
 
-const SimulationInterceptorsType::ParticleUpdatesPerSecond_optional& SimulationInterceptorsType::ParticleUpdatesPerSecond() const {
-    return this->ParticleUpdatesPerSecond_;
+const SimulationInterceptorsType::ParticleUpdatesPerSecond_sequence& SimulationInterceptorsType::
+ParticleUpdatesPerSecond () const
+{
+  return this->ParticleUpdatesPerSecond_;
 }
 
-SimulationInterceptorsType::ParticleUpdatesPerSecond_optional& SimulationInterceptorsType::ParticleUpdatesPerSecond() {
-    return this->ParticleUpdatesPerSecond_;
+SimulationInterceptorsType::ParticleUpdatesPerSecond_sequence& SimulationInterceptorsType::
+ParticleUpdatesPerSecond ()
+{
+  return this->ParticleUpdatesPerSecond_;
 }
 
-void SimulationInterceptorsType::ParticleUpdatesPerSecond(const ParticleUpdatesPerSecond_type& x) {
-    this->ParticleUpdatesPerSecond_.set(x);
+void SimulationInterceptorsType::
+ParticleUpdatesPerSecond (const ParticleUpdatesPerSecond_sequence& s)
+{
+  this->ParticleUpdatesPerSecond_ = s;
 }
 
-void SimulationInterceptorsType::ParticleUpdatesPerSecond(const ParticleUpdatesPerSecond_optional& x) {
-    this->ParticleUpdatesPerSecond_ = x;
+const SimulationInterceptorsType::DiffusionFunction_sequence& SimulationInterceptorsType::
+DiffusionFunction () const
+{
+  return this->DiffusionFunction_;
 }
 
-void SimulationInterceptorsType::ParticleUpdatesPerSecond(::std::unique_ptr<ParticleUpdatesPerSecond_type> x) {
-    this->ParticleUpdatesPerSecond_.set(std::move(x));
+SimulationInterceptorsType::DiffusionFunction_sequence& SimulationInterceptorsType::
+DiffusionFunction ()
+{
+  return this->DiffusionFunction_;
 }
 
-const SimulationInterceptorsType::DiffusionFunction_optional& SimulationInterceptorsType::DiffusionFunction() const {
-    return this->DiffusionFunction_;
+void SimulationInterceptorsType::
+DiffusionFunction (const DiffusionFunction_sequence& s)
+{
+  this->DiffusionFunction_ = s;
 }
 
-SimulationInterceptorsType::DiffusionFunction_optional& SimulationInterceptorsType::DiffusionFunction() { return this->DiffusionFunction_; }
-
-void SimulationInterceptorsType::DiffusionFunction(const DiffusionFunction_type& x) { this->DiffusionFunction_.set(x); }
-
-void SimulationInterceptorsType::DiffusionFunction(const DiffusionFunction_optional& x) { this->DiffusionFunction_ = x; }
-
-void SimulationInterceptorsType::DiffusionFunction(::std::unique_ptr<DiffusionFunction_type> x) {
-    this->DiffusionFunction_.set(std::move(x));
+const SimulationInterceptorsType::RadialDistributionFunction_sequence& SimulationInterceptorsType::
+RadialDistributionFunction () const
+{
+  return this->RadialDistributionFunction_;
 }
 
-const SimulationInterceptorsType::RadialDistributionFunction_optional& SimulationInterceptorsType::RadialDistributionFunction() const {
-    return this->RadialDistributionFunction_;
+SimulationInterceptorsType::RadialDistributionFunction_sequence& SimulationInterceptorsType::
+RadialDistributionFunction ()
+{
+  return this->RadialDistributionFunction_;
 }
 
-SimulationInterceptorsType::RadialDistributionFunction_optional& SimulationInterceptorsType::RadialDistributionFunction() {
-    return this->RadialDistributionFunction_;
+void SimulationInterceptorsType::
+RadialDistributionFunction (const RadialDistributionFunction_sequence& s)
+{
+  this->RadialDistributionFunction_ = s;
 }
 
-void SimulationInterceptorsType::RadialDistributionFunction(const RadialDistributionFunction_type& x) {
-    this->RadialDistributionFunction_.set(x);
+const SimulationInterceptorsType::VelocityProfile_sequence& SimulationInterceptorsType::
+VelocityProfile () const
+{
+  return this->VelocityProfile_;
 }
 
-void SimulationInterceptorsType::RadialDistributionFunction(const RadialDistributionFunction_optional& x) {
-    this->RadialDistributionFunction_ = x;
+SimulationInterceptorsType::VelocityProfile_sequence& SimulationInterceptorsType::
+VelocityProfile ()
+{
+  return this->VelocityProfile_;
 }
 
-void SimulationInterceptorsType::RadialDistributionFunction(::std::unique_ptr<RadialDistributionFunction_type> x) {
-    this->RadialDistributionFunction_.set(std::move(x));
+void SimulationInterceptorsType::
+VelocityProfile (const VelocityProfile_sequence& s)
+{
+  this->VelocityProfile_ = s;
 }
 
-const SimulationInterceptorsType::VelocityProfile_optional& SimulationInterceptorsType::VelocityProfile() const {
-    return this->VelocityProfile_;
+const SimulationInterceptorsType::FrameWriter_sequence& SimulationInterceptorsType::
+FrameWriter () const
+{
+  return this->FrameWriter_;
 }
 
-SimulationInterceptorsType::VelocityProfile_optional& SimulationInterceptorsType::VelocityProfile() { return this->VelocityProfile_; }
+SimulationInterceptorsType::FrameWriter_sequence& SimulationInterceptorsType::
+FrameWriter ()
+{
+  return this->FrameWriter_;
+}
 
-void SimulationInterceptorsType::VelocityProfile(const VelocityProfile_type& x) { this->VelocityProfile_.set(x); }
+void SimulationInterceptorsType::
+FrameWriter (const FrameWriter_sequence& s)
+{
+  this->FrameWriter_ = s;
+}
 
-void SimulationInterceptorsType::VelocityProfile(const VelocityProfile_optional& x) { this->VelocityProfile_ = x; }
+const SimulationInterceptorsType::Thermostat_sequence& SimulationInterceptorsType::
+Thermostat () const
+{
+  return this->Thermostat_;
+}
 
-void SimulationInterceptorsType::VelocityProfile(::std::unique_ptr<VelocityProfile_type> x) { this->VelocityProfile_.set(std::move(x)); }
+SimulationInterceptorsType::Thermostat_sequence& SimulationInterceptorsType::
+Thermostat ()
+{
+  return this->Thermostat_;
+}
 
-const SimulationInterceptorsType::FrameWriter_optional& SimulationInterceptorsType::FrameWriter() const { return this->FrameWriter_; }
+void SimulationInterceptorsType::
+Thermostat (const Thermostat_sequence& s)
+{
+  this->Thermostat_ = s;
+}
 
-SimulationInterceptorsType::FrameWriter_optional& SimulationInterceptorsType::FrameWriter() { return this->FrameWriter_; }
-
-void SimulationInterceptorsType::FrameWriter(const FrameWriter_type& x) { this->FrameWriter_.set(x); }
-
-void SimulationInterceptorsType::FrameWriter(const FrameWriter_optional& x) { this->FrameWriter_ = x; }
-
-void SimulationInterceptorsType::FrameWriter(::std::unique_ptr<FrameWriter_type> x) { this->FrameWriter_.set(std::move(x)); }
-
-const SimulationInterceptorsType::Thermostat_optional& SimulationInterceptorsType::Thermostat() const { return this->Thermostat_; }
-
-SimulationInterceptorsType::Thermostat_optional& SimulationInterceptorsType::Thermostat() { return this->Thermostat_; }
-
-void SimulationInterceptorsType::Thermostat(const Thermostat_type& x) { this->Thermostat_.set(x); }
-
-void SimulationInterceptorsType::Thermostat(const Thermostat_optional& x) { this->Thermostat_ = x; }
-
-void SimulationInterceptorsType::Thermostat(::std::unique_ptr<Thermostat_type> x) { this->Thermostat_.set(std::move(x)); }
 
 // TargettedTemporaryConstantType
 //
 
-const TargettedTemporaryConstantType::force_type& TargettedTemporaryConstantType::force() const { return this->force_.get(); }
-
-TargettedTemporaryConstantType::force_type& TargettedTemporaryConstantType::force() { return this->force_.get(); }
-
-void TargettedTemporaryConstantType::force(const force_type& x) { this->force_.set(x); }
-
-void TargettedTemporaryConstantType::force(::std::unique_ptr<force_type> x) { this->force_.set(std::move(x)); }
-
-const TargettedTemporaryConstantType::indices_type& TargettedTemporaryConstantType::indices() const { return this->indices_.get(); }
-
-TargettedTemporaryConstantType::indices_type& TargettedTemporaryConstantType::indices() { return this->indices_.get(); }
-
-void TargettedTemporaryConstantType::indices(const indices_type& x) { this->indices_.set(x); }
-
-void TargettedTemporaryConstantType::indices(::std::unique_ptr<indices_type> x) { this->indices_.set(std::move(x)); }
-
-const TargettedTemporaryConstantType::start_time_type& TargettedTemporaryConstantType::start_time() const {
-    return this->start_time_.get();
+const TargettedTemporaryConstantType::force_type& TargettedTemporaryConstantType::
+force () const
+{
+  return this->force_.get ();
 }
 
-TargettedTemporaryConstantType::start_time_type& TargettedTemporaryConstantType::start_time() { return this->start_time_.get(); }
+TargettedTemporaryConstantType::force_type& TargettedTemporaryConstantType::
+force ()
+{
+  return this->force_.get ();
+}
 
-void TargettedTemporaryConstantType::start_time(const start_time_type& x) { this->start_time_.set(x); }
+void TargettedTemporaryConstantType::
+force (const force_type& x)
+{
+  this->force_.set (x);
+}
 
-const TargettedTemporaryConstantType::end_time_type& TargettedTemporaryConstantType::end_time() const { return this->end_time_.get(); }
+void TargettedTemporaryConstantType::
+force (::std::unique_ptr< force_type > x)
+{
+  this->force_.set (std::move (x));
+}
 
-TargettedTemporaryConstantType::end_time_type& TargettedTemporaryConstantType::end_time() { return this->end_time_.get(); }
+const TargettedTemporaryConstantType::indices_type& TargettedTemporaryConstantType::
+indices () const
+{
+  return this->indices_.get ();
+}
 
-void TargettedTemporaryConstantType::end_time(const end_time_type& x) { this->end_time_.set(x); }
+TargettedTemporaryConstantType::indices_type& TargettedTemporaryConstantType::
+indices ()
+{
+  return this->indices_.get ();
+}
+
+void TargettedTemporaryConstantType::
+indices (const indices_type& x)
+{
+  this->indices_.set (x);
+}
+
+void TargettedTemporaryConstantType::
+indices (::std::unique_ptr< indices_type > x)
+{
+  this->indices_.set (std::move (x));
+}
+
+const TargettedTemporaryConstantType::start_time_type& TargettedTemporaryConstantType::
+start_time () const
+{
+  return this->start_time_.get ();
+}
+
+TargettedTemporaryConstantType::start_time_type& TargettedTemporaryConstantType::
+start_time ()
+{
+  return this->start_time_.get ();
+}
+
+void TargettedTemporaryConstantType::
+start_time (const start_time_type& x)
+{
+  this->start_time_.set (x);
+}
+
+const TargettedTemporaryConstantType::end_time_type& TargettedTemporaryConstantType::
+end_time () const
+{
+  return this->end_time_.get ();
+}
+
+TargettedTemporaryConstantType::end_time_type& TargettedTemporaryConstantType::
+end_time ()
+{
+  return this->end_time_.get ();
+}
+
+void TargettedTemporaryConstantType::
+end_time (const end_time_type& x)
+{
+  this->end_time_.set (x);
+}
+
 
 // LennardJonesType
 //
 
+
 // LennardJonesRepulsiveType
 //
+
 
 // SmoothedLennardJonesType
 //
 
-const SmoothedLennardJonesType::r_c_type& SmoothedLennardJonesType::r_c() const { return this->r_c_.get(); }
+const SmoothedLennardJonesType::r_c_type& SmoothedLennardJonesType::
+r_c () const
+{
+  return this->r_c_.get ();
+}
 
-SmoothedLennardJonesType::r_c_type& SmoothedLennardJonesType::r_c() { return this->r_c_.get(); }
+SmoothedLennardJonesType::r_c_type& SmoothedLennardJonesType::
+r_c ()
+{
+  return this->r_c_.get ();
+}
 
-void SmoothedLennardJonesType::r_c(const r_c_type& x) { this->r_c_.set(x); }
+void SmoothedLennardJonesType::
+r_c (const r_c_type& x)
+{
+  this->r_c_.set (x);
+}
 
-const SmoothedLennardJonesType::r_l_type& SmoothedLennardJonesType::r_l() const { return this->r_l_.get(); }
+const SmoothedLennardJonesType::r_l_type& SmoothedLennardJonesType::
+r_l () const
+{
+  return this->r_l_.get ();
+}
 
-SmoothedLennardJonesType::r_l_type& SmoothedLennardJonesType::r_l() { return this->r_l_.get(); }
+SmoothedLennardJonesType::r_l_type& SmoothedLennardJonesType::
+r_l ()
+{
+  return this->r_l_.get ();
+}
 
-void SmoothedLennardJonesType::r_l(const r_l_type& x) { this->r_l_.set(x); }
+void SmoothedLennardJonesType::
+r_l (const r_l_type& x)
+{
+  this->r_l_.set (x);
+}
+
 
 // GravitationalType
 //
 
+
 // GlobalGravityType
 //
 
-const GlobalGravityType::g_type& GlobalGravityType::g() const { return this->g_.get(); }
+const GlobalGravityType::g_type& GlobalGravityType::
+g () const
+{
+  return this->g_.get ();
+}
 
-GlobalGravityType::g_type& GlobalGravityType::g() { return this->g_.get(); }
+GlobalGravityType::g_type& GlobalGravityType::
+g ()
+{
+  return this->g_.get ();
+}
 
-void GlobalGravityType::g(const g_type& x) { this->g_.set(x); }
+void GlobalGravityType::
+g (const g_type& x)
+{
+  this->g_.set (x);
+}
+
 
 // HarmonicPotentialType
 //
 
+
 // ForcesType
 //
 
-const ForcesType::TargettedTemporaryConstant_optional& ForcesType::TargettedTemporaryConstant() const {
-    return this->TargettedTemporaryConstant_;
+const ForcesType::TargettedTemporaryConstant_optional& ForcesType::
+TargettedTemporaryConstant () const
+{
+  return this->TargettedTemporaryConstant_;
 }
 
-ForcesType::TargettedTemporaryConstant_optional& ForcesType::TargettedTemporaryConstant() { return this->TargettedTemporaryConstant_; }
-
-void ForcesType::TargettedTemporaryConstant(const TargettedTemporaryConstant_type& x) { this->TargettedTemporaryConstant_.set(x); }
-
-void ForcesType::TargettedTemporaryConstant(const TargettedTemporaryConstant_optional& x) { this->TargettedTemporaryConstant_ = x; }
-
-void ForcesType::TargettedTemporaryConstant(::std::unique_ptr<TargettedTemporaryConstant_type> x) {
-    this->TargettedTemporaryConstant_.set(std::move(x));
+ForcesType::TargettedTemporaryConstant_optional& ForcesType::
+TargettedTemporaryConstant ()
+{
+  return this->TargettedTemporaryConstant_;
 }
 
-const ForcesType::LennardJones_optional& ForcesType::LennardJones() const { return this->LennardJones_; }
-
-ForcesType::LennardJones_optional& ForcesType::LennardJones() { return this->LennardJones_; }
-
-void ForcesType::LennardJones(const LennardJones_type& x) { this->LennardJones_.set(x); }
-
-void ForcesType::LennardJones(const LennardJones_optional& x) { this->LennardJones_ = x; }
-
-void ForcesType::LennardJones(::std::unique_ptr<LennardJones_type> x) { this->LennardJones_.set(std::move(x)); }
-
-const ForcesType::LennardJonesRepulsive_optional& ForcesType::LennardJonesRepulsive() const { return this->LennardJonesRepulsive_; }
-
-ForcesType::LennardJonesRepulsive_optional& ForcesType::LennardJonesRepulsive() { return this->LennardJonesRepulsive_; }
-
-void ForcesType::LennardJonesRepulsive(const LennardJonesRepulsive_type& x) { this->LennardJonesRepulsive_.set(x); }
-
-void ForcesType::LennardJonesRepulsive(const LennardJonesRepulsive_optional& x) { this->LennardJonesRepulsive_ = x; }
-
-void ForcesType::LennardJonesRepulsive(::std::unique_ptr<LennardJonesRepulsive_type> x) { this->LennardJonesRepulsive_.set(std::move(x)); }
-
-const ForcesType::SmoothedLennardJones_optional& ForcesType::SmoothedLennardJones() const { return this->SmoothedLennardJones_; }
-
-ForcesType::SmoothedLennardJones_optional& ForcesType::SmoothedLennardJones() { return this->SmoothedLennardJones_; }
-
-void ForcesType::SmoothedLennardJones(const SmoothedLennardJones_type& x) { this->SmoothedLennardJones_.set(x); }
-
-void ForcesType::SmoothedLennardJones(const SmoothedLennardJones_optional& x) { this->SmoothedLennardJones_ = x; }
-
-void ForcesType::SmoothedLennardJones(::std::unique_ptr<SmoothedLennardJones_type> x) { this->SmoothedLennardJones_.set(std::move(x)); }
-
-const ForcesType::Gravitational_optional& ForcesType::Gravitational() const { return this->Gravitational_; }
-
-ForcesType::Gravitational_optional& ForcesType::Gravitational() { return this->Gravitational_; }
-
-void ForcesType::Gravitational(const Gravitational_type& x) { this->Gravitational_.set(x); }
-
-void ForcesType::Gravitational(const Gravitational_optional& x) { this->Gravitational_ = x; }
-
-void ForcesType::Gravitational(::std::unique_ptr<Gravitational_type> x) { this->Gravitational_.set(std::move(x)); }
-
-const ForcesType::GlobalDownwardsGravity_optional& ForcesType::GlobalDownwardsGravity() const { return this->GlobalDownwardsGravity_; }
-
-ForcesType::GlobalDownwardsGravity_optional& ForcesType::GlobalDownwardsGravity() { return this->GlobalDownwardsGravity_; }
-
-void ForcesType::GlobalDownwardsGravity(const GlobalDownwardsGravity_type& x) { this->GlobalDownwardsGravity_.set(x); }
-
-void ForcesType::GlobalDownwardsGravity(const GlobalDownwardsGravity_optional& x) { this->GlobalDownwardsGravity_ = x; }
-
-void ForcesType::GlobalDownwardsGravity(::std::unique_ptr<GlobalDownwardsGravity_type> x) {
-    this->GlobalDownwardsGravity_.set(std::move(x));
+void ForcesType::
+TargettedTemporaryConstant (const TargettedTemporaryConstant_type& x)
+{
+  this->TargettedTemporaryConstant_.set (x);
 }
 
-const ForcesType::HarmonicPotential_optional& ForcesType::HarmonicPotential() const { return this->HarmonicPotential_; }
+void ForcesType::
+TargettedTemporaryConstant (const TargettedTemporaryConstant_optional& x)
+{
+  this->TargettedTemporaryConstant_ = x;
+}
 
-ForcesType::HarmonicPotential_optional& ForcesType::HarmonicPotential() { return this->HarmonicPotential_; }
+void ForcesType::
+TargettedTemporaryConstant (::std::unique_ptr< TargettedTemporaryConstant_type > x)
+{
+  this->TargettedTemporaryConstant_.set (std::move (x));
+}
 
-void ForcesType::HarmonicPotential(const HarmonicPotential_type& x) { this->HarmonicPotential_.set(x); }
+const ForcesType::LennardJones_optional& ForcesType::
+LennardJones () const
+{
+  return this->LennardJones_;
+}
 
-void ForcesType::HarmonicPotential(const HarmonicPotential_optional& x) { this->HarmonicPotential_ = x; }
+ForcesType::LennardJones_optional& ForcesType::
+LennardJones ()
+{
+  return this->LennardJones_;
+}
 
-void ForcesType::HarmonicPotential(::std::unique_ptr<HarmonicPotential_type> x) { this->HarmonicPotential_.set(std::move(x)); }
+void ForcesType::
+LennardJones (const LennardJones_type& x)
+{
+  this->LennardJones_.set (x);
+}
+
+void ForcesType::
+LennardJones (const LennardJones_optional& x)
+{
+  this->LennardJones_ = x;
+}
+
+void ForcesType::
+LennardJones (::std::unique_ptr< LennardJones_type > x)
+{
+  this->LennardJones_.set (std::move (x));
+}
+
+const ForcesType::LennardJonesRepulsive_optional& ForcesType::
+LennardJonesRepulsive () const
+{
+  return this->LennardJonesRepulsive_;
+}
+
+ForcesType::LennardJonesRepulsive_optional& ForcesType::
+LennardJonesRepulsive ()
+{
+  return this->LennardJonesRepulsive_;
+}
+
+void ForcesType::
+LennardJonesRepulsive (const LennardJonesRepulsive_type& x)
+{
+  this->LennardJonesRepulsive_.set (x);
+}
+
+void ForcesType::
+LennardJonesRepulsive (const LennardJonesRepulsive_optional& x)
+{
+  this->LennardJonesRepulsive_ = x;
+}
+
+void ForcesType::
+LennardJonesRepulsive (::std::unique_ptr< LennardJonesRepulsive_type > x)
+{
+  this->LennardJonesRepulsive_.set (std::move (x));
+}
+
+const ForcesType::SmoothedLennardJones_optional& ForcesType::
+SmoothedLennardJones () const
+{
+  return this->SmoothedLennardJones_;
+}
+
+ForcesType::SmoothedLennardJones_optional& ForcesType::
+SmoothedLennardJones ()
+{
+  return this->SmoothedLennardJones_;
+}
+
+void ForcesType::
+SmoothedLennardJones (const SmoothedLennardJones_type& x)
+{
+  this->SmoothedLennardJones_.set (x);
+}
+
+void ForcesType::
+SmoothedLennardJones (const SmoothedLennardJones_optional& x)
+{
+  this->SmoothedLennardJones_ = x;
+}
+
+void ForcesType::
+SmoothedLennardJones (::std::unique_ptr< SmoothedLennardJones_type > x)
+{
+  this->SmoothedLennardJones_.set (std::move (x));
+}
+
+const ForcesType::Gravitational_optional& ForcesType::
+Gravitational () const
+{
+  return this->Gravitational_;
+}
+
+ForcesType::Gravitational_optional& ForcesType::
+Gravitational ()
+{
+  return this->Gravitational_;
+}
+
+void ForcesType::
+Gravitational (const Gravitational_type& x)
+{
+  this->Gravitational_.set (x);
+}
+
+void ForcesType::
+Gravitational (const Gravitational_optional& x)
+{
+  this->Gravitational_ = x;
+}
+
+void ForcesType::
+Gravitational (::std::unique_ptr< Gravitational_type > x)
+{
+  this->Gravitational_.set (std::move (x));
+}
+
+const ForcesType::GlobalDownwardsGravity_optional& ForcesType::
+GlobalDownwardsGravity () const
+{
+  return this->GlobalDownwardsGravity_;
+}
+
+ForcesType::GlobalDownwardsGravity_optional& ForcesType::
+GlobalDownwardsGravity ()
+{
+  return this->GlobalDownwardsGravity_;
+}
+
+void ForcesType::
+GlobalDownwardsGravity (const GlobalDownwardsGravity_type& x)
+{
+  this->GlobalDownwardsGravity_.set (x);
+}
+
+void ForcesType::
+GlobalDownwardsGravity (const GlobalDownwardsGravity_optional& x)
+{
+  this->GlobalDownwardsGravity_ = x;
+}
+
+void ForcesType::
+GlobalDownwardsGravity (::std::unique_ptr< GlobalDownwardsGravity_type > x)
+{
+  this->GlobalDownwardsGravity_.set (std::move (x));
+}
+
+const ForcesType::HarmonicPotential_optional& ForcesType::
+HarmonicPotential () const
+{
+  return this->HarmonicPotential_;
+}
+
+ForcesType::HarmonicPotential_optional& ForcesType::
+HarmonicPotential ()
+{
+  return this->HarmonicPotential_;
+}
+
+void ForcesType::
+HarmonicPotential (const HarmonicPotential_type& x)
+{
+  this->HarmonicPotential_.set (x);
+}
+
+void ForcesType::
+HarmonicPotential (const HarmonicPotential_optional& x)
+{
+  this->HarmonicPotential_ = x;
+}
+
+void ForcesType::
+HarmonicPotential (::std::unique_ptr< HarmonicPotential_type > x)
+{
+  this->HarmonicPotential_.set (std::move (x));
+}
+
 
 // ThreeDRegionType
 //
 
-const ThreeDRegionType::lower_left_front_corner_type& ThreeDRegionType::lower_left_front_corner() const {
-    return this->lower_left_front_corner_.get();
+const ThreeDRegionType::lower_left_front_corner_type& ThreeDRegionType::
+lower_left_front_corner () const
+{
+  return this->lower_left_front_corner_.get ();
 }
 
-ThreeDRegionType::lower_left_front_corner_type& ThreeDRegionType::lower_left_front_corner() { return this->lower_left_front_corner_.get(); }
-
-void ThreeDRegionType::lower_left_front_corner(const lower_left_front_corner_type& x) { this->lower_left_front_corner_.set(x); }
-
-void ThreeDRegionType::lower_left_front_corner(::std::unique_ptr<lower_left_front_corner_type> x) {
-    this->lower_left_front_corner_.set(std::move(x));
+ThreeDRegionType::lower_left_front_corner_type& ThreeDRegionType::
+lower_left_front_corner ()
+{
+  return this->lower_left_front_corner_.get ();
 }
 
-const ThreeDRegionType::upper_right_back_corner_type& ThreeDRegionType::upper_right_back_corner() const {
-    return this->upper_right_back_corner_.get();
+void ThreeDRegionType::
+lower_left_front_corner (const lower_left_front_corner_type& x)
+{
+  this->lower_left_front_corner_.set (x);
 }
 
-ThreeDRegionType::upper_right_back_corner_type& ThreeDRegionType::upper_right_back_corner() { return this->upper_right_back_corner_.get(); }
-
-void ThreeDRegionType::upper_right_back_corner(const upper_right_back_corner_type& x) { this->upper_right_back_corner_.set(x); }
-
-void ThreeDRegionType::upper_right_back_corner(::std::unique_ptr<upper_right_back_corner_type> x) {
-    this->upper_right_back_corner_.set(std::move(x));
+void ThreeDRegionType::
+lower_left_front_corner (::std::unique_ptr< lower_left_front_corner_type > x)
+{
+  this->lower_left_front_corner_.set (std::move (x));
 }
+
+const ThreeDRegionType::upper_right_back_corner_type& ThreeDRegionType::
+upper_right_back_corner () const
+{
+  return this->upper_right_back_corner_.get ();
+}
+
+ThreeDRegionType::upper_right_back_corner_type& ThreeDRegionType::
+upper_right_back_corner ()
+{
+  return this->upper_right_back_corner_.get ();
+}
+
+void ThreeDRegionType::
+upper_right_back_corner (const upper_right_back_corner_type& x)
+{
+  this->upper_right_back_corner_.set (x);
+}
+
+void ThreeDRegionType::
+upper_right_back_corner (::std::unique_ptr< upper_right_back_corner_type > x)
+{
+  this->upper_right_back_corner_.set (std::move (x));
+}
+
 
 // IntegerListType
 //
 
-IntegerListType::IntegerListType() : ::xsd::cxx::tree::list< ::xml_schema::integer, char>(this) {}
+IntegerListType::
+IntegerListType ()
+: ::xsd::cxx::tree::list< ::xml_schema::integer, char > (this)
+{
+}
 
-IntegerListType::IntegerListType(size_type n, const ::xml_schema::integer& x)
-    : ::xsd::cxx::tree::list< ::xml_schema::integer, char>(n, x, this) {}
+IntegerListType::
+IntegerListType (size_type n, const ::xml_schema::integer& x)
+: ::xsd::cxx::tree::list< ::xml_schema::integer, char > (n, x, this)
+{
+}
 
-IntegerListType::IntegerListType(const IntegerListType& o, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::simple_type(o, f, c), ::xsd::cxx::tree::list< ::xml_schema::integer, char>(o, f, this) {}
+IntegerListType::
+IntegerListType (const IntegerListType& o,
+                 ::xml_schema::flags f,
+                 ::xml_schema::container* c)
+: ::xml_schema::simple_type (o, f, c),
+  ::xsd::cxx::tree::list< ::xml_schema::integer, char > (o, f, this)
+{
+}
 
 // LogLevelType
 //
 
-LogLevelType::LogLevelType(value v) : ::xml_schema::string(_xsd_LogLevelType_literals_[v]) {}
-
-LogLevelType::LogLevelType(const char* v) : ::xml_schema::string(v) {}
-
-LogLevelType::LogLevelType(const ::std::string& v) : ::xml_schema::string(v) {}
-
-LogLevelType::LogLevelType(const ::xml_schema::string& v) : ::xml_schema::string(v) {}
-
-LogLevelType::LogLevelType(const LogLevelType& v, ::xml_schema::flags f, ::xml_schema::container* c) : ::xml_schema::string(v, f, c) {}
-
-LogLevelType& LogLevelType::operator=(value v) {
-    static_cast< ::xml_schema::string&>(*this) = ::xml_schema::string(_xsd_LogLevelType_literals_[v]);
-
-    return *this;
+LogLevelType::
+LogLevelType (value v)
+: ::xml_schema::string (_xsd_LogLevelType_literals_[v])
+{
 }
+
+LogLevelType::
+LogLevelType (const char* v)
+: ::xml_schema::string (v)
+{
+}
+
+LogLevelType::
+LogLevelType (const ::std::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+LogLevelType::
+LogLevelType (const ::xml_schema::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+LogLevelType::
+LogLevelType (const LogLevelType& v,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+: ::xml_schema::string (v, f, c)
+{
+}
+
+LogLevelType& LogLevelType::
+operator= (value v)
+{
+  static_cast< ::xml_schema::string& > (*this) = 
+  ::xml_schema::string (_xsd_LogLevelType_literals_[v]);
+
+  return *this;
+}
+
 
 // OutputFormatType
 //
 
-OutputFormatType::OutputFormatType(value v) : ::xml_schema::string(_xsd_OutputFormatType_literals_[v]) {}
-
-OutputFormatType::OutputFormatType(const char* v) : ::xml_schema::string(v) {}
-
-OutputFormatType::OutputFormatType(const ::std::string& v) : ::xml_schema::string(v) {}
-
-OutputFormatType::OutputFormatType(const ::xml_schema::string& v) : ::xml_schema::string(v) {}
-
-OutputFormatType::OutputFormatType(const OutputFormatType& v, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(v, f, c) {}
-
-OutputFormatType& OutputFormatType::operator=(value v) {
-    static_cast< ::xml_schema::string&>(*this) = ::xml_schema::string(_xsd_OutputFormatType_literals_[v]);
-
-    return *this;
+OutputFormatType::
+OutputFormatType (value v)
+: ::xml_schema::string (_xsd_OutputFormatType_literals_[v])
+{
 }
+
+OutputFormatType::
+OutputFormatType (const char* v)
+: ::xml_schema::string (v)
+{
+}
+
+OutputFormatType::
+OutputFormatType (const ::std::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+OutputFormatType::
+OutputFormatType (const ::xml_schema::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+OutputFormatType::
+OutputFormatType (const OutputFormatType& v,
+                  ::xml_schema::flags f,
+                  ::xml_schema::container* c)
+: ::xml_schema::string (v, f, c)
+{
+}
+
+OutputFormatType& OutputFormatType::
+operator= (value v)
+{
+  static_cast< ::xml_schema::string& > (*this) = 
+  ::xml_schema::string (_xsd_OutputFormatType_literals_[v]);
+
+  return *this;
+}
+
 
 // ThermostatType
 //
 
-ThermostatType::ThermostatType(value v) : ::xml_schema::string(_xsd_ThermostatType_literals_[v]) {}
-
-ThermostatType::ThermostatType(const char* v) : ::xml_schema::string(v) {}
-
-ThermostatType::ThermostatType(const ::std::string& v) : ::xml_schema::string(v) {}
-
-ThermostatType::ThermostatType(const ::xml_schema::string& v) : ::xml_schema::string(v) {}
-
-ThermostatType::ThermostatType(const ThermostatType& v, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(v, f, c) {}
-
-ThermostatType& ThermostatType::operator=(value v) {
-    static_cast< ::xml_schema::string&>(*this) = ::xml_schema::string(_xsd_ThermostatType_literals_[v]);
-
-    return *this;
+ThermostatType::
+ThermostatType (value v)
+: ::xml_schema::string (_xsd_ThermostatType_literals_[v])
+{
 }
+
+ThermostatType::
+ThermostatType (const char* v)
+: ::xml_schema::string (v)
+{
+}
+
+ThermostatType::
+ThermostatType (const ::std::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+ThermostatType::
+ThermostatType (const ::xml_schema::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+ThermostatType::
+ThermostatType (const ThermostatType& v,
+                ::xml_schema::flags f,
+                ::xml_schema::container* c)
+: ::xml_schema::string (v, f, c)
+{
+}
+
+ThermostatType& ThermostatType::
+operator= (value v)
+{
+  static_cast< ::xml_schema::string& > (*this) = 
+  ::xml_schema::string (_xsd_ThermostatType_literals_[v]);
+
+  return *this;
+}
+
 
 #include <xsd/cxx/xml/dom/parsing-source.hxx>
 
 // ConfigurationType
 //
 
-ConfigurationType::ConfigurationType(const settings_type& settings, const particle_source_type& particle_source)
-    : ::xml_schema::type(), settings_(settings, this), particle_source_(particle_source, this) {}
-
-ConfigurationType::ConfigurationType(::std::unique_ptr<settings_type> settings, ::std::unique_ptr<particle_source_type> particle_source)
-    : ::xml_schema::type(), settings_(std::move(settings), this), particle_source_(std::move(particle_source), this) {}
-
-ConfigurationType::ConfigurationType(const ConfigurationType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c), settings_(x.settings_, f, this), particle_source_(x.particle_source_, f, this) {}
-
-ConfigurationType::ConfigurationType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), settings_(this), particle_source_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
-        this->parse(p, f);
-    }
+ConfigurationType::
+ConfigurationType (const settings_type& settings,
+                   const particle_source_type& particle_source)
+: ::xml_schema::type (),
+  settings_ (settings, this),
+  particle_source_ (particle_source, this)
+{
 }
 
-void ConfigurationType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // settings
-        //
-        if (n.name() == "settings" && n.namespace_().empty()) {
-            ::std::unique_ptr<settings_type> r(settings_traits::create(i, f, this));
-
-            if (!settings_.present()) {
-                this->settings_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // particle_source
-        //
-        if (n.name() == "particle_source" && n.namespace_().empty()) {
-            ::std::unique_ptr<particle_source_type> r(particle_source_traits::create(i, f, this));
-
-            if (!particle_source_.present()) {
-                this->particle_source_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        break;
-    }
-
-    if (!settings_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("settings", "");
-    }
-
-    if (!particle_source_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("particle_source", "");
-    }
+ConfigurationType::
+ConfigurationType (::std::unique_ptr< settings_type > settings,
+                   ::std::unique_ptr< particle_source_type > particle_source)
+: ::xml_schema::type (),
+  settings_ (std::move (settings), this),
+  particle_source_ (std::move (particle_source), this)
+{
 }
 
-ConfigurationType* ConfigurationType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class ConfigurationType(*this, f, c);
+ConfigurationType::
+ConfigurationType (const ConfigurationType& x,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  settings_ (x.settings_, f, this),
+  particle_source_ (x.particle_source_, f, this)
+{
 }
 
-ConfigurationType& ConfigurationType::operator=(const ConfigurationType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->settings_ = x.settings_;
-        this->particle_source_ = x.particle_source_;
+ConfigurationType::
+ConfigurationType (const ::xercesc::DOMElement& e,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  settings_ (this),
+  particle_source_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, false);
+    this->parse (p, f);
+  }
+}
+
+void ConfigurationType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // settings
+    //
+    if (n.name () == "settings" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< settings_type > r (
+        settings_traits::create (i, f, this));
+
+      if (!settings_.present ())
+      {
+        this->settings_.set (::std::move (r));
+        continue;
+      }
     }
 
-    return *this;
+    // particle_source
+    //
+    if (n.name () == "particle_source" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< particle_source_type > r (
+        particle_source_traits::create (i, f, this));
+
+      if (!particle_source_.present ())
+      {
+        this->particle_source_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    break;
+  }
+
+  if (!settings_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "settings",
+      "");
+  }
+
+  if (!particle_source_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "particle_source",
+      "");
+  }
 }
 
-ConfigurationType::~ConfigurationType() {}
+ConfigurationType* ConfigurationType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class ConfigurationType (*this, f, c);
+}
+
+ConfigurationType& ConfigurationType::
+operator= (const ConfigurationType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->settings_ = x.settings_;
+    this->particle_source_ = x.particle_source_;
+  }
+
+  return *this;
+}
+
+ConfigurationType::
+~ConfigurationType ()
+{
+}
 
 // DoubleVec3Type
 //
 
-DoubleVec3Type::DoubleVec3Type(const x_type& x, const y_type& y, const z_type& z)
-    : ::xml_schema::type(), x_(x, this), y_(y, this), z_(z, this) {}
-
-DoubleVec3Type::DoubleVec3Type(const DoubleVec3Type& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c), x_(x.x_, f, this), y_(x.y_, f, this), z_(x.z_, f, this) {}
-
-DoubleVec3Type::DoubleVec3Type(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), x_(this), y_(this), z_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
-        this->parse(p, f);
-    }
+DoubleVec3Type::
+DoubleVec3Type (const x_type& x,
+                const y_type& y,
+                const z_type& z)
+: ::xml_schema::type (),
+  x_ (x, this),
+  y_ (y, this),
+  z_ (z, this)
+{
 }
 
-void DoubleVec3Type::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // x
-        //
-        if (n.name() == "x" && n.namespace_().empty()) {
-            if (!x_.present()) {
-                this->x_.set(x_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // y
-        //
-        if (n.name() == "y" && n.namespace_().empty()) {
-            if (!y_.present()) {
-                this->y_.set(y_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // z
-        //
-        if (n.name() == "z" && n.namespace_().empty()) {
-            if (!z_.present()) {
-                this->z_.set(z_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        break;
-    }
-
-    if (!x_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("x", "");
-    }
-
-    if (!y_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("y", "");
-    }
-
-    if (!z_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("z", "");
-    }
+DoubleVec3Type::
+DoubleVec3Type (const DoubleVec3Type& x,
+                ::xml_schema::flags f,
+                ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  x_ (x.x_, f, this),
+  y_ (x.y_, f, this),
+  z_ (x.z_, f, this)
+{
 }
 
-DoubleVec3Type* DoubleVec3Type::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class DoubleVec3Type(*this, f, c);
+DoubleVec3Type::
+DoubleVec3Type (const ::xercesc::DOMElement& e,
+                ::xml_schema::flags f,
+                ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  x_ (this),
+  y_ (this),
+  z_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, false);
+    this->parse (p, f);
+  }
 }
 
-DoubleVec3Type& DoubleVec3Type::operator=(const DoubleVec3Type& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->x_ = x.x_;
-        this->y_ = x.y_;
-        this->z_ = x.z_;
+void DoubleVec3Type::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // x
+    //
+    if (n.name () == "x" && n.namespace_ ().empty ())
+    {
+      if (!x_.present ())
+      {
+        this->x_.set (x_traits::create (i, f, this));
+        continue;
+      }
     }
 
-    return *this;
+    // y
+    //
+    if (n.name () == "y" && n.namespace_ ().empty ())
+    {
+      if (!y_.present ())
+      {
+        this->y_.set (y_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // z
+    //
+    if (n.name () == "z" && n.namespace_ ().empty ())
+    {
+      if (!z_.present ())
+      {
+        this->z_.set (z_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    break;
+  }
+
+  if (!x_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "x",
+      "");
+  }
+
+  if (!y_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "y",
+      "");
+  }
+
+  if (!z_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "z",
+      "");
+  }
 }
 
-DoubleVec3Type::~DoubleVec3Type() {}
+DoubleVec3Type* DoubleVec3Type::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class DoubleVec3Type (*this, f, c);
+}
+
+DoubleVec3Type& DoubleVec3Type::
+operator= (const DoubleVec3Type& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->x_ = x.x_;
+    this->y_ = x.y_;
+    this->z_ = x.z_;
+  }
+
+  return *this;
+}
+
+DoubleVec3Type::
+~DoubleVec3Type ()
+{
+}
 
 // IntVec3Type
 //
 
-IntVec3Type::IntVec3Type(const x_type& x, const y_type& y, const z_type& z) : ::xml_schema::type(), x_(x, this), y_(y, this), z_(z, this) {}
-
-IntVec3Type::IntVec3Type(const IntVec3Type& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c), x_(x.x_, f, this), y_(x.y_, f, this), z_(x.z_, f, this) {}
-
-IntVec3Type::IntVec3Type(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), x_(this), y_(this), z_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
-        this->parse(p, f);
-    }
+IntVec3Type::
+IntVec3Type (const x_type& x,
+             const y_type& y,
+             const z_type& z)
+: ::xml_schema::type (),
+  x_ (x, this),
+  y_ (y, this),
+  z_ (z, this)
+{
 }
 
-void IntVec3Type::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // x
-        //
-        if (n.name() == "x" && n.namespace_().empty()) {
-            if (!x_.present()) {
-                this->x_.set(x_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // y
-        //
-        if (n.name() == "y" && n.namespace_().empty()) {
-            if (!y_.present()) {
-                this->y_.set(y_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // z
-        //
-        if (n.name() == "z" && n.namespace_().empty()) {
-            if (!z_.present()) {
-                this->z_.set(z_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        break;
-    }
-
-    if (!x_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("x", "");
-    }
-
-    if (!y_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("y", "");
-    }
-
-    if (!z_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("z", "");
-    }
+IntVec3Type::
+IntVec3Type (const IntVec3Type& x,
+             ::xml_schema::flags f,
+             ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  x_ (x.x_, f, this),
+  y_ (x.y_, f, this),
+  z_ (x.z_, f, this)
+{
 }
 
-IntVec3Type* IntVec3Type::_clone(::xml_schema::flags f, ::xml_schema::container* c) const { return new class IntVec3Type(*this, f, c); }
-
-IntVec3Type& IntVec3Type::operator=(const IntVec3Type& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->x_ = x.x_;
-        this->y_ = x.y_;
-        this->z_ = x.z_;
-    }
-
-    return *this;
+IntVec3Type::
+IntVec3Type (const ::xercesc::DOMElement& e,
+             ::xml_schema::flags f,
+             ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  x_ (this),
+  y_ (this),
+  z_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, false);
+    this->parse (p, f);
+  }
 }
 
-IntVec3Type::~IntVec3Type() {}
+void IntVec3Type::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // x
+    //
+    if (n.name () == "x" && n.namespace_ ().empty ())
+    {
+      if (!x_.present ())
+      {
+        this->x_.set (x_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // y
+    //
+    if (n.name () == "y" && n.namespace_ ().empty ())
+    {
+      if (!y_.present ())
+      {
+        this->y_.set (y_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // z
+    //
+    if (n.name () == "z" && n.namespace_ ().empty ())
+    {
+      if (!z_.present ())
+      {
+        this->z_.set (z_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    break;
+  }
+
+  if (!x_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "x",
+      "");
+  }
+
+  if (!y_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "y",
+      "");
+  }
+
+  if (!z_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "z",
+      "");
+  }
+}
+
+IntVec3Type* IntVec3Type::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class IntVec3Type (*this, f, c);
+}
+
+IntVec3Type& IntVec3Type::
+operator= (const IntVec3Type& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->x_ = x.x_;
+    this->y_ = x.y_;
+    this->z_ = x.z_;
+  }
+
+  return *this;
+}
+
+IntVec3Type::
+~IntVec3Type ()
+{
+}
 
 // ParticleContainerType
 //
 
-ParticleContainerType::ParticleContainerType() : ::xml_schema::type(), directsum_container_(this), linkedcells_container_(this) {}
+ParticleContainerType::
+ParticleContainerType ()
+: ::xml_schema::type (),
+  directsum_container_ (this),
+  linkedcells_container_ (this)
+{
+}
 
-ParticleContainerType::ParticleContainerType(const ParticleContainerType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      directsum_container_(x.directsum_container_, f, this),
-      linkedcells_container_(x.linkedcells_container_, f, this) {}
+ParticleContainerType::
+ParticleContainerType (const ParticleContainerType& x,
+                       ::xml_schema::flags f,
+                       ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  directsum_container_ (x.directsum_container_, f, this),
+  linkedcells_container_ (x.linkedcells_container_, f, this)
+{
+}
 
-ParticleContainerType::ParticleContainerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), directsum_container_(this), linkedcells_container_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
-        this->parse(p, f);
+ParticleContainerType::
+ParticleContainerType (const ::xercesc::DOMElement& e,
+                       ::xml_schema::flags f,
+                       ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  directsum_container_ (this),
+  linkedcells_container_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, false);
+    this->parse (p, f);
+  }
+}
+
+void ParticleContainerType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // directsum_container
+    //
+    if (n.name () == "directsum_container" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< directsum_container_type > r (
+        directsum_container_traits::create (i, f, this));
+
+      if (!this->directsum_container_)
+      {
+        this->directsum_container_.set (::std::move (r));
+        continue;
+      }
     }
-}
 
-void ParticleContainerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+    // linkedcells_container
+    //
+    if (n.name () == "linkedcells_container" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< linkedcells_container_type > r (
+        linkedcells_container_traits::create (i, f, this));
 
-        // directsum_container
-        //
-        if (n.name() == "directsum_container" && n.namespace_().empty()) {
-            ::std::unique_ptr<directsum_container_type> r(directsum_container_traits::create(i, f, this));
-
-            if (!this->directsum_container_) {
-                this->directsum_container_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // linkedcells_container
-        //
-        if (n.name() == "linkedcells_container" && n.namespace_().empty()) {
-            ::std::unique_ptr<linkedcells_container_type> r(linkedcells_container_traits::create(i, f, this));
-
-            if (!this->linkedcells_container_) {
-                this->linkedcells_container_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        break;
-    }
-}
-
-ParticleContainerType* ParticleContainerType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class ParticleContainerType(*this, f, c);
-}
-
-ParticleContainerType& ParticleContainerType::operator=(const ParticleContainerType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->directsum_container_ = x.directsum_container_;
-        this->linkedcells_container_ = x.linkedcells_container_;
+      if (!this->linkedcells_container_)
+      {
+        this->linkedcells_container_.set (::std::move (r));
+        continue;
+      }
     }
 
-    return *this;
+    break;
+  }
 }
 
-ParticleContainerType::~ParticleContainerType() {}
+ParticleContainerType* ParticleContainerType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class ParticleContainerType (*this, f, c);
+}
+
+ParticleContainerType& ParticleContainerType::
+operator= (const ParticleContainerType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->directsum_container_ = x.directsum_container_;
+    this->linkedcells_container_ = x.linkedcells_container_;
+  }
+
+  return *this;
+}
+
+ParticleContainerType::
+~ParticleContainerType ()
+{
+}
 
 // DirectSumContainerType
 //
 
-DirectSumContainerType::DirectSumContainerType() : ::xml_schema::type() {}
-
-DirectSumContainerType::DirectSumContainerType(const DirectSumContainerType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c) {}
-
-DirectSumContainerType::DirectSumContainerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f, c) {}
-
-DirectSumContainerType::DirectSumContainerType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(a, f, c) {}
-
-DirectSumContainerType::DirectSumContainerType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f,
-                                               ::xml_schema::container* c)
-    : ::xml_schema::type(s, e, f, c) {}
-
-DirectSumContainerType* DirectSumContainerType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class DirectSumContainerType(*this, f, c);
+DirectSumContainerType::
+DirectSumContainerType ()
+: ::xml_schema::type ()
+{
 }
 
-DirectSumContainerType::~DirectSumContainerType() {}
+DirectSumContainerType::
+DirectSumContainerType (const DirectSumContainerType& x,
+                        ::xml_schema::flags f,
+                        ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c)
+{
+}
+
+DirectSumContainerType::
+DirectSumContainerType (const ::xercesc::DOMElement& e,
+                        ::xml_schema::flags f,
+                        ::xml_schema::container* c)
+: ::xml_schema::type (e, f, c)
+{
+}
+
+DirectSumContainerType::
+DirectSumContainerType (const ::xercesc::DOMAttr& a,
+                        ::xml_schema::flags f,
+                        ::xml_schema::container* c)
+: ::xml_schema::type (a, f, c)
+{
+}
+
+DirectSumContainerType::
+DirectSumContainerType (const ::std::string& s,
+                        const ::xercesc::DOMElement* e,
+                        ::xml_schema::flags f,
+                        ::xml_schema::container* c)
+: ::xml_schema::type (s, e, f, c)
+{
+}
+
+DirectSumContainerType* DirectSumContainerType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class DirectSumContainerType (*this, f, c);
+}
+
+DirectSumContainerType::
+~DirectSumContainerType ()
+{
+}
 
 // LinkedCellsContainerType
 //
 
-LinkedCellsContainerType::LinkedCellsContainerType(const domain_size_type& domain_size, const cutoff_radius_type& cutoff_radius,
-                                                   const boundary_conditions_type& boundary_conditions)
-    : ::xml_schema::type(),
-      domain_size_(domain_size, this),
-      cutoff_radius_(cutoff_radius, this),
-      boundary_conditions_(boundary_conditions, this) {}
-
-LinkedCellsContainerType::LinkedCellsContainerType(::std::unique_ptr<domain_size_type> domain_size, const cutoff_radius_type& cutoff_radius,
-                                                   ::std::unique_ptr<boundary_conditions_type> boundary_conditions)
-    : ::xml_schema::type(),
-      domain_size_(std::move(domain_size), this),
-      cutoff_radius_(cutoff_radius, this),
-      boundary_conditions_(std::move(boundary_conditions), this) {}
-
-LinkedCellsContainerType::LinkedCellsContainerType(const LinkedCellsContainerType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      domain_size_(x.domain_size_, f, this),
-      cutoff_radius_(x.cutoff_radius_, f, this),
-      boundary_conditions_(x.boundary_conditions_, f, this) {}
-
-LinkedCellsContainerType::LinkedCellsContainerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), domain_size_(this), cutoff_radius_(this), boundary_conditions_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
-        this->parse(p, f);
-    }
+LinkedCellsContainerType::
+LinkedCellsContainerType (const domain_size_type& domain_size,
+                          const cutoff_radius_type& cutoff_radius,
+                          const boundary_conditions_type& boundary_conditions)
+: ::xml_schema::type (),
+  domain_size_ (domain_size, this),
+  cutoff_radius_ (cutoff_radius, this),
+  boundary_conditions_ (boundary_conditions, this)
+{
 }
 
-void LinkedCellsContainerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // domain_size
-        //
-        if (n.name() == "domain_size" && n.namespace_().empty()) {
-            ::std::unique_ptr<domain_size_type> r(domain_size_traits::create(i, f, this));
-
-            if (!domain_size_.present()) {
-                this->domain_size_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // cutoff_radius
-        //
-        if (n.name() == "cutoff_radius" && n.namespace_().empty()) {
-            if (!cutoff_radius_.present()) {
-                this->cutoff_radius_.set(cutoff_radius_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // boundary_conditions
-        //
-        if (n.name() == "boundary_conditions" && n.namespace_().empty()) {
-            ::std::unique_ptr<boundary_conditions_type> r(boundary_conditions_traits::create(i, f, this));
-
-            if (!boundary_conditions_.present()) {
-                this->boundary_conditions_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        break;
-    }
-
-    if (!domain_size_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("domain_size", "");
-    }
-
-    if (!cutoff_radius_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("cutoff_radius", "");
-    }
-
-    if (!boundary_conditions_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("boundary_conditions", "");
-    }
+LinkedCellsContainerType::
+LinkedCellsContainerType (::std::unique_ptr< domain_size_type > domain_size,
+                          const cutoff_radius_type& cutoff_radius,
+                          ::std::unique_ptr< boundary_conditions_type > boundary_conditions)
+: ::xml_schema::type (),
+  domain_size_ (std::move (domain_size), this),
+  cutoff_radius_ (cutoff_radius, this),
+  boundary_conditions_ (std::move (boundary_conditions), this)
+{
 }
 
-LinkedCellsContainerType* LinkedCellsContainerType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class LinkedCellsContainerType(*this, f, c);
+LinkedCellsContainerType::
+LinkedCellsContainerType (const LinkedCellsContainerType& x,
+                          ::xml_schema::flags f,
+                          ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  domain_size_ (x.domain_size_, f, this),
+  cutoff_radius_ (x.cutoff_radius_, f, this),
+  boundary_conditions_ (x.boundary_conditions_, f, this)
+{
 }
 
-LinkedCellsContainerType& LinkedCellsContainerType::operator=(const LinkedCellsContainerType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->domain_size_ = x.domain_size_;
-        this->cutoff_radius_ = x.cutoff_radius_;
-        this->boundary_conditions_ = x.boundary_conditions_;
+LinkedCellsContainerType::
+LinkedCellsContainerType (const ::xercesc::DOMElement& e,
+                          ::xml_schema::flags f,
+                          ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  domain_size_ (this),
+  cutoff_radius_ (this),
+  boundary_conditions_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, false);
+    this->parse (p, f);
+  }
+}
+
+void LinkedCellsContainerType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // domain_size
+    //
+    if (n.name () == "domain_size" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< domain_size_type > r (
+        domain_size_traits::create (i, f, this));
+
+      if (!domain_size_.present ())
+      {
+        this->domain_size_.set (::std::move (r));
+        continue;
+      }
     }
 
-    return *this;
+    // cutoff_radius
+    //
+    if (n.name () == "cutoff_radius" && n.namespace_ ().empty ())
+    {
+      if (!cutoff_radius_.present ())
+      {
+        this->cutoff_radius_.set (cutoff_radius_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // boundary_conditions
+    //
+    if (n.name () == "boundary_conditions" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< boundary_conditions_type > r (
+        boundary_conditions_traits::create (i, f, this));
+
+      if (!boundary_conditions_.present ())
+      {
+        this->boundary_conditions_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    break;
+  }
+
+  if (!domain_size_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "domain_size",
+      "");
+  }
+
+  if (!cutoff_radius_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "cutoff_radius",
+      "");
+  }
+
+  if (!boundary_conditions_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "boundary_conditions",
+      "");
+  }
 }
 
-LinkedCellsContainerType::~LinkedCellsContainerType() {}
+LinkedCellsContainerType* LinkedCellsContainerType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class LinkedCellsContainerType (*this, f, c);
+}
+
+LinkedCellsContainerType& LinkedCellsContainerType::
+operator= (const LinkedCellsContainerType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->domain_size_ = x.domain_size_;
+    this->cutoff_radius_ = x.cutoff_radius_;
+    this->boundary_conditions_ = x.boundary_conditions_;
+  }
+
+  return *this;
+}
+
+LinkedCellsContainerType::
+~LinkedCellsContainerType ()
+{
+}
 
 // BoundaryConditionsType
 //
 
-BoundaryConditionsType::BoundaryConditionsType(const left_type& left, const right_type& right, const bottom_type& bottom,
-                                               const top_type& top, const back_type& back, const front_type& front)
-    : ::xml_schema::type(),
-      left_(left, this),
-      right_(right, this),
-      bottom_(bottom, this),
-      top_(top, this),
-      back_(back, this),
-      front_(front, this) {}
-
-BoundaryConditionsType::BoundaryConditionsType(const BoundaryConditionsType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      left_(x.left_, f, this),
-      right_(x.right_, f, this),
-      bottom_(x.bottom_, f, this),
-      top_(x.top_, f, this),
-      back_(x.back_, f, this),
-      front_(x.front_, f, this) {}
-
-BoundaryConditionsType::BoundaryConditionsType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
-      left_(this),
-      right_(this),
-      bottom_(this),
-      top_(this),
-      back_(this),
-      front_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
-        this->parse(p, f);
-    }
+BoundaryConditionsType::
+BoundaryConditionsType (const left_type& left,
+                        const right_type& right,
+                        const bottom_type& bottom,
+                        const top_type& top,
+                        const back_type& back,
+                        const front_type& front)
+: ::xml_schema::type (),
+  left_ (left, this),
+  right_ (right, this),
+  bottom_ (bottom, this),
+  top_ (top, this),
+  back_ (back, this),
+  front_ (front, this)
+{
 }
 
-void BoundaryConditionsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // left
-        //
-        if (n.name() == "left" && n.namespace_().empty()) {
-            ::std::unique_ptr<left_type> r(left_traits::create(i, f, this));
-
-            if (!left_.present()) {
-                this->left_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // right
-        //
-        if (n.name() == "right" && n.namespace_().empty()) {
-            ::std::unique_ptr<right_type> r(right_traits::create(i, f, this));
-
-            if (!right_.present()) {
-                this->right_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // bottom
-        //
-        if (n.name() == "bottom" && n.namespace_().empty()) {
-            ::std::unique_ptr<bottom_type> r(bottom_traits::create(i, f, this));
-
-            if (!bottom_.present()) {
-                this->bottom_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // top
-        //
-        if (n.name() == "top" && n.namespace_().empty()) {
-            ::std::unique_ptr<top_type> r(top_traits::create(i, f, this));
-
-            if (!top_.present()) {
-                this->top_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // back
-        //
-        if (n.name() == "back" && n.namespace_().empty()) {
-            ::std::unique_ptr<back_type> r(back_traits::create(i, f, this));
-
-            if (!back_.present()) {
-                this->back_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // front
-        //
-        if (n.name() == "front" && n.namespace_().empty()) {
-            ::std::unique_ptr<front_type> r(front_traits::create(i, f, this));
-
-            if (!front_.present()) {
-                this->front_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        break;
-    }
-
-    if (!left_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("left", "");
-    }
-
-    if (!right_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("right", "");
-    }
-
-    if (!bottom_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("bottom", "");
-    }
-
-    if (!top_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("top", "");
-    }
-
-    if (!back_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("back", "");
-    }
-
-    if (!front_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("front", "");
-    }
+BoundaryConditionsType::
+BoundaryConditionsType (const BoundaryConditionsType& x,
+                        ::xml_schema::flags f,
+                        ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  left_ (x.left_, f, this),
+  right_ (x.right_, f, this),
+  bottom_ (x.bottom_, f, this),
+  top_ (x.top_, f, this),
+  back_ (x.back_, f, this),
+  front_ (x.front_, f, this)
+{
 }
 
-BoundaryConditionsType* BoundaryConditionsType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class BoundaryConditionsType(*this, f, c);
+BoundaryConditionsType::
+BoundaryConditionsType (const ::xercesc::DOMElement& e,
+                        ::xml_schema::flags f,
+                        ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  left_ (this),
+  right_ (this),
+  bottom_ (this),
+  top_ (this),
+  back_ (this),
+  front_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, false);
+    this->parse (p, f);
+  }
 }
 
-BoundaryConditionsType& BoundaryConditionsType::operator=(const BoundaryConditionsType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->left_ = x.left_;
-        this->right_ = x.right_;
-        this->bottom_ = x.bottom_;
-        this->top_ = x.top_;
-        this->back_ = x.back_;
-        this->front_ = x.front_;
+void BoundaryConditionsType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // left
+    //
+    if (n.name () == "left" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< left_type > r (
+        left_traits::create (i, f, this));
+
+      if (!left_.present ())
+      {
+        this->left_.set (::std::move (r));
+        continue;
+      }
     }
 
-    return *this;
+    // right
+    //
+    if (n.name () == "right" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< right_type > r (
+        right_traits::create (i, f, this));
+
+      if (!right_.present ())
+      {
+        this->right_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // bottom
+    //
+    if (n.name () == "bottom" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< bottom_type > r (
+        bottom_traits::create (i, f, this));
+
+      if (!bottom_.present ())
+      {
+        this->bottom_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // top
+    //
+    if (n.name () == "top" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< top_type > r (
+        top_traits::create (i, f, this));
+
+      if (!top_.present ())
+      {
+        this->top_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // back
+    //
+    if (n.name () == "back" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< back_type > r (
+        back_traits::create (i, f, this));
+
+      if (!back_.present ())
+      {
+        this->back_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // front
+    //
+    if (n.name () == "front" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< front_type > r (
+        front_traits::create (i, f, this));
+
+      if (!front_.present ())
+      {
+        this->front_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    break;
+  }
+
+  if (!left_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "left",
+      "");
+  }
+
+  if (!right_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "right",
+      "");
+  }
+
+  if (!bottom_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "bottom",
+      "");
+  }
+
+  if (!top_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "top",
+      "");
+  }
+
+  if (!back_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "back",
+      "");
+  }
+
+  if (!front_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "front",
+      "");
+  }
 }
 
-BoundaryConditionsType::~BoundaryConditionsType() {}
+BoundaryConditionsType* BoundaryConditionsType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class BoundaryConditionsType (*this, f, c);
+}
+
+BoundaryConditionsType& BoundaryConditionsType::
+operator= (const BoundaryConditionsType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->left_ = x.left_;
+    this->right_ = x.right_;
+    this->bottom_ = x.bottom_;
+    this->top_ = x.top_;
+    this->back_ = x.back_;
+    this->front_ = x.front_;
+  }
+
+  return *this;
+}
+
+BoundaryConditionsType::
+~BoundaryConditionsType ()
+{
+}
 
 // BoundaryType
 //
 
-BoundaryType::BoundaryType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(e, f, c) {
-    _xsd_BoundaryType_convert();
+BoundaryType::
+BoundaryType (const ::xercesc::DOMElement& e,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+: ::xml_schema::string (e, f, c)
+{
+  _xsd_BoundaryType_convert ();
 }
 
-BoundaryType::BoundaryType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c) : ::xml_schema::string(a, f, c) {
-    _xsd_BoundaryType_convert();
+BoundaryType::
+BoundaryType (const ::xercesc::DOMAttr& a,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+: ::xml_schema::string (a, f, c)
+{
+  _xsd_BoundaryType_convert ();
 }
 
-BoundaryType::BoundaryType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(s, e, f, c) {
-    _xsd_BoundaryType_convert();
+BoundaryType::
+BoundaryType (const ::std::string& s,
+              const ::xercesc::DOMElement* e,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+: ::xml_schema::string (s, e, f, c)
+{
+  _xsd_BoundaryType_convert ();
 }
 
-BoundaryType* BoundaryType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const { return new class BoundaryType(*this, f, c); }
-
-BoundaryType::value BoundaryType::_xsd_BoundaryType_convert() const {
-    ::xsd::cxx::tree::enum_comparator<char> c(_xsd_BoundaryType_literals_);
-    const value* i(::std::lower_bound(_xsd_BoundaryType_indexes_, _xsd_BoundaryType_indexes_ + 3, *this, c));
-
-    if (i == _xsd_BoundaryType_indexes_ + 3 || _xsd_BoundaryType_literals_[*i] != *this) {
-        throw ::xsd::cxx::tree::unexpected_enumerator<char>(*this);
-    }
-
-    return *i;
+BoundaryType* BoundaryType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class BoundaryType (*this, f, c);
 }
 
-const char* const BoundaryType::_xsd_BoundaryType_literals_[3] = {"Outflow", "Reflective", "Periodic"};
+BoundaryType::value BoundaryType::
+_xsd_BoundaryType_convert () const
+{
+  ::xsd::cxx::tree::enum_comparator< char > c (_xsd_BoundaryType_literals_);
+  const value* i (::std::lower_bound (
+                    _xsd_BoundaryType_indexes_,
+                    _xsd_BoundaryType_indexes_ + 3,
+                    *this,
+                    c));
 
-const BoundaryType::value BoundaryType::_xsd_BoundaryType_indexes_[3] = {::BoundaryType::Outflow, ::BoundaryType::Periodic,
-                                                                         ::BoundaryType::Reflective};
+  if (i == _xsd_BoundaryType_indexes_ + 3 || _xsd_BoundaryType_literals_[*i] != *this)
+  {
+    throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
+  }
+
+  return *i;
+}
+
+const char* const BoundaryType::
+_xsd_BoundaryType_literals_[3] =
+{
+  "Outflow",
+  "Reflective",
+  "Periodic"
+};
+
+const BoundaryType::value BoundaryType::
+_xsd_BoundaryType_indexes_[3] =
+{
+  ::BoundaryType::Outflow,
+  ::BoundaryType::Periodic,
+  ::BoundaryType::Reflective
+};
 
 // CuboidSpawnerType
 //
 
-CuboidSpawnerType::CuboidSpawnerType(const lower_left_front_corner_type& lower_left_front_corner, const grid_dim_type& grid_dim,
-                                     const grid_spacing_type& grid_spacing, const temperature_type& temperature, const mass_type& mass,
-                                     const velocity_type& velocity, const type_type& type, const epsilon_type& epsilon,
-                                     const sigma_type& sigma)
-    : ::xml_schema::type(),
-      lower_left_front_corner_(lower_left_front_corner, this),
-      grid_dim_(grid_dim, this),
-      grid_spacing_(grid_spacing, this),
-      temperature_(temperature, this),
-      mass_(mass, this),
-      velocity_(velocity, this),
-      type_(type, this),
-      epsilon_(epsilon, this),
-      sigma_(sigma, this),
-      is_locked_(is_locked_default_value(), this) {}
-
-CuboidSpawnerType::CuboidSpawnerType(::std::unique_ptr<lower_left_front_corner_type> lower_left_front_corner,
-                                     ::std::unique_ptr<grid_dim_type> grid_dim, const grid_spacing_type& grid_spacing,
-                                     const temperature_type& temperature, const mass_type& mass, ::std::unique_ptr<velocity_type> velocity,
-                                     const type_type& type, const epsilon_type& epsilon, const sigma_type& sigma)
-    : ::xml_schema::type(),
-      lower_left_front_corner_(std::move(lower_left_front_corner), this),
-      grid_dim_(std::move(grid_dim), this),
-      grid_spacing_(grid_spacing, this),
-      temperature_(temperature, this),
-      mass_(mass, this),
-      velocity_(std::move(velocity), this),
-      type_(type, this),
-      epsilon_(epsilon, this),
-      sigma_(sigma, this),
-      is_locked_(is_locked_default_value(), this) {}
-
-CuboidSpawnerType::CuboidSpawnerType(const CuboidSpawnerType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      lower_left_front_corner_(x.lower_left_front_corner_, f, this),
-      grid_dim_(x.grid_dim_, f, this),
-      grid_spacing_(x.grid_spacing_, f, this),
-      temperature_(x.temperature_, f, this),
-      mass_(x.mass_, f, this),
-      velocity_(x.velocity_, f, this),
-      type_(x.type_, f, this),
-      epsilon_(x.epsilon_, f, this),
-      sigma_(x.sigma_, f, this),
-      is_locked_(x.is_locked_, f, this) {}
-
-CuboidSpawnerType::CuboidSpawnerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
-      lower_left_front_corner_(this),
-      grid_dim_(this),
-      grid_spacing_(this),
-      temperature_(this),
-      mass_(this),
-      velocity_(this),
-      type_(this),
-      epsilon_(this),
-      sigma_(this),
-      is_locked_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, true);
-        this->parse(p, f);
-    }
+CuboidSpawnerType::
+CuboidSpawnerType (const lower_left_front_corner_type& lower_left_front_corner,
+                   const grid_dim_type& grid_dim,
+                   const grid_spacing_type& grid_spacing,
+                   const temperature_type& temperature,
+                   const mass_type& mass,
+                   const velocity_type& velocity,
+                   const type_type& type,
+                   const epsilon_type& epsilon,
+                   const sigma_type& sigma)
+: ::xml_schema::type (),
+  lower_left_front_corner_ (lower_left_front_corner, this),
+  grid_dim_ (grid_dim, this),
+  grid_spacing_ (grid_spacing, this),
+  temperature_ (temperature, this),
+  mass_ (mass, this),
+  velocity_ (velocity, this),
+  type_ (type, this),
+  epsilon_ (epsilon, this),
+  sigma_ (sigma, this),
+  is_locked_ (is_locked_default_value (), this)
+{
 }
 
-void CuboidSpawnerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // lower_left_front_corner
-        //
-        if (n.name() == "lower_left_front_corner" && n.namespace_().empty()) {
-            ::std::unique_ptr<lower_left_front_corner_type> r(lower_left_front_corner_traits::create(i, f, this));
-
-            if (!lower_left_front_corner_.present()) {
-                this->lower_left_front_corner_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // grid_dim
-        //
-        if (n.name() == "grid_dim" && n.namespace_().empty()) {
-            ::std::unique_ptr<grid_dim_type> r(grid_dim_traits::create(i, f, this));
-
-            if (!grid_dim_.present()) {
-                this->grid_dim_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // grid_spacing
-        //
-        if (n.name() == "grid_spacing" && n.namespace_().empty()) {
-            if (!grid_spacing_.present()) {
-                this->grid_spacing_.set(grid_spacing_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // temperature
-        //
-        if (n.name() == "temperature" && n.namespace_().empty()) {
-            if (!temperature_.present()) {
-                this->temperature_.set(temperature_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // mass
-        //
-        if (n.name() == "mass" && n.namespace_().empty()) {
-            if (!mass_.present()) {
-                this->mass_.set(mass_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // velocity
-        //
-        if (n.name() == "velocity" && n.namespace_().empty()) {
-            ::std::unique_ptr<velocity_type> r(velocity_traits::create(i, f, this));
-
-            if (!velocity_.present()) {
-                this->velocity_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // type
-        //
-        if (n.name() == "type" && n.namespace_().empty()) {
-            if (!type_.present()) {
-                this->type_.set(type_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // epsilon
-        //
-        if (n.name() == "epsilon" && n.namespace_().empty()) {
-            if (!epsilon_.present()) {
-                this->epsilon_.set(epsilon_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // sigma
-        //
-        if (n.name() == "sigma" && n.namespace_().empty()) {
-            if (!sigma_.present()) {
-                this->sigma_.set(sigma_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        break;
-    }
-
-    if (!lower_left_front_corner_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("lower_left_front_corner", "");
-    }
-
-    if (!grid_dim_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("grid_dim", "");
-    }
-
-    if (!grid_spacing_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("grid_spacing", "");
-    }
-
-    if (!temperature_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("temperature", "");
-    }
-
-    if (!mass_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("mass", "");
-    }
-
-    if (!velocity_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("velocity", "");
-    }
-
-    if (!type_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("type", "");
-    }
-
-    if (!epsilon_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("epsilon", "");
-    }
-
-    if (!sigma_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("sigma", "");
-    }
-
-    while (p.more_attributes()) {
-        const ::xercesc::DOMAttr& i(p.next_attribute());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        if (n.name() == "is_locked" && n.namespace_().empty()) {
-            this->is_locked_.set(is_locked_traits::create(i, f, this));
-            continue;
-        }
-    }
-
-    if (!is_locked_.present()) {
-        this->is_locked_.set(is_locked_default_value());
-    }
+CuboidSpawnerType::
+CuboidSpawnerType (::std::unique_ptr< lower_left_front_corner_type > lower_left_front_corner,
+                   ::std::unique_ptr< grid_dim_type > grid_dim,
+                   const grid_spacing_type& grid_spacing,
+                   const temperature_type& temperature,
+                   const mass_type& mass,
+                   ::std::unique_ptr< velocity_type > velocity,
+                   const type_type& type,
+                   const epsilon_type& epsilon,
+                   const sigma_type& sigma)
+: ::xml_schema::type (),
+  lower_left_front_corner_ (std::move (lower_left_front_corner), this),
+  grid_dim_ (std::move (grid_dim), this),
+  grid_spacing_ (grid_spacing, this),
+  temperature_ (temperature, this),
+  mass_ (mass, this),
+  velocity_ (std::move (velocity), this),
+  type_ (type, this),
+  epsilon_ (epsilon, this),
+  sigma_ (sigma, this),
+  is_locked_ (is_locked_default_value (), this)
+{
 }
 
-CuboidSpawnerType* CuboidSpawnerType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class CuboidSpawnerType(*this, f, c);
+CuboidSpawnerType::
+CuboidSpawnerType (const CuboidSpawnerType& x,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  lower_left_front_corner_ (x.lower_left_front_corner_, f, this),
+  grid_dim_ (x.grid_dim_, f, this),
+  grid_spacing_ (x.grid_spacing_, f, this),
+  temperature_ (x.temperature_, f, this),
+  mass_ (x.mass_, f, this),
+  velocity_ (x.velocity_, f, this),
+  type_ (x.type_, f, this),
+  epsilon_ (x.epsilon_, f, this),
+  sigma_ (x.sigma_, f, this),
+  is_locked_ (x.is_locked_, f, this)
+{
 }
 
-CuboidSpawnerType& CuboidSpawnerType::operator=(const CuboidSpawnerType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->lower_left_front_corner_ = x.lower_left_front_corner_;
-        this->grid_dim_ = x.grid_dim_;
-        this->grid_spacing_ = x.grid_spacing_;
-        this->temperature_ = x.temperature_;
-        this->mass_ = x.mass_;
-        this->velocity_ = x.velocity_;
-        this->type_ = x.type_;
-        this->epsilon_ = x.epsilon_;
-        this->sigma_ = x.sigma_;
-        this->is_locked_ = x.is_locked_;
+CuboidSpawnerType::
+CuboidSpawnerType (const ::xercesc::DOMElement& e,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  lower_left_front_corner_ (this),
+  grid_dim_ (this),
+  grid_spacing_ (this),
+  temperature_ (this),
+  mass_ (this),
+  velocity_ (this),
+  type_ (this),
+  epsilon_ (this),
+  sigma_ (this),
+  is_locked_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, true);
+    this->parse (p, f);
+  }
+}
+
+void CuboidSpawnerType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // lower_left_front_corner
+    //
+    if (n.name () == "lower_left_front_corner" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< lower_left_front_corner_type > r (
+        lower_left_front_corner_traits::create (i, f, this));
+
+      if (!lower_left_front_corner_.present ())
+      {
+        this->lower_left_front_corner_.set (::std::move (r));
+        continue;
+      }
     }
 
-    return *this;
+    // grid_dim
+    //
+    if (n.name () == "grid_dim" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< grid_dim_type > r (
+        grid_dim_traits::create (i, f, this));
+
+      if (!grid_dim_.present ())
+      {
+        this->grid_dim_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // grid_spacing
+    //
+    if (n.name () == "grid_spacing" && n.namespace_ ().empty ())
+    {
+      if (!grid_spacing_.present ())
+      {
+        this->grid_spacing_.set (grid_spacing_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // temperature
+    //
+    if (n.name () == "temperature" && n.namespace_ ().empty ())
+    {
+      if (!temperature_.present ())
+      {
+        this->temperature_.set (temperature_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // mass
+    //
+    if (n.name () == "mass" && n.namespace_ ().empty ())
+    {
+      if (!mass_.present ())
+      {
+        this->mass_.set (mass_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // velocity
+    //
+    if (n.name () == "velocity" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< velocity_type > r (
+        velocity_traits::create (i, f, this));
+
+      if (!velocity_.present ())
+      {
+        this->velocity_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // type
+    //
+    if (n.name () == "type" && n.namespace_ ().empty ())
+    {
+      if (!type_.present ())
+      {
+        this->type_.set (type_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // epsilon
+    //
+    if (n.name () == "epsilon" && n.namespace_ ().empty ())
+    {
+      if (!epsilon_.present ())
+      {
+        this->epsilon_.set (epsilon_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // sigma
+    //
+    if (n.name () == "sigma" && n.namespace_ ().empty ())
+    {
+      if (!sigma_.present ())
+      {
+        this->sigma_.set (sigma_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    break;
+  }
+
+  if (!lower_left_front_corner_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "lower_left_front_corner",
+      "");
+  }
+
+  if (!grid_dim_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "grid_dim",
+      "");
+  }
+
+  if (!grid_spacing_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "grid_spacing",
+      "");
+  }
+
+  if (!temperature_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "temperature",
+      "");
+  }
+
+  if (!mass_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "mass",
+      "");
+  }
+
+  if (!velocity_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "velocity",
+      "");
+  }
+
+  if (!type_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "type",
+      "");
+  }
+
+  if (!epsilon_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "epsilon",
+      "");
+  }
+
+  if (!sigma_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "sigma",
+      "");
+  }
+
+  while (p.more_attributes ())
+  {
+    const ::xercesc::DOMAttr& i (p.next_attribute ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    if (n.name () == "is_locked" && n.namespace_ ().empty ())
+    {
+      this->is_locked_.set (is_locked_traits::create (i, f, this));
+      continue;
+    }
+  }
+
+  if (!is_locked_.present ())
+  {
+    this->is_locked_.set (is_locked_default_value ());
+  }
 }
 
-CuboidSpawnerType::~CuboidSpawnerType() {}
+CuboidSpawnerType* CuboidSpawnerType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class CuboidSpawnerType (*this, f, c);
+}
+
+CuboidSpawnerType& CuboidSpawnerType::
+operator= (const CuboidSpawnerType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->lower_left_front_corner_ = x.lower_left_front_corner_;
+    this->grid_dim_ = x.grid_dim_;
+    this->grid_spacing_ = x.grid_spacing_;
+    this->temperature_ = x.temperature_;
+    this->mass_ = x.mass_;
+    this->velocity_ = x.velocity_;
+    this->type_ = x.type_;
+    this->epsilon_ = x.epsilon_;
+    this->sigma_ = x.sigma_;
+    this->is_locked_ = x.is_locked_;
+  }
+
+  return *this;
+}
+
+CuboidSpawnerType::
+~CuboidSpawnerType ()
+{
+}
 
 // SoftBodySpawnerType
 //
 
-SoftBodySpawnerType::SoftBodySpawnerType(const lower_left_front_corner_type& lower_left_front_corner, const grid_dim_type& grid_dim,
-                                         const grid_spacing_type& grid_spacing, const temperature_type& temperature, const mass_type& mass,
-                                         const velocity_type& velocity, const type_type& type, const spring_constant_type& spring_constant,
-                                         const epsilon_type& epsilon, const sigma_type& sigma)
-    : ::xml_schema::type(),
-      lower_left_front_corner_(lower_left_front_corner, this),
-      grid_dim_(grid_dim, this),
-      grid_spacing_(grid_spacing, this),
-      temperature_(temperature, this),
-      mass_(mass, this),
-      velocity_(velocity, this),
-      type_(type, this),
-      spring_constant_(spring_constant, this),
-      epsilon_(epsilon, this),
-      sigma_(sigma, this) {}
-
-SoftBodySpawnerType::SoftBodySpawnerType(::std::unique_ptr<lower_left_front_corner_type> lower_left_front_corner,
-                                         ::std::unique_ptr<grid_dim_type> grid_dim, const grid_spacing_type& grid_spacing,
-                                         const temperature_type& temperature, const mass_type& mass,
-                                         ::std::unique_ptr<velocity_type> velocity, const type_type& type,
-                                         const spring_constant_type& spring_constant, const epsilon_type& epsilon, const sigma_type& sigma)
-    : ::xml_schema::type(),
-      lower_left_front_corner_(std::move(lower_left_front_corner), this),
-      grid_dim_(std::move(grid_dim), this),
-      grid_spacing_(grid_spacing, this),
-      temperature_(temperature, this),
-      mass_(mass, this),
-      velocity_(std::move(velocity), this),
-      type_(type, this),
-      spring_constant_(spring_constant, this),
-      epsilon_(epsilon, this),
-      sigma_(sigma, this) {}
-
-SoftBodySpawnerType::SoftBodySpawnerType(const SoftBodySpawnerType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      lower_left_front_corner_(x.lower_left_front_corner_, f, this),
-      grid_dim_(x.grid_dim_, f, this),
-      grid_spacing_(x.grid_spacing_, f, this),
-      temperature_(x.temperature_, f, this),
-      mass_(x.mass_, f, this),
-      velocity_(x.velocity_, f, this),
-      type_(x.type_, f, this),
-      spring_constant_(x.spring_constant_, f, this),
-      epsilon_(x.epsilon_, f, this),
-      sigma_(x.sigma_, f, this) {}
-
-SoftBodySpawnerType::SoftBodySpawnerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
-      lower_left_front_corner_(this),
-      grid_dim_(this),
-      grid_spacing_(this),
-      temperature_(this),
-      mass_(this),
-      velocity_(this),
-      type_(this),
-      spring_constant_(this),
-      epsilon_(this),
-      sigma_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
-        this->parse(p, f);
-    }
+SoftBodySpawnerType::
+SoftBodySpawnerType (const lower_left_front_corner_type& lower_left_front_corner,
+                     const grid_dim_type& grid_dim,
+                     const grid_spacing_type& grid_spacing,
+                     const temperature_type& temperature,
+                     const mass_type& mass,
+                     const velocity_type& velocity,
+                     const type_type& type,
+                     const spring_constant_type& spring_constant,
+                     const epsilon_type& epsilon,
+                     const sigma_type& sigma)
+: ::xml_schema::type (),
+  lower_left_front_corner_ (lower_left_front_corner, this),
+  grid_dim_ (grid_dim, this),
+  grid_spacing_ (grid_spacing, this),
+  temperature_ (temperature, this),
+  mass_ (mass, this),
+  velocity_ (velocity, this),
+  type_ (type, this),
+  spring_constant_ (spring_constant, this),
+  epsilon_ (epsilon, this),
+  sigma_ (sigma, this)
+{
 }
 
-void SoftBodySpawnerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // lower_left_front_corner
-        //
-        if (n.name() == "lower_left_front_corner" && n.namespace_().empty()) {
-            ::std::unique_ptr<lower_left_front_corner_type> r(lower_left_front_corner_traits::create(i, f, this));
-
-            if (!lower_left_front_corner_.present()) {
-                this->lower_left_front_corner_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // grid_dim
-        //
-        if (n.name() == "grid_dim" && n.namespace_().empty()) {
-            ::std::unique_ptr<grid_dim_type> r(grid_dim_traits::create(i, f, this));
-
-            if (!grid_dim_.present()) {
-                this->grid_dim_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // grid_spacing
-        //
-        if (n.name() == "grid_spacing" && n.namespace_().empty()) {
-            if (!grid_spacing_.present()) {
-                this->grid_spacing_.set(grid_spacing_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // temperature
-        //
-        if (n.name() == "temperature" && n.namespace_().empty()) {
-            if (!temperature_.present()) {
-                this->temperature_.set(temperature_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // mass
-        //
-        if (n.name() == "mass" && n.namespace_().empty()) {
-            if (!mass_.present()) {
-                this->mass_.set(mass_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // velocity
-        //
-        if (n.name() == "velocity" && n.namespace_().empty()) {
-            ::std::unique_ptr<velocity_type> r(velocity_traits::create(i, f, this));
-
-            if (!velocity_.present()) {
-                this->velocity_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // type
-        //
-        if (n.name() == "type" && n.namespace_().empty()) {
-            if (!type_.present()) {
-                this->type_.set(type_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // spring_constant
-        //
-        if (n.name() == "spring_constant" && n.namespace_().empty()) {
-            if (!spring_constant_.present()) {
-                this->spring_constant_.set(spring_constant_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // epsilon
-        //
-        if (n.name() == "epsilon" && n.namespace_().empty()) {
-            if (!epsilon_.present()) {
-                this->epsilon_.set(epsilon_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // sigma
-        //
-        if (n.name() == "sigma" && n.namespace_().empty()) {
-            if (!sigma_.present()) {
-                this->sigma_.set(sigma_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        break;
-    }
-
-    if (!lower_left_front_corner_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("lower_left_front_corner", "");
-    }
-
-    if (!grid_dim_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("grid_dim", "");
-    }
-
-    if (!grid_spacing_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("grid_spacing", "");
-    }
-
-    if (!temperature_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("temperature", "");
-    }
-
-    if (!mass_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("mass", "");
-    }
-
-    if (!velocity_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("velocity", "");
-    }
-
-    if (!type_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("type", "");
-    }
-
-    if (!spring_constant_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("spring_constant", "");
-    }
-
-    if (!epsilon_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("epsilon", "");
-    }
-
-    if (!sigma_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("sigma", "");
-    }
+SoftBodySpawnerType::
+SoftBodySpawnerType (::std::unique_ptr< lower_left_front_corner_type > lower_left_front_corner,
+                     ::std::unique_ptr< grid_dim_type > grid_dim,
+                     const grid_spacing_type& grid_spacing,
+                     const temperature_type& temperature,
+                     const mass_type& mass,
+                     ::std::unique_ptr< velocity_type > velocity,
+                     const type_type& type,
+                     const spring_constant_type& spring_constant,
+                     const epsilon_type& epsilon,
+                     const sigma_type& sigma)
+: ::xml_schema::type (),
+  lower_left_front_corner_ (std::move (lower_left_front_corner), this),
+  grid_dim_ (std::move (grid_dim), this),
+  grid_spacing_ (grid_spacing, this),
+  temperature_ (temperature, this),
+  mass_ (mass, this),
+  velocity_ (std::move (velocity), this),
+  type_ (type, this),
+  spring_constant_ (spring_constant, this),
+  epsilon_ (epsilon, this),
+  sigma_ (sigma, this)
+{
 }
 
-SoftBodySpawnerType* SoftBodySpawnerType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class SoftBodySpawnerType(*this, f, c);
+SoftBodySpawnerType::
+SoftBodySpawnerType (const SoftBodySpawnerType& x,
+                     ::xml_schema::flags f,
+                     ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  lower_left_front_corner_ (x.lower_left_front_corner_, f, this),
+  grid_dim_ (x.grid_dim_, f, this),
+  grid_spacing_ (x.grid_spacing_, f, this),
+  temperature_ (x.temperature_, f, this),
+  mass_ (x.mass_, f, this),
+  velocity_ (x.velocity_, f, this),
+  type_ (x.type_, f, this),
+  spring_constant_ (x.spring_constant_, f, this),
+  epsilon_ (x.epsilon_, f, this),
+  sigma_ (x.sigma_, f, this)
+{
 }
 
-SoftBodySpawnerType& SoftBodySpawnerType::operator=(const SoftBodySpawnerType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->lower_left_front_corner_ = x.lower_left_front_corner_;
-        this->grid_dim_ = x.grid_dim_;
-        this->grid_spacing_ = x.grid_spacing_;
-        this->temperature_ = x.temperature_;
-        this->mass_ = x.mass_;
-        this->velocity_ = x.velocity_;
-        this->type_ = x.type_;
-        this->spring_constant_ = x.spring_constant_;
-        this->epsilon_ = x.epsilon_;
-        this->sigma_ = x.sigma_;
+SoftBodySpawnerType::
+SoftBodySpawnerType (const ::xercesc::DOMElement& e,
+                     ::xml_schema::flags f,
+                     ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  lower_left_front_corner_ (this),
+  grid_dim_ (this),
+  grid_spacing_ (this),
+  temperature_ (this),
+  mass_ (this),
+  velocity_ (this),
+  type_ (this),
+  spring_constant_ (this),
+  epsilon_ (this),
+  sigma_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, false);
+    this->parse (p, f);
+  }
+}
+
+void SoftBodySpawnerType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // lower_left_front_corner
+    //
+    if (n.name () == "lower_left_front_corner" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< lower_left_front_corner_type > r (
+        lower_left_front_corner_traits::create (i, f, this));
+
+      if (!lower_left_front_corner_.present ())
+      {
+        this->lower_left_front_corner_.set (::std::move (r));
+        continue;
+      }
     }
 
-    return *this;
+    // grid_dim
+    //
+    if (n.name () == "grid_dim" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< grid_dim_type > r (
+        grid_dim_traits::create (i, f, this));
+
+      if (!grid_dim_.present ())
+      {
+        this->grid_dim_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // grid_spacing
+    //
+    if (n.name () == "grid_spacing" && n.namespace_ ().empty ())
+    {
+      if (!grid_spacing_.present ())
+      {
+        this->grid_spacing_.set (grid_spacing_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // temperature
+    //
+    if (n.name () == "temperature" && n.namespace_ ().empty ())
+    {
+      if (!temperature_.present ())
+      {
+        this->temperature_.set (temperature_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // mass
+    //
+    if (n.name () == "mass" && n.namespace_ ().empty ())
+    {
+      if (!mass_.present ())
+      {
+        this->mass_.set (mass_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // velocity
+    //
+    if (n.name () == "velocity" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< velocity_type > r (
+        velocity_traits::create (i, f, this));
+
+      if (!velocity_.present ())
+      {
+        this->velocity_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // type
+    //
+    if (n.name () == "type" && n.namespace_ ().empty ())
+    {
+      if (!type_.present ())
+      {
+        this->type_.set (type_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // spring_constant
+    //
+    if (n.name () == "spring_constant" && n.namespace_ ().empty ())
+    {
+      if (!spring_constant_.present ())
+      {
+        this->spring_constant_.set (spring_constant_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // epsilon
+    //
+    if (n.name () == "epsilon" && n.namespace_ ().empty ())
+    {
+      if (!epsilon_.present ())
+      {
+        this->epsilon_.set (epsilon_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // sigma
+    //
+    if (n.name () == "sigma" && n.namespace_ ().empty ())
+    {
+      if (!sigma_.present ())
+      {
+        this->sigma_.set (sigma_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    break;
+  }
+
+  if (!lower_left_front_corner_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "lower_left_front_corner",
+      "");
+  }
+
+  if (!grid_dim_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "grid_dim",
+      "");
+  }
+
+  if (!grid_spacing_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "grid_spacing",
+      "");
+  }
+
+  if (!temperature_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "temperature",
+      "");
+  }
+
+  if (!mass_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "mass",
+      "");
+  }
+
+  if (!velocity_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "velocity",
+      "");
+  }
+
+  if (!type_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "type",
+      "");
+  }
+
+  if (!spring_constant_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "spring_constant",
+      "");
+  }
+
+  if (!epsilon_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "epsilon",
+      "");
+  }
+
+  if (!sigma_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "sigma",
+      "");
+  }
 }
 
-SoftBodySpawnerType::~SoftBodySpawnerType() {}
+SoftBodySpawnerType* SoftBodySpawnerType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class SoftBodySpawnerType (*this, f, c);
+}
+
+SoftBodySpawnerType& SoftBodySpawnerType::
+operator= (const SoftBodySpawnerType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->lower_left_front_corner_ = x.lower_left_front_corner_;
+    this->grid_dim_ = x.grid_dim_;
+    this->grid_spacing_ = x.grid_spacing_;
+    this->temperature_ = x.temperature_;
+    this->mass_ = x.mass_;
+    this->velocity_ = x.velocity_;
+    this->type_ = x.type_;
+    this->spring_constant_ = x.spring_constant_;
+    this->epsilon_ = x.epsilon_;
+    this->sigma_ = x.sigma_;
+  }
+
+  return *this;
+}
+
+SoftBodySpawnerType::
+~SoftBodySpawnerType ()
+{
+}
 
 // SphereSpawnerType
 //
 
-SphereSpawnerType::SphereSpawnerType(const center_type& center, const radius_type& radius, const grid_spacing_type& grid_spacing,
-                                     const temperature_type& temperature, const mass_type& mass, const velocity_type& velocity,
-                                     const type_type& type, const epsilon_type& epsilon, const sigma_type& sigma)
-    : ::xml_schema::type(),
-      center_(center, this),
-      radius_(radius, this),
-      grid_spacing_(grid_spacing, this),
-      temperature_(temperature, this),
-      mass_(mass, this),
-      velocity_(velocity, this),
-      type_(type, this),
-      epsilon_(epsilon, this),
-      sigma_(sigma, this),
-      is_locked_(is_locked_default_value(), this) {}
-
-SphereSpawnerType::SphereSpawnerType(::std::unique_ptr<center_type> center, const radius_type& radius,
-                                     const grid_spacing_type& grid_spacing, const temperature_type& temperature, const mass_type& mass,
-                                     ::std::unique_ptr<velocity_type> velocity, const type_type& type, const epsilon_type& epsilon,
-                                     const sigma_type& sigma)
-    : ::xml_schema::type(),
-      center_(std::move(center), this),
-      radius_(radius, this),
-      grid_spacing_(grid_spacing, this),
-      temperature_(temperature, this),
-      mass_(mass, this),
-      velocity_(std::move(velocity), this),
-      type_(type, this),
-      epsilon_(epsilon, this),
-      sigma_(sigma, this),
-      is_locked_(is_locked_default_value(), this) {}
-
-SphereSpawnerType::SphereSpawnerType(const SphereSpawnerType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      center_(x.center_, f, this),
-      radius_(x.radius_, f, this),
-      grid_spacing_(x.grid_spacing_, f, this),
-      temperature_(x.temperature_, f, this),
-      mass_(x.mass_, f, this),
-      velocity_(x.velocity_, f, this),
-      type_(x.type_, f, this),
-      epsilon_(x.epsilon_, f, this),
-      sigma_(x.sigma_, f, this),
-      is_locked_(x.is_locked_, f, this) {}
-
-SphereSpawnerType::SphereSpawnerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
-      center_(this),
-      radius_(this),
-      grid_spacing_(this),
-      temperature_(this),
-      mass_(this),
-      velocity_(this),
-      type_(this),
-      epsilon_(this),
-      sigma_(this),
-      is_locked_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, true);
-        this->parse(p, f);
-    }
+SphereSpawnerType::
+SphereSpawnerType (const center_type& center,
+                   const radius_type& radius,
+                   const grid_spacing_type& grid_spacing,
+                   const temperature_type& temperature,
+                   const mass_type& mass,
+                   const velocity_type& velocity,
+                   const type_type& type,
+                   const epsilon_type& epsilon,
+                   const sigma_type& sigma)
+: ::xml_schema::type (),
+  center_ (center, this),
+  radius_ (radius, this),
+  grid_spacing_ (grid_spacing, this),
+  temperature_ (temperature, this),
+  mass_ (mass, this),
+  velocity_ (velocity, this),
+  type_ (type, this),
+  epsilon_ (epsilon, this),
+  sigma_ (sigma, this),
+  is_locked_ (is_locked_default_value (), this)
+{
 }
 
-void SphereSpawnerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // center
-        //
-        if (n.name() == "center" && n.namespace_().empty()) {
-            ::std::unique_ptr<center_type> r(center_traits::create(i, f, this));
-
-            if (!center_.present()) {
-                this->center_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // radius
-        //
-        if (n.name() == "radius" && n.namespace_().empty()) {
-            if (!radius_.present()) {
-                this->radius_.set(radius_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // grid_spacing
-        //
-        if (n.name() == "grid_spacing" && n.namespace_().empty()) {
-            if (!grid_spacing_.present()) {
-                this->grid_spacing_.set(grid_spacing_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // temperature
-        //
-        if (n.name() == "temperature" && n.namespace_().empty()) {
-            if (!temperature_.present()) {
-                this->temperature_.set(temperature_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // mass
-        //
-        if (n.name() == "mass" && n.namespace_().empty()) {
-            if (!mass_.present()) {
-                this->mass_.set(mass_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // velocity
-        //
-        if (n.name() == "velocity" && n.namespace_().empty()) {
-            ::std::unique_ptr<velocity_type> r(velocity_traits::create(i, f, this));
-
-            if (!velocity_.present()) {
-                this->velocity_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // type
-        //
-        if (n.name() == "type" && n.namespace_().empty()) {
-            if (!type_.present()) {
-                this->type_.set(type_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // epsilon
-        //
-        if (n.name() == "epsilon" && n.namespace_().empty()) {
-            if (!epsilon_.present()) {
-                this->epsilon_.set(epsilon_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // sigma
-        //
-        if (n.name() == "sigma" && n.namespace_().empty()) {
-            if (!sigma_.present()) {
-                this->sigma_.set(sigma_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        break;
-    }
-
-    if (!center_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("center", "");
-    }
-
-    if (!radius_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("radius", "");
-    }
-
-    if (!grid_spacing_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("grid_spacing", "");
-    }
-
-    if (!temperature_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("temperature", "");
-    }
-
-    if (!mass_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("mass", "");
-    }
-
-    if (!velocity_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("velocity", "");
-    }
-
-    if (!type_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("type", "");
-    }
-
-    if (!epsilon_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("epsilon", "");
-    }
-
-    if (!sigma_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("sigma", "");
-    }
-
-    while (p.more_attributes()) {
-        const ::xercesc::DOMAttr& i(p.next_attribute());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        if (n.name() == "is_locked" && n.namespace_().empty()) {
-            this->is_locked_.set(is_locked_traits::create(i, f, this));
-            continue;
-        }
-    }
-
-    if (!is_locked_.present()) {
-        this->is_locked_.set(is_locked_default_value());
-    }
+SphereSpawnerType::
+SphereSpawnerType (::std::unique_ptr< center_type > center,
+                   const radius_type& radius,
+                   const grid_spacing_type& grid_spacing,
+                   const temperature_type& temperature,
+                   const mass_type& mass,
+                   ::std::unique_ptr< velocity_type > velocity,
+                   const type_type& type,
+                   const epsilon_type& epsilon,
+                   const sigma_type& sigma)
+: ::xml_schema::type (),
+  center_ (std::move (center), this),
+  radius_ (radius, this),
+  grid_spacing_ (grid_spacing, this),
+  temperature_ (temperature, this),
+  mass_ (mass, this),
+  velocity_ (std::move (velocity), this),
+  type_ (type, this),
+  epsilon_ (epsilon, this),
+  sigma_ (sigma, this),
+  is_locked_ (is_locked_default_value (), this)
+{
 }
 
-SphereSpawnerType* SphereSpawnerType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class SphereSpawnerType(*this, f, c);
+SphereSpawnerType::
+SphereSpawnerType (const SphereSpawnerType& x,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  center_ (x.center_, f, this),
+  radius_ (x.radius_, f, this),
+  grid_spacing_ (x.grid_spacing_, f, this),
+  temperature_ (x.temperature_, f, this),
+  mass_ (x.mass_, f, this),
+  velocity_ (x.velocity_, f, this),
+  type_ (x.type_, f, this),
+  epsilon_ (x.epsilon_, f, this),
+  sigma_ (x.sigma_, f, this),
+  is_locked_ (x.is_locked_, f, this)
+{
 }
 
-SphereSpawnerType& SphereSpawnerType::operator=(const SphereSpawnerType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->center_ = x.center_;
-        this->radius_ = x.radius_;
-        this->grid_spacing_ = x.grid_spacing_;
-        this->temperature_ = x.temperature_;
-        this->mass_ = x.mass_;
-        this->velocity_ = x.velocity_;
-        this->type_ = x.type_;
-        this->epsilon_ = x.epsilon_;
-        this->sigma_ = x.sigma_;
-        this->is_locked_ = x.is_locked_;
+SphereSpawnerType::
+SphereSpawnerType (const ::xercesc::DOMElement& e,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  center_ (this),
+  radius_ (this),
+  grid_spacing_ (this),
+  temperature_ (this),
+  mass_ (this),
+  velocity_ (this),
+  type_ (this),
+  epsilon_ (this),
+  sigma_ (this),
+  is_locked_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, true);
+    this->parse (p, f);
+  }
+}
+
+void SphereSpawnerType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // center
+    //
+    if (n.name () == "center" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< center_type > r (
+        center_traits::create (i, f, this));
+
+      if (!center_.present ())
+      {
+        this->center_.set (::std::move (r));
+        continue;
+      }
     }
 
-    return *this;
+    // radius
+    //
+    if (n.name () == "radius" && n.namespace_ ().empty ())
+    {
+      if (!radius_.present ())
+      {
+        this->radius_.set (radius_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // grid_spacing
+    //
+    if (n.name () == "grid_spacing" && n.namespace_ ().empty ())
+    {
+      if (!grid_spacing_.present ())
+      {
+        this->grid_spacing_.set (grid_spacing_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // temperature
+    //
+    if (n.name () == "temperature" && n.namespace_ ().empty ())
+    {
+      if (!temperature_.present ())
+      {
+        this->temperature_.set (temperature_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // mass
+    //
+    if (n.name () == "mass" && n.namespace_ ().empty ())
+    {
+      if (!mass_.present ())
+      {
+        this->mass_.set (mass_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // velocity
+    //
+    if (n.name () == "velocity" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< velocity_type > r (
+        velocity_traits::create (i, f, this));
+
+      if (!velocity_.present ())
+      {
+        this->velocity_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // type
+    //
+    if (n.name () == "type" && n.namespace_ ().empty ())
+    {
+      if (!type_.present ())
+      {
+        this->type_.set (type_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // epsilon
+    //
+    if (n.name () == "epsilon" && n.namespace_ ().empty ())
+    {
+      if (!epsilon_.present ())
+      {
+        this->epsilon_.set (epsilon_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // sigma
+    //
+    if (n.name () == "sigma" && n.namespace_ ().empty ())
+    {
+      if (!sigma_.present ())
+      {
+        this->sigma_.set (sigma_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    break;
+  }
+
+  if (!center_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "center",
+      "");
+  }
+
+  if (!radius_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "radius",
+      "");
+  }
+
+  if (!grid_spacing_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "grid_spacing",
+      "");
+  }
+
+  if (!temperature_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "temperature",
+      "");
+  }
+
+  if (!mass_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "mass",
+      "");
+  }
+
+  if (!velocity_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "velocity",
+      "");
+  }
+
+  if (!type_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "type",
+      "");
+  }
+
+  if (!epsilon_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "epsilon",
+      "");
+  }
+
+  if (!sigma_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "sigma",
+      "");
+  }
+
+  while (p.more_attributes ())
+  {
+    const ::xercesc::DOMAttr& i (p.next_attribute ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    if (n.name () == "is_locked" && n.namespace_ ().empty ())
+    {
+      this->is_locked_.set (is_locked_traits::create (i, f, this));
+      continue;
+    }
+  }
+
+  if (!is_locked_.present ())
+  {
+    this->is_locked_.set (is_locked_default_value ());
+  }
 }
 
-SphereSpawnerType::~SphereSpawnerType() {}
+SphereSpawnerType* SphereSpawnerType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class SphereSpawnerType (*this, f, c);
+}
+
+SphereSpawnerType& SphereSpawnerType::
+operator= (const SphereSpawnerType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->center_ = x.center_;
+    this->radius_ = x.radius_;
+    this->grid_spacing_ = x.grid_spacing_;
+    this->temperature_ = x.temperature_;
+    this->mass_ = x.mass_;
+    this->velocity_ = x.velocity_;
+    this->type_ = x.type_;
+    this->epsilon_ = x.epsilon_;
+    this->sigma_ = x.sigma_;
+    this->is_locked_ = x.is_locked_;
+  }
+
+  return *this;
+}
+
+SphereSpawnerType::
+~SphereSpawnerType ()
+{
+}
 
 // SingleParticleSpawnerType
 //
 
-SingleParticleSpawnerType::SingleParticleSpawnerType(const position_type& position, const temperature_type& temperature,
-                                                     const mass_type& mass, const velocity_type& velocity, const type_type& type,
-                                                     const epsilon_type& epsilon, const sigma_type& sigma)
-    : ::xml_schema::type(),
-      position_(position, this),
-      temperature_(temperature, this),
-      mass_(mass, this),
-      velocity_(velocity, this),
-      type_(type, this),
-      epsilon_(epsilon, this),
-      sigma_(sigma, this),
-      is_locked_(is_locked_default_value(), this) {}
-
-SingleParticleSpawnerType::SingleParticleSpawnerType(::std::unique_ptr<position_type> position, const temperature_type& temperature,
-                                                     const mass_type& mass, ::std::unique_ptr<velocity_type> velocity,
-                                                     const type_type& type, const epsilon_type& epsilon, const sigma_type& sigma)
-    : ::xml_schema::type(),
-      position_(std::move(position), this),
-      temperature_(temperature, this),
-      mass_(mass, this),
-      velocity_(std::move(velocity), this),
-      type_(type, this),
-      epsilon_(epsilon, this),
-      sigma_(sigma, this),
-      is_locked_(is_locked_default_value(), this) {}
-
-SingleParticleSpawnerType::SingleParticleSpawnerType(const SingleParticleSpawnerType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      position_(x.position_, f, this),
-      temperature_(x.temperature_, f, this),
-      mass_(x.mass_, f, this),
-      velocity_(x.velocity_, f, this),
-      type_(x.type_, f, this),
-      epsilon_(x.epsilon_, f, this),
-      sigma_(x.sigma_, f, this),
-      is_locked_(x.is_locked_, f, this) {}
-
-SingleParticleSpawnerType::SingleParticleSpawnerType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
-      position_(this),
-      temperature_(this),
-      mass_(this),
-      velocity_(this),
-      type_(this),
-      epsilon_(this),
-      sigma_(this),
-      is_locked_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, true);
-        this->parse(p, f);
-    }
+SingleParticleSpawnerType::
+SingleParticleSpawnerType (const position_type& position,
+                           const temperature_type& temperature,
+                           const mass_type& mass,
+                           const velocity_type& velocity,
+                           const type_type& type,
+                           const epsilon_type& epsilon,
+                           const sigma_type& sigma)
+: ::xml_schema::type (),
+  position_ (position, this),
+  temperature_ (temperature, this),
+  mass_ (mass, this),
+  velocity_ (velocity, this),
+  type_ (type, this),
+  epsilon_ (epsilon, this),
+  sigma_ (sigma, this),
+  is_locked_ (is_locked_default_value (), this)
+{
 }
 
-void SingleParticleSpawnerType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // position
-        //
-        if (n.name() == "position" && n.namespace_().empty()) {
-            ::std::unique_ptr<position_type> r(position_traits::create(i, f, this));
-
-            if (!position_.present()) {
-                this->position_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // temperature
-        //
-        if (n.name() == "temperature" && n.namespace_().empty()) {
-            if (!temperature_.present()) {
-                this->temperature_.set(temperature_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // mass
-        //
-        if (n.name() == "mass" && n.namespace_().empty()) {
-            if (!mass_.present()) {
-                this->mass_.set(mass_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // velocity
-        //
-        if (n.name() == "velocity" && n.namespace_().empty()) {
-            ::std::unique_ptr<velocity_type> r(velocity_traits::create(i, f, this));
-
-            if (!velocity_.present()) {
-                this->velocity_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // type
-        //
-        if (n.name() == "type" && n.namespace_().empty()) {
-            if (!type_.present()) {
-                this->type_.set(type_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // epsilon
-        //
-        if (n.name() == "epsilon" && n.namespace_().empty()) {
-            if (!epsilon_.present()) {
-                this->epsilon_.set(epsilon_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // sigma
-        //
-        if (n.name() == "sigma" && n.namespace_().empty()) {
-            if (!sigma_.present()) {
-                this->sigma_.set(sigma_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        break;
-    }
-
-    if (!position_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("position", "");
-    }
-
-    if (!temperature_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("temperature", "");
-    }
-
-    if (!mass_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("mass", "");
-    }
-
-    if (!velocity_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("velocity", "");
-    }
-
-    if (!type_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("type", "");
-    }
-
-    if (!epsilon_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("epsilon", "");
-    }
-
-    if (!sigma_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("sigma", "");
-    }
-
-    while (p.more_attributes()) {
-        const ::xercesc::DOMAttr& i(p.next_attribute());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        if (n.name() == "is_locked" && n.namespace_().empty()) {
-            this->is_locked_.set(is_locked_traits::create(i, f, this));
-            continue;
-        }
-    }
-
-    if (!is_locked_.present()) {
-        this->is_locked_.set(is_locked_default_value());
-    }
+SingleParticleSpawnerType::
+SingleParticleSpawnerType (::std::unique_ptr< position_type > position,
+                           const temperature_type& temperature,
+                           const mass_type& mass,
+                           ::std::unique_ptr< velocity_type > velocity,
+                           const type_type& type,
+                           const epsilon_type& epsilon,
+                           const sigma_type& sigma)
+: ::xml_schema::type (),
+  position_ (std::move (position), this),
+  temperature_ (temperature, this),
+  mass_ (mass, this),
+  velocity_ (std::move (velocity), this),
+  type_ (type, this),
+  epsilon_ (epsilon, this),
+  sigma_ (sigma, this),
+  is_locked_ (is_locked_default_value (), this)
+{
 }
 
-SingleParticleSpawnerType* SingleParticleSpawnerType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class SingleParticleSpawnerType(*this, f, c);
+SingleParticleSpawnerType::
+SingleParticleSpawnerType (const SingleParticleSpawnerType& x,
+                           ::xml_schema::flags f,
+                           ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  position_ (x.position_, f, this),
+  temperature_ (x.temperature_, f, this),
+  mass_ (x.mass_, f, this),
+  velocity_ (x.velocity_, f, this),
+  type_ (x.type_, f, this),
+  epsilon_ (x.epsilon_, f, this),
+  sigma_ (x.sigma_, f, this),
+  is_locked_ (x.is_locked_, f, this)
+{
 }
 
-SingleParticleSpawnerType& SingleParticleSpawnerType::operator=(const SingleParticleSpawnerType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->position_ = x.position_;
-        this->temperature_ = x.temperature_;
-        this->mass_ = x.mass_;
-        this->velocity_ = x.velocity_;
-        this->type_ = x.type_;
-        this->epsilon_ = x.epsilon_;
-        this->sigma_ = x.sigma_;
-        this->is_locked_ = x.is_locked_;
+SingleParticleSpawnerType::
+SingleParticleSpawnerType (const ::xercesc::DOMElement& e,
+                           ::xml_schema::flags f,
+                           ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  position_ (this),
+  temperature_ (this),
+  mass_ (this),
+  velocity_ (this),
+  type_ (this),
+  epsilon_ (this),
+  sigma_ (this),
+  is_locked_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, true);
+    this->parse (p, f);
+  }
+}
+
+void SingleParticleSpawnerType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // position
+    //
+    if (n.name () == "position" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< position_type > r (
+        position_traits::create (i, f, this));
+
+      if (!position_.present ())
+      {
+        this->position_.set (::std::move (r));
+        continue;
+      }
     }
 
-    return *this;
+    // temperature
+    //
+    if (n.name () == "temperature" && n.namespace_ ().empty ())
+    {
+      if (!temperature_.present ())
+      {
+        this->temperature_.set (temperature_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // mass
+    //
+    if (n.name () == "mass" && n.namespace_ ().empty ())
+    {
+      if (!mass_.present ())
+      {
+        this->mass_.set (mass_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // velocity
+    //
+    if (n.name () == "velocity" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< velocity_type > r (
+        velocity_traits::create (i, f, this));
+
+      if (!velocity_.present ())
+      {
+        this->velocity_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // type
+    //
+    if (n.name () == "type" && n.namespace_ ().empty ())
+    {
+      if (!type_.present ())
+      {
+        this->type_.set (type_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // epsilon
+    //
+    if (n.name () == "epsilon" && n.namespace_ ().empty ())
+    {
+      if (!epsilon_.present ())
+      {
+        this->epsilon_.set (epsilon_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // sigma
+    //
+    if (n.name () == "sigma" && n.namespace_ ().empty ())
+    {
+      if (!sigma_.present ())
+      {
+        this->sigma_.set (sigma_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    break;
+  }
+
+  if (!position_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "position",
+      "");
+  }
+
+  if (!temperature_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "temperature",
+      "");
+  }
+
+  if (!mass_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "mass",
+      "");
+  }
+
+  if (!velocity_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "velocity",
+      "");
+  }
+
+  if (!type_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "type",
+      "");
+  }
+
+  if (!epsilon_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "epsilon",
+      "");
+  }
+
+  if (!sigma_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "sigma",
+      "");
+  }
+
+  while (p.more_attributes ())
+  {
+    const ::xercesc::DOMAttr& i (p.next_attribute ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    if (n.name () == "is_locked" && n.namespace_ ().empty ())
+    {
+      this->is_locked_.set (is_locked_traits::create (i, f, this));
+      continue;
+    }
+  }
+
+  if (!is_locked_.present ())
+  {
+    this->is_locked_.set (is_locked_default_value ());
+  }
 }
 
-SingleParticleSpawnerType::~SingleParticleSpawnerType() {}
+SingleParticleSpawnerType* SingleParticleSpawnerType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class SingleParticleSpawnerType (*this, f, c);
+}
+
+SingleParticleSpawnerType& SingleParticleSpawnerType::
+operator= (const SingleParticleSpawnerType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->position_ = x.position_;
+    this->temperature_ = x.temperature_;
+    this->mass_ = x.mass_;
+    this->velocity_ = x.velocity_;
+    this->type_ = x.type_;
+    this->epsilon_ = x.epsilon_;
+    this->sigma_ = x.sigma_;
+    this->is_locked_ = x.is_locked_;
+  }
+
+  return *this;
+}
+
+SingleParticleSpawnerType::
+~SingleParticleSpawnerType ()
+{
+}
 
 // CheckPointLoaderType
 //
 
-CheckPointLoaderType::CheckPointLoaderType(const path_type& path) : ::xml_schema::type(), path_(path, this) {}
-
-CheckPointLoaderType::CheckPointLoaderType(const CheckPointLoaderType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c), path_(x.path_, f, this) {}
-
-CheckPointLoaderType::CheckPointLoaderType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), path_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
-        this->parse(p, f);
-    }
+CheckPointLoaderType::
+CheckPointLoaderType (const path_type& path)
+: ::xml_schema::type (),
+  path_ (path, this)
+{
 }
 
-void CheckPointLoaderType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    while (p.more_attributes()) {
-        const ::xercesc::DOMAttr& i(p.next_attribute());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        if (n.name() == "path" && n.namespace_().empty()) {
-            this->path_.set(path_traits::create(i, f, this));
-            continue;
-        }
-    }
-
-    if (!path_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("path", "");
-    }
+CheckPointLoaderType::
+CheckPointLoaderType (const CheckPointLoaderType& x,
+                      ::xml_schema::flags f,
+                      ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  path_ (x.path_, f, this)
+{
 }
 
-CheckPointLoaderType* CheckPointLoaderType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class CheckPointLoaderType(*this, f, c);
+CheckPointLoaderType::
+CheckPointLoaderType (const ::xercesc::DOMElement& e,
+                      ::xml_schema::flags f,
+                      ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  path_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, false, false, true);
+    this->parse (p, f);
+  }
 }
 
-CheckPointLoaderType& CheckPointLoaderType::operator=(const CheckPointLoaderType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->path_ = x.path_;
+void CheckPointLoaderType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  while (p.more_attributes ())
+  {
+    const ::xercesc::DOMAttr& i (p.next_attribute ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    if (n.name () == "path" && n.namespace_ ().empty ())
+    {
+      this->path_.set (path_traits::create (i, f, this));
+      continue;
     }
+  }
 
-    return *this;
+  if (!path_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "path",
+      "");
+  }
 }
 
-CheckPointLoaderType::~CheckPointLoaderType() {}
+CheckPointLoaderType* CheckPointLoaderType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class CheckPointLoaderType (*this, f, c);
+}
+
+CheckPointLoaderType& CheckPointLoaderType::
+operator= (const CheckPointLoaderType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->path_ = x.path_;
+  }
+
+  return *this;
+}
+
+CheckPointLoaderType::
+~CheckPointLoaderType ()
+{
+}
 
 // SubSimulationType
 //
 
-SubSimulationType::SubSimulationType(const path_type& path) : ::xml_schema::type(), path_(path, this) {}
-
-SubSimulationType::SubSimulationType(const SubSimulationType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c), path_(x.path_, f, this) {}
-
-SubSimulationType::SubSimulationType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), path_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
-        this->parse(p, f);
-    }
+SubSimulationType::
+SubSimulationType (const path_type& path)
+: ::xml_schema::type (),
+  path_ (path, this)
+{
 }
 
-void SubSimulationType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    while (p.more_attributes()) {
-        const ::xercesc::DOMAttr& i(p.next_attribute());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        if (n.name() == "path" && n.namespace_().empty()) {
-            this->path_.set(path_traits::create(i, f, this));
-            continue;
-        }
-    }
-
-    if (!path_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("path", "");
-    }
+SubSimulationType::
+SubSimulationType (const SubSimulationType& x,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  path_ (x.path_, f, this)
+{
 }
 
-SubSimulationType* SubSimulationType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class SubSimulationType(*this, f, c);
+SubSimulationType::
+SubSimulationType (const ::xercesc::DOMElement& e,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  path_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, false, false, true);
+    this->parse (p, f);
+  }
 }
 
-SubSimulationType& SubSimulationType::operator=(const SubSimulationType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->path_ = x.path_;
+void SubSimulationType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  while (p.more_attributes ())
+  {
+    const ::xercesc::DOMAttr& i (p.next_attribute ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    if (n.name () == "path" && n.namespace_ ().empty ())
+    {
+      this->path_.set (path_traits::create (i, f, this));
+      continue;
     }
+  }
 
-    return *this;
+  if (!path_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "path",
+      "");
+  }
 }
 
-SubSimulationType::~SubSimulationType() {}
+SubSimulationType* SubSimulationType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class SubSimulationType (*this, f, c);
+}
+
+SubSimulationType& SubSimulationType::
+operator= (const SubSimulationType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->path_ = x.path_;
+  }
+
+  return *this;
+}
+
+SubSimulationType::
+~SubSimulationType ()
+{
+}
 
 // ParticleSourceType
 //
 
-ParticleSourceType::ParticleSourceType()
-    : ::xml_schema::type(),
-      cuboid_spawner_(this),
-      soft_body_cuboid_spawner_(this),
-      sphere_spawner_(this),
-      single_particle_spawner_(this),
-      check_point_loader_(this),
-      sub_simulation_(this) {}
-
-ParticleSourceType::ParticleSourceType(const ParticleSourceType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      cuboid_spawner_(x.cuboid_spawner_, f, this),
-      soft_body_cuboid_spawner_(x.soft_body_cuboid_spawner_, f, this),
-      sphere_spawner_(x.sphere_spawner_, f, this),
-      single_particle_spawner_(x.single_particle_spawner_, f, this),
-      check_point_loader_(x.check_point_loader_, f, this),
-      sub_simulation_(x.sub_simulation_, f, this) {}
-
-ParticleSourceType::ParticleSourceType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
-      cuboid_spawner_(this),
-      soft_body_cuboid_spawner_(this),
-      sphere_spawner_(this),
-      single_particle_spawner_(this),
-      check_point_loader_(this),
-      sub_simulation_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
-        this->parse(p, f);
-    }
+ParticleSourceType::
+ParticleSourceType ()
+: ::xml_schema::type (),
+  cuboid_spawner_ (this),
+  soft_body_cuboid_spawner_ (this),
+  sphere_spawner_ (this),
+  single_particle_spawner_ (this),
+  check_point_loader_ (this),
+  sub_simulation_ (this)
+{
 }
 
-void ParticleSourceType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // cuboid_spawner
-        //
-        if (n.name() == "cuboid_spawner" && n.namespace_().empty()) {
-            ::std::unique_ptr<cuboid_spawner_type> r(cuboid_spawner_traits::create(i, f, this));
-
-            this->cuboid_spawner_.push_back(::std::move(r));
-            continue;
-        }
-
-        // soft_body_cuboid_spawner
-        //
-        if (n.name() == "soft_body_cuboid_spawner" && n.namespace_().empty()) {
-            ::std::unique_ptr<soft_body_cuboid_spawner_type> r(soft_body_cuboid_spawner_traits::create(i, f, this));
-
-            this->soft_body_cuboid_spawner_.push_back(::std::move(r));
-            continue;
-        }
-
-        // sphere_spawner
-        //
-        if (n.name() == "sphere_spawner" && n.namespace_().empty()) {
-            ::std::unique_ptr<sphere_spawner_type> r(sphere_spawner_traits::create(i, f, this));
-
-            this->sphere_spawner_.push_back(::std::move(r));
-            continue;
-        }
-
-        // single_particle_spawner
-        //
-        if (n.name() == "single_particle_spawner" && n.namespace_().empty()) {
-            ::std::unique_ptr<single_particle_spawner_type> r(single_particle_spawner_traits::create(i, f, this));
-
-            this->single_particle_spawner_.push_back(::std::move(r));
-            continue;
-        }
-
-        // check_point_loader
-        //
-        if (n.name() == "check_point_loader" && n.namespace_().empty()) {
-            ::std::unique_ptr<check_point_loader_type> r(check_point_loader_traits::create(i, f, this));
-
-            this->check_point_loader_.push_back(::std::move(r));
-            continue;
-        }
-
-        // sub_simulation
-        //
-        if (n.name() == "sub_simulation" && n.namespace_().empty()) {
-            ::std::unique_ptr<sub_simulation_type> r(sub_simulation_traits::create(i, f, this));
-
-            this->sub_simulation_.push_back(::std::move(r));
-            continue;
-        }
-
-        break;
-    }
+ParticleSourceType::
+ParticleSourceType (const ParticleSourceType& x,
+                    ::xml_schema::flags f,
+                    ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  cuboid_spawner_ (x.cuboid_spawner_, f, this),
+  soft_body_cuboid_spawner_ (x.soft_body_cuboid_spawner_, f, this),
+  sphere_spawner_ (x.sphere_spawner_, f, this),
+  single_particle_spawner_ (x.single_particle_spawner_, f, this),
+  check_point_loader_ (x.check_point_loader_, f, this),
+  sub_simulation_ (x.sub_simulation_, f, this)
+{
 }
 
-ParticleSourceType* ParticleSourceType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class ParticleSourceType(*this, f, c);
+ParticleSourceType::
+ParticleSourceType (const ::xercesc::DOMElement& e,
+                    ::xml_schema::flags f,
+                    ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  cuboid_spawner_ (this),
+  soft_body_cuboid_spawner_ (this),
+  sphere_spawner_ (this),
+  single_particle_spawner_ (this),
+  check_point_loader_ (this),
+  sub_simulation_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, false);
+    this->parse (p, f);
+  }
 }
 
-ParticleSourceType& ParticleSourceType::operator=(const ParticleSourceType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->cuboid_spawner_ = x.cuboid_spawner_;
-        this->soft_body_cuboid_spawner_ = x.soft_body_cuboid_spawner_;
-        this->sphere_spawner_ = x.sphere_spawner_;
-        this->single_particle_spawner_ = x.single_particle_spawner_;
-        this->check_point_loader_ = x.check_point_loader_;
-        this->sub_simulation_ = x.sub_simulation_;
+void ParticleSourceType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // cuboid_spawner
+    //
+    if (n.name () == "cuboid_spawner" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< cuboid_spawner_type > r (
+        cuboid_spawner_traits::create (i, f, this));
+
+      this->cuboid_spawner_.push_back (::std::move (r));
+      continue;
     }
 
-    return *this;
+    // soft_body_cuboid_spawner
+    //
+    if (n.name () == "soft_body_cuboid_spawner" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< soft_body_cuboid_spawner_type > r (
+        soft_body_cuboid_spawner_traits::create (i, f, this));
+
+      this->soft_body_cuboid_spawner_.push_back (::std::move (r));
+      continue;
+    }
+
+    // sphere_spawner
+    //
+    if (n.name () == "sphere_spawner" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< sphere_spawner_type > r (
+        sphere_spawner_traits::create (i, f, this));
+
+      this->sphere_spawner_.push_back (::std::move (r));
+      continue;
+    }
+
+    // single_particle_spawner
+    //
+    if (n.name () == "single_particle_spawner" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< single_particle_spawner_type > r (
+        single_particle_spawner_traits::create (i, f, this));
+
+      this->single_particle_spawner_.push_back (::std::move (r));
+      continue;
+    }
+
+    // check_point_loader
+    //
+    if (n.name () == "check_point_loader" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< check_point_loader_type > r (
+        check_point_loader_traits::create (i, f, this));
+
+      this->check_point_loader_.push_back (::std::move (r));
+      continue;
+    }
+
+    // sub_simulation
+    //
+    if (n.name () == "sub_simulation" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< sub_simulation_type > r (
+        sub_simulation_traits::create (i, f, this));
+
+      this->sub_simulation_.push_back (::std::move (r));
+      continue;
+    }
+
+    break;
+  }
 }
 
-ParticleSourceType::~ParticleSourceType() {}
+ParticleSourceType* ParticleSourceType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class ParticleSourceType (*this, f, c);
+}
+
+ParticleSourceType& ParticleSourceType::
+operator= (const ParticleSourceType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->cuboid_spawner_ = x.cuboid_spawner_;
+    this->soft_body_cuboid_spawner_ = x.soft_body_cuboid_spawner_;
+    this->sphere_spawner_ = x.sphere_spawner_;
+    this->single_particle_spawner_ = x.single_particle_spawner_;
+    this->check_point_loader_ = x.check_point_loader_;
+    this->sub_simulation_ = x.sub_simulation_;
+  }
+
+  return *this;
+}
+
+ParticleSourceType::
+~ParticleSourceType ()
+{
+}
 
 // SettingsType
 //
 
-const SettingsType::log_level_type SettingsType::log_level_default_value_("info");
+const SettingsType::log_level_type SettingsType::log_level_default_value_ (
+  "info");
 
-SettingsType::SettingsType(const delta_t_type& delta_t, const end_time_type& end_time, const third_dimension_type& third_dimension,
-                           const particle_container_type& particle_container, const forces_type& forces,
-                           const interceptors_type& interceptors)
-    : ::xml_schema::type(),
-      delta_t_(delta_t, this),
-      end_time_(end_time, this),
-      third_dimension_(third_dimension, this),
-      particle_container_(particle_container, this),
-      forces_(forces, this),
-      interceptors_(interceptors, this),
-      log_level_(this) {}
-
-SettingsType::SettingsType(const delta_t_type& delta_t, const end_time_type& end_time, const third_dimension_type& third_dimension,
-                           ::std::unique_ptr<particle_container_type> particle_container, ::std::unique_ptr<forces_type> forces,
-                           ::std::unique_ptr<interceptors_type> interceptors)
-    : ::xml_schema::type(),
-      delta_t_(delta_t, this),
-      end_time_(end_time, this),
-      third_dimension_(third_dimension, this),
-      particle_container_(std::move(particle_container), this),
-      forces_(std::move(forces), this),
-      interceptors_(std::move(interceptors), this),
-      log_level_(this) {}
-
-SettingsType::SettingsType(const SettingsType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      delta_t_(x.delta_t_, f, this),
-      end_time_(x.end_time_, f, this),
-      third_dimension_(x.third_dimension_, f, this),
-      particle_container_(x.particle_container_, f, this),
-      forces_(x.forces_, f, this),
-      interceptors_(x.interceptors_, f, this),
-      log_level_(x.log_level_, f, this) {}
-
-SettingsType::SettingsType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
-      delta_t_(this),
-      end_time_(this),
-      third_dimension_(this),
-      particle_container_(this),
-      forces_(this),
-      interceptors_(this),
-      log_level_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
-        this->parse(p, f);
-    }
+SettingsType::
+SettingsType (const delta_t_type& delta_t,
+              const end_time_type& end_time,
+              const third_dimension_type& third_dimension,
+              const particle_container_type& particle_container,
+              const forces_type& forces,
+              const interceptors_type& interceptors)
+: ::xml_schema::type (),
+  delta_t_ (delta_t, this),
+  end_time_ (end_time, this),
+  third_dimension_ (third_dimension, this),
+  particle_container_ (particle_container, this),
+  forces_ (forces, this),
+  interceptors_ (interceptors, this),
+  log_level_ (this)
+{
 }
 
-void SettingsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // delta_t
-        //
-        if (n.name() == "delta_t" && n.namespace_().empty()) {
-            if (!delta_t_.present()) {
-                this->delta_t_.set(delta_t_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // end_time
-        //
-        if (n.name() == "end_time" && n.namespace_().empty()) {
-            if (!end_time_.present()) {
-                this->end_time_.set(end_time_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // third_dimension
-        //
-        if (n.name() == "third_dimension" && n.namespace_().empty()) {
-            if (!third_dimension_.present()) {
-                this->third_dimension_.set(third_dimension_traits::create(i, f, this));
-                continue;
-            }
-        }
-
-        // particle_container
-        //
-        if (n.name() == "particle_container" && n.namespace_().empty()) {
-            ::std::unique_ptr<particle_container_type> r(particle_container_traits::create(i, f, this));
-
-            if (!particle_container_.present()) {
-                this->particle_container_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // forces
-        //
-        if (n.name() == "forces" && n.namespace_().empty()) {
-            ::std::unique_ptr<forces_type> r(forces_traits::create(i, f, this));
-
-            if (!forces_.present()) {
-                this->forces_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // interceptors
-        //
-        if (n.name() == "interceptors" && n.namespace_().empty()) {
-            ::std::unique_ptr<interceptors_type> r(interceptors_traits::create(i, f, this));
-
-            if (!interceptors_.present()) {
-                this->interceptors_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // log_level
-        //
-        if (n.name() == "log_level" && n.namespace_().empty()) {
-            ::std::unique_ptr<log_level_type> r(log_level_traits::create(i, f, this));
-
-            if (!this->log_level_) {
-                this->log_level_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        break;
-    }
-
-    if (!delta_t_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("delta_t", "");
-    }
-
-    if (!end_time_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("end_time", "");
-    }
-
-    if (!third_dimension_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("third_dimension", "");
-    }
-
-    if (!particle_container_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("particle_container", "");
-    }
-
-    if (!forces_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("forces", "");
-    }
-
-    if (!interceptors_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("interceptors", "");
-    }
+SettingsType::
+SettingsType (const delta_t_type& delta_t,
+              const end_time_type& end_time,
+              const third_dimension_type& third_dimension,
+              ::std::unique_ptr< particle_container_type > particle_container,
+              ::std::unique_ptr< forces_type > forces,
+              ::std::unique_ptr< interceptors_type > interceptors)
+: ::xml_schema::type (),
+  delta_t_ (delta_t, this),
+  end_time_ (end_time, this),
+  third_dimension_ (third_dimension, this),
+  particle_container_ (std::move (particle_container), this),
+  forces_ (std::move (forces), this),
+  interceptors_ (std::move (interceptors), this),
+  log_level_ (this)
+{
 }
 
-SettingsType* SettingsType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const { return new class SettingsType(*this, f, c); }
-
-SettingsType& SettingsType::operator=(const SettingsType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->delta_t_ = x.delta_t_;
-        this->end_time_ = x.end_time_;
-        this->third_dimension_ = x.third_dimension_;
-        this->particle_container_ = x.particle_container_;
-        this->forces_ = x.forces_;
-        this->interceptors_ = x.interceptors_;
-        this->log_level_ = x.log_level_;
-    }
-
-    return *this;
+SettingsType::
+SettingsType (const SettingsType& x,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  delta_t_ (x.delta_t_, f, this),
+  end_time_ (x.end_time_, f, this),
+  third_dimension_ (x.third_dimension_, f, this),
+  particle_container_ (x.particle_container_, f, this),
+  forces_ (x.forces_, f, this),
+  interceptors_ (x.interceptors_, f, this),
+  log_level_ (x.log_level_, f, this)
+{
 }
 
-SettingsType::~SettingsType() {}
+SettingsType::
+SettingsType (const ::xercesc::DOMElement& e,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  delta_t_ (this),
+  end_time_ (this),
+  third_dimension_ (this),
+  particle_container_ (this),
+  forces_ (this),
+  interceptors_ (this),
+  log_level_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, false);
+    this->parse (p, f);
+  }
+}
+
+void SettingsType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // delta_t
+    //
+    if (n.name () == "delta_t" && n.namespace_ ().empty ())
+    {
+      if (!delta_t_.present ())
+      {
+        this->delta_t_.set (delta_t_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // end_time
+    //
+    if (n.name () == "end_time" && n.namespace_ ().empty ())
+    {
+      if (!end_time_.present ())
+      {
+        this->end_time_.set (end_time_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // third_dimension
+    //
+    if (n.name () == "third_dimension" && n.namespace_ ().empty ())
+    {
+      if (!third_dimension_.present ())
+      {
+        this->third_dimension_.set (third_dimension_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // particle_container
+    //
+    if (n.name () == "particle_container" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< particle_container_type > r (
+        particle_container_traits::create (i, f, this));
+
+      if (!particle_container_.present ())
+      {
+        this->particle_container_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // forces
+    //
+    if (n.name () == "forces" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< forces_type > r (
+        forces_traits::create (i, f, this));
+
+      if (!forces_.present ())
+      {
+        this->forces_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // interceptors
+    //
+    if (n.name () == "interceptors" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< interceptors_type > r (
+        interceptors_traits::create (i, f, this));
+
+      if (!interceptors_.present ())
+      {
+        this->interceptors_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // log_level
+    //
+    if (n.name () == "log_level" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< log_level_type > r (
+        log_level_traits::create (i, f, this));
+
+      if (!this->log_level_)
+      {
+        this->log_level_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    break;
+  }
+
+  if (!delta_t_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "delta_t",
+      "");
+  }
+
+  if (!end_time_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "end_time",
+      "");
+  }
+
+  if (!third_dimension_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "third_dimension",
+      "");
+  }
+
+  if (!particle_container_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "particle_container",
+      "");
+  }
+
+  if (!forces_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "forces",
+      "");
+  }
+
+  if (!interceptors_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "interceptors",
+      "");
+  }
+}
+
+SettingsType* SettingsType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class SettingsType (*this, f, c);
+}
+
+SettingsType& SettingsType::
+operator= (const SettingsType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->delta_t_ = x.delta_t_;
+    this->end_time_ = x.end_time_;
+    this->third_dimension_ = x.third_dimension_;
+    this->particle_container_ = x.particle_container_;
+    this->forces_ = x.forces_;
+    this->interceptors_ = x.interceptors_;
+    this->log_level_ = x.log_level_;
+  }
+
+  return *this;
+}
+
+SettingsType::
+~SettingsType ()
+{
+}
 
 // ParticleUpdatesPerSecondInterceptionType
 //
 
-ParticleUpdatesPerSecondInterceptionType::ParticleUpdatesPerSecondInterceptionType() : ::xml_schema::type() {}
-
-ParticleUpdatesPerSecondInterceptionType::ParticleUpdatesPerSecondInterceptionType(const ParticleUpdatesPerSecondInterceptionType& x,
-                                                                                   ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c) {}
-
-ParticleUpdatesPerSecondInterceptionType::ParticleUpdatesPerSecondInterceptionType(const ::xercesc::DOMElement& e, ::xml_schema::flags f,
-                                                                                   ::xml_schema::container* c)
-    : ::xml_schema::type(e, f, c) {}
-
-ParticleUpdatesPerSecondInterceptionType::ParticleUpdatesPerSecondInterceptionType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f,
-                                                                                   ::xml_schema::container* c)
-    : ::xml_schema::type(a, f, c) {}
-
-ParticleUpdatesPerSecondInterceptionType::ParticleUpdatesPerSecondInterceptionType(const ::std::string& s, const ::xercesc::DOMElement* e,
-                                                                                   ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(s, e, f, c) {}
-
-ParticleUpdatesPerSecondInterceptionType* ParticleUpdatesPerSecondInterceptionType::_clone(::xml_schema::flags f,
-                                                                                           ::xml_schema::container* c) const {
-    return new class ParticleUpdatesPerSecondInterceptionType(*this, f, c);
+ParticleUpdatesPerSecondInterceptionType::
+ParticleUpdatesPerSecondInterceptionType ()
+: ::xml_schema::type ()
+{
 }
 
-ParticleUpdatesPerSecondInterceptionType::~ParticleUpdatesPerSecondInterceptionType() {}
+ParticleUpdatesPerSecondInterceptionType::
+ParticleUpdatesPerSecondInterceptionType (const ParticleUpdatesPerSecondInterceptionType& x,
+                                          ::xml_schema::flags f,
+                                          ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c)
+{
+}
+
+ParticleUpdatesPerSecondInterceptionType::
+ParticleUpdatesPerSecondInterceptionType (const ::xercesc::DOMElement& e,
+                                          ::xml_schema::flags f,
+                                          ::xml_schema::container* c)
+: ::xml_schema::type (e, f, c)
+{
+}
+
+ParticleUpdatesPerSecondInterceptionType::
+ParticleUpdatesPerSecondInterceptionType (const ::xercesc::DOMAttr& a,
+                                          ::xml_schema::flags f,
+                                          ::xml_schema::container* c)
+: ::xml_schema::type (a, f, c)
+{
+}
+
+ParticleUpdatesPerSecondInterceptionType::
+ParticleUpdatesPerSecondInterceptionType (const ::std::string& s,
+                                          const ::xercesc::DOMElement* e,
+                                          ::xml_schema::flags f,
+                                          ::xml_schema::container* c)
+: ::xml_schema::type (s, e, f, c)
+{
+}
+
+ParticleUpdatesPerSecondInterceptionType* ParticleUpdatesPerSecondInterceptionType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class ParticleUpdatesPerSecondInterceptionType (*this, f, c);
+}
+
+ParticleUpdatesPerSecondInterceptionType::
+~ParticleUpdatesPerSecondInterceptionType ()
+{
+}
 
 // DiffusionFunctionInterceptorType
 //
 
-DiffusionFunctionInterceptorType::DiffusionFunctionInterceptorType(const sample_every_x_percent_type& sample_every_x_percent)
-    : ::xml_schema::type(), sample_every_x_percent_(sample_every_x_percent, this) {}
-
-DiffusionFunctionInterceptorType::DiffusionFunctionInterceptorType(const DiffusionFunctionInterceptorType& x, ::xml_schema::flags f,
-                                                                   ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c), sample_every_x_percent_(x.sample_every_x_percent_, f, this) {}
-
-DiffusionFunctionInterceptorType::DiffusionFunctionInterceptorType(const ::xercesc::DOMElement& e, ::xml_schema::flags f,
-                                                                   ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), sample_every_x_percent_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
-        this->parse(p, f);
-    }
+DiffusionFunctionInterceptorType::
+DiffusionFunctionInterceptorType (const sample_every_x_percent_type& sample_every_x_percent)
+: ::xml_schema::type (),
+  sample_every_x_percent_ (sample_every_x_percent, this)
+{
 }
 
-void DiffusionFunctionInterceptorType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    while (p.more_attributes()) {
-        const ::xercesc::DOMAttr& i(p.next_attribute());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        if (n.name() == "sample_every_x_percent" && n.namespace_().empty()) {
-            this->sample_every_x_percent_.set(sample_every_x_percent_traits::create(i, f, this));
-            continue;
-        }
-    }
-
-    if (!sample_every_x_percent_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("sample_every_x_percent", "");
-    }
+DiffusionFunctionInterceptorType::
+DiffusionFunctionInterceptorType (const DiffusionFunctionInterceptorType& x,
+                                  ::xml_schema::flags f,
+                                  ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  sample_every_x_percent_ (x.sample_every_x_percent_, f, this)
+{
 }
 
-DiffusionFunctionInterceptorType* DiffusionFunctionInterceptorType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class DiffusionFunctionInterceptorType(*this, f, c);
+DiffusionFunctionInterceptorType::
+DiffusionFunctionInterceptorType (const ::xercesc::DOMElement& e,
+                                  ::xml_schema::flags f,
+                                  ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  sample_every_x_percent_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, false, false, true);
+    this->parse (p, f);
+  }
 }
 
-DiffusionFunctionInterceptorType& DiffusionFunctionInterceptorType::operator=(const DiffusionFunctionInterceptorType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->sample_every_x_percent_ = x.sample_every_x_percent_;
+void DiffusionFunctionInterceptorType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  while (p.more_attributes ())
+  {
+    const ::xercesc::DOMAttr& i (p.next_attribute ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    if (n.name () == "sample_every_x_percent" && n.namespace_ ().empty ())
+    {
+      this->sample_every_x_percent_.set (sample_every_x_percent_traits::create (i, f, this));
+      continue;
     }
+  }
 
-    return *this;
+  if (!sample_every_x_percent_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "sample_every_x_percent",
+      "");
+  }
 }
 
-DiffusionFunctionInterceptorType::~DiffusionFunctionInterceptorType() {}
+DiffusionFunctionInterceptorType* DiffusionFunctionInterceptorType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class DiffusionFunctionInterceptorType (*this, f, c);
+}
+
+DiffusionFunctionInterceptorType& DiffusionFunctionInterceptorType::
+operator= (const DiffusionFunctionInterceptorType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->sample_every_x_percent_ = x.sample_every_x_percent_;
+  }
+
+  return *this;
+}
+
+DiffusionFunctionInterceptorType::
+~DiffusionFunctionInterceptorType ()
+{
+}
 
 // FrameWriterInterceptorType
 //
 
-FrameWriterInterceptorType::FrameWriterInterceptorType(const output_format_type& output_format, const fps_type& fps,
-                                                       const video_length_s_type& video_length_s)
-    : ::xml_schema::type(), output_format_(output_format, this), fps_(fps, this), video_length_s_(video_length_s, this) {}
-
-FrameWriterInterceptorType::FrameWriterInterceptorType(const FrameWriterInterceptorType& x, ::xml_schema::flags f,
-                                                       ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      output_format_(x.output_format_, f, this),
-      fps_(x.fps_, f, this),
-      video_length_s_(x.video_length_s_, f, this) {}
-
-FrameWriterInterceptorType::FrameWriterInterceptorType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), output_format_(this), fps_(this), video_length_s_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
-        this->parse(p, f);
-    }
+FrameWriterInterceptorType::
+FrameWriterInterceptorType (const output_format_type& output_format,
+                            const fps_type& fps,
+                            const video_length_s_type& video_length_s)
+: ::xml_schema::type (),
+  output_format_ (output_format, this),
+  fps_ (fps, this),
+  video_length_s_ (video_length_s, this)
+{
 }
 
-void FrameWriterInterceptorType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    while (p.more_attributes()) {
-        const ::xercesc::DOMAttr& i(p.next_attribute());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        if (n.name() == "output_format" && n.namespace_().empty()) {
-            this->output_format_.set(output_format_traits::create(i, f, this));
-            continue;
-        }
-
-        if (n.name() == "fps" && n.namespace_().empty()) {
-            this->fps_.set(fps_traits::create(i, f, this));
-            continue;
-        }
-
-        if (n.name() == "video_length_s" && n.namespace_().empty()) {
-            this->video_length_s_.set(video_length_s_traits::create(i, f, this));
-            continue;
-        }
-    }
-
-    if (!output_format_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("output_format", "");
-    }
-
-    if (!fps_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("fps", "");
-    }
-
-    if (!video_length_s_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("video_length_s", "");
-    }
+FrameWriterInterceptorType::
+FrameWriterInterceptorType (const FrameWriterInterceptorType& x,
+                            ::xml_schema::flags f,
+                            ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  output_format_ (x.output_format_, f, this),
+  fps_ (x.fps_, f, this),
+  video_length_s_ (x.video_length_s_, f, this)
+{
 }
 
-FrameWriterInterceptorType* FrameWriterInterceptorType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class FrameWriterInterceptorType(*this, f, c);
+FrameWriterInterceptorType::
+FrameWriterInterceptorType (const ::xercesc::DOMElement& e,
+                            ::xml_schema::flags f,
+                            ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  output_format_ (this),
+  fps_ (this),
+  video_length_s_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, false, false, true);
+    this->parse (p, f);
+  }
 }
 
-FrameWriterInterceptorType& FrameWriterInterceptorType::operator=(const FrameWriterInterceptorType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->output_format_ = x.output_format_;
-        this->fps_ = x.fps_;
-        this->video_length_s_ = x.video_length_s_;
+void FrameWriterInterceptorType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  while (p.more_attributes ())
+  {
+    const ::xercesc::DOMAttr& i (p.next_attribute ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    if (n.name () == "output_format" && n.namespace_ ().empty ())
+    {
+      this->output_format_.set (output_format_traits::create (i, f, this));
+      continue;
     }
 
-    return *this;
+    if (n.name () == "fps" && n.namespace_ ().empty ())
+    {
+      this->fps_.set (fps_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "video_length_s" && n.namespace_ ().empty ())
+    {
+      this->video_length_s_.set (video_length_s_traits::create (i, f, this));
+      continue;
+    }
+  }
+
+  if (!output_format_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "output_format",
+      "");
+  }
+
+  if (!fps_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "fps",
+      "");
+  }
+
+  if (!video_length_s_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "video_length_s",
+      "");
+  }
 }
 
-FrameWriterInterceptorType::~FrameWriterInterceptorType() {}
+FrameWriterInterceptorType* FrameWriterInterceptorType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class FrameWriterInterceptorType (*this, f, c);
+}
+
+FrameWriterInterceptorType& FrameWriterInterceptorType::
+operator= (const FrameWriterInterceptorType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->output_format_ = x.output_format_;
+    this->fps_ = x.fps_;
+    this->video_length_s_ = x.video_length_s_;
+  }
+
+  return *this;
+}
+
+FrameWriterInterceptorType::
+~FrameWriterInterceptorType ()
+{
+}
 
 // ThermostatInterceptorType
 //
 
-ThermostatInterceptorType::ThermostatInterceptorType(const target_temperature_type& target_temperature,
-                                                     const max_temperature_change_type& max_temperature_change,
-                                                     const application_interval_type& application_interval, const type_type& type)
-    : ::xml_schema::type(),
-      temperature_sensor_(this),
-      target_temperature_(target_temperature, this),
-      max_temperature_change_(max_temperature_change, this),
-      application_interval_(application_interval, this),
-      type_(type, this) {}
-
-ThermostatInterceptorType::ThermostatInterceptorType(const ThermostatInterceptorType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      temperature_sensor_(x.temperature_sensor_, f, this),
-      target_temperature_(x.target_temperature_, f, this),
-      max_temperature_change_(x.max_temperature_change_, f, this),
-      application_interval_(x.application_interval_, f, this),
-      type_(x.type_, f, this) {}
-
-ThermostatInterceptorType::ThermostatInterceptorType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
-      temperature_sensor_(this),
-      target_temperature_(this),
-      max_temperature_change_(this),
-      application_interval_(this),
-      type_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, true);
-        this->parse(p, f);
-    }
+ThermostatInterceptorType::
+ThermostatInterceptorType (const target_temperature_type& target_temperature,
+                           const max_temperature_change_type& max_temperature_change,
+                           const application_interval_type& application_interval,
+                           const type_type& type)
+: ::xml_schema::type (),
+  temperature_sensor_ (this),
+  target_temperature_ (target_temperature, this),
+  max_temperature_change_ (max_temperature_change, this),
+  application_interval_ (application_interval, this),
+  type_ (type, this)
+{
 }
 
-void ThermostatInterceptorType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // temperature_sensor
-        //
-        if (n.name() == "temperature_sensor" && n.namespace_().empty()) {
-            ::std::unique_ptr<temperature_sensor_type> r(temperature_sensor_traits::create(i, f, this));
-
-            if (!this->temperature_sensor_) {
-                this->temperature_sensor_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        break;
-    }
-
-    while (p.more_attributes()) {
-        const ::xercesc::DOMAttr& i(p.next_attribute());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        if (n.name() == "target_temperature" && n.namespace_().empty()) {
-            this->target_temperature_.set(target_temperature_traits::create(i, f, this));
-            continue;
-        }
-
-        if (n.name() == "max_temperature_change" && n.namespace_().empty()) {
-            this->max_temperature_change_.set(max_temperature_change_traits::create(i, f, this));
-            continue;
-        }
-
-        if (n.name() == "application_interval" && n.namespace_().empty()) {
-            this->application_interval_.set(application_interval_traits::create(i, f, this));
-            continue;
-        }
-
-        if (n.name() == "type" && n.namespace_().empty()) {
-            this->type_.set(type_traits::create(i, f, this));
-            continue;
-        }
-    }
-
-    if (!target_temperature_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("target_temperature", "");
-    }
-
-    if (!max_temperature_change_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("max_temperature_change", "");
-    }
-
-    if (!application_interval_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("application_interval", "");
-    }
-
-    if (!type_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("type", "");
-    }
+ThermostatInterceptorType::
+ThermostatInterceptorType (const ThermostatInterceptorType& x,
+                           ::xml_schema::flags f,
+                           ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  temperature_sensor_ (x.temperature_sensor_, f, this),
+  target_temperature_ (x.target_temperature_, f, this),
+  max_temperature_change_ (x.max_temperature_change_, f, this),
+  application_interval_ (x.application_interval_, f, this),
+  type_ (x.type_, f, this)
+{
 }
 
-ThermostatInterceptorType* ThermostatInterceptorType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class ThermostatInterceptorType(*this, f, c);
+ThermostatInterceptorType::
+ThermostatInterceptorType (const ::xercesc::DOMElement& e,
+                           ::xml_schema::flags f,
+                           ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  temperature_sensor_ (this),
+  target_temperature_ (this),
+  max_temperature_change_ (this),
+  application_interval_ (this),
+  type_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, true);
+    this->parse (p, f);
+  }
 }
 
-ThermostatInterceptorType& ThermostatInterceptorType::operator=(const ThermostatInterceptorType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->temperature_sensor_ = x.temperature_sensor_;
-        this->target_temperature_ = x.target_temperature_;
-        this->max_temperature_change_ = x.max_temperature_change_;
-        this->application_interval_ = x.application_interval_;
-        this->type_ = x.type_;
+void ThermostatInterceptorType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // temperature_sensor
+    //
+    if (n.name () == "temperature_sensor" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< temperature_sensor_type > r (
+        temperature_sensor_traits::create (i, f, this));
+
+      if (!this->temperature_sensor_)
+      {
+        this->temperature_sensor_.set (::std::move (r));
+        continue;
+      }
     }
 
-    return *this;
+    break;
+  }
+
+  while (p.more_attributes ())
+  {
+    const ::xercesc::DOMAttr& i (p.next_attribute ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    if (n.name () == "target_temperature" && n.namespace_ ().empty ())
+    {
+      this->target_temperature_.set (target_temperature_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "max_temperature_change" && n.namespace_ ().empty ())
+    {
+      this->max_temperature_change_.set (max_temperature_change_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "application_interval" && n.namespace_ ().empty ())
+    {
+      this->application_interval_.set (application_interval_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "type" && n.namespace_ ().empty ())
+    {
+      this->type_.set (type_traits::create (i, f, this));
+      continue;
+    }
+  }
+
+  if (!target_temperature_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "target_temperature",
+      "");
+  }
+
+  if (!max_temperature_change_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "max_temperature_change",
+      "");
+  }
+
+  if (!application_interval_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "application_interval",
+      "");
+  }
+
+  if (!type_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "type",
+      "");
+  }
 }
 
-ThermostatInterceptorType::~ThermostatInterceptorType() {}
+ThermostatInterceptorType* ThermostatInterceptorType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class ThermostatInterceptorType (*this, f, c);
+}
+
+ThermostatInterceptorType& ThermostatInterceptorType::
+operator= (const ThermostatInterceptorType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->temperature_sensor_ = x.temperature_sensor_;
+    this->target_temperature_ = x.target_temperature_;
+    this->max_temperature_change_ = x.max_temperature_change_;
+    this->application_interval_ = x.application_interval_;
+    this->type_ = x.type_;
+  }
+
+  return *this;
+}
+
+ThermostatInterceptorType::
+~ThermostatInterceptorType ()
+{
+}
 
 // RadialDistributionFunctionInterceptionType
 //
 
-RadialDistributionFunctionInterceptionType::RadialDistributionFunctionInterceptionType(
-    const bin_width_type& bin_width, const sample_every_x_percent_type& sample_every_x_percent)
-    : ::xml_schema::type(), bin_width_(bin_width, this), sample_every_x_percent_(sample_every_x_percent, this) {}
-
-RadialDistributionFunctionInterceptionType::RadialDistributionFunctionInterceptionType(const RadialDistributionFunctionInterceptionType& x,
-                                                                                       ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c), bin_width_(x.bin_width_, f, this), sample_every_x_percent_(x.sample_every_x_percent_, f, this) {}
-
-RadialDistributionFunctionInterceptionType::RadialDistributionFunctionInterceptionType(const ::xercesc::DOMElement& e,
-                                                                                       ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), bin_width_(this), sample_every_x_percent_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
-        this->parse(p, f);
-    }
+RadialDistributionFunctionInterceptionType::
+RadialDistributionFunctionInterceptionType (const bin_width_type& bin_width,
+                                            const sample_every_x_percent_type& sample_every_x_percent)
+: ::xml_schema::type (),
+  bin_width_ (bin_width, this),
+  sample_every_x_percent_ (sample_every_x_percent, this)
+{
 }
 
-void RadialDistributionFunctionInterceptionType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    while (p.more_attributes()) {
-        const ::xercesc::DOMAttr& i(p.next_attribute());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        if (n.name() == "bin_width" && n.namespace_().empty()) {
-            this->bin_width_.set(bin_width_traits::create(i, f, this));
-            continue;
-        }
-
-        if (n.name() == "sample_every_x_percent" && n.namespace_().empty()) {
-            this->sample_every_x_percent_.set(sample_every_x_percent_traits::create(i, f, this));
-            continue;
-        }
-    }
-
-    if (!bin_width_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("bin_width", "");
-    }
-
-    if (!sample_every_x_percent_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("sample_every_x_percent", "");
-    }
+RadialDistributionFunctionInterceptionType::
+RadialDistributionFunctionInterceptionType (const RadialDistributionFunctionInterceptionType& x,
+                                            ::xml_schema::flags f,
+                                            ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  bin_width_ (x.bin_width_, f, this),
+  sample_every_x_percent_ (x.sample_every_x_percent_, f, this)
+{
 }
 
-RadialDistributionFunctionInterceptionType* RadialDistributionFunctionInterceptionType::_clone(::xml_schema::flags f,
-                                                                                               ::xml_schema::container* c) const {
-    return new class RadialDistributionFunctionInterceptionType(*this, f, c);
+RadialDistributionFunctionInterceptionType::
+RadialDistributionFunctionInterceptionType (const ::xercesc::DOMElement& e,
+                                            ::xml_schema::flags f,
+                                            ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  bin_width_ (this),
+  sample_every_x_percent_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, false, false, true);
+    this->parse (p, f);
+  }
 }
 
-RadialDistributionFunctionInterceptionType& RadialDistributionFunctionInterceptionType::operator=(
-    const RadialDistributionFunctionInterceptionType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->bin_width_ = x.bin_width_;
-        this->sample_every_x_percent_ = x.sample_every_x_percent_;
+void RadialDistributionFunctionInterceptionType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  while (p.more_attributes ())
+  {
+    const ::xercesc::DOMAttr& i (p.next_attribute ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    if (n.name () == "bin_width" && n.namespace_ ().empty ())
+    {
+      this->bin_width_.set (bin_width_traits::create (i, f, this));
+      continue;
     }
 
-    return *this;
+    if (n.name () == "sample_every_x_percent" && n.namespace_ ().empty ())
+    {
+      this->sample_every_x_percent_.set (sample_every_x_percent_traits::create (i, f, this));
+      continue;
+    }
+  }
+
+  if (!bin_width_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "bin_width",
+      "");
+  }
+
+  if (!sample_every_x_percent_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "sample_every_x_percent",
+      "");
+  }
 }
 
-RadialDistributionFunctionInterceptionType::~RadialDistributionFunctionInterceptionType() {}
+RadialDistributionFunctionInterceptionType* RadialDistributionFunctionInterceptionType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class RadialDistributionFunctionInterceptionType (*this, f, c);
+}
+
+RadialDistributionFunctionInterceptionType& RadialDistributionFunctionInterceptionType::
+operator= (const RadialDistributionFunctionInterceptionType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->bin_width_ = x.bin_width_;
+    this->sample_every_x_percent_ = x.sample_every_x_percent_;
+  }
+
+  return *this;
+}
+
+RadialDistributionFunctionInterceptionType::
+~RadialDistributionFunctionInterceptionType ()
+{
+}
 
 // VelocityProfileInterceptionType
 //
 
-VelocityProfileInterceptionType::VelocityProfileInterceptionType(const num_bins_type& num_bins,
-                                                                 const sample_every_x_percent_type& sample_every_x_percent)
-    : ::xml_schema::type(), box_(this), num_bins_(num_bins, this), sample_every_x_percent_(sample_every_x_percent, this) {}
-
-VelocityProfileInterceptionType::VelocityProfileInterceptionType(const VelocityProfileInterceptionType& x, ::xml_schema::flags f,
-                                                                 ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      box_(x.box_, f, this),
-      num_bins_(x.num_bins_, f, this),
-      sample_every_x_percent_(x.sample_every_x_percent_, f, this) {}
-
-VelocityProfileInterceptionType::VelocityProfileInterceptionType(const ::xercesc::DOMElement& e, ::xml_schema::flags f,
-                                                                 ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), box_(this), num_bins_(this), sample_every_x_percent_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, true);
-        this->parse(p, f);
-    }
+VelocityProfileInterceptionType::
+VelocityProfileInterceptionType (const num_bins_type& num_bins,
+                                 const sample_every_x_percent_type& sample_every_x_percent)
+: ::xml_schema::type (),
+  box_ (this),
+  num_bins_ (num_bins, this),
+  sample_every_x_percent_ (sample_every_x_percent, this)
+{
 }
 
-void VelocityProfileInterceptionType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // box
-        //
-        if (n.name() == "box" && n.namespace_().empty()) {
-            ::std::unique_ptr<box_type> r(box_traits::create(i, f, this));
-
-            if (!this->box_) {
-                this->box_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        break;
-    }
-
-    while (p.more_attributes()) {
-        const ::xercesc::DOMAttr& i(p.next_attribute());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        if (n.name() == "num_bins" && n.namespace_().empty()) {
-            this->num_bins_.set(num_bins_traits::create(i, f, this));
-            continue;
-        }
-
-        if (n.name() == "sample_every_x_percent" && n.namespace_().empty()) {
-            this->sample_every_x_percent_.set(sample_every_x_percent_traits::create(i, f, this));
-            continue;
-        }
-    }
-
-    if (!num_bins_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("num_bins", "");
-    }
-
-    if (!sample_every_x_percent_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("sample_every_x_percent", "");
-    }
+VelocityProfileInterceptionType::
+VelocityProfileInterceptionType (const VelocityProfileInterceptionType& x,
+                                 ::xml_schema::flags f,
+                                 ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  box_ (x.box_, f, this),
+  num_bins_ (x.num_bins_, f, this),
+  sample_every_x_percent_ (x.sample_every_x_percent_, f, this)
+{
 }
 
-VelocityProfileInterceptionType* VelocityProfileInterceptionType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class VelocityProfileInterceptionType(*this, f, c);
+VelocityProfileInterceptionType::
+VelocityProfileInterceptionType (const ::xercesc::DOMElement& e,
+                                 ::xml_schema::flags f,
+                                 ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  box_ (this),
+  num_bins_ (this),
+  sample_every_x_percent_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, true);
+    this->parse (p, f);
+  }
 }
 
-VelocityProfileInterceptionType& VelocityProfileInterceptionType::operator=(const VelocityProfileInterceptionType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->box_ = x.box_;
-        this->num_bins_ = x.num_bins_;
-        this->sample_every_x_percent_ = x.sample_every_x_percent_;
+void VelocityProfileInterceptionType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // box
+    //
+    if (n.name () == "box" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< box_type > r (
+        box_traits::create (i, f, this));
+
+      if (!this->box_)
+      {
+        this->box_.set (::std::move (r));
+        continue;
+      }
     }
 
-    return *this;
+    break;
+  }
+
+  while (p.more_attributes ())
+  {
+    const ::xercesc::DOMAttr& i (p.next_attribute ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    if (n.name () == "num_bins" && n.namespace_ ().empty ())
+    {
+      this->num_bins_.set (num_bins_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "sample_every_x_percent" && n.namespace_ ().empty ())
+    {
+      this->sample_every_x_percent_.set (sample_every_x_percent_traits::create (i, f, this));
+      continue;
+    }
+  }
+
+  if (!num_bins_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "num_bins",
+      "");
+  }
+
+  if (!sample_every_x_percent_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "sample_every_x_percent",
+      "");
+  }
 }
 
-VelocityProfileInterceptionType::~VelocityProfileInterceptionType() {}
+VelocityProfileInterceptionType* VelocityProfileInterceptionType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class VelocityProfileInterceptionType (*this, f, c);
+}
+
+VelocityProfileInterceptionType& VelocityProfileInterceptionType::
+operator= (const VelocityProfileInterceptionType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->box_ = x.box_;
+    this->num_bins_ = x.num_bins_;
+    this->sample_every_x_percent_ = x.sample_every_x_percent_;
+  }
+
+  return *this;
+}
+
+VelocityProfileInterceptionType::
+~VelocityProfileInterceptionType ()
+{
+}
 
 // TemperatureSensorInterceptorType
 //
 
-TemperatureSensorInterceptorType::TemperatureSensorInterceptorType(const sample_every_x_percent_type& sample_every_x_percent)
-    : ::xml_schema::type(), sample_every_x_percent_(sample_every_x_percent, this) {}
-
-TemperatureSensorInterceptorType::TemperatureSensorInterceptorType(const TemperatureSensorInterceptorType& x, ::xml_schema::flags f,
-                                                                   ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c), sample_every_x_percent_(x.sample_every_x_percent_, f, this) {}
-
-TemperatureSensorInterceptorType::TemperatureSensorInterceptorType(const ::xercesc::DOMElement& e, ::xml_schema::flags f,
-                                                                   ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), sample_every_x_percent_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
-        this->parse(p, f);
-    }
+TemperatureSensorInterceptorType::
+TemperatureSensorInterceptorType (const sample_every_x_percent_type& sample_every_x_percent)
+: ::xml_schema::type (),
+  sample_every_x_percent_ (sample_every_x_percent, this)
+{
 }
 
-void TemperatureSensorInterceptorType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    while (p.more_attributes()) {
-        const ::xercesc::DOMAttr& i(p.next_attribute());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        if (n.name() == "sample_every_x_percent" && n.namespace_().empty()) {
-            this->sample_every_x_percent_.set(sample_every_x_percent_traits::create(i, f, this));
-            continue;
-        }
-    }
-
-    if (!sample_every_x_percent_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("sample_every_x_percent", "");
-    }
+TemperatureSensorInterceptorType::
+TemperatureSensorInterceptorType (const TemperatureSensorInterceptorType& x,
+                                  ::xml_schema::flags f,
+                                  ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  sample_every_x_percent_ (x.sample_every_x_percent_, f, this)
+{
 }
 
-TemperatureSensorInterceptorType* TemperatureSensorInterceptorType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class TemperatureSensorInterceptorType(*this, f, c);
+TemperatureSensorInterceptorType::
+TemperatureSensorInterceptorType (const ::xercesc::DOMElement& e,
+                                  ::xml_schema::flags f,
+                                  ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  sample_every_x_percent_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, false, false, true);
+    this->parse (p, f);
+  }
 }
 
-TemperatureSensorInterceptorType& TemperatureSensorInterceptorType::operator=(const TemperatureSensorInterceptorType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->sample_every_x_percent_ = x.sample_every_x_percent_;
+void TemperatureSensorInterceptorType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  while (p.more_attributes ())
+  {
+    const ::xercesc::DOMAttr& i (p.next_attribute ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    if (n.name () == "sample_every_x_percent" && n.namespace_ ().empty ())
+    {
+      this->sample_every_x_percent_.set (sample_every_x_percent_traits::create (i, f, this));
+      continue;
     }
+  }
 
-    return *this;
+  if (!sample_every_x_percent_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "sample_every_x_percent",
+      "");
+  }
 }
 
-TemperatureSensorInterceptorType::~TemperatureSensorInterceptorType() {}
+TemperatureSensorInterceptorType* TemperatureSensorInterceptorType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class TemperatureSensorInterceptorType (*this, f, c);
+}
+
+TemperatureSensorInterceptorType& TemperatureSensorInterceptorType::
+operator= (const TemperatureSensorInterceptorType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->sample_every_x_percent_ = x.sample_every_x_percent_;
+  }
+
+  return *this;
+}
+
+TemperatureSensorInterceptorType::
+~TemperatureSensorInterceptorType ()
+{
+}
 
 // SimulationInterceptorsType
 //
 
-SimulationInterceptorsType::SimulationInterceptorsType()
-    : ::xml_schema::type(),
-      ParticleUpdatesPerSecond_(this),
-      DiffusionFunction_(this),
-      RadialDistributionFunction_(this),
-      VelocityProfile_(this),
-      FrameWriter_(this),
-      Thermostat_(this) {}
-
-SimulationInterceptorsType::SimulationInterceptorsType(const SimulationInterceptorsType& x, ::xml_schema::flags f,
-                                                       ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      ParticleUpdatesPerSecond_(x.ParticleUpdatesPerSecond_, f, this),
-      DiffusionFunction_(x.DiffusionFunction_, f, this),
-      RadialDistributionFunction_(x.RadialDistributionFunction_, f, this),
-      VelocityProfile_(x.VelocityProfile_, f, this),
-      FrameWriter_(x.FrameWriter_, f, this),
-      Thermostat_(x.Thermostat_, f, this) {}
-
-SimulationInterceptorsType::SimulationInterceptorsType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
-      ParticleUpdatesPerSecond_(this),
-      DiffusionFunction_(this),
-      RadialDistributionFunction_(this),
-      VelocityProfile_(this),
-      FrameWriter_(this),
-      Thermostat_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
-        this->parse(p, f);
-    }
+SimulationInterceptorsType::
+SimulationInterceptorsType ()
+: ::xml_schema::type (),
+  ParticleUpdatesPerSecond_ (this),
+  DiffusionFunction_ (this),
+  RadialDistributionFunction_ (this),
+  VelocityProfile_ (this),
+  FrameWriter_ (this),
+  Thermostat_ (this)
+{
 }
 
-void SimulationInterceptorsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // ParticleUpdatesPerSecond
-        //
-        if (n.name() == "ParticleUpdatesPerSecond" && n.namespace_().empty()) {
-            ::std::unique_ptr<ParticleUpdatesPerSecond_type> r(ParticleUpdatesPerSecond_traits::create(i, f, this));
-
-            if (!this->ParticleUpdatesPerSecond_) {
-                this->ParticleUpdatesPerSecond_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // DiffusionFunction
-        //
-        if (n.name() == "DiffusionFunction" && n.namespace_().empty()) {
-            ::std::unique_ptr<DiffusionFunction_type> r(DiffusionFunction_traits::create(i, f, this));
-
-            if (!this->DiffusionFunction_) {
-                this->DiffusionFunction_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // RadialDistributionFunction
-        //
-        if (n.name() == "RadialDistributionFunction" && n.namespace_().empty()) {
-            ::std::unique_ptr<RadialDistributionFunction_type> r(RadialDistributionFunction_traits::create(i, f, this));
-
-            if (!this->RadialDistributionFunction_) {
-                this->RadialDistributionFunction_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // VelocityProfile
-        //
-        if (n.name() == "VelocityProfile" && n.namespace_().empty()) {
-            ::std::unique_ptr<VelocityProfile_type> r(VelocityProfile_traits::create(i, f, this));
-
-            if (!this->VelocityProfile_) {
-                this->VelocityProfile_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // FrameWriter
-        //
-        if (n.name() == "FrameWriter" && n.namespace_().empty()) {
-            ::std::unique_ptr<FrameWriter_type> r(FrameWriter_traits::create(i, f, this));
-
-            if (!this->FrameWriter_) {
-                this->FrameWriter_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // Thermostat
-        //
-        if (n.name() == "Thermostat" && n.namespace_().empty()) {
-            ::std::unique_ptr<Thermostat_type> r(Thermostat_traits::create(i, f, this));
-
-            if (!this->Thermostat_) {
-                this->Thermostat_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        break;
-    }
+SimulationInterceptorsType::
+SimulationInterceptorsType (const SimulationInterceptorsType& x,
+                            ::xml_schema::flags f,
+                            ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  ParticleUpdatesPerSecond_ (x.ParticleUpdatesPerSecond_, f, this),
+  DiffusionFunction_ (x.DiffusionFunction_, f, this),
+  RadialDistributionFunction_ (x.RadialDistributionFunction_, f, this),
+  VelocityProfile_ (x.VelocityProfile_, f, this),
+  FrameWriter_ (x.FrameWriter_, f, this),
+  Thermostat_ (x.Thermostat_, f, this)
+{
 }
 
-SimulationInterceptorsType* SimulationInterceptorsType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class SimulationInterceptorsType(*this, f, c);
+SimulationInterceptorsType::
+SimulationInterceptorsType (const ::xercesc::DOMElement& e,
+                            ::xml_schema::flags f,
+                            ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  ParticleUpdatesPerSecond_ (this),
+  DiffusionFunction_ (this),
+  RadialDistributionFunction_ (this),
+  VelocityProfile_ (this),
+  FrameWriter_ (this),
+  Thermostat_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, false);
+    this->parse (p, f);
+  }
 }
 
-SimulationInterceptorsType& SimulationInterceptorsType::operator=(const SimulationInterceptorsType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->ParticleUpdatesPerSecond_ = x.ParticleUpdatesPerSecond_;
-        this->DiffusionFunction_ = x.DiffusionFunction_;
-        this->RadialDistributionFunction_ = x.RadialDistributionFunction_;
-        this->VelocityProfile_ = x.VelocityProfile_;
-        this->FrameWriter_ = x.FrameWriter_;
-        this->Thermostat_ = x.Thermostat_;
+void SimulationInterceptorsType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // ParticleUpdatesPerSecond
+    //
+    if (n.name () == "ParticleUpdatesPerSecond" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< ParticleUpdatesPerSecond_type > r (
+        ParticleUpdatesPerSecond_traits::create (i, f, this));
+
+      this->ParticleUpdatesPerSecond_.push_back (::std::move (r));
+      continue;
     }
 
-    return *this;
+    // DiffusionFunction
+    //
+    if (n.name () == "DiffusionFunction" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< DiffusionFunction_type > r (
+        DiffusionFunction_traits::create (i, f, this));
+
+      this->DiffusionFunction_.push_back (::std::move (r));
+      continue;
+    }
+
+    // RadialDistributionFunction
+    //
+    if (n.name () == "RadialDistributionFunction" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< RadialDistributionFunction_type > r (
+        RadialDistributionFunction_traits::create (i, f, this));
+
+      this->RadialDistributionFunction_.push_back (::std::move (r));
+      continue;
+    }
+
+    // VelocityProfile
+    //
+    if (n.name () == "VelocityProfile" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< VelocityProfile_type > r (
+        VelocityProfile_traits::create (i, f, this));
+
+      this->VelocityProfile_.push_back (::std::move (r));
+      continue;
+    }
+
+    // FrameWriter
+    //
+    if (n.name () == "FrameWriter" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< FrameWriter_type > r (
+        FrameWriter_traits::create (i, f, this));
+
+      this->FrameWriter_.push_back (::std::move (r));
+      continue;
+    }
+
+    // Thermostat
+    //
+    if (n.name () == "Thermostat" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< Thermostat_type > r (
+        Thermostat_traits::create (i, f, this));
+
+      this->Thermostat_.push_back (::std::move (r));
+      continue;
+    }
+
+    break;
+  }
 }
 
-SimulationInterceptorsType::~SimulationInterceptorsType() {}
+SimulationInterceptorsType* SimulationInterceptorsType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class SimulationInterceptorsType (*this, f, c);
+}
+
+SimulationInterceptorsType& SimulationInterceptorsType::
+operator= (const SimulationInterceptorsType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->ParticleUpdatesPerSecond_ = x.ParticleUpdatesPerSecond_;
+    this->DiffusionFunction_ = x.DiffusionFunction_;
+    this->RadialDistributionFunction_ = x.RadialDistributionFunction_;
+    this->VelocityProfile_ = x.VelocityProfile_;
+    this->FrameWriter_ = x.FrameWriter_;
+    this->Thermostat_ = x.Thermostat_;
+  }
+
+  return *this;
+}
+
+SimulationInterceptorsType::
+~SimulationInterceptorsType ()
+{
+}
 
 // TargettedTemporaryConstantType
 //
 
-TargettedTemporaryConstantType::TargettedTemporaryConstantType(const force_type& force, const indices_type& indices,
-                                                               const start_time_type& start_time, const end_time_type& end_time)
-    : ::xml_schema::type(), force_(force, this), indices_(indices, this), start_time_(start_time, this), end_time_(end_time, this) {}
-
-TargettedTemporaryConstantType::TargettedTemporaryConstantType(::std::unique_ptr<force_type> force, const indices_type& indices,
-                                                               const start_time_type& start_time, const end_time_type& end_time)
-    : ::xml_schema::type(),
-      force_(std::move(force), this),
-      indices_(indices, this),
-      start_time_(start_time, this),
-      end_time_(end_time, this) {}
-
-TargettedTemporaryConstantType::TargettedTemporaryConstantType(const TargettedTemporaryConstantType& x, ::xml_schema::flags f,
-                                                               ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      force_(x.force_, f, this),
-      indices_(x.indices_, f, this),
-      start_time_(x.start_time_, f, this),
-      end_time_(x.end_time_, f, this) {}
-
-TargettedTemporaryConstantType::TargettedTemporaryConstantType(const ::xercesc::DOMElement& e, ::xml_schema::flags f,
-                                                               ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), force_(this), indices_(this), start_time_(this), end_time_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, true);
-        this->parse(p, f);
-    }
+TargettedTemporaryConstantType::
+TargettedTemporaryConstantType (const force_type& force,
+                                const indices_type& indices,
+                                const start_time_type& start_time,
+                                const end_time_type& end_time)
+: ::xml_schema::type (),
+  force_ (force, this),
+  indices_ (indices, this),
+  start_time_ (start_time, this),
+  end_time_ (end_time, this)
+{
 }
 
-void TargettedTemporaryConstantType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // force
-        //
-        if (n.name() == "force" && n.namespace_().empty()) {
-            ::std::unique_ptr<force_type> r(force_traits::create(i, f, this));
-
-            if (!force_.present()) {
-                this->force_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        break;
-    }
-
-    if (!force_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("force", "");
-    }
-
-    while (p.more_attributes()) {
-        const ::xercesc::DOMAttr& i(p.next_attribute());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        if (n.name() == "indices" && n.namespace_().empty()) {
-            this->indices_.set(indices_traits::create(i, f, this));
-            continue;
-        }
-
-        if (n.name() == "start_time" && n.namespace_().empty()) {
-            this->start_time_.set(start_time_traits::create(i, f, this));
-            continue;
-        }
-
-        if (n.name() == "end_time" && n.namespace_().empty()) {
-            this->end_time_.set(end_time_traits::create(i, f, this));
-            continue;
-        }
-    }
-
-    if (!indices_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("indices", "");
-    }
-
-    if (!start_time_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("start_time", "");
-    }
-
-    if (!end_time_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("end_time", "");
-    }
+TargettedTemporaryConstantType::
+TargettedTemporaryConstantType (::std::unique_ptr< force_type > force,
+                                const indices_type& indices,
+                                const start_time_type& start_time,
+                                const end_time_type& end_time)
+: ::xml_schema::type (),
+  force_ (std::move (force), this),
+  indices_ (indices, this),
+  start_time_ (start_time, this),
+  end_time_ (end_time, this)
+{
 }
 
-TargettedTemporaryConstantType* TargettedTemporaryConstantType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class TargettedTemporaryConstantType(*this, f, c);
+TargettedTemporaryConstantType::
+TargettedTemporaryConstantType (const TargettedTemporaryConstantType& x,
+                                ::xml_schema::flags f,
+                                ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  force_ (x.force_, f, this),
+  indices_ (x.indices_, f, this),
+  start_time_ (x.start_time_, f, this),
+  end_time_ (x.end_time_, f, this)
+{
 }
 
-TargettedTemporaryConstantType& TargettedTemporaryConstantType::operator=(const TargettedTemporaryConstantType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->force_ = x.force_;
-        this->indices_ = x.indices_;
-        this->start_time_ = x.start_time_;
-        this->end_time_ = x.end_time_;
+TargettedTemporaryConstantType::
+TargettedTemporaryConstantType (const ::xercesc::DOMElement& e,
+                                ::xml_schema::flags f,
+                                ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  force_ (this),
+  indices_ (this),
+  start_time_ (this),
+  end_time_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, true);
+    this->parse (p, f);
+  }
+}
+
+void TargettedTemporaryConstantType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // force
+    //
+    if (n.name () == "force" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< force_type > r (
+        force_traits::create (i, f, this));
+
+      if (!force_.present ())
+      {
+        this->force_.set (::std::move (r));
+        continue;
+      }
     }
 
-    return *this;
+    break;
+  }
+
+  if (!force_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "force",
+      "");
+  }
+
+  while (p.more_attributes ())
+  {
+    const ::xercesc::DOMAttr& i (p.next_attribute ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    if (n.name () == "indices" && n.namespace_ ().empty ())
+    {
+      this->indices_.set (indices_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "start_time" && n.namespace_ ().empty ())
+    {
+      this->start_time_.set (start_time_traits::create (i, f, this));
+      continue;
+    }
+
+    if (n.name () == "end_time" && n.namespace_ ().empty ())
+    {
+      this->end_time_.set (end_time_traits::create (i, f, this));
+      continue;
+    }
+  }
+
+  if (!indices_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "indices",
+      "");
+  }
+
+  if (!start_time_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "start_time",
+      "");
+  }
+
+  if (!end_time_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "end_time",
+      "");
+  }
 }
 
-TargettedTemporaryConstantType::~TargettedTemporaryConstantType() {}
+TargettedTemporaryConstantType* TargettedTemporaryConstantType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class TargettedTemporaryConstantType (*this, f, c);
+}
+
+TargettedTemporaryConstantType& TargettedTemporaryConstantType::
+operator= (const TargettedTemporaryConstantType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->force_ = x.force_;
+    this->indices_ = x.indices_;
+    this->start_time_ = x.start_time_;
+    this->end_time_ = x.end_time_;
+  }
+
+  return *this;
+}
+
+TargettedTemporaryConstantType::
+~TargettedTemporaryConstantType ()
+{
+}
 
 // LennardJonesType
 //
 
-LennardJonesType::LennardJonesType() : ::xml_schema::type() {}
-
-LennardJonesType::LennardJonesType(const LennardJonesType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c) {}
-
-LennardJonesType::LennardJonesType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f, c) {}
-
-LennardJonesType::LennardJonesType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(a, f, c) {}
-
-LennardJonesType::LennardJonesType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f,
-                                   ::xml_schema::container* c)
-    : ::xml_schema::type(s, e, f, c) {}
-
-LennardJonesType* LennardJonesType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class LennardJonesType(*this, f, c);
+LennardJonesType::
+LennardJonesType ()
+: ::xml_schema::type ()
+{
 }
 
-LennardJonesType::~LennardJonesType() {}
+LennardJonesType::
+LennardJonesType (const LennardJonesType& x,
+                  ::xml_schema::flags f,
+                  ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c)
+{
+}
+
+LennardJonesType::
+LennardJonesType (const ::xercesc::DOMElement& e,
+                  ::xml_schema::flags f,
+                  ::xml_schema::container* c)
+: ::xml_schema::type (e, f, c)
+{
+}
+
+LennardJonesType::
+LennardJonesType (const ::xercesc::DOMAttr& a,
+                  ::xml_schema::flags f,
+                  ::xml_schema::container* c)
+: ::xml_schema::type (a, f, c)
+{
+}
+
+LennardJonesType::
+LennardJonesType (const ::std::string& s,
+                  const ::xercesc::DOMElement* e,
+                  ::xml_schema::flags f,
+                  ::xml_schema::container* c)
+: ::xml_schema::type (s, e, f, c)
+{
+}
+
+LennardJonesType* LennardJonesType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class LennardJonesType (*this, f, c);
+}
+
+LennardJonesType::
+~LennardJonesType ()
+{
+}
 
 // LennardJonesRepulsiveType
 //
 
-LennardJonesRepulsiveType::LennardJonesRepulsiveType() : ::xml_schema::type() {}
-
-LennardJonesRepulsiveType::LennardJonesRepulsiveType(const LennardJonesRepulsiveType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c) {}
-
-LennardJonesRepulsiveType::LennardJonesRepulsiveType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f, c) {}
-
-LennardJonesRepulsiveType::LennardJonesRepulsiveType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(a, f, c) {}
-
-LennardJonesRepulsiveType::LennardJonesRepulsiveType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f,
-                                                     ::xml_schema::container* c)
-    : ::xml_schema::type(s, e, f, c) {}
-
-LennardJonesRepulsiveType* LennardJonesRepulsiveType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class LennardJonesRepulsiveType(*this, f, c);
+LennardJonesRepulsiveType::
+LennardJonesRepulsiveType ()
+: ::xml_schema::type ()
+{
 }
 
-LennardJonesRepulsiveType::~LennardJonesRepulsiveType() {}
+LennardJonesRepulsiveType::
+LennardJonesRepulsiveType (const LennardJonesRepulsiveType& x,
+                           ::xml_schema::flags f,
+                           ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c)
+{
+}
+
+LennardJonesRepulsiveType::
+LennardJonesRepulsiveType (const ::xercesc::DOMElement& e,
+                           ::xml_schema::flags f,
+                           ::xml_schema::container* c)
+: ::xml_schema::type (e, f, c)
+{
+}
+
+LennardJonesRepulsiveType::
+LennardJonesRepulsiveType (const ::xercesc::DOMAttr& a,
+                           ::xml_schema::flags f,
+                           ::xml_schema::container* c)
+: ::xml_schema::type (a, f, c)
+{
+}
+
+LennardJonesRepulsiveType::
+LennardJonesRepulsiveType (const ::std::string& s,
+                           const ::xercesc::DOMElement* e,
+                           ::xml_schema::flags f,
+                           ::xml_schema::container* c)
+: ::xml_schema::type (s, e, f, c)
+{
+}
+
+LennardJonesRepulsiveType* LennardJonesRepulsiveType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class LennardJonesRepulsiveType (*this, f, c);
+}
+
+LennardJonesRepulsiveType::
+~LennardJonesRepulsiveType ()
+{
+}
 
 // SmoothedLennardJonesType
 //
 
-SmoothedLennardJonesType::SmoothedLennardJonesType(const r_c_type& r_c, const r_l_type& r_l)
-    : ::xml_schema::type(), r_c_(r_c, this), r_l_(r_l, this) {}
-
-SmoothedLennardJonesType::SmoothedLennardJonesType(const SmoothedLennardJonesType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c), r_c_(x.r_c_, f, this), r_l_(x.r_l_, f, this) {}
-
-SmoothedLennardJonesType::SmoothedLennardJonesType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), r_c_(this), r_l_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
-        this->parse(p, f);
-    }
+SmoothedLennardJonesType::
+SmoothedLennardJonesType (const r_c_type& r_c,
+                          const r_l_type& r_l)
+: ::xml_schema::type (),
+  r_c_ (r_c, this),
+  r_l_ (r_l, this)
+{
 }
 
-void SmoothedLennardJonesType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    while (p.more_attributes()) {
-        const ::xercesc::DOMAttr& i(p.next_attribute());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        if (n.name() == "r_c" && n.namespace_().empty()) {
-            this->r_c_.set(r_c_traits::create(i, f, this));
-            continue;
-        }
-
-        if (n.name() == "r_l" && n.namespace_().empty()) {
-            this->r_l_.set(r_l_traits::create(i, f, this));
-            continue;
-        }
-    }
-
-    if (!r_c_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("r_c", "");
-    }
-
-    if (!r_l_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("r_l", "");
-    }
+SmoothedLennardJonesType::
+SmoothedLennardJonesType (const SmoothedLennardJonesType& x,
+                          ::xml_schema::flags f,
+                          ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  r_c_ (x.r_c_, f, this),
+  r_l_ (x.r_l_, f, this)
+{
 }
 
-SmoothedLennardJonesType* SmoothedLennardJonesType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class SmoothedLennardJonesType(*this, f, c);
+SmoothedLennardJonesType::
+SmoothedLennardJonesType (const ::xercesc::DOMElement& e,
+                          ::xml_schema::flags f,
+                          ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  r_c_ (this),
+  r_l_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, false, false, true);
+    this->parse (p, f);
+  }
 }
 
-SmoothedLennardJonesType& SmoothedLennardJonesType::operator=(const SmoothedLennardJonesType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->r_c_ = x.r_c_;
-        this->r_l_ = x.r_l_;
+void SmoothedLennardJonesType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  while (p.more_attributes ())
+  {
+    const ::xercesc::DOMAttr& i (p.next_attribute ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    if (n.name () == "r_c" && n.namespace_ ().empty ())
+    {
+      this->r_c_.set (r_c_traits::create (i, f, this));
+      continue;
     }
 
-    return *this;
+    if (n.name () == "r_l" && n.namespace_ ().empty ())
+    {
+      this->r_l_.set (r_l_traits::create (i, f, this));
+      continue;
+    }
+  }
+
+  if (!r_c_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "r_c",
+      "");
+  }
+
+  if (!r_l_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "r_l",
+      "");
+  }
 }
 
-SmoothedLennardJonesType::~SmoothedLennardJonesType() {}
+SmoothedLennardJonesType* SmoothedLennardJonesType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class SmoothedLennardJonesType (*this, f, c);
+}
+
+SmoothedLennardJonesType& SmoothedLennardJonesType::
+operator= (const SmoothedLennardJonesType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->r_c_ = x.r_c_;
+    this->r_l_ = x.r_l_;
+  }
+
+  return *this;
+}
+
+SmoothedLennardJonesType::
+~SmoothedLennardJonesType ()
+{
+}
 
 // GravitationalType
 //
 
-GravitationalType::GravitationalType() : ::xml_schema::type() {}
-
-GravitationalType::GravitationalType(const GravitationalType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c) {}
-
-GravitationalType::GravitationalType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f, c) {}
-
-GravitationalType::GravitationalType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(a, f, c) {}
-
-GravitationalType::GravitationalType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f,
-                                     ::xml_schema::container* c)
-    : ::xml_schema::type(s, e, f, c) {}
-
-GravitationalType* GravitationalType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class GravitationalType(*this, f, c);
+GravitationalType::
+GravitationalType ()
+: ::xml_schema::type ()
+{
 }
 
-GravitationalType::~GravitationalType() {}
+GravitationalType::
+GravitationalType (const GravitationalType& x,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c)
+{
+}
+
+GravitationalType::
+GravitationalType (const ::xercesc::DOMElement& e,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::type (e, f, c)
+{
+}
+
+GravitationalType::
+GravitationalType (const ::xercesc::DOMAttr& a,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::type (a, f, c)
+{
+}
+
+GravitationalType::
+GravitationalType (const ::std::string& s,
+                   const ::xercesc::DOMElement* e,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::type (s, e, f, c)
+{
+}
+
+GravitationalType* GravitationalType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class GravitationalType (*this, f, c);
+}
+
+GravitationalType::
+~GravitationalType ()
+{
+}
 
 // GlobalGravityType
 //
 
-GlobalGravityType::GlobalGravityType(const g_type& g) : ::xml_schema::type(), g_(g, this) {}
-
-GlobalGravityType::GlobalGravityType(const GlobalGravityType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c), g_(x.g_, f, this) {}
-
-GlobalGravityType::GlobalGravityType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), g_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, false, false, true);
-        this->parse(p, f);
-    }
+GlobalGravityType::
+GlobalGravityType (const g_type& g)
+: ::xml_schema::type (),
+  g_ (g, this)
+{
 }
 
-void GlobalGravityType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    while (p.more_attributes()) {
-        const ::xercesc::DOMAttr& i(p.next_attribute());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        if (n.name() == "g" && n.namespace_().empty()) {
-            this->g_.set(g_traits::create(i, f, this));
-            continue;
-        }
-    }
-
-    if (!g_.present()) {
-        throw ::xsd::cxx::tree::expected_attribute<char>("g", "");
-    }
+GlobalGravityType::
+GlobalGravityType (const GlobalGravityType& x,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  g_ (x.g_, f, this)
+{
 }
 
-GlobalGravityType* GlobalGravityType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class GlobalGravityType(*this, f, c);
+GlobalGravityType::
+GlobalGravityType (const ::xercesc::DOMElement& e,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  g_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, false, false, true);
+    this->parse (p, f);
+  }
 }
 
-GlobalGravityType& GlobalGravityType::operator=(const GlobalGravityType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->g_ = x.g_;
+void GlobalGravityType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  while (p.more_attributes ())
+  {
+    const ::xercesc::DOMAttr& i (p.next_attribute ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    if (n.name () == "g" && n.namespace_ ().empty ())
+    {
+      this->g_.set (g_traits::create (i, f, this));
+      continue;
     }
+  }
 
-    return *this;
+  if (!g_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_attribute< char > (
+      "g",
+      "");
+  }
 }
 
-GlobalGravityType::~GlobalGravityType() {}
+GlobalGravityType* GlobalGravityType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class GlobalGravityType (*this, f, c);
+}
+
+GlobalGravityType& GlobalGravityType::
+operator= (const GlobalGravityType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->g_ = x.g_;
+  }
+
+  return *this;
+}
+
+GlobalGravityType::
+~GlobalGravityType ()
+{
+}
 
 // HarmonicPotentialType
 //
 
-HarmonicPotentialType::HarmonicPotentialType() : ::xml_schema::type() {}
-
-HarmonicPotentialType::HarmonicPotentialType(const HarmonicPotentialType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c) {}
-
-HarmonicPotentialType::HarmonicPotentialType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f, c) {}
-
-HarmonicPotentialType::HarmonicPotentialType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(a, f, c) {}
-
-HarmonicPotentialType::HarmonicPotentialType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f,
-                                             ::xml_schema::container* c)
-    : ::xml_schema::type(s, e, f, c) {}
-
-HarmonicPotentialType* HarmonicPotentialType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class HarmonicPotentialType(*this, f, c);
+HarmonicPotentialType::
+HarmonicPotentialType ()
+: ::xml_schema::type ()
+{
 }
 
-HarmonicPotentialType::~HarmonicPotentialType() {}
+HarmonicPotentialType::
+HarmonicPotentialType (const HarmonicPotentialType& x,
+                       ::xml_schema::flags f,
+                       ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c)
+{
+}
+
+HarmonicPotentialType::
+HarmonicPotentialType (const ::xercesc::DOMElement& e,
+                       ::xml_schema::flags f,
+                       ::xml_schema::container* c)
+: ::xml_schema::type (e, f, c)
+{
+}
+
+HarmonicPotentialType::
+HarmonicPotentialType (const ::xercesc::DOMAttr& a,
+                       ::xml_schema::flags f,
+                       ::xml_schema::container* c)
+: ::xml_schema::type (a, f, c)
+{
+}
+
+HarmonicPotentialType::
+HarmonicPotentialType (const ::std::string& s,
+                       const ::xercesc::DOMElement* e,
+                       ::xml_schema::flags f,
+                       ::xml_schema::container* c)
+: ::xml_schema::type (s, e, f, c)
+{
+}
+
+HarmonicPotentialType* HarmonicPotentialType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class HarmonicPotentialType (*this, f, c);
+}
+
+HarmonicPotentialType::
+~HarmonicPotentialType ()
+{
+}
 
 // ForcesType
 //
 
-ForcesType::ForcesType()
-    : ::xml_schema::type(),
-      TargettedTemporaryConstant_(this),
-      LennardJones_(this),
-      LennardJonesRepulsive_(this),
-      SmoothedLennardJones_(this),
-      Gravitational_(this),
-      GlobalDownwardsGravity_(this),
-      HarmonicPotential_(this) {}
-
-ForcesType::ForcesType(const ForcesType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      TargettedTemporaryConstant_(x.TargettedTemporaryConstant_, f, this),
-      LennardJones_(x.LennardJones_, f, this),
-      LennardJonesRepulsive_(x.LennardJonesRepulsive_, f, this),
-      SmoothedLennardJones_(x.SmoothedLennardJones_, f, this),
-      Gravitational_(x.Gravitational_, f, this),
-      GlobalDownwardsGravity_(x.GlobalDownwardsGravity_, f, this),
-      HarmonicPotential_(x.HarmonicPotential_, f, this) {}
-
-ForcesType::ForcesType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
-      TargettedTemporaryConstant_(this),
-      LennardJones_(this),
-      LennardJonesRepulsive_(this),
-      SmoothedLennardJones_(this),
-      Gravitational_(this),
-      GlobalDownwardsGravity_(this),
-      HarmonicPotential_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
-        this->parse(p, f);
-    }
+ForcesType::
+ForcesType ()
+: ::xml_schema::type (),
+  TargettedTemporaryConstant_ (this),
+  LennardJones_ (this),
+  LennardJonesRepulsive_ (this),
+  SmoothedLennardJones_ (this),
+  Gravitational_ (this),
+  GlobalDownwardsGravity_ (this),
+  HarmonicPotential_ (this)
+{
 }
 
-void ForcesType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // TargettedTemporaryConstant
-        //
-        if (n.name() == "TargettedTemporaryConstant" && n.namespace_().empty()) {
-            ::std::unique_ptr<TargettedTemporaryConstant_type> r(TargettedTemporaryConstant_traits::create(i, f, this));
-
-            if (!this->TargettedTemporaryConstant_) {
-                this->TargettedTemporaryConstant_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // LennardJones
-        //
-        if (n.name() == "LennardJones" && n.namespace_().empty()) {
-            ::std::unique_ptr<LennardJones_type> r(LennardJones_traits::create(i, f, this));
-
-            if (!this->LennardJones_) {
-                this->LennardJones_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // LennardJonesRepulsive
-        //
-        if (n.name() == "LennardJonesRepulsive" && n.namespace_().empty()) {
-            ::std::unique_ptr<LennardJonesRepulsive_type> r(LennardJonesRepulsive_traits::create(i, f, this));
-
-            if (!this->LennardJonesRepulsive_) {
-                this->LennardJonesRepulsive_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // SmoothedLennardJones
-        //
-        if (n.name() == "SmoothedLennardJones" && n.namespace_().empty()) {
-            ::std::unique_ptr<SmoothedLennardJones_type> r(SmoothedLennardJones_traits::create(i, f, this));
-
-            if (!this->SmoothedLennardJones_) {
-                this->SmoothedLennardJones_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // Gravitational
-        //
-        if (n.name() == "Gravitational" && n.namespace_().empty()) {
-            ::std::unique_ptr<Gravitational_type> r(Gravitational_traits::create(i, f, this));
-
-            if (!this->Gravitational_) {
-                this->Gravitational_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // GlobalDownwardsGravity
-        //
-        if (n.name() == "GlobalDownwardsGravity" && n.namespace_().empty()) {
-            ::std::unique_ptr<GlobalDownwardsGravity_type> r(GlobalDownwardsGravity_traits::create(i, f, this));
-
-            if (!this->GlobalDownwardsGravity_) {
-                this->GlobalDownwardsGravity_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // HarmonicPotential
-        //
-        if (n.name() == "HarmonicPotential" && n.namespace_().empty()) {
-            ::std::unique_ptr<HarmonicPotential_type> r(HarmonicPotential_traits::create(i, f, this));
-
-            if (!this->HarmonicPotential_) {
-                this->HarmonicPotential_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        break;
-    }
+ForcesType::
+ForcesType (const ForcesType& x,
+            ::xml_schema::flags f,
+            ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  TargettedTemporaryConstant_ (x.TargettedTemporaryConstant_, f, this),
+  LennardJones_ (x.LennardJones_, f, this),
+  LennardJonesRepulsive_ (x.LennardJonesRepulsive_, f, this),
+  SmoothedLennardJones_ (x.SmoothedLennardJones_, f, this),
+  Gravitational_ (x.Gravitational_, f, this),
+  GlobalDownwardsGravity_ (x.GlobalDownwardsGravity_, f, this),
+  HarmonicPotential_ (x.HarmonicPotential_, f, this)
+{
 }
 
-ForcesType* ForcesType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const { return new class ForcesType(*this, f, c); }
-
-ForcesType& ForcesType::operator=(const ForcesType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->TargettedTemporaryConstant_ = x.TargettedTemporaryConstant_;
-        this->LennardJones_ = x.LennardJones_;
-        this->LennardJonesRepulsive_ = x.LennardJonesRepulsive_;
-        this->SmoothedLennardJones_ = x.SmoothedLennardJones_;
-        this->Gravitational_ = x.Gravitational_;
-        this->GlobalDownwardsGravity_ = x.GlobalDownwardsGravity_;
-        this->HarmonicPotential_ = x.HarmonicPotential_;
-    }
-
-    return *this;
+ForcesType::
+ForcesType (const ::xercesc::DOMElement& e,
+            ::xml_schema::flags f,
+            ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  TargettedTemporaryConstant_ (this),
+  LennardJones_ (this),
+  LennardJonesRepulsive_ (this),
+  SmoothedLennardJones_ (this),
+  Gravitational_ (this),
+  GlobalDownwardsGravity_ (this),
+  HarmonicPotential_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, false);
+    this->parse (p, f);
+  }
 }
 
-ForcesType::~ForcesType() {}
+void ForcesType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // TargettedTemporaryConstant
+    //
+    if (n.name () == "TargettedTemporaryConstant" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< TargettedTemporaryConstant_type > r (
+        TargettedTemporaryConstant_traits::create (i, f, this));
+
+      if (!this->TargettedTemporaryConstant_)
+      {
+        this->TargettedTemporaryConstant_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // LennardJones
+    //
+    if (n.name () == "LennardJones" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< LennardJones_type > r (
+        LennardJones_traits::create (i, f, this));
+
+      if (!this->LennardJones_)
+      {
+        this->LennardJones_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // LennardJonesRepulsive
+    //
+    if (n.name () == "LennardJonesRepulsive" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< LennardJonesRepulsive_type > r (
+        LennardJonesRepulsive_traits::create (i, f, this));
+
+      if (!this->LennardJonesRepulsive_)
+      {
+        this->LennardJonesRepulsive_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // SmoothedLennardJones
+    //
+    if (n.name () == "SmoothedLennardJones" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< SmoothedLennardJones_type > r (
+        SmoothedLennardJones_traits::create (i, f, this));
+
+      if (!this->SmoothedLennardJones_)
+      {
+        this->SmoothedLennardJones_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // Gravitational
+    //
+    if (n.name () == "Gravitational" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< Gravitational_type > r (
+        Gravitational_traits::create (i, f, this));
+
+      if (!this->Gravitational_)
+      {
+        this->Gravitational_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // GlobalDownwardsGravity
+    //
+    if (n.name () == "GlobalDownwardsGravity" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< GlobalDownwardsGravity_type > r (
+        GlobalDownwardsGravity_traits::create (i, f, this));
+
+      if (!this->GlobalDownwardsGravity_)
+      {
+        this->GlobalDownwardsGravity_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // HarmonicPotential
+    //
+    if (n.name () == "HarmonicPotential" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< HarmonicPotential_type > r (
+        HarmonicPotential_traits::create (i, f, this));
+
+      if (!this->HarmonicPotential_)
+      {
+        this->HarmonicPotential_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    break;
+  }
+}
+
+ForcesType* ForcesType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class ForcesType (*this, f, c);
+}
+
+ForcesType& ForcesType::
+operator= (const ForcesType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->TargettedTemporaryConstant_ = x.TargettedTemporaryConstant_;
+    this->LennardJones_ = x.LennardJones_;
+    this->LennardJonesRepulsive_ = x.LennardJonesRepulsive_;
+    this->SmoothedLennardJones_ = x.SmoothedLennardJones_;
+    this->Gravitational_ = x.Gravitational_;
+    this->GlobalDownwardsGravity_ = x.GlobalDownwardsGravity_;
+    this->HarmonicPotential_ = x.HarmonicPotential_;
+  }
+
+  return *this;
+}
+
+ForcesType::
+~ForcesType ()
+{
+}
 
 // ThreeDRegionType
 //
 
-ThreeDRegionType::ThreeDRegionType(const lower_left_front_corner_type& lower_left_front_corner,
-                                   const upper_right_back_corner_type& upper_right_back_corner)
-    : ::xml_schema::type(),
-      lower_left_front_corner_(lower_left_front_corner, this),
-      upper_right_back_corner_(upper_right_back_corner, this) {}
-
-ThreeDRegionType::ThreeDRegionType(::std::unique_ptr<lower_left_front_corner_type> lower_left_front_corner,
-                                   ::std::unique_ptr<upper_right_back_corner_type> upper_right_back_corner)
-    : ::xml_schema::type(),
-      lower_left_front_corner_(std::move(lower_left_front_corner), this),
-      upper_right_back_corner_(std::move(upper_right_back_corner), this) {}
-
-ThreeDRegionType::ThreeDRegionType(const ThreeDRegionType& x, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(x, f, c),
-      lower_left_front_corner_(x.lower_left_front_corner_, f, this),
-      upper_right_back_corner_(x.upper_right_back_corner_, f, this) {}
-
-ThreeDRegionType::ThreeDRegionType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), lower_left_front_corner_(this), upper_right_back_corner_(this) {
-    if ((f & ::xml_schema::flags::base) == 0) {
-        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
-        this->parse(p, f);
-    }
+ThreeDRegionType::
+ThreeDRegionType (const lower_left_front_corner_type& lower_left_front_corner,
+                  const upper_right_back_corner_type& upper_right_back_corner)
+: ::xml_schema::type (),
+  lower_left_front_corner_ (lower_left_front_corner, this),
+  upper_right_back_corner_ (upper_right_back_corner, this)
+{
 }
 
-void ThreeDRegionType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
-    for (; p.more_content(); p.next_content(false)) {
-        const ::xercesc::DOMElement& i(p.cur_element());
-        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
-
-        // lower_left_front_corner
-        //
-        if (n.name() == "lower_left_front_corner" && n.namespace_().empty()) {
-            ::std::unique_ptr<lower_left_front_corner_type> r(lower_left_front_corner_traits::create(i, f, this));
-
-            if (!lower_left_front_corner_.present()) {
-                this->lower_left_front_corner_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        // upper_right_back_corner
-        //
-        if (n.name() == "upper_right_back_corner" && n.namespace_().empty()) {
-            ::std::unique_ptr<upper_right_back_corner_type> r(upper_right_back_corner_traits::create(i, f, this));
-
-            if (!upper_right_back_corner_.present()) {
-                this->upper_right_back_corner_.set(::std::move(r));
-                continue;
-            }
-        }
-
-        break;
-    }
-
-    if (!lower_left_front_corner_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("lower_left_front_corner", "");
-    }
-
-    if (!upper_right_back_corner_.present()) {
-        throw ::xsd::cxx::tree::expected_element<char>("upper_right_back_corner", "");
-    }
+ThreeDRegionType::
+ThreeDRegionType (::std::unique_ptr< lower_left_front_corner_type > lower_left_front_corner,
+                  ::std::unique_ptr< upper_right_back_corner_type > upper_right_back_corner)
+: ::xml_schema::type (),
+  lower_left_front_corner_ (std::move (lower_left_front_corner), this),
+  upper_right_back_corner_ (std::move (upper_right_back_corner), this)
+{
 }
 
-ThreeDRegionType* ThreeDRegionType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class ThreeDRegionType(*this, f, c);
+ThreeDRegionType::
+ThreeDRegionType (const ThreeDRegionType& x,
+                  ::xml_schema::flags f,
+                  ::xml_schema::container* c)
+: ::xml_schema::type (x, f, c),
+  lower_left_front_corner_ (x.lower_left_front_corner_, f, this),
+  upper_right_back_corner_ (x.upper_right_back_corner_, f, this)
+{
 }
 
-ThreeDRegionType& ThreeDRegionType::operator=(const ThreeDRegionType& x) {
-    if (this != &x) {
-        static_cast< ::xml_schema::type&>(*this) = x;
-        this->lower_left_front_corner_ = x.lower_left_front_corner_;
-        this->upper_right_back_corner_ = x.upper_right_back_corner_;
+ThreeDRegionType::
+ThreeDRegionType (const ::xercesc::DOMElement& e,
+                  ::xml_schema::flags f,
+                  ::xml_schema::container* c)
+: ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+  lower_left_front_corner_ (this),
+  upper_right_back_corner_ (this)
+{
+  if ((f & ::xml_schema::flags::base) == 0)
+  {
+    ::xsd::cxx::xml::dom::parser< char > p (e, true, false, false);
+    this->parse (p, f);
+  }
+}
+
+void ThreeDRegionType::
+parse (::xsd::cxx::xml::dom::parser< char >& p,
+       ::xml_schema::flags f)
+{
+  for (; p.more_content (); p.next_content (false))
+  {
+    const ::xercesc::DOMElement& i (p.cur_element ());
+    const ::xsd::cxx::xml::qualified_name< char > n (
+      ::xsd::cxx::xml::dom::name< char > (i));
+
+    // lower_left_front_corner
+    //
+    if (n.name () == "lower_left_front_corner" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< lower_left_front_corner_type > r (
+        lower_left_front_corner_traits::create (i, f, this));
+
+      if (!lower_left_front_corner_.present ())
+      {
+        this->lower_left_front_corner_.set (::std::move (r));
+        continue;
+      }
     }
 
-    return *this;
+    // upper_right_back_corner
+    //
+    if (n.name () == "upper_right_back_corner" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< upper_right_back_corner_type > r (
+        upper_right_back_corner_traits::create (i, f, this));
+
+      if (!upper_right_back_corner_.present ())
+      {
+        this->upper_right_back_corner_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    break;
+  }
+
+  if (!lower_left_front_corner_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "lower_left_front_corner",
+      "");
+  }
+
+  if (!upper_right_back_corner_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "upper_right_back_corner",
+      "");
+  }
 }
 
-ThreeDRegionType::~ThreeDRegionType() {}
+ThreeDRegionType* ThreeDRegionType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class ThreeDRegionType (*this, f, c);
+}
+
+ThreeDRegionType& ThreeDRegionType::
+operator= (const ThreeDRegionType& x)
+{
+  if (this != &x)
+  {
+    static_cast< ::xml_schema::type& > (*this) = x;
+    this->lower_left_front_corner_ = x.lower_left_front_corner_;
+    this->upper_right_back_corner_ = x.upper_right_back_corner_;
+  }
+
+  return *this;
+}
+
+ThreeDRegionType::
+~ThreeDRegionType ()
+{
+}
 
 // IntegerListType
 //
 
-IntegerListType::IntegerListType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::simple_type(e, f, c), ::xsd::cxx::tree::list< ::xml_schema::integer, char>(e, f, this) {}
-
-IntegerListType::IntegerListType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::simple_type(a, f, c), ::xsd::cxx::tree::list< ::xml_schema::integer, char>(a, f, this) {}
-
-IntegerListType::IntegerListType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::simple_type(s, e, f, c), ::xsd::cxx::tree::list< ::xml_schema::integer, char>(s, e, f, this) {}
-
-IntegerListType* IntegerListType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class IntegerListType(*this, f, c);
+IntegerListType::
+IntegerListType (const ::xercesc::DOMElement& e,
+                 ::xml_schema::flags f,
+                 ::xml_schema::container* c)
+: ::xml_schema::simple_type (e, f, c),
+  ::xsd::cxx::tree::list< ::xml_schema::integer, char > (e, f, this)
+{
 }
 
-IntegerListType::~IntegerListType() {}
+IntegerListType::
+IntegerListType (const ::xercesc::DOMAttr& a,
+                 ::xml_schema::flags f,
+                 ::xml_schema::container* c)
+: ::xml_schema::simple_type (a, f, c),
+  ::xsd::cxx::tree::list< ::xml_schema::integer, char > (a, f, this)
+{
+}
+
+IntegerListType::
+IntegerListType (const ::std::string& s,
+                 const ::xercesc::DOMElement* e,
+                 ::xml_schema::flags f,
+                 ::xml_schema::container* c)
+: ::xml_schema::simple_type (s, e, f, c),
+  ::xsd::cxx::tree::list< ::xml_schema::integer, char > (s, e, f, this)
+{
+}
+
+IntegerListType* IntegerListType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class IntegerListType (*this, f, c);
+}
+
+IntegerListType::
+~IntegerListType ()
+{
+}
 
 // LogLevelType
 //
 
-LogLevelType::LogLevelType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(e, f, c) {
-    _xsd_LogLevelType_convert();
+LogLevelType::
+LogLevelType (const ::xercesc::DOMElement& e,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+: ::xml_schema::string (e, f, c)
+{
+  _xsd_LogLevelType_convert ();
 }
 
-LogLevelType::LogLevelType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c) : ::xml_schema::string(a, f, c) {
-    _xsd_LogLevelType_convert();
+LogLevelType::
+LogLevelType (const ::xercesc::DOMAttr& a,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+: ::xml_schema::string (a, f, c)
+{
+  _xsd_LogLevelType_convert ();
 }
 
-LogLevelType::LogLevelType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(s, e, f, c) {
-    _xsd_LogLevelType_convert();
+LogLevelType::
+LogLevelType (const ::std::string& s,
+              const ::xercesc::DOMElement* e,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+: ::xml_schema::string (s, e, f, c)
+{
+  _xsd_LogLevelType_convert ();
 }
 
-LogLevelType* LogLevelType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const { return new class LogLevelType(*this, f, c); }
-
-LogLevelType::value LogLevelType::_xsd_LogLevelType_convert() const {
-    ::xsd::cxx::tree::enum_comparator<char> c(_xsd_LogLevelType_literals_);
-    const value* i(::std::lower_bound(_xsd_LogLevelType_indexes_, _xsd_LogLevelType_indexes_ + 6, *this, c));
-
-    if (i == _xsd_LogLevelType_indexes_ + 6 || _xsd_LogLevelType_literals_[*i] != *this) {
-        throw ::xsd::cxx::tree::unexpected_enumerator<char>(*this);
-    }
-
-    return *i;
+LogLevelType* LogLevelType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class LogLevelType (*this, f, c);
 }
 
-const char* const LogLevelType::_xsd_LogLevelType_literals_[6] = {"off", "critical", "error", "warning", "info", "debug"};
+LogLevelType::value LogLevelType::
+_xsd_LogLevelType_convert () const
+{
+  ::xsd::cxx::tree::enum_comparator< char > c (_xsd_LogLevelType_literals_);
+  const value* i (::std::lower_bound (
+                    _xsd_LogLevelType_indexes_,
+                    _xsd_LogLevelType_indexes_ + 6,
+                    *this,
+                    c));
 
-const LogLevelType::value LogLevelType::_xsd_LogLevelType_indexes_[6] = {::LogLevelType::critical, ::LogLevelType::debug,
-                                                                         ::LogLevelType::error,    ::LogLevelType::info,
-                                                                         ::LogLevelType::off,      ::LogLevelType::warning};
+  if (i == _xsd_LogLevelType_indexes_ + 6 || _xsd_LogLevelType_literals_[*i] != *this)
+  {
+    throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
+  }
+
+  return *i;
+}
+
+const char* const LogLevelType::
+_xsd_LogLevelType_literals_[6] =
+{
+  "off",
+  "critical",
+  "error",
+  "warning",
+  "info",
+  "debug"
+};
+
+const LogLevelType::value LogLevelType::
+_xsd_LogLevelType_indexes_[6] =
+{
+  ::LogLevelType::critical,
+  ::LogLevelType::debug,
+  ::LogLevelType::error,
+  ::LogLevelType::info,
+  ::LogLevelType::off,
+  ::LogLevelType::warning
+};
 
 // OutputFormatType
 //
 
-OutputFormatType::OutputFormatType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(e, f, c) {
-    _xsd_OutputFormatType_convert();
+OutputFormatType::
+OutputFormatType (const ::xercesc::DOMElement& e,
+                  ::xml_schema::flags f,
+                  ::xml_schema::container* c)
+: ::xml_schema::string (e, f, c)
+{
+  _xsd_OutputFormatType_convert ();
 }
 
-OutputFormatType::OutputFormatType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(a, f, c) {
-    _xsd_OutputFormatType_convert();
+OutputFormatType::
+OutputFormatType (const ::xercesc::DOMAttr& a,
+                  ::xml_schema::flags f,
+                  ::xml_schema::container* c)
+: ::xml_schema::string (a, f, c)
+{
+  _xsd_OutputFormatType_convert ();
 }
 
-OutputFormatType::OutputFormatType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f,
-                                   ::xml_schema::container* c)
-    : ::xml_schema::string(s, e, f, c) {
-    _xsd_OutputFormatType_convert();
+OutputFormatType::
+OutputFormatType (const ::std::string& s,
+                  const ::xercesc::DOMElement* e,
+                  ::xml_schema::flags f,
+                  ::xml_schema::container* c)
+: ::xml_schema::string (s, e, f, c)
+{
+  _xsd_OutputFormatType_convert ();
 }
 
-OutputFormatType* OutputFormatType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class OutputFormatType(*this, f, c);
+OutputFormatType* OutputFormatType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class OutputFormatType (*this, f, c);
 }
 
-OutputFormatType::value OutputFormatType::_xsd_OutputFormatType_convert() const {
-    ::xsd::cxx::tree::enum_comparator<char> c(_xsd_OutputFormatType_literals_);
-    const value* i(::std::lower_bound(_xsd_OutputFormatType_indexes_, _xsd_OutputFormatType_indexes_ + 4, *this, c));
+OutputFormatType::value OutputFormatType::
+_xsd_OutputFormatType_convert () const
+{
+  ::xsd::cxx::tree::enum_comparator< char > c (_xsd_OutputFormatType_literals_);
+  const value* i (::std::lower_bound (
+                    _xsd_OutputFormatType_indexes_,
+                    _xsd_OutputFormatType_indexes_ + 4,
+                    *this,
+                    c));
 
-    if (i == _xsd_OutputFormatType_indexes_ + 4 || _xsd_OutputFormatType_literals_[*i] != *this) {
-        throw ::xsd::cxx::tree::unexpected_enumerator<char>(*this);
-    }
+  if (i == _xsd_OutputFormatType_indexes_ + 4 || _xsd_OutputFormatType_literals_[*i] != *this)
+  {
+    throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
+  }
 
-    return *i;
+  return *i;
 }
 
-const char* const OutputFormatType::_xsd_OutputFormatType_literals_[4] = {"vtu", "chkpt", "xyz", "none"};
+const char* const OutputFormatType::
+_xsd_OutputFormatType_literals_[4] =
+{
+  "vtu",
+  "chkpt",
+  "xyz",
+  "none"
+};
 
-const OutputFormatType::value OutputFormatType::_xsd_OutputFormatType_indexes_[4] = {::OutputFormatType::chkpt, ::OutputFormatType::none,
-                                                                                     ::OutputFormatType::vtu, ::OutputFormatType::xyz};
+const OutputFormatType::value OutputFormatType::
+_xsd_OutputFormatType_indexes_[4] =
+{
+  ::OutputFormatType::chkpt,
+  ::OutputFormatType::none,
+  ::OutputFormatType::vtu,
+  ::OutputFormatType::xyz
+};
 
 // ThermostatType
 //
 
-ThermostatType::ThermostatType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(e, f, c) {
-    _xsd_ThermostatType_convert();
+ThermostatType::
+ThermostatType (const ::xercesc::DOMElement& e,
+                ::xml_schema::flags f,
+                ::xml_schema::container* c)
+: ::xml_schema::string (e, f, c)
+{
+  _xsd_ThermostatType_convert ();
 }
 
-ThermostatType::ThermostatType(const ::xercesc::DOMAttr& a, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(a, f, c) {
-    _xsd_ThermostatType_convert();
+ThermostatType::
+ThermostatType (const ::xercesc::DOMAttr& a,
+                ::xml_schema::flags f,
+                ::xml_schema::container* c)
+: ::xml_schema::string (a, f, c)
+{
+  _xsd_ThermostatType_convert ();
 }
 
-ThermostatType::ThermostatType(const ::std::string& s, const ::xercesc::DOMElement* e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::string(s, e, f, c) {
-    _xsd_ThermostatType_convert();
+ThermostatType::
+ThermostatType (const ::std::string& s,
+                const ::xercesc::DOMElement* e,
+                ::xml_schema::flags f,
+                ::xml_schema::container* c)
+: ::xml_schema::string (s, e, f, c)
+{
+  _xsd_ThermostatType_convert ();
 }
 
-ThermostatType* ThermostatType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
-    return new class ThermostatType(*this, f, c);
+ThermostatType* ThermostatType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class ThermostatType (*this, f, c);
 }
 
-ThermostatType::value ThermostatType::_xsd_ThermostatType_convert() const {
-    ::xsd::cxx::tree::enum_comparator<char> c(_xsd_ThermostatType_literals_);
-    const value* i(::std::lower_bound(_xsd_ThermostatType_indexes_, _xsd_ThermostatType_indexes_ + 2, *this, c));
+ThermostatType::value ThermostatType::
+_xsd_ThermostatType_convert () const
+{
+  ::xsd::cxx::tree::enum_comparator< char > c (_xsd_ThermostatType_literals_);
+  const value* i (::std::lower_bound (
+                    _xsd_ThermostatType_indexes_,
+                    _xsd_ThermostatType_indexes_ + 2,
+                    *this,
+                    c));
 
-    if (i == _xsd_ThermostatType_indexes_ + 2 || _xsd_ThermostatType_literals_[*i] != *this) {
-        throw ::xsd::cxx::tree::unexpected_enumerator<char>(*this);
-    }
+  if (i == _xsd_ThermostatType_indexes_ + 2 || _xsd_ThermostatType_literals_[*i] != *this)
+  {
+    throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
+  }
 
-    return *i;
+  return *i;
 }
 
-const char* const ThermostatType::_xsd_ThermostatType_literals_[2] = {"absolute", "relative_motion"};
+const char* const ThermostatType::
+_xsd_ThermostatType_literals_[2] =
+{
+  "absolute",
+  "relative_motion"
+};
 
-const ThermostatType::value ThermostatType::_xsd_ThermostatType_indexes_[2] = {::ThermostatType::absolute,
-                                                                               ::ThermostatType::relative_motion};
+const ThermostatType::value ThermostatType::
+_xsd_ThermostatType_indexes_[2] =
+{
+  ::ThermostatType::absolute,
+  ::ThermostatType::relative_motion
+};
 
 #include <istream>
-#include <xsd/cxx/tree/error-handler.hxx>
 #include <xsd/cxx/xml/sax/std-input-source.hxx>
+#include <xsd/cxx/tree/error-handler.hxx>
 
-::std::unique_ptr< ::ConfigurationType> configuration(const ::std::string& u, ::xml_schema::flags f, const ::xml_schema::properties& p) {
-    ::xsd::cxx::xml::auto_initializer i((f & ::xml_schema::flags::dont_initialize) == 0, (f & ::xml_schema::flags::keep_dom) == 0);
+::std::unique_ptr< ::ConfigurationType >
+configuration (const ::std::string& u,
+               ::xml_schema::flags f,
+               const ::xml_schema::properties& p)
+{
+  ::xsd::cxx::xml::auto_initializer i (
+    (f & ::xml_schema::flags::dont_initialize) == 0,
+    (f & ::xml_schema::flags::keep_dom) == 0);
 
-    ::xsd::cxx::tree::error_handler<char> h;
+  ::xsd::cxx::tree::error_handler< char > h;
 
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::xsd::cxx::xml::dom::parse<char>(u, h, p, f));
+  ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument > d (
+    ::xsd::cxx::xml::dom::parse< char > (
+      u, h, p, f));
 
-    h.throw_if_failed< ::xsd::cxx::tree::parsing<char> >();
+  h.throw_if_failed< ::xsd::cxx::tree::parsing< char > > ();
 
-    return ::std::unique_ptr< ::ConfigurationType>(::configuration(std::move(d), f | ::xml_schema::flags::own_dom, p));
+  return ::std::unique_ptr< ::ConfigurationType > (
+    ::configuration (
+      std::move (d), f | ::xml_schema::flags::own_dom, p));
 }
 
-::std::unique_ptr< ::ConfigurationType> configuration(const ::std::string& u, ::xml_schema::error_handler& h, ::xml_schema::flags f,
-                                                      const ::xml_schema::properties& p) {
-    ::xsd::cxx::xml::auto_initializer i((f & ::xml_schema::flags::dont_initialize) == 0, (f & ::xml_schema::flags::keep_dom) == 0);
+::std::unique_ptr< ::ConfigurationType >
+configuration (const ::std::string& u,
+               ::xml_schema::error_handler& h,
+               ::xml_schema::flags f,
+               const ::xml_schema::properties& p)
+{
+  ::xsd::cxx::xml::auto_initializer i (
+    (f & ::xml_schema::flags::dont_initialize) == 0,
+    (f & ::xml_schema::flags::keep_dom) == 0);
 
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::xsd::cxx::xml::dom::parse<char>(u, h, p, f));
+  ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument > d (
+    ::xsd::cxx::xml::dom::parse< char > (
+      u, h, p, f));
 
-    if (!d.get()) throw ::xsd::cxx::tree::parsing<char>();
+  if (!d.get ())
+    throw ::xsd::cxx::tree::parsing< char > ();
 
-    return ::std::unique_ptr< ::ConfigurationType>(::configuration(std::move(d), f | ::xml_schema::flags::own_dom, p));
+  return ::std::unique_ptr< ::ConfigurationType > (
+    ::configuration (
+      std::move (d), f | ::xml_schema::flags::own_dom, p));
 }
 
-::std::unique_ptr< ::ConfigurationType> configuration(const ::std::string& u, ::xercesc::DOMErrorHandler& h, ::xml_schema::flags f,
-                                                      const ::xml_schema::properties& p) {
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::xsd::cxx::xml::dom::parse<char>(u, h, p, f));
+::std::unique_ptr< ::ConfigurationType >
+configuration (const ::std::string& u,
+               ::xercesc::DOMErrorHandler& h,
+               ::xml_schema::flags f,
+               const ::xml_schema::properties& p)
+{
+  ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument > d (
+    ::xsd::cxx::xml::dom::parse< char > (
+      u, h, p, f));
 
-    if (!d.get()) throw ::xsd::cxx::tree::parsing<char>();
+  if (!d.get ())
+    throw ::xsd::cxx::tree::parsing< char > ();
 
-    return ::std::unique_ptr< ::ConfigurationType>(::configuration(std::move(d), f | ::xml_schema::flags::own_dom, p));
+  return ::std::unique_ptr< ::ConfigurationType > (
+    ::configuration (
+      std::move (d), f | ::xml_schema::flags::own_dom, p));
 }
 
-::std::unique_ptr< ::ConfigurationType> configuration(::std::istream& is, ::xml_schema::flags f, const ::xml_schema::properties& p) {
-    ::xsd::cxx::xml::auto_initializer i((f & ::xml_schema::flags::dont_initialize) == 0, (f & ::xml_schema::flags::keep_dom) == 0);
+::std::unique_ptr< ::ConfigurationType >
+configuration (::std::istream& is,
+               ::xml_schema::flags f,
+               const ::xml_schema::properties& p)
+{
+  ::xsd::cxx::xml::auto_initializer i (
+    (f & ::xml_schema::flags::dont_initialize) == 0,
+    (f & ::xml_schema::flags::keep_dom) == 0);
 
-    ::xsd::cxx::xml::sax::std_input_source isrc(is);
-    return ::configuration(isrc, f, p);
+  ::xsd::cxx::xml::sax::std_input_source isrc (is);
+  return ::configuration (isrc, f, p);
 }
 
-::std::unique_ptr< ::ConfigurationType> configuration(::std::istream& is, ::xml_schema::error_handler& h, ::xml_schema::flags f,
-                                                      const ::xml_schema::properties& p) {
-    ::xsd::cxx::xml::auto_initializer i((f & ::xml_schema::flags::dont_initialize) == 0, (f & ::xml_schema::flags::keep_dom) == 0);
+::std::unique_ptr< ::ConfigurationType >
+configuration (::std::istream& is,
+               ::xml_schema::error_handler& h,
+               ::xml_schema::flags f,
+               const ::xml_schema::properties& p)
+{
+  ::xsd::cxx::xml::auto_initializer i (
+    (f & ::xml_schema::flags::dont_initialize) == 0,
+    (f & ::xml_schema::flags::keep_dom) == 0);
 
-    ::xsd::cxx::xml::sax::std_input_source isrc(is);
-    return ::configuration(isrc, h, f, p);
+  ::xsd::cxx::xml::sax::std_input_source isrc (is);
+  return ::configuration (isrc, h, f, p);
 }
 
-::std::unique_ptr< ::ConfigurationType> configuration(::std::istream& is, ::xercesc::DOMErrorHandler& h, ::xml_schema::flags f,
-                                                      const ::xml_schema::properties& p) {
-    ::xsd::cxx::xml::sax::std_input_source isrc(is);
-    return ::configuration(isrc, h, f, p);
+::std::unique_ptr< ::ConfigurationType >
+configuration (::std::istream& is,
+               ::xercesc::DOMErrorHandler& h,
+               ::xml_schema::flags f,
+               const ::xml_schema::properties& p)
+{
+  ::xsd::cxx::xml::sax::std_input_source isrc (is);
+  return ::configuration (isrc, h, f, p);
 }
 
-::std::unique_ptr< ::ConfigurationType> configuration(::std::istream& is, const ::std::string& sid, ::xml_schema::flags f,
-                                                      const ::xml_schema::properties& p) {
-    ::xsd::cxx::xml::auto_initializer i((f & ::xml_schema::flags::dont_initialize) == 0, (f & ::xml_schema::flags::keep_dom) == 0);
+::std::unique_ptr< ::ConfigurationType >
+configuration (::std::istream& is,
+               const ::std::string& sid,
+               ::xml_schema::flags f,
+               const ::xml_schema::properties& p)
+{
+  ::xsd::cxx::xml::auto_initializer i (
+    (f & ::xml_schema::flags::dont_initialize) == 0,
+    (f & ::xml_schema::flags::keep_dom) == 0);
 
-    ::xsd::cxx::xml::sax::std_input_source isrc(is, sid);
-    return ::configuration(isrc, f, p);
+  ::xsd::cxx::xml::sax::std_input_source isrc (is, sid);
+  return ::configuration (isrc, f, p);
 }
 
-::std::unique_ptr< ::ConfigurationType> configuration(::std::istream& is, const ::std::string& sid, ::xml_schema::error_handler& h,
-                                                      ::xml_schema::flags f, const ::xml_schema::properties& p) {
-    ::xsd::cxx::xml::auto_initializer i((f & ::xml_schema::flags::dont_initialize) == 0, (f & ::xml_schema::flags::keep_dom) == 0);
+::std::unique_ptr< ::ConfigurationType >
+configuration (::std::istream& is,
+               const ::std::string& sid,
+               ::xml_schema::error_handler& h,
+               ::xml_schema::flags f,
+               const ::xml_schema::properties& p)
+{
+  ::xsd::cxx::xml::auto_initializer i (
+    (f & ::xml_schema::flags::dont_initialize) == 0,
+    (f & ::xml_schema::flags::keep_dom) == 0);
 
-    ::xsd::cxx::xml::sax::std_input_source isrc(is, sid);
-    return ::configuration(isrc, h, f, p);
+  ::xsd::cxx::xml::sax::std_input_source isrc (is, sid);
+  return ::configuration (isrc, h, f, p);
 }
 
-::std::unique_ptr< ::ConfigurationType> configuration(::std::istream& is, const ::std::string& sid, ::xercesc::DOMErrorHandler& h,
-                                                      ::xml_schema::flags f, const ::xml_schema::properties& p) {
-    ::xsd::cxx::xml::sax::std_input_source isrc(is, sid);
-    return ::configuration(isrc, h, f, p);
+::std::unique_ptr< ::ConfigurationType >
+configuration (::std::istream& is,
+               const ::std::string& sid,
+               ::xercesc::DOMErrorHandler& h,
+               ::xml_schema::flags f,
+               const ::xml_schema::properties& p)
+{
+  ::xsd::cxx::xml::sax::std_input_source isrc (is, sid);
+  return ::configuration (isrc, h, f, p);
 }
 
-::std::unique_ptr< ::ConfigurationType> configuration(::xercesc::InputSource& i, ::xml_schema::flags f, const ::xml_schema::properties& p) {
-    ::xsd::cxx::tree::error_handler<char> h;
+::std::unique_ptr< ::ConfigurationType >
+configuration (::xercesc::InputSource& i,
+               ::xml_schema::flags f,
+               const ::xml_schema::properties& p)
+{
+  ::xsd::cxx::tree::error_handler< char > h;
 
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::xsd::cxx::xml::dom::parse<char>(i, h, p, f));
+  ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument > d (
+    ::xsd::cxx::xml::dom::parse< char > (
+      i, h, p, f));
 
-    h.throw_if_failed< ::xsd::cxx::tree::parsing<char> >();
+  h.throw_if_failed< ::xsd::cxx::tree::parsing< char > > ();
 
-    return ::std::unique_ptr< ::ConfigurationType>(::configuration(std::move(d), f | ::xml_schema::flags::own_dom, p));
+  return ::std::unique_ptr< ::ConfigurationType > (
+    ::configuration (
+      std::move (d), f | ::xml_schema::flags::own_dom, p));
 }
 
-::std::unique_ptr< ::ConfigurationType> configuration(::xercesc::InputSource& i, ::xml_schema::error_handler& h, ::xml_schema::flags f,
-                                                      const ::xml_schema::properties& p) {
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::xsd::cxx::xml::dom::parse<char>(i, h, p, f));
+::std::unique_ptr< ::ConfigurationType >
+configuration (::xercesc::InputSource& i,
+               ::xml_schema::error_handler& h,
+               ::xml_schema::flags f,
+               const ::xml_schema::properties& p)
+{
+  ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument > d (
+    ::xsd::cxx::xml::dom::parse< char > (
+      i, h, p, f));
 
-    if (!d.get()) throw ::xsd::cxx::tree::parsing<char>();
+  if (!d.get ())
+    throw ::xsd::cxx::tree::parsing< char > ();
 
-    return ::std::unique_ptr< ::ConfigurationType>(::configuration(std::move(d), f | ::xml_schema::flags::own_dom, p));
+  return ::std::unique_ptr< ::ConfigurationType > (
+    ::configuration (
+      std::move (d), f | ::xml_schema::flags::own_dom, p));
 }
 
-::std::unique_ptr< ::ConfigurationType> configuration(::xercesc::InputSource& i, ::xercesc::DOMErrorHandler& h, ::xml_schema::flags f,
-                                                      const ::xml_schema::properties& p) {
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::xsd::cxx::xml::dom::parse<char>(i, h, p, f));
+::std::unique_ptr< ::ConfigurationType >
+configuration (::xercesc::InputSource& i,
+               ::xercesc::DOMErrorHandler& h,
+               ::xml_schema::flags f,
+               const ::xml_schema::properties& p)
+{
+  ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument > d (
+    ::xsd::cxx::xml::dom::parse< char > (
+      i, h, p, f));
 
-    if (!d.get()) throw ::xsd::cxx::tree::parsing<char>();
+  if (!d.get ())
+    throw ::xsd::cxx::tree::parsing< char > ();
 
-    return ::std::unique_ptr< ::ConfigurationType>(::configuration(std::move(d), f | ::xml_schema::flags::own_dom, p));
+  return ::std::unique_ptr< ::ConfigurationType > (
+    ::configuration (
+      std::move (d), f | ::xml_schema::flags::own_dom, p));
 }
 
-::std::unique_ptr< ::ConfigurationType> configuration(const ::xercesc::DOMDocument& doc, ::xml_schema::flags f,
-                                                      const ::xml_schema::properties& p) {
-    if (f & ::xml_schema::flags::keep_dom) {
-        ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(static_cast< ::xercesc::DOMDocument*>(doc.cloneNode(true)));
+::std::unique_ptr< ::ConfigurationType >
+configuration (const ::xercesc::DOMDocument& doc,
+               ::xml_schema::flags f,
+               const ::xml_schema::properties& p)
+{
+  if (f & ::xml_schema::flags::keep_dom)
+  {
+    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument > d (
+      static_cast< ::xercesc::DOMDocument* > (doc.cloneNode (true)));
 
-        return ::std::unique_ptr< ::ConfigurationType>(::configuration(std::move(d), f | ::xml_schema::flags::own_dom, p));
-    }
+    return ::std::unique_ptr< ::ConfigurationType > (
+      ::configuration (
+        std::move (d), f | ::xml_schema::flags::own_dom, p));
+  }
 
-    const ::xercesc::DOMElement& e(*doc.getDocumentElement());
-    const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(e));
+  const ::xercesc::DOMElement& e (*doc.getDocumentElement ());
+  const ::xsd::cxx::xml::qualified_name< char > n (
+    ::xsd::cxx::xml::dom::name< char > (e));
 
-    if (n.name() == "configuration" && n.namespace_() == "") {
-        ::std::unique_ptr< ::ConfigurationType> r(::xsd::cxx::tree::traits< ::ConfigurationType, char>::create(e, f, 0));
-        return r;
-    }
+  if (n.name () == "configuration" &&
+      n.namespace_ () == "")
+  {
+    ::std::unique_ptr< ::ConfigurationType > r (
+      ::xsd::cxx::tree::traits< ::ConfigurationType, char >::create (
+        e, f, 0));
+    return r;
+  }
 
-    throw ::xsd::cxx::tree::unexpected_element<char>(n.name(), n.namespace_(), "configuration", "");
+  throw ::xsd::cxx::tree::unexpected_element < char > (
+    n.name (),
+    n.namespace_ (),
+    "configuration",
+    "");
 }
 
-::std::unique_ptr< ::ConfigurationType> configuration(::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d, ::xml_schema::flags f,
-                                                      const ::xml_schema::properties&) {
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> c(((f & ::xml_schema::flags::keep_dom) && !(f & ::xml_schema::flags::own_dom))
-                                                                 ? static_cast< ::xercesc::DOMDocument*>(d->cloneNode(true))
-                                                                 : 0);
+::std::unique_ptr< ::ConfigurationType >
+configuration (::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument > d,
+               ::xml_schema::flags f,
+               const ::xml_schema::properties&)
+{
+  ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument > c (
+    ((f & ::xml_schema::flags::keep_dom) &&
+     !(f & ::xml_schema::flags::own_dom))
+    ? static_cast< ::xercesc::DOMDocument* > (d->cloneNode (true))
+    : 0);
 
-    ::xercesc::DOMDocument& doc(c.get() ? *c : *d);
-    const ::xercesc::DOMElement& e(*doc.getDocumentElement());
+  ::xercesc::DOMDocument& doc (c.get () ? *c : *d);
+  const ::xercesc::DOMElement& e (*doc.getDocumentElement ());
 
-    const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(e));
+  const ::xsd::cxx::xml::qualified_name< char > n (
+    ::xsd::cxx::xml::dom::name< char > (e));
 
-    if (f & ::xml_schema::flags::keep_dom) doc.setUserData(::xml_schema::dom::tree_node_key, (c.get() ? &c : &d), 0);
+  if (f & ::xml_schema::flags::keep_dom)
+    doc.setUserData (::xml_schema::dom::tree_node_key,
+                     (c.get () ? &c : &d),
+                     0);
 
-    if (n.name() == "configuration" && n.namespace_() == "") {
-        ::std::unique_ptr< ::ConfigurationType> r(::xsd::cxx::tree::traits< ::ConfigurationType, char>::create(e, f, 0));
-        return r;
-    }
+  if (n.name () == "configuration" &&
+      n.namespace_ () == "")
+  {
+    ::std::unique_ptr< ::ConfigurationType > r (
+      ::xsd::cxx::tree::traits< ::ConfigurationType, char >::create (
+        e, f, 0));
+    return r;
+  }
 
-    throw ::xsd::cxx::tree::unexpected_element<char>(n.name(), n.namespace_(), "configuration", "");
+  throw ::xsd::cxx::tree::unexpected_element < char > (
+    n.name (),
+    n.namespace_ (),
+    "configuration",
+    "");
 }
 
 #include <ostream>
 #include <xsd/cxx/tree/error-handler.hxx>
 #include <xsd/cxx/xml/dom/serialization-source.hxx>
 
-void configuration(::std::ostream& o, const ::ConfigurationType& s, const ::xml_schema::namespace_infomap& m, const ::std::string& e,
-                   ::xml_schema::flags f) {
-    ::xsd::cxx::xml::auto_initializer i((f & ::xml_schema::flags::dont_initialize) == 0);
+void
+configuration (::std::ostream& o,
+               const ::ConfigurationType& s,
+               const ::xml_schema::namespace_infomap& m,
+               const ::std::string& e,
+               ::xml_schema::flags f)
+{
+  ::xsd::cxx::xml::auto_initializer i (
+    (f & ::xml_schema::flags::dont_initialize) == 0);
 
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::configuration(s, m, f));
+  ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument > d (
+    ::configuration (s, m, f));
 
-    ::xsd::cxx::tree::error_handler<char> h;
+  ::xsd::cxx::tree::error_handler< char > h;
 
-    ::xsd::cxx::xml::dom::ostream_format_target t(o);
-    if (!::xsd::cxx::xml::dom::serialize(t, *d, e, h, f)) {
-        h.throw_if_failed< ::xsd::cxx::tree::serialization<char> >();
-    }
+  ::xsd::cxx::xml::dom::ostream_format_target t (o);
+  if (!::xsd::cxx::xml::dom::serialize (t, *d, e, h, f))
+  {
+    h.throw_if_failed< ::xsd::cxx::tree::serialization< char > > ();
+  }
 }
 
-void configuration(::std::ostream& o, const ::ConfigurationType& s, ::xml_schema::error_handler& h,
-                   const ::xml_schema::namespace_infomap& m, const ::std::string& e, ::xml_schema::flags f) {
-    ::xsd::cxx::xml::auto_initializer i((f & ::xml_schema::flags::dont_initialize) == 0);
+void
+configuration (::std::ostream& o,
+               const ::ConfigurationType& s,
+               ::xml_schema::error_handler& h,
+               const ::xml_schema::namespace_infomap& m,
+               const ::std::string& e,
+               ::xml_schema::flags f)
+{
+  ::xsd::cxx::xml::auto_initializer i (
+    (f & ::xml_schema::flags::dont_initialize) == 0);
 
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::configuration(s, m, f));
-    ::xsd::cxx::xml::dom::ostream_format_target t(o);
-    if (!::xsd::cxx::xml::dom::serialize(t, *d, e, h, f)) {
-        throw ::xsd::cxx::tree::serialization<char>();
-    }
+  ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument > d (
+    ::configuration (s, m, f));
+  ::xsd::cxx::xml::dom::ostream_format_target t (o);
+  if (!::xsd::cxx::xml::dom::serialize (t, *d, e, h, f))
+  {
+    throw ::xsd::cxx::tree::serialization< char > ();
+  }
 }
 
-void configuration(::std::ostream& o, const ::ConfigurationType& s, ::xercesc::DOMErrorHandler& h, const ::xml_schema::namespace_infomap& m,
-                   const ::std::string& e, ::xml_schema::flags f) {
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::configuration(s, m, f));
-    ::xsd::cxx::xml::dom::ostream_format_target t(o);
-    if (!::xsd::cxx::xml::dom::serialize(t, *d, e, h, f)) {
-        throw ::xsd::cxx::tree::serialization<char>();
-    }
+void
+configuration (::std::ostream& o,
+               const ::ConfigurationType& s,
+               ::xercesc::DOMErrorHandler& h,
+               const ::xml_schema::namespace_infomap& m,
+               const ::std::string& e,
+               ::xml_schema::flags f)
+{
+  ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument > d (
+    ::configuration (s, m, f));
+  ::xsd::cxx::xml::dom::ostream_format_target t (o);
+  if (!::xsd::cxx::xml::dom::serialize (t, *d, e, h, f))
+  {
+    throw ::xsd::cxx::tree::serialization< char > ();
+  }
 }
 
-void configuration(::xercesc::XMLFormatTarget& t, const ::ConfigurationType& s, const ::xml_schema::namespace_infomap& m,
-                   const ::std::string& e, ::xml_schema::flags f) {
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::configuration(s, m, f));
+void
+configuration (::xercesc::XMLFormatTarget& t,
+               const ::ConfigurationType& s,
+               const ::xml_schema::namespace_infomap& m,
+               const ::std::string& e,
+               ::xml_schema::flags f)
+{
+  ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument > d (
+    ::configuration (s, m, f));
 
-    ::xsd::cxx::tree::error_handler<char> h;
+  ::xsd::cxx::tree::error_handler< char > h;
 
-    if (!::xsd::cxx::xml::dom::serialize(t, *d, e, h, f)) {
-        h.throw_if_failed< ::xsd::cxx::tree::serialization<char> >();
-    }
+  if (!::xsd::cxx::xml::dom::serialize (t, *d, e, h, f))
+  {
+    h.throw_if_failed< ::xsd::cxx::tree::serialization< char > > ();
+  }
 }
 
-void configuration(::xercesc::XMLFormatTarget& t, const ::ConfigurationType& s, ::xml_schema::error_handler& h,
-                   const ::xml_schema::namespace_infomap& m, const ::std::string& e, ::xml_schema::flags f) {
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::configuration(s, m, f));
-    if (!::xsd::cxx::xml::dom::serialize(t, *d, e, h, f)) {
-        throw ::xsd::cxx::tree::serialization<char>();
-    }
+void
+configuration (::xercesc::XMLFormatTarget& t,
+               const ::ConfigurationType& s,
+               ::xml_schema::error_handler& h,
+               const ::xml_schema::namespace_infomap& m,
+               const ::std::string& e,
+               ::xml_schema::flags f)
+{
+  ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument > d (
+    ::configuration (s, m, f));
+  if (!::xsd::cxx::xml::dom::serialize (t, *d, e, h, f))
+  {
+    throw ::xsd::cxx::tree::serialization< char > ();
+  }
 }
 
-void configuration(::xercesc::XMLFormatTarget& t, const ::ConfigurationType& s, ::xercesc::DOMErrorHandler& h,
-                   const ::xml_schema::namespace_infomap& m, const ::std::string& e, ::xml_schema::flags f) {
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::configuration(s, m, f));
-    if (!::xsd::cxx::xml::dom::serialize(t, *d, e, h, f)) {
-        throw ::xsd::cxx::tree::serialization<char>();
-    }
+void
+configuration (::xercesc::XMLFormatTarget& t,
+               const ::ConfigurationType& s,
+               ::xercesc::DOMErrorHandler& h,
+               const ::xml_schema::namespace_infomap& m,
+               const ::std::string& e,
+               ::xml_schema::flags f)
+{
+  ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument > d (
+    ::configuration (s, m, f));
+  if (!::xsd::cxx::xml::dom::serialize (t, *d, e, h, f))
+  {
+    throw ::xsd::cxx::tree::serialization< char > ();
+  }
 }
 
-void configuration(::xercesc::DOMDocument& d, const ::ConfigurationType& s, ::xml_schema::flags) {
-    ::xercesc::DOMElement& e(*d.getDocumentElement());
-    const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(e));
+void
+configuration (::xercesc::DOMDocument& d,
+               const ::ConfigurationType& s,
+               ::xml_schema::flags)
+{
+  ::xercesc::DOMElement& e (*d.getDocumentElement ());
+  const ::xsd::cxx::xml::qualified_name< char > n (
+    ::xsd::cxx::xml::dom::name< char > (e));
 
-    if (n.name() == "configuration" && n.namespace_() == "") {
-        e << s;
-    } else {
-        throw ::xsd::cxx::tree::unexpected_element<char>(n.name(), n.namespace_(), "configuration", "");
-    }
+  if (n.name () == "configuration" &&
+      n.namespace_ () == "")
+  {
+    e << s;
+  }
+  else
+  {
+    throw ::xsd::cxx::tree::unexpected_element < char > (
+      n.name (),
+      n.namespace_ (),
+      "configuration",
+      "");
+  }
 }
 
-::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> configuration(const ::ConfigurationType& s, const ::xml_schema::namespace_infomap& m,
-                                                                     ::xml_schema::flags f) {
-    ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument> d(::xsd::cxx::xml::dom::serialize<char>("configuration", "", m, f));
+::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument >
+configuration (const ::ConfigurationType& s,
+               const ::xml_schema::namespace_infomap& m,
+               ::xml_schema::flags f)
+{
+  ::xml_schema::dom::unique_ptr< ::xercesc::DOMDocument > d (
+    ::xsd::cxx::xml::dom::serialize< char > (
+      "configuration",
+      "",
+      m, f));
 
-    ::configuration(*d, s, f);
-    return d;
+  ::configuration (*d, s, f);
+  return d;
 }
 
-void operator<<(::xercesc::DOMElement& e, const ConfigurationType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const ConfigurationType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-    // settings
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("settings", e));
+  // settings
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "settings",
+        e));
 
-        s << i.settings();
-    }
+    s << i.settings ();
+  }
 
-    // particle_source
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("particle_source", e));
+  // particle_source
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "particle_source",
+        e));
 
-        s << i.particle_source();
-    }
+    s << i.particle_source ();
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const DoubleVec3Type& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const DoubleVec3Type& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-    // x
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("x", e));
+  // x
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "x",
+        e));
 
-        s << ::xml_schema::as_double(i.x());
-    }
+    s << ::xml_schema::as_double(i.x ());
+  }
 
-    // y
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("y", e));
+  // y
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "y",
+        e));
 
-        s << ::xml_schema::as_double(i.y());
-    }
+    s << ::xml_schema::as_double(i.y ());
+  }
 
-    // z
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("z", e));
+  // z
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "z",
+        e));
 
-        s << ::xml_schema::as_double(i.z());
-    }
+    s << ::xml_schema::as_double(i.z ());
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const IntVec3Type& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const IntVec3Type& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-    // x
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("x", e));
+  // x
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "x",
+        e));
 
-        s << i.x();
-    }
+    s << i.x ();
+  }
 
-    // y
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("y", e));
+  // y
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "y",
+        e));
 
-        s << i.y();
-    }
+    s << i.y ();
+  }
 
-    // z
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("z", e));
+  // z
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "z",
+        e));
 
-        s << i.z();
-    }
+    s << i.z ();
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const ParticleContainerType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const ParticleContainerType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-    // directsum_container
-    //
-    if (i.directsum_container()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("directsum_container", e));
+  // directsum_container
+  //
+  if (i.directsum_container ())
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "directsum_container",
+        e));
 
-        s << *i.directsum_container();
-    }
+    s << *i.directsum_container ();
+  }
 
-    // linkedcells_container
-    //
-    if (i.linkedcells_container()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("linkedcells_container", e));
+  // linkedcells_container
+  //
+  if (i.linkedcells_container ())
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "linkedcells_container",
+        e));
 
-        s << *i.linkedcells_container();
-    }
+    s << *i.linkedcells_container ();
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const DirectSumContainerType& i) { e << static_cast<const ::xml_schema::type&>(i); }
-
-void operator<<(::xercesc::DOMAttr&, const DirectSumContainerType&) {}
-
-void operator<<(::xml_schema::list_stream&, const DirectSumContainerType&) {}
-
-void operator<<(::xercesc::DOMElement& e, const LinkedCellsContainerType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
-
-    // domain_size
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("domain_size", e));
-
-        s << i.domain_size();
-    }
-
-    // cutoff_radius
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("cutoff_radius", e));
-
-        s << ::xml_schema::as_double(i.cutoff_radius());
-    }
-
-    // boundary_conditions
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("boundary_conditions", e));
-
-        s << i.boundary_conditions();
-    }
+void
+operator<< (::xercesc::DOMElement& e, const DirectSumContainerType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 }
 
-void operator<<(::xercesc::DOMElement& e, const BoundaryConditionsType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
-
-    // left
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("left", e));
-
-        s << i.left();
-    }
-
-    // right
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("right", e));
-
-        s << i.right();
-    }
-
-    // bottom
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("bottom", e));
-
-        s << i.bottom();
-    }
-
-    // top
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("top", e));
-
-        s << i.top();
-    }
-
-    // back
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("back", e));
-
-        s << i.back();
-    }
-
-    // front
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("front", e));
-
-        s << i.front();
-    }
+void
+operator<< (::xercesc::DOMAttr&, const DirectSumContainerType&)
+{
 }
 
-void operator<<(::xercesc::DOMElement& e, const BoundaryType& i) { e << static_cast<const ::xml_schema::string&>(i); }
-
-void operator<<(::xercesc::DOMAttr& a, const BoundaryType& i) { a << static_cast<const ::xml_schema::string&>(i); }
-
-void operator<<(::xml_schema::list_stream& l, const BoundaryType& i) { l << static_cast<const ::xml_schema::string&>(i); }
-
-void operator<<(::xercesc::DOMElement& e, const CuboidSpawnerType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
-
-    // lower_left_front_corner
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("lower_left_front_corner", e));
-
-        s << i.lower_left_front_corner();
-    }
-
-    // grid_dim
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("grid_dim", e));
-
-        s << i.grid_dim();
-    }
-
-    // grid_spacing
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("grid_spacing", e));
-
-        s << ::xml_schema::as_double(i.grid_spacing());
-    }
-
-    // temperature
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("temperature", e));
-
-        s << ::xml_schema::as_double(i.temperature());
-    }
-
-    // mass
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("mass", e));
-
-        s << ::xml_schema::as_double(i.mass());
-    }
-
-    // velocity
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("velocity", e));
-
-        s << i.velocity();
-    }
-
-    // type
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("type", e));
-
-        s << i.type();
-    }
-
-    // epsilon
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("epsilon", e));
-
-        s << ::xml_schema::as_double(i.epsilon());
-    }
-
-    // sigma
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sigma", e));
-
-        s << ::xml_schema::as_double(i.sigma());
-    }
-
-    // is_locked
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("is_locked", e));
-
-        a << i.is_locked();
-    }
+void
+operator<< (::xml_schema::list_stream&,
+            const DirectSumContainerType&)
+{
 }
 
-void operator<<(::xercesc::DOMElement& e, const SoftBodySpawnerType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const LinkedCellsContainerType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-    // lower_left_front_corner
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("lower_left_front_corner", e));
+  // domain_size
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "domain_size",
+        e));
 
-        s << i.lower_left_front_corner();
-    }
+    s << i.domain_size ();
+  }
 
-    // grid_dim
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("grid_dim", e));
+  // cutoff_radius
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "cutoff_radius",
+        e));
 
-        s << i.grid_dim();
-    }
+    s << ::xml_schema::as_double(i.cutoff_radius ());
+  }
 
-    // grid_spacing
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("grid_spacing", e));
+  // boundary_conditions
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "boundary_conditions",
+        e));
 
-        s << ::xml_schema::as_double(i.grid_spacing());
-    }
-
-    // temperature
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("temperature", e));
-
-        s << ::xml_schema::as_double(i.temperature());
-    }
-
-    // mass
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("mass", e));
-
-        s << ::xml_schema::as_double(i.mass());
-    }
-
-    // velocity
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("velocity", e));
-
-        s << i.velocity();
-    }
-
-    // type
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("type", e));
-
-        s << i.type();
-    }
-
-    // spring_constant
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("spring_constant", e));
-
-        s << ::xml_schema::as_double(i.spring_constant());
-    }
-
-    // epsilon
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("epsilon", e));
-
-        s << ::xml_schema::as_double(i.epsilon());
-    }
-
-    // sigma
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sigma", e));
-
-        s << ::xml_schema::as_double(i.sigma());
-    }
+    s << i.boundary_conditions ();
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const SphereSpawnerType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const BoundaryConditionsType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-    // center
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("center", e));
+  // left
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "left",
+        e));
 
-        s << i.center();
-    }
+    s << i.left ();
+  }
 
-    // radius
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("radius", e));
+  // right
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "right",
+        e));
 
-        s << i.radius();
-    }
+    s << i.right ();
+  }
 
-    // grid_spacing
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("grid_spacing", e));
+  // bottom
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "bottom",
+        e));
 
-        s << ::xml_schema::as_double(i.grid_spacing());
-    }
+    s << i.bottom ();
+  }
 
-    // temperature
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("temperature", e));
+  // top
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "top",
+        e));
 
-        s << ::xml_schema::as_double(i.temperature());
-    }
+    s << i.top ();
+  }
 
-    // mass
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("mass", e));
+  // back
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "back",
+        e));
 
-        s << ::xml_schema::as_double(i.mass());
-    }
+    s << i.back ();
+  }
 
-    // velocity
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("velocity", e));
+  // front
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "front",
+        e));
 
-        s << i.velocity();
-    }
-
-    // type
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("type", e));
-
-        s << i.type();
-    }
-
-    // epsilon
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("epsilon", e));
-
-        s << ::xml_schema::as_double(i.epsilon());
-    }
-
-    // sigma
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sigma", e));
-
-        s << ::xml_schema::as_double(i.sigma());
-    }
-
-    // is_locked
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("is_locked", e));
-
-        a << i.is_locked();
-    }
+    s << i.front ();
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const SingleParticleSpawnerType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
-
-    // position
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("position", e));
-
-        s << i.position();
-    }
-
-    // temperature
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("temperature", e));
-
-        s << ::xml_schema::as_double(i.temperature());
-    }
-
-    // mass
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("mass", e));
-
-        s << ::xml_schema::as_double(i.mass());
-    }
-
-    // velocity
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("velocity", e));
-
-        s << i.velocity();
-    }
-
-    // type
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("type", e));
-
-        s << i.type();
-    }
-
-    // epsilon
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("epsilon", e));
-
-        s << ::xml_schema::as_double(i.epsilon());
-    }
-
-    // sigma
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sigma", e));
-
-        s << ::xml_schema::as_double(i.sigma());
-    }
-
-    // is_locked
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("is_locked", e));
-
-        a << i.is_locked();
-    }
+void
+operator<< (::xercesc::DOMElement& e, const BoundaryType& i)
+{
+  e << static_cast< const ::xml_schema::string& > (i);
 }
 
-void operator<<(::xercesc::DOMElement& e, const CheckPointLoaderType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
-
-    // path
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("path", e));
-
-        a << i.path();
-    }
+void
+operator<< (::xercesc::DOMAttr& a, const BoundaryType& i)
+{
+  a << static_cast< const ::xml_schema::string& > (i);
 }
 
-void operator<<(::xercesc::DOMElement& e, const SubSimulationType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
-
-    // path
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("path", e));
-
-        a << i.path();
-    }
+void
+operator<< (::xml_schema::list_stream& l,
+            const BoundaryType& i)
+{
+  l << static_cast< const ::xml_schema::string& > (i);
 }
 
-void operator<<(::xercesc::DOMElement& e, const ParticleSourceType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const CuboidSpawnerType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-    // cuboid_spawner
-    //
-    for (ParticleSourceType::cuboid_spawner_const_iterator b(i.cuboid_spawner().begin()), n(i.cuboid_spawner().end()); b != n; ++b) {
-        const ParticleSourceType::cuboid_spawner_type& x(*b);
+  // lower_left_front_corner
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "lower_left_front_corner",
+        e));
 
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("cuboid_spawner", e));
+    s << i.lower_left_front_corner ();
+  }
 
-        s << x;
-    }
+  // grid_dim
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "grid_dim",
+        e));
 
-    // soft_body_cuboid_spawner
-    //
-    for (ParticleSourceType::soft_body_cuboid_spawner_const_iterator b(i.soft_body_cuboid_spawner().begin()),
-         n(i.soft_body_cuboid_spawner().end());
-         b != n; ++b) {
-        const ParticleSourceType::soft_body_cuboid_spawner_type& x(*b);
+    s << i.grid_dim ();
+  }
 
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("soft_body_cuboid_spawner", e));
+  // grid_spacing
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "grid_spacing",
+        e));
 
-        s << x;
-    }
+    s << ::xml_schema::as_double(i.grid_spacing ());
+  }
 
-    // sphere_spawner
-    //
-    for (ParticleSourceType::sphere_spawner_const_iterator b(i.sphere_spawner().begin()), n(i.sphere_spawner().end()); b != n; ++b) {
-        const ParticleSourceType::sphere_spawner_type& x(*b);
+  // temperature
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "temperature",
+        e));
 
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sphere_spawner", e));
+    s << ::xml_schema::as_double(i.temperature ());
+  }
 
-        s << x;
-    }
+  // mass
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "mass",
+        e));
 
-    // single_particle_spawner
-    //
-    for (ParticleSourceType::single_particle_spawner_const_iterator b(i.single_particle_spawner().begin()),
-         n(i.single_particle_spawner().end());
-         b != n; ++b) {
-        const ParticleSourceType::single_particle_spawner_type& x(*b);
+    s << ::xml_schema::as_double(i.mass ());
+  }
 
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("single_particle_spawner", e));
+  // velocity
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "velocity",
+        e));
 
-        s << x;
-    }
+    s << i.velocity ();
+  }
 
-    // check_point_loader
-    //
-    for (ParticleSourceType::check_point_loader_const_iterator b(i.check_point_loader().begin()), n(i.check_point_loader().end()); b != n;
-         ++b) {
-        const ParticleSourceType::check_point_loader_type& x(*b);
+  // type
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "type",
+        e));
 
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("check_point_loader", e));
+    s << i.type ();
+  }
 
-        s << x;
-    }
+  // epsilon
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "epsilon",
+        e));
 
-    // sub_simulation
-    //
-    for (ParticleSourceType::sub_simulation_const_iterator b(i.sub_simulation().begin()), n(i.sub_simulation().end()); b != n; ++b) {
-        const ParticleSourceType::sub_simulation_type& x(*b);
+    s << ::xml_schema::as_double(i.epsilon ());
+  }
 
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("sub_simulation", e));
+  // sigma
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "sigma",
+        e));
 
-        s << x;
-    }
+    s << ::xml_schema::as_double(i.sigma ());
+  }
+
+  // is_locked
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "is_locked",
+        e));
+
+    a << i.is_locked ();
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const SettingsType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const SoftBodySpawnerType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-    // delta_t
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("delta_t", e));
+  // lower_left_front_corner
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "lower_left_front_corner",
+        e));
 
-        s << ::xml_schema::as_double(i.delta_t());
-    }
+    s << i.lower_left_front_corner ();
+  }
 
-    // end_time
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("end_time", e));
+  // grid_dim
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "grid_dim",
+        e));
 
-        s << ::xml_schema::as_double(i.end_time());
-    }
+    s << i.grid_dim ();
+  }
 
-    // third_dimension
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("third_dimension", e));
+  // grid_spacing
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "grid_spacing",
+        e));
 
-        s << i.third_dimension();
-    }
+    s << ::xml_schema::as_double(i.grid_spacing ());
+  }
 
-    // particle_container
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("particle_container", e));
+  // temperature
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "temperature",
+        e));
 
-        s << i.particle_container();
-    }
+    s << ::xml_schema::as_double(i.temperature ());
+  }
 
-    // forces
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("forces", e));
+  // mass
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "mass",
+        e));
 
-        s << i.forces();
-    }
+    s << ::xml_schema::as_double(i.mass ());
+  }
 
-    // interceptors
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("interceptors", e));
+  // velocity
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "velocity",
+        e));
 
-        s << i.interceptors();
-    }
+    s << i.velocity ();
+  }
 
-    // log_level
-    //
-    if (i.log_level()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("log_level", e));
+  // type
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "type",
+        e));
 
-        s << *i.log_level();
-    }
+    s << i.type ();
+  }
+
+  // spring_constant
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "spring_constant",
+        e));
+
+    s << ::xml_schema::as_double(i.spring_constant ());
+  }
+
+  // epsilon
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "epsilon",
+        e));
+
+    s << ::xml_schema::as_double(i.epsilon ());
+  }
+
+  // sigma
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "sigma",
+        e));
+
+    s << ::xml_schema::as_double(i.sigma ());
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const ParticleUpdatesPerSecondInterceptionType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const SphereSpawnerType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
+
+  // center
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "center",
+        e));
+
+    s << i.center ();
+  }
+
+  // radius
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "radius",
+        e));
+
+    s << i.radius ();
+  }
+
+  // grid_spacing
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "grid_spacing",
+        e));
+
+    s << ::xml_schema::as_double(i.grid_spacing ());
+  }
+
+  // temperature
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "temperature",
+        e));
+
+    s << ::xml_schema::as_double(i.temperature ());
+  }
+
+  // mass
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "mass",
+        e));
+
+    s << ::xml_schema::as_double(i.mass ());
+  }
+
+  // velocity
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "velocity",
+        e));
+
+    s << i.velocity ();
+  }
+
+  // type
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "type",
+        e));
+
+    s << i.type ();
+  }
+
+  // epsilon
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "epsilon",
+        e));
+
+    s << ::xml_schema::as_double(i.epsilon ());
+  }
+
+  // sigma
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "sigma",
+        e));
+
+    s << ::xml_schema::as_double(i.sigma ());
+  }
+
+  // is_locked
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "is_locked",
+        e));
+
+    a << i.is_locked ();
+  }
 }
 
-void operator<<(::xercesc::DOMAttr&, const ParticleUpdatesPerSecondInterceptionType&) {}
+void
+operator<< (::xercesc::DOMElement& e, const SingleParticleSpawnerType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-void operator<<(::xml_schema::list_stream&, const ParticleUpdatesPerSecondInterceptionType&) {}
+  // position
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "position",
+        e));
 
-void operator<<(::xercesc::DOMElement& e, const DiffusionFunctionInterceptorType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+    s << i.position ();
+  }
 
-    // sample_every_x_percent
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("sample_every_x_percent", e));
+  // temperature
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "temperature",
+        e));
 
-        a << ::xml_schema::as_double(i.sample_every_x_percent());
-    }
+    s << ::xml_schema::as_double(i.temperature ());
+  }
+
+  // mass
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "mass",
+        e));
+
+    s << ::xml_schema::as_double(i.mass ());
+  }
+
+  // velocity
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "velocity",
+        e));
+
+    s << i.velocity ();
+  }
+
+  // type
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "type",
+        e));
+
+    s << i.type ();
+  }
+
+  // epsilon
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "epsilon",
+        e));
+
+    s << ::xml_schema::as_double(i.epsilon ());
+  }
+
+  // sigma
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "sigma",
+        e));
+
+    s << ::xml_schema::as_double(i.sigma ());
+  }
+
+  // is_locked
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "is_locked",
+        e));
+
+    a << i.is_locked ();
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const FrameWriterInterceptorType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const CheckPointLoaderType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-    // output_format
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("output_format", e));
+  // path
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "path",
+        e));
 
-        a << i.output_format();
-    }
-
-    // fps
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("fps", e));
-
-        a << i.fps();
-    }
-
-    // video_length_s
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("video_length_s", e));
-
-        a << i.video_length_s();
-    }
+    a << i.path ();
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const ThermostatInterceptorType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const SubSimulationType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-    // temperature_sensor
-    //
-    if (i.temperature_sensor()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("temperature_sensor", e));
+  // path
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "path",
+        e));
 
-        s << *i.temperature_sensor();
-    }
-
-    // target_temperature
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("target_temperature", e));
-
-        a << ::xml_schema::as_double(i.target_temperature());
-    }
-
-    // max_temperature_change
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("max_temperature_change", e));
-
-        a << ::xml_schema::as_double(i.max_temperature_change());
-    }
-
-    // application_interval
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("application_interval", e));
-
-        a << i.application_interval();
-    }
-
-    // type
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("type", e));
-
-        a << i.type();
-    }
+    a << i.path ();
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const RadialDistributionFunctionInterceptionType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const ParticleSourceType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-    // bin_width
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("bin_width", e));
+  // cuboid_spawner
+  //
+  for (ParticleSourceType::cuboid_spawner_const_iterator
+       b (i.cuboid_spawner ().begin ()), n (i.cuboid_spawner ().end ());
+       b != n; ++b)
+  {
+    const ParticleSourceType::cuboid_spawner_type& x (*b);
 
-        a << ::xml_schema::as_double(i.bin_width());
-    }
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "cuboid_spawner",
+        e));
 
-    // sample_every_x_percent
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("sample_every_x_percent", e));
+    s << x;
+  }
 
-        a << ::xml_schema::as_double(i.sample_every_x_percent());
-    }
+  // soft_body_cuboid_spawner
+  //
+  for (ParticleSourceType::soft_body_cuboid_spawner_const_iterator
+       b (i.soft_body_cuboid_spawner ().begin ()), n (i.soft_body_cuboid_spawner ().end ());
+       b != n; ++b)
+  {
+    const ParticleSourceType::soft_body_cuboid_spawner_type& x (*b);
+
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "soft_body_cuboid_spawner",
+        e));
+
+    s << x;
+  }
+
+  // sphere_spawner
+  //
+  for (ParticleSourceType::sphere_spawner_const_iterator
+       b (i.sphere_spawner ().begin ()), n (i.sphere_spawner ().end ());
+       b != n; ++b)
+  {
+    const ParticleSourceType::sphere_spawner_type& x (*b);
+
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "sphere_spawner",
+        e));
+
+    s << x;
+  }
+
+  // single_particle_spawner
+  //
+  for (ParticleSourceType::single_particle_spawner_const_iterator
+       b (i.single_particle_spawner ().begin ()), n (i.single_particle_spawner ().end ());
+       b != n; ++b)
+  {
+    const ParticleSourceType::single_particle_spawner_type& x (*b);
+
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "single_particle_spawner",
+        e));
+
+    s << x;
+  }
+
+  // check_point_loader
+  //
+  for (ParticleSourceType::check_point_loader_const_iterator
+       b (i.check_point_loader ().begin ()), n (i.check_point_loader ().end ());
+       b != n; ++b)
+  {
+    const ParticleSourceType::check_point_loader_type& x (*b);
+
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "check_point_loader",
+        e));
+
+    s << x;
+  }
+
+  // sub_simulation
+  //
+  for (ParticleSourceType::sub_simulation_const_iterator
+       b (i.sub_simulation ().begin ()), n (i.sub_simulation ().end ());
+       b != n; ++b)
+  {
+    const ParticleSourceType::sub_simulation_type& x (*b);
+
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "sub_simulation",
+        e));
+
+    s << x;
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const VelocityProfileInterceptionType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const SettingsType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-    // box
-    //
-    if (i.box()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("box", e));
+  // delta_t
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "delta_t",
+        e));
 
-        s << *i.box();
-    }
+    s << ::xml_schema::as_double(i.delta_t ());
+  }
 
-    // num_bins
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("num_bins", e));
+  // end_time
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "end_time",
+        e));
 
-        a << i.num_bins();
-    }
+    s << ::xml_schema::as_double(i.end_time ());
+  }
 
-    // sample_every_x_percent
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("sample_every_x_percent", e));
+  // third_dimension
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "third_dimension",
+        e));
 
-        a << ::xml_schema::as_double(i.sample_every_x_percent());
-    }
+    s << i.third_dimension ();
+  }
+
+  // particle_container
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "particle_container",
+        e));
+
+    s << i.particle_container ();
+  }
+
+  // forces
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "forces",
+        e));
+
+    s << i.forces ();
+  }
+
+  // interceptors
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "interceptors",
+        e));
+
+    s << i.interceptors ();
+  }
+
+  // log_level
+  //
+  if (i.log_level ())
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "log_level",
+        e));
+
+    s << *i.log_level ();
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const TemperatureSensorInterceptorType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
-
-    // sample_every_x_percent
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("sample_every_x_percent", e));
-
-        a << ::xml_schema::as_double(i.sample_every_x_percent());
-    }
+void
+operator<< (::xercesc::DOMElement& e, const ParticleUpdatesPerSecondInterceptionType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 }
 
-void operator<<(::xercesc::DOMElement& e, const SimulationInterceptorsType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
-
-    // ParticleUpdatesPerSecond
-    //
-    if (i.ParticleUpdatesPerSecond()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("ParticleUpdatesPerSecond", e));
-
-        s << *i.ParticleUpdatesPerSecond();
-    }
-
-    // DiffusionFunction
-    //
-    if (i.DiffusionFunction()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("DiffusionFunction", e));
-
-        s << *i.DiffusionFunction();
-    }
-
-    // RadialDistributionFunction
-    //
-    if (i.RadialDistributionFunction()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("RadialDistributionFunction", e));
-
-        s << *i.RadialDistributionFunction();
-    }
-
-    // VelocityProfile
-    //
-    if (i.VelocityProfile()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("VelocityProfile", e));
-
-        s << *i.VelocityProfile();
-    }
-
-    // FrameWriter
-    //
-    if (i.FrameWriter()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("FrameWriter", e));
-
-        s << *i.FrameWriter();
-    }
-
-    // Thermostat
-    //
-    if (i.Thermostat()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("Thermostat", e));
-
-        s << *i.Thermostat();
-    }
+void
+operator<< (::xercesc::DOMAttr&, const ParticleUpdatesPerSecondInterceptionType&)
+{
 }
 
-void operator<<(::xercesc::DOMElement& e, const TargettedTemporaryConstantType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
-
-    // force
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("force", e));
-
-        s << i.force();
-    }
-
-    // indices
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("indices", e));
-
-        a << i.indices();
-    }
-
-    // start_time
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("start_time", e));
-
-        a << ::xml_schema::as_double(i.start_time());
-    }
-
-    // end_time
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("end_time", e));
-
-        a << ::xml_schema::as_double(i.end_time());
-    }
+void
+operator<< (::xml_schema::list_stream&,
+            const ParticleUpdatesPerSecondInterceptionType&)
+{
 }
 
-void operator<<(::xercesc::DOMElement& e, const LennardJonesType& i) { e << static_cast<const ::xml_schema::type&>(i); }
+void
+operator<< (::xercesc::DOMElement& e, const DiffusionFunctionInterceptorType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-void operator<<(::xercesc::DOMAttr&, const LennardJonesType&) {}
+  // sample_every_x_percent
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "sample_every_x_percent",
+        e));
 
-void operator<<(::xml_schema::list_stream&, const LennardJonesType&) {}
-
-void operator<<(::xercesc::DOMElement& e, const LennardJonesRepulsiveType& i) { e << static_cast<const ::xml_schema::type&>(i); }
-
-void operator<<(::xercesc::DOMAttr&, const LennardJonesRepulsiveType&) {}
-
-void operator<<(::xml_schema::list_stream&, const LennardJonesRepulsiveType&) {}
-
-void operator<<(::xercesc::DOMElement& e, const SmoothedLennardJonesType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
-
-    // r_c
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("r_c", e));
-
-        a << ::xml_schema::as_double(i.r_c());
-    }
-
-    // r_l
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("r_l", e));
-
-        a << ::xml_schema::as_double(i.r_l());
-    }
+    a << ::xml_schema::as_double(i.sample_every_x_percent ());
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const GravitationalType& i) { e << static_cast<const ::xml_schema::type&>(i); }
+void
+operator<< (::xercesc::DOMElement& e, const FrameWriterInterceptorType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-void operator<<(::xercesc::DOMAttr&, const GravitationalType&) {}
+  // output_format
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "output_format",
+        e));
 
-void operator<<(::xml_schema::list_stream&, const GravitationalType&) {}
+    a << i.output_format ();
+  }
 
-void operator<<(::xercesc::DOMElement& e, const GlobalGravityType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+  // fps
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "fps",
+        e));
 
-    // g
-    //
-    {
-        ::xercesc::DOMAttr& a(::xsd::cxx::xml::dom::create_attribute("g", e));
+    a << i.fps ();
+  }
 
-        a << ::xml_schema::as_double(i.g());
-    }
+  // video_length_s
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "video_length_s",
+        e));
+
+    a << i.video_length_s ();
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const HarmonicPotentialType& i) { e << static_cast<const ::xml_schema::type&>(i); }
+void
+operator<< (::xercesc::DOMElement& e, const ThermostatInterceptorType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-void operator<<(::xercesc::DOMAttr&, const HarmonicPotentialType&) {}
+  // temperature_sensor
+  //
+  if (i.temperature_sensor ())
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "temperature_sensor",
+        e));
 
-void operator<<(::xml_schema::list_stream&, const HarmonicPotentialType&) {}
+    s << *i.temperature_sensor ();
+  }
 
-void operator<<(::xercesc::DOMElement& e, const ForcesType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+  // target_temperature
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "target_temperature",
+        e));
 
-    // TargettedTemporaryConstant
-    //
-    if (i.TargettedTemporaryConstant()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("TargettedTemporaryConstant", e));
+    a << ::xml_schema::as_double(i.target_temperature ());
+  }
 
-        s << *i.TargettedTemporaryConstant();
-    }
+  // max_temperature_change
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "max_temperature_change",
+        e));
 
-    // LennardJones
-    //
-    if (i.LennardJones()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("LennardJones", e));
+    a << ::xml_schema::as_double(i.max_temperature_change ());
+  }
 
-        s << *i.LennardJones();
-    }
+  // application_interval
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "application_interval",
+        e));
 
-    // LennardJonesRepulsive
-    //
-    if (i.LennardJonesRepulsive()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("LennardJonesRepulsive", e));
+    a << i.application_interval ();
+  }
 
-        s << *i.LennardJonesRepulsive();
-    }
+  // type
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "type",
+        e));
 
-    // SmoothedLennardJones
-    //
-    if (i.SmoothedLennardJones()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("SmoothedLennardJones", e));
-
-        s << *i.SmoothedLennardJones();
-    }
-
-    // Gravitational
-    //
-    if (i.Gravitational()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("Gravitational", e));
-
-        s << *i.Gravitational();
-    }
-
-    // GlobalDownwardsGravity
-    //
-    if (i.GlobalDownwardsGravity()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("GlobalDownwardsGravity", e));
-
-        s << *i.GlobalDownwardsGravity();
-    }
-
-    // HarmonicPotential
-    //
-    if (i.HarmonicPotential()) {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("HarmonicPotential", e));
-
-        s << *i.HarmonicPotential();
-    }
+    a << i.type ();
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const ThreeDRegionType& i) {
-    e << static_cast<const ::xml_schema::type&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const RadialDistributionFunctionInterceptionType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-    // lower_left_front_corner
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("lower_left_front_corner", e));
+  // bin_width
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "bin_width",
+        e));
 
-        s << i.lower_left_front_corner();
-    }
+    a << ::xml_schema::as_double(i.bin_width ());
+  }
 
-    // upper_right_back_corner
-    //
-    {
-        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("upper_right_back_corner", e));
+  // sample_every_x_percent
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "sample_every_x_percent",
+        e));
 
-        s << i.upper_right_back_corner();
-    }
+    a << ::xml_schema::as_double(i.sample_every_x_percent ());
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const IntegerListType& i) {
-    e << static_cast<const ::xsd::cxx::tree::list< ::xml_schema::integer, char>&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const VelocityProfileInterceptionType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
+
+  // box
+  //
+  if (i.box ())
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "box",
+        e));
+
+    s << *i.box ();
+  }
+
+  // num_bins
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "num_bins",
+        e));
+
+    a << i.num_bins ();
+  }
+
+  // sample_every_x_percent
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "sample_every_x_percent",
+        e));
+
+    a << ::xml_schema::as_double(i.sample_every_x_percent ());
+  }
 }
 
-void operator<<(::xercesc::DOMAttr& a, const IntegerListType& i) {
-    a << static_cast<const ::xsd::cxx::tree::list< ::xml_schema::integer, char>&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const TemperatureSensorInterceptorType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
+
+  // sample_every_x_percent
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "sample_every_x_percent",
+        e));
+
+    a << ::xml_schema::as_double(i.sample_every_x_percent ());
+  }
 }
 
-void operator<<(::xml_schema::list_stream& l, const IntegerListType& i) {
-    l << static_cast<const ::xsd::cxx::tree::list< ::xml_schema::integer, char>&>(i);
+void
+operator<< (::xercesc::DOMElement& e, const SimulationInterceptorsType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
+
+  // ParticleUpdatesPerSecond
+  //
+  for (SimulationInterceptorsType::ParticleUpdatesPerSecond_const_iterator
+       b (i.ParticleUpdatesPerSecond ().begin ()), n (i.ParticleUpdatesPerSecond ().end ());
+       b != n; ++b)
+  {
+    const SimulationInterceptorsType::ParticleUpdatesPerSecond_type& x (*b);
+
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "ParticleUpdatesPerSecond",
+        e));
+
+    s << x;
+  }
+
+  // DiffusionFunction
+  //
+  for (SimulationInterceptorsType::DiffusionFunction_const_iterator
+       b (i.DiffusionFunction ().begin ()), n (i.DiffusionFunction ().end ());
+       b != n; ++b)
+  {
+    const SimulationInterceptorsType::DiffusionFunction_type& x (*b);
+
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "DiffusionFunction",
+        e));
+
+    s << x;
+  }
+
+  // RadialDistributionFunction
+  //
+  for (SimulationInterceptorsType::RadialDistributionFunction_const_iterator
+       b (i.RadialDistributionFunction ().begin ()), n (i.RadialDistributionFunction ().end ());
+       b != n; ++b)
+  {
+    const SimulationInterceptorsType::RadialDistributionFunction_type& x (*b);
+
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "RadialDistributionFunction",
+        e));
+
+    s << x;
+  }
+
+  // VelocityProfile
+  //
+  for (SimulationInterceptorsType::VelocityProfile_const_iterator
+       b (i.VelocityProfile ().begin ()), n (i.VelocityProfile ().end ());
+       b != n; ++b)
+  {
+    const SimulationInterceptorsType::VelocityProfile_type& x (*b);
+
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "VelocityProfile",
+        e));
+
+    s << x;
+  }
+
+  // FrameWriter
+  //
+  for (SimulationInterceptorsType::FrameWriter_const_iterator
+       b (i.FrameWriter ().begin ()), n (i.FrameWriter ().end ());
+       b != n; ++b)
+  {
+    const SimulationInterceptorsType::FrameWriter_type& x (*b);
+
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "FrameWriter",
+        e));
+
+    s << x;
+  }
+
+  // Thermostat
+  //
+  for (SimulationInterceptorsType::Thermostat_const_iterator
+       b (i.Thermostat ().begin ()), n (i.Thermostat ().end ());
+       b != n; ++b)
+  {
+    const SimulationInterceptorsType::Thermostat_type& x (*b);
+
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "Thermostat",
+        e));
+
+    s << x;
+  }
 }
 
-void operator<<(::xercesc::DOMElement& e, const LogLevelType& i) { e << static_cast<const ::xml_schema::string&>(i); }
+void
+operator<< (::xercesc::DOMElement& e, const TargettedTemporaryConstantType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
 
-void operator<<(::xercesc::DOMAttr& a, const LogLevelType& i) { a << static_cast<const ::xml_schema::string&>(i); }
+  // force
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "force",
+        e));
 
-void operator<<(::xml_schema::list_stream& l, const LogLevelType& i) { l << static_cast<const ::xml_schema::string&>(i); }
+    s << i.force ();
+  }
 
-void operator<<(::xercesc::DOMElement& e, const OutputFormatType& i) { e << static_cast<const ::xml_schema::string&>(i); }
+  // indices
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "indices",
+        e));
 
-void operator<<(::xercesc::DOMAttr& a, const OutputFormatType& i) { a << static_cast<const ::xml_schema::string&>(i); }
+    a << i.indices ();
+  }
 
-void operator<<(::xml_schema::list_stream& l, const OutputFormatType& i) { l << static_cast<const ::xml_schema::string&>(i); }
+  // start_time
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "start_time",
+        e));
 
-void operator<<(::xercesc::DOMElement& e, const ThermostatType& i) { e << static_cast<const ::xml_schema::string&>(i); }
+    a << ::xml_schema::as_double(i.start_time ());
+  }
 
-void operator<<(::xercesc::DOMAttr& a, const ThermostatType& i) { a << static_cast<const ::xml_schema::string&>(i); }
+  // end_time
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "end_time",
+        e));
 
-void operator<<(::xml_schema::list_stream& l, const ThermostatType& i) { l << static_cast<const ::xml_schema::string&>(i); }
+    a << ::xml_schema::as_double(i.end_time ());
+  }
+}
+
+void
+operator<< (::xercesc::DOMElement& e, const LennardJonesType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
+}
+
+void
+operator<< (::xercesc::DOMAttr&, const LennardJonesType&)
+{
+}
+
+void
+operator<< (::xml_schema::list_stream&,
+            const LennardJonesType&)
+{
+}
+
+void
+operator<< (::xercesc::DOMElement& e, const LennardJonesRepulsiveType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
+}
+
+void
+operator<< (::xercesc::DOMAttr&, const LennardJonesRepulsiveType&)
+{
+}
+
+void
+operator<< (::xml_schema::list_stream&,
+            const LennardJonesRepulsiveType&)
+{
+}
+
+void
+operator<< (::xercesc::DOMElement& e, const SmoothedLennardJonesType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
+
+  // r_c
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "r_c",
+        e));
+
+    a << ::xml_schema::as_double(i.r_c ());
+  }
+
+  // r_l
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "r_l",
+        e));
+
+    a << ::xml_schema::as_double(i.r_l ());
+  }
+}
+
+void
+operator<< (::xercesc::DOMElement& e, const GravitationalType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
+}
+
+void
+operator<< (::xercesc::DOMAttr&, const GravitationalType&)
+{
+}
+
+void
+operator<< (::xml_schema::list_stream&,
+            const GravitationalType&)
+{
+}
+
+void
+operator<< (::xercesc::DOMElement& e, const GlobalGravityType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
+
+  // g
+  //
+  {
+    ::xercesc::DOMAttr& a (
+      ::xsd::cxx::xml::dom::create_attribute (
+        "g",
+        e));
+
+    a << ::xml_schema::as_double(i.g ());
+  }
+}
+
+void
+operator<< (::xercesc::DOMElement& e, const HarmonicPotentialType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
+}
+
+void
+operator<< (::xercesc::DOMAttr&, const HarmonicPotentialType&)
+{
+}
+
+void
+operator<< (::xml_schema::list_stream&,
+            const HarmonicPotentialType&)
+{
+}
+
+void
+operator<< (::xercesc::DOMElement& e, const ForcesType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
+
+  // TargettedTemporaryConstant
+  //
+  if (i.TargettedTemporaryConstant ())
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "TargettedTemporaryConstant",
+        e));
+
+    s << *i.TargettedTemporaryConstant ();
+  }
+
+  // LennardJones
+  //
+  if (i.LennardJones ())
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "LennardJones",
+        e));
+
+    s << *i.LennardJones ();
+  }
+
+  // LennardJonesRepulsive
+  //
+  if (i.LennardJonesRepulsive ())
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "LennardJonesRepulsive",
+        e));
+
+    s << *i.LennardJonesRepulsive ();
+  }
+
+  // SmoothedLennardJones
+  //
+  if (i.SmoothedLennardJones ())
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "SmoothedLennardJones",
+        e));
+
+    s << *i.SmoothedLennardJones ();
+  }
+
+  // Gravitational
+  //
+  if (i.Gravitational ())
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "Gravitational",
+        e));
+
+    s << *i.Gravitational ();
+  }
+
+  // GlobalDownwardsGravity
+  //
+  if (i.GlobalDownwardsGravity ())
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "GlobalDownwardsGravity",
+        e));
+
+    s << *i.GlobalDownwardsGravity ();
+  }
+
+  // HarmonicPotential
+  //
+  if (i.HarmonicPotential ())
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "HarmonicPotential",
+        e));
+
+    s << *i.HarmonicPotential ();
+  }
+}
+
+void
+operator<< (::xercesc::DOMElement& e, const ThreeDRegionType& i)
+{
+  e << static_cast< const ::xml_schema::type& > (i);
+
+  // lower_left_front_corner
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "lower_left_front_corner",
+        e));
+
+    s << i.lower_left_front_corner ();
+  }
+
+  // upper_right_back_corner
+  //
+  {
+    ::xercesc::DOMElement& s (
+      ::xsd::cxx::xml::dom::create_element (
+        "upper_right_back_corner",
+        e));
+
+    s << i.upper_right_back_corner ();
+  }
+}
+
+void
+operator<< (::xercesc::DOMElement& e, const IntegerListType& i)
+{
+  e << static_cast< const ::xsd::cxx::tree::list< ::xml_schema::integer, char >& > (i);
+}
+
+void
+operator<< (::xercesc::DOMAttr& a, const IntegerListType& i)
+{
+  a << static_cast< const ::xsd::cxx::tree::list< ::xml_schema::integer, char >& > (i);
+}
+
+void
+operator<< (::xml_schema::list_stream& l,
+            const IntegerListType& i)
+{
+  l << static_cast< const ::xsd::cxx::tree::list< ::xml_schema::integer, char >& > (i);
+}
+
+void
+operator<< (::xercesc::DOMElement& e, const LogLevelType& i)
+{
+  e << static_cast< const ::xml_schema::string& > (i);
+}
+
+void
+operator<< (::xercesc::DOMAttr& a, const LogLevelType& i)
+{
+  a << static_cast< const ::xml_schema::string& > (i);
+}
+
+void
+operator<< (::xml_schema::list_stream& l,
+            const LogLevelType& i)
+{
+  l << static_cast< const ::xml_schema::string& > (i);
+}
+
+void
+operator<< (::xercesc::DOMElement& e, const OutputFormatType& i)
+{
+  e << static_cast< const ::xml_schema::string& > (i);
+}
+
+void
+operator<< (::xercesc::DOMAttr& a, const OutputFormatType& i)
+{
+  a << static_cast< const ::xml_schema::string& > (i);
+}
+
+void
+operator<< (::xml_schema::list_stream& l,
+            const OutputFormatType& i)
+{
+  l << static_cast< const ::xml_schema::string& > (i);
+}
+
+void
+operator<< (::xercesc::DOMElement& e, const ThermostatType& i)
+{
+  e << static_cast< const ::xml_schema::string& > (i);
+}
+
+void
+operator<< (::xercesc::DOMAttr& a, const ThermostatType& i)
+{
+  a << static_cast< const ::xml_schema::string& > (i);
+}
+
+void
+operator<< (::xml_schema::list_stream& l,
+            const ThermostatType& i)
+{
+  l << static_cast< const ::xml_schema::string& > (i);
+}
 
 #include <xsd/cxx/post.hxx>
 
@@ -5618,3 +9611,4 @@ void operator<<(::xml_schema::list_stream& l, const ThermostatType& i) { l << st
 //
 //
 // End epilogue.
+
