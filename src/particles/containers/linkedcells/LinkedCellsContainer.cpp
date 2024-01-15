@@ -93,8 +93,10 @@ void LinkedCellsContainer::prepareForceCalculation() {
     // update the particle references in the cells in case the particles have moved
     updateCellsParticleReferences();
 
-    ReflectiveBoundaryType::pre(*this);
+    // delete particles from halo cells
     OutflowBoundaryType::pre(*this);
+
+    // teleport particles to other side of container
     PeriodicBoundaryType::pre(*this);
 
     // update the particle references in the cells in case the particles have moved
@@ -113,17 +115,9 @@ void LinkedCellsContainer::applySimpleForces(const std::vector<std::shared_ptr<S
 void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr<PairwiseForceSource>>& force_sources) {
     // apply the boundary conditions
     ReflectiveBoundaryType::applyBoundaryConditions(*this);
-    OutflowBoundaryType::applyBoundaryConditions(*this);
-    PeriodicBoundaryType::applyBoundaryConditions(*this);
+    size_t original_particle_length = PeriodicBoundaryType::applyBoundaryConditions(*this);
 
-    // clear the already influenced by vector in the cells
-    // this is needed to prevent the two cells from affecting each other twice
-    // since newtons third law is used
-    for (Cell* cell : domain_cell_references) {
-        cell->clearAlreadyInfluencedBy();
-    }
-
-    for (Cell* cell : domain_cell_references) {
+    for (Cell* cell : occupied_cells_references) {
         for (auto it1 = cell->getParticleReferences().begin(); it1 != cell->getParticleReferences().end(); ++it1) {
             Particle* p = *it1;
             // calculate the forces between the particle and the particles in the same cell
@@ -168,7 +162,7 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
     }
 
     // remove the periodic halo particles
-    deleteHaloParticles();
+    particles.erase(particles.begin() + original_particle_length, particles.end());
     updateCellsParticleReferences();
 }
 

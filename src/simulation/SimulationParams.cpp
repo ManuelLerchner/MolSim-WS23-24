@@ -115,7 +115,7 @@ void SimulationParams::logSummary(int depth) const {
     }
 
 #ifdef _OPENMP
-    Logger::logger->info("{}║  Maximum Number of Threads: {}", indent, omp_get_max_threads());
+    Logger::logger->info("{}╟┤{}Maximum Number of Threads:{} {}", indent, ansi_yellow_bold, ansi_end, omp_get_max_threads());
 #endif
 
     Logger::logger->info("{}╚════════════════════════════════════════", indent);

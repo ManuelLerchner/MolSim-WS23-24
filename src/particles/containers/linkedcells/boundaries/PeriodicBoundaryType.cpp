@@ -54,8 +54,10 @@ void PeriodicBoundaryType::pre(LinkedCellsContainer& container) {
     }
 }
 
-void PeriodicBoundaryType::applyBoundaryConditions(LinkedCellsContainer& container) {
+size_t PeriodicBoundaryType::applyBoundaryConditions(LinkedCellsContainer& container) {
     // Add Halo Particles for each side of the domain
+    size_t original_size = container.particles.size();
+
     if (container.boundary_types[0] == LinkedCellsContainer::BoundaryCondition::PERIODIC) {
         addPeriodicHaloParticlesForSide(container, container.left_boundary_cell_references, {container.domain_size[0], 0, 0});
     }
@@ -189,6 +191,8 @@ void PeriodicBoundaryType::applyBoundaryConditions(LinkedCellsContainer& contain
         container.boundary_types[5] == LinkedCellsContainer::BoundaryCondition::PERIODIC) {
         addPeriodicHaloParticlesForCorner(container, {-container.domain_size[0], -container.domain_size[1], -container.domain_size[2]});
     }
+
+    return original_size;
 }
 
 void PeriodicBoundaryType::addPeriodicHaloParticlesForSide(LinkedCellsContainer& container, const std::vector<Cell*>& side_cell_references,
