@@ -67,16 +67,27 @@ int loadCheckpointFile(std::vector<Particle>& particles, const std::filesystem::
     return iteration;
 }
 
-std::optional<std::filesystem::path> getCheckPointFilePath(const std::filesystem::path& base_path) {
+std::optional<std::filesystem::path> loadLatestValidCheckpointFromFolder(const std::filesystem::path& base_path) {
     if (!std::filesystem::exists(base_path)) {
         return std::nullopt;
     }
 
     std::optional<std::filesystem::path> check_point_path = std::nullopt;
     size_t best_iteration = 0;
-    for (const auto& entry : std::filesystem::directory_iterator(base_path)) {
+    auto directory_iterator = std::filesystem::directory_iterator(base_path);
+
+    std::set<std::filesystem::path> entries;
+    for (auto& entry : directory_iterator) {
         if (entry.path().extension() == ".chkpt") {
-            std::string filename = entry.path().filename().string();
+            entries.insert(entry);
+        }
+    }
+
+    for (auto it = entries.rbegin(); it != entries.rend(); ++it) {
+        auto& entry = *it;
+
+        if (entry.extension() == ".chkpt") {
+            std::string filename = entry.filename().string();
             std::string iteration_str =
                 filename.substr(filename.find_last_of("_") + 1, filename.find_last_of(".") - filename.find_last_of("_") - 1);
 
@@ -84,13 +95,19 @@ std::optional<std::filesystem::path> getCheckPointFilePath(const std::filesystem
 
             if (current_file_number > best_iteration) {
                 try {
-                    ChkptPointFileReader reader;
-                    auto _ = reader.readFile(entry.path());
+                    auto hash_valid = ChkptPointFileReader::detectSourceFileChanges(entry.string());
+
+                    if (!hash_valid) {
+                        Logger::logger->warn(
+                            "The input file for the checkpoint file {} has changed since the checkpoint file was created. Skipping.",
+                            entry.string());
+                        continue;
+                    }
 
                     best_iteration = current_file_number;
-                    check_point_path = entry.path();
+                    check_point_path = entry;
                 } catch (const FileReader::FileFormatException& e) {
-                    Logger::logger->warn("Error: Could not read checkpoint file {}. Skipping.", entry.path().string());
+                    Logger::logger->warn("Error: Could not read checkpoint file {}. Skipping.", entry.string());
                 }
             }
         }
@@ -144,26 +161,17 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::filesy
     bool load_in_spawners = true;
 
     // try to load latest checkpoint file and continue from there
-    auto latest_checkpoint_path = getCheckPointFilePath(params.output_dir_path);
+    auto latest_checkpoint_path = loadLatestValidCheckpointFromFolder(params.output_dir_path);
     if (latest_checkpoint_path.has_value()) {
-        auto hash_valid = ChkptPointFileReader::detectSourceFileChanges(*latest_checkpoint_path);
+        int end_iteration = loadCheckpointFile(particles, *latest_checkpoint_path);
 
-        if (!hash_valid) {
-            Logger::logger->warn(
-                "The input file for the checkpoint file has changed since the checkpoint file was created. The simulation is going to be "
-                "repeated.");
-            latest_checkpoint_path = std::nullopt;
-        } else {
-            int end_iteration = loadCheckpointFile(particles, *latest_checkpoint_path);
+        params.start_iteration = end_iteration + 1;
+        load_in_spawners = false;
 
-            params.start_iteration = end_iteration + 1;
-            load_in_spawners = false;
-
-            Logger::logger->warn("Continuing from checkpoint file {} with iteration {}", latest_checkpoint_path.value().string(),
-                                 params.start_iteration);
-        }
+        Logger::logger->warn("Continuing from checkpoint file {} with iteration {}", latest_checkpoint_path.value().string(),
+                             params.start_iteration);
     } else {
-        Logger::logger->warn("Error: No checkpoint file found in output directory {}", params.output_dir_path.string());
+        Logger::logger->warn("Error: No valid checkpoint file found in output directory {}", params.output_dir_path.string());
     }
 
     if (load_in_spawners) {
@@ -219,27 +227,13 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::filesy
             std::filesystem::path new_output_base_path = output_base_path / sanitizePath(name);
 
             // Try to find a checkpoint file in the base directory
-            auto checkpoint_path = fresh ? std::nullopt : getCheckPointFilePath(new_output_base_path);
+            auto checkpoint_path = fresh ? std::nullopt : loadLatestValidCheckpointFromFolder(new_output_base_path);
 
             // If no checkpoint file was found, run the sub simulation
             if (checkpoint_path.has_value()) {
-                Logger::logger->info("Found checkpoint file for sub simulation {} at depth {}", name, depth);
-
-                // checking if the hash of the input file is the same as the one in the checkpoint file
-                auto hash_valid = ChkptPointFileReader::detectSourceFileChanges(*checkpoint_path);
-
-                if (!hash_valid) {
-                    Logger::logger->warn(
-                        "The input file for sub simulation {} at depth {} has changed since the checkpoint file was created. The "
-                        "simulation is "
-                        "going to be repeated.",
-                        name, depth);
-                    checkpoint_path = std::nullopt;
-                } else {
-                    Logger::logger->warn(
-                        "Using cached result for sub simulation {} at depth {}. To force a rerun, delete the checkpoint file at {}", name,
-                        depth, checkpoint_path.value().string());
-                }
+                Logger::logger->warn(
+                    "Using cached result for sub simulation {} at depth {}. To force a rerun, delete the checkpoint file at {}", name,
+                    depth, checkpoint_path.value().string());
             }
 
             if (!checkpoint_path.has_value()) {
