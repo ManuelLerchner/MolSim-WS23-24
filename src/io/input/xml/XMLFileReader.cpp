@@ -139,13 +139,22 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::filesy
     // try to load latest checkpoint file and continue from there
     auto latest_checkpoint_path = getCheckPointFilePath(params.output_dir_path);
     if (latest_checkpoint_path.has_value()) {
-        int end_iteration = loadCheckpointFile(particles, *latest_checkpoint_path);
+        auto hash_valid = ChkptPointFileReader::detectSourceFileChanges(*latest_checkpoint_path);
 
-        params.start_iteration = end_iteration + 1;
-        load_in_spawners = false;
+        if (!hash_valid) {
+            Logger::logger->warn(
+                "The input file for the checkpoint file has changed since the checkpoint file was created. The simulation is going to be "
+                "repeated.");
+            latest_checkpoint_path = std::nullopt;
+        } else {
+            int end_iteration = loadCheckpointFile(particles, *latest_checkpoint_path);
 
-        Logger::logger->warn("Continuing from checkpoint file {} with iteration {}", latest_checkpoint_path.value().string(),
-                             params.start_iteration);
+            params.start_iteration = end_iteration + 1;
+            load_in_spawners = false;
+
+            Logger::logger->warn("Continuing from checkpoint file {} with iteration {}", latest_checkpoint_path.value().string(),
+                                 params.start_iteration);
+        }
     } else {
         Logger::logger->warn("Error: No checkpoint file found in output directory {}", params.output_dir_path.string());
     }
