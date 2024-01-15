@@ -83,8 +83,15 @@ std::optional<std::filesystem::path> getCheckPointFilePath(const std::filesystem
             size_t current_file_number = std::stoul(iteration_str);
 
             if (current_file_number > best_iteration) {
-                best_iteration = current_file_number;
-                check_point_path = entry.path();
+                try {
+                    ChkptPointFileReader reader;
+                    auto _ = reader.readFile(entry.path());
+
+                    best_iteration = current_file_number;
+                    check_point_path = entry.path();
+                } catch (const FileReader::FileFormatException& e) {
+                    Logger::logger->warn("Error: Could not read checkpoint file {}. Skipping.", entry.path().string());
+                }
             }
         }
     }
