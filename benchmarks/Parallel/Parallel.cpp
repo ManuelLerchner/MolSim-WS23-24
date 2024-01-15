@@ -127,7 +127,7 @@ void executeSimulation(int t_count, const std::vector<Particle>& particles_model
             Logger::logger->error("LinkedCells Checkpoint on {} threads is NOT equal to serial version", t_count);
         } else {
             bool equal = true;
-            for (int i = 0; i < reference_particles.size(); i++) {
+            for (size_t i = 0; i < reference_particles.size(); i++) {
                 auto x_diff = ArrayUtils::L2Norm(reference_particles[i].getX() - linked_cells_data.resulting_particles[i].getX());
                 auto v_diff = ArrayUtils::L2Norm(reference_particles[i].getV() - linked_cells_data.resulting_particles[i].getV());
                 auto f_diff = ArrayUtils::L2Norm(reference_particles[i].getF() - linked_cells_data.resulting_particles[i].getF());
