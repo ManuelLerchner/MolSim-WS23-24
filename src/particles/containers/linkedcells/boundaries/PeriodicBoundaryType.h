@@ -22,8 +22,10 @@ class PeriodicBoundaryType {
      * @param container The container to apply the boundary conditions to.
      *
      * This method adds all the Halo particles for the periodic boundary to the respective side of the container.
+     *
+     * @return The original number of particles in the container before halo particles were added.
      */
-    static void applyBoundaryConditions(LinkedCellsContainer& container);
+    static size_t applyBoundaryConditions(LinkedCellsContainer& container);
 
    private:
     /**
