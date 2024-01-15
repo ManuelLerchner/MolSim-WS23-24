@@ -1,5 +1,7 @@
-# Set download timestamp policy
-cmake_policy(SET CMP0135 NEW)
+if(CMAKE_MINOR_VERSION GREATER_EQUAL 24) 
+        # Set download timestamp policy
+        cmake_policy(SET CMP0135 NEW)
+endif()
 
 # Enable FetchContent CMake module
 include(FetchContent)
