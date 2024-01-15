@@ -219,7 +219,7 @@
       <xs:element name="DiffusionFunction" type="DiffusionFunctionInterceptorType" minOccurs="0" />
       <xs:element name="RadialDistributionFunction"
         type="RadialDistributionFunctionInterceptionType" minOccurs="0" />
-      <xs:element name="VelocityProfile" type="VelocityProfileInterceptionType" minOccurs="0"/>
+      <xs:element name="VelocityProfile" type="VelocityProfileInterceptionType" minOccurs="0" />
       <xs:element name="FrameWriter" type="FrameWriterInterceptorType" minOccurs="0" />
       <xs:element name="Thermostat" type="ThermostatInterceptorType" minOccurs="0" />
     </xs:sequence>

@@ -88,6 +88,12 @@ MetaDataDataType::delta_t_type& MetaDataDataType::delta_t() { return this->delta
 
 void MetaDataDataType::delta_t(const delta_t_type& x) { this->delta_t_.set(x); }
 
+const MetaDataDataType::current_iteration_type& MetaDataDataType::current_iteration() const { return this->current_iteration_.get(); }
+
+MetaDataDataType::current_iteration_type& MetaDataDataType::current_iteration() { return this->current_iteration_.get(); }
+
+void MetaDataDataType::current_iteration(const current_iteration_type& x) { this->current_iteration_.set(x); }
+
 // ParticleDataType
 //
 
@@ -243,22 +249,30 @@ CheckPointFileType::~CheckPointFileType() {}
 //
 
 MetaDataDataType::MetaDataDataType(const input_file_type& input_file, const input_file_hash_type& input_file_hash,
-                                   const end_time_type& end_time, const delta_t_type& delta_t)
+                                   const end_time_type& end_time, const delta_t_type& delta_t,
+                                   const current_iteration_type& current_iteration)
     : ::xml_schema::type(),
       input_file_(input_file, this),
       input_file_hash_(input_file_hash, this),
       end_time_(end_time, this),
-      delta_t_(delta_t, this) {}
+      delta_t_(delta_t, this),
+      current_iteration_(current_iteration, this) {}
 
 MetaDataDataType::MetaDataDataType(const MetaDataDataType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
       input_file_(x.input_file_, f, this),
       input_file_hash_(x.input_file_hash_, f, this),
       end_time_(x.end_time_, f, this),
-      delta_t_(x.delta_t_, f, this) {}
+      delta_t_(x.delta_t_, f, this),
+      current_iteration_(x.current_iteration_, f, this) {}
 
 MetaDataDataType::MetaDataDataType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
-    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), input_file_(this), input_file_hash_(this), end_time_(this), delta_t_(this) {
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
+      input_file_(this),
+      input_file_hash_(this),
+      end_time_(this),
+      delta_t_(this),
+      current_iteration_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
         this->parse(p, f);
@@ -308,6 +322,15 @@ void MetaDataDataType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema
             }
         }
 
+        // current_iteration
+        //
+        if (n.name() == "current_iteration" && n.namespace_().empty()) {
+            if (!current_iteration_.present()) {
+                this->current_iteration_.set(current_iteration_traits::create(i, f, this));
+                continue;
+            }
+        }
+
         break;
     }
 
@@ -326,6 +349,10 @@ void MetaDataDataType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema
     if (!delta_t_.present()) {
         throw ::xsd::cxx::tree::expected_element<char>("delta_t", "");
     }
+
+    if (!current_iteration_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("current_iteration", "");
+    }
 }
 
 MetaDataDataType* MetaDataDataType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
@@ -339,6 +366,7 @@ MetaDataDataType& MetaDataDataType::operator=(const MetaDataDataType& x) {
         this->input_file_hash_ = x.input_file_hash_;
         this->end_time_ = x.end_time_;
         this->delta_t_ = x.delta_t_;
+        this->current_iteration_ = x.current_iteration_;
     }
 
     return *this;
@@ -894,6 +922,14 @@ void operator<<(::xercesc::DOMElement& e, const MetaDataDataType& i) {
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("delta_t", e));
 
         s << ::xml_schema::as_double(i.delta_t());
+    }
+
+    // current_iteration
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("current_iteration", e));
+
+        s << i.current_iteration();
     }
 }
 
