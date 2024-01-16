@@ -117,29 +117,29 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
     ReflectiveBoundaryType::applyBoundaryConditions(*this);
     size_t original_particle_length = PeriodicBoundaryType::applyBoundaryConditions(*this);
 
-    for (Cell* cell : occupied_cells_references) {
-        for (auto it1 = cell->getParticleReferences().begin(); it1 != cell->getParticleReferences().end(); ++it1) {
-            Particle* p = *it1;
-            // calculate the forces between the particle and the particles in the same cell
-            // uses direct sum with newtons third law
-            for (auto it2 = (it1 + 1); it2 != cell->getParticleReferences().end(); ++it2) {
-                if (p->isLocked() && (*it2)->isLocked()) continue;
-                Particle* q = *it2;
-                std::array<double, 3> total_force{0, 0, 0};
-                for (auto& force : force_sources) {
-                    total_force = total_force + force->calculateForce(*p, *q);
-                }
-                p->setF(p->getF() + total_force);
-                q->setF(q->getF() - total_force);
-            }
-        }
-    }
-
     for (auto& it_order : iteration_orders) {
 #pragma omp parallel for
         for (Cell* cell : it_order) {
             if (cell->getParticleReferences().empty()) continue;
 
+            // Calculate cell internal forces
+            for (auto it1 = cell->getParticleReferences().begin(); it1 != cell->getParticleReferences().end(); ++it1) {
+                Particle* p = *it1;
+                // calculate the forces between the particle and the particles in the same cell
+                // uses direct sum with newtons third law
+                for (auto it2 = (it1 + 1); it2 != cell->getParticleReferences().end(); ++it2) {
+                    if (p->isLocked() && (*it2)->isLocked()) continue;
+                    Particle* q = *it2;
+                    std::array<double, 3> total_force{0, 0, 0};
+                    for (auto& force : force_sources) {
+                        total_force = total_force + force->calculateForce(*p, *q);
+                    }
+                    p->setF(p->getF() + total_force);
+                    q->setF(q->getF() - total_force);
+                }
+            }
+
+            // Calculate cell boundary forces
             for (Cell* neighbour_cell : cell->getNeighbourReferences()) {
                 if (cell < neighbour_cell) continue;
                 if (neighbour_cell->getParticleReferences().empty()) continue;
@@ -147,12 +147,12 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
                 for (Particle* p : cell->getParticleReferences()) {
                     for (Particle* neighbour_particle : neighbour_cell->getParticleReferences()) {
                         if (p->isLocked() && neighbour_particle->isLocked()) continue;
-                        if (ArrayUtils::L2Norm(p->getX() - neighbour_particle->getX()) > cutoff_radius) continue;
+                        if (ArrayUtils::L2NormSquared(p->getX() - neighbour_particle->getX()) > cutoff_radius * cutoff_radius) continue;
 
                         for (const auto& force_source : force_sources) {
                             std::array<double, 3> force = force_source->calculateForce(*p, *neighbour_particle);
-                            p->setF(p->getF() + force);
 
+                            p->setF(p->getF() + force);
                             neighbour_particle->setF(neighbour_particle->getF() - force);
                         }
                     }
@@ -374,14 +374,10 @@ void LinkedCellsContainer::updateCellsParticleReferences() {
         cell.clearParticleReferences();
     }
 
-    // clear the set of used cells
-    occupied_cells_references.clear();
-
     // add the particle references to the cells
     for (Particle& p : particles) {
         Cell* cell = particlePosToCell(p.getX());
 
-        occupied_cells_references.insert(cell);
         cell->addParticleReference(&p);
     }
 }

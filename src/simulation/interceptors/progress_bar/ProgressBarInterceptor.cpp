@@ -41,7 +41,7 @@ void ProgressBarInterceptor::onSimulationStart(Simulation& simulation) {
 
     expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t));
 
-    SimulationInterceptor::every_nth_iteration = std::max(1, static_cast<int>(expected_iterations / (2 * 100)));
+    SimulationInterceptor::every_nth_iteration = std::max(1, static_cast<int>(expected_iterations / 1000.0));
 
     const size_t percentage = std::min(100ul, static_cast<size_t>(100.0 * static_cast<double>(simulation.params.start_iteration) /
                                                                   static_cast<double>(expected_iterations)));

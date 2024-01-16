@@ -2,7 +2,6 @@
 
 #include <array>
 #include <optional>
-#include <unordered_set>
 #include <vector>
 
 #include "particles/Particle.h"

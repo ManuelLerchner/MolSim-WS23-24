@@ -2,7 +2,6 @@
 
 #include <iterator>
 #include <ranges>
-#include <unordered_set>
 #include <vector>
 
 #include "cells/Cell.h"
@@ -342,12 +341,6 @@ class LinkedCellsContainer : public ParticleContainer {
      * @brief References to the halo cells
      */
     std::vector<Cell*> halo_cell_references;
-
-    /**
-     * @brief Temporary storage for references of cells that contain at least one particle to avoid iteration over empty cells. Uses
-     * unordered_set to avoid duplicate inserts.
-     */
-    std::unordered_set<Cell*> occupied_cells_references;
 
     // Boundary cell references with respect to x-axis pointing to the right, y-axis pointing up and z axis pointing out of the screen
 

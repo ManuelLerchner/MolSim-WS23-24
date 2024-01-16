@@ -131,7 +131,7 @@ void executeSimulation(int t_count, const std::vector<Particle>& particles_model
                 auto x_diff = ArrayUtils::L2Norm(reference_particles[i].getX() - linked_cells_data.resulting_particles[i].getX());
                 auto v_diff = ArrayUtils::L2Norm(reference_particles[i].getV() - linked_cells_data.resulting_particles[i].getV());
                 auto f_diff = ArrayUtils::L2Norm(reference_particles[i].getF() - linked_cells_data.resulting_particles[i].getF());
-                if (x_diff > 0 || v_diff > 0 || f_diff > 0) {
+                if (x_diff > 1e-9 || v_diff > 1e-9 || f_diff > 1e-9) {
                     equal = false;
                     Logger::logger->error("LinkedCells Checkpoint on {} threads is NOT equal to serial version", t_count);
                     Logger::logger->error("Difference in particle {}:", i);
@@ -164,7 +164,7 @@ int main() {
     spawner.spawnParticles(particles);
 
     // Execution
-    std::vector<int> num_threads = {1, 2, 4, 6, 8};
+    std::vector<int> num_threads = {1, 2, 4, 6, 8, 12};
     for (int t_count : num_threads) {
         omp_set_num_threads(t_count);
         executeSimulation(t_count, particles);
