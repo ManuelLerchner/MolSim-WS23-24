@@ -8,7 +8,7 @@
 
 const std::filesystem::path CheckPointWriter::writeFile(const SimulationParams& params, size_t iteration,
                                                         const std::vector<Particle>& particles) const {
-    auto file_name = params.output_dir_path / fmt::format("MD_CHKPT_{:04d}.chkpt", iteration);
+    auto file_name = params.output_dir_path / fmt::format("MD_CHKPT_{:08d}.chkpt", iteration);
 
     MetaDataDataType meta_data{params.input_file_path.string(), params.input_file_hash, params.end_time, params.delta_t, iteration};
 
