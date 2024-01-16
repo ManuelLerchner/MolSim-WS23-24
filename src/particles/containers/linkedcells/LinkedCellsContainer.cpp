@@ -343,7 +343,7 @@ void LinkedCellsContainer::initCellNeighbourReferences() {
 void LinkedCellsContainer::initIterationOrders() {
     std::vector<std::array<int, 3>> start_offsets;
 
-    int d_cells = 3;
+    const int d_cells = 2;
     for (int x = -1; x < d_cells - 1; ++x) {
         for (int y = -1; y < d_cells - 1; ++y) {
             for (int z = -1; z < d_cells - 1; ++z) {
