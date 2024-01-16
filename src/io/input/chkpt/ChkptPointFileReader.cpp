@@ -73,5 +73,12 @@ bool ChkptPointFileReader::detectSourceFileChanges(const std::string& filepath) 
     std::hash<std::string> hasher;
     auto curr_hash = hasher(buffer.str());
 
-    return curr_hash == meta_data.input_file_hash();
+    bool hash_valid = curr_hash == meta_data.input_file_hash();
+
+    if (!hash_valid) {
+        Logger::logger->warn("Source file '{}' has changed since last checkpoint. Original hash: {}, current hash: {}",
+                             meta_data.input_file(), meta_data.input_file_hash(), curr_hash);
+    }
+
+    return hash_valid;
 }

@@ -35,7 +35,6 @@
                 type="absolute" />
             <FrameWriter output_format="chkpt" fps="40" video_length_s="1" />
             <FrameWriter output_format="vtu" fps="24" video_length_s="30" />
-            <ParticleUpdatesPerSecond />
         </interceptors>
     </settings>
 

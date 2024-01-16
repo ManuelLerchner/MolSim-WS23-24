@@ -43,8 +43,11 @@ void ProgressBarInterceptor::onSimulationStart(Simulation& simulation) {
 
     SimulationInterceptor::every_nth_iteration = std::max(1, static_cast<int>(expected_iterations / (2 * 100)));
 
+    const size_t percentage = std::min(100ul, static_cast<size_t>(100.0 * static_cast<double>(simulation.params.start_iteration) /
+                                                                  static_cast<double>(expected_iterations)));
+
     Logger::logger->flush();
-    printProgress(simulation.params.input_file_path, 0, 0, expected_iterations, -1);
+    printProgress(simulation.params.input_file_path, percentage, simulation.params.start_iteration, expected_iterations, -1);
 }
 
 void ProgressBarInterceptor::operator()(size_t iteration, Simulation& simulation) {

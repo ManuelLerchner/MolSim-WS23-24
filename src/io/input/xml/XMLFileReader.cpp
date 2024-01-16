@@ -79,36 +79,34 @@ std::optional<std::filesystem::path> loadLatestValidCheckpointFromFolder(const s
     std::set<std::filesystem::path> entries;
     for (auto& entry : directory_iterator) {
         if (entry.path().extension() == ".chkpt") {
-            entries.insert(entry);
+            entries.insert(entry.path());
         }
     }
 
     for (auto it = entries.rbegin(); it != entries.rend(); ++it) {
         auto& entry = *it;
 
-        if (entry.extension() == ".chkpt") {
-            std::string filename = entry.filename().string();
-            std::string iteration_str =
-                filename.substr(filename.find_last_of("_") + 1, filename.find_last_of(".") - filename.find_last_of("_") - 1);
+        std::string filename = entry.filename().string();
+        std::string iteration_str =
+            filename.substr(filename.find_last_of("_") + 1, filename.find_last_of(".") - filename.find_last_of("_") - 1);
 
-            size_t current_file_number = std::stoul(iteration_str);
+        size_t current_file_number = std::stoul(iteration_str);
 
-            if (current_file_number > best_iteration) {
-                try {
-                    auto hash_valid = ChkptPointFileReader::detectSourceFileChanges(entry.string());
+        if (current_file_number > best_iteration) {
+            try {
+                auto hash_valid = ChkptPointFileReader::detectSourceFileChanges(entry.string());
 
-                    if (!hash_valid) {
-                        Logger::logger->warn(
-                            "The input file for the checkpoint file {} has changed since the checkpoint file was created. Skipping.",
-                            entry.string());
-                        continue;
-                    }
-
-                    best_iteration = current_file_number;
-                    check_point_path = entry;
-                } catch (const FileReader::FileFormatException& e) {
-                    Logger::logger->warn("Error: Could not read checkpoint file {}. Skipping.", entry.string());
+                if (!hash_valid) {
+                    Logger::logger->warn(
+                        "The input file for the checkpoint file {} has changed since the checkpoint file was created. Skipping.",
+                        entry.string());
+                    continue;
                 }
+
+                best_iteration = current_file_number;
+                check_point_path = entry;
+            } catch (const FileReader::FileFormatException& e) {
+                Logger::logger->warn("Error: Could not read checkpoint file {}. Skipping.", entry.string());
             }
         }
     }
@@ -165,7 +163,7 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::filesy
     if (latest_checkpoint_path.has_value()) {
         int end_iteration = loadCheckpointFile(particles, *latest_checkpoint_path);
 
-        params.start_iteration = end_iteration + 1;
+        params.start_iteration = end_iteration;
         load_in_spawners = false;
 
         Logger::logger->warn("Continuing from checkpoint file {} with iteration {}", latest_checkpoint_path.value().string(),
