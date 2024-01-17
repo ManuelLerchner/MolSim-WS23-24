@@ -39,9 +39,8 @@ FileOutputHandler::FileOutputHandler(const OutputFormat output_format, const Sim
 
                 size_t iteration = std::stoul(iteration_str);
 
-                if (iteration > params.start_iteration) {
+                if (params.start_iteration == 0 || iteration > params.start_iteration) {
                     std::filesystem::remove(entry.path());
-
                     count++;
                 }
             }

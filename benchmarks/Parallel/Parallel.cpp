@@ -21,8 +21,9 @@
 
 // #define TEST_DIRECT_SUM
 
-const int rect_width = 50;
-const int rect_height = 50;
+int rect_width = 50;
+int rect_height = 50;
+int rect_depth = 1;
 const double spacing = 1;
 const double lc_cutoff = 3;
 
@@ -43,11 +44,11 @@ void executeSimulation(int t_count, const std::vector<Particle>& particles_model
         FileInputHandler::readFile(FileLoader::get_input_file_path("Parallel/ParallelBenchmark.xml"), true);
 
     // Settings for the Linked Cells Container simulation
-    std::array<double, 3> domain_size = {300, 300, 3};
+    std::array<double, 3> domain_size = {60, 60, 60};
     std::array<LinkedCellsContainer::BoundaryCondition, 6> boundary_conditions = {
+        LinkedCellsContainer::BoundaryCondition::PERIODIC,   LinkedCellsContainer::BoundaryCondition::PERIODIC,
         LinkedCellsContainer::BoundaryCondition::REFLECTIVE, LinkedCellsContainer::BoundaryCondition::REFLECTIVE,
-        LinkedCellsContainer::BoundaryCondition::REFLECTIVE, LinkedCellsContainer::BoundaryCondition::REFLECTIVE,
-        LinkedCellsContainer::BoundaryCondition::REFLECTIVE, LinkedCellsContainer::BoundaryCondition::REFLECTIVE};
+        LinkedCellsContainer::BoundaryCondition::PERIODIC,   LinkedCellsContainer::BoundaryCondition::PERIODIC};
 
     // ############################################################
     // # Direct Sum Container
@@ -153,18 +154,41 @@ void executeSimulation(int t_count, const std::vector<Particle>& particles_model
  * Creates a 2D particle rect with variable amount of particles and runs the simulation for time measurements.
  * Can be used to compare the performance of the different particle containers.
  */
-int main() {
+int main(int argc, char** argv) {
+    if (argc == 4) {
+        int in_rect_width;
+        int in_rect_height;
+        int in_rect_depth;
+        try {
+            in_rect_width = std::stoi(argv[1]);
+            in_rect_height = std::stoi(argv[2]);
+            in_rect_depth = std::stoi(argv[3]);
+        } catch (std::exception& e) {
+            std::cout << "Error parsing arguments:" << e.what() << std::endl;
+            exit(1);
+        }
+
+        if (in_rect_width > 0 && in_rect_height > 0 && in_rect_depth > 0) {
+            rect_width = in_rect_width;
+            rect_height = in_rect_height;
+            rect_depth = in_rect_depth;
+        } else {
+            std::cout << "Error: Rectangle dimensions must be positive" << std::endl;
+            std::cout << "Using standard dimensions: " << rect_width << "x" << rect_height << "x" << rect_depth << std::endl;
+        }
+    }
+
     // Create particles
-    std::array<double, 3> domain_size = {300, 300, 3};
-    std::array<double, 3> center_offset = {domain_size[0] / 2, domain_size[1] / 2, domain_size[2] / 2};
-    CuboidSpawner spawner(center_offset - std::array<double, 3>{rect_width * spacing / 2, rect_height * spacing / 2, 0},
-                          {rect_width, rect_height, 1}, spacing, 1, {0, 0, 0}, 0);
+    std::array<double, 3> domain_size = {60, 60, 60};
+    CuboidSpawner spawner(std::array<double, 3>{0.5, 0.5, 0.5}, {rect_width, rect_height, rect_depth}, spacing, 1, {0, 0, 0}, 0);
 
     std::vector<Particle> particles;
-    spawner.spawnParticles(particles);
+    int spawned_particles = spawner.spawnParticles(particles);
+    std::cout << "Spawned " << spawned_particles << " particles" << std::endl;
+    std::cout << "Grid of " << rect_width << "x" << rect_height << "x" << rect_depth << " particles" << std::endl;
 
     // Execution
-    std::vector<int> num_threads = {1, 2, 4, 6, 8, 12};
+    std::vector<int> num_threads = {1, 2, 4, 8, 14, 16, 28, 56};
     for (int t_count : num_threads) {
         omp_set_num_threads(t_count);
         executeSimulation(t_count, particles);
