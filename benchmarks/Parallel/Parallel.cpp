@@ -127,24 +127,37 @@ void executeSimulation(int t_count, const std::vector<Particle>& particles_model
         if (reference_particles.size() != linked_cells_data.resulting_particles.size()) {
             Logger::logger->error("LinkedCells Checkpoint on {} threads is NOT equal to serial version", t_count);
         } else {
-            bool equal = true;
+            double max_diff_f = 0;
+            double max_diff_x = 0;
+            double max_diff_v = 0;
+
             for (size_t i = 0; i < reference_particles.size(); i++) {
                 auto x_diff = ArrayUtils::L2Norm(reference_particles[i].getX() - linked_cells_data.resulting_particles[i].getX());
                 auto v_diff = ArrayUtils::L2Norm(reference_particles[i].getV() - linked_cells_data.resulting_particles[i].getV());
                 auto f_diff = ArrayUtils::L2Norm(reference_particles[i].getF() - linked_cells_data.resulting_particles[i].getF());
-                if (x_diff > 1e-9 || v_diff > 1e-9 || f_diff > 1e-9) {
-                    equal = false;
-                    Logger::logger->error("LinkedCells Checkpoint on {} threads is NOT equal to serial version", t_count);
-                    Logger::logger->error("Difference in particle {}:", i);
-                    Logger::logger->error("x_diff: {}", x_diff);
-                    Logger::logger->error("v_diff: {}", v_diff);
-                    Logger::logger->error("f_diff: {}", f_diff);
-                    break;
+
+                if (x_diff > max_diff_x) {
+                    max_diff_x = x_diff;
+                }
+
+                if (v_diff > max_diff_v) {
+                    max_diff_v = v_diff;
+                }
+
+                if (f_diff > max_diff_f) {
+                    max_diff_f = f_diff;
                 }
             }
 
-            if (equal) {
-                Logger::logger->info("LinkedCells Checkpoint on {} threads is equal to serial version", t_count);
+            Logger::logger->error("LinkedCells Checkpoint on {} threads is NOT equal to serial version", t_count);
+            Logger::logger->error("max_diff_x: {}", max_diff_x);
+            Logger::logger->error("max_diff_v: {}", max_diff_v);
+            Logger::logger->error("max_diff_f: {}", max_diff_f);
+
+            double delta = 1e-10;
+
+            if (max_diff_x < delta && max_diff_v < delta && max_diff_f < delta) {
+                Logger::logger->info("LinkedCells Checkpoint on {} threads is equal to serial version. Delta = {}", t_count, delta);
             }
         }
     }

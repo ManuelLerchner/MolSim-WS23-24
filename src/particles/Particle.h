@@ -9,8 +9,11 @@
 
 #include <array>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <vector>
+
+#include "utils/ArrayUtils.h"
 
 /**
  * @brief Class to represent a particle
@@ -68,6 +71,11 @@ class Particle {
     bool locked;
 
     /**
+     * @brief Mutex to protect the particle force
+     */
+    mutable std::mutex mutex_f;
+
+    /**
      * @brief List of connected particles
      *
      * List of connected particles. Each entry is a tuple of a weak pointer to the connected particle, and the prefered distance between the
@@ -87,6 +95,8 @@ class Particle {
              double m_arg, int type = 0, double epsilon_arg = 1.0, double sigma_arg = 1.2, bool locked = false);
 
     virtual ~Particle();
+
+    Particle& operator=(const Particle& other);
 
     /**
      * @brief Sets the position of the particle
@@ -108,6 +118,24 @@ class Particle {
      * @param f New force
      */
     inline void setF(const std::array<double, 3>& f) { this->f = f; }
+
+    /**
+     * @brief Adds a force to the particle
+     * @param force Force to be added
+     */
+    inline void addF(const std::array<double, 3>& force) {
+        std::lock_guard lock(mutex_f);
+        f = f + force;
+    }
+
+    /**
+     * @brief Subtracts a force from the particle
+     * @param force Force to be subtracted
+     */
+    inline void subF(const std::array<double, 3>& force) {
+        std::lock_guard lock(mutex_f);
+        f = f - force;
+    }
 
     /**
      * @brief Sets the old force of the particle

@@ -56,6 +56,21 @@ Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std
 
 Particle::~Particle() { Logger::logger->debug("Particle destroyed"); }
 
+Particle& Particle::operator=(const Particle& other) {
+    x = other.x;
+    v = other.v;
+    f = other.f;
+    old_f = other.old_f;
+    m = other.m;
+    type = other.type;
+    epsilon = other.epsilon;
+    sigma = other.sigma;
+    locked = other.locked;
+    connected_particles = other.connected_particles;
+    Logger::logger->debug("Particle created");
+    return *this;
+}
+
 void Particle::addConnectedParticle(long ptr_diff, double l_0, double k) { connected_particles.push_back({ptr_diff, l_0, k}); }
 
 std::string Particle::toString() const {
