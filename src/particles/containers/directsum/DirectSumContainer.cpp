@@ -40,7 +40,9 @@ void DirectSumContainer::applySimpleForces(const std::vector<std::shared_ptr<Sim
 }
 
 void DirectSumContainer::applyPairwiseForces(const std::vector<std::shared_ptr<PairwiseForceSource>>& force_sources) {
+#ifdef _OPENMP
 #pragma omp parallel for
+#endif
     for (auto it1 = particles.begin(); it1 != particles.end(); ++it1) {
         std::array<double, 3> total_force{0, 0, 0};
 

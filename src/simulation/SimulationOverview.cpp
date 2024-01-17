@@ -45,7 +45,7 @@ void SimulationOverview::savePerformanceDataCSV(const std::string& filename_pref
     CSVWriter csv_writer(
         params.output_dir_path / "statistics" /
             (filename_prefix + (filename_prefix.empty() ? "" : "_") + "performance_data_" + formatted_time + ".csv"),
-        {"num_particles", "particle_container", "delta_t", "total_time[s]", "particle_updates_per_second[1/s]", "total_iterations"});
+        {"num_particles", "particle_container", "delta_t", "total_time[s]", "particle_updates_per_second[1/s]", "total_iterations"}, false);
 
     // find ParticleUpdateCounterInterceptor
     auto particle_update_counter = std::find_if(params.interceptors.begin(), params.interceptors.end(), [](auto& interceptor) {

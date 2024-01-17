@@ -62,7 +62,9 @@ void CSVWriter::initialize(const std::vector<std::string>& headers) {
         throw std::runtime_error("Could not open file for writing!");
     }
 
-    writeRow({headers.begin(), headers.end()});
+    if (!append) {
+        writeRow({headers.begin(), headers.end()});
+    }
 }
 
 void CSVWriter::writeRow(const std::vector<CSVWriter::serializable_types>& row) {

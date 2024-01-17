@@ -118,7 +118,9 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
     size_t original_particle_length = PeriodicBoundaryType::applyBoundaryConditions(*this);
 
     for (auto& it_order : iteration_orders) {
+#ifdef _OPENMP
 #pragma omp parallel for
+#endif
         for (Cell* cell : it_order) {
             if (cell->getParticleReferences().empty()) continue;
 

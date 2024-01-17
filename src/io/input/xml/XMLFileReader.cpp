@@ -161,13 +161,37 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::filesy
     // try to load latest checkpoint file and continue from there
     auto latest_checkpoint_path = loadLatestValidCheckpointFromFolder(params.output_dir_path);
     if (latest_checkpoint_path.has_value()) {
-        int end_iteration = loadCheckpointFile(particles, *latest_checkpoint_path);
+        Logger::logger->warn("Found checkpoint file {}", latest_checkpoint_path.value().string());
+        Logger::logger->warn("Continue simulation from checkpoint?");
+        Logger::logger->warn("  [y] Continue from checkpoint        [n] Start from scratch");
 
-        params.start_iteration = end_iteration;
-        load_in_spawners = false;
+        char answer;
+        while (true) {
+            std::cin >> answer;
+            if (std::cin.fail() || std::cin.eof()) {
+                std::cin.clear();
+                continue;
+            }
 
-        Logger::logger->warn("Continuing from checkpoint file {} with iteration {}", latest_checkpoint_path.value().string(),
-                             params.start_iteration);
+            if (answer != 'y' && answer != 'n') {
+                Logger::logger->warn("Invalid input. Please enter 'y' or 'n'");
+                continue;
+            } else {
+                break;
+            }
+        }
+
+        if (answer == 'y') {
+            int end_iteration = loadCheckpointFile(particles, *latest_checkpoint_path);
+
+            params.start_iteration = end_iteration;
+            load_in_spawners = false;
+
+            Logger::logger->warn("Continuing from checkpoint file {} with iteration {}", latest_checkpoint_path.value().string(),
+                                 params.start_iteration);
+        } else {
+            Logger::logger->warn("Starting simulation from scratch");
+        }
     } else {
         Logger::logger->warn("Error: No valid checkpoint file found in output directory {}", params.output_dir_path.string());
     }
