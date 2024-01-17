@@ -179,7 +179,6 @@ int main(int argc, char** argv) {
     }
 
     // Create particles
-    std::array<double, 3> domain_size = {60, 60, 60};
     CuboidSpawner spawner(std::array<double, 3>{0.5, 0.5, 0.5}, {rect_width, rect_height, rect_depth}, spacing, 1, {0, 0, 0}, 0);
 
     std::vector<Particle> particles;
