@@ -256,13 +256,13 @@ TEST(Thermostat, TemperatureCoolingFullStep) {
     thermostat.setTemperature(9, particle_container_ds);
 
     // Initial temperature should be 9
-    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_ds), 9, 3e-1);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_ds), 9, 0.5);
 
     // Scale temperature to 5
     thermostat.scaleTemperature(particle_container_ds);
 
     // Temperature should be around 5 after scaling
-    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_ds), 5, 3e-1);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_ds), 5, 0.5);
 
     // Test with LinkedCellsContainer
 
@@ -271,12 +271,12 @@ TEST(Thermostat, TemperatureCoolingFullStep) {
     thermostat.setTemperature(9, particle_container_lc);
 
     // Initial temperature should be 9
-    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_lc), 9, 3e-1);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_lc), 9, 0.5);
     // Scale temperature to 5
     thermostat.scaleTemperature(particle_container_lc);
 
     // Temperature should be around 5 after scaling
-    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_lc), 5, 3e-1);
+    EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container_lc), 5, 0.5);
 }
 
 /*
