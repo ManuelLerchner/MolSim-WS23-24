@@ -1,4 +1,6 @@
 import subprocess
+import os
+from time import sleep
 
 SCRIPT_TEMPLATE = """#!/bin/bash
 
@@ -23,9 +25,16 @@ def launch_job(name, num_threads, cluster, partition):
     script = SCRIPT_TEMPLATE.replace("{{NUM_THREADS}}", str(num_threads))
     script = script.replace("{{CLUSTER}}", cluster)
     script = script.replace("{{PARTITION}}", partition)
-    with open(name+"_"+str(num_threads)+".sh", "w") as f:
+
+    filename = name+"_"+str(num_threads)+".sh"
+    with open(filename, "w") as f:
         f.write(script)
-    subprocess.call(["sbatch", "job.sh"])
+
+    subprocess.call(["sbatch", filename])
+
+    sleep(1)
+
+    os.remove(filename)
 
 
 if __name__ == "__main__":
