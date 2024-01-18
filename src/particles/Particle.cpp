@@ -21,13 +21,13 @@ Particle::Particle(const Particle& other) {
     type = other.type;
     epsilon = other.epsilon;
     sigma = other.sigma;
-    locked = other.locked;
+    lock_state = other.lock_state;
     connected_particles = other.connected_particles;
     Logger::logger->debug("Particle created");
 }
 
 Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type_arg, double epsilon_arg,
-                   double sigma_arg, bool locked_arg) {
+                   double sigma_arg, LockState lock_state_arg) {
     x = x_arg;
     v = v_arg;
     m = m_arg;
@@ -35,13 +35,13 @@ Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, dou
     f = {0., 0., 0.};
     epsilon = epsilon_arg;
     sigma = sigma_arg;
-    locked = locked_arg;
+    lock_state = lock_state_arg;
     old_f = {0., 0., 0.};
     Logger::logger->debug("Particle created");
 }
 
 Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std::array<double, 3> f_arg, std::array<double, 3> old_f_arg,
-                   double m_arg, int type_arg, double epsilon_arg, double sigma_arg, bool locked_arg) {
+                   double m_arg, int type_arg, double epsilon_arg, double sigma_arg, LockState lock_state_arg) {
     x = x_arg;
     v = v_arg;
     f = f_arg;
@@ -50,7 +50,7 @@ Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std
     type = type_arg;
     epsilon = epsilon_arg;
     sigma = sigma_arg;
-    locked = locked_arg;
+    lock_state = lock_state_arg;
     Logger::logger->debug("Particle created");
 }
 
@@ -80,9 +80,9 @@ double Particle::getSigma() const { return sigma; }
 
 int Particle::getType() const { return type; }
 
-bool Particle::isLocked() const { return locked; }
+bool Particle::isLocked() const { return lock_state == LockState::LOCKED; }
 
-void Particle::setLocked(bool locked_arg) { locked = locked_arg; }
+void Particle::setLocked(LockState new_lock_state) { lock_state = new_lock_state; }
 
 std::vector<std::tuple<long, double, double>>& Particle::getConnectedParticles() { return connected_particles; }
 

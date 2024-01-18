@@ -12,6 +12,8 @@
 #include <string>
 #include <vector>
 
+#include "utils/Enums.h"
+
 /**
  * @brief Class to represent a particle
  *
@@ -65,7 +67,7 @@ class Particle {
     /**
      * @brief Wheter the particle is loccked in space
      */
-    bool locked;
+    LockState lock_state;
 
     /**
      * @brief List of connected particles
@@ -81,10 +83,10 @@ class Particle {
     Particle(const Particle& other);
 
     Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type = 0, double epsilon_arg = 1.0,
-             double sigma_arg = 1.2, bool locked = false);
+             double sigma_arg = 1.2, LockState lock_state = LockState::UNLOCKED);
 
     Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std::array<double, 3> f_arg, std::array<double, 3> old_f_arg,
-             double m_arg, int type = 0, double epsilon_arg = 1.0, double sigma_arg = 1.2, bool locked = false);
+             double m_arg, int type = 0, double epsilon_arg = 1.0, double sigma_arg = 1.2, LockState lock_state = LockState::UNLOCKED);
 
     virtual ~Particle();
 
@@ -159,7 +161,7 @@ class Particle {
     /**
      * @brief Set wheter the particle is locked in space
      */
-    void setLocked(bool locked);
+    void setLocked(LockState new_lock_state);
 
     /**
      * @brief Gets whether the particle is locked in space

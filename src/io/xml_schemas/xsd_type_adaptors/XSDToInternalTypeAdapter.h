@@ -12,6 +12,7 @@
 #include "particles/spawners/soft_body_cuboid/SoftBodyCuboidSpawner.h"
 #include "particles/spawners/sphere/SphereSpawner.h"
 #include "simulation/SimulationParams.h"
+#include "utils/Enums.h"
 
 /**
  * @brief Class to convert XSD types to internal types
@@ -25,7 +26,7 @@ class XSDToInternalTypeAdapter {
      * @param third_dimension Whether the third dimension is enabled
      * @return CuboidSpawner parsed from the given cuboid in the XSD format
      */
-    static CuboidSpawner convertToCuboidSpawner(const CuboidSpawnerType& cuboid, bool third_dimension);
+    static CuboidSpawner convertToCuboidSpawner(const CuboidSpawnerType& cuboid, ThirdDimension third_dimension);
 
     /**
      * @brief Converts a soft body cuboid from the XSD format to the internal format
@@ -34,7 +35,8 @@ class XSDToInternalTypeAdapter {
      * @param third_dimension Whether the third dimension is enabled
      * @return SoftBodyCuboidSpawner parsed from the given soft body cuboid in the XSD format
      */
-    static SoftBodyCuboidSpawner convertToSoftBodyCuboidSpawner(const SoftBodySpawnerType& soft_body_cuboid, bool third_dimension);
+    static SoftBodyCuboidSpawner convertToSoftBodyCuboidSpawner(const SoftBodySpawnerType& soft_body_cuboid,
+                                                                ThirdDimension third_dimension);
 
     /**
      * @brief Converts a sphere from the XSD format to the internal format
@@ -43,7 +45,7 @@ class XSDToInternalTypeAdapter {
      * @param third_dimension Whether the third dimension is enabled
      * @return SphereSpawner parsed from the given sphere in the XSD format
      */
-    static SphereSpawner convertToSphereSpawner(const SphereSpawnerType& sphere, bool third_dimension);
+    static SphereSpawner convertToSphereSpawner(const SphereSpawnerType& sphere, ThirdDimension third_dimension);
 
     /**
      * @brief Converts a particle from the XSD format to the internal format
@@ -52,7 +54,7 @@ class XSDToInternalTypeAdapter {
      * @param third_dimension Whether the third dimension is enabled
      * @return Particle parsed from the given particle in the XSD format
      */
-    static CuboidSpawner convertToSingleParticleSpawner(const SingleParticleSpawnerType& particle, bool third_dimension);
+    static CuboidSpawner convertToSingleParticleSpawner(const SingleParticleSpawnerType& particle, ThirdDimension third_dimension);
 
     /**
      * @brief Converts the simulation interceptors from the XSD format to the internal format
@@ -63,7 +65,7 @@ class XSDToInternalTypeAdapter {
      * @return List of simulation interceptors parsed from the given simulation interceptors in the XSD format
      */
     static std::vector<std::shared_ptr<SimulationInterceptor>> convertToSimulationInterceptors(
-        const SimulationInterceptorsType& interceptors, bool third_dimension,
+        const SimulationInterceptorsType& interceptors, ThirdDimension third_dimension,
         std::variant<SimulationParams::DirectSumType, SimulationParams::LinkedCellsType> container_type);
 
     /**

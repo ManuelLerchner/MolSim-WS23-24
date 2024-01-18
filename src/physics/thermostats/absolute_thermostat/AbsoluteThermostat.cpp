@@ -4,8 +4,8 @@
 
 #include "utils/ArrayUtils.h"
 
-AbsoluteThermostat::AbsoluteThermostat(double target_temperature, double max_temperature_change, bool third_dimension)
-    : Thermostat(target_temperature, max_temperature_change, third_dimension ? 3 : 2) {}
+AbsoluteThermostat::AbsoluteThermostat(double target_temperature, double max_temperature_change, ThirdDimension third_dimension)
+    : Thermostat(target_temperature, max_temperature_change, third_dimension) {}
 
 void AbsoluteThermostat::scaleTemperature(const std::unique_ptr<ParticleContainer>& particle_container) const {
     const double current_temperature = getCurrentContainerTemperature(particle_container);
@@ -31,5 +31,6 @@ double AbsoluteThermostat::getContainerKineticEnergy(const std::unique_ptr<Parti
 }
 
 double AbsoluteThermostat::getCurrentContainerTemperature(const std::unique_ptr<ParticleContainer>& particle_container) const {
-    return 2 * getContainerKineticEnergy(particle_container) / (dimensions * particle_container->size());
+    double dimension_count = third_dimension == ThirdDimension::ENABLED ? 3 : 2;
+    return 2 * getContainerKineticEnergy(particle_container) / (dimension_count * particle_container->size());
 }
