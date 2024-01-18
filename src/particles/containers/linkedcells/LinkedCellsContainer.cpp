@@ -104,6 +104,9 @@ void LinkedCellsContainer::prepareForceCalculation() {
 }
 
 void LinkedCellsContainer::applySimpleForces(const std::vector<std::shared_ptr<SimpleForceSource>>& simple_force_sources) {
+#ifdef _OPENMP
+#pragma omp parallel for
+#endif
     for (Particle& p : particles) {
         if (p.isLocked()) continue;
         for (const auto& force_source : simple_force_sources) {
