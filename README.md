@@ -36,7 +36,11 @@ The simulation is designed in a modular way. The following diagram shows the mai
 All the submissions for the individual sheets, the presentation slides and the project documentation is automatically deployed to [GitHub Pages](https://manuellerchner.github.io/MolSim-WS23-24) and can be accessed via the following links:
 
 - The doxygen documentation of the `master` branch can be found in [docs](https://manuellerchner.github.io/MolSim-WS23-24/docs/).
-- The submission files of the `presentations` branch can be found in [submissions](https://manuellerchner.github.io/MolSim-WS23-24/submissions/).
+- The submission files and the videos of the `presentations` branch can be found in [submissions](https://manuellerchner.github.io/MolSim-WS23-24/submissions/).
+
+<div align="center">
+  <img src="https://github.com/ManuelLerchner/MolSim-WS23-24/assets/54124311/4f3c0021-379d-4041-9fa9-154dc8e7bb6f"/>
+</div>
 
 ## Tools
 
