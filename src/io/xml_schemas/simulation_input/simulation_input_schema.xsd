@@ -213,7 +213,7 @@
 
 
   <xs:complexType name="SimulationInterceptorsType">
-    <xs:all>
+    <xs:sequence maxOccurs="unbounded">
       <xs:element name="ParticleUpdatesPerSecond" type="ParticleUpdatesPerSecondInterceptionType"
         minOccurs="0" />
       <xs:element name="DiffusionFunction" type="DiffusionFunctionInterceptorType" minOccurs="0" />
@@ -222,7 +222,7 @@
       <xs:element name="VelocityProfile" type="VelocityProfileInterceptionType" minOccurs="0" />
       <xs:element name="FrameWriter" type="FrameWriterInterceptorType" minOccurs="0" />
       <xs:element name="Thermostat" type="ThermostatInterceptorType" minOccurs="0" />
-    </xs:all>
+    </xs:sequence>
   </xs:complexType>
 
 

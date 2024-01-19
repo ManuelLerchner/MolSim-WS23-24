@@ -31,6 +31,9 @@ LinkedCellsContainer::LinkedCellsContainer(const std::array<double, 3>& _domain_
     // add the neighbour references to the cells
     initCellNeighbourReferences();
 
+    // create the iteration orders
+    initIterationOrders();
+
     // reserve the memory for the particles to prevent reallocation during insertion
     particles.reserve(_n);
 
@@ -90,8 +93,10 @@ void LinkedCellsContainer::prepareForceCalculation() {
     // update the particle references in the cells in case the particles have moved
     updateCellsParticleReferences();
 
-    ReflectiveBoundaryType::pre(*this);
+    // delete particles from halo cells
     OutflowBoundaryType::pre(*this);
+
+    // teleport particles to other side of container
     PeriodicBoundaryType::pre(*this);
 
     // update the particle references in the cells in case the particles have moved
@@ -99,6 +104,9 @@ void LinkedCellsContainer::prepareForceCalculation() {
 }
 
 void LinkedCellsContainer::applySimpleForces(const std::vector<std::shared_ptr<SimpleForceSource>>& simple_force_sources) {
+#ifdef _OPENMP
+#pragma omp parallel for
+#endif
     for (Particle& p : particles) {
         if (p.isLocked()) continue;
         for (const auto& force_source : simple_force_sources) {
@@ -110,57 +118,56 @@ void LinkedCellsContainer::applySimpleForces(const std::vector<std::shared_ptr<S
 void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr<PairwiseForceSource>>& force_sources) {
     // apply the boundary conditions
     ReflectiveBoundaryType::applyBoundaryConditions(*this);
-    OutflowBoundaryType::applyBoundaryConditions(*this);
-    PeriodicBoundaryType::applyBoundaryConditions(*this);
+    size_t original_particle_length = PeriodicBoundaryType::applyBoundaryConditions(*this);
 
-    // clear the already influenced by vector in the cells
-    // this is needed to prevent the two cells from affecting each other twice
-    // since newtons third law is used
-    for (Cell* cell : domain_cell_references) {
-        cell->clearAlreadyInfluencedBy();
-    }
+    for (auto& it_order : iteration_orders) {
+#ifdef _OPENMP
+#pragma omp parallel for
+#endif
+        for (Cell* cell : it_order) {
+            if (cell->getParticleReferences().empty()) continue;
 
-    for (Cell* cell : occupied_cells_references) {
-        // skip halo cells
-        // if (cell->getCellType() == Cell::CellType::HALO) continue;
-
-        for (auto it1 = cell->getParticleReferences().begin(); it1 != cell->getParticleReferences().end(); ++it1) {
-            Particle* p = *it1;
-            // calculate the forces between the particle and the particles in the same cell
-            // uses direct sum with newtons third law
-            for (auto it2 = (it1 + 1); it2 != cell->getParticleReferences().end(); ++it2) {
-                if (p->isLocked() && (*it2)->isLocked()) continue;
-                Particle* q = *it2;
-                std::array<double, 3> total_force{0, 0, 0};
-                for (auto& force : force_sources) {
-                    total_force = total_force + force->calculateForce(*p, *q);
+            // Calculate cell internal forces
+            for (auto it1 = cell->getParticleReferences().begin(); it1 != cell->getParticleReferences().end(); ++it1) {
+                Particle* p = *it1;
+                // calculate the forces between the particle and the particles in the same cell
+                // uses direct sum with newtons third law
+                for (auto it2 = (it1 + 1); it2 != cell->getParticleReferences().end(); ++it2) {
+                    if (p->isLocked() && (*it2)->isLocked()) continue;
+                    Particle* q = *it2;
+                    std::array<double, 3> total_force{0, 0, 0};
+                    for (auto& force : force_sources) {
+                        total_force = total_force + force->calculateForce(*p, *q);
+                    }
+                    p->setF(p->getF() + total_force);
+                    q->setF(q->getF() - total_force);
                 }
-                p->setF(p->getF() + total_force);
-                q->setF(q->getF() - total_force);
             }
 
-            // calculate the forces between the particle and the particles in the neighbour cells
-            for (Cell* neighbour : cell->getNeighbourReferences()) {
-                if (cell->getAlreadyInfluencedBy().contains(neighbour)) continue;
+            // Calculate cell boundary forces
+            for (Cell* neighbour_cell : cell->getNeighbourReferences()) {
+                if (cell < neighbour_cell) continue;
+                if (neighbour_cell->getParticleReferences().empty()) continue;
 
-                for (Particle* neighbour_particle : neighbour->getParticleReferences()) {
-                    if (p->isLocked() && neighbour_particle->isLocked()) continue;
-                    if (ArrayUtils::L2Norm(p->getX() - neighbour_particle->getX()) > cutoff_radius) continue;
+                for (Particle* p : cell->getParticleReferences()) {
+                    for (Particle* neighbour_particle : neighbour_cell->getParticleReferences()) {
+                        if (p->isLocked() && neighbour_particle->isLocked()) continue;
+                        if (ArrayUtils::L2NormSquared(p->getX() - neighbour_particle->getX()) > cutoff_radius * cutoff_radius) continue;
 
-                    for (const auto& force_source : force_sources) {
-                        std::array<double, 3> force = force_source->calculateForce(*p, *neighbour_particle);
-                        p->setF(p->getF() + force);
-                        neighbour_particle->setF(neighbour_particle->getF() - force);
+                        for (const auto& force_source : force_sources) {
+                            std::array<double, 3> force = force_source->calculateForce(*p, *neighbour_particle);
+
+                            p->setF(p->getF() + force);
+                            neighbour_particle->setF(neighbour_particle->getF() - force);
+                        }
                     }
                 }
-
-                neighbour->addAlreadyInfluencedBy(cell);
             }
         }
     }
 
     // remove the periodic halo particles
-    deleteHaloParticles();
+    particles.erase(particles.begin() + original_particle_length, particles.end());
     updateCellsParticleReferences();
 }
 
@@ -253,8 +260,7 @@ void LinkedCellsContainer::initCells() {
         for (int cy = -1; cy < domain_num_cells[1] + 1; ++cy) {
             for (int cz = -1; cz < domain_num_cells[2] + 1; ++cz) {
                 if (cx < 0 || cx >= domain_num_cells[0] || cy < 0 || cy >= domain_num_cells[1] || cz < 0 || cz >= domain_num_cells[2]) {
-                    Cell new_cell(Cell::CellType::HALO);
-                    cells.push_back(new_cell);
+                    cells.emplace_back(Cell::CellType::HALO);
                     halo_cell_references.push_back(&cells.back());
 
                     if (cx == -1) {
@@ -277,8 +283,7 @@ void LinkedCellsContainer::initCells() {
                     }
                 } else if (cx == 0 || cx == domain_num_cells[0] - 1 || cy == 0 || cy == domain_num_cells[1] - 1 || cz == 0 ||
                            cz == domain_num_cells[2] - 1) {
-                    Cell new_cell(Cell::CellType::BOUNDARY);
-                    cells.push_back(new_cell);
+                    cells.emplace_back(Cell::CellType::BOUNDARY);
                     boundary_cell_references.push_back(&cells.back());
                     domain_cell_references.push_back(&cells.back());
 
@@ -301,8 +306,7 @@ void LinkedCellsContainer::initCells() {
                         front_boundary_cell_references.push_back(&cells.back());
                     }
                 } else {
-                    Cell new_cell(Cell::CellType::INNER);
-                    cells.push_back(new_cell);
+                    cells.emplace_back(Cell::CellType::INNER);
                     domain_cell_references.push_back(&cells.back());
                 }
             }
@@ -341,20 +345,44 @@ void LinkedCellsContainer::initCellNeighbourReferences() {
     }
 }
 
+void LinkedCellsContainer::initIterationOrders() {
+    std::vector<std::array<int, 3>> start_offsets;
+
+    const int d_cells = 2;
+    for (int x = -1; x < d_cells - 1; ++x) {
+        for (int y = -1; y < d_cells - 1; ++y) {
+            for (int z = -1; z < d_cells - 1; ++z) {
+                start_offsets.push_back({x, y, z});
+            }
+        }
+    }
+
+    for (size_t i = 0; i < start_offsets.size(); ++i) {
+        std::vector<Cell*> iteration_order;
+        const std::array<int, 3>& start_offset = start_offsets[i];
+
+        for (int cx = start_offset[0]; cx <= domain_num_cells[0]; cx += d_cells) {
+            for (int cy = start_offset[1]; cy <= domain_num_cells[1]; cy += d_cells) {
+                for (int cz = start_offset[2]; cz <= domain_num_cells[2]; cz += d_cells) {
+                    iteration_order.push_back(&cells.at(cellCoordToCellIndex(cx, cy, cz)));
+                }
+            }
+        }
+
+        iteration_orders.push_back(iteration_order);
+    }
+}
+
 void LinkedCellsContainer::updateCellsParticleReferences() {
     // clear the particle references in the cells
     for (Cell& cell : cells) {
         cell.clearParticleReferences();
     }
 
-    // clear the set of used cells
-    occupied_cells_references.clear();
-
     // add the particle references to the cells
     for (Particle& p : particles) {
         Cell* cell = particlePosToCell(p.getX());
 
-        occupied_cells_references.insert(cell);
         cell->addParticleReference(&p);
     }
 }
@@ -362,13 +390,6 @@ void LinkedCellsContainer::updateCellsParticleReferences() {
 void LinkedCellsContainer::deleteHaloParticles() {
     for (Cell* cell : halo_cell_references) {
         for (Particle* p : cell->getParticleReferences()) {
-            // for (auto& [connected_particle_offset, _, _] : p->getConnectedParticles()) {
-            //     Particle* connected_particle = p + connected_particle_offset;
-            //     std::erase_if(connected_particle->getConnectedParticles(),
-            //                   [connected_particle, p](const std::tuple<long, double, double>& tuple) { return std::get<0>(tuple) == p -
-            //                   connected_particle; });
-            // }
-
             particles.erase(particles.begin() + (p - &particles[0]));
         }
     }

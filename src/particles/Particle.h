@@ -95,83 +95,83 @@ class Particle {
      *
      * @param x New position
      */
-    void setX(const std::array<double, 3>& x);
+    inline void setX(const std::array<double, 3>& x) { this->x = x; }
 
     /**
      * @brief Sets the velocity of the particle
      *
      * @param v New velocity
      */
-    void setV(const std::array<double, 3>& v);
+    inline void setV(const std::array<double, 3>& v) { this->v = v; }
 
     /**
      * @brief Sets the force of the particle
      *
      * @param f New force
      */
-    void setF(const std::array<double, 3>& f);
+    inline void setF(const std::array<double, 3>& f) { this->f = f; }
 
     /**
      * @brief Sets the old force of the particle
      *
      * @param oldF New old force
      */
-    void setOldF(const std::array<double, 3>& oldF);
+    inline void setOldF(const std::array<double, 3>& oldF) { old_f = oldF; }
 
     /**
      * @brief Gets the position of the particle
      */
-    [[nodiscard]] const std::array<double, 3>& getX() const;
+    [[nodiscard]] inline const std::array<double, 3>& getX() const { return x; }
 
     /**
      * @brief Gets the velocity of the particle
      */
-    [[nodiscard]] const std::array<double, 3>& getV() const;
+    [[nodiscard]] inline const std::array<double, 3>& getV() const { return v; }
 
     /**
      * @brief Gets the total force of the particle
      */
-    [[nodiscard]] const std::array<double, 3>& getF() const;
+    [[nodiscard]] inline const std::array<double, 3>& getF() const { return f; }
 
     /**
      * @brief Gets the old total force of the particle
      */
-    [[nodiscard]] const std::array<double, 3>& getOldF() const;
+    [[nodiscard]] inline const std::array<double, 3>& getOldF() const { return old_f; }
 
     /**
      * @brief Gets the mass of the particle
      */
-    [[nodiscard]] double getM() const;
+    [[nodiscard]] inline double getM() const { return m; }
 
     /**
      * @brief Gets the type of the particle
      */
-    [[nodiscard]] int getType() const;
+    [[nodiscard]] inline int getType() const { return type; }
 
     /**
      * @brief Gets the Lennard-Jones potential parameter epsilon
      */
-    [[nodiscard]] double getEpsilon() const;
+    [[nodiscard]] inline double getEpsilon() const { return epsilon; }
 
     /**
      * @brief Gets the Lennard-Jones potential parameter sigma
      */
-    [[nodiscard]] double getSigma() const;
+    [[nodiscard]] inline double getSigma() const { return sigma; }
 
     /**
      * @brief Set wheter the particle is locked in space
      */
-    void setLocked(LockState new_lock_state);
+    inline void setLocked(LockState new_lock_state) { lock_state = new_lock_state; }
 
     /**
      * @brief Gets whether the particle is locked in space
      */
-    [[nodiscard]] bool isLocked() const;
+    [[nodiscard]] inline bool isLocked() const { return lock_state == LockState::LOCKED; }
 
     /**
      * @brief Gets the list of connected particles
      */
-    [[nodiscard]] std::vector<std::tuple<long, double, double>>& getConnectedParticles();
+    [[nodiscard]] inline std::vector<std::tuple<long, double, double>>& getConnectedParticles() { return connected_particles; }
 
     /**
      * @brief Adds a connected particle

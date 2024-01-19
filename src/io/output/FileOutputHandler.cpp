@@ -25,6 +25,7 @@ FileOutputHandler::FileOutputHandler(const OutputFormat output_format, const Sim
 
     if (std::filesystem::exists(params.output_dir_path)) {
         auto supported = get_supported_output_formats();
+
         auto file_extension = std::find_if(supported.begin(), supported.end(), [&params, &output_format](const auto& pair) {
                                   return pair.second == output_format;
                               })->first;
@@ -32,13 +33,20 @@ FileOutputHandler::FileOutputHandler(const OutputFormat output_format, const Sim
         auto count = 0;
         for (const auto& entry : std::filesystem::directory_iterator(params.output_dir_path)) {
             if (entry.path().extension() == "." + file_extension) {
-                std::filesystem::remove(entry.path());
-                count++;
+                std::string filename = entry.path().filename().string();
+                std::string iteration_str =
+                    filename.substr(filename.find_last_of("_") + 1, filename.find_last_of(".") - filename.find_last_of("_") - 1);
+
+                size_t iteration = std::stoul(iteration_str);
+
+                if (params.start_iteration == 0 || iteration > params.start_iteration) {
+                    std::filesystem::remove(entry.path());
+                    count++;
+                }
             }
         }
         if (count > 0) {
-            Logger::logger->warn("Removed {} files with targetted file extension {} from target directory {}", count, file_extension,
-                                 params.output_dir_path.string());
+            Logger::logger->warn("Removed {} {} files from output directory '{}'.", count, file_extension, params.output_dir_path.string());
         }
     } else {
         Logger::logger->info("Creating output directory '{}'.", params.output_dir_path.string());

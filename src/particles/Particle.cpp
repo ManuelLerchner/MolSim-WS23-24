@@ -56,36 +56,6 @@ Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std
 
 Particle::~Particle() { Logger::logger->debug("Particle destroyed"); }
 
-void Particle::setX(const std::array<double, 3>& x_arg) { x = x_arg; }
-
-void Particle::setV(const std::array<double, 3>& v_arg) { v = v_arg; }
-
-void Particle::setF(const std::array<double, 3>& f_arg) { f = f_arg; }
-
-void Particle::setOldF(const std::array<double, 3>& old_f_arg) { old_f = old_f_arg; }
-
-const std::array<double, 3>& Particle::getX() const { return x; }
-
-const std::array<double, 3>& Particle::getV() const { return v; }
-
-const std::array<double, 3>& Particle::getF() const { return f; }
-
-const std::array<double, 3>& Particle::getOldF() const { return old_f; }
-
-double Particle::getM() const { return m; }
-
-double Particle::getEpsilon() const { return epsilon; }
-
-double Particle::getSigma() const { return sigma; }
-
-int Particle::getType() const { return type; }
-
-bool Particle::isLocked() const { return lock_state == LockState::LOCKED; }
-
-void Particle::setLocked(LockState new_lock_state) { lock_state = new_lock_state; }
-
-std::vector<std::tuple<long, double, double>>& Particle::getConnectedParticles() { return connected_particles; }
-
 void Particle::addConnectedParticle(long ptr_diff, double l_0, double k) { connected_particles.push_back({ptr_diff, l_0, k}); }
 
 std::string Particle::toString() const {

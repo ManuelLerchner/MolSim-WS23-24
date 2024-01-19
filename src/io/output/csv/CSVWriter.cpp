@@ -36,12 +36,12 @@ CSVWriter& CSVWriter::operator=(CSVWriter&& rhs) noexcept {
 }
 
 CSVWriter::~CSVWriter() {
-    Logger::logger->info("Closing CSVWriter for file {}...", file_path.string());
+    Logger::logger->debug("Closing CSVWriter for file {}...", file_path.string());
     file.close();
 }
 
 void CSVWriter::initialize(const std::vector<std::string>& headers) {
-    Logger::logger->info("Creating CSVWriter for file {}...", file_path.string());
+    Logger::logger->debug("Creating CSVWriter for file {}...", file_path.string());
 
     this->headers = headers;
 
@@ -62,7 +62,9 @@ void CSVWriter::initialize(const std::vector<std::string>& headers) {
         throw std::runtime_error("Could not open file for writing!");
     }
 
-    writeRow({headers.begin(), headers.end()});
+    if (!append) {
+        writeRow({headers.begin(), headers.end()});
+    }
 }
 
 void CSVWriter::writeRow(const std::vector<CSVWriter::serializable_types>& row) {

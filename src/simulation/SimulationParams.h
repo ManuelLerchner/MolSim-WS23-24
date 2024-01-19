@@ -114,6 +114,11 @@ class SimulationParams {
     bool fresh;
 
     /**
+     * @brief Start iteration of the simulation
+     */
+    size_t start_iteration;
+
+    /**
      * @brief Construct a new SimulationParams object
      *
      * @param input_file_path Path to the input file of the simulation
@@ -127,6 +132,7 @@ class SimulationParams {
      * @param fresh Flag to indicate whether the simulation should be run from scratch, or whether cached data should be used
      * @param base_path Base path to the output directory. This is used to construct the output directory path if none is given
      * explicitly. Defaults to "./output/"
+     * @param start_iteration Start iteration of the simulation
      */
     SimulationParams(const std::filesystem::path& input_file_path, double delta_t, double end_time,
                      const std::variant<DirectSumType, LinkedCellsType>& container_type,
@@ -134,7 +140,7 @@ class SimulationParams {
                      const std::vector<std::shared_ptr<SimpleForceSource>>& simple_forces,
                      const std::vector<std::shared_ptr<PairwiseForceSource>>& pairwise_forces,
                      const std::vector<std::shared_ptr<TargettedForceSource>>& targetted_forces, bool fresh = false,
-                     const std::filesystem::path& base_path = "./output");
+                     const std::filesystem::path& base_path = "./output", size_t start_iteration = 0);
 
     /**
      * @brief Prints a summary of the simulation parameters to the console

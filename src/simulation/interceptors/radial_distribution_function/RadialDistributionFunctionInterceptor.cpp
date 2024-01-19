@@ -6,14 +6,18 @@
 #include "utils/ArrayUtils.h"
 
 void RadialDistributionFunctionInterceptor::onSimulationStart(Simulation& simulation) {
-    csv_writer = std::make_unique<CSVWriter>(simulation.params.output_dir_path / "statistics" / "radial_distribution_function.csv");
+    bool append = simulation.params.start_iteration != 0;
+
+    csv_writer = std::make_unique<CSVWriter>(simulation.params.output_dir_path / "statistics" / "radial_distribution_function.csv", append);
 
     csv_writer->initialize({"iteration", "bin_index (w= " + std::to_string(bin_width) + ")", "samples", "local_density"});
 
     auto expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t));
     SimulationInterceptor::every_nth_iteration = std::max(1, static_cast<int>(sample_every_x_percent * expected_iterations / 100));
 
-    saveCurrentRadialDistribution(0, simulation);
+    if (simulation.params.start_iteration == 0) {
+        saveCurrentRadialDistribution(0, simulation);
+    }
 }
 
 void RadialDistributionFunctionInterceptor::operator()(size_t iteration, Simulation& simulation) {

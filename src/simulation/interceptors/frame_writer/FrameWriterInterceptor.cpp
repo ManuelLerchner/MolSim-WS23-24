@@ -25,8 +25,10 @@ void FrameWriterInterceptor::onSimulationStart(Simulation& simulation) {
 
     file_output_handler = std::make_unique<FileOutputHandler>(output_format, simulation.params);
 
-    file_output_handler->writeFile(0, simulation.particle_container);
-    file_counter++;
+    if (simulation.params.start_iteration == 0) {
+        file_output_handler->writeFile(simulation.params.start_iteration, simulation.particle_container);
+        file_counter++;
+    }
 }
 
 void FrameWriterInterceptor::operator()(size_t iteration, Simulation& simulation) {
