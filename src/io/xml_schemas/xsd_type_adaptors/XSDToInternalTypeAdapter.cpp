@@ -332,7 +332,13 @@ Particle XSDToInternalTypeAdapter::convertToParticle(const ParticleType& particl
         throw std::runtime_error("Particle mass must be positive");
     }
 
-    return Particle{position, velocity, force, old_force, mass, static_cast<int>(type), epsilon, sigma, lock_state};
+    Particle output_particle{position, velocity, force, old_force, mass, static_cast<int>(type), epsilon, sigma, lock_state};
+
+    for (const auto& entry : particle.connected_particles().entries()) {
+        output_particle.addConnectedParticle(entry.pointer_diff(), entry.rest_length(), entry.spring_constant());
+    }
+
+    return output_particle;
 }
 
 std::tuple<std::vector<std::shared_ptr<SimpleForceSource>>, std::vector<std::shared_ptr<PairwiseForceSource>>,

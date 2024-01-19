@@ -15,7 +15,9 @@ TEST(CHKPTWriter, CorrectWritingAndReadingOfParticles) {
         auto pos = std::array<double, 3>{i, 2 * i, 3 * i};
         auto vel = std::array<double, 3>{4 * i, 5 * i, 6 * i};
         bool is_odd = (int)i % 2 == 1;
-        particle_container->addParticle(Particle(pos, vel, i, i, i * i, i * i * i, is_odd ? LockState::LOCKED : LockState::UNLOCKED));
+        Particle particle(pos, vel, i, i, i * i, i * i * i, is_odd ? LockState::LOCKED : LockState::UNLOCKED);
+        particle.addConnectedParticle(i, i + 0.25, i + 0.5);
+        particle_container->addParticle(particle);
     }
 
     auto params = SimulationParams("test.xml", 0, 0, SimulationParams::DirectSumType{}, {}, {}, {}, {}, false);
@@ -34,5 +36,10 @@ TEST(CHKPTWriter, CorrectWritingAndReadingOfParticles) {
 
     for (size_t i = 0; i < loaded_particles.size(); i++) {
         EXPECT_EQ(loaded_particles.at(i), particle_container->getParticles().at(i));
+
+        for (size_t j = 0; j < loaded_particles.at(i).getConnectedParticles().size(); j++) {
+            EXPECT_EQ(loaded_particles.at(i).getConnectedParticles().at(j),
+                      particle_container->getParticles().at(i).getConnectedParticles().at(j));
+        }
     }
 }

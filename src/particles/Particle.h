@@ -171,7 +171,7 @@ class Particle {
     /**
      * @brief Gets the list of connected particles
      */
-    [[nodiscard]] inline std::vector<std::tuple<long, double, double>>& getConnectedParticles() { return connected_particles; }
+    [[nodiscard]] inline const std::vector<std::tuple<long, double, double>>& getConnectedParticles() const { return connected_particles; }
 
     /**
      * @brief Adds a connected particle

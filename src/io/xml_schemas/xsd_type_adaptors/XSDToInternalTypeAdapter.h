@@ -128,4 +128,12 @@ class XSDToInternalTypeAdapter {
      * @return Vector parsed from the given vector in the XSD format
      */
     static std::array<int, 3> convertToVector(const IntVec3Type& vector);
+
+    /**
+     *  @brief Converts a connected particle entry from the XSD format to the internal format
+     *
+     * @param entry Connected particle entry in the XSD format
+     * @return Tuple with the pointer difference, l_0 and k parsed from the given connected particle entry in the XSD format
+     */
+    static std::tuple<long, double, double> convertToTuple(const ConnectedParticleEntryType& entry);
 };

@@ -596,6 +596,8 @@ class CheckPointFileType;
 class MetaDataDataType;
 class ParticleDataType;
 class ParticleType;
+class ConnectedParticlesType;
+class ConnectedParticleEntryType;
 
 #include <algorithm>  // std::binary_search
 #include <limits>     // std::numeric_limits
@@ -1718,6 +1720,60 @@ class ParticleType : public ::xml_schema::type {
     //@}
 
     /**
+     * @name connected_particles
+     *
+     * @brief Accessor and modifier functions for the %connected_particles
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::ConnectedParticlesType connected_particles_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<connected_particles_type, char> connected_particles_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const connected_particles_type& connected_particles() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    connected_particles_type& connected_particles();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void connected_particles(const connected_particles_type& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly
+     * instead of making a copy.
+     */
+    void connected_particles(::std::unique_ptr<connected_particles_type> p);
+
+    //@}
+
+    /**
      * @name Constructors
      */
     //@{
@@ -1727,7 +1783,7 @@ class ParticleType : public ::xml_schema::type {
      * initializers for required elements and attributes.
      */
     ParticleType(const position_type&, const velocity_type&, const force_type&, const old_force_type&, const mass_type&, const type_type&,
-                 const epsilon_type&, const sigma_type&, const is_locked_type&);
+                 const epsilon_type&, const sigma_type&, const is_locked_type&, const connected_particles_type&);
 
     /**
      * @brief Create an instance from the ultimate base and
@@ -1739,7 +1795,7 @@ class ParticleType : public ::xml_schema::type {
      */
     ParticleType(::std::unique_ptr<position_type>, ::std::unique_ptr<velocity_type>, ::std::unique_ptr<force_type>,
                  ::std::unique_ptr<old_force_type>, const mass_type&, const type_type&, const epsilon_type&, const sigma_type&,
-                 const is_locked_type&);
+                 const is_locked_type&, ::std::unique_ptr<connected_particles_type>);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -1810,6 +1866,368 @@ class ParticleType : public ::xml_schema::type {
     ::xsd::cxx::tree::one<epsilon_type> epsilon_;
     ::xsd::cxx::tree::one<sigma_type> sigma_;
     ::xsd::cxx::tree::one<is_locked_type> is_locked_;
+    ::xsd::cxx::tree::one<connected_particles_type> connected_particles_;
+
+    //@endcond
+};
+
+/**
+ * @brief Class corresponding to the %ConnectedParticlesType schema type.
+ *
+ * @nosubgrouping
+ */
+class ConnectedParticlesType : public ::xml_schema::type {
+   public:
+    /**
+     * @name entries
+     *
+     * @brief Accessor and modifier functions for the %entries
+     * sequence element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::ConnectedParticleEntryType entries_type;
+
+    /**
+     * @brief Element sequence container type.
+     */
+    typedef ::xsd::cxx::tree::sequence<entries_type> entries_sequence;
+
+    /**
+     * @brief Element iterator type.
+     */
+    typedef entries_sequence::iterator entries_iterator;
+
+    /**
+     * @brief Element constant iterator type.
+     */
+    typedef entries_sequence::const_iterator entries_const_iterator;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<entries_type, char> entries_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element
+     * sequence.
+     *
+     * @return A constant reference to the sequence container.
+     */
+    const entries_sequence& entries() const;
+
+    /**
+     * @brief Return a read-write reference to the element sequence.
+     *
+     * @return A reference to the sequence container.
+     */
+    entries_sequence& entries();
+
+    /**
+     * @brief Copy elements from a given sequence.
+     *
+     * @param s A sequence to copy elements from.
+     *
+     * For each element in @a s this function makes a copy and adds it
+     * to the sequence. Note that this operation completely changes the
+     * sequence and all old elements will be lost.
+     */
+    void entries(const entries_sequence& s);
+
+    //@}
+
+    /**
+     * @name Constructors
+     */
+    //@{
+
+    /**
+     * @brief Create an instance from the ultimate base and
+     * initializers for required elements and attributes.
+     */
+    ConnectedParticlesType();
+
+    /**
+     * @brief Create an instance from a DOM element.
+     *
+     * @param e A DOM element to extract the data from.
+     * @param f Flags to create the new instance with.
+     * @param c A pointer to the object that will contain the new
+     * instance.
+     */
+    ConnectedParticlesType(const ::xercesc::DOMElement& e, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy constructor.
+     *
+     * @param x An instance to make a copy of.
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     *
+     * For polymorphic object models use the @c _clone function instead.
+     */
+    ConnectedParticlesType(const ConnectedParticlesType& x, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy the instance polymorphically.
+     *
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     * @return A pointer to the dynamically allocated copy.
+     *
+     * This function ensures that the dynamic type of the instance is
+     * used for copying and should be used for polymorphic object
+     * models instead of the copy constructor.
+     */
+    virtual ConnectedParticlesType* _clone(::xml_schema::flags f = 0, ::xml_schema::container* c = 0) const;
+
+    /**
+     * @brief Copy assignment operator.
+     *
+     * @param x An instance to make a copy of.
+     * @return A reference to itself.
+     *
+     * For polymorphic object models use the @c _clone function instead.
+     */
+    ConnectedParticlesType& operator=(const ConnectedParticlesType& x);
+
+    //@}
+
+    /**
+     * @brief Destructor.
+     */
+    virtual ~ConnectedParticlesType();
+
+    // Implementation.
+    //
+
+    //@cond
+
+   protected:
+    void parse(::xsd::cxx::xml::dom::parser<char>&, ::xml_schema::flags);
+
+   protected:
+    entries_sequence entries_;
+
+    //@endcond
+};
+
+/**
+ * @brief Class corresponding to the %ConnectedParticleEntryType schema type.
+ *
+ * @nosubgrouping
+ */
+class ConnectedParticleEntryType : public ::xml_schema::type {
+   public:
+    /**
+     * @name pointer_diff
+     *
+     * @brief Accessor and modifier functions for the %pointer_diff
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::integer pointer_diff_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<pointer_diff_type, char> pointer_diff_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const pointer_diff_type& pointer_diff() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    pointer_diff_type& pointer_diff();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void pointer_diff(const pointer_diff_type& x);
+
+    //@}
+
+    /**
+     * @name rest_length
+     *
+     * @brief Accessor and modifier functions for the %rest_length
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::double_ rest_length_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<rest_length_type, char, ::xsd::cxx::tree::schema_type::double_> rest_length_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const rest_length_type& rest_length() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    rest_length_type& rest_length();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void rest_length(const rest_length_type& x);
+
+    //@}
+
+    /**
+     * @name spring_constant
+     *
+     * @brief Accessor and modifier functions for the %spring_constant
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::double_ spring_constant_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<spring_constant_type, char, ::xsd::cxx::tree::schema_type::double_> spring_constant_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const spring_constant_type& spring_constant() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    spring_constant_type& spring_constant();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void spring_constant(const spring_constant_type& x);
+
+    //@}
+
+    /**
+     * @name Constructors
+     */
+    //@{
+
+    /**
+     * @brief Create an instance from the ultimate base and
+     * initializers for required elements and attributes.
+     */
+    ConnectedParticleEntryType(const pointer_diff_type&, const rest_length_type&, const spring_constant_type&);
+
+    /**
+     * @brief Create an instance from a DOM element.
+     *
+     * @param e A DOM element to extract the data from.
+     * @param f Flags to create the new instance with.
+     * @param c A pointer to the object that will contain the new
+     * instance.
+     */
+    ConnectedParticleEntryType(const ::xercesc::DOMElement& e, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy constructor.
+     *
+     * @param x An instance to make a copy of.
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     *
+     * For polymorphic object models use the @c _clone function instead.
+     */
+    ConnectedParticleEntryType(const ConnectedParticleEntryType& x, ::xml_schema::flags f = 0, ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy the instance polymorphically.
+     *
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     * @return A pointer to the dynamically allocated copy.
+     *
+     * This function ensures that the dynamic type of the instance is
+     * used for copying and should be used for polymorphic object
+     * models instead of the copy constructor.
+     */
+    virtual ConnectedParticleEntryType* _clone(::xml_schema::flags f = 0, ::xml_schema::container* c = 0) const;
+
+    /**
+     * @brief Copy assignment operator.
+     *
+     * @param x An instance to make a copy of.
+     * @return A reference to itself.
+     *
+     * For polymorphic object models use the @c _clone function instead.
+     */
+    ConnectedParticleEntryType& operator=(const ConnectedParticleEntryType& x);
+
+    //@}
+
+    /**
+     * @brief Destructor.
+     */
+    virtual ~ConnectedParticleEntryType();
+
+    // Implementation.
+    //
+
+    //@cond
+
+   protected:
+    void parse(::xsd::cxx::xml::dom::parser<char>&, ::xml_schema::flags);
+
+   protected:
+    ::xsd::cxx::tree::one<pointer_diff_type> pointer_diff_;
+    ::xsd::cxx::tree::one<rest_length_type> rest_length_;
+    ::xsd::cxx::tree::one<spring_constant_type> spring_constant_;
 
     //@endcond
 };
@@ -2184,6 +2602,10 @@ void operator<<(::xercesc::DOMElement&, const MetaDataDataType&);
 void operator<<(::xercesc::DOMElement&, const ParticleDataType&);
 
 void operator<<(::xercesc::DOMElement&, const ParticleType&);
+
+void operator<<(::xercesc::DOMElement&, const ConnectedParticlesType&);
+
+void operator<<(::xercesc::DOMElement&, const ConnectedParticleEntryType&);
 
 #include <xsd/cxx/post.hxx>
 

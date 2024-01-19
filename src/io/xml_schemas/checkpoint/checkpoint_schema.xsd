@@ -49,8 +49,21 @@
       <xs:element name="epsilon" type="xs:double" />
       <xs:element name="sigma" type="xs:double" />
       <xs:element name="is_locked" type="xs:boolean" />
+      <xs:element name="connected_particles" type="ConnectedParticlesType" />
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="ConnectedParticlesType">
+    <xs:sequence>
+      <xs:element name="entries" type="ConnectedParticleEntryType" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
 
+  <xs:complexType name="ConnectedParticleEntryType">
+    <xs:sequence>
+      <xs:element name="pointer_diff" type="xs:integer" />
+      <xs:element name="rest_length" type="xs:double" />
+      <xs:element name="spring_constant" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
 </xs:schema>

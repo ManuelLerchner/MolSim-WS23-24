@@ -38,7 +38,8 @@
             <GlobalDownwardsGravity g="0.001" />
         </forces>
         <interceptors>
-            <FrameWriter output_format="vtu" fps="60" video_length_s="30" />
+            <FrameWriter output_format="vtu" fps="24" video_length_s="30" />
+            <FrameWriter output_format="chkpt" fps="10" video_length_s="1" />
         </interceptors>
     </settings>
 
