@@ -5,6 +5,7 @@
 #include <memory>
 #include <string>
 
+const std::string ansi_green_bold = "\e[32m\e[1m";
 const std::string ansi_blue_bold = "\e[34m\e[1m";
 const std::string ansi_orange_bold = "\e[38;5;208m\e[1m";
 const std::string ansi_yellow_bold = "\e[33m\e[1m";

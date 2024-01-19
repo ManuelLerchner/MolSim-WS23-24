@@ -21,7 +21,7 @@ if(NOT CMAKE_BUILD_TYPE)
 
 endif(NOT CMAKE_BUILD_TYPE)
 
-add_compile_options(-O3 -g3 -ffast-math)
+add_compile_options(-Ofast -march=native)
 
 # modules
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/)

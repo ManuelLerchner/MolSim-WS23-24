@@ -46,7 +46,7 @@ FileOutputHandler::FileOutputHandler(const OutputFormat output_format, const Sim
             }
         }
         if (count > 0) {
-            Logger::logger->warn("Removed {} files from output directory '{}'.", count, params.output_dir_path.string());
+            Logger::logger->warn("Removed {} {} files from output directory '{}'.", count, file_extension, params.output_dir_path.string());
         }
     } else {
         Logger::logger->info("Creating output directory '{}'.", params.output_dir_path.string());
