@@ -31,6 +31,9 @@ const std::vector<Particle>& DirectSumContainer::getParticles() const { return p
 void DirectSumContainer::prepareForceCalculation() {}
 
 void DirectSumContainer::applySimpleForces(const std::vector<std::shared_ptr<SimpleForceSource>>& simple_force_sources) {
+#ifdef _OPENMP
+#pragma omp parallel for
+#endif
     for (auto& p : particles) {
         if (p.isLocked()) continue;
         for (auto& force : simple_force_sources) {
