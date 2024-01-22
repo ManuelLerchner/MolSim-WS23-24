@@ -69,7 +69,7 @@ TEST(Thermostat, KineticEnergyCalculation) {
     particle_container->addParticle(p1);
     particle_container->addParticle(p2);
 
-    auto thermostat = AbsoluteThermostat(1, 1, true);
+    auto thermostat = AbsoluteThermostat(1, 1, ThirdDimension::ENABLED);
 
     EXPECT_NEAR(thermostat.getContainerKineticEnergy(particle_container), 4, 1e-6);
 }
@@ -101,7 +101,7 @@ TEST(Thermostat, TemperatureCalculation3D) {
     particle_container->addParticle(p1);
     particle_container->addParticle(p2);
 
-    auto thermostat = AbsoluteThermostat(1, 1, true);
+    auto thermostat = AbsoluteThermostat(1, 1, ThirdDimension::ENABLED);
 
     EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container), 4.0 / 3, 1e-6);
 }
@@ -133,7 +133,7 @@ TEST(Thermostat, TemperatureCalculation2D) {
     particle_container->addParticle(p1);
     particle_container->addParticle(p2);
 
-    auto thermostat = AbsoluteThermostat(1, 1, false);
+    auto thermostat = AbsoluteThermostat(1, 1, ThirdDimension::DISABLED);
 
     EXPECT_NEAR(thermostat.getCurrentContainerTemperature(particle_container), 1.75, 0.5);
 }
@@ -142,7 +142,7 @@ TEST(Thermostat, TemperatureCalculation2D) {
  * Test temperature setting
  */
 TEST(Thermostat, SetTemperature) {
-    auto thermostat = AbsoluteThermostat(1, 1, true);
+    auto thermostat = AbsoluteThermostat(1, 1, ThirdDimension::ENABLED);
 
     // Test with DirectSumContainer
 
@@ -173,7 +173,7 @@ TEST(Thermostat, SetTemperature) {
  * Test temperature scaling heating
  */
 TEST(Thermostat, TemperatureHeatingFullStep) {
-    auto thermostat = AbsoluteThermostat(5, 5, true);
+    auto thermostat = AbsoluteThermostat(5, 5, ThirdDimension::ENABLED);
 
     // Test with DirectSumContainer
 
@@ -210,7 +210,7 @@ TEST(Thermostat, TemperatureHeatingFullStep) {
  * Test temperature scaling heating
  */
 TEST(Thermostat, TemperatureHeatingCappedStep) {
-    auto thermostat = AbsoluteThermostat(5, 0.5, true);
+    auto thermostat = AbsoluteThermostat(5, 0.5, ThirdDimension::ENABLED);
 
     // Test with DirectSumContainer
 
@@ -247,7 +247,7 @@ TEST(Thermostat, TemperatureHeatingCappedStep) {
  * Test temperature scaling heating
  */
 TEST(Thermostat, TemperatureCoolingFullStep) {
-    auto thermostat = AbsoluteThermostat(5, 5, true);
+    auto thermostat = AbsoluteThermostat(5, 5, ThirdDimension::ENABLED);
 
     // Test with DirectSumContainer
 
@@ -283,7 +283,7 @@ TEST(Thermostat, TemperatureCoolingFullStep) {
  * Test temperature scaling heating
  */
 TEST(Thermostat, TemperatureCoolingCappedStep) {
-    auto thermostat = AbsoluteThermostat(5, 0.5, true);
+    auto thermostat = AbsoluteThermostat(5, 0.5, ThirdDimension::ENABLED);
 
     // Test with DirectSumContainer
 
@@ -324,7 +324,7 @@ TEST(Thermostat, TemperatureKeeping) {
     std::mt19937 gen(rd());
     std::uniform_real_distribution<double> dist(1.005, 1.05);
 
-    auto thermostat = AbsoluteThermostat(5, 0.75, true);
+    auto thermostat = AbsoluteThermostat(5, 0.75, ThirdDimension::ENABLED);
 
     // Test with DirectSumContainer
 

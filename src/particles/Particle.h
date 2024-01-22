@@ -12,6 +12,8 @@
 #include <string>
 #include <vector>
 
+#include "utils/Enums.h"
+
 /**
  * @brief Class to represent a particle
  *
@@ -65,7 +67,7 @@ class Particle {
     /**
      * @brief Wheter the particle is loccked in space
      */
-    bool locked;
+    LockState lock_state;
 
     /**
      * @brief List of connected particles
@@ -81,10 +83,10 @@ class Particle {
     Particle(const Particle& other);
 
     Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type = 0, double epsilon_arg = 1.0,
-             double sigma_arg = 1.2, bool locked = false);
+             double sigma_arg = 1.2, LockState lock_state = LockState::UNLOCKED);
 
     Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std::array<double, 3> f_arg, std::array<double, 3> old_f_arg,
-             double m_arg, int type = 0, double epsilon_arg = 1.0, double sigma_arg = 1.2, bool locked = false);
+             double m_arg, int type = 0, double epsilon_arg = 1.0, double sigma_arg = 1.2, LockState lock_state = LockState::UNLOCKED);
 
     virtual ~Particle();
 
@@ -159,17 +161,17 @@ class Particle {
     /**
      * @brief Set wheter the particle is locked in space
      */
-    void inline setLocked(bool locked) { this->locked = locked; }
+    inline void setLocked(LockState new_lock_state) { lock_state = new_lock_state; }
 
     /**
      * @brief Gets whether the particle is locked in space
      */
-    [[nodiscard]] inline bool isLocked() const { return locked; }
+    [[nodiscard]] inline bool isLocked() const { return lock_state == LockState::LOCKED; }
 
     /**
      * @brief Gets the list of connected particles
      */
-    [[nodiscard]] inline std::vector<std::tuple<long, double, double>>& getConnectedParticles() { return connected_particles; }
+    [[nodiscard]] inline const std::vector<std::tuple<long, double, double>>& getConnectedParticles() const { return connected_particles; }
 
     /**
      * @brief Adds a connected particle

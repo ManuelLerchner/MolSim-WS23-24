@@ -1,6 +1,7 @@
 #pragma once
 
 #include "particles/spawners/ParticleSpawner.h"
+#include "utils/Enums.h"
 
 /**
  * @brief Class to spawn particles of a soft body in a cuboid. Implements the interface ParticleSpawner.
@@ -64,7 +65,7 @@ class SoftBodyCuboidSpawner : public ParticleSpawner {
     /**
      * @brief Defines whether the third dimension is enabled
      */
-    const bool third_dimension;
+    const ThirdDimension third_dimension;
 
    public:
     /**
@@ -85,7 +86,8 @@ class SoftBodyCuboidSpawner : public ParticleSpawner {
      */
     SoftBodyCuboidSpawner(const std::array<double, 3>& lower_left_corner, const std::array<int, 3>& grid_dimensions, double grid_spacing,
                           double mass, const std::array<double, 3>& initial_velocity, int type, double epsilon = 1.0, double sigma = 1.2,
-                          double spring_constant = 300, bool third_dimension = true, double initial_temperature = 0.1);
+                          double spring_constant = 300, ThirdDimension third_dimension = ThirdDimension::ENABLED,
+                          double initial_temperature = 0.1);
 
     /**
      * @brief Spawns particles in the given container

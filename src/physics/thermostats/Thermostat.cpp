@@ -4,8 +4,8 @@
 #include "utils/ArrayUtils.h"
 #include "utils/MaxwellBoltzmannDistribution.h"
 
-Thermostat::Thermostat(double target_temperature, double max_temperature_change, size_t dimensions)
-    : target_temperature(target_temperature), max_temperature_change(max_temperature_change), dimensions(dimensions) {
+Thermostat::Thermostat(double target_temperature, double max_temperature_change, ThirdDimension third_dimension)
+    : target_temperature(target_temperature), max_temperature_change(max_temperature_change), third_dimension(third_dimension) {
     if (target_temperature < 0) {
         Logger::logger->error("Target temperature must be positive");
         throw std::runtime_error("Target temperature must be positive");
@@ -17,23 +17,17 @@ Thermostat::Thermostat(double target_temperature, double max_temperature_change,
     }
 }
 
-void Thermostat::setParticleTemperature(double new_temperature, Particle& particle, size_t dimensions) {
-    if (dimensions < 2 || dimensions > 3) {
-        Logger::logger->error("Invalid number of dimensions: {}. Must be 2 or 3.", dimensions);
-        throw std::runtime_error("Invalid number of dimensions");
-    }
+void Thermostat::setParticleTemperature(double new_temperature, Particle& particle, ThirdDimension third_dimension) {
+    size_t dimension_count = third_dimension == ThirdDimension::ENABLED ? 3 : 2;
 
-    particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(std::sqrt(new_temperature / particle.getM()), dimensions));
+    particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(std::sqrt(new_temperature / particle.getM()), dimension_count));
 }
 
 void Thermostat::setTemperature(double new_temperature, const std::unique_ptr<ParticleContainer>& particle_container) {
-    if (dimensions < 2 || dimensions > 3) {
-        Logger::logger->error("Invalid number of dimensions: {}. Must be 2 or 3.", dimensions);
-        throw std::runtime_error("Invalid number of dimensions");
-    }
+    size_t dimension_count = third_dimension == ThirdDimension::ENABLED ? 3 : 2;
 
     for (auto& particle : *particle_container) {
-        particle.setV(maxwellBoltzmannDistributedVelocity(std::sqrt(new_temperature / particle.getM()), dimensions));
+        particle.setV(maxwellBoltzmannDistributedVelocity(std::sqrt(new_temperature / particle.getM()), dimension_count));
     }
 }
 
@@ -41,4 +35,4 @@ double Thermostat::getTargetTemperature() const { return target_temperature; }
 
 double Thermostat::getMaxTemperatureChange() const { return max_temperature_change; }
 
-size_t Thermostat::getDimensions() const { return dimensions; }
+ThirdDimension Thermostat::getThirdDimension() const { return third_dimension; }

@@ -23,10 +23,10 @@ class RelativeThermostat : public Thermostat {
      *
      * @param target_temperature The target temperature for thermostat applications.
      * @param max_temperature_change The maximum temperature change allowed per thermostat application.
-     * @param third_dimension True if the thermostat applies to a 3-dimensional domain, false for 2 dimensions.
+     * @param third_dimension Wether the thermostat applies to a 3-dimensional domain or 2 dimensions.
      */
     RelativeThermostat(double target_temperature, double max_temperature_change = std::numeric_limits<double>::max(),
-                       bool third_dimension = true);
+                       ThirdDimension third_dimension = ThirdDimension::ENABLED);
 
     /**
      * @brief Scale the temperature of a particle container towards the target temperature. Capped by the maximum temperature change.

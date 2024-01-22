@@ -11,6 +11,7 @@
 #include "io/output/chkpt/CheckPointWriter.h"
 #include "io/xml_schemas/xsd_type_adaptors/XSDToInternalTypeAdapter.h"
 #include "simulation/Simulation.h"
+#include "utils/Enums.h"
 
 std::string trim(const std::string& str) {
     // skip whitespace and newlines
@@ -138,12 +139,13 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::filesy
     auto settings = config.settings();
     auto particle_sources = config.particle_source();
 
+    ThirdDimension third_dimension = settings.third_dimension() ? ThirdDimension::ENABLED : ThirdDimension::DISABLED;
+
     std::vector<Particle> particles;
 
     auto container_type = XSDToInternalTypeAdapter::convertToParticleContainer(settings.particle_container());
 
-    auto interceptors =
-        XSDToInternalTypeAdapter::convertToSimulationInterceptors(settings.interceptors(), settings.third_dimension(), container_type);
+    auto interceptors = XSDToInternalTypeAdapter::convertToSimulationInterceptors(settings.interceptors(), third_dimension, container_type);
 
     auto forces = XSDToInternalTypeAdapter::convertToForces(settings.forces(), container_type);
 
@@ -199,7 +201,7 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::filesy
     if (load_in_spawners) {
         // Spawn particles specified in the XML file
         for (auto cuboid_spawner : particle_sources.cuboid_spawner()) {
-            auto spawner = XSDToInternalTypeAdapter::convertToCuboidSpawner(cuboid_spawner, settings.third_dimension());
+            auto spawner = XSDToInternalTypeAdapter::convertToCuboidSpawner(cuboid_spawner, third_dimension);
             int num_spawned = spawner.spawnParticles(particles);
             Logger::logger->info("Spawned {} particles from cuboid spawner", num_spawned);
         }
@@ -214,19 +216,19 @@ std::tuple<std::vector<Particle>, SimulationParams> prepareParticles(std::filesy
                 }
             }
 
-            auto spawner = XSDToInternalTypeAdapter::convertToSoftBodyCuboidSpawner(soft_body_cuboid_spawner, settings.third_dimension());
+            auto spawner = XSDToInternalTypeAdapter::convertToSoftBodyCuboidSpawner(soft_body_cuboid_spawner, third_dimension);
             int num_spawned = spawner.spawnParticles(particles);
             Logger::logger->info("Spawned {} particles from soft body cuboid spawner", num_spawned);
         }
 
         for (auto sphere_spawner : particle_sources.sphere_spawner()) {
-            auto spawner = XSDToInternalTypeAdapter::convertToSphereSpawner(sphere_spawner, settings.third_dimension());
+            auto spawner = XSDToInternalTypeAdapter::convertToSphereSpawner(sphere_spawner, third_dimension);
             int num_spawned = spawner.spawnParticles(particles);
             Logger::logger->info("Spawned {} particles from sphere spawner", num_spawned);
         }
 
         for (auto single_particle_spawner : particle_sources.single_particle_spawner()) {
-            auto spawner = XSDToInternalTypeAdapter::convertToSingleParticleSpawner(single_particle_spawner, settings.third_dimension());
+            auto spawner = XSDToInternalTypeAdapter::convertToSingleParticleSpawner(single_particle_spawner, third_dimension);
             int num_spawned = spawner.spawnParticles(particles);
             Logger::logger->info("Spawned {} particles from single particle spawner", num_spawned);
         }

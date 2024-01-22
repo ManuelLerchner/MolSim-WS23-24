@@ -168,6 +168,46 @@ ParticleType::is_locked_type& ParticleType::is_locked() { return this->is_locked
 
 void ParticleType::is_locked(const is_locked_type& x) { this->is_locked_.set(x); }
 
+const ParticleType::connected_particles_type& ParticleType::connected_particles() const { return this->connected_particles_.get(); }
+
+ParticleType::connected_particles_type& ParticleType::connected_particles() { return this->connected_particles_.get(); }
+
+void ParticleType::connected_particles(const connected_particles_type& x) { this->connected_particles_.set(x); }
+
+void ParticleType::connected_particles(::std::unique_ptr<connected_particles_type> x) { this->connected_particles_.set(std::move(x)); }
+
+// ConnectedParticlesType
+//
+
+const ConnectedParticlesType::entries_sequence& ConnectedParticlesType::entries() const { return this->entries_; }
+
+ConnectedParticlesType::entries_sequence& ConnectedParticlesType::entries() { return this->entries_; }
+
+void ConnectedParticlesType::entries(const entries_sequence& s) { this->entries_ = s; }
+
+// ConnectedParticleEntryType
+//
+
+const ConnectedParticleEntryType::pointer_diff_type& ConnectedParticleEntryType::pointer_diff() const { return this->pointer_diff_.get(); }
+
+ConnectedParticleEntryType::pointer_diff_type& ConnectedParticleEntryType::pointer_diff() { return this->pointer_diff_.get(); }
+
+void ConnectedParticleEntryType::pointer_diff(const pointer_diff_type& x) { this->pointer_diff_.set(x); }
+
+const ConnectedParticleEntryType::rest_length_type& ConnectedParticleEntryType::rest_length() const { return this->rest_length_.get(); }
+
+ConnectedParticleEntryType::rest_length_type& ConnectedParticleEntryType::rest_length() { return this->rest_length_.get(); }
+
+void ConnectedParticleEntryType::rest_length(const rest_length_type& x) { this->rest_length_.set(x); }
+
+const ConnectedParticleEntryType::spring_constant_type& ConnectedParticleEntryType::spring_constant() const {
+    return this->spring_constant_.get();
+}
+
+ConnectedParticleEntryType::spring_constant_type& ConnectedParticleEntryType::spring_constant() { return this->spring_constant_.get(); }
+
+void ConnectedParticleEntryType::spring_constant(const spring_constant_type& x) { this->spring_constant_.set(x); }
+
 #include <xsd/cxx/xml/dom/parsing-source.hxx>
 
 // CheckPointFileType
@@ -428,7 +468,7 @@ ParticleDataType::~ParticleDataType() {}
 
 ParticleType::ParticleType(const position_type& position, const velocity_type& velocity, const force_type& force,
                            const old_force_type& old_force, const mass_type& mass, const type_type& type, const epsilon_type& epsilon,
-                           const sigma_type& sigma, const is_locked_type& is_locked)
+                           const sigma_type& sigma, const is_locked_type& is_locked, const connected_particles_type& connected_particles)
     : ::xml_schema::type(),
       position_(position, this),
       velocity_(velocity, this),
@@ -438,11 +478,13 @@ ParticleType::ParticleType(const position_type& position, const velocity_type& v
       type_(type, this),
       epsilon_(epsilon, this),
       sigma_(sigma, this),
-      is_locked_(is_locked, this) {}
+      is_locked_(is_locked, this),
+      connected_particles_(connected_particles, this) {}
 
 ParticleType::ParticleType(::std::unique_ptr<position_type> position, ::std::unique_ptr<velocity_type> velocity,
                            ::std::unique_ptr<force_type> force, ::std::unique_ptr<old_force_type> old_force, const mass_type& mass,
-                           const type_type& type, const epsilon_type& epsilon, const sigma_type& sigma, const is_locked_type& is_locked)
+                           const type_type& type, const epsilon_type& epsilon, const sigma_type& sigma, const is_locked_type& is_locked,
+                           ::std::unique_ptr<connected_particles_type> connected_particles)
     : ::xml_schema::type(),
       position_(std::move(position), this),
       velocity_(std::move(velocity), this),
@@ -452,7 +494,8 @@ ParticleType::ParticleType(::std::unique_ptr<position_type> position, ::std::uni
       type_(type, this),
       epsilon_(epsilon, this),
       sigma_(sigma, this),
-      is_locked_(is_locked, this) {}
+      is_locked_(is_locked, this),
+      connected_particles_(std::move(connected_particles), this) {}
 
 ParticleType::ParticleType(const ParticleType& x, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(x, f, c),
@@ -464,7 +507,8 @@ ParticleType::ParticleType(const ParticleType& x, ::xml_schema::flags f, ::xml_s
       type_(x.type_, f, this),
       epsilon_(x.epsilon_, f, this),
       sigma_(x.sigma_, f, this),
-      is_locked_(x.is_locked_, f, this) {}
+      is_locked_(x.is_locked_, f, this),
+      connected_particles_(x.connected_particles_, f, this) {}
 
 ParticleType::ParticleType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
     : ::xml_schema::type(e, f | ::xml_schema::flags::base, c),
@@ -476,7 +520,8 @@ ParticleType::ParticleType(const ::xercesc::DOMElement& e, ::xml_schema::flags f
       type_(this),
       epsilon_(this),
       sigma_(this),
-      is_locked_(this) {
+      is_locked_(this),
+      connected_particles_(this) {
     if ((f & ::xml_schema::flags::base) == 0) {
         ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
         this->parse(p, f);
@@ -577,6 +622,17 @@ void ParticleType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::fl
             }
         }
 
+        // connected_particles
+        //
+        if (n.name() == "connected_particles" && n.namespace_().empty()) {
+            ::std::unique_ptr<connected_particles_type> r(connected_particles_traits::create(i, f, this));
+
+            if (!connected_particles_.present()) {
+                this->connected_particles_.set(::std::move(r));
+                continue;
+            }
+        }
+
         break;
     }
 
@@ -615,6 +671,10 @@ void ParticleType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::fl
     if (!is_locked_.present()) {
         throw ::xsd::cxx::tree::expected_element<char>("is_locked", "");
     }
+
+    if (!connected_particles_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("connected_particles", "");
+    }
 }
 
 ParticleType* ParticleType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const { return new class ParticleType(*this, f, c); }
@@ -631,12 +691,149 @@ ParticleType& ParticleType::operator=(const ParticleType& x) {
         this->epsilon_ = x.epsilon_;
         this->sigma_ = x.sigma_;
         this->is_locked_ = x.is_locked_;
+        this->connected_particles_ = x.connected_particles_;
     }
 
     return *this;
 }
 
 ParticleType::~ParticleType() {}
+
+// ConnectedParticlesType
+//
+
+ConnectedParticlesType::ConnectedParticlesType() : ::xml_schema::type(), entries_(this) {}
+
+ConnectedParticlesType::ConnectedParticlesType(const ConnectedParticlesType& x, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c), entries_(x.entries_, f, this) {}
+
+ConnectedParticlesType::ConnectedParticlesType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), entries_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
+        this->parse(p, f);
+    }
+}
+
+void ConnectedParticlesType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    for (; p.more_content(); p.next_content(false)) {
+        const ::xercesc::DOMElement& i(p.cur_element());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        // entries
+        //
+        if (n.name() == "entries" && n.namespace_().empty()) {
+            ::std::unique_ptr<entries_type> r(entries_traits::create(i, f, this));
+
+            this->entries_.push_back(::std::move(r));
+            continue;
+        }
+
+        break;
+    }
+}
+
+ConnectedParticlesType* ConnectedParticlesType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class ConnectedParticlesType(*this, f, c);
+}
+
+ConnectedParticlesType& ConnectedParticlesType::operator=(const ConnectedParticlesType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->entries_ = x.entries_;
+    }
+
+    return *this;
+}
+
+ConnectedParticlesType::~ConnectedParticlesType() {}
+
+// ConnectedParticleEntryType
+//
+
+ConnectedParticleEntryType::ConnectedParticleEntryType(const pointer_diff_type& pointer_diff, const rest_length_type& rest_length,
+                                                       const spring_constant_type& spring_constant)
+    : ::xml_schema::type(), pointer_diff_(pointer_diff, this), rest_length_(rest_length, this), spring_constant_(spring_constant, this) {}
+
+ConnectedParticleEntryType::ConnectedParticleEntryType(const ConnectedParticleEntryType& x, ::xml_schema::flags f,
+                                                       ::xml_schema::container* c)
+    : ::xml_schema::type(x, f, c),
+      pointer_diff_(x.pointer_diff_, f, this),
+      rest_length_(x.rest_length_, f, this),
+      spring_constant_(x.spring_constant_, f, this) {}
+
+ConnectedParticleEntryType::ConnectedParticleEntryType(const ::xercesc::DOMElement& e, ::xml_schema::flags f, ::xml_schema::container* c)
+    : ::xml_schema::type(e, f | ::xml_schema::flags::base, c), pointer_diff_(this), rest_length_(this), spring_constant_(this) {
+    if ((f & ::xml_schema::flags::base) == 0) {
+        ::xsd::cxx::xml::dom::parser<char> p(e, true, false, false);
+        this->parse(p, f);
+    }
+}
+
+void ConnectedParticleEntryType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::xml_schema::flags f) {
+    for (; p.more_content(); p.next_content(false)) {
+        const ::xercesc::DOMElement& i(p.cur_element());
+        const ::xsd::cxx::xml::qualified_name<char> n(::xsd::cxx::xml::dom::name<char>(i));
+
+        // pointer_diff
+        //
+        if (n.name() == "pointer_diff" && n.namespace_().empty()) {
+            if (!pointer_diff_.present()) {
+                this->pointer_diff_.set(pointer_diff_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // rest_length
+        //
+        if (n.name() == "rest_length" && n.namespace_().empty()) {
+            if (!rest_length_.present()) {
+                this->rest_length_.set(rest_length_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        // spring_constant
+        //
+        if (n.name() == "spring_constant" && n.namespace_().empty()) {
+            if (!spring_constant_.present()) {
+                this->spring_constant_.set(spring_constant_traits::create(i, f, this));
+                continue;
+            }
+        }
+
+        break;
+    }
+
+    if (!pointer_diff_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("pointer_diff", "");
+    }
+
+    if (!rest_length_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("rest_length", "");
+    }
+
+    if (!spring_constant_.present()) {
+        throw ::xsd::cxx::tree::expected_element<char>("spring_constant", "");
+    }
+}
+
+ConnectedParticleEntryType* ConnectedParticleEntryType::_clone(::xml_schema::flags f, ::xml_schema::container* c) const {
+    return new class ConnectedParticleEntryType(*this, f, c);
+}
+
+ConnectedParticleEntryType& ConnectedParticleEntryType::operator=(const ConnectedParticleEntryType& x) {
+    if (this != &x) {
+        static_cast< ::xml_schema::type&>(*this) = x;
+        this->pointer_diff_ = x.pointer_diff_;
+        this->rest_length_ = x.rest_length_;
+        this->spring_constant_ = x.spring_constant_;
+    }
+
+    return *this;
+}
+
+ConnectedParticleEntryType::~ConnectedParticleEntryType() {}
 
 #include <istream>
 #include <xsd/cxx/tree/error-handler.hxx>
@@ -1020,6 +1217,56 @@ void operator<<(::xercesc::DOMElement& e, const ParticleType& i) {
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("is_locked", e));
 
         s << i.is_locked();
+    }
+
+    // connected_particles
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("connected_particles", e));
+
+        s << i.connected_particles();
+    }
+}
+
+void operator<<(::xercesc::DOMElement& e, const ConnectedParticlesType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // entries
+    //
+    for (ConnectedParticlesType::entries_const_iterator b(i.entries().begin()), n(i.entries().end()); b != n; ++b) {
+        const ConnectedParticlesType::entries_type& x(*b);
+
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("entries", e));
+
+        s << x;
+    }
+}
+
+void operator<<(::xercesc::DOMElement& e, const ConnectedParticleEntryType& i) {
+    e << static_cast<const ::xml_schema::type&>(i);
+
+    // pointer_diff
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("pointer_diff", e));
+
+        s << i.pointer_diff();
+    }
+
+    // rest_length
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("rest_length", e));
+
+        s << ::xml_schema::as_double(i.rest_length());
+    }
+
+    // spring_constant
+    //
+    {
+        ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("spring_constant", e));
+
+        s << ::xml_schema::as_double(i.spring_constant());
     }
 }
 
