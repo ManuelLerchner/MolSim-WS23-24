@@ -1,6 +1,8 @@
 #include "LinkedCellsContainer.h"
 
+#include <algorithm>
 #include <cmath>
+#include <random>
 
 #include "cells/Cell.h"
 #include "io/logger/Logger.h"
@@ -139,8 +141,8 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
                     for (auto& force : force_sources) {
                         total_force = total_force + force->calculateForce(*p, *q);
                     }
-                    p->setF(p->getF() + total_force);
-                    q->setF(q->getF() - total_force);
+                    p->addF(total_force);
+                    q->subF(total_force);
                 }
             }
 
@@ -157,8 +159,8 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
                         for (const auto& force_source : force_sources) {
                             std::array<double, 3> force = force_source->calculateForce(*p, *neighbour_particle);
 
-                            p->setF(p->getF() + force);
-                            neighbour_particle->setF(neighbour_particle->getF() - force);
+                            p->addF(force);
+                            neighbour_particle->subF(force);
                         }
                     }
                 }
@@ -346,6 +348,22 @@ void LinkedCellsContainer::initCellNeighbourReferences() {
 }
 
 void LinkedCellsContainer::initIterationOrders() {
+#if PARALLEL_V2
+    Logger::logger->warn("Creating iteration orders for parallel v2");
+    std::vector<Cell*> iteration_order;
+
+    for (size_t num = 0; num < cells.size(); ++num) {
+        iteration_order.push_back(&cells[num]);
+    }
+
+    // shuffle the iteration order
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(iteration_order.begin(), iteration_order.end(), g);
+
+    iteration_orders.push_back(iteration_order);
+#else
+    Logger::logger->warn("Creating iteration orders for parallel v1");
     std::vector<std::array<int, 3>> start_offsets;
 
     const int d_cells = 2;
@@ -371,6 +389,7 @@ void LinkedCellsContainer::initIterationOrders() {
 
         iteration_orders.push_back(iteration_order);
     }
+#endif
 }
 
 void LinkedCellsContainer::updateCellsParticleReferences() {

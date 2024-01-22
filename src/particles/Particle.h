@@ -9,9 +9,11 @@
 
 #include <array>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <vector>
 
+#include "utils/ArrayUtils.h"
 #include "utils/Enums.h"
 
 /**
@@ -69,6 +71,13 @@ class Particle {
      */
     LockState lock_state;
 
+#if PARALLEL_V2
+    /**
+     * @brief Mutex to protect the particle force
+     */
+    mutable std::mutex mutex_f;
+#endif
+
     /**
      * @brief List of connected particles
      *
@@ -90,6 +99,8 @@ class Particle {
 
     virtual ~Particle();
 
+    Particle& operator=(const Particle& other);
+
     /**
      * @brief Sets the position of the particle
      *
@@ -110,6 +121,28 @@ class Particle {
      * @param f New force
      */
     inline void setF(const std::array<double, 3>& f) { this->f = f; }
+
+    /**
+     * @brief Adds a force to the particle
+     * @param force Force to be added
+     */
+    inline void addF(const std::array<double, 3>& force) {
+#if PARALLEL_V2
+        std::lock_guard lock(mutex_f);
+#endif
+        f = f + force;
+    }
+
+    /**
+     * @brief Subtracts a force from the particle
+     * @param force Force to be subtracted
+     */
+    inline void subF(const std::array<double, 3>& force) {
+#if PARALLEL_V2
+        std::lock_guard lock(mutex_f);
+#endif
+        f = f - force;
+    }
 
     /**
      * @brief Sets the old force of the particle
