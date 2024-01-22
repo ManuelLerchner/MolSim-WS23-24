@@ -8,4 +8,8 @@ class InternalToXSDTypeAdapter {
     static ParticleType convertToParticle(const Particle& particle);
 
     static DoubleVec3Type convertToVector(const std::array<double, 3>& vector);
+
+    static ConnectedParticlesType convertToConnectedParticles(const std::vector<std::tuple<long, double, double>>& connected_particles);
+
+    static ConnectedParticleEntryType convertToConnectedParticleEntry(const std::tuple<long, double, double>& entry);
 };
