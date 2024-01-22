@@ -70,10 +70,12 @@ class Particle {
      */
     bool locked;
 
+#if PARALLEL_V2
     /**
      * @brief Mutex to protect the particle force
      */
     mutable std::mutex mutex_f;
+#endif
 
     /**
      * @brief List of connected particles
@@ -124,7 +126,9 @@ class Particle {
      * @param force Force to be added
      */
     inline void addF(const std::array<double, 3>& force) {
+#if PARALLEL_V2
         std::lock_guard lock(mutex_f);
+#endif
         f = f + force;
     }
 
@@ -133,7 +137,9 @@ class Particle {
      * @param force Force to be subtracted
      */
     inline void subF(const std::array<double, 3>& force) {
+#if PARALLEL_V2
         std::lock_guard lock(mutex_f);
+#endif
         f = f - force;
     }
 

@@ -66,8 +66,9 @@ In this section we describe how to build the project. You can use the following 
 
 1. Create and enter into the build directory: `mkdir -p build && cd build`
 2. Configure the project with cmake:
+   - Standard: `cmake ..`
    - With Doxygen support: `cmake .. -D BUILD_DOC_DOXYGEN=ON`
-   - Without Doxygen support: `cmake ..`
+   - Use second parallelization method: `cmake .. -D PARALLEL_V2_OPT=ON` (for more information about parallelization, see [Parallelization](@ref Parallelization))
 3. Build the project
    - Compile project and tests: `make -j`
    - Compile just the project: `make -j MolSim`
@@ -94,13 +95,15 @@ In this section we describe how to build the project. You can use the following 
 
 - Enter the `build/project` directory after building the project.
 
-- Run `./MolSim <FILENAME>` to run the program. `<FILENAME>` is the path to the input file. For more information on the possible input file formats see [Input File Formats](@ref InputFileFormats).
+- Run `./MolSim -f <FILENAME>` to run the program. `<FILENAME>` is the path to the input file. For more information on the possible input file formats see [Input File Formats](@ref InputFileFormats).
 
   - Excecute `./MolSim --help` to get a detailed list of all options, parameters and their default values.
 
-  - An example run could look like this: `./MolSim ../../body_collision.xml`
+  - An example run could look like this: `./MolSim -f ../../body_collision.xml`
   
   - Further information about the possible input file formats can be found in the `/docs` directory.
+
+  - If OpenMP is available, the program will by default use the maximum amount of threads available on the system. This can be changed by setting the `OMP_NUM_THREADS` environment variable in front off the program call. For example: `OMP_NUM_THREADS=4 ./MolSim -f ../../body_collision.xml`
 
 ### Run the tests
 
