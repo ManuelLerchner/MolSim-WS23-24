@@ -1006,6 +1006,50 @@ class MetaDataDataType : public ::xml_schema::type {
     //@}
 
     /**
+     * @name current_iteration
+     *
+     * @brief Accessor and modifier functions for the %current_iteration
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::unsigned_long current_iteration_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits<current_iteration_type, char> current_iteration_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const current_iteration_type& current_iteration() const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    current_iteration_type& current_iteration();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void current_iteration(const current_iteration_type& x);
+
+    //@}
+
+    /**
      * @name Constructors
      */
     //@{
@@ -1014,7 +1058,8 @@ class MetaDataDataType : public ::xml_schema::type {
      * @brief Create an instance from the ultimate base and
      * initializers for required elements and attributes.
      */
-    MetaDataDataType(const input_file_type&, const input_file_hash_type&, const end_time_type&, const delta_t_type&);
+    MetaDataDataType(const input_file_type&, const input_file_hash_type&, const end_time_type&, const delta_t_type&,
+                     const current_iteration_type&);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -1080,6 +1125,7 @@ class MetaDataDataType : public ::xml_schema::type {
     ::xsd::cxx::tree::one<input_file_hash_type> input_file_hash_;
     ::xsd::cxx::tree::one<end_time_type> end_time_;
     ::xsd::cxx::tree::one<delta_t_type> delta_t_;
+    ::xsd::cxx::tree::one<current_iteration_type> current_iteration_;
 
     //@endcond
 };

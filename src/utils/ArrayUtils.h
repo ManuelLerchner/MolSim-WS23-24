@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include <omp.h>
+
 #include <algorithm>
 #include <array>
 #include <cmath>
@@ -172,6 +174,36 @@ template <class Container>
 auto L2Norm(const Container& c) {
     return std::sqrt(std::accumulate(std::cbegin(c), std::cend(c), 0.0, [](auto a, auto b) { return a + b * b; }));
 }
+
+/**
+ * Specialization of L2Norm for std::array<double, 3>.
+ * @return sqrt(c[0]*c[0] + c[1]*c[1] + c[2]*c[2]).
+ */
+template <>
+inline auto L2Norm<std::array<double, 3>>(const std::array<double, 3>& c) {
+    return std::sqrt(c[0] * c[0] + c[1] * c[1] + c[2] * c[2]);
+}
+
+/**
+ * Calculates the L2 norm for a given container.
+ * @tparam Container
+ * @param c
+ * @return sqrt(sum_i(c[i]*c[i])).
+ */
+template <class Container>
+auto L2NormSquared(const Container& c) {
+    return std::accumulate(std::cbegin(c), std::cend(c), 0.0, [](auto a, auto b) { return a + b * b; });
+}
+
+/**
+ * Specialization of L2Norm for std::array<double, 3>.
+ * @return c[0]*c[0] + c[1]*c[1] + c[2]*c[2].
+ */
+template <>
+inline auto L2NormSquared<std::array<double, 3>>(const std::array<double, 3>& c) {
+    return c[0] * c[0] + c[1] * c[1] + c[2] * c[2];
+}
+
 }  // namespace ArrayUtils
 
 /**

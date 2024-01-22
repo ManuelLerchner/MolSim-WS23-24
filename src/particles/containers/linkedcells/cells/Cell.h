@@ -2,7 +2,6 @@
 
 #include <array>
 #include <optional>
-#include <unordered_set>
 #include <vector>
 
 #include "particles/Particle.h"
@@ -32,11 +31,6 @@ class Cell {
      * @brief References to the neighbouring cells
      */
     std::vector<Cell*> neighbour_references;
-
-    /**
-     * @brief References to the cells that have already influenced this cell
-     */
-    std::unordered_set<Cell*> already_influenced_by;
 
    public:
     /**
@@ -68,13 +62,6 @@ class Cell {
     std::vector<Cell*>& getNeighbourReferences();
 
     /**
-     * @brief Get the reference set for the cells that have already influenced this cell during force calculation
-     *
-     * @return Set of references to the cells that have already influenced this cell
-     */
-    std::unordered_set<Cell*>& getAlreadyInfluencedBy();
-
-    /**
      * @brief Adds a particle reference to the cell
      *
      * @param p Particle reference to be added
@@ -92,16 +79,4 @@ class Cell {
      * @param c Cell reference to be added
      */
     void addNeighbourReference(Cell* c);
-
-    /**
-     * @brief Adds a cell reference to the set of cells that have already influenced this cell
-     *
-     * @param c Cell reference to be added
-     */
-    void addAlreadyInfluencedBy(Cell* c);
-
-    /**
-     * @brief Removes all cell references from the set of cells that have already influenced this cell
-     */
-    void clearAlreadyInfluencedBy();
 };

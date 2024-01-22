@@ -14,7 +14,8 @@ TEST(CHKPTWriter, CorrectWritingAndReadingOfParticles) {
     for (double i = 1; i < 5; i++) {
         auto pos = std::array<double, 3>{i, 2 * i, 3 * i};
         auto vel = std::array<double, 3>{4 * i, 5 * i, 6 * i};
-        particle_container->addParticle(Particle(pos, vel, i, i, i * i, i * i * i));
+        bool is_odd = (int)i % 2 == 1;
+        particle_container->addParticle(Particle(pos, vel, i, i, i * i, i * i * i, is_odd));
     }
 
     auto params = SimulationParams("test.xml", 0, 0, SimulationParams::DirectSumType{}, {}, {}, {}, {}, false);
@@ -24,9 +25,9 @@ TEST(CHKPTWriter, CorrectWritingAndReadingOfParticles) {
     auto path = file_output_handler.writeFile(0, particle_container);
 
     // load the file
-    FileInputHandler file_input_handler;
+    ChkptPointFileReader reader;
 
-    auto [loaded_particles, loaded_config] = file_input_handler.readFile(*path);
+    auto [loaded_particles, loaded_config] = reader.readFile(*path);
 
     // check if the file contains the correct data
     EXPECT_EQ(loaded_particles.size(), particle_container->size());

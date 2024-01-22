@@ -5,6 +5,7 @@
     <input_file_hash>1234567890</input_file_hash>
     <end_time>1.2345</end_time>
     <delta_t>0.0001</delta_t>
+    <current_iteration>167</current_iteration>
   </MetaData>
 
   <ParticleData>

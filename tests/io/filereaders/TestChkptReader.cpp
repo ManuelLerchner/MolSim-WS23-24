@@ -13,9 +13,10 @@
 TEST(ChkptPointFileReader, CorrectReadingOfParticles) {
     ChkptPointFileReader chkpt_reader;
 
-    auto [particles, params] = chkpt_reader.readFile(FileLoader::get_input_file_path("ChktpExample.chkpt"));
+    auto [particles, iteration] = chkpt_reader.readFile(FileLoader::get_input_file_path("ChktpExample.chkpt"));
 
     EXPECT_EQ(particles.size(), 2);
+    EXPECT_EQ(iteration, 167);
 
     auto expected_particle1 = Particle({1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}, 13, 14, 15, 16, true);
     auto expected_particle2 = Particle({15, 16, 17}, {18, 19, 20}, {21, 22, 23}, {24, 25, 26}, 27, 28, 29, 30, false);

@@ -27,8 +27,8 @@ void execute2DRectBenchmark() {
         LinkedCellsContainer::BoundaryCondition::OUTFLOW,    LinkedCellsContainer::BoundaryCondition::OUTFLOW};
 
     // Settings for the Cuboid spawner of task 2
-    CuboidSpawner spawner1({0.6, 2.0, 0.5}, {250, 20, 1}, 1.2, 1.0, {0.0, 0.0, 0.0}, static_cast<int>(0), 1.0, 1.2, false, 40);
-    CuboidSpawner spawner2({0.6, 27.0, 0.5}, {250, 20, 1}, 1.2, 2.0, {0.0, 0.0, 0.0}, static_cast<int>(1), 1.0, 1.1, false, 40);
+    CuboidSpawner spawner1({0.6, 2.0, 0.5}, {250, 20, 1}, 1.2, 1.0, {0.0, 0.0, 0.0}, static_cast<int>(0), 1.0, 1.2, false, false, 40);
+    CuboidSpawner spawner2({0.6, 27.0, 0.5}, {250, 20, 1}, 1.2, 2.0, {0.0, 0.0, 0.0}, static_cast<int>(1), 1.0, 1.1, false, false, 40);
 
     std::vector<std::shared_ptr<PairwiseForceSource>> pairwise_forces;
     std::vector<std::shared_ptr<SimpleForceSource>> simple_force_sources;

@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 
+#include "io/input/FileReader.h"
 #include "io/logger/Logger.h"
 #include "io/xml_schemas/xsd_type_adaptors/XSDToInternalTypeAdapter.h"
 
@@ -12,10 +13,10 @@ void summarizeMetadata(MetaDataDataType m) {
     Logger::logger->info("  - Original file hash: {}", m.input_file_hash());
     Logger::logger->info("  - Original End time: {}", m.end_time());
     Logger::logger->info("  - Original Delta t: {}", m.delta_t());
+    Logger::logger->info("  - Iteration: {}", m.current_iteration());
 }
 
-std::tuple<std::vector<Particle>, std::optional<SimulationParams>> ChkptPointFileReader::readFile(
-    const std::filesystem::path& filepath) const {
+std::tuple<std::vector<Particle>, int> ChkptPointFileReader::readFile(const std::filesystem::path& filepath) const {
     try {
         auto checkpoint = CheckPoint(filepath, xml_schema::flags::dont_validate);
 
@@ -31,12 +32,12 @@ std::tuple<std::vector<Particle>, std::optional<SimulationParams>> ChkptPointFil
             particles.push_back(std::move(particle));
         }
 
-        return std::make_tuple(particles, std::nullopt);
+        return std::make_tuple(particles, meta_data.current_iteration());
     } catch (const xml_schema::exception& e) {
         std::stringstream error_message;
         error_message << "Error: could not parse file '" << filepath << "'.\n";
         error_message << e << std::endl;
-        throw FileFormatException(error_message.str());
+        throw FileReader::FileFormatException(error_message.str());
     }
 }
 size_t ChkptPointFileReader::calculateHash(const std::filesystem::path& filepath) {
@@ -72,5 +73,12 @@ bool ChkptPointFileReader::detectSourceFileChanges(const std::string& filepath) 
     std::hash<std::string> hasher;
     auto curr_hash = hasher(buffer.str());
 
-    return curr_hash == meta_data.input_file_hash();
+    bool hash_valid = curr_hash == meta_data.input_file_hash();
+
+    if (!hash_valid) {
+        Logger::logger->warn("Source file '{}' has changed since last checkpoint. Original hash: {}, current hash: {}",
+                             meta_data.input_file(), meta_data.input_file_hash(), curr_hash);
+    }
+
+    return hash_valid;
 }

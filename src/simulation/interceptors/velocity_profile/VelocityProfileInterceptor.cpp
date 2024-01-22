@@ -10,9 +10,11 @@ VelocityProfileInterceptor::VelocityProfileInterceptor(std::pair<std::array<doub
     : box(box), num_bins(num_bins), sample_every_x_percent(sample_every_x_percent) {}
 
 void VelocityProfileInterceptor::onSimulationStart(Simulation& simulation) {
-    csv_writer_x = std::make_unique<CSVWriter>(simulation.params.output_dir_path / "statistics" / "velocity_profile_x_axis.csv");
-    csv_writer_y = std::make_unique<CSVWriter>(simulation.params.output_dir_path / "statistics" / "velocity_profile_y_axis.csv");
-    csv_writer_z = std::make_unique<CSVWriter>(simulation.params.output_dir_path / "statistics" / "velocity_profile_z_axis.csv");
+    bool append = simulation.params.start_iteration != 0;
+
+    csv_writer_x = std::make_unique<CSVWriter>(simulation.params.output_dir_path / "statistics" / "velocity_profile_x_axis.csv", append);
+    csv_writer_y = std::make_unique<CSVWriter>(simulation.params.output_dir_path / "statistics" / "velocity_profile_y_axis.csv", append);
+    csv_writer_z = std::make_unique<CSVWriter>(simulation.params.output_dir_path / "statistics" / "velocity_profile_z_axis.csv", append);
 
     bin_width[0] = (box.second[0] - box.first[0]) / num_bins;
     bin_width[1] = (box.second[1] - box.first[1]) / num_bins;
@@ -29,6 +31,10 @@ void VelocityProfileInterceptor::onSimulationStart(Simulation& simulation) {
 
     auto expected_iterations = static_cast<size_t>(std::ceil(simulation.params.end_time / simulation.params.delta_t));
     SimulationInterceptor::every_nth_iteration = std::max(1, static_cast<int>(sample_every_x_percent * expected_iterations / 100));
+
+    if (simulation.params.start_iteration == 0) {
+        (*this)(0, simulation);
+    }
 }
 
 void VelocityProfileInterceptor::operator()(size_t iteration, Simulation& simulation) {

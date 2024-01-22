@@ -7,7 +7,7 @@ file(GLOB_RECURSE BENCHMARK_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
 
 
-ADD_CUSTOM_TARGET(benchmarks DEPENDS ${BENCHMARK_SRC})
+add_custom_target(benchmarks DEPENDS ${BENCHMARK_SRC})
 
 # add executable for each benchmark
 foreach (_source IN ITEMS ${BENCHMARK_SRC})

@@ -23,8 +23,6 @@ std::tuple<std::vector<Particle>, std::optional<SimulationParams>> FileInputHand
 
     if (file_extension == ".xml") {
         file_reader = std::make_unique<XMLFileReader>(fresh, allow_recursion);
-    } else if (file_extension == ".chkpt") {
-        file_reader = std::make_unique<ChkptPointFileReader>();
     } else {
         Logger::logger->error("Error: file extension '{}' is not supported.", file_extension);
         throw FileReader::FileFormatException("File extension is not supported");

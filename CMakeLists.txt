@@ -3,8 +3,6 @@ cmake_minimum_required(VERSION 3.10)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -ffast-math")
-
 # define project name, version
 project(PSEMolDyn_GroupC VERSION 0.0.1)
 
@@ -23,10 +21,7 @@ if(NOT CMAKE_BUILD_TYPE)
 
 endif(NOT CMAKE_BUILD_TYPE)
 
-# Add O3 for the Release build type
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    add_compile_options(-O3)
-endif()
+add_compile_options(-Ofast -march=native)
 
 # modules
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/)

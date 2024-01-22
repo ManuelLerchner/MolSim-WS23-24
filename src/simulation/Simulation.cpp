@@ -41,8 +41,8 @@ Simulation::Simulation(const std::vector<Particle>& initial_particles, const Sim
 Simulation::~Simulation() = default;
 
 SimulationOverview Simulation::runSimulation() {
-    size_t iteration = 0;
-    double simulated_time = 0;
+    size_t iteration = params.start_iteration;
+    double simulated_time = params.start_iteration * params.delta_t;
 
     // Calculate initial forces
     particle_container->prepareForceCalculation();

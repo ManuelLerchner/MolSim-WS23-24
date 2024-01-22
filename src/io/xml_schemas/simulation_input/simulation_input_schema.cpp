@@ -820,91 +820,57 @@ void TemperatureSensorInterceptorType::sample_every_x_percent(const sample_every
 // SimulationInterceptorsType
 //
 
-const SimulationInterceptorsType::ParticleUpdatesPerSecond_optional& SimulationInterceptorsType::ParticleUpdatesPerSecond() const {
+const SimulationInterceptorsType::ParticleUpdatesPerSecond_sequence& SimulationInterceptorsType::ParticleUpdatesPerSecond() const {
     return this->ParticleUpdatesPerSecond_;
 }
 
-SimulationInterceptorsType::ParticleUpdatesPerSecond_optional& SimulationInterceptorsType::ParticleUpdatesPerSecond() {
+SimulationInterceptorsType::ParticleUpdatesPerSecond_sequence& SimulationInterceptorsType::ParticleUpdatesPerSecond() {
     return this->ParticleUpdatesPerSecond_;
 }
 
-void SimulationInterceptorsType::ParticleUpdatesPerSecond(const ParticleUpdatesPerSecond_type& x) {
-    this->ParticleUpdatesPerSecond_.set(x);
+void SimulationInterceptorsType::ParticleUpdatesPerSecond(const ParticleUpdatesPerSecond_sequence& s) {
+    this->ParticleUpdatesPerSecond_ = s;
 }
 
-void SimulationInterceptorsType::ParticleUpdatesPerSecond(const ParticleUpdatesPerSecond_optional& x) {
-    this->ParticleUpdatesPerSecond_ = x;
-}
-
-void SimulationInterceptorsType::ParticleUpdatesPerSecond(::std::unique_ptr<ParticleUpdatesPerSecond_type> x) {
-    this->ParticleUpdatesPerSecond_.set(std::move(x));
-}
-
-const SimulationInterceptorsType::DiffusionFunction_optional& SimulationInterceptorsType::DiffusionFunction() const {
+const SimulationInterceptorsType::DiffusionFunction_sequence& SimulationInterceptorsType::DiffusionFunction() const {
     return this->DiffusionFunction_;
 }
 
-SimulationInterceptorsType::DiffusionFunction_optional& SimulationInterceptorsType::DiffusionFunction() { return this->DiffusionFunction_; }
+SimulationInterceptorsType::DiffusionFunction_sequence& SimulationInterceptorsType::DiffusionFunction() { return this->DiffusionFunction_; }
 
-void SimulationInterceptorsType::DiffusionFunction(const DiffusionFunction_type& x) { this->DiffusionFunction_.set(x); }
+void SimulationInterceptorsType::DiffusionFunction(const DiffusionFunction_sequence& s) { this->DiffusionFunction_ = s; }
 
-void SimulationInterceptorsType::DiffusionFunction(const DiffusionFunction_optional& x) { this->DiffusionFunction_ = x; }
-
-void SimulationInterceptorsType::DiffusionFunction(::std::unique_ptr<DiffusionFunction_type> x) {
-    this->DiffusionFunction_.set(std::move(x));
-}
-
-const SimulationInterceptorsType::RadialDistributionFunction_optional& SimulationInterceptorsType::RadialDistributionFunction() const {
+const SimulationInterceptorsType::RadialDistributionFunction_sequence& SimulationInterceptorsType::RadialDistributionFunction() const {
     return this->RadialDistributionFunction_;
 }
 
-SimulationInterceptorsType::RadialDistributionFunction_optional& SimulationInterceptorsType::RadialDistributionFunction() {
+SimulationInterceptorsType::RadialDistributionFunction_sequence& SimulationInterceptorsType::RadialDistributionFunction() {
     return this->RadialDistributionFunction_;
 }
 
-void SimulationInterceptorsType::RadialDistributionFunction(const RadialDistributionFunction_type& x) {
-    this->RadialDistributionFunction_.set(x);
+void SimulationInterceptorsType::RadialDistributionFunction(const RadialDistributionFunction_sequence& s) {
+    this->RadialDistributionFunction_ = s;
 }
 
-void SimulationInterceptorsType::RadialDistributionFunction(const RadialDistributionFunction_optional& x) {
-    this->RadialDistributionFunction_ = x;
-}
-
-void SimulationInterceptorsType::RadialDistributionFunction(::std::unique_ptr<RadialDistributionFunction_type> x) {
-    this->RadialDistributionFunction_.set(std::move(x));
-}
-
-const SimulationInterceptorsType::VelocityProfile_optional& SimulationInterceptorsType::VelocityProfile() const {
+const SimulationInterceptorsType::VelocityProfile_sequence& SimulationInterceptorsType::VelocityProfile() const {
     return this->VelocityProfile_;
 }
 
-SimulationInterceptorsType::VelocityProfile_optional& SimulationInterceptorsType::VelocityProfile() { return this->VelocityProfile_; }
+SimulationInterceptorsType::VelocityProfile_sequence& SimulationInterceptorsType::VelocityProfile() { return this->VelocityProfile_; }
 
-void SimulationInterceptorsType::VelocityProfile(const VelocityProfile_type& x) { this->VelocityProfile_.set(x); }
+void SimulationInterceptorsType::VelocityProfile(const VelocityProfile_sequence& s) { this->VelocityProfile_ = s; }
 
-void SimulationInterceptorsType::VelocityProfile(const VelocityProfile_optional& x) { this->VelocityProfile_ = x; }
+const SimulationInterceptorsType::FrameWriter_sequence& SimulationInterceptorsType::FrameWriter() const { return this->FrameWriter_; }
 
-void SimulationInterceptorsType::VelocityProfile(::std::unique_ptr<VelocityProfile_type> x) { this->VelocityProfile_.set(std::move(x)); }
+SimulationInterceptorsType::FrameWriter_sequence& SimulationInterceptorsType::FrameWriter() { return this->FrameWriter_; }
 
-const SimulationInterceptorsType::FrameWriter_optional& SimulationInterceptorsType::FrameWriter() const { return this->FrameWriter_; }
+void SimulationInterceptorsType::FrameWriter(const FrameWriter_sequence& s) { this->FrameWriter_ = s; }
 
-SimulationInterceptorsType::FrameWriter_optional& SimulationInterceptorsType::FrameWriter() { return this->FrameWriter_; }
+const SimulationInterceptorsType::Thermostat_sequence& SimulationInterceptorsType::Thermostat() const { return this->Thermostat_; }
 
-void SimulationInterceptorsType::FrameWriter(const FrameWriter_type& x) { this->FrameWriter_.set(x); }
+SimulationInterceptorsType::Thermostat_sequence& SimulationInterceptorsType::Thermostat() { return this->Thermostat_; }
 
-void SimulationInterceptorsType::FrameWriter(const FrameWriter_optional& x) { this->FrameWriter_ = x; }
-
-void SimulationInterceptorsType::FrameWriter(::std::unique_ptr<FrameWriter_type> x) { this->FrameWriter_.set(std::move(x)); }
-
-const SimulationInterceptorsType::Thermostat_optional& SimulationInterceptorsType::Thermostat() const { return this->Thermostat_; }
-
-SimulationInterceptorsType::Thermostat_optional& SimulationInterceptorsType::Thermostat() { return this->Thermostat_; }
-
-void SimulationInterceptorsType::Thermostat(const Thermostat_type& x) { this->Thermostat_.set(x); }
-
-void SimulationInterceptorsType::Thermostat(const Thermostat_optional& x) { this->Thermostat_ = x; }
-
-void SimulationInterceptorsType::Thermostat(::std::unique_ptr<Thermostat_type> x) { this->Thermostat_.set(std::move(x)); }
+void SimulationInterceptorsType::Thermostat(const Thermostat_sequence& s) { this->Thermostat_ = s; }
 
 // TargettedTemporaryConstantType
 //
@@ -3565,10 +3531,8 @@ void SimulationInterceptorsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::
         if (n.name() == "ParticleUpdatesPerSecond" && n.namespace_().empty()) {
             ::std::unique_ptr<ParticleUpdatesPerSecond_type> r(ParticleUpdatesPerSecond_traits::create(i, f, this));
 
-            if (!this->ParticleUpdatesPerSecond_) {
-                this->ParticleUpdatesPerSecond_.set(::std::move(r));
-                continue;
-            }
+            this->ParticleUpdatesPerSecond_.push_back(::std::move(r));
+            continue;
         }
 
         // DiffusionFunction
@@ -3576,10 +3540,8 @@ void SimulationInterceptorsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::
         if (n.name() == "DiffusionFunction" && n.namespace_().empty()) {
             ::std::unique_ptr<DiffusionFunction_type> r(DiffusionFunction_traits::create(i, f, this));
 
-            if (!this->DiffusionFunction_) {
-                this->DiffusionFunction_.set(::std::move(r));
-                continue;
-            }
+            this->DiffusionFunction_.push_back(::std::move(r));
+            continue;
         }
 
         // RadialDistributionFunction
@@ -3587,10 +3549,8 @@ void SimulationInterceptorsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::
         if (n.name() == "RadialDistributionFunction" && n.namespace_().empty()) {
             ::std::unique_ptr<RadialDistributionFunction_type> r(RadialDistributionFunction_traits::create(i, f, this));
 
-            if (!this->RadialDistributionFunction_) {
-                this->RadialDistributionFunction_.set(::std::move(r));
-                continue;
-            }
+            this->RadialDistributionFunction_.push_back(::std::move(r));
+            continue;
         }
 
         // VelocityProfile
@@ -3598,10 +3558,8 @@ void SimulationInterceptorsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::
         if (n.name() == "VelocityProfile" && n.namespace_().empty()) {
             ::std::unique_ptr<VelocityProfile_type> r(VelocityProfile_traits::create(i, f, this));
 
-            if (!this->VelocityProfile_) {
-                this->VelocityProfile_.set(::std::move(r));
-                continue;
-            }
+            this->VelocityProfile_.push_back(::std::move(r));
+            continue;
         }
 
         // FrameWriter
@@ -3609,10 +3567,8 @@ void SimulationInterceptorsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::
         if (n.name() == "FrameWriter" && n.namespace_().empty()) {
             ::std::unique_ptr<FrameWriter_type> r(FrameWriter_traits::create(i, f, this));
 
-            if (!this->FrameWriter_) {
-                this->FrameWriter_.set(::std::move(r));
-                continue;
-            }
+            this->FrameWriter_.push_back(::std::move(r));
+            continue;
         }
 
         // Thermostat
@@ -3620,10 +3576,8 @@ void SimulationInterceptorsType::parse(::xsd::cxx::xml::dom::parser<char>& p, ::
         if (n.name() == "Thermostat" && n.namespace_().empty()) {
             ::std::unique_ptr<Thermostat_type> r(Thermostat_traits::create(i, f, this));
 
-            if (!this->Thermostat_) {
-                this->Thermostat_.set(::std::move(r));
-                continue;
-            }
+            this->Thermostat_.push_back(::std::move(r));
+            continue;
         }
 
         break;
@@ -5363,50 +5317,68 @@ void operator<<(::xercesc::DOMElement& e, const SimulationInterceptorsType& i) {
 
     // ParticleUpdatesPerSecond
     //
-    if (i.ParticleUpdatesPerSecond()) {
+    for (SimulationInterceptorsType::ParticleUpdatesPerSecond_const_iterator b(i.ParticleUpdatesPerSecond().begin()),
+         n(i.ParticleUpdatesPerSecond().end());
+         b != n; ++b) {
+        const SimulationInterceptorsType::ParticleUpdatesPerSecond_type& x(*b);
+
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("ParticleUpdatesPerSecond", e));
 
-        s << *i.ParticleUpdatesPerSecond();
+        s << x;
     }
 
     // DiffusionFunction
     //
-    if (i.DiffusionFunction()) {
+    for (SimulationInterceptorsType::DiffusionFunction_const_iterator b(i.DiffusionFunction().begin()), n(i.DiffusionFunction().end());
+         b != n; ++b) {
+        const SimulationInterceptorsType::DiffusionFunction_type& x(*b);
+
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("DiffusionFunction", e));
 
-        s << *i.DiffusionFunction();
+        s << x;
     }
 
     // RadialDistributionFunction
     //
-    if (i.RadialDistributionFunction()) {
+    for (SimulationInterceptorsType::RadialDistributionFunction_const_iterator b(i.RadialDistributionFunction().begin()),
+         n(i.RadialDistributionFunction().end());
+         b != n; ++b) {
+        const SimulationInterceptorsType::RadialDistributionFunction_type& x(*b);
+
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("RadialDistributionFunction", e));
 
-        s << *i.RadialDistributionFunction();
+        s << x;
     }
 
     // VelocityProfile
     //
-    if (i.VelocityProfile()) {
+    for (SimulationInterceptorsType::VelocityProfile_const_iterator b(i.VelocityProfile().begin()), n(i.VelocityProfile().end()); b != n;
+         ++b) {
+        const SimulationInterceptorsType::VelocityProfile_type& x(*b);
+
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("VelocityProfile", e));
 
-        s << *i.VelocityProfile();
+        s << x;
     }
 
     // FrameWriter
     //
-    if (i.FrameWriter()) {
+    for (SimulationInterceptorsType::FrameWriter_const_iterator b(i.FrameWriter().begin()), n(i.FrameWriter().end()); b != n; ++b) {
+        const SimulationInterceptorsType::FrameWriter_type& x(*b);
+
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("FrameWriter", e));
 
-        s << *i.FrameWriter();
+        s << x;
     }
 
     // Thermostat
     //
-    if (i.Thermostat()) {
+    for (SimulationInterceptorsType::Thermostat_const_iterator b(i.Thermostat().begin()), n(i.Thermostat().end()); b != n; ++b) {
+        const SimulationInterceptorsType::Thermostat_type& x(*b);
+
         ::xercesc::DOMElement& s(::xsd::cxx::xml::dom::create_element("Thermostat", e));
 
-        s << *i.Thermostat();
+        s << x;
     }
 }
 

@@ -7140,7 +7140,7 @@ class SimulationInterceptorsType : public ::xml_schema::type {
      * @name ParticleUpdatesPerSecond
      *
      * @brief Accessor and modifier functions for the %ParticleUpdatesPerSecond
-     * optional element.
+     * sequence element.
      */
     //@{
 
@@ -7150,9 +7150,19 @@ class SimulationInterceptorsType : public ::xml_schema::type {
     typedef ::ParticleUpdatesPerSecondInterceptionType ParticleUpdatesPerSecond_type;
 
     /**
-     * @brief Element optional container type.
+     * @brief Element sequence container type.
      */
-    typedef ::xsd::cxx::tree::optional<ParticleUpdatesPerSecond_type> ParticleUpdatesPerSecond_optional;
+    typedef ::xsd::cxx::tree::sequence<ParticleUpdatesPerSecond_type> ParticleUpdatesPerSecond_sequence;
+
+    /**
+     * @brief Element iterator type.
+     */
+    typedef ParticleUpdatesPerSecond_sequence::iterator ParticleUpdatesPerSecond_iterator;
+
+    /**
+     * @brief Element constant iterator type.
+     */
+    typedef ParticleUpdatesPerSecond_sequence::const_iterator ParticleUpdatesPerSecond_const_iterator;
 
     /**
      * @brief Element traits type.
@@ -7161,49 +7171,29 @@ class SimulationInterceptorsType : public ::xml_schema::type {
 
     /**
      * @brief Return a read-only (constant) reference to the element
-     * container.
+     * sequence.
      *
-     * @return A constant reference to the optional container.
+     * @return A constant reference to the sequence container.
      */
-    const ParticleUpdatesPerSecond_optional& ParticleUpdatesPerSecond() const;
+    const ParticleUpdatesPerSecond_sequence& ParticleUpdatesPerSecond() const;
 
     /**
-     * @brief Return a read-write reference to the element container.
+     * @brief Return a read-write reference to the element sequence.
      *
-     * @return A reference to the optional container.
+     * @return A reference to the sequence container.
      */
-    ParticleUpdatesPerSecond_optional& ParticleUpdatesPerSecond();
+    ParticleUpdatesPerSecond_sequence& ParticleUpdatesPerSecond();
 
     /**
-     * @brief Set the element value.
+     * @brief Copy elements from a given sequence.
      *
-     * @param x A new value to set.
+     * @param s A sequence to copy elements from.
      *
-     * This function makes a copy of its argument and sets it as
-     * the new value of the element.
+     * For each element in @a s this function makes a copy and adds it
+     * to the sequence. Note that this operation completely changes the
+     * sequence and all old elements will be lost.
      */
-    void ParticleUpdatesPerSecond(const ParticleUpdatesPerSecond_type& x);
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x An optional container with the new value to set.
-     *
-     * If the value is present in @a x then this function makes a copy
-     * of this value and sets it as the new value of the element.
-     * Otherwise the element container is set the 'not present' state.
-     */
-    void ParticleUpdatesPerSecond(const ParticleUpdatesPerSecond_optional& x);
-
-    /**
-     * @brief Set the element value without copying.
-     *
-     * @param p A new value to use.
-     *
-     * This function will try to use the passed value directly instead
-     * of making a copy.
-     */
-    void ParticleUpdatesPerSecond(::std::unique_ptr<ParticleUpdatesPerSecond_type> p);
+    void ParticleUpdatesPerSecond(const ParticleUpdatesPerSecond_sequence& s);
 
     //@}
 
@@ -7211,7 +7201,7 @@ class SimulationInterceptorsType : public ::xml_schema::type {
      * @name DiffusionFunction
      *
      * @brief Accessor and modifier functions for the %DiffusionFunction
-     * optional element.
+     * sequence element.
      */
     //@{
 
@@ -7221,9 +7211,19 @@ class SimulationInterceptorsType : public ::xml_schema::type {
     typedef ::DiffusionFunctionInterceptorType DiffusionFunction_type;
 
     /**
-     * @brief Element optional container type.
+     * @brief Element sequence container type.
      */
-    typedef ::xsd::cxx::tree::optional<DiffusionFunction_type> DiffusionFunction_optional;
+    typedef ::xsd::cxx::tree::sequence<DiffusionFunction_type> DiffusionFunction_sequence;
+
+    /**
+     * @brief Element iterator type.
+     */
+    typedef DiffusionFunction_sequence::iterator DiffusionFunction_iterator;
+
+    /**
+     * @brief Element constant iterator type.
+     */
+    typedef DiffusionFunction_sequence::const_iterator DiffusionFunction_const_iterator;
 
     /**
      * @brief Element traits type.
@@ -7232,49 +7232,29 @@ class SimulationInterceptorsType : public ::xml_schema::type {
 
     /**
      * @brief Return a read-only (constant) reference to the element
-     * container.
+     * sequence.
      *
-     * @return A constant reference to the optional container.
+     * @return A constant reference to the sequence container.
      */
-    const DiffusionFunction_optional& DiffusionFunction() const;
+    const DiffusionFunction_sequence& DiffusionFunction() const;
 
     /**
-     * @brief Return a read-write reference to the element container.
+     * @brief Return a read-write reference to the element sequence.
      *
-     * @return A reference to the optional container.
+     * @return A reference to the sequence container.
      */
-    DiffusionFunction_optional& DiffusionFunction();
+    DiffusionFunction_sequence& DiffusionFunction();
 
     /**
-     * @brief Set the element value.
+     * @brief Copy elements from a given sequence.
      *
-     * @param x A new value to set.
+     * @param s A sequence to copy elements from.
      *
-     * This function makes a copy of its argument and sets it as
-     * the new value of the element.
+     * For each element in @a s this function makes a copy and adds it
+     * to the sequence. Note that this operation completely changes the
+     * sequence and all old elements will be lost.
      */
-    void DiffusionFunction(const DiffusionFunction_type& x);
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x An optional container with the new value to set.
-     *
-     * If the value is present in @a x then this function makes a copy
-     * of this value and sets it as the new value of the element.
-     * Otherwise the element container is set the 'not present' state.
-     */
-    void DiffusionFunction(const DiffusionFunction_optional& x);
-
-    /**
-     * @brief Set the element value without copying.
-     *
-     * @param p A new value to use.
-     *
-     * This function will try to use the passed value directly instead
-     * of making a copy.
-     */
-    void DiffusionFunction(::std::unique_ptr<DiffusionFunction_type> p);
+    void DiffusionFunction(const DiffusionFunction_sequence& s);
 
     //@}
 
@@ -7282,7 +7262,7 @@ class SimulationInterceptorsType : public ::xml_schema::type {
      * @name RadialDistributionFunction
      *
      * @brief Accessor and modifier functions for the %RadialDistributionFunction
-     * optional element.
+     * sequence element.
      */
     //@{
 
@@ -7292,9 +7272,19 @@ class SimulationInterceptorsType : public ::xml_schema::type {
     typedef ::RadialDistributionFunctionInterceptionType RadialDistributionFunction_type;
 
     /**
-     * @brief Element optional container type.
+     * @brief Element sequence container type.
      */
-    typedef ::xsd::cxx::tree::optional<RadialDistributionFunction_type> RadialDistributionFunction_optional;
+    typedef ::xsd::cxx::tree::sequence<RadialDistributionFunction_type> RadialDistributionFunction_sequence;
+
+    /**
+     * @brief Element iterator type.
+     */
+    typedef RadialDistributionFunction_sequence::iterator RadialDistributionFunction_iterator;
+
+    /**
+     * @brief Element constant iterator type.
+     */
+    typedef RadialDistributionFunction_sequence::const_iterator RadialDistributionFunction_const_iterator;
 
     /**
      * @brief Element traits type.
@@ -7303,49 +7293,29 @@ class SimulationInterceptorsType : public ::xml_schema::type {
 
     /**
      * @brief Return a read-only (constant) reference to the element
-     * container.
+     * sequence.
      *
-     * @return A constant reference to the optional container.
+     * @return A constant reference to the sequence container.
      */
-    const RadialDistributionFunction_optional& RadialDistributionFunction() const;
+    const RadialDistributionFunction_sequence& RadialDistributionFunction() const;
 
     /**
-     * @brief Return a read-write reference to the element container.
+     * @brief Return a read-write reference to the element sequence.
      *
-     * @return A reference to the optional container.
+     * @return A reference to the sequence container.
      */
-    RadialDistributionFunction_optional& RadialDistributionFunction();
+    RadialDistributionFunction_sequence& RadialDistributionFunction();
 
     /**
-     * @brief Set the element value.
+     * @brief Copy elements from a given sequence.
      *
-     * @param x A new value to set.
+     * @param s A sequence to copy elements from.
      *
-     * This function makes a copy of its argument and sets it as
-     * the new value of the element.
+     * For each element in @a s this function makes a copy and adds it
+     * to the sequence. Note that this operation completely changes the
+     * sequence and all old elements will be lost.
      */
-    void RadialDistributionFunction(const RadialDistributionFunction_type& x);
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x An optional container with the new value to set.
-     *
-     * If the value is present in @a x then this function makes a copy
-     * of this value and sets it as the new value of the element.
-     * Otherwise the element container is set the 'not present' state.
-     */
-    void RadialDistributionFunction(const RadialDistributionFunction_optional& x);
-
-    /**
-     * @brief Set the element value without copying.
-     *
-     * @param p A new value to use.
-     *
-     * This function will try to use the passed value directly instead
-     * of making a copy.
-     */
-    void RadialDistributionFunction(::std::unique_ptr<RadialDistributionFunction_type> p);
+    void RadialDistributionFunction(const RadialDistributionFunction_sequence& s);
 
     //@}
 
@@ -7353,7 +7323,7 @@ class SimulationInterceptorsType : public ::xml_schema::type {
      * @name VelocityProfile
      *
      * @brief Accessor and modifier functions for the %VelocityProfile
-     * optional element.
+     * sequence element.
      */
     //@{
 
@@ -7363,9 +7333,19 @@ class SimulationInterceptorsType : public ::xml_schema::type {
     typedef ::VelocityProfileInterceptionType VelocityProfile_type;
 
     /**
-     * @brief Element optional container type.
+     * @brief Element sequence container type.
      */
-    typedef ::xsd::cxx::tree::optional<VelocityProfile_type> VelocityProfile_optional;
+    typedef ::xsd::cxx::tree::sequence<VelocityProfile_type> VelocityProfile_sequence;
+
+    /**
+     * @brief Element iterator type.
+     */
+    typedef VelocityProfile_sequence::iterator VelocityProfile_iterator;
+
+    /**
+     * @brief Element constant iterator type.
+     */
+    typedef VelocityProfile_sequence::const_iterator VelocityProfile_const_iterator;
 
     /**
      * @brief Element traits type.
@@ -7374,49 +7354,29 @@ class SimulationInterceptorsType : public ::xml_schema::type {
 
     /**
      * @brief Return a read-only (constant) reference to the element
-     * container.
+     * sequence.
      *
-     * @return A constant reference to the optional container.
+     * @return A constant reference to the sequence container.
      */
-    const VelocityProfile_optional& VelocityProfile() const;
+    const VelocityProfile_sequence& VelocityProfile() const;
 
     /**
-     * @brief Return a read-write reference to the element container.
+     * @brief Return a read-write reference to the element sequence.
      *
-     * @return A reference to the optional container.
+     * @return A reference to the sequence container.
      */
-    VelocityProfile_optional& VelocityProfile();
+    VelocityProfile_sequence& VelocityProfile();
 
     /**
-     * @brief Set the element value.
+     * @brief Copy elements from a given sequence.
      *
-     * @param x A new value to set.
+     * @param s A sequence to copy elements from.
      *
-     * This function makes a copy of its argument and sets it as
-     * the new value of the element.
+     * For each element in @a s this function makes a copy and adds it
+     * to the sequence. Note that this operation completely changes the
+     * sequence and all old elements will be lost.
      */
-    void VelocityProfile(const VelocityProfile_type& x);
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x An optional container with the new value to set.
-     *
-     * If the value is present in @a x then this function makes a copy
-     * of this value and sets it as the new value of the element.
-     * Otherwise the element container is set the 'not present' state.
-     */
-    void VelocityProfile(const VelocityProfile_optional& x);
-
-    /**
-     * @brief Set the element value without copying.
-     *
-     * @param p A new value to use.
-     *
-     * This function will try to use the passed value directly instead
-     * of making a copy.
-     */
-    void VelocityProfile(::std::unique_ptr<VelocityProfile_type> p);
+    void VelocityProfile(const VelocityProfile_sequence& s);
 
     //@}
 
@@ -7424,7 +7384,7 @@ class SimulationInterceptorsType : public ::xml_schema::type {
      * @name FrameWriter
      *
      * @brief Accessor and modifier functions for the %FrameWriter
-     * optional element.
+     * sequence element.
      */
     //@{
 
@@ -7434,9 +7394,19 @@ class SimulationInterceptorsType : public ::xml_schema::type {
     typedef ::FrameWriterInterceptorType FrameWriter_type;
 
     /**
-     * @brief Element optional container type.
+     * @brief Element sequence container type.
      */
-    typedef ::xsd::cxx::tree::optional<FrameWriter_type> FrameWriter_optional;
+    typedef ::xsd::cxx::tree::sequence<FrameWriter_type> FrameWriter_sequence;
+
+    /**
+     * @brief Element iterator type.
+     */
+    typedef FrameWriter_sequence::iterator FrameWriter_iterator;
+
+    /**
+     * @brief Element constant iterator type.
+     */
+    typedef FrameWriter_sequence::const_iterator FrameWriter_const_iterator;
 
     /**
      * @brief Element traits type.
@@ -7445,49 +7415,29 @@ class SimulationInterceptorsType : public ::xml_schema::type {
 
     /**
      * @brief Return a read-only (constant) reference to the element
-     * container.
+     * sequence.
      *
-     * @return A constant reference to the optional container.
+     * @return A constant reference to the sequence container.
      */
-    const FrameWriter_optional& FrameWriter() const;
+    const FrameWriter_sequence& FrameWriter() const;
 
     /**
-     * @brief Return a read-write reference to the element container.
+     * @brief Return a read-write reference to the element sequence.
      *
-     * @return A reference to the optional container.
+     * @return A reference to the sequence container.
      */
-    FrameWriter_optional& FrameWriter();
+    FrameWriter_sequence& FrameWriter();
 
     /**
-     * @brief Set the element value.
+     * @brief Copy elements from a given sequence.
      *
-     * @param x A new value to set.
+     * @param s A sequence to copy elements from.
      *
-     * This function makes a copy of its argument and sets it as
-     * the new value of the element.
+     * For each element in @a s this function makes a copy and adds it
+     * to the sequence. Note that this operation completely changes the
+     * sequence and all old elements will be lost.
      */
-    void FrameWriter(const FrameWriter_type& x);
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x An optional container with the new value to set.
-     *
-     * If the value is present in @a x then this function makes a copy
-     * of this value and sets it as the new value of the element.
-     * Otherwise the element container is set the 'not present' state.
-     */
-    void FrameWriter(const FrameWriter_optional& x);
-
-    /**
-     * @brief Set the element value without copying.
-     *
-     * @param p A new value to use.
-     *
-     * This function will try to use the passed value directly instead
-     * of making a copy.
-     */
-    void FrameWriter(::std::unique_ptr<FrameWriter_type> p);
+    void FrameWriter(const FrameWriter_sequence& s);
 
     //@}
 
@@ -7495,7 +7445,7 @@ class SimulationInterceptorsType : public ::xml_schema::type {
      * @name Thermostat
      *
      * @brief Accessor and modifier functions for the %Thermostat
-     * optional element.
+     * sequence element.
      */
     //@{
 
@@ -7505,9 +7455,19 @@ class SimulationInterceptorsType : public ::xml_schema::type {
     typedef ::ThermostatInterceptorType Thermostat_type;
 
     /**
-     * @brief Element optional container type.
+     * @brief Element sequence container type.
      */
-    typedef ::xsd::cxx::tree::optional<Thermostat_type> Thermostat_optional;
+    typedef ::xsd::cxx::tree::sequence<Thermostat_type> Thermostat_sequence;
+
+    /**
+     * @brief Element iterator type.
+     */
+    typedef Thermostat_sequence::iterator Thermostat_iterator;
+
+    /**
+     * @brief Element constant iterator type.
+     */
+    typedef Thermostat_sequence::const_iterator Thermostat_const_iterator;
 
     /**
      * @brief Element traits type.
@@ -7516,49 +7476,29 @@ class SimulationInterceptorsType : public ::xml_schema::type {
 
     /**
      * @brief Return a read-only (constant) reference to the element
-     * container.
+     * sequence.
      *
-     * @return A constant reference to the optional container.
+     * @return A constant reference to the sequence container.
      */
-    const Thermostat_optional& Thermostat() const;
+    const Thermostat_sequence& Thermostat() const;
 
     /**
-     * @brief Return a read-write reference to the element container.
+     * @brief Return a read-write reference to the element sequence.
      *
-     * @return A reference to the optional container.
+     * @return A reference to the sequence container.
      */
-    Thermostat_optional& Thermostat();
+    Thermostat_sequence& Thermostat();
 
     /**
-     * @brief Set the element value.
+     * @brief Copy elements from a given sequence.
      *
-     * @param x A new value to set.
+     * @param s A sequence to copy elements from.
      *
-     * This function makes a copy of its argument and sets it as
-     * the new value of the element.
+     * For each element in @a s this function makes a copy and adds it
+     * to the sequence. Note that this operation completely changes the
+     * sequence and all old elements will be lost.
      */
-    void Thermostat(const Thermostat_type& x);
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x An optional container with the new value to set.
-     *
-     * If the value is present in @a x then this function makes a copy
-     * of this value and sets it as the new value of the element.
-     * Otherwise the element container is set the 'not present' state.
-     */
-    void Thermostat(const Thermostat_optional& x);
-
-    /**
-     * @brief Set the element value without copying.
-     *
-     * @param p A new value to use.
-     *
-     * This function will try to use the passed value directly instead
-     * of making a copy.
-     */
-    void Thermostat(::std::unique_ptr<Thermostat_type> p);
+    void Thermostat(const Thermostat_sequence& s);
 
     //@}
 
@@ -7633,12 +7573,12 @@ class SimulationInterceptorsType : public ::xml_schema::type {
     void parse(::xsd::cxx::xml::dom::parser<char>&, ::xml_schema::flags);
 
    protected:
-    ParticleUpdatesPerSecond_optional ParticleUpdatesPerSecond_;
-    DiffusionFunction_optional DiffusionFunction_;
-    RadialDistributionFunction_optional RadialDistributionFunction_;
-    VelocityProfile_optional VelocityProfile_;
-    FrameWriter_optional FrameWriter_;
-    Thermostat_optional Thermostat_;
+    ParticleUpdatesPerSecond_sequence ParticleUpdatesPerSecond_;
+    DiffusionFunction_sequence DiffusionFunction_;
+    RadialDistributionFunction_sequence RadialDistributionFunction_;
+    VelocityProfile_sequence VelocityProfile_;
+    FrameWriter_sequence FrameWriter_;
+    Thermostat_sequence Thermostat_;
 
     //@endcond
 };

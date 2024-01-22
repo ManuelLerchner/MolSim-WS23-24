@@ -2,21 +2,21 @@
 
 #include <filesystem>
 
-#include "io/input/FileReader.h"
 #include "io/xml_schemas/checkpoint/checkpoint_schema.h"
 #include "simulation/SimulationParams.h"
 /**
  * @brief Class to read particle and simulation data from a '.xml' file
  */
-class ChkptPointFileReader : public FileReader {
+class ChkptPointFileReader {
    public:
     /**
      * @brief Reads particle data from a '.xml' file and returns a vector of particles
      *
      * @param filepath Path to the file to read
+     *
+     * @return A tuple containing a vector of particles and the iteration number
      */
-    [[nodiscard]] std::tuple<std::vector<Particle>, std::optional<SimulationParams>> readFile(
-        const std::filesystem::path& filepath) const override;
+    [[nodiscard]] std::tuple<std::vector<Particle>, int> readFile(const std::filesystem::path& filepath) const;
 
     /**
      * @brief Calculates the hash for the given input file

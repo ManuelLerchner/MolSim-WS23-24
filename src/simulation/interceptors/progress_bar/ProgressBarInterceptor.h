@@ -52,4 +52,8 @@ class ProgressBarInterceptor : public SimulationInterceptor {
     std::chrono::high_resolution_clock::time_point t_start;
     std::chrono::high_resolution_clock::time_point t_end;
     std::chrono::high_resolution_clock::time_point t_prev;
+    size_t last_particle_count = 0;
+    size_t last_iteration = 0;
+    double last_remaining_seconds = 0;
+    double last_particle_updates_per_second = 0;
 };
