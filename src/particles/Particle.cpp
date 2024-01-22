@@ -65,7 +65,7 @@ Particle& Particle::operator=(const Particle& other) {
     type = other.type;
     epsilon = other.epsilon;
     sigma = other.sigma;
-    locked = other.locked;
+    lock_state = other.lock_state;
     connected_particles = other.connected_particles;
     Logger::logger->debug("Particle created");
     return *this;
