@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "particles/containers/ParticleContainer.h"
+#include "utils/Enums.h"
 
 /**
  * @brief A thermostat that can be used to control the temperature of a particle container. Allows for gradual scaling of the temperature
@@ -16,9 +17,9 @@ class Thermostat {
      *
      * @param target_temperature The target temperature for thermostat applications.
      * @param max_temperature_change The maximum temperature change allowed per thermostat application.
-     * @param dimensions The number of dimensions of the particle container that is going to be used.
+     * @param third_dimension Wether the third dimension is enabled or not.
      */
-    explicit Thermostat(double target_temperature, double max_temperature_change, size_t dimensions);
+    explicit Thermostat(double target_temperature, double max_temperature_change, ThirdDimension third_dimension);
 
     /**
      * @brief Destroy the Thermostat object.
@@ -56,9 +57,9 @@ class Thermostat {
      *
      * @param new_temperature The new temperature of the particle.
      * @param particle The particle to set the initial temperature of.
-     * @param dimensions The number of dimensions of the particle container.
+     * @param third_dimension Wether the third dimension is enabled or not.
      */
-    static void setParticleTemperature(double new_temperature, Particle& particle, size_t dimensions);
+    static void setParticleTemperature(double new_temperature, Particle& particle, ThirdDimension third_dimension);
 
     /**
      * @brief Get the target temperature of the thermostat.
@@ -75,11 +76,11 @@ class Thermostat {
     [[nodiscard]] double getMaxTemperatureChange() const;
 
     /**
-     * @brief Get the number of dimensions of expected to be used.
+     * @brief Get if the third dimension is enabled on this thermostat or not.
      *
-     * @return size_t The number of dimensions of expected to be used.
+     * @return ThirdDimension
      */
-    [[nodiscard]] size_t getDimensions() const;
+    [[nodiscard]] ThirdDimension getThirdDimension() const;
 
    protected:
     /**
@@ -93,7 +94,7 @@ class Thermostat {
     const double max_temperature_change;
 
     /**
-     * @brief The number of dimensions of the particle container that is going to be used.
+     * @brief Defines whether the third dimension is enabled
      */
-    const size_t dimensions;
+    const ThirdDimension third_dimension;
 };

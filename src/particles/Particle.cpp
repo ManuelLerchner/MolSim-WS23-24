@@ -21,13 +21,13 @@ Particle::Particle(const Particle& other) {
     type = other.type;
     epsilon = other.epsilon;
     sigma = other.sigma;
-    locked = other.locked;
+    lock_state = other.lock_state;
     connected_particles = other.connected_particles;
     Logger::logger->debug("Particle created");
 }
 
 Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg, int type_arg, double epsilon_arg,
-                   double sigma_arg, bool locked_arg) {
+                   double sigma_arg, LockState lock_state_arg) {
     x = x_arg;
     v = v_arg;
     m = m_arg;
@@ -35,13 +35,13 @@ Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, dou
     f = {0., 0., 0.};
     epsilon = epsilon_arg;
     sigma = sigma_arg;
-    locked = locked_arg;
+    lock_state = lock_state_arg;
     old_f = {0., 0., 0.};
     Logger::logger->debug("Particle created");
 }
 
 Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std::array<double, 3> f_arg, std::array<double, 3> old_f_arg,
-                   double m_arg, int type_arg, double epsilon_arg, double sigma_arg, bool locked_arg) {
+                   double m_arg, int type_arg, double epsilon_arg, double sigma_arg, LockState lock_state_arg) {
     x = x_arg;
     v = v_arg;
     f = f_arg;
@@ -50,11 +50,26 @@ Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg, std
     type = type_arg;
     epsilon = epsilon_arg;
     sigma = sigma_arg;
-    locked = locked_arg;
+    lock_state = lock_state_arg;
     Logger::logger->debug("Particle created");
 }
 
 Particle::~Particle() { Logger::logger->debug("Particle destroyed"); }
+
+Particle& Particle::operator=(const Particle& other) {
+    x = other.x;
+    v = other.v;
+    f = other.f;
+    old_f = other.old_f;
+    m = other.m;
+    type = other.type;
+    epsilon = other.epsilon;
+    sigma = other.sigma;
+    lock_state = other.lock_state;
+    connected_particles = other.connected_particles;
+    Logger::logger->debug("Particle created");
+    return *this;
+}
 
 void Particle::addConnectedParticle(long ptr_diff, double l_0, double k) { connected_particles.push_back({ptr_diff, l_0, k}); }
 

@@ -2,7 +2,7 @@
 
 #include "utils/ArrayUtils.h"
 
-std::array<double, 3UL> LennardJonesRepulsiveForce::calculateForce(Particle& p, Particle& q) const {
+std::array<double, 3UL> LennardJonesRepulsiveForce::calculateForce(const Particle& p, const Particle& q) const {
     const auto displacement = q.getX() - p.getX();
     const double dist = ArrayUtils::L2Norm(displacement);
     const double sigma = (p.getSigma() + q.getSigma()) / 2;

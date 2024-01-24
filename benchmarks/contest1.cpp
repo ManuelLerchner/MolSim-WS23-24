@@ -27,8 +27,10 @@ void execute2DRectBenchmark() {
         LinkedCellsContainer::BoundaryCondition::OUTFLOW,    LinkedCellsContainer::BoundaryCondition::OUTFLOW};
 
     // Settings for the Cuboid spawner of task 2
-    CuboidSpawner spawner1({0.6, 2.0, 0.5}, {250, 20, 1}, 1.2, 1.0, {0.0, 0.0, 0.0}, static_cast<int>(0), 1.0, 1.2, false, false, 40);
-    CuboidSpawner spawner2({0.6, 27.0, 0.5}, {250, 20, 1}, 1.2, 2.0, {0.0, 0.0, 0.0}, static_cast<int>(1), 1.0, 1.1, false, false, 40);
+    CuboidSpawner spawner1({0.6, 2.0, 0.5}, {250, 20, 1}, 1.2, 1.0, {0.0, 0.0, 0.0}, static_cast<int>(0), 1.0, 1.2, LockState::UNLOCKED,
+                           ThirdDimension::DISABLED, 40);
+    CuboidSpawner spawner2({0.6, 27.0, 0.5}, {250, 20, 1}, 1.2, 2.0, {0.0, 0.0, 0.0}, static_cast<int>(1), 1.0, 1.1, LockState::UNLOCKED,
+                           ThirdDimension::DISABLED, 40);
 
     std::vector<std::shared_ptr<PairwiseForceSource>> pairwise_forces;
     std::vector<std::shared_ptr<SimpleForceSource>> simple_force_sources;
@@ -36,7 +38,8 @@ void execute2DRectBenchmark() {
     simple_force_sources.push_back(std::make_shared<GlobalDownwardsGravity>(12.44));
 
     // Set the thermostat:
-    std::shared_ptr<Thermostat> thermostat = std::make_shared<AbsoluteThermostat>(40, std::numeric_limits<double>::infinity(), false);
+    std::shared_ptr<Thermostat> thermostat =
+        std::make_shared<AbsoluteThermostat>(40, std::numeric_limits<double>::infinity(), ThirdDimension::DISABLED);
     std::vector<std::shared_ptr<SimulationInterceptor>> simulation_interceptors;
     simulation_interceptors.push_back(std::make_shared<ThermostatInterceptor>(thermostat, 1000));
 

@@ -31,7 +31,7 @@ class PairwiseForceSource {
      *
      * Calculates the force a particle q exerts on another particle p.
      */
-    virtual std::array<double, 3UL> calculateForce(Particle& p, Particle& q) const = 0;
+    virtual std::array<double, 3UL> calculateForce(const Particle& p, const Particle& q) const = 0;
 
     /**
      * @brief Conversion from a force source object to a string containing its name

@@ -4,8 +4,8 @@
 
 #include "utils/ArrayUtils.h"
 
-RelativeThermostat::RelativeThermostat(double target_temperature, double max_temperature_change, bool third_dimension)
-    : Thermostat(target_temperature, max_temperature_change, third_dimension ? 3 : 2) {}
+RelativeThermostat::RelativeThermostat(double target_temperature, double max_temperature_change, ThirdDimension third_dimension)
+    : Thermostat(target_temperature, max_temperature_change, third_dimension) {}
 
 std::array<double, 3> averageVelocity(const std::unique_ptr<ParticleContainer>& particle_container) {
     std::array<double, 3> average_velocity = {0, 0, 0};
@@ -46,7 +46,8 @@ double RelativeThermostat::getContainerKineticEnergy(const std::unique_ptr<Parti
 
 double RelativeThermostat::getCurrentContainerTemperature(const std::unique_ptr<ParticleContainer>& particle_container,
                                                           std::array<double, 3> average_velocity) const {
-    return 2 * getContainerKineticEnergy(particle_container, average_velocity) / (dimensions * particle_container->size());
+    double dimension_count = third_dimension == ThirdDimension::ENABLED ? 3 : 2;
+    return 2 * getContainerKineticEnergy(particle_container, average_velocity) / (dimension_count * particle_container->size());
 }
 
 double RelativeThermostat::getCurrentContainerTemperature(const std::unique_ptr<ParticleContainer>& particle_container) const {

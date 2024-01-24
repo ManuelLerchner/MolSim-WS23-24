@@ -3,6 +3,7 @@
 #include <array>
 
 #include "particles/spawners/ParticleSpawner.h"
+#include "utils/Enums.h"
 
 /**
  * @brief Class to spawn particles in a cuboid. Implements the interface ParticleSpawner.
@@ -51,7 +52,7 @@ class CuboidSpawner : public ParticleSpawner {
     /**
      * @brief Defines whether the particles in the cuboid are locked
      */
-    bool locked;
+    const LockState lock_state;
 
     /**
      * @brief Defines the initial velocity of the particles in the cuboid
@@ -61,7 +62,7 @@ class CuboidSpawner : public ParticleSpawner {
     /**
      * @brief Defines whether to use the third dimension
      */
-    const bool third_dimension;
+    const ThirdDimension third_dimension;
 
     /**
      * @brief Defines the initial temperature of the particles in the cuboid
@@ -79,7 +80,7 @@ class CuboidSpawner : public ParticleSpawner {
      * @param type Type of the particles in the cuboid
      * @param epsilon Lennard-Jones epsilon parameter of the particles in the cuboid
      * @param sigma Lennard-Jones sigma parameter of the particles in the cuboid
-     * @param locked Whether the particles in the cuboid are locked
+     * @param lock_state Whether the particles in the cuboid are locked
      * @param third_dimension Whether to spawn particles in the third dimension
      * @param initial_temperature Initial temperature of the particles
      *
@@ -87,7 +88,8 @@ class CuboidSpawner : public ParticleSpawner {
      */
     CuboidSpawner(const std::array<double, 3>& lower_left_corner, const std::array<int, 3>& grid_dimensions, double grid_spacing,
                   double mass, const std::array<double, 3>& initial_velocity, int type, double epsilon = 1.0, double sigma = 1.2,
-                  bool locked = false, bool third_dimension = true, double initial_temperature = 0.1);
+                  LockState lock_state = LockState::UNLOCKED, ThirdDimension third_dimension = ThirdDimension::ENABLED,
+                  double initial_temperature = 0.1);
 
     /**
      * @brief Spawns particles in the given container

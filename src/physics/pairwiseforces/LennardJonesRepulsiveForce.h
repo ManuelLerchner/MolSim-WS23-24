@@ -19,7 +19,7 @@ class LennardJonesRepulsiveForce : public PairwiseForceSource {
      *
      * Calculates the Lennard-Jones force which q exerts on p
      */
-    std::array<double, 3UL> calculateForce(Particle& p, Particle& q) const override;
+    std::array<double, 3UL> calculateForce(const Particle& p, const Particle& q) const override;
 
     /**
      * @brief Returns "Lennard-Jones (Repulsive Only)" as name of the force

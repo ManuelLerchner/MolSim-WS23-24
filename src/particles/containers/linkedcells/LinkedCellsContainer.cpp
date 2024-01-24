@@ -1,6 +1,8 @@
 #include "LinkedCellsContainer.h"
 
+#include <algorithm>
 #include <cmath>
+#include <random>
 
 #include "cells/Cell.h"
 #include "io/logger/Logger.h"
@@ -104,9 +106,6 @@ void LinkedCellsContainer::prepareForceCalculation() {
 }
 
 void LinkedCellsContainer::applySimpleForces(const std::vector<std::shared_ptr<SimpleForceSource>>& simple_force_sources) {
-#ifdef _OPENMP
-#pragma omp parallel for
-#endif
     for (Particle& p : particles) {
         if (p.isLocked()) continue;
         for (const auto& force_source : simple_force_sources) {
@@ -122,7 +121,7 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
 
     for (auto& it_order : iteration_orders) {
 #ifdef _OPENMP
-#pragma omp parallel for
+#pragma omp parallel for schedule(dynamic)
 #endif
         for (Cell* cell : it_order) {
             if (cell->getParticleReferences().empty()) continue;
@@ -139,8 +138,8 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
                     for (auto& force : force_sources) {
                         total_force = total_force + force->calculateForce(*p, *q);
                     }
-                    p->setF(p->getF() + total_force);
-                    q->setF(q->getF() - total_force);
+                    p->addF(total_force);
+                    q->subF(total_force);
                 }
             }
 
@@ -154,12 +153,12 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
                         if (p->isLocked() && neighbour_particle->isLocked()) continue;
                         if (ArrayUtils::L2NormSquared(p->getX() - neighbour_particle->getX()) > cutoff_radius * cutoff_radius) continue;
 
+                        auto total_force = std::array<double, 3>{0, 0, 0};
                         for (const auto& force_source : force_sources) {
-                            std::array<double, 3> force = force_source->calculateForce(*p, *neighbour_particle);
-
-                            p->setF(p->getF() + force);
-                            neighbour_particle->setF(neighbour_particle->getF() - force);
+                            total_force = total_force + force_source->calculateForce(*p, *neighbour_particle);
                         }
+                        p->addF(total_force);
+                        neighbour_particle->subF(total_force);
                     }
                 }
             }
@@ -346,7 +345,23 @@ void LinkedCellsContainer::initCellNeighbourReferences() {
 }
 
 void LinkedCellsContainer::initIterationOrders() {
+#if PARALLEL_V2
+    Logger::logger->warn("Creating iteration orders for parallel v2");
+    std::vector<Cell*> iteration_order;
+
+    for (size_t num = 0; num < cells.size(); ++num) {
+        iteration_order.push_back(&cells[num]);
+    }
+
+    // shuffle the iteration order
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(iteration_order.begin(), iteration_order.end(), g);
+
+    iteration_orders.push_back(iteration_order);
+#else
     Logger::logger->warn("Creating iteration orders for parallel v1 (c_18 traversal)");
+
     std::vector<std::array<int, 3>> start_offsets;
 
     int d_x = 2;
@@ -375,6 +390,7 @@ void LinkedCellsContainer::initIterationOrders() {
 
         iteration_orders.push_back(iteration_order);
     }
+#endif
 }
 
 void LinkedCellsContainer::updateCellsParticleReferences() {

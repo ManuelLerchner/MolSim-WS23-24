@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+
 <CheckPoint>
   <MetaData>
     <input_file>input.xml</input_file>
@@ -35,6 +37,7 @@
       <epsilon>15</epsilon>
       <sigma>16</sigma>
       <is_locked>true</is_locked>
+      <connected_particles></connected_particles>
     </particle>
     <particle>
       <position>
@@ -62,6 +65,7 @@
       <epsilon>29</epsilon>
       <sigma>30</sigma>
       <is_locked>false</is_locked>
+      <connected_particles></connected_particles>
     </particle>
   </ParticleData>
 </CheckPoint>
