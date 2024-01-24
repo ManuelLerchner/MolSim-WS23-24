@@ -106,9 +106,6 @@ void LinkedCellsContainer::prepareForceCalculation() {
 }
 
 void LinkedCellsContainer::applySimpleForces(const std::vector<std::shared_ptr<SimpleForceSource>>& simple_force_sources) {
-#ifdef _OPENMP
-#pragma omp parallel for
-#endif
     for (Particle& p : particles) {
         if (p.isLocked()) continue;
         for (const auto& force_source : simple_force_sources) {
@@ -124,7 +121,7 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
 
     for (auto& it_order : iteration_orders) {
 #ifdef _OPENMP
-#pragma omp parallel for
+#pragma omp parallel for schedule(dynamic)
 #endif
         for (Cell* cell : it_order) {
             if (cell->getParticleReferences().empty()) continue;
@@ -156,12 +153,12 @@ void LinkedCellsContainer::applyPairwiseForces(const std::vector<std::shared_ptr
                         if (p->isLocked() && neighbour_particle->isLocked()) continue;
                         if (ArrayUtils::L2NormSquared(p->getX() - neighbour_particle->getX()) > cutoff_radius * cutoff_radius) continue;
 
+                        auto total_force = std::array<double, 3>{0, 0, 0};
                         for (const auto& force_source : force_sources) {
-                            std::array<double, 3> force = force_source->calculateForce(*p, *neighbour_particle);
-
-                            p->addF(force);
-                            neighbour_particle->subF(force);
+                            total_force = total_force + force_source->calculateForce(*p, *neighbour_particle);
                         }
+                        p->addF(total_force);
+                        neighbour_particle->subF(total_force);
                     }
                 }
             }

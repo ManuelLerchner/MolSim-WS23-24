@@ -31,9 +31,6 @@ const std::vector<Particle>& DirectSumContainer::getParticles() const { return p
 void DirectSumContainer::prepareForceCalculation() {}
 
 void DirectSumContainer::applySimpleForces(const std::vector<std::shared_ptr<SimpleForceSource>>& simple_force_sources) {
-#ifdef _OPENMP
-#pragma omp parallel for
-#endif
     for (auto& p : particles) {
         if (p.isLocked()) continue;
         for (auto& force : simple_force_sources) {
@@ -44,7 +41,7 @@ void DirectSumContainer::applySimpleForces(const std::vector<std::shared_ptr<Sim
 
 void DirectSumContainer::applyPairwiseForces(const std::vector<std::shared_ptr<PairwiseForceSource>>& force_sources) {
 #ifdef _OPENMP
-#pragma omp parallel for
+#pragma omp parallel for schedule(static)
 #endif
     for (auto it1 = particles.begin(); it1 != particles.end(); ++it1) {
         std::array<double, 3> total_force{0, 0, 0};
