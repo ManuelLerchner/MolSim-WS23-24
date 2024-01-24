@@ -346,13 +346,17 @@ void LinkedCellsContainer::initCellNeighbourReferences() {
 }
 
 void LinkedCellsContainer::initIterationOrders() {
+    Logger::logger->warn("Creating iteration orders for parallel v1 (c_18 traversal)");
     std::vector<std::array<int, 3>> start_offsets;
 
-    const int d_cells = 2;
-    for (int x = -1; x < d_cells - 1; ++x) {
-        for (int y = -1; y < d_cells - 1; ++y) {
-            for (int z = -1; z < d_cells - 1; ++z) {
-                start_offsets.push_back({x, y, z});
+    int d_x = 2;
+    int d_y = 3;
+    int d_z = 3;
+
+    for (int x = 0; x < d_x; ++x) {
+        for (int y = 0; y < d_y; ++y) {
+            for (int z = 0; z < d_z; ++z) {
+                start_offsets.push_back({x - 1, y - 1, z - 1});
             }
         }
     }
@@ -361,9 +365,9 @@ void LinkedCellsContainer::initIterationOrders() {
         std::vector<Cell*> iteration_order;
         const std::array<int, 3>& start_offset = start_offsets[i];
 
-        for (int cx = start_offset[0]; cx <= domain_num_cells[0]; cx += d_cells) {
-            for (int cy = start_offset[1]; cy <= domain_num_cells[1]; cy += d_cells) {
-                for (int cz = start_offset[2]; cz <= domain_num_cells[2]; cz += d_cells) {
+        for (int cx = start_offset[0]; cx <= domain_num_cells[0]; cx += d_x) {
+            for (int cy = start_offset[1]; cy <= domain_num_cells[1]; cy += d_y) {
+                for (int cz = start_offset[2]; cz <= domain_num_cells[2]; cz += d_z) {
                     iteration_order.push_back(&cells.at(cellCoordToCellIndex(cx, cy, cz)));
                 }
             }
