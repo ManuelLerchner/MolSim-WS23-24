@@ -11,13 +11,13 @@
             <linkedcells_container>
                 <domain_size>
                     <x>30</x>
-                    <y>30</y>
+                    <y>24</y>
                     <z>1</z>
                 </domain_size>
                 <cutoff_radius>2.75</cutoff_radius>
                 <boundary_conditions>
-                    <left>Outflow</left>
-                    <right>Outflow</right>
+                    <left>Reflective</left>
+                    <right>Reflective</right>
                     <bottom>Periodic</bottom>
                     <top>Periodic</top>
                     <back>Periodic</back>
@@ -30,9 +30,9 @@
             <GlobalDownwardsGravity g="5.8" />
         </forces>
         <interceptors>
-            <Thermostat application_interval="2" target_temperature="50"
-                        max_temperature_change="10"
-                        type="relative_motion" />
+<!--            <Thermostat application_interval="2" target_temperature="50"-->
+<!--                        max_temperature_change="10"-->
+<!--                        type="relative_motion" />-->
             <FrameWriter output_format="vtu" fps="24" video_length_s="30" />
             <VelocityProfile num_bins="20" sample_every_x_percent="5" />
         </interceptors>
@@ -52,7 +52,7 @@
                 <y>30</y>
                 <z>1</z>
             </grid_dim>
-            <grid_spacing>1.0</grid_spacing>
+            <grid_spacing>0.8</grid_spacing>
             <temperature>40</temperature>
             <mass>1.0</mass>
             <velocity>
@@ -77,7 +77,7 @@
                 <y>30</y>
                 <z>1</z>
             </grid_dim>
-            <grid_spacing>1.0</grid_spacing>
+            <grid_spacing>0.8</grid_spacing>
             <temperature>40</temperature>
             <mass>1.0</mass>
             <velocity>
@@ -107,7 +107,7 @@
             <mass>1.0</mass>
             <velocity>
                 <x>0.0</x>
-                <y>-300.0</y>
+                <y>-30.0</y>
                 <z>0.0</z>
             </velocity>
             <type>1</type>
@@ -124,7 +124,7 @@
             </lower_left_front_corner>
             <grid_dim>
                 <x>20</x>
-                <y>9</y>
+                <y>2</y>
                 <z>1</z>
             </grid_dim>
             <grid_spacing>1.2</grid_spacing>
@@ -132,7 +132,7 @@
             <mass>1.0</mass>
             <velocity>
                 <x>0.0</x>
-                <y>-300.0</y>
+                <y>-30.0</y>
                 <z>0.0</z>
             </velocity>
             <type>1</type>
@@ -158,7 +158,7 @@
             <mass>1.0</mass>
             <velocity>
                 <x>0.0</x>
-                <y>-300.0</y>
+                <y>-30.0</y>
                 <z>0.0</z>
             </velocity>
             <type>1</type>
@@ -183,7 +183,7 @@
             <mass>1.0</mass>
             <velocity>
                 <x>0.0</x>
-                <y>-300.0</y>
+                <y>-30.0</y>
                 <z>0.0</z>
             </velocity>
             <type>1</type>
@@ -209,7 +209,7 @@
             <mass>1.0</mass>
             <velocity>
                 <x>0.0</x>
-                <y>-300.0</y>
+                <y>0.0</y>
                 <z>0.0</z>
             </velocity>
             <type>3</type>
