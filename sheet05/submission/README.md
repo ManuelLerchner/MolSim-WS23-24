@@ -63,15 +63,19 @@ end up differently every time, due to floating point rounding errors. You can ob
 in [`Rayleigh_Taylor_3D_Time_Comparison.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05) and [`Rayleigh_Taylor_3D_Time_Comparison_v2.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05) you can see that the runtime for the particle locking method is actually twice as high as for the domain partitioning.
    * We believe it is, because in our benchmark we get the original runtime by running the simulation with one thread. So in V2 the whole overhead of the usage of mutexes overestimates the original runtime leading to overblown speedup numbers.
    * To get an in depth profile of the program, we ran vtune and seem to have optimised the parallelization quite well, as seen in [`VTuneHotspots_Parallelization_V1.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05) and the `/../data/vtune*/` folder.
-   
+   * On the CoolMUC the MUP/s plummet for more than 42 threads for both versions as seen in [`Rayleigh_Taylor_3D_MUPs_Comparison.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05) and [`Rayleigh_Taylor_3D_MUPs_Comparison_v2.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05). This 
+seems to be the point where the overhead of each thread starts to exceed its usefulness, at least for the Contest2 example and for this particular Linux Cluster, so we don't think that this is a general limit of these methods.
 
 ### Task 3: Rayleigh-Taylor Instability in 3D
 
-To get this result we ran the following: 
-   * <TODO> create a contest2.cpp to just run end get the results for 42 threads and 1000 iterations
+**To get this result we ran the following:**
+   * You compile all benchmarks as described in the root README.md
+   * Then for this particular case you can run `./Contest2`. When testing on the CoolMUC, make sure that you are able to use at least 42 threads.
 
 
-**Results**
+
+**Results:**
+
 Our fastest run was with 42 threads and this is the data since there was no thread limit.
 * 31,228 seconds
 * 3 202 152 MUP/s
@@ -95,9 +99,11 @@ Its velocity profile, [`nano_scale_flow_short_obstacle_cuboid.mp4`](https://manu
 So a lot of particles are held up by a cuboid, so we wanted to try to see the effects of another shape.
    * The third simulation was with a fixed sphere obstacle on the side and named [`nano_scale_flow_short_obstacle.mp4`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05).
 In its velocity profile, [`nano_Velocity_Profile_Sphere_Obstacle.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05), we can see how the flow is not as abruptly held up as from the cuboid.
-   * The fourth simulation was due to the thought of distiguishing between laminar and turbulent flow. We remembered that the Reynolds number is a good indicator for that and is higher for higher velocities. 
-So we ran a simulation with a higher velocity and a cuboid object and named it [](). We wanted to see how the initial velocity affects the flow and the velocity profile in the end.
-...<TODO>...
+   * The fourth simulation was due to the thought of distinguishing between laminar and turbulent flow. We remembered that the Reynolds number is a good indicator for that and is higher for higher velocities. 
+So we ran a simulation [`reynolds.avi`](./reynolds.avi) with a higher initial velocity and a cuboid object and named the input for that simulation can be fond at `input/nano_scale_flow/nano_scale_flow_higher_reynolds_number.xml`. We wanted to see how the initial velocity affects the flow and the velocity profile in the end.
+But this did not really work out. We did not really get turbulent flow and the periodic boundaries on the bottom and top 
+created just a completely noisy picture, that didn't even look like a flow. At some point in time the flow transitioned into more of a brownian motion due to the top and bottom particles bumping into each other. Before that there were some things that looked like 
+little swirls with some imagination, but not really explicit turbulent flow.
 
 ### Task 5: Crystallization of Argon
 
