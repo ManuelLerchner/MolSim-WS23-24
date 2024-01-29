@@ -48,11 +48,11 @@ because we figured that an outflow boundary just does not make a lot of sense in
 The Domain Partitioning queue is a `std::vector` of `std::vector`'s of Cells. From a [paper](https://www.researchgate.net/profile/Fabio-Gratl/publication/357143093_N_Ways_to_Simulate_Short-Range_Particle_Systems_Automated_Algorithm_Selection_with_the_Node-Level_Library_AutoPas/links/649acc9cc41fb852dd355f24/N-Ways-to-Simulate-Short-Range-Particle-Systems-Automated-Algorithm-Selection-with-the-Node-Level-Library-AutoPas.pdf) we selected the c_18 partitioning. Its strength is that it utilizes Newton and only calculates in front of it. 
 So we partition the Cells in a queue of 18 sets. These sets can be calculated completely in parallel without having to worry about race conditions. This works really well and is quicker than the second option.
    * We also had great success in tuning the runtime after setting omp schedule to dynamic.
-   * We found the idea and scheme for going through the domains in <TODO> 
+   
 
 
 2. **Particle Locking**
-    * This method is simpler but almost as fast as the first one. Here we use mutexes to ensure that no two threads are working on the same calculation at the same time and run into race conditions.
+    * This method is simpler, here we use mutexes to ensure that no two threads are working on the same calculation at the same time and run into race conditions.
     * We then assign every thread a random particle to calculate the force for, that is not already occupied by another thread. 
     * This method is slower because sometimes threads have to wait for a particular mutex to be unlocked and tus have to just wait for another thread. 
     * Another interesting observation was, that due to the randomness of the order a large chaotic system can be created with the same starting conditions, 
@@ -60,12 +60,13 @@ end up differently every time, due to floating point rounding errors. You can ob
 
 3. **Performance-Tests**
    * We ran the performance tests on the Linux Cluster and wanted to see how the number of threads affects the runtime. We plotted a bunch of graphs and the raw data for them is in the `/../data` folder.
-   * If you now compare [`Rayleigh_Taylor_3D_Speedup_Comparison.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05) and [`Rayleigh_Taylor_3D_Speedup_Comparison_v2.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05) you would think that the speedup is almost identical for both methods. But the V2 speedup is overestimated, because
-in [`Rayleigh_Taylor_3D_Time_Comparison.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05) and [`Rayleigh_Taylor_3D_Time_Comparison_v2.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05) you can see that the runtime for the particle locking method is actually twice as high as for the domain partitioning.
+   * If you now compare the graphs in [`Rayleigh_Taylor_3D_Speedup_Comparison.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05) you would think that the speedup is almost identical for both methods. But the V2 speedup is overestimated, because
+in [`Rayleigh_Taylor_3D_Time_Comparison.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05) you can see that the runtime for the particle locking method is actually twice as high as for the domain partitioning.
    * We believe it is, because in our benchmark we get the original runtime by running the simulation with one thread. So in V2 the whole overhead of the usage of mutexes overestimates the original runtime leading to overblown speedup numbers.
    * To get an in depth profile of the program, we ran vtune and seem to have optimised the parallelization quite well, as seen in [`VTuneHotspots_Parallelization_V1.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05) and the `/../data/vtune*/` folder.
-   * On the CoolMUC the MUP/s plummet for more than 42 threads for both versions as seen in [`Rayleigh_Taylor_3D_MUPs_Comparison.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05) and [`Rayleigh_Taylor_3D_MUPs_Comparison_v2.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05). This 
+   * On the CoolMUC the MUP/s plummet for more than 42 threads for both versions as seen in [`Rayleigh_Taylor_3D_MUPs_Comparison.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05) . This 
 seems to be the point where the overhead of each thread starts to exceed its usefulness, at least for the Contest2 example and for this particular Linux Cluster, so we don't think that this is a general limit of these methods.
+   * After we additionally used the intel compiler instead of gcc, the code got even faster. CoolMUC runs on Linux CPUs, so it is not too surprising to see that in the Comparison [`Rayleigh_Taylor_3D_MUPs_Comparison.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05)that the MUP/s are higher for the intel compiler.
 
 ### Task 3: Rayleigh-Taylor Instability in 3D
 
