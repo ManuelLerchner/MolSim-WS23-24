@@ -78,9 +78,9 @@ seems to be the point where the overhead of each thread starts to exceed its use
 
 **Results:**
 
-Our fastest run was with 42 threads and this is the data since there was no thread limit.
-* 31,228 seconds
-* 3 202 152 MUP/s
+Our fastest run was with 42 threads and the intel compiler.
+* 19.25 seconds
+* 5 193 668 MUP/s
 
 
 
