@@ -127,5 +127,5 @@ in local density in contrast to the slow cooling plot. Also in the diffusion plo
 
 ### Misc
 
-* The 3D Rayleigh-Taylor Instability simulation can be found in [`rayleigh_taylor_instability_3d.mp4`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05)
+* The 3D Rayleigh-Taylor Instability simulation from Contest 2 can be found in [`rayleigh_taylor_instability_3d.mp4`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05)
 * We also inlined our functions more which led to a speedup, which we did not quantify. We originally thought the compiler would do that for us, but apparently doing it manually still has at least some positive effect. 
