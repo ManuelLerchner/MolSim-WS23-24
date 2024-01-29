@@ -45,7 +45,8 @@ because we figured that an outflow boundary just does not make a lot of sense in
 
 1. **Domain partitioning**
    * Domain partitioning is our first parallelization method. It works just like our second method by creating a calculation order for the pairwise forces in `LinkedCellsContainer::initIterationOrders`. 
-We then assign threads one of the domains and make sure that they don't intersect, so we can calculate in parallel. This works really well and is quicker than the second option.
+The Domain Partitioning queue is a `std::vector` of `std::vector`'s of Cells. From a [paper](https://www.researchgate.net/profile/Fabio-Gratl/publication/357143093_N_Ways_to_Simulate_Short-Range_Particle_Systems_Automated_Algorithm_Selection_with_the_Node-Level_Library_AutoPas/links/649acc9cc41fb852dd355f24/N-Ways-to-Simulate-Short-Range-Particle-Systems-Automated-Algorithm-Selection-with-the-Node-Level-Library-AutoPas.pdf) we selected the c_18 partitioning. Its strength is that it utilizes Newton and only calculates in front of it. 
+So we partition the Cells in a queue of 18 sets. These sets can be calculated completely in parallel without having to worry about race conditions. This works really well and is quicker than the second option.
    * We also had great success in tuning the runtime after setting omp schedule to dynamic.
    * We found the idea and scheme for going through the domains in <TODO> 
 
