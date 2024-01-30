@@ -25,22 +25,27 @@ def render_content():
         for file in sorted(os.listdir(sheet + "/submission")):
             full_path = sheet + "/submission/" + file
 
+            media_id = sheet + "#" + file
+
             if file.endswith(".png"):
                 media = content_template
 
                 media = media.replace(
-                    "###MEDIA###", "<img src='" + full_path + "'/>")
+                    "###MEDIA###", "<img id=" + media_id + " src='" + full_path + "'/>")
 
-                media = media.replace("###SUBTITLE###", file)
+                media = media.replace("###MEDIA_ID###", sheet + "#" + file)
+
+                media = media.replace(
+                    "###SUBTITLE###", "<a href='#" + media_id + "'>" + file + "</a>")
 
                 media_wall += media
             elif file.endswith(".mp4"):
                 media = content_template
 
                 media = media.replace(
-                    "###MEDIA###", "<video controls muted><source src='" + full_path + "' type='video/mp4'></video>")
+                    "###MEDIA###", "<video id=" + media_id+" controls muted><source src='" + full_path + "' type='video/mp4'></video>")
 
-                media = media.replace("###SUBTITLE###", file)
+                media = media.replace("###SUBTITLE###", "<a href='#" + media_id + "'>" + file + "</a>")
 
                 media_wall += media
             elif file.endswith(".pdf") or file.endswith(".md"):
