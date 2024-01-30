@@ -44,21 +44,22 @@ because we figured that an outflow boundary just does not make a lot of sense in
 ### Task 2: Parallelization
 
 1. **Domain partitioning**
-   * Domain partitioning is our first parallelization method. It works just like our second method by creating a calculation order for the pairwise forces in `LinkedCellsContainer::initIterationOrders`. 
-The Domain Partitioning queue is a `std::vector` of `std::vector`'s of Cells. From a [paper](https://www.researchgate.net/profile/Fabio-Gratl/publication/357143093_N_Ways_to_Simulate_Short-Range_Particle_Systems_Automated_Algorithm_Selection_with_the_Node-Level_Library_AutoPas/links/649acc9cc41fb852dd355f24/N-Ways-to-Simulate-Short-Range-Particle-Systems-Automated-Algorithm-Selection-with-the-Node-Level-Library-AutoPas.pdf) we selected the c_18 partitioning. Its strength is that it utilizes Newton and only calculates in front of it. 
-So we partition the Cells in a queue of 18 sets. These sets can be calculated completely in parallel without having to worry about race conditions. This works really well and is quicker than the second option.
+   * Domain partitioning is our first parallelization method. It works by creating a calculation orders for the pairwise forces in `LinkedCellsContainer::initIterationOrders`. 
+The Domain Partitioning queue is a `std::vector` of `std::vector`'s of cell pointers. From a [paper](https://www.researchgate.net/profile/Fabio-Gratl/publication/357143093_N_Ways_to_Simulate_Short-Range_Particle_Systems_Automated_Algorithm_Selection_with_the_Node-Level_Library_AutoPas/links/649acc9cc41fb852dd355f24/N-Ways-to-Simulate-Short-Range-Particle-Systems-Automated-Algorithm-Selection-with-the-Node-Level-Library-AutoPas.pdf) we selected the c_18 partitioning. Its strength is that it utilizes Newton and only calculates in front of it. 
+So we partition the Cells in a queue of 18 sets. The cells within each sets can be handled completely in parallel without having to worry about race conditions since overlap is avoided. This works really well and is quicker than the second option. 
    * We also had great success in tuning the runtime after setting omp schedule to dynamic.
    
 
 
 2. **Particle Locking**
-    * This method is simpler, here we use mutexes to ensure that no two threads are working on the same particle at the same time and run into race conditions.
+    * In the paper mention above, there were several other possibilities to allow parallelization by using different partioning schemes, but we wanted to try a different approach for our second method.
+    * This method is simpler: We use mutexes to ensure that no two threads are working on the same particle at the same time. This prevents race conditions.
     * Each threads can then calculate the forces for one cell and still utilize Newtons third law, since race conditions are avoided.
     * This method is slower because of the overhead produced by the lock/unlock operations. Additionally, threads might have to wait for a particular mutex to be unlocked and thus have to wait for another thread to finish its calculation. 
     * Another interesting observation was, that due to the randomness of the order a large chaotic system can be created with the same starting conditions, 
 end up differently every time, due to floating point rounding errors. You can observe it in the [`parallelization_chaotic_system_particle_locking.mp4`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05) video, where we ran the same simulation a bunch of times with different thread counts and overlayed the different runs. 
 
-3. **Performance-Tests**
+4. **Performance-Tests**
    * We ran the performance tests on the Linux Cluster and wanted to see how the number of threads affects the runtime. We plotted a bunch of graphs and the raw data for them is in the `../data` folder.
    * If you now compare the graphs in [`Rayleigh_Taylor_3D_Speedup_Comparison.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05), the speedup is almost identical for both methods, which is misleading when analysing the performance. Despite the rather similar speedup, the graphs in [`Rayleigh_Taylor_3D_Time_Comparison.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05) show, that the runtime for the particle locking method is actually around twice as high as for the domain partitioning.
    * The reason for this is the definition of speedup, as it depends on the single thread performance. Using particle locking, the overhead caused by mutexes increases the single threaded runtime, leading to better speedup numbers when executing with higher thread counts.
