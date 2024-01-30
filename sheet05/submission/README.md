@@ -102,9 +102,9 @@ So a lot of particles are held up by a cuboid, so we wanted to try to see the ef
    * The third simulation was with a fixed sphere obstacle on the side and named [`nano_scale_flow_short_obstacle.mp4`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05).
 In its velocity profile, [`nano_Velocity_Profile_Sphere_Obstacle.png`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05), we can see how the flow is not as abruptly held up as from the cuboid.
    * The fourth simulation was due to the thought of distinguishing between laminar and turbulent flow. We remembered that the Reynolds number is a good indicator for that and is higher for higher velocities. 
-So we ran a simulation [`reynolds.avi`](./reynolds.avi) with a higher initial velocity and a cuboid object and named the input for that simulation can be fond at `input/nano_scale_flow/nano_scale_flow_higher_reynolds_number.xml`. We wanted to see how the initial velocity affects the flow and the velocity profile in the end.
+So we ran a simulation [`reynolds.mp4`](https://manuellerchner.github.io/MolSim-WS23-24/submissions/#sheet05) with a higher initial velocity and a cuboid object and named the input for that simulation can be fond at `input/nano_scale_flow/nano_scale_flow_higher_reynolds_number.xml`. We wanted to see how the initial velocity affects the flow and the velocity profile in the end.
 But this did not really work out. We did not really get turbulent flow and the periodic boundaries on the bottom and top 
-created just a completely noisy picture, that didn't even look like a flow. At some point in time the flow transitioned into more of a brownian motion due to the top and bottom particles bumping into each other. Before that there were some things that looked like 
+created just a completely noisy picture, that didn't even look like a flow. At some point in time the flow transitioned into more of a brownian motion due to the top and bottom particles bumping into each other through the periodic boundary. Before that there were some things that looked like 
 little swirls with some imagination, but not really explicit turbulent flow.
 
 ### Task 5: Crystallization of Argon
