@@ -26,6 +26,7 @@ def render_content():
             full_path = sheet + "/submission/" + file
 
             media_id = sheet + "#" + file
+            media_id = media_id.replace(" ", "_")
 
             if file.endswith(".png"):
                 media = content_template
