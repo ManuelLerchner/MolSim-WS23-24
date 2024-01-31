@@ -72,10 +72,13 @@ seems to be the point where the overhead of each thread starts to exceed its use
 
 Our fastest run for the first 1000 iterations of the example `Rayleigh-Taylor Instability 3D`, was done using 42 threads and the intel compiler on the `teramem-inter`-cluster.
 
-* 19.25 seconds
-* 5 193 668 MUP/s
+* 27.323 seconds
+* 3 659 920 MUP/s
 
-For the reevaluation of the example for contest 1 we achieved times in the 1-2 second range. Again with 42 threads and the ICPX compiled program on the `teramem-inter`-cluster.
+For the reevaluation of the example for contest 1 (1000 iterations of 2D Rayleigh-Taylor-instability), our best result was achieved with 8 threads and the ICPX compiler on the `teramem-inter`-cluster.
+
+* 1.558 seconds
+* 6 418 485 MUP/s
 
 ### Task 4: Nano-scale flow simulation
 
