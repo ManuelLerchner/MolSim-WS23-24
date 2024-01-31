@@ -42,14 +42,14 @@ void executeSimulation(int t_count, const std::vector<Particle>& particles_model
 
     // Parse input file
     auto [initial_particles, simulation_arguments] =
-            FileInputHandler::readFile(FileLoader::get_input_file_path("Parallel/ParallelBenchmark.xml"), true);
+        FileInputHandler::readFile(FileLoader::get_input_file_path("Parallel/ParallelBenchmark.xml"), true);
 
     // Settings for the Linked Cells Container simulation
     std::array<double, 3> domain_size = {60, 60, 60};
     std::array<LinkedCellsContainer::BoundaryCondition, 6> boundary_conditions = {
-            LinkedCellsContainer::BoundaryCondition::PERIODIC,   LinkedCellsContainer::BoundaryCondition::PERIODIC,
-            LinkedCellsContainer::BoundaryCondition::REFLECTIVE, LinkedCellsContainer::BoundaryCondition::REFLECTIVE,
-            LinkedCellsContainer::BoundaryCondition::PERIODIC,   LinkedCellsContainer::BoundaryCondition::PERIODIC};
+        LinkedCellsContainer::BoundaryCondition::PERIODIC,   LinkedCellsContainer::BoundaryCondition::PERIODIC,
+        LinkedCellsContainer::BoundaryCondition::REFLECTIVE, LinkedCellsContainer::BoundaryCondition::REFLECTIVE,
+        LinkedCellsContainer::BoundaryCondition::PERIODIC,   LinkedCellsContainer::BoundaryCondition::PERIODIC};
 
     // ############################################################
     // # Direct Sum Container
@@ -204,13 +204,5 @@ int main(int argc, char** argv) {
     omp_set_num_threads(42);
     executeSimulation(42, particles);
 
-
     return 0;
 }
-
-
-
-
-
-
-
