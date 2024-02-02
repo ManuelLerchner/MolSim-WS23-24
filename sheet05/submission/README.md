@@ -65,8 +65,10 @@ seems to be the point where the overhead of each thread starts to exceed its use
 
 **To get this result we ran the following:**
 
-* You compile all benchmarks as described in the root README.md
-* Then for this particular case you can run `./Contest2`. When testing on the CoolMUC, make sure that you are able to use at least 42 threads (in our case we used the cluster `teramem-inter`).
+* You compile the project as described in the root README.md
+* Make sure the `../../input/fluid_mixing/fluid_mixing_3d.xml` file has the **correct endtime** (end_time = 0.5) and **all FrameWriter interceptors are disabled**.
+* Then you can run `./MolSim ../../input/fluid_mixing/fluid_mixing_3d.xml`.
+* When testing on the CoolMUC, we found that 42 threads work best (in our case we used the cluster `teramem-inter`).
 
 **Results:**
 
